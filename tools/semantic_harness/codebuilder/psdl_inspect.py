@@ -152,6 +152,13 @@ def locate_psdl(
         raise CompileError(f"Unknown PSDL record ID: {record_id!r}")
     rec = by_id[record_id]
     owner = str(rec.get("owner") or "")
+    if not owner:
+        portable_plan = compiled_model.get("portablePlan") or {}
+        for sec in ("dialogues", "beats", "behaviors", "realizations"):
+            entry = (portable_plan.get(sec) or {}).get(record_id)
+            if isinstance(entry, Mapping) and entry.get("owner"):
+                owner = str(entry["owner"])
+                break
     desc = package_descriptor(owner)
     lineage = rec.get("lineage") or {}
     source_path = str(lineage.get("sourcePath") or "")

@@ -191,10 +191,13 @@ from .runtime_actions import (
     show_snapshot,
 )
 from .regression_controller import (
+    cancel_semantic_fixtures,
+    discover_semantic_fixture_domains,
     run_regression,
     run_regression_command_rejections,
     run_regression_lifecycle,
     run_regression_selection,
+    run_semantic_fixtures,
 )
 from .saved_world_selection_controller import (
     on_saved_world_player,
@@ -875,6 +878,15 @@ class SemanticHarnessApp:
 
     def run_regression_selection(self) -> None:
         run_regression_selection(self)
+
+    def discover_fixture_domains(self) -> dict[str, int]:
+        return discover_semantic_fixture_domains(self)
+
+    def run_semantic_fixtures(self) -> None:
+        run_semantic_fixtures(self)
+
+    def cancel_semantic_fixtures(self) -> None:
+        cancel_semantic_fixtures(self)
 
     def _format_compare_result(self, result: dict[str, Any]) -> str:
         return format_compare_result(result)

@@ -170,10 +170,10 @@ def build_conversation_trace(
     app.talk_parity_frame = talk_frame
 
     regression_frame = ttk.Frame(app.compare_tabs, padding=6)
-    regression_frame.rowconfigure(1, weight=1)
+    regression_frame.rowconfigure(2, weight=1)
     regression_frame.columnconfigure(0, weight=1)
     regression_toolbar = ttk.Frame(regression_frame)
-    regression_toolbar.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+    regression_toolbar.grid(row=0, column=0, sticky="ew", pady=(0, 4))
     app.regression_greeting_button = ttk.Button(
         regression_toolbar,
         text="Greeting + companion",
@@ -204,10 +204,49 @@ def build_conversation_trace(
     ttk.Label(
         regression_toolbar, textvariable=app.regression_status_var
     ).grid(row=0, column=4, padx=(12, 0), sticky="w")
+
+    fixture_bar = ttk.Frame(regression_frame)
+    fixture_bar.grid(row=1, column=0, sticky="ew", pady=(0, 6))
+    ttk.Label(fixture_bar, text="Domain:").grid(row=0, column=0, sticky="w")
+    app.fixture_domain_var = app._tk.StringVar(value="all")
+    app.fixture_domain_combo = ttk.Combobox(
+        fixture_bar,
+        textvariable=app.fixture_domain_var,
+        values=("all",),
+        width=18,
+        state="readonly",
+    )
+    app.fixture_domain_combo.grid(row=0, column=1, padx=(4, 8), sticky="w")
+    ttk.Label(fixture_bar, text="Semantic ID:").grid(row=0, column=2, sticky="w")
+    app.fixture_semantic_id_var = app._tk.StringVar(value="")
+    ttk.Entry(
+        fixture_bar,
+        textvariable=app.fixture_semantic_id_var,
+        width=26,
+    ).grid(row=0, column=3, padx=(4, 8), sticky="w")
+    app.fixture_domains_button = ttk.Button(
+        fixture_bar,
+        text="List Domains",
+        command=app.discover_fixture_domains,
+    )
+    app.fixture_domains_button.grid(row=0, column=4, sticky="w")
+    app.fixture_run_button = ttk.Button(
+        fixture_bar,
+        text="Run Fixtures",
+        command=app.run_semantic_fixtures,
+    )
+    app.fixture_run_button.grid(row=0, column=5, padx=(6, 0), sticky="w")
+    app.fixture_cancel_button = ttk.Button(
+        fixture_bar,
+        text="Cancel",
+        command=app.cancel_semantic_fixtures,
+    )
+    app.fixture_cancel_button.grid(row=0, column=6, padx=(6, 0), sticky="w")
+
     app.regression_output = scrolled_text(
         regression_frame, wrap="none", state="disabled"
     )
-    app.regression_output.grid(row=1, column=0, sticky="nsew")
+    app.regression_output.grid(row=2, column=0, sticky="nsew")
     app.compare_tabs.add(regression_frame, text="Regression")
     app.regression_frame = regression_frame
     app.regression_buttons = (

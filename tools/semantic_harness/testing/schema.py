@@ -10,6 +10,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from .operations import OperationValidationError, validate_operation_turn
+
 SCHEMA_V1 = "semantic.harness-test.v1"
 ALLOWED_SCHEMAS = frozenset({SCHEMA_V1})
 
@@ -129,6 +131,10 @@ def validate_turn(turn: Any, index: int, case_id: str) -> dict[str, Any]:
     if action_kind is not None:
         if not isinstance(action_kind, str):
             raise SchemaValidationError(f"{context} action must be a string")
+        try:
+            validate_operation_turn(action_kind, turn.get("payload"), turn)
+        except OperationValidationError as exc:
+            raise SchemaValidationError(f"{context}: {exc}") from exc
         validated["action"] = action_kind
         if "payload" in turn:
             validated["payload"] = turn["payload"]
@@ -216,6 +222,16 @@ def validate_case(raw_case: Any, default_id: str = "case") -> dict[str, Any]:
     if "description" in raw_case:
         validated["description"] = str(raw_case["description"])
 
+    if "domain" in raw_case and raw_case["domain"] is not None:
+        if not isinstance(raw_case["domain"], str) or not raw_case["domain"].strip():
+            raise SchemaValidationError(f"case '{case_id}' domain must be a non-empty string")
+        validated["domain"] = raw_case["domain"].strip()
+
+    if "semanticID" in raw_case and raw_case["semanticID"] is not None:
+        if not isinstance(raw_case["semanticID"], str) or not raw_case["semanticID"].strip():
+            raise SchemaValidationError(f"case '{case_id}' semanticID must be a non-empty string")
+        validated["semanticID"] = raw_case["semanticID"].strip()
+
     tags = raw_case.get("tags", [])
     if not isinstance(tags, (list, tuple)) or not all(isinstance(t, str) for t in tags):
         raise SchemaValidationError(f"case '{case_id}' tags must be a list of strings")
@@ -256,6 +272,9 @@ def validate_fixture_document(doc: Any, default_suite: str = "default") -> list[
         )
 
     suite = str(doc.get("suite") or default_suite)
+    doc_domain = doc.get("domain")
+    if doc_domain is not None and (not isinstance(doc_domain, str) or not doc_domain.strip()):
+        raise SchemaValidationError("Document 'domain' must be a non-empty string")
 
     # Document can have a list of cases or represent a single case
     if "cases" in doc:
@@ -268,6 +287,8 @@ def validate_fixture_document(doc: Any, default_suite: str = "default") -> list[
             item_copy = dict(item)
             if "suite" not in item_copy:
                 item_copy["suite"] = suite
+            if "domain" not in item_copy and isinstance(doc_domain, str):
+                item_copy["domain"] = doc_domain.strip()
             case = validate_case(item_copy, default_id=f"case_{idx}")
             cid = case["id"]
             if cid in seen_ids:

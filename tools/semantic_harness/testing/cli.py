@@ -8,8 +8,14 @@ import time
 from pathlib import Path
 from typing import Sequence
 
-from .executor import CaseResult, execute_case
-from .loader import SemanticCase, discover_cases, load_cases_from_file
+from .executor import CaseResult, execute_case, execute_cases_batch
+from .loader import (
+    SemanticCase,
+    discover_cases,
+    discover_domains,
+    filter_cases,
+    load_cases_from_file,
+)
 from .resolver import FixtureResolutionError, resolve_fixture_roots
 
 
@@ -34,6 +40,14 @@ def build_parser() -> argparse.ArgumentParser:
         "filters",
         nargs="*",
         help="case ID, suite, or tag filters (case-insensitive substring match)",
+    )
+    parser.add_argument(
+        "--domain",
+        help="filter by semantic domain (e.g. knowledge, beats, compiler)",
+    )
+    parser.add_argument(
+        "--semantic-id",
+        help="filter by semantic ID / source record ID",
     )
     parser.add_argument(
         "--suite",
@@ -101,6 +115,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="list matching cases without executing",
     )
     parser.add_argument(
+        "--list-domains",
+        action="store_true",
+        help="list discovered domains and case counts without executing",
+    )
+    parser.add_argument(
+        "--batch-state",
+        type=Path,
+        default=None,
+        help="optional JSON batch state file for cancel/resume execution",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=32,
+        help="batch chunk size when running with --batch-state",
+    )
+    parser.add_argument(
         "--verbose",
         "-v",
         action="store_true",
@@ -139,28 +170,22 @@ def run_cli(argv: Sequence[str] | None = None) -> int:
         cases.extend(discover_cases(roots))
 
     # 2. Filter cases
-    filtered: list[SemanticCase] = []
-    filter_terms = [f.casefold() for f in args.filters]
+    filtered = filter_cases(
+        cases,
+        domain=args.domain,
+        suite=args.suite,
+        case_id=args.case,
+        tags=args.tags,
+        semantic_id=args.semantic_id,
+        filters=args.filters,
+    )
 
-    for c in cases:
-        if args.suite and c.suite != args.suite:
-            continue
-        if args.case and c.case_id != args.case:
-            continue
-        if args.tags:
-            c_tags = set(c.tags)
-            if not any(t in c_tags for t in args.tags):
-                continue
-        if filter_terms:
-            matched = any(
-                term in c.case_id.casefold()
-                or term in c.suite.casefold()
-                or any(term in t.casefold() for t in c.tags)
-                for term in filter_terms
-            )
-            if not matched:
-                continue
-        filtered.append(c)
+    if args.list_domains:
+        domain_counts = discover_domains(filtered)
+        print(f"Discovered {len(domain_counts)} domain(s) across {len(filtered)} case(s):")
+        for dom, count in domain_counts.items():
+            print(f"  - {dom}: {count}")
+        return 0
 
     if not filtered:
         print("No semantic test cases matched the specified criteria.", file=sys.stderr)
@@ -169,8 +194,9 @@ def run_cli(argv: Sequence[str] | None = None) -> int:
     if args.list:
         print(f"Discovered {len(filtered)} matching test case(s):")
         for c in filtered:
+            dom_str = f", domain: {c.domain}" if c.domain else ""
             tags_str = f" [{', '.join(c.tags)}]" if c.tags else ""
-            print(f"  - {c.case_id} (suite: {c.suite}){tags_str}")
+            print(f"  - {c.case_id} (suite: {c.suite}{dom_str}){tags_str}")
         return 0
 
     # 3. Execute cases
@@ -180,23 +206,52 @@ def run_cli(argv: Sequence[str] | None = None) -> int:
     failed_count = 0
     results: list[CaseResult] = []
 
-    for c in filtered:
-        res = execute_case(c)
-        results.append(res)
-        print(res.summary())
-        if res.passed:
-            passed_count += 1
-        else:
-            failed_count += 1
-            if args.verbose or True:
+    worker_kwargs: dict[str, Path] = {}
+    if args.repository is not None:
+        worker_kwargs["repository"] = args.repository
+    if args.core_repository is not None:
+        worker_kwargs["core_repository"] = args.core_repository
+
+    if args.batch_state is not None:
+        batch_res = execute_cases_batch(
+            filtered,
+            batch_size=args.batch_size,
+            state_file=args.batch_state,
+            fail_fast=args.fail_fast,
+            **worker_kwargs,
+        )
+        results.extend(batch_res.results)
+        for res in results:
+            print(res.summary())
+            if not res.passed:
                 for f in res.failures:
                     print(f"    FAILURE: {f.message}")
                 for conf in res.conflicts:
                     print(f"    CONFLICT: {conf}")
                 if res.error:
                     print(f"    ERROR: {res.error}")
-            if args.fail_fast:
-                break
+        passed_count = batch_res.passed_count
+        failed_count = batch_res.failed_count
+        if batch_res.skipped_ids:
+            print(f"Resumed batch: skipped {len(batch_res.skipped_ids)} already-completed case(s).")
+    else:
+        for c in filtered:
+            res = execute_case(c, **worker_kwargs)
+            results.append(res)
+            print(res.summary())
+            if res.passed:
+                passed_count += 1
+            else:
+                failed_count += 1
+                if args.verbose or True:
+                    for f in res.failures:
+                        print(f"    FAILURE: {f.message}")
+                    for conf in res.conflicts:
+                        print(f"    CONFLICT: {conf}")
+                    if res.error:
+                        print(f"    ERROR: {res.error}")
+                if args.fail_fast:
+                    break
 
     total_time = time.monotonic() - total_start
     print(f"\nSEMANTIC TESTS: PASS {passed_count}, FAIL {failed_count}, TOTAL {len(results)} in {total_time:.2f}s")
