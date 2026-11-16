@@ -3,7 +3,7 @@
 **Original audit date:** 2026-11-14
 **Post-S9 re-audit:** 2026-11-14
 **Repositories:** psychopatzCore, ProjectHoomans, DynamicTrading
-**Status:** S9 + S9R architecture accepted; S10 reliability/acceptance gap ACTIVE after real PNC provider-worker and GUI-path failure reproduced on 2026-11-15.
+**Status:** S9 + S9R architecture accepted; S10A accepted; S10B-S10D completion claims reopened by the 2026-11-16 S10R acceptance-integrity audit.
 
 ## Purpose
 
@@ -183,3 +183,84 @@ S10 does not reopen the six-port S9/S9R architecture. It repairs the concrete pr
 - zero unexplained skips for mandatory harness acceptance.
 
 See `SEMANTIC_HARNESS_RELIABILITY.md` for the normative design and phase gates.
+
+## 2026-11-16 post-S10 closure audit — S10R opened
+
+The S10 implementation materially improved the harness, and the original identity-label defect is fixed. Fresh independent reruns nevertheless disprove the final developer-complete/USER_ACCEPTANCE claim.
+
+### A6 — S10A identity/worker repair is verified and retained
+
+Fresh audit reruns pass:
+
+    S10A provider + label/speech                 8/8
+    S10C real Tk/Xvfb journeys                  4/4
+    S10D provider lifecycle                     3/3
+    Feature Registry + acceptance-runner unit   8/8
+    pnc_s10a_flow_preflight_smoke.lua            PASS
+
+The truthful identity choice now renders bound canonical-name speech rather than the UI label, generated aliases use the same typed mechanism, refusal remains distinct, and the GUI path rejects missing initiating speech instead of substituting the label.
+
+This accepted S10A result is not reopened merely because later acceptance closure was incorrect.
+
+### A7 — S10B removed acceptance for still-present surfaces
+
+ProjectHoomans commit `5f8b5000` removed 12 provider test modules containing approximately 68 test methods while the Core modules/service/CLI seams they exercised remain present.
+
+Those responsibilities include dataset-library, workflow, dataset-adapter, interaction-spec, variation-auditor and authoring-service behavior.
+
+Reconstructed deleted tests expose current stale-source/schema failures. This means the tests were not proven obsolete by dead-surface/caller-zero evidence.
+
+The repair requirement is not to blindly restore stale historical tests. Each deleted responsibility must be migrated to current canonical acceptance or its associated public/service surface must be formally retired and removed from callers/public exposure.
+
+### A8 — Feature Acceptance Registry does not cover all supported public CLI actions
+
+The current validator discovers `app.*_button`, a bounded Studio action set and `convo <subcommand>`. It does not discover all supported top-level argparse actions.
+
+Verified unregistered examples:
+
+    --list-datasets
+    --search-datasets
+    --show-dataset
+    --validate-dataset
+    --workflow-preview
+    --workflow-generate
+    --adapt-dataset
+    --inspect-interaction-history
+
+Fresh CLI runtime evidence shows the omission hides real breakage:
+
+- `--list-datasets` advertises canonical sources whose current paths report `exists=false`;
+- `--show-dataset common_dialogue` fails on missing `responses/common/social.json`;
+- `--workflow-preview common_dialogue --workflow-blocks language.speech_act,dialogue_responses.response_pool` returns `ok=false` and exits 2.
+
+Therefore the S10C statement that every supported public action has acceptance ownership is false until discovery/ownership is widened or those actions are explicitly retired.
+
+### A9 — canonical acceptance and committed closure are not reproducibly green
+
+The runbook names `python3 -m tools.semantic_harness --acceptance` as the canonical developer gate.
+
+Fresh reruns show the mandatory `hoomans_lua` suite still reports FAIL. The exact S10D ProjectHoomans participant commit `9778522f` reruns at `1024/1029` with five failures. Only the PopulationDirector failure is currently recognized as the reviewed known unrelated baseline; the others remain `unexpected_failure`.
+
+`convoScopeOk=true` is useful scope metadata but cannot promote a failed mandatory suite to accepted status.
+
+The S10D handoff also records `psychopatz-core=<updating-on-S10D-commit>` instead of a resolved checkpoint, and its Hoomans count does not reproduce from the exact recorded participant commit. Later dirty/parallel work changes the root-suite result, so closure evidence was partly worktree-dependent.
+
+### A10 — lifecycle coverage is current-set hard-coded, not manifest-complete
+
+`test_s10d_provider_lifecycle.py` performs manifest discovery but executes a hard-coded tuple of `pnc`, `dtabstract`, and `pnc-with-dthoomans`.
+
+That verifies the current known selections but does not enforce the stated maintainability invariant that a newly supported worker-bearing provider/preset automatically enters lifecycle acceptance.
+
+### S10R response
+
+S10R repairs acceptance integrity without redesigning accepted S0-S9R or S10A mechanisms.
+
+Normative repair plan: `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
+
+The completion claim remains reopened until:
+
+- deleted test responsibilities have current acceptance or proven retirement;
+- all supported public actions enter Feature Acceptance Registry coverage;
+- the canonical nine-suite acceptance command is genuinely green/reproducible;
+- lifecycle coverage derives from manifest discovery;
+- final Git/HANDOFF state contains exact participant commits and residual-work fingerprints.

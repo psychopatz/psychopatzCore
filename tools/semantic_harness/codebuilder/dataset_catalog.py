@@ -26,25 +26,21 @@ CONVERSATION_SOURCE_ROOT = Path(
 
 DATASET_SOURCE_SPECS = (
     {
-        "id": "semantic_flows",
-        "label": "Semantic flows",
-        "kind": "semantic",
-        "path": CONVERSATION_SOURCE_ROOT / "flows/semantic_flows.json",
+        "id": "convo_engine",
+        "label": "ConvoEngine canonical catalog",
+        "kind": "convo_engine",
+        "path": CONVERSATION_SOURCE_ROOT / "manifest.json",
     },
     {
-        "id": "common_dialogue",
-        "label": "Common dialogue",
-        "kind": "dialogue",
+        "id": "common_patterns",
+        "label": "Common NLU patterns",
+        "kind": "patterns",
         "patternPaths": (
             CONVERSATION_SOURCE_ROOT / "patterns/common/greeting_whats_up.json",
             CONVERSATION_SOURCE_ROOT / "patterns/common/wellbeing_activity.json",
             CONVERSATION_SOURCE_ROOT / "patterns/common/identity.json",
+            CONVERSATION_SOURCE_ROOT / "patterns/common/identity_facets.json",
             CONVERSATION_SOURCE_ROOT / "patterns/common/weather_needs.json",
-        ),
-        "responsePaths": (
-            CONVERSATION_SOURCE_ROOT / "responses/common/social.json",
-            CONVERSATION_SOURCE_ROOT / "responses/common/questions.json",
-            CONVERSATION_SOURCE_ROOT / "responses/common/needs_weather.json",
         ),
         "patternRoutes": (
             ("pnc.dataset.greeting.", "patterns/common/greeting_whats_up.json"),
@@ -54,27 +50,13 @@ DATASET_SOURCE_SPECS = (
             ("pnc.dataset.question.identity.", "patterns/common/identity.json"),
             ("pnc.dataset.", "patterns/common/weather_needs.json"),
         ),
-        "responseRoutes": (
-            ("semantic.greeting", "responses/common/social.json"),
-            ("semantic.thanks", "responses/common/social.json"),
-            ("semantic.accept", "responses/common/social.json"),
-            ("semantic.refuse", "responses/common/social.json"),
-            ("semantic.offer", "responses/common/social.json"),
-            ("semantic.compliment", "responses/common/social.json"),
-            ("semantic.question.needs.", "responses/common/needs_weather.json"),
-            ("semantic.flow.weather.", "responses/common/needs_weather.json"),
-            ("semantic.question.", "responses/common/questions.json"),
-        ),
     },
     {
-        "id": "grounded_personal",
-        "label": "Grounded personal dialogue",
-        "kind": "dialogue",
+        "id": "grounded_personal_patterns",
+        "label": "Grounded personal NLU patterns",
+        "kind": "patterns",
         "patternPaths": (
             CONVERSATION_SOURCE_ROOT / "patterns/grounded_personal.json",
-        ),
-        "responsePaths": (
-            CONVERSATION_SOURCE_ROOT / "responses/grounded_personal_responses.json",
         ),
     },
     {
@@ -82,13 +64,13 @@ DATASET_SOURCE_SPECS = (
         "label": "Reviewed WordNet concepts",
         "kind": "lexicon",
         "path": Path(
-    "tools/semantic_harness/codebuilder/sources/wordnet_concepts.json"
+            "tools/semantic_harness/codebuilder/sources/wordnet_concepts.json"
         ),
     },
 )
 
 
-WORKFLOW_DATASET_KINDS = frozenset(("semantic", "dialogue"))
+WORKFLOW_DATASET_KINDS = frozenset(("convo_engine", "patterns", "semantic", "dialogue"))
 
 
 def _read_json(path: Path, label: str) -> dict[str, Any]:
@@ -115,7 +97,7 @@ class SemanticDatasetCatalog:
         self.package_repositories = dict(package_repositories or {})
 
     def _spec_paths(self, spec: dict[str, Any]) -> list[Path]:
-        if spec["kind"] == "dialogue":
+        if spec["kind"] in {"dialogue", "patterns"}:
             return [
                 *spec.get("patternPaths", ()),
                 *spec.get("responsePaths", ()),
@@ -200,6 +182,7 @@ class SemanticDatasetCatalog:
         for spec in DATASET_SOURCE_SPECS:
             paths = self._spec_paths(spec)
             exists = bool(paths) and all(self._safe_source_exists(path) for path in paths)
+            editable = exists and spec["kind"] != "convo_engine"
             output.append({
                 "id": spec["id"],
                 "label": spec["label"],
@@ -207,7 +190,7 @@ class SemanticDatasetCatalog:
                 "path": str(paths[0]),
                 "paths": [str(path) for path in paths],
                 "exists": exists,
-                "editable": exists,
+                "editable": editable,
             })
         return output
 
@@ -335,10 +318,99 @@ class SemanticDatasetCatalog:
             output.append((self.repository / path, document))
         return output
 
+    def _pattern_document(self, spec: dict[str, Any]) -> dict[str, Any]:
+        pattern_documents = [
+            _read_json(
+                self._source_path(path),
+                f"{spec['id']} pattern shard",
+            )
+            for path in spec.get("patternPaths", ())
+        ]
+        if not pattern_documents:
+            raise CompileError(f"{spec['id']} requires pattern shards")
+        source = next(
+            (
+                resolved
+                for resolved in (self._source_metadata(doc) for doc in pattern_documents)
+                if resolved is not None
+            ),
+            None,
+        )
+        return {
+            "schemaVersion": 1,
+            "source": source,
+            "patterns": [
+                item
+                for document in pattern_documents
+                for item in document.get("patterns", [])
+            ],
+            "responsePools": [],
+        }
+
+    def _convo_engine_document(self) -> dict[str, Any]:
+        from .conversation_compiler import compile_conversation_sources
+
+        model = compile_conversation_sources(
+            self.repository,
+            runtime_root=self.runtime_root,
+            package_repositories=self.package_repositories,
+        )
+        dialogue = model.get("dialogue") if isinstance(model.get("dialogue"), dict) else {}
+        return {
+            "schema": "pnc.conversation.manifest.v1",
+            "manifest": model.get("manifest", {}),
+            "convoEngine": {
+                "shards": len(model.get("shards", [])),
+                "plans": len(model.get("psdlRuntimePlans", [])),
+                "beats": len(model.get("beats", [])),
+                "behaviors": len(model.get("behaviors", [])),
+                "fingerprint": model.get("wholeModelFingerprint"),
+            },
+            "plans": model.get("psdlRuntimePlans", []),
+            "beats": model.get("beats", []),
+            "behaviors": model.get("behaviors", []),
+            "patterns": dialogue.get("patterns", []),
+            "responsePools": dialogue.get("responsePools", []),
+        }
+
     def load_dataset_document(self, source_id: str) -> dict[str, Any]:
         """Load one logical dataset from its canonical modular shard(s)."""
         spec = self._dataset_spec(source_id)
-        if spec["kind"] == "semantic":
+        if spec["kind"] == "convo_engine":
+            return self._convo_engine_document()
+        if spec["kind"] == "patterns":
+            return self._pattern_document(spec)
+        if spec["kind"] == "convo_engine":
+            return {
+                **report,
+                "ok": False,
+                "previewOnly": True,
+                "effectFree": True,
+                "writes": [],
+                "diagnostics": [{
+                    "severity": "error",
+                    "message": "convo_engine canonical sources must be edited via transactional convo change operations",
+                }],
+            }
+        if spec["kind"] == "patterns":
+            partitions = self._dialogue_partition(
+                spec,
+                paths_key="patternPaths",
+                routes_key="patternRoutes",
+                records_key="patterns",
+                records=document.get("patterns", []),
+                source=document.get("source"),
+            )
+            paths = []
+            for path, shard in partitions:
+                resolved = self._source_path(path)
+                resolved.write_text(
+                    pretty_json(shard),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                paths.append(resolved)
+        elif spec["kind"] == "semantic":
             shard = _read_json(
                 self._source_path(spec["path"]),
                 f"{source_id} shard",
@@ -347,6 +419,20 @@ class SemanticDatasetCatalog:
                 "schema": "pnc.semantic_authoring.v1",
                 "source": self._source_metadata(shard),
                 "definitions": shard.get("definitions", []),
+            }
+        if spec["kind"] == "patterns":
+            partitions = self._dialogue_partition(
+                spec,
+                paths_key="patternPaths",
+                routes_key="patternRoutes",
+                records_key="patterns",
+                records=document.get("patterns", []),
+                source=document.get("source"),
+            )
+            source_root = self.repository / CONVERSATION_SOURCE_ROOT
+            return {
+                path.relative_to(source_root).as_posix(): shard
+                for path, shard in partitions
             }
         if spec["kind"] == "dialogue":
             patterns, responses = self._dialogue_documents(spec)
@@ -378,9 +464,41 @@ class SemanticDatasetCatalog:
             spec["id"]: [] for spec in specs
         }
         for spec in specs:
+            paths = self._spec_paths(spec)
+            if source_id is None and (
+                not paths or not all(self._safe_source_exists(path) for path in paths)
+            ):
+                continue
             document = self.load_dataset_document(spec["id"])
             entries: list[tuple[str, str, Any]] = []
-            if spec["kind"] == "semantic":
+            if spec["kind"] == "convo_engine":
+                entries.extend(
+                    ("convo_plan", str(item.get("id", "<missing>")), item)
+                    for item in document.get("plans", [])
+                    if isinstance(item, dict)
+                )
+                entries.extend(
+                    ("beat", str(item.get("id", "<missing>")), item)
+                    for item in document.get("beats", [])
+                    if isinstance(item, dict)
+                )
+                entries.extend(
+                    ("behavior", str(item.get("id", "<missing>")), item)
+                    for item in document.get("behaviors", [])
+                    if isinstance(item, dict)
+                )
+                entries.extend(
+                    ("pattern", str(item.get("id", "<missing>")), item)
+                    for item in document.get("patterns", [])
+                    if isinstance(item, dict)
+                )
+            elif spec["kind"] == "patterns":
+                entries = [
+                    ("pattern", str(item.get("id", "<missing>")), item)
+                    for item in document.get("patterns", [])
+                    if isinstance(item, dict)
+                ]
+            elif spec["kind"] == "semantic":
                 entries = [
                     ("definition", str(item.get("id", "<missing>")), item)
                     for item in document.get("definitions", [])
@@ -463,7 +581,36 @@ class SemanticDatasetCatalog:
             }]
             return report
         try:
-            if spec["kind"] == "semantic":
+            if spec["kind"] == "convo_engine":
+                from .conversation_compiler import compile_conversation_sources
+
+                model = compile_conversation_sources(
+                    self.repository,
+                    runtime_root=self.runtime_root,
+                    package_repositories=self.package_repositories,
+                )
+                dialogue = model.get("dialogue") if isinstance(model.get("dialogue"), dict) else {}
+                semantic = model.get("semantic") if isinstance(model.get("semantic"), dict) else {}
+                summary = {
+                    "shards": len(model.get("shards", [])),
+                    "plans": len(model.get("psdlRuntimePlans", [])),
+                    "beats": len(model.get("beats", [])),
+                    "behaviors": len(model.get("behaviors", [])),
+                    "patterns": len(dialogue.get("patterns", [])),
+                    "flows": len(semantic.get("flows", [])),
+                    "responsePools": len(dialogue.get("responsePools", [])),
+                }
+            elif spec["kind"] == "patterns":
+                payload = {
+                    **document,
+                    "schemaVersion": 1,
+                    "responsePools": [],
+                }
+                compiled = compile_dialogue_dataset(payload)
+                summary = {
+                    "patterns": len(compiled["patterns"]),
+                }
+            elif spec["kind"] == "semantic":
                 compiled = compile_semantic_definitions(
                     document,
                     discover_registered_capability_ids(
@@ -576,6 +723,8 @@ class SemanticDatasetCatalog:
     ) -> dict[str, dict[str, Any]]:
         """Map one logical dataset edit back to its canonical Conversation shard(s)."""
         spec = self._dataset_spec(source_id)
+        if spec["kind"] == "convo_engine":
+            return {}
         if spec["kind"] == "semantic":
             path = self.repository / spec["path"]
             shard = _read_json(path, "semantic flow shard")
@@ -585,6 +734,20 @@ class SemanticDatasetCatalog:
                 self.repository / CONVERSATION_SOURCE_ROOT
             ).as_posix()
             return {relative: shard}
+        if spec["kind"] == "patterns":
+            partitions = self._dialogue_partition(
+                spec,
+                paths_key="patternPaths",
+                routes_key="patternRoutes",
+                records_key="patterns",
+                records=document.get("patterns", []),
+                source=document.get("source"),
+            )
+            source_root = self.repository / CONVERSATION_SOURCE_ROOT
+            return {
+                path.relative_to(source_root).as_posix(): shard
+                for path, shard in partitions
+            }
         if spec["kind"] == "dialogue":
             partitions = [
                 *self._dialogue_partition(
@@ -621,7 +784,37 @@ class SemanticDatasetCatalog:
         if report.get("ok") is not True:
             return report
         spec = self._dataset_spec(source_id)
-        if spec["kind"] == "semantic":
+        if spec["kind"] == "convo_engine":
+            return {
+                **report,
+                "ok": False,
+                "previewOnly": True,
+                "effectFree": True,
+                "writes": [],
+                "diagnostics": [{
+                    "severity": "error",
+                    "message": "convo_engine canonical sources must be edited via transactional convo change operations",
+                }],
+            }
+        if spec["kind"] == "patterns":
+            partitions = self._dialogue_partition(
+                spec,
+                paths_key="patternPaths",
+                routes_key="patternRoutes",
+                records_key="patterns",
+                records=document.get("patterns", []),
+                source=document.get("source"),
+            )
+            paths = []
+            for path, shard in partitions:
+                resolved = self._source_path(path)
+                resolved.write_text(
+                    pretty_json(shard),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                paths.append(resolved)
+        elif spec["kind"] == "semantic":
             paths = self._write_semantic_shard(spec, document)
         elif spec["kind"] == "dialogue":
             paths = self._write_dialogue_shards(spec, document)

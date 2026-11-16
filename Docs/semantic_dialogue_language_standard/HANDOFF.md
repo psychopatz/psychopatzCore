@@ -1,27 +1,128 @@
 # ConvoEngine Handoff
 
 ```yaml
-status: "USER_ACCEPTANCE"
-phase: "S10 — Semantic Lab end-to-end reliability and maintainability (developer-side complete)"
-chunk: "S10D complete — ready for native Project Zomboid user acceptance"
-participant_vector: "psychopatz-core=<updating-on-S10D-commit>;project-hoomans=9778522ffe1976f71d0d1c2efa1f5fb6d741070e;dynamic-trading=9c8cb3dead56d66e32fccb901b9abd3dd6c2f393"
-evidence: "S10A_COMPLETE; S10B_COMPLETE; S10C_COMPLETE; S10D_COMPLETE; S10_9SUITE_ACCEPTANCE_VERIFIED; S9R_CLOSURE_4_OF_4"
-baseline: "retains S0-S9R + S10A + S10B + S10C + S10D"
+status: "IN_PROGRESS"
+checkpoint_mode: "committed_phase_handoff"
+phase: "S10R — Semantic Harness acceptance integrity and reproducible closure"
+chunk: "S10R2 — complete Feature Acceptance Registry public-surface discovery"
+participant_vector: "psychopatz-core=<updating-on-S10R1-commit>;project-hoomans=fb4c43ce23ee0106f52dab931f12f817ddb9f991;dynamic-trading=9c8cb3dead56d66e32fccb901b9abd3dd6c2f393"
+evidence: "S0-S9R_RETAINED; S10A_ACCEPTED; S10R1_COMPLETE_40_PLUS_2; S10R2_ACTIVE"
+updated_at: "2026-11-16"
 ```
 
-## Current state
+## Current truth
 
-All developer-implementable S10A-S10D requirements and retained S0-S9R regression gates are complete and verified on `main`:
+The previous S10D `USER_ACCEPTANCE` handoff is superseded.
 
-- **S10A**: manifest-selected PNC worker starts/restarts cleanly with `MAX_POOLS = 256`, preflight diagnostics, canonical/generated identity speech variant realization, and zero implicit label-to-speech fallback.
-- **S10B**: unified 9-suite `--acceptance` runner with explicit runtime skip classification (only reviewed `real_local_save_unavailable` skips allowed) and `xvfb-run` Tk orchestration.
-- **S10C**: machine-readable Feature Acceptance Registry (`feature_registry.json`), AST + real-Tk control enforcement (`test_feature_registry`), and 4/4 real Tk/Xvfb GUI journeys (`test_s10c_gui_journeys`).
-- **S10D**: provider start/capabilities/input/restart/reconfigure/shutdown lifecycle matrix (`test_s10d_provider_lifecycle` 3/3 PASS across `pnc`, `dtabstract`, `pnc-with-dthoomans`, and standalone Core worker) and updated `AGENT_RUNBOOK.md`.
+S10A remains accepted: the exact PNC worker starts/restarts, `MAX_POOLS = 256` remains intact, the identity label/speech contract is enforced, canonical/generated names are bound into initiating speech, and focused real-worker/Tk acceptance is green.
 
-Only user-owned native Project Zomboid gameplay, UI/visual feel, and live dialogue pacing validation remain before live workshop release.
+Fresh audit reruns:
 
-## Preserved unrelated parallel work
+    S10A provider + label/speech                 8/8 PASS
+    S10C real Tk/Xvfb journeys                  4/4 PASS
+    S10D provider lifecycle                     3/3 PASS
+    Feature Registry + acceptance-runner unit   8/8 PASS
+    pnc_s10a_flow_preflight_smoke.lua                PASS
 
-- `psychopatzCore`: `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Inventory/PsychopatzItemTypeLedgerWindow.lua`, `Contents/mods/PsychopatzCore/common/media/translation/{EN,TL}/Conversation/UI.json`, and `tools/semantic_harness/ui/layout_state_controller.py`.
-- `ProjectHoomans`: `docs/Jobs/*`, `PNC_ClientComposition.lua`, `PNC_CommandHub*`, `PNC_TranslationBootstrap.lua`, and `common/media/translation/{EN,TL}/CommandHub/CommandHub.json`.
-- `DynamicTrading`: `.architecture-refactor/output/architecture-audit.md`, `Contents/mods/DTCommon/common/media/lua/shared/DTCommon/ConvoEngine/{Manifest,Registry}.lua`, `Contents/mods/DTHoomans/42.20/media/lua/shared/DTHoomans/DTHoomans_Conversation.lua`, and `tools/providers/dt/__pycache__/`.
+The developer-complete claim is reopened because the broader acceptance system is not yet trustworthy.
+
+Normative repair design:
+
+`Docs/semantic_dialogue_language_standard/S10_ACCEPTANCE_INTEGRITY_REPAIR.md`
+
+Read `PROGRESS.md` last after the durable design/runbook files.
+
+## Verified repair blockers
+
+### 1. Deleted test responsibilities are not proven obsolete
+
+ProjectHoomans commit `5f8b5000` deleted 12 provider test modules (~68 test methods). The Core dataset/workflow/adapter/interaction/variation APIs they exercised still exist and some remain public CLI/service surfaces.
+
+Do not blindly restore historical tests. Build a responsibility ledger and either:
+
+- migrate equivalent current-architecture acceptance; or
+- retire the covered surface, remove callers/public exposure, and prove caller-zero.
+
+### 2. Public CLI acceptance ownership is incomplete
+
+Feature Registry discovery currently misses supported top-level argparse actions including:
+
+    --list-datasets
+    --search-datasets
+    --show-dataset
+    --validate-dataset
+    --workflow-preview
+    --workflow-generate
+    --adapt-dataset
+    --inspect-interaction-history
+
+Fresh runtime evidence:
+
+- `--list-datasets` advertises sources with `exists=false`;
+- `--show-dataset common_dialogue` fails on missing `responses/common/social.json`;
+- `--workflow-preview common_dialogue --workflow-blocks language.speech_act,dialogue_responses.response_pool` returns `ok=false` and exits 2.
+
+Every remaining supported public action must work and have acceptance ownership, or be explicitly retired/deprecated and removed from the supported surface.
+
+### 3. Canonical acceptance is not green
+
+The canonical `--acceptance` workflow reports mandatory `hoomans_lua` FAIL.
+
+The exact previous S10D Hoomans participant commit `9778522f` reruns at:
+
+    1024/1029 PASS
+    5 FAIL
+
+Only `pnc_population_director_smoke.lua` is currently recognized as the reviewed known unrelated baseline. Other failures remain unexpected.
+
+`convoScopeOk=true` is diagnostic only and cannot override a failed mandatory suite.
+
+### 4. Prior S10D checkpoint was invalid
+
+The superseded handoff used:
+
+    psychopatz-core=<updating-on-S10D-commit>
+
+and its Hoomans result did not reproduce from the exact recorded participant commit.
+
+S10R final closure must use exact participant commits, exact phase identity and residual-work fingerprints. Dirty parallel work may be preserved but may not silently contribute to a committed acceptance result.
+
+### 5. Lifecycle matrix is not manifest-complete
+
+`test_s10d_provider_lifecycle.py` discovers presets but executes hard-coded current names. Replace that current-set assumption with manifest/preset-derived lifecycle ownership for every supported non-alias worker-bearing selection.
+
+## Immediate responsibility — S10R1
+
+1. Inventory the responsibilities of the 12 deleted provider test modules.
+2. Map those responsibilities to current Core/Hoomans public/service callers.
+3. For each responsibility, migrate current acceptance or formally retire the surface with caller-zero/public-removal proof.
+4. Repair the stale dataset/workflow source discovery for any retained public operation.
+5. Add focused tests proving retained public dataset/workflow/adapter/interaction surfaces work through current canonical sources.
+6. Do not change S10A identity behavior unless a new failing regression proves it necessary.
+
+After S10R1, continue automatically through S10R2-S10R4.
+
+## Required continuation
+
+    S10R1
+      -> deleted/stale acceptance ownership
+    S10R2
+      -> complete Feature Acceptance Registry public-surface discovery
+    S10R3
+      -> genuinely green/reproducible nine-suite acceptance
+    S10R4
+      -> manifest-derived lifecycle matrix + final committed closure
+
+Do not stop after one repaired CLI command, one restored test, or one green focused suite.
+
+## Residual work safety
+
+The participant vector above is a dirty snapshot, not a clean phase checkpoint.
+
+The residual fingerprints are SHA-256 hashes of the current `git status --porcelain=v1 -uall` residual sets; for Core the active S10R-owned documentation paths are excluded so the fingerprint represents unrelated residual work.
+
+Preserve all unrelated/concurrent changes. Re-inspect current Git state at startup because ProjectHoomans was receiving concurrent commits during this documentation repair.
+
+Do not reset, stash, discard, broad-stage, amend, rebase, force-update, push, publish Workshop content, or launch native Project Zomboid.
+
+At an accepted S10R phase boundary: stage exact phase-owned paths only, commit changed adopter repositories first, reconcile Core continuity docs, commit Core last, verify participant vector/residual fingerprints, then continue.

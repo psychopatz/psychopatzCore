@@ -396,13 +396,13 @@ class SemanticInteractionAuthoring:
         self,
         spec: dict[str, Any],
         *,
-        source_id: str = "semantic_flows",
+        source_id: str = "convo_engine",
         production_catalog: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Compile one canonical typed spec without writing or reloading Lua."""
 
         source_spec = self._dataset_spec(source_id)
-        if source_spec["kind"] not in {"semantic", "dialogue"}:
+        if source_spec["kind"] not in {"convo_engine", "patterns", "semantic", "dialogue"}:
             return {
                 "ok": False,
                 "valid": False,
@@ -410,13 +410,38 @@ class SemanticInteractionAuthoring:
                 "sourceID": source_id,
                 "diagnostics": [{
                     "severity": "error",
-                    "message": f"interaction specs require a generated semantic/dialogue source, not {source_id}",
+                    "message": f"interaction specs require a generated conversation source, not {source_id}",
                 }],
                 "previewOnly": True,
                 "effectFree": True,
                 "writes": [],
             }
-        base_document = self.load_dataset_document(source_id)
+        if source_spec["kind"] == "convo_engine":
+            base_document = {
+                "schema": "pnc.semantic_authoring.v1",
+                "schemaVersion": 1,
+                "source": {
+                    "owner": "PsychopatzCore",
+                    "name": "ConvoEngine Studio",
+                    "version": "1",
+                    "contentLicense": "first_party",
+                    "references": [{
+                        "name": "ConvoEngine Studio",
+                        "url": "https://github.com/psychopatz/PsychopatzCore",
+                        "use": "studio_authoring_preview",
+                        "license": "first_party",
+                        "reviewedOn": "2026-11-16",
+                        "version": "1",
+                        "contentLicense": "first_party",
+                        "importStatus": {"imported": 1},
+                    }],
+                },
+                "definitions": [],
+                "patterns": [],
+                "responsePools": [],
+            }
+        else:
+            base_document = self.load_dataset_document(source_id)
         registered = discover_registered_capability_ids(
             self.runtime_root,
             package_repositories=self.dataset_catalog.package_repositories,
@@ -463,7 +488,7 @@ class SemanticInteractionAuthoring:
         spec: dict[str, Any],
         *,
         approved: bool,
-        source_id: str = "semantic_flows",
+        source_id: str = "convo_engine",
         production_catalog: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Write an approved spec through the existing canonical Lua writer."""
@@ -776,8 +801,15 @@ class SemanticInteractionAuthoring:
             }
         from .build import write_conversation_output
 
-        document = self.load_dataset_document(source_id)
-        canonical = self.write_dataset_document(source_id, document)
+        spec_meta = self._dataset_spec(source_id)
+        if spec_meta["kind"] == "convo_engine":
+            canonical = {
+                "ok": True,
+                "writes": [],
+            }
+        else:
+            document = self.load_dataset_document(source_id)
+            canonical = self.write_dataset_document(source_id, document)
         if canonical.get("ok") is not True:
             generation = canonical
         else:

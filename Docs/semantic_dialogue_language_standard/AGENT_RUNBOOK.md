@@ -326,9 +326,20 @@ path.
 S10 acceptance reruns the retained S9/S9R matrix plus all mandatory provider and
 real-GUI gates defined in `SEMANTIC_HARNESS_RELIABILITY.md`.
 
+S10R adds these closure rules:
+
+- deleting a test is not a repair when its public/service responsibility still exists; require parity replacement or caller-zero retirement proof;
+- public-surface discovery must include supported top-level argparse options as well as `convo` subcommands and GUI controls;
+- a CLI action remaining in `--help` is treated as supported unless the implementation and docs explicitly deprecate/remove it;
+- `convoScopeOk` is diagnostic only and never overrides a failed mandatory suite;
+- unrelated-baseline allowances require an explicit reviewed machine classification with provenance/owner/reason; filename heuristics alone are insufficient;
+- lifecycle acceptance must execute every supported non-alias worker-bearing selection returned by current manifest/preset discovery; do not maintain a hard-coded provider allowlist;
+- final acceptance evidence must be reproduced from the recorded participant checkpoint; dirty residual work must be fingerprinted and cannot silently contribute to a committed-complete claim;
+- final HANDOFF must contain exact participant commit IDs and no `<updating...>` placeholders.
+
 ### One-command S10 acceptance workflow
 
-Run all 9 mandatory developer acceptance suites from `psychopatzCore`:
+Run all 9 mandatory developer acceptance suites from `psychopatzCore`. The command is accepted only when its overall result is PASS; a green narrower-scope diagnostic inside a failed suite is not sufficient:
 
 ```bash
 PYTHONPATH=. python3 -m tools.semantic_harness --acceptance --acceptance-jobs 4 \

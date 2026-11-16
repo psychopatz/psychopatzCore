@@ -333,6 +333,23 @@ Prove the harness remains reliable under repeated use and leave a compact mainte
 - Test manifests/registries must remain compact enough for Luna-class agents to understand without reading the entire UI codebase.
 - Failure output must identify the failed layer, provider, feature ID, operation and underlying reason when available.
 
+## S10R — acceptance integrity repair
+
+The original S10A runtime/identity implementation remains accepted. Post-completion audit reopened the S10B-S10D acceptance and closure claims.
+
+Normative repair requirements are in `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
+
+S10R adds these reliability requirements:
+
+1. Test removal requires parity replacement or proven retirement/caller-zero; a green suite obtained by deleting coverage for still-supported surfaces is not acceptance.
+2. Feature Acceptance Registry discovery must cover all supported public GUI, top-level CLI, subcommand and agent-facing actions, not only a selected parser subset.
+3. Public actions that remain in `--help` are supported surfaces unless explicitly deprecated/removed; broken compatibility surfaces must either be repaired to current canonical sources or removed from the public interface.
+4. `convoScopeOk` is diagnostic metadata only. It cannot convert a failed mandatory suite into accepted overall status.
+5. Unrelated baseline allowances require explicit reviewed machine-readable classification and provenance; unexplained failures are never silently accepted.
+6. Provider lifecycle acceptance must derive worker-bearing selections from manifest/preset discovery. Hard-coded provider tuples are insufficient for the maintainability contract.
+7. Final acceptance must reproduce from the recorded participant checkpoint. Dirty work may be preserved, but it must be fingerprinted and may not silently contribute to an accepted committed result.
+8. Final HANDOFF must contain exact participant commits and no placeholder IDs.
+
 ## Completion gate
 
 S10 is complete only when all of the following are true:
@@ -341,11 +358,13 @@ S10 is complete only when all of the following are true:
 2. automatic generated response pools are preflight-valid and canonically worded;
 3. the complete provider Python suite is a first-class acceptance gate rather than an unrun side suite;
 4. real Tk/Xvfb GUI journeys cover all mandatory feature classes;
-5. Feature Acceptance Registry validation proves every supported public action has acceptance ownership;
-6. supported provider selections pass start/request/restart/shutdown lifecycle tests;
-7. mandatory skips are zero or explicitly classified and reviewed;
-8. the existing Core/DT/Hoomans Lua, deterministic audit and Kahlua gates remain green apart from separately proven unrelated baselines;
-9. final Git/HANDOFF truth is reconciled and accepted phase changes are committed locally, adopters first and Core last;
-10. no automatic push or Workshop publication occurs.
+5. Feature Acceptance Registry discovery and validation prove every supported public GUI/top-level-CLI/subcommand/agent action has acceptance ownership;
+6. every supported non-alias worker-bearing provider selection discovered from current manifests automatically enters start/request/restart/reconfigure/shutdown lifecycle acceptance as applicable;
+7. removed/replaced tests satisfy parity-replacement or caller-zero retirement proof;
+8. mandatory skips/baselines are zero or explicitly machine-classified and reviewed, and no mandatory suite is promoted from FAIL merely because a narrower scope diagnostic is green;
+9. the canonical nine-suite `--acceptance` command returns success from the recorded participant checkpoint;
+10. the existing Core/DT/Hoomans Lua, deterministic audit and Kahlua gates remain green apart from separately proven unrelated baselines;
+11. final Git/HANDOFF truth is reconciled with exact participant commits, committed phase identity and residual-work fingerprints; accepted phase changes are committed locally, adopters first and Core last;
+12. no automatic push or Workshop publication occurs.
 
 Only after S10 may the project again claim that developer-side Semantic Harness work is complete and that only native Project Zomboid gameplay/visual acceptance remains.

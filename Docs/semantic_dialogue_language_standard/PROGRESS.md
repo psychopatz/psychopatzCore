@@ -1,16 +1,14 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** USER_ACCEPTANCE — S0-S9R retained and S10A-S10D developer-side gates complete; only native Project Zomboid in-game user acceptance remains.
-**Estimated developer progress:** S0-S9R + S10A-S10D complete (developer side).
+**Status:** ACTIVE — S10R acceptance-integrity repair.
+**Estimated developer progress:** S0-S9R retained; S10A accepted; S10B-S10D mechanisms implemented but completion/closure claims reopened by audit.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S10 — Semantic Lab end-to-end reliability and maintainability (developer-side COMPLETE).
-**Immediate Next Chunk:** User-owned native Project Zomboid gameplay, UI/visual feel, and live dialogue pacing validation.
+**Active phase:** S10R — acceptance integrity, public-surface ownership, reproducible closure.
+**Immediate Next Chunk:** S10R2 — make Feature Acceptance Registry public-surface discovery complete across all supported top-level CLI actions (`--list-datasets`, `--search-datasets`, `--show-dataset`, `--validate-dataset`, `--workflow-preview`, `--workflow-generate`, `--adapt-dataset`, `--inspect-interaction-history`, etc.) with negative validation tests.
 
 ## Accepted baseline retained
 
-S0-S8R ConvoEngine runtime/compiler/content work and S9H0-S9H7 + S9R0-S9R3 harness architecture/convergence remain accepted. S10 does **not** redesign those accepted mechanisms without concrete regression evidence.
-
-The accepted S9/S9R mechanism model remains:
+The S0-S9R architecture remains accepted:
 
     WorkspaceCatalog
     ConvoCatalog
@@ -21,144 +19,124 @@ The accepted S9/S9R mechanism model remains:
 
 The 11-operation ConvoEngine vocabulary remains accepted.
 
-## Why developer completion was reopened
+S10A also remains accepted unless new regression evidence appears:
 
-Fresh 2026-11-15 testing of the actual Semantic Lab path disproved the previous claim that only native Project Zomboid acceptance remained.
+- exact manifest-selected PNC worker starts/restarts with `MAX_POOLS = 256`;
+- generated response pools are preflighted before registry mutation;
+- truthful/generated identity claims bind authoritative names into initiating `say`;
+- `affordance.label` remains UI presentation only;
+- refusal remains semantically distinct;
+- real-worker and real Tk/Xvfb identity-click acceptance is green.
 
-### Reproduced real PNC provider-worker failure
+Fresh audit reruns on 2026-11-16:
 
-The provider manifest selects:
+    S10A provider + label/speech                 8/8 PASS
+    S10C real Tk/Xvfb journeys                  4/4 PASS
+    S10D provider lifecycle                     3/3 PASS
+    Feature Registry + acceptance-runner unit   8/8 PASS
+    pnc_s10a_flow_preflight_smoke.lua                PASS
 
-    pythonWorker = tools.providers.pnc.runtime.worker:LuaSemanticWorker
-    workerScript = tools/providers/pnc/lua/worker.lua
+## Why S10 completion is reopened
 
-Starting that exact worker reproduces:
+The post-S10 audit disproved the claim that only native Project Zomboid user acceptance remains.
 
-    automatic semantic response registration failed:
-    semantic.generated.parameterized_task.consume.active
+Normative repair design:
 
-Diagnostic instrumentation found:
+`Docs/semantic_dialogue_language_standard/S10_ACCEPTANCE_INTEGRITY_REPAIR.md`
 
-    reason=response_pool_empty
-    poolCount=171
-    max=256
+### 1. S10B test-deletion gate was not proven
 
-Therefore the failure is not response-pool capacity.
+ProjectHoomans commit `5f8b5000` deleted 12 provider test modules containing approximately 68 test methods.
 
-The current task adapter still supplies `task.consume.active`, while maintained canonical ConvoEngine task content uses `convo.task.consume.reply.active.say.1.default`-style IDs. No maintained wording/fallback was found for `task.consume.active`, causing the generated variant to normalize away and its response pool to become empty.
+The Core APIs and public/service surfaces exercised by those tests still exist, including dataset-library, workflow, dataset-adapter, interaction-spec, variation-auditor and related authoring seams.
 
-### Acceptance-orchestration gap
+Reconstructed deleted tests expose current stale-source/schema failures. Therefore the deleted responsibilities must be migrated to current canonical acceptance or the associated surface must be formally retired with caller-zero/public-surface removal proof.
 
-The previously cited Hoomans `1020/1021` result came from `tests/run_tests.py`, which executes root `tests/*_smoke.lua` only.
+### 2. Feature Acceptance Registry is not complete for the public CLI
 
-It does not include `tools/providers/pnc/tests/`, which currently contains approximately:
+The S10C validator discovers `app.*_button`, a bounded Studio action set and `convo <subcommand>`, but not many supported top-level argparse actions.
 
-    discoverable provider Python tests             866
-    files instantiating real LuaSemanticWorker     147
-    Tk/SemanticHarnessApp-related test files        33
+Verified supported-but-unregistered actions include:
 
-An existing provider Python test already reproduces the startup defect:
+    --list-datasets
+    --search-datasets
+    --show-dataset
+    --validate-dataset
+    --workflow-preview
+    --workflow-generate
+    --adapt-dataset
+    --inspect-interaction-history
 
-    tools.providers.pnc.tests.test_semantic_test_subsystem.
-    RealWorkerExecutionTests.test_single_turn_greeting_execution
+Fresh runtime checks prove this omission hides real breakage:
 
-The machine also has `/usr/bin/xvfb-run` and Tk 8.6, so real display-dependent GUI acceptance can and should be automated.
+- `--list-datasets` advertises sources whose paths report `exists=false`;
+- `--show-dataset common_dialogue` fails on missing `responses/common/social.json`;
+- `--workflow-preview common_dialogue --workflow-blocks language.speech_act,dialogue_responses.response_pool` returns `ok=false` and exits 2.
 
-## S10 target
+### 3. Canonical one-command acceptance is not green
 
-Normative design and gates are in `SEMANTIC_HARNESS_RELIABILITY.md`.
+The runbook's canonical `--acceptance` workflow currently reports the mandatory `hoomans_lua` suite as FAIL.
 
-S10 makes the harness reliable and maintainable when new features are introduced by adding:
+Fresh current-workspace acceptance includes unexpected non-Convo failures; `--allow-unrelated-baselines` does not make the suite pass.
 
-- exact provider-worker startup/runtime acceptance;
-- generated-response preflight and actionable diagnostics;
-- one unified multi-suite acceptance report;
-- real Tk/Xvfb GUI journeys;
-- a compact Feature Acceptance Registry mapping each supported public action to its operation/capability/provider/test ownership;
-- provider start/request/restart/shutdown lifecycle matrices;
-- a zero-unexplained-skip policy for mandatory acceptance.
+The exact recorded S10D ProjectHoomans participant commit `9778522f` reruns at:
 
-## Current repository vector at S10D close
+    1024/1029 PASS
+    5 FAIL
 
-    PsychopatzCore  <updating on S10D commit> (parent dfcf9f6e73ef50fc6c69da3bdf2aa4a5e5c61680)
-    ProjectHoomans  9778522ffe1976f71d0d1c2efa1f5fb6d741070e (includes S10C commit f16f2b93ffa2849cfe68242dad24cdd24060029a)
-    DynamicTrading  9c8cb3dead56d66e32fccb901b9abd3dd6c2f393 (includes S10A commit 4dcaa177)
+Only `pnc_population_director_smoke.lua` is currently classified as the reviewed known unrelated baseline. The other failures remain unexpected.
 
-## S10D completed acceptance (2026-11-16)
+`convoScopeOk=true` is diagnostic only and may not substitute for a mandatory suite passing.
 
-- Added `tools/semantic_harness/tests/test_s10d_provider_lifecycle.py` (`3/3` PASS in `28.98s`), verifying manifest preset discovery, `start -> capabilities -> ping -> input -> restart -> capabilities -> ping -> input -> shutdown` across all supported selections (`pnc`, `dtabstract`, `pnc-with-dthoomans`), live `WorkerSession.reconfigure(...)` transitions (`pnc -> dtabstract -> pnc-with-dthoomans -> pnc -> dtabstract -> pnc`), `configure` + `reset_working_world` + 3x repeated restart stability with invariant `flowCount`/`poolCount`/`beatCount` and flow IDs, and 2x standalone Core worker (`tools/semantic_harness/lua/worker.lua`) restart parity.
-- Mapped S10D lifecycle acceptance owners into `tools/semantic_harness/testing/feature_registry.json`, routed `test_s10d_provider_lifecycle` through `RESOURCE_SENSITIVE_MODULES` in `python_runner.py`, and documented the one-command `--acceptance` CLI and unit verification workflow in `AGENT_RUNBOOK.md`.
-- Post-edit acceptance verification across all 9 suites:
-  - `core_python`: `203/203` PASS (`fail=0`, `skip=0`, `46.66s`) — includes `test_feature_registry` (`2/2`), `test_acceptance_runner` (`6/6`), `test_convo_engine_s9r_closure` (`4/4`)
-  - `core_lua`: `36/36` PASS (`fail=0`, `skip=0`, `0.24s`)
-  - `hoomans_provider_python`: `153/158` PASS (`fail=0`, `skip=5`, `allowed=5`, `92.15s`)
-  - `real_provider_worker`: `495/504` PASS (`fail=0`, `skip=9`, `allowed=9`, `717.40s` on post-edit rerun after transient `0.3057s` vs `0.25s` latency spike in `test_contextual_scale_isolation`)
-  - `tk_xvfb_gui`: `143/154` PASS (`fail=0`, `skip=11`, `allowed=11`, `692.06s`)
-  - `dynamic_trading`: `89/89` PASS (`fail=0`, `skip=0`, `0.59s`)
-  - `convo_audit`: `1/1` PASS (`fail=0`, `skip=0`, `5.37s`)
-  - `kahlua_static`: `3/3` PASS (`fail=0`, `skip=0`, `4.75s`)
-  - `hoomans_lua`: `1025/1029` PASS (`fail=4`, `skip=0`, `14.38s`; all 4 failures have `convoSemantic=false`: baseline `tests/pnc_population_director_smoke.lua` + 3 unrelated DebugHub/translation suites)
+### 4. Final S10D checkpoint is not reproducible
 
-## S10C completed acceptance (2026-11-16)
+The S10D handoff recorded:
 
-- Added `tools/semantic_harness/testing/feature_registry.json`, `feature_registry.py`, and `tests/test_feature_registry.py` mapping every supported top-level UI control, `ConvoEngineAuthoringPane` action, and `convo`/`--acceptance` CLI operation with AST symbol resolution and real-Tk enforcement.
-- Added `ProjectHoomans/tools/providers/pnc/tests/test_s10c_gui_journeys.py` (`4/4` PASS under `xvfb-run` in `133.70s`), covering preset selection validate/apply reconfiguration, Simulation preview/send/language/reset/load/save/settings/toolbar toggles/diagnostics/regressions/log-clear + worker error restart recovery, Quality Sweep plan/run/cancel, and Studio preview/S6M8 Audit + hermetic temp-repo create/duplicate/delete.
-- Hardened `ui/operation_lifecycle.py` (`poll_future`) to route `RuntimeError` into the standard non-modal worker failure handler cleanly.
-- Verified `core_python` (`200/200` PASS), `convo_audit` (`1/1` PASS), and `kahlua_static` (`3/3` PASS) with zero skips/failures.
+    psychopatz-core=<updating-on-S10D-commit>
 
-## S10B completed acceptance (2026-11-16)
+instead of a resolved Core phase checkpoint.
 
-- Repaired/re-aligned the stale PNC provider Python test modules (`test_semantic_observatory_codebuilder_lineage`, `test_health_wording_authority`, `test_needs_wording_authority`, `test_wellbeing_wording_authority`, `test_social_apology_wording_authority`, `test_surface_consolidation`, `test_contextual_bond_catalog_runtime`, `test_pragmatic_interaction_compiler`, `test_world_knowledge_gui`, `test_semantic_lab_persona_workflow`, and save-backed Tk harnesses) and retired 12 obsolete dataset/compiler tests.
-- Full 198-module PNC provider Python suite verified under `xvfb-run`: `PASS 192, FAIL 0, SKIP 6, TOTAL 198` (only real-local-save unavailability skips).
-- Implemented `tools/semantic_harness/testing/acceptance.py` (`--acceptance` CLI mode) reporting all 9 required suites with explicit runtime skip classification (allowing only reviewed real-local-save unavailability) and automatic `xvfb-run` wrapping for display suites:
-  - `core_python`: 198/198 PASS
-  - `core_lua`: 36/36 PASS
-  - `dynamic_trading`: 89/89 PASS
-  - `convo_audit`: 1/1 PASS
-  - `kahlua_static`: 3/3 PASS (Core 67 + ProjectHoomans 317 + DynamicTrading 8 Lua files)
-  - `hoomans_provider_python`: 153/158 PASS (5 classified local-save skips, 0 failures)
-  - `real_provider_worker`: 495/504 PASS (9 classified local-save skips, 0 failures)
-  - `tk_xvfb_gui`: 139/150 PASS (11 classified local-save skips, 0 failures; `--startup-timeout` CLI default updated to `15.0`s and Tk Xvfb suite concurrency capped cleanly)
-  - `hoomans_lua`: 1024/1028 PASS (`convoSemanticFailed=0`, `convoScopeOk=True`; raw 4 unrelated failures: `tests/pnc_population_director_smoke.lua` baseline + 3 Debug Hub parallel P1 commit `20997b30` tests).
+Its Hoomans count also does not reproduce from the exact recorded participant commit, and later dirty/parallel work changes the root-suite result. Final closure therefore needs an exact participant vector and residual-work fingerprints.
 
-## S10A completed acceptance (2026-11-16)
+### 5. Lifecycle coverage is hard-coded
 
-- Manifest-selected `LuaSemanticWorker` (`tools.providers.pnc.runtime.worker:LuaSemanticWorker`, `tools/providers/pnc/lua/worker.lua`) starts/restarts cleanly with `MAX_POOLS = 256` preserved (`preflight` before mutation, compact `hello`/`CAPABILITIES` `personaCatalog` omitting 822 KB `phraseContent` while keeping full `PERSONA_CATALOG`, and `ResponseCatalog_Conversation` preserving `SpeechRealization` family lookup and styled pool priority).
-- Enforced `affordance.label` (UI-only) vs initiating `say` vs reply `say` separation, bound canonical/generated identity speech variants with semantic invariance, and strict rejection of silent label-to-speech fallback.
-- Verified green: `tests/pnc_s10a_flow_preflight_smoke.lua`, `tests/pnc_semantic_local_route_smoke.lua`, and 36/36 provider/real-worker/Tk+Xvfb GUI tests across `test_s10a_provider_worker_startup`, `test_s10a_label_speech_realization`, `test_contextual_suggestions_s4`, `test_semantic_identity_wellbeing_collision`, `test_contextual_runtime_speech`, and `test_contextual_speech_behavior`.
+`test_s10d_provider_lifecycle.py` discovers presets but executes a hard-coded current tuple:
 
-Preserve unrelated work:
+    pnc
+    dtabstract
+    pnc-with-dthoomans
 
-- ProjectHoomans: 11 pre-existing modified files under older `docs/Jobs/` goals.
-- DynamicTrading: `.architecture-refactor/output/architecture-audit.md` and `tools/providers/dt/__pycache__/`.
+A newly supported non-alias worker-bearing provider can therefore avoid lifecycle acceptance. S10R must derive the executable matrix from current manifest discovery.
 
-## S10A immediate acceptance
+## S10R1 completed acceptance (2026-11-16)
 
-S10A must:
+- Built the 12-module (`68`-method) responsibility ledger in `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
+- Retired obsolete pre-ConvoEngine dataset specs (`semantic_flows`, `common_dialogue`, `grounded_personal`) from `dataset_catalog.py` and wired canonical live sources (`convo_engine`, `common_patterns`, `grounded_personal_patterns`, `wordnet_concepts`) across `dataset_catalog.py`, `interaction_generation.py`, and `service.py` (while protecting `convo_engine` against raw bulk overwrites).
+- Updated `variation_auditor.py` so `--variation-audit` audits canonical `convo_engine` shards (`510` families / `1002` styles) in addition to `"content"` fixtures.
+- Restored Core & Hoomans acceptance (`test_s10r1_dataset_and_workflow.py`, `test_s10r1_c5_variation_adapters_specs.py`, plus `test_convo_engine_s9h4_studio`, `test_convo_engine_s9_regressions`, `test_acceptance_runner`, `test_convo_engine_s9r_closure`: `40/40 PASS`; `ProjectHoomans/tools/providers/pnc/tests/test_s10r1_worker_precision_and_history.py`: `2/2 PASS`).
 
-1. add a focused regression that starts the exact PNC provider worker selected by the manifest;
-2. add automatic-flow response-pool preflight before registry mutation;
-3. audit all task response metadata, not only CONSUME;
-4. repair wording/template identity at the canonical source-of-truth boundary;
-5. preserve strict failure for invalid generated pools;
-6. improve diagnostics with pool/reason/capability/template identity;
-7. prove repeated startup/restart is idempotent and catalog-stable.
+## Current repository vector after S10R1
 
-Do not suppress the error, skip capabilities, or accept empty variants. The original reproduced failure was `response_pool_empty` at 171/256 pools. The current dirty S10A work repairs enough of that path to reach a later failure:
+    PsychopatzCore  <updating on S10R1 commit>
+    ProjectHoomans  fb4c43ce23ee0106f52dab931f12f817ddb9f991
+    DynamicTrading  9c8cb3dead56d66e32fccb901b9abd3dd6c2f393
 
-    pool=semantic.generated.multi_stage_gift.gift.failed
-    reason=response_pool_limit
-    capability=pnc:gift.offer
-    action=GIFT
+All three repositories preserve unrelated concurrent dirty work cleanly outside S10R commits.
 
-The focused `tests/pnc_s10a_flow_preflight_smoke.lua` passes, but the exact manifest-selected provider-worker regression currently fails 3/3 because startup reaches the pool limit. Do not blindly raise `MAX_POOLS`; first audit duplicate/over-granular generated pools, registration idempotence, and canonical pool ownership.
+## S10R sequence
 
-Fresh Semantic Lab identity testing also exposed a separate accepted-language-contract regression: the UI label `Say your real name` can surface as the player's spoken transcript, while the truthful identity source still authors generic speech (`My real name.`) even though the semantic frame already carries the canonical player name.
+    S10R1 — restore acceptance ownership for deleted/stale surfaces
+      ->
+    S10R2 — complete Feature Acceptance Registry discovery
+      ->
+    S10R3 — make canonical nine-suite acceptance genuinely green/reproducible
+      ->
+    S10R4 — derive lifecycle coverage dynamically and close with exact Git truth
 
-The mandatory runtime/harness acceptance for that defect is `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`. It requires bound canonical/generated identity speech, natural variant realization, no implicit label-to-speech fallback, and real PNC-worker + Tk/Xvfb acceptance.
+Do not skip forward because a focused suite is green.
 
 ## Completion boundary
 
-Developer-side harness work is **not complete** until S10A-S10D pass.
+Developer-side work is **not complete** until S10R1-S10R4 pass.
 
-After S10 passes, only then may the handoff return to USER_ACCEPTANCE for native Project Zomboid gameplay/visual/feel validation.
+Only after the canonical acceptance report is reproducibly green, every supported public action has acceptance ownership, provider lifecycle coverage is manifest-complete, and the final committed handoff contains exact participant/residual truth may the project return to `USER_ACCEPTANCE` for native Project Zomboid gameplay/UI/visual/feel validation.

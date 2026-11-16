@@ -810,11 +810,11 @@ At acceptance:
 
 ## S10 — Semantic Lab end-to-end reliability and maintainability
 
-**Status:** ACTIVE.
+**Status:** REOPENED — S10R acceptance-integrity repair is ACTIVE. S10A remains accepted; S10B-S10D mechanisms exist but their completion/closure claims are not accepted until S10R passes.
 
-S10 exists because real 2026-11-15 acceptance disproved the prior developer-complete claim without invalidating the accepted S0-S9R architecture. The exact manifest-selected PNC provider worker fails during startup, and the previous Hoomans acceptance count did not include the provider Python/GUI suite that already reproduces that defect.
+S10 was opened because real 2026-11-15 acceptance disproved the prior developer-complete claim without invalidating the accepted S0-S9R architecture. The initial manifest-selected PNC provider-worker startup defect and the label-versus-speech identity defect were repaired by S10A. A 2026-11-16 post-completion audit then reopened acceptance integrity and closure as S10R.
 
-The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runtime acceptance for UI-label versus spoken realization and the ProjectHoomans identity regression is `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`; `LANGUAGE_SPEC.md` remains the semantic authoring authority.
+The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runtime acceptance for UI-label versus spoken realization and the ProjectHoomans identity regression is `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`. The active closure-repair design is `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`; `LANGUAGE_SPEC.md` remains the semantic authoring authority.
 
 ### S10A — real PNC worker startup and automatic-flow integrity
 
@@ -834,7 +834,7 @@ The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runti
 
 ### S10B — unified acceptance orchestration
 
-**Status:** COMPLETE (`tools/semantic_harness/testing/acceptance.py` and `--acceptance` CLI report all 9 required suites: `core_python` 198/198, `core_lua` 36/36, `dynamic_trading` 89/89, `convo_audit` 1/1, `kahlua_static` 3/3, `hoomans_provider_python` 153/158 [5 classified real-local-save skips], `real_provider_worker` 495/504 [9 classified real-local-save skips], `tk_xvfb_gui` 139/150 [11 classified real-local-save skips], and `hoomans_lua` 1024/1028 [0 ConvoEngine/Semantic failures; raw 4 unrelated failures preserved]; full 198-module PNC Python suite PASS 192 / FAIL 0 / SKIP 6; strict skip policy allows only reviewed real-local-save unavailability; Xvfb auto-enabled for display suites; CLI `--startup-timeout` raised to 15.0s and `tk_xvfb_gui` concurrency bounded cleanly).
+**Status:** IMPLEMENTED, ACCEPTANCE REOPENED BY S10R. The unified runner exists and focused runner tests pass, but the S10B completion claim is not accepted because 12 provider test modules (~68 test methods) were deleted without proving the still-present dataset/workflow/adapter/interaction surfaces were retired, and the canonical nine-suite command is not currently green.
 
 Create one bounded developer acceptance workflow that reports Core Python/Lua, Hoomans root Lua, Hoomans provider Python, real provider-worker acceptance, real Tk/Xvfb GUI, DynamicTrading, deterministic ConvoEngine audit, and Kahlua/static verification as distinct suites.
 
@@ -844,7 +844,7 @@ Mandatory suites may not silently disappear. Display-required tests run under Xv
 
 ### S10C — feature-owned real GUI acceptance
 
-**Status:** COMPLETE (`tools/semantic_harness/testing/feature_registry.json` and `feature_registry.py` map every supported GUI/CLI action to surface, canonical operation, provider applicability, mutation class, and AST/real-Tk verified acceptance owner; `tests/test_feature_registry.py` enforces zero unmapped `app.*_button` / Studio `ConvoEngineAuthoringPane` / `convo` CLI controls; `ProjectHoomans/tools/providers/pnc/tests/test_s10c_gui_journeys.py` passes 4/4 real Tk/Xvfb GUI journeys; `operation_lifecycle.poll_future` catches `RuntimeError` into the non-modal worker failure recovery path).
+**Status:** IMPLEMENTED, COVERAGE CLAIM REOPENED BY S10R. Real Tk/Xvfb journeys remain green, but Feature Acceptance Registry discovery does not cover all supported top-level argparse actions. Verified unregistered public actions include dataset/workflow/adapter and interaction-history CLI surfaces, so the claim that every supported public GUI/CLI action has acceptance ownership is not yet true.
 
 Introduce one compact machine-readable Feature Acceptance Registry mapping supported public actions to surface, canonical operation/capability, provider applicability, mutation class and automated acceptance owner.
 
@@ -856,11 +856,28 @@ The mandatory Simulation/Conversation journeys include the identity-label regres
 
 ### S10D — provider lifecycle, maintainability and closure
 
-**Status:** COMPLETE (`tools/semantic_harness/tests/test_s10d_provider_lifecycle.py` passes 3/3 across `pnc`, `dtabstract`, `pnc-with-dthoomans`, Core standalone worker, and `WorkerSession.reconfigure` cross-provider transitions with zero catalog/flow/pool drift across repeated restarts; `AGENT_RUNBOOK.md` documents the one-command `--acceptance` CLI and unit verification gates; post-edit acceptance passes `core_python` 203/203, `core_lua` 36/36, `hoomans_provider_python` 153/158 [5 allowed], `real_provider_worker` 495/504 [9 allowed], `tk_xvfb_gui` 143/154 [11 allowed], `dynamic_trading` 89/89, `convo_audit` 1/1, `kahlua_static` 3/3, and `hoomans_lua` `convoSemanticFailed=0` across 1025/1029 [4 unrelated baseline/DebugHub failures]; retained `test_convo_engine_s9r_closure` passes 4/4).
+**Status:** IMPLEMENTED, CLOSURE REOPENED BY S10R. The focused lifecycle test passes 3/3, but it executes a hard-coded current preset tuple rather than automatically testing every supported discovered selection; the canonical `hoomans_lua` acceptance suite is not green; and the final handoff used a placeholder Core commit instead of a reproducible committed checkpoint.
 
 Run start/request/restart/reconfigure/shutdown matrices for all supported manifest selections, repeat lifecycle transitions to expose stale globals/duplicate registration/registry drift, document the one-command acceptance workflow, and reconcile continuity docs only after all real-path gates pass.
 
-**Completion gate:** developer-side harness work may return to complete only when S10A-S10D and the retained S9/S9R regression matrix are green. Only then does native Project Zomboid gameplay/visual acceptance become the sole remaining boundary.
+**Completion gate:** developer-side harness work may return to complete only when S10A plus S10R acceptance repair and the retained S9/S9R regression matrix are green. Only then does native Project Zomboid gameplay/visual acceptance become the sole remaining boundary.
+
+### S10R — acceptance integrity and reproducible closure
+
+**Status:** ACTIVE.
+
+Normative repair design: `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
+
+S10R does not reopen the accepted S10A identity/worker implementation. It repairs the acceptance/closure system disproved by the post-S10 audit.
+
+Required sequence:
+
+- **S10R1 — deleted/stale acceptance ownership:** COMPLETE (all 12 `5f8b5000`-deleted modules mapped in the S10R1 ledger; retired pre-ConvoEngine `semantic_flows`/`common_dialogue`/`grounded_personal` dataset specs; repaired `dataset_catalog.py`, `interaction_generation.py`, and `variation_auditor.py` for canonical `convo_engine` / `patterns` / `wordnet_concepts` sources; Core `test_s10r1_dataset_and_workflow.py` + `test_s10r1_c5_variation_adapters_specs.py` + S9/S9R `40/40` and Hoomans `test_s10r1_worker_precision_and_history.py` `2/2` PASS).
+- **S10R2 — complete public feature discovery:** ACTIVE (NEXT). extend Feature Acceptance Registry validation beyond `app.*_button` / Studio / `convo` subcommands to all supported top-level CLI actions; adding an uncovered public action must fail validation.
+- **S10R3 — genuinely green canonical acceptance:** the nine-suite `--acceptance` workflow must return success from the recorded participant checkpoint; `convoScopeOk` is diagnostic only and cannot override a failed mandatory suite; unrelated baselines require explicit reviewed machine classification.
+- **S10R4 — manifest-complete lifecycle + closure:** derive lifecycle-tested selections from current manifest/preset discovery rather than hard-coded provider names, rerun retained gates, reconcile docs, and close with exact participant commits plus residual-work fingerprints.
+
+**Gate:** S10R1-S10R4 pass; all still-supported public surfaces have current acceptance ownership; every supported worker-bearing provider selection automatically enters lifecycle acceptance; canonical acceptance is reproducibly green; and the final handoff contains no placeholder commit IDs or untracked dependence on dirty work.
 
 ## Commit protocol
 

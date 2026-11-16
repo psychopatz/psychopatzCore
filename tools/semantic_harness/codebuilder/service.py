@@ -309,7 +309,7 @@ class SemanticLabAuthoringService:
         document = self.load_dataset_document(source_id)
         report = self.preview_dataset_edit(source_id, document)
         if report.get("ok") is True and self._dataset_spec(source_id)["kind"] in {
-            "semantic", "dialogue"
+            "convo_engine", "patterns", "semantic", "dialogue"
         }:
             report.update(
                 self.interaction_authoring._conversation_preview_artifacts(

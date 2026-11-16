@@ -17,6 +17,8 @@ from typing import Any, Iterable
 
 from .conversation_compiler import CONVERSATION_MANIFEST_RELATIVE
 from .conversation_manifest import load_manifest as _load_manifest
+from .convo_engine_s6m8_audit import discover_convo_engine_repositories
+from .generation_ownership import CORE_OWNER
 
 
 PLACEHOLDER_REGEX = re.compile(r"\{([a-zA-Z0-9_]+)\}")
@@ -163,6 +165,110 @@ def load_sweep_evidence(sweep_dirs: Iterable[Path]) -> dict[str, dict[str, Any]]
     return evidence_index
 
 
+def _resolve_package_repositories(repository: Path) -> dict[str, Path] | None:
+    try:
+        discovered = discover_convo_engine_repositories(repository)
+        if isinstance(discovered, dict) and discovered:
+            return discovered
+    except Exception:
+        pass
+    return {CORE_OWNER: repository}
+
+
+def _convo_shard_path(
+    repository: Path,
+    conv_root: Path,
+    entry: dict[str, Any],
+) -> Path:
+    source_repo = entry.get("sourceRepository")
+    source_path = entry.get("sourcePath")
+    if isinstance(source_repo, str) and source_repo and isinstance(source_path, str) and source_path:
+        return Path(source_repo) / source_path
+    return conv_root / entry["path"]
+
+
+def _append_text_rows(
+    bucket: dict[str, list[dict[str, Any]]],
+    style_key: str,
+    text_obj: Any,
+) -> None:
+    if not isinstance(text_obj, dict):
+        return
+    en_raw = text_obj.get("EN", "")
+    tl_raw = text_obj.get("TL", "")
+    en_list = en_raw if isinstance(en_raw, list) else ([en_raw] if isinstance(en_raw, str) else [])
+    tl_list = tl_raw if isinstance(tl_raw, list) else ([tl_raw] if isinstance(tl_raw, str) else [])
+    rows = bucket.setdefault(style_key, [])
+    for idx in range(max(len(en_list), len(tl_list))):
+        en_val = en_list[idx] if idx < len(en_list) and isinstance(en_list[idx], str) else ""
+        tl_val = tl_list[idx] if idx < len(tl_list) and isinstance(tl_list[idx], str) else ""
+        if en_val or tl_val:
+            rows.append({"translations": {"EN": en_val, "TL": tl_val}})
+
+
+def _extract_say_styles(say_value: Any, prefix: str = "") -> dict[str, list[dict[str, Any]]]:
+    styles: dict[str, list[dict[str, Any]]] = {}
+    if not isinstance(say_value, dict):
+        return styles
+    if "EN" in say_value or "TL" in say_value:
+        _append_text_rows(styles, f"{prefix}default" if prefix else "default", say_value)
+        return styles
+    if isinstance(say_value.get("variants"), list):
+        for variant in say_value["variants"]:
+            if not isinstance(variant, dict):
+                continue
+            vid = str(variant.get("id") or "default")
+            key = f"{prefix}{vid}" if prefix else vid
+            _append_text_rows(styles, key, variant.get("text") or variant.get("translations"))
+        return styles
+    for sub_key, sub_val in say_value.items():
+        if isinstance(sub_val, dict):
+            nested = _extract_say_styles(sub_val, prefix=f"{prefix}{sub_key}." if prefix else f"{sub_key}.")
+            for k, v in nested.items():
+                styles.setdefault(k, []).extend(v)
+    return styles
+
+
+def _extract_convo_engine_families(document: dict[str, Any]) -> list[dict[str, Any]]:
+    doc_kind = document.get("kind")
+    if doc_kind not in {"dialogue", "realization"}:
+        return []
+    namespace = str(document.get("namespace") or "").strip()
+    raw_id = str(document.get("id") or "").strip()
+    canonical_id = f"{namespace}.{raw_id}".strip(".") if namespace and not raw_id.startswith(f"{namespace}.") else raw_id
+    if not canonical_id:
+        return []
+    owner = str(document.get("owner") or "ProjectHoomans")
+    styles: dict[str, list[dict[str, Any]]] = {}
+    if doc_kind == "dialogue":
+        styles.update(_extract_say_styles(document.get("say")))
+        styles.update(_extract_say_styles(document.get("respond"), prefix="respond."))
+        reply = document.get("reply")
+        if isinstance(reply, dict):
+            for outcome, branch in reply.items():
+                if isinstance(branch, dict):
+                    styles.update(_extract_say_styles(branch.get("say"), prefix=f"reply.{outcome}."))
+        for idx, turn in enumerate(document.get("turns") or (), start=1):
+            if isinstance(turn, dict):
+                _append_text_rows(styles, f"turn.{idx}", turn.get("text"))
+    else:
+        if isinstance(document.get("translations"), dict):
+            trans = document["translations"]
+            en_tokens = trans.get("EN") or []
+            tl_tokens = trans.get("TL") or []
+            if isinstance(en_tokens, list) and isinstance(tl_tokens, list):
+                en_text = [" ".join(str(t.get("value", "")) for t in en_tokens if isinstance(t, dict))] if en_tokens and isinstance(en_tokens[0], dict) else en_tokens
+                tl_text = [" ".join(str(t.get("value", "")) for t in tl_tokens if isinstance(t, dict))] if tl_tokens and isinstance(tl_tokens[0], dict) else tl_tokens
+                _append_text_rows(styles, "realization", {"EN": en_text, "TL": tl_text})
+    if not styles:
+        return []
+    return [{
+        "semanticTemplateID": canonical_id,
+        "owner": owner,
+        "styles": styles,
+    }]
+
+
 def audit_corpus(
     repository: Path | None = None,
     manifest_path: Path | None = None,
@@ -176,7 +282,12 @@ def audit_corpus(
 
     manifest_path = manifest_path.resolve()
     conv_root = manifest_path.parent
-    _, entries = _load_manifest(repository, manifest_path)
+    package_repositories = _resolve_package_repositories(repository)
+    _, entries = _load_manifest(
+        repository,
+        manifest_path,
+        package_repositories=package_repositories,
+    )
 
     if sweep_dirs is None:
         sweeps_base = repository / "tools/semantic_harness/reports/sweeps"
@@ -193,21 +304,24 @@ def audit_corpus(
     classification_counts: dict[str, int] = {c: 0 for c in ALL_CLASSIFICATIONS}
 
     for entry in entries:
-        if entry["kind"] != "content":
+        if entry["kind"] not in {"content", "convo_engine"}:
             continue
-        shard_path = conv_root / entry["path"]
+        shard_path = _convo_shard_path(repository, conv_root, entry)
         with open(shard_path, "r", encoding="utf-8") as f:
             document = json.load(f)
 
         groups = document.get("groups") or {}
-        families = document.get("phraseFamilies") or []
+        if entry["kind"] == "content":
+            families = document.get("phraseFamilies") or []
+        else:
+            families = _extract_convo_engine_families(document)
         for family in families:
             total_families += 1
             template_id = family["semanticTemplateID"]
             family_id = f"phrase.{template_id}"
             group_name = family.get("group", "")
             group_meta = groups.get(group_name) or {}
-            source_owner = group_meta.get("contentOwner") or "UNKNOWN"
+            source_owner = family.get("owner") or group_meta.get("contentOwner") or entry.get("owner") or "UNKNOWN"
             styles = family.get("styles") or {}
 
             for style_key, raw_phrases in styles.items():
