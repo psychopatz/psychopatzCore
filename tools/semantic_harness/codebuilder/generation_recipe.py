@@ -554,6 +554,13 @@ def build_desired_artifact_ledger(
         package_repositories=package_repositories,
     )
 
+    manifest = compiled_model.get("manifest") if isinstance(compiled_model, Mapping) else None
+    registry_owner = normalize_owner(
+        manifest.get("registryOwner") if isinstance(manifest, Mapping) else None
+    )
+    if resolved_hoomans is None and registry_owner == HOOMANS_OWNER:
+        resolved_hoomans = repo_path
+
     out_overrides = (
         {
             normalize_owner(owner): Path(path).expanduser().resolve()
@@ -804,9 +811,13 @@ def build_desired_artifact_ledger(
         )
 
     # Plan Conversation/Text from text/manifest.json + inline ConvoEngine textTarget projections
-    text_manifest_path = (
-        resolved_core
-        / "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json"
+    text_manifest_candidates = [
+        primary_compile_repo / "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        resolved_core / "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+    ]
+    text_manifest_path = next(
+        (cand for cand in text_manifest_candidates if cand.is_file()),
+        text_manifest_candidates[-1],
     )
     catalogs_by_owner = conversation_translation_catalogs_by_owner(
         compiled_model,

@@ -588,6 +588,7 @@ def reconcile_check(
     *,
     recipe_path: str | Path | None = None,
     recipe: GenerationRecipe | None = None,
+    model: dict[str, Any] | None = None,
     core_repository: str | Path | None = None,
     hoomans_repository: str | Path | None = None,
     dynamic_trading_repository: str | Path | None = None,
@@ -602,6 +603,7 @@ def reconcile_check(
     active_ledger = ledger or build_desired_artifact_ledger(
         repository,
         recipe=active_recipe,
+        model=model,
         core_repository=core_repository,
         hoomans_repository=hoomans_repository,
         dynamic_trading_repository=dynamic_trading_repository,
@@ -674,6 +676,7 @@ def reconcile_apply(
     *,
     recipe_path: str | Path | None = None,
     recipe: GenerationRecipe | None = None,
+    model: dict[str, Any] | None = None,
     core_repository: str | Path | None = None,
     hoomans_repository: str | Path | None = None,
     dynamic_trading_repository: str | Path | None = None,
@@ -681,6 +684,7 @@ def reconcile_apply(
     receipt_root: str | Path | None = None,
     wordnet_home: str | Path | None = None,
     allowlist_path: str | Path = DEFAULT_ALLOWLIST,
+    strict_closure: bool = True,
 ) -> dict[str, Any]:
     """Compile and validate the desired ledger, prune proven stale/retired state, write canonical outputs, and verify closure."""
     active_recipe = recipe or load_generation_recipe(recipe_path)
@@ -688,6 +692,7 @@ def reconcile_apply(
     ledger = build_desired_artifact_ledger(
         repository,
         recipe=active_recipe,
+        model=model,
         core_repository=core_repository,
         hoomans_repository=hoomans_repository,
         dynamic_trading_repository=dynamic_trading_repository,
@@ -815,6 +820,7 @@ def reconcile_apply(
     post_ledger = build_desired_artifact_ledger(
         repository,
         recipe=active_recipe,
+        model=model,
         core_repository=core_repository,
         hoomans_repository=hoomans_repository,
         dynamic_trading_repository=dynamic_trading_repository,
@@ -830,7 +836,7 @@ def reconcile_apply(
         wordnet_home=wordnet_home,
         allowlist_path=allowlist_path,
     )
-    if not post_check["clean"]:
+    if strict_closure and not post_check["clean"]:
         c = post_check["counts"]
         raise CompileError(
             "Post-reconciliation closure check failed: "
@@ -838,17 +844,29 @@ def reconcile_apply(
             f"retired_present={c['retired_present']} ambiguous={c['ambiguous']}"
         )
 
+    desired_abs_paths = [
+        post_ledger.output_repositories[row.owner] / Path(*PurePosixPath(row.path).parts)
+        for row in post_ledger.rows
+        if include_lexicon or row.surface != "lexicon_lua"
+    ]
+
     return {
         "schema": RECONCILIATION_REPORT_SCHEMA,
         "mode": "apply",
-        "ok": True,
-        "clean": True,
+        "ok": post_check["clean"] if strict_closure else (
+            post_check["counts"]["missing"] == 0
+            and post_check["counts"]["drifted"] == 0
+            and post_check["counts"]["stale"] == 0
+            and post_check["counts"]["retired_present"] == 0
+        ),
+        "clean": post_check["clean"],
         "effectFree": False,
         "modelFingerprint": post_ledger.model_fingerprint,
         "enabledOwners": list(post_ledger.enabled_owners),
         "prunedFiles": pruned_files,
         "prunedKeys": pruned_keys,
         "writtenFiles": written_files,
+        "desiredPaths": [str(p) for p in desired_abs_paths],
         "preCounts": pre_check["counts"],
         "counts": post_check["counts"],
         "owners": post_check["owners"],

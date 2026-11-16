@@ -103,6 +103,15 @@ from .generation_recipe import (
     load_generation_recipe,
     validate_generation_recipe,
 )
+from .reconcile import (
+    GENERATION_RECEIPT_SCHEMA,
+    RECONCILIATION_REPORT_SCHEMA,
+    check_owner_surface_state,
+    load_owner_receipt,
+    reconcile_apply,
+    reconcile_check,
+    write_owner_receipt,
+)
 from .psdl_compiler import (
     CONVO_ENGINE_COMPILED_SCHEMA,
     PSDL_COMPILED_SCHEMA,

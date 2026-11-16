@@ -82,6 +82,28 @@ def _build_three_repo_fixture(base: Path) -> dict[str, Path]:
                     "domainFromSubdir": True,
                 }
             ],
+            "externalSourceRoots": [
+                {
+                    "path": "adopters/dt/dialogue",
+                    "kind": "convo_engine",
+                    "domain": "trading",
+                    "order": 3010,
+                    "owner": "DTCommon",
+                    "optional": True,
+                    "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/dialogue",
+                    "domainFromSubdir": True,
+                },
+                {
+                    "path": "adopters/hoomans/dialogue",
+                    "kind": "convo_engine",
+                    "domain": "general",
+                    "order": 3011,
+                    "owner": "ProjectHoomans",
+                    "optional": True,
+                    "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/dialogue",
+                    "domainFromSubdir": True,
+                },
+            ],
             "sourceProfiles": {
                 "conversation.source.psychopatzcore.seed": {
                     "owner": "PsychopatzCore",

@@ -280,308 +280,32 @@ def write_conversation_output(
     core_repository: Path | None = None,
     dynamic_trading_repository: Path | None = None,
     output_repositories: Mapping[str, Path] | None = None,
+    receipt_root: Path | None = None,
+    strict_closure: bool = False,
 ) -> list[Path]:
-    """Write manifest-backed Conversation artifacts.
+    """Write manifest-backed Conversation artifacts through the recipe-driven reconciler.
 
     When *output_repositories* is provided, sources are compiled from the
     workspace repositories while all generated Lua and translation writes are
     redirected into the isolated destination directories without touching live
     ``media/`` or ``Translate/`` trees.
     """
-    repository = repository.expanduser().resolve()
-    workspace = WorkspaceCatalog.discover(
-        repository,
-        repository=repository,
-        core_repository=core_repository,
-        dynamic_trading_repository=dynamic_trading_repository,
-        allow_sibling_discovery=False,
-        runtime_root=repository,
-    )
-    core_repository = workspace.core_repository
-    package_repositories = dict(workspace.repository_by_owner)
-    package_repositories.setdefault(HOOMANS_OWNER, repository)
-    package_repositories[CORE_OWNER] = core_repository
-    if dynamic_trading_repository is not None:
-        package_repositories[DT_COMMON_OWNER] = (
-            dynamic_trading_repository.expanduser().resolve()
-        )
-    model = model or compile_conversation_sources(
-        repository,
-        package_repositories=package_repositories,
-    )
-    out_overrides = (
-        {
-            normalize_owner(owner): Path(path).expanduser().resolve()
-            for owner, path in output_repositories.items()
-        }
-        if output_repositories
-        else {}
-    )
-    out_repo = out_overrides.get(HOOMANS_OWNER, repository)
-    out_core = (
-        out_overrides.get(CORE_OWNER, core_repository)
-        if core_repository is not None
-        else out_overrides.get(CORE_OWNER)
-    )
-    out_dt = (
-        out_overrides.get(DT_COMMON_OWNER, dynamic_trading_repository)
-        if dynamic_trading_repository is not None
-        else out_overrides.get(DT_COMMON_OWNER)
-    )
-    manifest = model.get("manifest") if isinstance(model, dict) else None
-    registry_owner = normalize_owner(
-        manifest.get("registryOwner") if isinstance(manifest, dict) else None,
-    )
-    registry_root = generated_conversation_root(
-        out_repo,
-        registry_owner,
-        core_repository=out_core,
-        dynamic_trading_repository=out_dt,
-        runtime_root=out_repo,
-    )
-
-    # Validate the complete plan before deleting or writing any generated
-    # artifact. Hard context-health violations are compiler errors, not
-    # advisory cleanup work after generation.
-    rendered, reports = render_conversation_runtime_plan(model)
-    health = conversation_context_health(model, reports)
-    if health.get("status") != "pass":
-        errors = health.get("errors") or []
-        summary = "; ".join(
-            str(item.get("type") or "context_health_error")
-            + ":"
-            + str(item.get("path") or item.get("module") or "")
-            for item in errors[:8]
-        )
-        raise CompileError(
-            "Conversation context-health hard violations"
-            + (": " + summary if summary else "")
-        )
-
-    enabled_owners = {HOOMANS_OWNER, CORE_OWNER}
-    if dynamic_trading_repository is not None:
-        enabled_owners.add(DT_COMMON_OWNER)
-    writable_rendered = [
-        (module, source)
-        for module, source in rendered
-        if module_owner(module) in enabled_owners
-    ]
-    owners_to_clean = {registry_owner} & enabled_owners
-    for module, _source in writable_rendered:
-        owners_to_clean.add(module_owner(module))
-    for owner in sorted(owners_to_clean):
-        _clean_generated_tree(
-            generated_conversation_root(
-                out_repo,
-                owner,
-                core_repository=out_core,
-                dynamic_trading_repository=out_dt,
-                runtime_root=out_repo,
-            ),
-            generated_only=True,
-        )
-
-    registry_root.mkdir(parents=True, exist_ok=True)
-    primary_registry_owners = None
-    if registry_owner == HOOMANS_OWNER:
-        primary_registry_owners = (CORE_OWNER, HOOMANS_OWNER)
+    if __package__ in {None, ""}:
+        from tools.semantic_harness.codebuilder.reconcile import reconcile_apply
     else:
-        primary_registry_owners = (registry_owner,)
-    paths = _write_routed_modules(
-        out_repo,
-        out_core,
-        out_dt,
-        writable_rendered,
+        from .reconcile import reconcile_apply
+
+    report = reconcile_apply(
+        repository,
+        model=model,
+        core_repository=core_repository,
+        hoomans_repository=repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        output_repositories=output_repositories,
+        receipt_root=receipt_root,
+        strict_closure=strict_closure,
     )
-    registry_path = registry_root / "Registry.lua"
-    registry_path.write_text(
-        render_conversation_registry(
-            model,
-            reports,
-            include_owners=primary_registry_owners,
-        ),
-        encoding="utf-8",
-        newline="\n",
-    )
-    paths.append(registry_path)
-
-    # Core receives a standalone foundation registry containing only
-    # Core-owned records.  The adopter registry above remains intentionally
-    # combined for Project Hoomans compatibility, but Core and standalone
-    # adopters must never need to import that Hoomans-owned registry.
-    if out_core is not None:
-        core_registry_root = generated_conversation_root(
-            out_repo,
-            CORE_OWNER,
-            core_repository=out_core,
-            dynamic_trading_repository=out_dt,
-            runtime_root=out_repo,
-        )
-        core_registry_path = core_registry_root / "FoundationRegistry.lua"
-        core_registry_path.write_text(
-            render_conversation_registry(
-                model,
-                reports,
-                registry_owner=CORE_OWNER,
-                include_owner=CORE_OWNER,
-                registry_module="PsychopatzCore/ConvoEngine/FoundationRegistry",
-            ),
-            encoding="utf-8",
-            newline="\n",
-        )
-        paths.append(core_registry_path)
-
-    if (
-        out_dt is not None
-        and registry_owner != DT_COMMON_OWNER
-    ):
-        dt_registry_root = generated_conversation_root(
-            out_repo,
-            DT_COMMON_OWNER,
-            core_repository=out_core,
-            dynamic_trading_repository=out_dt,
-            runtime_root=out_repo,
-        )
-        dt_registry_root.mkdir(parents=True, exist_ok=True)
-        dt_registry_path = dt_registry_root / "Registry.lua"
-        dt_registry_path.write_text(
-            render_conversation_registry(
-                model,
-                reports,
-                registry_owner=DT_COMMON_OWNER,
-                include_owner=DT_COMMON_OWNER,
-                registry_module="DTCommon/ConvoEngine/Registry",
-            ),
-            encoding="utf-8",
-            newline="\n",
-        )
-        paths.append(dt_registry_path)
-        dt_manifest_path = dt_registry_root / "Manifest.lua"
-        dt_manifest_reports = [
-            report
-            for report in reports
-            if report.get("owner") == DT_COMMON_OWNER
-        ]
-        dt_manifest_path.write_text(
-            render_conversation_manifest_lua(
-                model,
-                dt_manifest_reports,
-                registry_owner=DT_COMMON_OWNER,
-            ),
-            encoding="utf-8",
-            newline="\n",
-        )
-        paths.append(dt_manifest_path)
-    manifest_path = registry_root / "Manifest.lua"
-    primary_report_owners = set(primary_registry_owners or (registry_owner,))
-    manifest_reports = [
-        report
-        for report in reports
-        if report.get("owner") in primary_report_owners
-    ]
-    manifest_path.write_text(
-        render_conversation_manifest_lua(model, manifest_reports),
-        encoding="utf-8",
-        newline="\n",
-    )
-    paths.append(manifest_path)
-
-    ui_runtime_path = out_repo / CONVERSATION_UI_RUNTIME_RELATIVE
-    ui_runtime_path.parent.mkdir(parents=True, exist_ok=True)
-    ui_owners = (
-        (CORE_OWNER, HOOMANS_OWNER)
-        if registry_owner == HOOMANS_OWNER
-        else (registry_owner,)
-    )
-    ui_runtime_path.write_text(
-        render_conversation_ui_module(model, include_owners=ui_owners),
-        encoding="utf-8",
-        newline="\n",
-    )
-    paths.append(ui_runtime_path)
-
-    catalogs_by_owner = conversation_translation_catalogs_by_owner(
-        model,
-        package_repositories=package_repositories,
-    )
-    for owner, catalogs in sorted(catalogs_by_owner.items()):
-        if owner not in enabled_owners:
-            continue
-        package_translation_root = translation_root(
-            out_repo,
-            owner,
-            core_repository=out_core,
-            dynamic_trading_repository=out_dt,
-            runtime_root=out_repo,
-        )
-        for language in sorted(catalogs):
-            for domain, values in sorted(catalogs[language].items()):
-                relative = f"{language}/Conversation/{domain}.json"
-                path = package_translation_root / relative
-                path.parent.mkdir(parents=True, exist_ok=True)
-                output_values = (
-                    merge_translation_catalog(path, values)
-                    if domain == "UI"
-                    else values
-                )
-                path.write_text(
-                    pretty_json(output_values),
-                    encoding="utf-8",
-                    newline="\n",
-                )
-                paths.append(path)
-        paths.append(
-            _write_conversation_translation_manifest(
-                package_translation_root,
-                package_descriptor(owner).translation_manifest_relative,
-            )
-        )
-
-    text_manifest = CONVERSATION_TEXT_MANIFEST
-    if text_manifest.is_file():
-        for owner in sorted(enabled_owners):
-            package_translation_root = translation_root(
-                out_repo,
-                owner,
-                core_repository=out_core,
-                dynamic_trading_repository=out_dt,
-                runtime_root=out_repo,
-            )
-            paths.extend(write_runtime_text_catalogs(
-                text_manifest,
-                package_translation_root,
-                owner=owner,
-            ))
-
-    # PSDL response text is authored inline and therefore has no entry in the
-    # legacy text-source manifest.  Emit its declared Text/ compatibility
-    # catalogs after that manifest's cleanup pass so adopters can continue to
-    # use the accepted TextCatalog source contract without retaining a second
-    # translation authoring surface.
-    for owner, catalogs in sorted(catalogs_by_owner.items()):
-        if owner not in enabled_owners:
-            continue
-        package_translation_root = translation_root(
-            out_repo,
-            owner,
-            core_repository=out_core,
-            dynamic_trading_repository=out_dt,
-            runtime_root=out_repo,
-        )
-        for language, domains in sorted(catalogs.items()):
-            for domain, values in sorted(domains.items()):
-                if not domain.startswith("Text/"):
-                    continue
-                path = package_translation_root / f"{language}/Conversation/{domain}.json"
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(
-                    pretty_json(values),
-                    encoding="utf-8",
-                    newline="\n",
-                )
-                paths.append(path)
-
-    return paths
+    return [Path(p) for p in report.get("desiredPaths") or []]
 
 
 def main(arguments: list[str] | None = None) -> int:
