@@ -17,7 +17,6 @@ from tools.semantic_harness.testing.loader import (
 )
 from tools.semantic_harness.testing.resolver import (
     FixtureResolutionError,
-    resolve_fixture_file,
     resolve_fixture_roots,
 )
 
@@ -149,70 +148,26 @@ def run_regression(app: Any) -> None:
 
 
 def run_regression_lifecycle(app: Any) -> None:
-    try:
-        cases = _fixture_cases(app, "observatory_lifecycle_en_tl.json")
-    except (OSError, ValueError, FixtureResolutionError, json.JSONDecodeError) as error:
-        app.regression_status_var.set(f"Lifecycle fixture unavailable: {error}")
-        return
-    _run_matrix(app, cases, "farewell lifecycle")
+    run_semantic_fixtures(
+        app,
+        domain="realization",
+        suite="pnc.realization.lifecycle_and_goodbye_wording",
+    )
 
 
 def run_regression_command_rejections(app: Any) -> None:
-    try:
-        cases = _fixture_cases(app, "observatory_permission_rejections_en_tl.json")
-    except (OSError, ValueError, FixtureResolutionError, json.JSONDecodeError) as error:
-        app.regression_status_var.set(f"Rejection fixture unavailable: {error}")
-        return
-    _run_matrix(app, cases, "authority rejection")
+    run_semantic_fixtures(
+        app,
+        domain="realization",
+        suite="pnc.realization.permission_rejection_wording",
+    )
 
 
 def run_regression_selection(app: Any) -> None:
-    if not app.session.ready or app.busy:
-        return
-    try:
-        path = _resolve_regression_fixture(app, "observatory_greeting_selection.json")
-        scenario = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError, FixtureResolutionError, json.JSONDecodeError) as error:
-        app.regression_status_var.set(f"Selection fixture unavailable: {error}")
-        return
-
-    def finish(report: dict[str, Any]) -> None:
-        lines = [
-            f"Production Lua selector coverage: {report['poolID']}",
-            f"Contexts tested: {report['caseCount']}",
-            f"Revision: {report['registryRevision']}",
-            "These outcomes apply ONLY to tested hypothetical contexts.",
-            "Not selected does NOT mean globally unreachable.",
-            "",
-        ]
-        for variant in report["variants"]:
-            lines.extend(
-                (
-                    f"{variant['variantID']} · {variant['testedStatus']}",
-                    f"  eligible={variant['eligibleCases']} "
-                    f"selected={variant['selectedCases']} "
-                    f"lower-score={variant['lowerRankedCases']} "
-                    f"ties-not-selected={variant['tieCases']}",
-                    "",
-                )
-            )
-        for case in report["cases"]:
-            lines.append(f"{case['label']}: selected {case['selectedID']}")
-            for row in case["candidateEvidence"]:
-                if row["failedFields"]:
-                    lines.append(
-                        f"  {row['variantID']}: not eligible "
-                        f"({', '.join(row['failedFields'])})"
-                    )
-        app._set_text(app.regression_output, "\n".join(lines))
-        app.regression_status_var.set(
-            f"Selection contexts={report['caseCount']} · production matcher"
-        )
-        _select_regression_home(app)
-
-    app._start_operation(
-        lambda worker: selection_coverage(worker, scenario),
-        finish,
+    run_semantic_fixtures(
+        app,
+        domain="realization",
+        suite="pnc.realization.response_pool_lookup_explain_and_sampling",
     )
 
 
@@ -281,6 +236,7 @@ def run_semantic_fixtures(
     app: Any,
     *,
     domain: str | None = None,
+    suite: str | None = None,
     semantic_id: str | None = None,
 ) -> None:
     if not app.session.ready or app.busy:
@@ -303,6 +259,7 @@ def run_semantic_fixtures(
     matched = filter_cases(
         all_cases,
         domain=effective_domain,
+        suite=suite,
         semantic_id=effective_sid,
     )
     if not matched:

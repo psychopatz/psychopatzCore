@@ -200,15 +200,14 @@ class FixtureAuthorityTests(unittest.TestCase):
         run_regression_command_rejections(app)
         run_regression_selection(app)
         self.assertEqual(len(captured), 3, app.regression_status_var.value)
-        resolved = resolve_fixture_file(
-            "observatory_lifecycle_en_tl.json",
-            kind="regression",
+        roots = resolve_fixture_roots(
+            kind="semantic",
             core_repository=CORE_ROOT,
             repository=HOOMANS_ROOT,
         )
         self.assertEqual(
-            resolved,
-            (HOOMANS_ROOT / "tools/providers/pnc/fixtures/observatory_lifecycle_en_tl.json").resolve(),
+            roots,
+            ((HOOMANS_ROOT / "tools/providers/pnc/fixtures/v1").resolve(),),
         )
 
     def test_standalone_cli_default_list_discovers_provider_corpus(self) -> None:
@@ -218,7 +217,7 @@ class FixtureAuthorityTests(unittest.TestCase):
         self.assertEqual(rc, 0)
         output = buf.getvalue()
         self.assertRegex(output, r"Discovered (?:1[1-9]\d|[2-9]\d\d|\d{4,}) matching test case\(s\):")
-        self.assertIn("command.follow.direct", output)
+        self.assertIn("actions.companion_and_task_commands.follow_direct", output)
 
         report = lint_fixtures(
             resolve_fixture_roots(kind="semantic", core_repository=CORE_ROOT)
@@ -244,7 +243,7 @@ class FixtureAuthorityTests(unittest.TestCase):
                 "20",
                 "--run-semantic-tests",
                 "--semantic-test-filter",
-                "command.follow.direct",
+                "actions.companion_and_task_commands.follow_direct",
                 "--jsonl",
             ],
             cwd=str(CORE_ROOT),
@@ -316,7 +315,7 @@ class FixtureAuthorityTests(unittest.TestCase):
 
         run_semantic_fixtures(app)
         self.assertIn("PASS=1 FAIL=0 TOTAL=1", app.rendered_text)
-        self.assertIn("compiler.beat_argument_escalation_linkage", app.rendered_text)
+        self.assertIn("compiler.pipeline_and_beat_linkage.beat_argument_escalation_linkage", app.rendered_text)
 
         cancel_semantic_fixtures(app)
         self.assertTrue(app._fixture_cancel_requested)

@@ -1,48 +1,122 @@
-"""Duplicate-case and fixture schema linter for declarative semantic tests."""
+"""Duplicate-case, naming, and fixture schema linter for declarative semantic tests."""
 
 from __future__ import annotations
 
 import argparse
+import json
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
-from typing import Sequence
+from typing import Any, Sequence
 
 from .loader import SemanticCase, discover_cases
 from .resolver import FixtureResolutionError, resolve_fixture_roots
-from .schema import validate_case, validate_fixture_document
+
+FORBIDDEN_HISTORY_TOKEN_RE = re.compile(
+    r"(?:^|[._/\-])("
+    r"c\d+[a-z]?|"
+    r"b[0-9]+|h[0-9]+|r[0-9]+|e[0-9]+|l[0-9]+|s[0-9]+|"
+    r"a[12]|a6r\d+|"
+    r"phase\d+|batch\d+|part\d+|"
+    r"pilot|legacy|compat|old"
+    r")(?:$|[._/\-])",
+    re.IGNORECASE,
+)
+
+
+def _find_history_tokens(value: str) -> list[str]:
+    return sorted({m.group(1).lower() for m in FORBIDDEN_HISTORY_TOKEN_RE.finditer(value)})
+
+
+def _normalized_stimulus(case: SemanticCase) -> str:
+    turns_norm = [
+        {
+            "text": t.get("text"),
+            "action": t.get("action"),
+            "payload": t.get("payload"),
+            "rootChoice": t.get("rootChoice"),
+            "suggestionClick": t.get("suggestionClick"),
+            "language": t.get("language"),
+        }
+        for t in case.turns
+    ]
+    return json.dumps(
+        {"scenario": case.scenario, "turns": turns_norm},
+        sort_keys=True,
+        ensure_ascii=False,
+    )
+
+
+def _normalized_case_signature(case: SemanticCase) -> str:
+    turns_norm = [
+        {
+            "text": t.get("text"),
+            "action": t.get("action"),
+            "payload": t.get("payload"),
+            "rootChoice": t.get("rootChoice"),
+            "suggestionClick": t.get("suggestionClick"),
+            "language": t.get("language"),
+            "expect": t.get("expect"),
+        }
+        for t in case.turns
+    ]
+    return json.dumps(
+        {"scenario": case.scenario, "turns": turns_norm},
+        sort_keys=True,
+        ensure_ascii=False,
+    )
 
 
 def lint_fixtures(
     fixtures_dir: Path | Sequence[Path],
-) -> dict[str, object]:
-    """Lint all fixture documents under directory(s) for schema violations and duplicate cases."""
-    results: dict[str, object] = {
+    *,
+    enforce_naming: bool = True,
+) -> dict[str, Any]:
+    """Lint fixture documents for schema errors, duplicates, overlaps, and naming."""
+    results: dict[str, Any] = {
         "ok": True,
         "files_checked": 0,
         "cases_checked": 0,
         "duplicate_ids": [],
         "duplicate_utterance_cases": [],
+        "exact_duplicates": [],
+        "stimulus_overlaps": [],
+        "naming_violations": [],
+        "domain_path_mismatches": [],
         "schema_errors": [],
     }
 
     dirs = [fixtures_dir] if isinstance(fixtures_dir, Path) else list(fixtures_dir)
-    files: list[Path] = []
+    files: list[tuple[Path, Path]] = []
     seen_files: set[Path] = set()
     for root in dirs:
-        for f in sorted(root.rglob("*.json")):
+        resolved_root = root.resolve()
+        for f in sorted(resolved_root.rglob("*.json")):
             resolved = f.resolve()
             if resolved not in seen_files:
                 seen_files.add(resolved)
-                files.append(f)
+                files.append((resolved_root, f))
     results["files_checked"] = len(files)
 
     seen_ids: dict[str, Path] = {}
     utterance_map: dict[tuple[str, ...], list[str]] = defaultdict(list)
+    exact_sig_map: dict[str, list[dict[str, str]]] = defaultdict(list)
+    stimulus_map: dict[str, list[dict[str, str]]] = defaultdict(list)
 
-    all_cases: list[SemanticCase] = []
+    for root, f in files:
+        rel_path = f.relative_to(root).as_posix()
+        top_dir = f.relative_to(root).parts[0] if len(f.relative_to(root).parts) > 1 else None
+        if enforce_naming:
+            path_tokens = _find_history_tokens(rel_path)
+            if path_tokens:
+                results["naming_violations"].append({
+                    "kind": "path",
+                    "target": rel_path,
+                    "tokens": path_tokens,
+                })
+                results["ok"] = False
 
-    for f in files:
         try:
             cases = discover_cases([f])
             for c in cases:
@@ -56,7 +130,43 @@ def lint_fixtures(
                     results["ok"] = False
                 seen_ids[c.case_id] = f
 
-                # Check for identical multi-turn inputs across same suite
+                if enforce_naming:
+                    for kind, val in (("suite", c.suite), ("case_id", c.case_id)):
+                        tokens = _find_history_tokens(val)
+                        if tokens:
+                            results["naming_violations"].append({
+                                "kind": kind,
+                                "target": val,
+                                "file": rel_path,
+                                "tokens": tokens,
+                            })
+                            results["ok"] = False
+                    if top_dir and c.domain and top_dir != c.domain:
+                        results["domain_path_mismatches"].append({
+                            "file": rel_path,
+                            "top_dir": top_dir,
+                            "domain": c.domain,
+                            "case_id": c.case_id,
+                        })
+                        results["ok"] = False
+
+                # Global exact-duplicate and stimulus-overlap tracking
+                sig = _normalized_case_signature(c)
+                exact_sig_map[sig].append({
+                    "case_id": c.case_id,
+                    "suite": c.suite,
+                    "domain": c.domain or "",
+                    "file": rel_path,
+                })
+                stim = _normalized_stimulus(c)
+                stimulus_map[stim].append({
+                    "case_id": c.case_id,
+                    "suite": c.suite,
+                    "domain": c.domain or "",
+                    "file": rel_path,
+                })
+
+                # Same-suite utterance check
                 inputs = tuple(
                     t.get("text") or t.get("rootChoice") or ""
                     for t in c.turns
@@ -73,10 +183,8 @@ def lint_fixtures(
             })
             results["ok"] = False
 
-    # Check for duplicate utterance combinations in the same suite with identical scenario
     for (suite, *inputs), c_ids in utterance_map.items():
         if len(c_ids) > 1:
-            # Only flag if not a matrix variant
             non_matrix_ids = [cid for cid in c_ids if "[" not in cid]
             if len(non_matrix_ids) > 1:
                 results["duplicate_utterance_cases"].append({
@@ -84,6 +192,15 @@ def lint_fixtures(
                     "inputs": list(inputs),
                     "case_ids": non_matrix_ids,
                 })
+
+    for entries in exact_sig_map.values():
+        if len(entries) > 1:
+            results["exact_duplicates"].append(entries)
+            results["ok"] = False
+
+    for entries in stimulus_map.values():
+        if len(entries) > 1:
+            results["stimulus_overlaps"].append(entries[:8])
 
     return results
 
@@ -101,6 +218,7 @@ def run_linter_cli(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--provider-root", action="append", dest="provider_roots")
     parser.add_argument("--preset", default=None)
     parser.add_argument("--mods", action="append", default=None)
+    parser.add_argument("--show-overlaps", action="store_true", help="print cross-case stimulus overlaps")
     args = parser.parse_args(argv)
 
     mods = (
@@ -127,7 +245,16 @@ def run_linter_cli(argv: Sequence[str] | None = None) -> int:
         return 1
 
     report = lint_fixtures(roots)
-    print(f"Linted {report['files_checked']} files, {report['cases_checked']} cases.")
+    print(
+        f"Linted {report['files_checked']} files, {report['cases_checked']} cases "
+        f"({len(report['stimulus_overlaps'])} stimulus overlap group(s))."
+    )
+
+    if args.show_overlaps and report["stimulus_overlaps"]:
+        print("Stimulus overlap groups (informational):")
+        for group in report["stimulus_overlaps"][:20]:
+            summary = ", ".join(f"{item['case_id']} ({item['domain'] or item['suite']})" for item in group)
+            print(f"  - {summary}")
 
     if not report["ok"]:
         print("Lint FAILED with errors:", file=sys.stderr)
@@ -135,11 +262,16 @@ def run_linter_cli(argv: Sequence[str] | None = None) -> int:
             print(f"  Schema error in {err['file']}: {err['error']}", file=sys.stderr)
         for dup in report["duplicate_ids"]:
             print(f"  Duplicate case ID '{dup['case_id']}' in {dup['file_1']} and {dup['file_2']}", file=sys.stderr)
-        for dup_ut in report["duplicate_utterance_cases"]:
-            print(f"  Duplicate inputs {dup_ut['inputs']} in suite '{dup_ut['suite']}': {dup_ut['case_ids']}", file=sys.stderr)
+        for dup_group in report["exact_duplicates"]:
+            ids = ", ".join(f"{e['case_id']} ({e['file']})" for e in dup_group)
+            print(f"  Global exact duplicate case(s): {ids}", file=sys.stderr)
+        for nv in report["naming_violations"][:20]:
+            print(f"  History/milestone naming violation ({nv['kind']}): {nv['target']} {nv['tokens']}", file=sys.stderr)
+        for dm in report["domain_path_mismatches"][:20]:
+            print(f"  Domain/path mismatch in {dm['file']}: dir '{dm['top_dir']}' != domain '{dm['domain']}'", file=sys.stderr)
         return 1
 
-    print("All fixtures passed schema and duplicate-case linting cleanly.")
+    print("All fixtures passed schema, naming, and duplicate-case linting cleanly.")
     return 0
 
 

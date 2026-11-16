@@ -262,6 +262,47 @@ class FixtureOperationRegistryTests(unittest.TestCase):
             self.assertEqual([r.case_id for r in resumed.results], ["c2"])
             self.assertEqual(resumed.passed_count, 2)
 
+    def test_linter_detects_global_duplicates_naming_violations_and_overlaps(self) -> None:
+        import json
+        import tempfile
+        from pathlib import Path
+        from tools.semantic_harness.testing.lint import lint_fixtures
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "dialogue").mkdir(parents=True)
+            (root / "suggestions").mkdir(parents=True)
+            (root / "dialogue" / "greetings.json").write_text(
+                json.dumps({
+                    "schema": "semantic.harness-test.v1",
+                    "suite": "pnc.dialogue.greetings",
+                    "domain": "dialogue",
+                    "cases": [{
+                        "id": "dialogue.greetings.hello",
+                        "turns": [{"text": "hello", "expect": {"ir.intent": "GREET"}}],
+                    }],
+                }),
+                encoding="utf-8",
+            )
+            (root / "suggestions" / "batch1_bad.json").write_text(
+                json.dumps({
+                    "schema": "semantic.harness-test.v1",
+                    "suite": "pnc.suggestions.c0a",
+                    "domain": "dialogue",
+                    "cases": [{
+                        "id": "suggestions.c0a.hello",
+                        "turns": [{"text": "hello", "expect": {"ir.intent": "GREET"}}],
+                    }],
+                }),
+                encoding="utf-8",
+            )
+            report = lint_fixtures(root)
+            self.assertFalse(report["ok"])
+            self.assertEqual(len(report["exact_duplicates"]), 1)
+            self.assertTrue(report["naming_violations"])
+            self.assertTrue(report["domain_path_mismatches"])
+            self.assertEqual(len(report["stimulus_overlaps"]), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
