@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** ACTIVE — S10R acceptance-integrity repair.
-**Estimated developer progress:** S0-S9R retained; S10A accepted; S10B-S10D mechanisms implemented but completion/closure claims reopened by audit.
+**Status:** USER_ACCEPTANCE — developer-side S0–S10 + S10R complete (`9/9` canonical acceptance suites PASS).
+**Estimated developer progress:** S0-S9R retained; S10A-S10D + S10R1-S10R4 complete and verified.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S10R — acceptance integrity, public-surface ownership, reproducible closure.
-**Immediate Next Chunk:** S10R3 — audit current `hoomans_lua` failures at the live ProjectHoomans checkpoint, fix any S10-owned failures or enforce reviewed machine-classified unrelated-baseline provenance/signatures (never promoting via `convoScopeOk`), and verify overall nine-suite `--acceptance` PASS.
+**Active phase:** S10 (Developer work complete; native Project Zomboid gameplay/visual acceptance remains user-owned).
+**Immediate Next Chunk:** None (awaiting user-owned native Project Zomboid acceptance).
 
 ## Accepted baseline retained
 
@@ -36,9 +36,9 @@ Fresh audit reruns on 2026-11-16:
     Feature Registry + acceptance-runner unit   8/8 PASS
     pnc_s10a_flow_preflight_smoke.lua                PASS
 
-## Why S10 completion is reopened
+## Resolved S10R audit findings (2026-11-16)
 
-The post-S10 audit disproved the claim that only native Project Zomboid user acceptance remains.
+All 5 audit findings below were repaired across `S10R1 -> S10R2 -> S10R3 -> S10R4`:
 
 Normative repair design:
 
@@ -107,6 +107,13 @@ Its Hoomans count also does not reproduce from the exact recorded participant co
     pnc-with-dthoomans
 
 A newly supported non-alias worker-bearing provider can therefore avoid lifecycle acceptance. S10R must derive the executable matrix from current manifest discovery.
+
+## S10R4 completed acceptance and final closure (2026-11-16)
+
+- Removed hard-coded preset tuples (`("pnc", "dtabstract", "pnc-with-dthoomans")`) and hard-coded provider tables from `tools/semantic_harness/tests/test_s10d_provider_lifecycle.py`; `_evaluate_lifecycle_matrix(ModManager)` now derives all non-alias lifecycle presets and `WorkerSession.reconfigure` matrices dynamically from `ModManager.discover(...)` and fails if any executable/worker-bearing provider manifest lacks preset coverage (`4/4` PASS in `25.82s`).
+- Hardened `tools/semantic_harness/codebuilder/workspace_catalog.py` (`temp_roots` exclusion during sibling directory scanning) so temporary test checkouts created under `/tmp` (`tempfile.gettempdir()`) are never poisoned by unrelated `/tmp/*` directories (covered by `test_workspace_catalog_ignores_system_temp_root_siblings`).
+- Full 9-suite canonical `--acceptance` matrix (`PYTHONPATH=. python3 -m tools.semantic_harness --acceptance --acceptance-jobs 4`): **`PASS` `9/9` suites, `2171/2200` cases (`25` allowed local-save skips, `4` signature-proven unrelated `hoomans_lua` baselines from `20997b30`/`79114089`, `0` unexpected failures) in `1448.07s`**.
+- Focused retained S10A checks: `pnc_s10a_flow_preflight_smoke.lua` `PASS`; `test_s10a_label_speech_realization` + `test_s10a_provider_worker_startup` `8/8 PASS` (`38.74s`).
 
 ## S10R3 completed acceptance (2026-11-16)
 

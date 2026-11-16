@@ -1,10 +1,10 @@
 # S10R — Semantic Harness Acceptance Integrity Repair
 
-**Status:** ACTIVE
+**Status:** COMPLETE (`S10R1 -> S10R2 -> S10R3 -> S10R4` resolved; 9/9 `--acceptance` PASS)
 **Audit date:** 2026-11-16
 **Parent goal:** S10 — Semantic Lab end-to-end reliability and maintainability
 **Accepted baseline retained:** S0-S9R and S10A
-**Reopened claims:** S10B acceptance completeness, S10C feature-ownership completeness, and S10D final closure
+**Reopened claims resolved:** S10B acceptance completeness, S10C feature-ownership completeness, and S10D reproducible closure
 
 ## Purpose
 
@@ -175,6 +175,8 @@ The lifecycle matrix must derive its executable provider/preset set from current
 **Gate:** the canonical one-command acceptance returns success with zero unexplained failures/skips and its report can be reproduced from the recorded checkpoint.
 
 ### S10R4 — dynamic lifecycle coverage and final closure
+
+**Status:** COMPLETE (`test_s10d_provider_lifecycle.py` dynamically derives executable presets and cross-provider `WorkerSession.reconfigure` matrices from `ModManager.discover` via `_evaluate_lifecycle_matrix` and fails if any executable/worker-bearing provider manifest lacks preset coverage, with zero hard-coded preset tuples; `workspace_catalog.py` ignores system temp roots like `/tmp` during sibling discovery so stray checkouts cannot poison isolated test repos; full 9-suite `--acceptance` PASS `9/9` suites / `2171/2200` cases / `25` allowed real-local-save skips / `4` signature-proven unrelated `hoomans_lua` baselines / `0` unexpected failures in `1448.07s`; docs reconciled and committed with `phase_commit: self`, exact participant commits, and SHA-256 residual-work fingerprints).
 
 1. Derive lifecycle-tested selections from current manifest/preset discovery rather than a hard-coded expected tuple.
 2. Require every supported non-alias worker-bearing selection to run start/capabilities/request/restart/reconfigure/shutdown acceptance as applicable.

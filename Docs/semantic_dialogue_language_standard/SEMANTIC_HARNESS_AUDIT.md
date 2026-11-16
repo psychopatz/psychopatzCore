@@ -3,7 +3,7 @@
 **Original audit date:** 2026-11-14
 **Post-S9 re-audit:** 2026-11-14
 **Repositories:** psychopatzCore, ProjectHoomans, DynamicTrading
-**Status:** S9 + S9R architecture accepted; S10A accepted; S10B-S10D completion claims reopened by the 2026-11-16 S10R acceptance-integrity audit.
+**Status:** S9 + S9R architecture accepted; S10A accepted; S10R1-S10R4 acceptance-integrity repairs completed (9/9 `--acceptance` suites PASS; returned to `USER_ACCEPTANCE`).
 
 ## Purpose
 
@@ -251,16 +251,12 @@ The S10D handoff also records `psychopatz-core=<updating-on-S10D-commit>` instea
 
 That verifies the current known selections but does not enforce the stated maintainability invariant that a newly supported worker-bearing provider/preset automatically enters lifecycle acceptance.
 
-### S10R response
+### S10R resolution (2026-11-16)
 
-S10R repairs acceptance integrity without redesigning accepted S0-S9R or S10A mechanisms.
+S10R1-S10R4 resolved A7-A10 without reopening S0-S9R or S10A:
 
-Normative repair plan: `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
-
-The completion claim remains reopened until:
-
-- deleted test responsibilities have current acceptance or proven retirement;
-- all supported public actions enter Feature Acceptance Registry coverage;
-- the canonical nine-suite acceptance command is genuinely green/reproducible;
-- lifecycle coverage derives from manifest discovery;
-- final Git/HANDOFF state contains exact participant commits and residual-work fingerprints.
+- **A7 resolved (S10R1):** All 12 `5f8b5000`-deleted provider test modules (68 methods) are accounted for in `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`; obsolete pre-ConvoEngine dataset specs were retired and live public catalog/workflow/adapter/spec/auditor/worker surfaces pass canonical tests (`test_s10r1_dataset_and_workflow.py`, `test_s10r1_c5_variation_adapters_specs.py`, `test_s10r1_worker_precision_and_history.py`).
+- **A8 resolved (S10R2):** `feature_registry.py` dynamically inspects live `argparse` `_parser()._actions` (66 top-level actions + `CLI_MODIFIER_OPTIONS`, aliases, and `retiredControls`) and fails if any supported action lacks an AST-verified owner (`test_feature_registry.py`, `test_s10r2_cli_actions.py`, `test_s10r2_worker_cli.py`).
+- **A9 resolved (S10R3):** `suite.py` records bounded `failureOutput`; `unrelated_baselines.json` + `classify_hoomans_lua_results` require exact failure-signature + non-Convo + owner + `provenanceCommit` match; `convoScopeOk` remains purely diagnostic; `workspace_catalog.py` skips system temp roots during sibling discovery. Canonical `--acceptance` passes `9/9` suites (`2171/2200` cases, `25` allowed local-save skips, `4` reviewed non-Convo baselines, `0` unexpected failures).
+- **A10 resolved (S10R4):** `test_s10d_provider_lifecycle.py` derives its preset/reconfigure matrix dynamically from `ModManager.discover` and asserts completeness against uncovered executable provider manifests without hard-coded provider tuples.
+- **Closure:** Final `HANDOFF.md` records `phase_commit: self`, exact three-repository commits, and SHA-256 residual worktree fingerprints.

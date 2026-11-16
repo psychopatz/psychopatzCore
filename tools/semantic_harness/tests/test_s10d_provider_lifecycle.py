@@ -69,9 +69,61 @@ def _catalog_fingerprint(capabilities: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _evaluate_lifecycle_matrix(manager: ModManager) -> list[dict[str, Any]]:
+    """Derive lifecycle-tested selections directly from a ModManager instance."""
+    presets: list[dict[str, Any]] = []
+    covered_providers: set[str] = set()
+    for entry in manager.presets():
+        if entry.get("aliasOf"):
+            continue
+        preset_id = str(entry["presetID"])
+        plan = manager.resolve(preset=preset_id)
+        covered_providers.update(plan.provider_ids)
+        presets.append(
+            {
+                "presetID": preset_id,
+                "providers": list(plan.provider_ids),
+                "materializationMode": plan.materialization_mode,
+            }
+        )
+
+    uncovered_executable = [
+        provider.provider_id
+        for provider in manager.providers()
+        if provider.provider_id != "PsychopatzCore"
+        and (
+            provider.worker_script is not None
+            or provider.python_worker is not None
+            or provider.lua_module is not None
+        )
+        and provider.provider_id not in covered_providers
+    ]
+    if uncovered_executable:
+        raise AssertionError(
+            "Executable/worker-bearing provider manifest(s) lack lifecycle preset coverage: "
+            + ", ".join(uncovered_executable)
+        )
+    return presets
+
+
+def _discover_lifecycle_matrix(
+    core_repository: Path,
+    repository_roots: tuple[Path, ...],
+) -> tuple[ModManager, list[dict[str, Any]]]:
+    """Derive lifecycle-tested selections directly from ModManager manifests."""
+    manager = ModManager.discover(
+        core_repository=core_repository,
+        repository_roots=repository_roots,
+    )
+    return manager, _evaluate_lifecycle_matrix(manager)
+
+
 def _assert_worker_roundtrip(
     testcase: unittest.TestCase,
     preset_id: str,
+    *,
+    expected_providers: list[str] | None = None,
+    expected_materialization_mode: str | None = None,
 ) -> None:
     config = _config_for_preset(preset_id)
     scenario = _default_scenario(config)
@@ -79,6 +131,13 @@ def _assert_worker_roundtrip(
         caps_before = worker.capabilities()
         testcase.assertTrue(caps_before.get("ok"), preset_id)
         testcase.assertEqual(caps_before.get("profile"), preset_id)
+        if expected_providers is not None:
+            testcase.assertEqual(caps_before.get("providers"), expected_providers)
+        if expected_materialization_mode is not None:
+            testcase.assertEqual(
+                caps_before.get("materializationMode"),
+                expected_materialization_mode,
+            )
         testcase.assertIn("semanticExecution", caps_before)
         testcase.assertTrue(worker.ping().get("ok"), preset_id)
         turn_before = worker.input("hello")
@@ -104,32 +163,94 @@ class S10DProviderLifecycleTests(unittest.TestCase):
         if not HOOMANS_ROOT.is_dir():
             self.skipTest("ProjectHoomans sibling repository is required")
 
-        manager = ModManager.discover(
-            core_repository=CORE_ROOT,
-            repository_roots=roots,
-        )
-        preset_ids = [
-            entry["presetID"]
-            for entry in manager.presets()
-            if not entry.get("aliasOf")
-        ]
-        self.assertIn("pnc", preset_ids)
-        if DT_ROOT.is_dir():
-            self.assertIn("dtabstract", preset_ids)
-            self.assertIn("pnc-with-dthoomans", preset_ids)
-
-        expected_presets = (
-            ("pnc", "dtabstract", "pnc-with-dthoomans")
-            if DT_ROOT.is_dir()
-            else ("pnc",)
-        )
-        for preset_id in expected_presets:
+        _, presets = _discover_lifecycle_matrix(CORE_ROOT, roots)
+        self.assertGreaterEqual(len(presets), 1)
+        for entry in presets:
+            preset_id = entry["presetID"]
             with self.subTest(preset=preset_id):
-                _assert_worker_roundtrip(self, preset_id)
+                _assert_worker_roundtrip(
+                    self,
+                    preset_id,
+                    expected_providers=entry["providers"],
+                    expected_materialization_mode=entry["materializationMode"],
+                )
+
+    def test_new_manifest_provider_enters_or_fails_lifecycle_matrix_without_hardcoding(self) -> None:
+        import json
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmp:
+            mod_root = Path(tmp) / "CustomMod"
+            mod_root.mkdir(parents=True, exist_ok=True)
+            manifest_path = mod_root / "provider.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "schema": "semantic.provider_manifest.v2",
+                        "schemaVersion": 2,
+                        "providers": [
+                            {
+                                "providerID": "SyntheticWorkerMod",
+                                "displayName": "Synthetic Worker",
+                                "repositoryKind": "synthetic",
+                                "requires": ["PsychopatzCore"],
+                                "materializationModes": ["abstract"],
+                                "luaModule": "provider/Synthetic",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            # Executable worker-bearing manifest without preset coverage must fail completeness
+            with self.assertRaises(AssertionError) as ctx:
+                _discover_lifecycle_matrix(CORE_ROOT, (mod_root,))
+            self.assertIn("SyntheticWorkerMod", str(ctx.exception))
+
+            # Adding a non-alias preset enters lifecycle matrix automatically without editing Python tests
+            base_manager = ModManager.discover(
+                core_repository=CORE_ROOT,
+                repository_roots=(mod_root,),
+            )
+            extended_presets = {
+                entry["presetID"]: {
+                    k: v for k, v in entry.items() if k != "presetID"
+                }
+                for entry in base_manager.presets()
+            }
+            extended_presets["synthetic-abstract"] = {
+                "displayName": "Synthetic Abstract",
+                "providers": ["SyntheticWorkerMod"],
+                "materializationMode": "abstract",
+            }
+            extended_manager = ModManager(
+                CORE_ROOT,
+                base_manager.providers(),
+                presets=extended_presets,
+            )
+            discovered = _evaluate_lifecycle_matrix(extended_manager)
+            by_id = {row["presetID"]: row for row in discovered}
+            self.assertIn("synthetic-abstract", by_id)
+            self.assertEqual(
+                by_id["synthetic-abstract"]["providers"],
+                ["PsychopatzCore", "SyntheticWorkerMod"],
+            )
 
     def test_worker_session_reconfigure_cross_provider_transition_and_repeat(self) -> None:
+        roots = _available_roots()
         if not HOOMANS_ROOT.is_dir() or not DT_ROOT.is_dir():
             self.skipTest("ProjectHoomans and DynamicTrading repositories are required")
+
+        _, presets = _discover_lifecycle_matrix(CORE_ROOT, roots)
+        self.assertGreaterEqual(len(presets), 2)
+        expected_providers = {
+            row["presetID"]: row["providers"]
+            for row in presets
+        }
+        ordered_presets = [row["presetID"] for row in presets]
+        start_preset = ordered_presets[0]
+        transitions = [*ordered_presets[1:], start_preset, ordered_presets[1], start_preset]
 
         def make_factory(preset_id: str):
             def _build():
@@ -138,37 +259,21 @@ class S10DProviderLifecycleTests(unittest.TestCase):
 
             return _build
 
-        expected_providers = {
-            "pnc": ["PsychopatzCore", "ProjectHoomans"],
-            "dtabstract": ["PsychopatzCore", "DTCommon", "DTAbstract"],
-            "pnc-with-dthoomans": [
-                "PsychopatzCore",
-                "ProjectHoomans",
-                "DTCommon",
-                "DTHoomans",
-            ],
-        }
-        session = WorkerSession(make_factory("pnc"))
+        session = WorkerSession(make_factory(start_preset))
         self.addCleanup(lambda: session.close(wait=True))
 
         ready = session.start().result(timeout=30.0)
-        self.assertEqual(ready.capabilities.get("profile"), "pnc")
+        self.assertEqual(ready.capabilities.get("profile"), start_preset)
         self.assertEqual(
             ready.capabilities.get("providers"),
-            expected_providers["pnc"],
+            expected_providers[start_preset],
         )
         first_turn = session.submit(lambda current: current.input("hello")).result(
             timeout=15.0
         )
         self.assertTrue(first_turn.value.get("ok"))
 
-        for target_preset in (
-            "dtabstract",
-            "pnc-with-dthoomans",
-            "pnc",
-            "dtabstract",
-            "pnc",
-        ):
+        for target_preset in transitions:
             with self.subTest(transition_to=target_preset):
                 reconfigured = session.reconfigure(
                     make_factory(target_preset)

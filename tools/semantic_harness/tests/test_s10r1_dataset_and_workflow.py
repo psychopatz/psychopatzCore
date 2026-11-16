@@ -315,6 +315,37 @@ class S10R1DatasetAndWorkflowTests(unittest.TestCase):
         with self.assertRaises(CompileError):
             compile_dialogue_dataset(unreviewed)
 
+    def test_workspace_catalog_ignores_system_temp_root_siblings(self) -> None:
+        from tools.semantic_harness.codebuilder.workspace_catalog import WorkspaceCatalog
+
+        with tempfile.TemporaryDirectory() as isolated_repo, tempfile.TemporaryDirectory() as stray_sibling:
+            stray_manifest = Path(stray_sibling) / "provider.json"
+            stray_manifest.write_text(
+                json.dumps(
+                    {
+                        "schema": "semantic.provider_manifest.v2",
+                        "schemaVersion": 2,
+                        "providers": [
+                            {
+                                "providerID": "ProjectHoomans",
+                                "displayName": "Duplicate Temp Checkout",
+                                "repositoryKind": "project_hoomans",
+                                "requires": ["PsychopatzCore"],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            snapshot = WorkspaceCatalog.discover(
+                repository=Path(isolated_repo),
+                core_repository=CORE_ROOT,
+            )
+            self.assertNotEqual(
+                snapshot.repository_by_owner.get("ProjectHoomans"),
+                Path(stray_sibling).resolve(),
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

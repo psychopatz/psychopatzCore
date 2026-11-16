@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -509,11 +510,13 @@ class WorkspaceCatalog:
                 tier3_paths.append(path)
 
         tier4_paths: list[Path] = []
+        temp_roots = {Path(tempfile.gettempdir()).resolve(), Path("/tmp").resolve()}
         if allow_sibling_discovery:
             parents: list[Path] = []
             for base in (*tier1_paths, *tier2_paths, *tier3_paths):
-                if base.parent not in parents:
-                    parents.append(base.parent)
+                parent = base.parent
+                if parent not in parents and parent not in temp_roots:
+                    parents.append(parent)
             for parent in parents:
                 if not parent.is_dir():
                     continue

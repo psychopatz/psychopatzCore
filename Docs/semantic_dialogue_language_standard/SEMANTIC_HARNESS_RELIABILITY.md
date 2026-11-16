@@ -2,7 +2,7 @@
 
 **Goal:** Make the Semantic Harness / Semantic Lab reliable enough that a newly introduced feature cannot be considered complete until its real runtime path and, when user-facing, its real GUI path are automatically exercised.
 
-**Active phase:** S10 — Semantic Lab end-to-end reliability and feature acceptance.
+**Active phase:** S10 + S10R — Developer-complete (`USER_ACCEPTANCE`); ready for native Project Zomboid gameplay/visual acceptance.
 
 `LANGUAGE_SPEC.md` remains the normative semantic/authoring contract. `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md` defines the mandatory runtime/harness proof for UI-label versus spoken-realization separation, starting with the ProjectHoomans identity exchange.
 
@@ -333,9 +333,9 @@ Prove the harness remains reliable under repeated use and leave a compact mainte
 - Test manifests/registries must remain compact enough for Luna-class agents to understand without reading the entire UI codebase.
 - Failure output must identify the failed layer, provider, feature ID, operation and underlying reason when available.
 
-## S10R — acceptance integrity repair
+## S10R — acceptance integrity repair (COMPLETE)
 
-The original S10A runtime/identity implementation remains accepted. Post-completion audit reopened the S10B-S10D acceptance and closure claims.
+The original S10A runtime/identity implementation remained accepted throughout S10R. S10R1-S10R4 resolved the post-completion audit findings (A7-A10 / R1-R5) and returned S10 to `USER_ACCEPTANCE` (`9/9` `--acceptance` suites PASS).
 
 Normative repair requirements are in `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
 

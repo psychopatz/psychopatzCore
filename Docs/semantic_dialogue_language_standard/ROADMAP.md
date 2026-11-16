@@ -856,28 +856,26 @@ The mandatory Simulation/Conversation journeys include the identity-label regres
 
 ### S10D — provider lifecycle, maintainability and closure
 
-**Status:** IMPLEMENTED, CLOSURE REOPENED BY S10R. The focused lifecycle test passes 3/3, but it executes a hard-coded current preset tuple rather than automatically testing every supported discovered selection; the canonical `hoomans_lua` acceptance suite is not green; and the final handoff used a placeholder Core commit instead of a reproducible committed checkpoint.
+**Status:** COMPLETE (S10R1-S10R4 acceptance-integrity repairs completed; 9/9 `--acceptance` suites PASS from exact committed state).
 
 Run start/request/restart/reconfigure/shutdown matrices for all supported manifest selections, repeat lifecycle transitions to expose stale globals/duplicate registration/registry drift, document the one-command acceptance workflow, and reconcile continuity docs only after all real-path gates pass.
 
-**Completion gate:** developer-side harness work may return to complete only when S10A plus S10R acceptance repair and the retained S9/S9R regression matrix are green. Only then does native Project Zomboid gameplay/visual acceptance become the sole remaining boundary.
+**Completion gate:** SATISFIED on developer side (S10A + S10B-S10D + S10R1-S10R4 + retained S9/S9R green). Only native Project Zomboid gameplay/visual acceptance (`USER_ACCEPTANCE`) remains.
 
 ### S10R — acceptance integrity and reproducible closure
 
-**Status:** ACTIVE.
+**Status:** COMPLETE (`S10R1 -> S10R2 -> S10R3 -> S10R4` all green; 9/9 `--acceptance` PASS).
 
 Normative repair design: `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`.
 
-S10R does not reopen the accepted S10A identity/worker implementation. It repairs the acceptance/closure system disproved by the post-S10 audit.
-
-Required sequence:
+S10R did not reopen the accepted S10A identity/worker implementation; it repaired the acceptance/closure system identified by the post-S10 audit:
 
 - **S10R1 — deleted/stale acceptance ownership:** COMPLETE (all 12 `5f8b5000`-deleted modules mapped in the S10R1 ledger; retired pre-ConvoEngine `semantic_flows`/`common_dialogue`/`grounded_personal` dataset specs; repaired `dataset_catalog.py`, `interaction_generation.py`, and `variation_auditor.py` for canonical `convo_engine` / `patterns` / `wordnet_concepts` sources; Core `test_s10r1_dataset_and_workflow.py` + `test_s10r1_c5_variation_adapters_specs.py` + S9/S9R `40/40` and Hoomans `test_s10r1_worker_precision_and_history.py` `2/2` PASS).
 - **S10R2 — complete public feature discovery:** COMPLETE (dynamic `argparse` `_parser()` discovery in `feature_registry.py` covers all 66 supported top-level CLI actions with `CLI_MODIFIER_OPTIONS` separation, alias mapping, and negative tests in `test_feature_registry.py` `4/4` + `test_s10r2_cli_actions.py` `1/1` + `test_s10r2_worker_cli.py` `2/2`).
-- **S10R3 — genuinely green canonical acceptance:** COMPLETE (`unrelated_baselines.json` + `classify_hoomans_lua_results` require exact failure-signature match + owner + `provenanceCommit` and forbid ConvoEngine/timeout waivers; `suite.py` captures `failureOutput` on failures; canonical `--acceptance` accepts only signature-verified reviewed baselines with `--strict-baselines` strict mode and `convoScopeOk` purely diagnostic; `hoomans_lua` `1028/1032` PASS with 4 reviewed P1/PopulationDirector signatures and 0 unexpected failures).
-- **S10R4 — manifest-complete lifecycle + closure:** ACTIVE (NEXT). derive lifecycle-tested selections from current manifest/preset discovery rather than hard-coded provider names, rerun all 9 acceptance suites + retained gates, reconcile docs, and close with exact participant commits plus residual-work fingerprints.
+- **S10R3 — genuinely green canonical acceptance:** COMPLETE (`unrelated_baselines.json` + `classify_hoomans_lua_results` require exact failure-signature match + owner + `provenanceCommit` and forbid ConvoEngine/timeout waivers; `suite.py` captures `failureOutput` on failures; `workspace_catalog.py` skips system temp roots during sibling discovery; canonical `--acceptance` accepts only signature-verified reviewed baselines with `--strict-baselines` strict mode and `convoScopeOk` purely diagnostic; `hoomans_lua` `1028/1032` PASS with 4 reviewed P1/PopulationDirector signatures and 0 unexpected failures).
+- **S10R4 — manifest-complete lifecycle + closure:** COMPLETE (`test_s10d_provider_lifecycle.py` dynamically derives executable presets and cross-provider reconfigure matrices from `ModManager.discover` and rejects uncovered executable provider manifests (`4/4` PASS in `25.82s`); full 9-suite `--acceptance` `9/9` suites / `2171/2200` cases PASS in `1448.07s`; docs reconciled and committed with `phase_commit: self`, exact participant commits, and SHA-256 residual fingerprints).
 
-**Gate:** S10R1-S10R4 pass; all still-supported public surfaces have current acceptance ownership; every supported worker-bearing provider selection automatically enters lifecycle acceptance; canonical acceptance is reproducibly green; and the final handoff contains no placeholder commit IDs or untracked dependence on dirty work.
+**Gate:** SATISFIED — S10R1-S10R4 pass; all still-supported public surfaces have current acceptance ownership; every supported worker-bearing provider selection automatically enters lifecycle acceptance; canonical 9-suite acceptance is reproducibly green; and the final handoff records exact participant commits and residual-work fingerprints.
 
 ## Commit protocol
 
