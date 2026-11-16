@@ -9,13 +9,14 @@ from pathlib import Path
 from typing import Sequence
 
 from .loader import SemanticCase, discover_cases
+from .resolver import FixtureResolutionError, resolve_fixture_roots
 from .schema import validate_case, validate_fixture_document
 
 
 def lint_fixtures(
-    fixtures_dir: Path,
+    fixtures_dir: Path | Sequence[Path],
 ) -> dict[str, object]:
-    """Lint all fixture documents under directory for schema violations and duplicate cases."""
+    """Lint all fixture documents under directory(s) for schema violations and duplicate cases."""
     results: dict[str, object] = {
         "ok": True,
         "files_checked": 0,
@@ -25,7 +26,15 @@ def lint_fixtures(
         "schema_errors": [],
     }
 
-    files = sorted(fixtures_dir.rglob("*.json"))
+    dirs = [fixtures_dir] if isinstance(fixtures_dir, Path) else list(fixtures_dir)
+    files: list[Path] = []
+    seen_files: set[Path] = set()
+    for root in dirs:
+        for f in sorted(root.rglob("*.json")):
+            resolved = f.resolve()
+            if resolved not in seen_files:
+                seen_files.add(resolved)
+                files.append(f)
     results["files_checked"] = len(files)
 
     seen_ids: dict[str, Path] = {}
@@ -84,12 +93,40 @@ def run_linter_cli(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--fixtures-dir",
         type=Path,
-        default=Path(__file__).resolve().parents[1] / "fixtures/v1",
-        help="fixtures directory to lint",
+        default=None,
+        help="fixtures directory to lint (defaults to active provider semantic fixture root)",
     )
+    parser.add_argument("--repository", type=Path, default=None)
+    parser.add_argument("--core-repository", type=Path, default=None)
+    parser.add_argument("--provider-root", action="append", dest="provider_roots")
+    parser.add_argument("--preset", default=None)
+    parser.add_argument("--mods", action="append", default=None)
     args = parser.parse_args(argv)
 
-    report = lint_fixtures(args.fixtures_dir)
+    mods = (
+        tuple(
+            item.strip()
+            for value in (args.mods or ())
+            for item in str(value).split(",")
+            if item.strip()
+        )
+        or None
+    )
+    try:
+        roots = resolve_fixture_roots(
+            kind="semantic",
+            explicit_dir=args.fixtures_dir,
+            repository=args.repository,
+            core_repository=args.core_repository,
+            provider_roots=tuple(args.provider_roots or ()),
+            mods=mods,
+            preset=args.preset,
+        )
+    except FixtureResolutionError as error:
+        print(f"Error: {error}", file=sys.stderr)
+        return 1
+
+    report = lint_fixtures(roots)
     print(f"Linted {report['files_checked']} files, {report['cases_checked']} cases.")
 
     if not report["ok"]:

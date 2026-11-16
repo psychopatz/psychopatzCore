@@ -74,11 +74,32 @@ def _route_claims(value: Any, field: str) -> dict[str, int]:
 def _expanded(value: str | None, repository: Path) -> Path | None:
     if not value:
         return None
-    return Path(
+    expanded = Path(
         str(value)
         .replace("${repository}", str(repository))
         .replace("${repo}", str(repository))
-    ).expanduser().resolve()
+    ).expanduser()
+    if not expanded.is_absolute():
+        expanded = repository / expanded
+    return expanded.resolve()
+
+
+def _fixture_roots(value: Any, repository: Path, field: str) -> dict[str, Path]:
+    if value is None:
+        return {}
+    mapping = _mapping(value, field)
+    result: dict[str, Path] = {}
+    for kind, raw_path in mapping.items():
+        key = str(kind).strip()
+        if not key:
+            raise ModManagerError(f"{field} contains an empty fixture root kind")
+        if raw_path is None or not str(raw_path).strip():
+            raise ModManagerError(f"{field}.{key} must be a non-empty path")
+        resolved = _expanded(str(raw_path).strip(), repository)
+        if resolved is None:
+            raise ModManagerError(f"{field}.{key} could not be resolved")
+        result[key] = resolved
+    return result
 
 
 @dataclass(frozen=True)
@@ -172,6 +193,7 @@ class ProviderSpec:
     runtime_modules: tuple[str, ...] = ()
     runtime_bootstraps: tuple[RuntimeBootstrapSpec, ...] = ()
     environment: Mapping[str, str] = field(default_factory=dict)
+    fixture_roots: Mapping[str, Path] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         provider_id = str(self.provider_id).strip()
@@ -218,6 +240,11 @@ class ProviderSpec:
                 for key, value in _mapping(self.environment, f"{provider_id}.environment").items()
             },
         )
+        object.__setattr__(
+            self,
+            "fixture_roots",
+            _fixture_roots(self.fixture_roots, self.repository_root, f"{provider_id}.fixtureRoots"),
+        )
         object.__setattr__(self, "lua_module", str(self.lua_module).strip() if self.lua_module else None)
         if self.provider_id in self.requires:
             raise ModManagerError(f"{provider_id}: provider cannot require itself")
@@ -245,6 +272,9 @@ class ProviderSpec:
                 bootstrap.to_dict() for bootstrap in self.runtime_bootstraps
             ],
             "environment": dict(self.environment),
+            "fixtureRoots": {
+                kind: str(path) for kind, path in sorted(self.fixture_roots.items())
+            },
         }
 
 
@@ -295,6 +325,7 @@ class ProviderManifest:
             document.get("runtimeBootstrap"),
             "runtimeBootstrap",
         )
+        top_fixture_roots = document.get("fixtureRoots")
 
         raw_providers = document.get("providers")
         if raw_providers is None:
@@ -346,6 +377,11 @@ class ProviderManifest:
                         top_bootstraps,
                     ),
                     environment=raw.get("environment", {}),
+                    fixture_roots=_fixture_roots(
+                        raw.get("fixtureRoots", top_fixture_roots),
+                        repository_root,
+                        f"{provider_id}.fixtureRoots",
+                    ),
                 )
             )
         return cls(
@@ -383,6 +419,27 @@ class ActivationPlan:
 
     def repository_for(self, provider_id: str) -> Path | None:
         return self.repository_by_provider.get(provider_id)
+
+    def fixture_roots_for(self, kind: str) -> tuple[tuple[str, Path], ...]:
+        """Return (provider_id, path) pairs for the requested fixture root kind."""
+        ordered_specs: list[ProviderSpec] = []
+        if self.execution_provider_id:
+            for spec in self.enabled:
+                if spec.provider_id == self.execution_provider_id:
+                    ordered_specs.append(spec)
+                    break
+        for spec in reversed(self.enabled):
+            if spec not in ordered_specs:
+                ordered_specs.append(spec)
+        roots: list[tuple[str, Path]] = []
+        seen: set[Path] = set()
+        for spec in ordered_specs:
+            path = spec.fixture_roots.get(kind)
+            if path is None or path in seen:
+                continue
+            seen.add(path)
+            roots.append((spec.provider_id, path))
+        return tuple(roots)
 
     def to_dict(self) -> dict[str, Any]:
         return {

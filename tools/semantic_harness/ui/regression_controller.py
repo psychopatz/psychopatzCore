@@ -9,19 +9,47 @@ from typing import Any
 from ..inspection.response_observatory import run_quality_matrix
 from ..inspection.response_selection_coverage import selection_coverage
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
+from tools.semantic_harness.testing.resolver import (
+    FixtureResolutionError,
+    resolve_fixture_file,
+)
 
 
-def _repository(app: Any) -> Path | None:
-    repository = getattr(app.authoring_service, "repository", None)
-    return repository if isinstance(repository, Path) else None
+def _resolve_regression_fixture(app: Any, filename: str) -> Path:
+    arguments = getattr(app, "arguments", None)
+    selection_active = getattr(app, "selection_active", None)
+    if not isinstance(selection_active, dict):
+        selection_active = {}
+    authoring_service = getattr(app, "authoring_service", None)
+    repository = getattr(authoring_service, "repository", None)
+    core_repository = getattr(authoring_service, "core_repository", None)
+    if not isinstance(repository, Path):
+        raw_repo = getattr(arguments, "repository", None)
+        repository = Path(raw_repo) if raw_repo else None
+    if not isinstance(core_repository, Path):
+        raw_core = getattr(arguments, "core_repository", None)
+        core_repository = Path(raw_core) if raw_core else None
+    raw_dt = getattr(arguments, "dynamic_trading_repository", None)
+    dt_repo = Path(raw_dt) if raw_dt else None
+    mods = selection_active.get("mods") or getattr(arguments, "mods", None)
+    preset = selection_active.get("preset") or getattr(arguments, "preset", None)
+    profile = getattr(arguments, "profile", "pnc")
+    provider_roots = tuple(getattr(arguments, "provider_root", None) or ())
+    return resolve_fixture_file(
+        filename,
+        kind="regression",
+        repository=repository,
+        core_repository=core_repository,
+        dynamic_trading_repository=dt_repo,
+        provider_roots=provider_roots,
+        mods=mods,
+        preset=preset,
+        profile=profile,
+    )
 
 
 def _fixture_cases(app: Any, filename: str) -> list[dict[str, Any]]:
-    repository = _repository(app)
-    if repository is None:
-        raise ValueError("repository unavailable for regression fixture")
-    core_repository = getattr(app.authoring_service, "core_repository", repository)
-    path = core_repository / "tools/semantic_harness/fixtures" / filename
+    path = _resolve_regression_fixture(app, filename)
     document = json.loads(path.read_text(encoding="utf-8"))
     cases = document.get("cases") if isinstance(document, dict) else None
     if not isinstance(cases, list):
@@ -116,7 +144,7 @@ def run_regression(app: Any) -> None:
 def run_regression_lifecycle(app: Any) -> None:
     try:
         cases = _fixture_cases(app, "observatory_lifecycle_en_tl.json")
-    except (OSError, ValueError, json.JSONDecodeError) as error:
+    except (OSError, ValueError, FixtureResolutionError, json.JSONDecodeError) as error:
         app.regression_status_var.set(f"Lifecycle fixture unavailable: {error}")
         return
     _run_matrix(app, cases, "farewell lifecycle")
@@ -125,7 +153,7 @@ def run_regression_lifecycle(app: Any) -> None:
 def run_regression_command_rejections(app: Any) -> None:
     try:
         cases = _fixture_cases(app, "observatory_permission_rejections_en_tl.json")
-    except (OSError, ValueError, json.JSONDecodeError) as error:
+    except (OSError, ValueError, FixtureResolutionError, json.JSONDecodeError) as error:
         app.regression_status_var.set(f"Rejection fixture unavailable: {error}")
         return
     _run_matrix(app, cases, "authority rejection")
@@ -134,19 +162,10 @@ def run_regression_command_rejections(app: Any) -> None:
 def run_regression_selection(app: Any) -> None:
     if not app.session.ready or app.busy:
         return
-    repository = _repository(app)
-    if repository is None:
-        app.regression_status_var.set("Selection fixture unavailable")
-        return
-    core_repository = getattr(app.authoring_service, "core_repository", repository)
-    path = (
-        core_repository
-        / "tools/semantic_harness/fixtures"
-        / "observatory_greeting_selection.json"
-    )
     try:
+        path = _resolve_regression_fixture(app, "observatory_greeting_selection.json")
         scenario = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError, json.JSONDecodeError) as error:
+    except (OSError, ValueError, FixtureResolutionError, json.JSONDecodeError) as error:
         app.regression_status_var.set(f"Selection fixture unavailable: {error}")
         return
 

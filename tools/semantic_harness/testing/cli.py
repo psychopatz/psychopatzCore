@@ -10,10 +10,19 @@ from typing import Sequence
 
 from .executor import CaseResult, execute_case
 from .loader import SemanticCase, discover_cases, load_cases_from_file
+from .resolver import FixtureResolutionError, resolve_fixture_roots
 
 
-REPOSITORY = Path(__file__).resolve().parents[3]
-DEFAULT_FIXTURES_DIR = REPOSITORY / "tools/semantic_harness/fixtures/v1"
+def _parse_mods(values: Sequence[str] | None) -> tuple[str, ...] | None:
+    if not values:
+        return None
+    parsed = tuple(
+        item.strip()
+        for value in values
+        for item in str(value).split(",")
+        if item.strip()
+    )
+    return parsed or None
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -49,8 +58,37 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--fixtures-dir",
         type=Path,
-        default=DEFAULT_FIXTURES_DIR,
-        help="directory to scan for fixture JSON files",
+        default=None,
+        help="directory to scan for fixture JSON files (defaults to active provider fixture root)",
+    )
+    parser.add_argument(
+        "--repository",
+        type=Path,
+        default=None,
+        help="active provider repository path",
+    )
+    parser.add_argument(
+        "--core-repository",
+        type=Path,
+        default=None,
+        help="PsychopatzCore repository path",
+    )
+    parser.add_argument(
+        "--provider-root",
+        action="append",
+        dest="provider_roots",
+        help="additional provider manifest root directory (repeatable)",
+    )
+    parser.add_argument(
+        "--preset",
+        default=None,
+        help="provider selection preset",
+    )
+    parser.add_argument(
+        "--mods",
+        action="append",
+        default=None,
+        help="explicit provider IDs to activate (comma-separated or repeatable)",
     )
     parser.add_argument(
         "--fail-fast",
@@ -85,10 +123,20 @@ def run_cli(argv: Sequence[str] | None = None) -> int:
                 return 1
             cases.extend(load_cases_from_file(p))
     else:
-        if not args.fixtures_dir.is_dir():
-            print(f"Error: Fixtures directory not found: {args.fixtures_dir}", file=sys.stderr)
+        try:
+            roots = resolve_fixture_roots(
+                kind="semantic",
+                explicit_dir=args.fixtures_dir,
+                repository=args.repository,
+                core_repository=args.core_repository,
+                provider_roots=tuple(args.provider_roots or ()),
+                mods=_parse_mods(args.mods),
+                preset=args.preset,
+            )
+        except FixtureResolutionError as error:
+            print(f"Error: {error}", file=sys.stderr)
             return 1
-        cases.extend(discover_cases([args.fixtures_dir]))
+        cases.extend(discover_cases(roots))
 
     # 2. Filter cases
     filtered: list[SemanticCase] = []

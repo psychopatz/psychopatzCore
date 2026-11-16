@@ -780,11 +780,19 @@ def cli(arguments: argparse.Namespace) -> int:
                 for f in arguments.semantic_test_files:
                     cases.extend(load_cases_from_file(Path(f).resolve()))
             else:
-                fixtures_dir = (
-                    authoring_service.core_repository
-                    / "tools/semantic_harness/fixtures/v1"
+                from tools.semantic_harness.testing.resolver import resolve_fixture_roots
+
+                fixture_roots = resolve_fixture_roots(
+                    kind="semantic",
+                    repository=worker_kwargs["repository"],
+                    core_repository=worker_kwargs["core_repository"],
+                    dynamic_trading_repository=worker_kwargs["dynamic_trading_repository"],
+                    provider_roots=worker_kwargs["provider_roots"],
+                    mods=worker_kwargs["mods"],
+                    preset=worker_kwargs["preset"],
+                    profile=worker_kwargs["profile"],
                 )
-                cases.extend(discover_cases([fixtures_dir]))
+                cases.extend(discover_cases(fixture_roots))
 
             filtered = [
                 c for c in cases
