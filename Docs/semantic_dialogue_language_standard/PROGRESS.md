@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN PROGRESS — S10A and S10B complete and committed locally; S10C feature-owned real GUI acceptance and Feature Acceptance Registry are active.
-**Estimated developer progress:** S0-S9R retained, S10A-S10B complete, S10C-S10D remaining before developer-side acceptance closes.
+**Status:** IN PROGRESS — S10A, S10B, and S10C complete and committed locally; S10D provider lifecycle/restart matrix, maintainability, and final closure are active.
+**Estimated developer progress:** S0-S9R retained, S10A-S10C complete, S10D remaining before developer-side acceptance closes.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S10 — Semantic Lab end-to-end reliability and feature acceptance.
-**Immediate Next Chunk:** S10C — implement `tools/semantic_harness/testing/feature_registry.json` + `feature_registry.py` mapping every supported public GUI/CLI/agent action, add real Tk/Xvfb GUI journeys in `ProjectHoomans/tools/providers/pnc/tests/test_s10c_gui_journeys.py`, and add the Core registry coverage gate test before continuing to S10D.
+**Immediate Next Chunk:** S10D — add provider start/capabilities/request/restart/reconfigure/shutdown matrix & repeated-restart drift tests across all manifest selections (`pnc`, `dtabstract`, `pnc-with-dthoomans`) + Core worker, document the `--acceptance` workflow in `AGENT_RUNBOOK.md`, run the complete 9-suite post-edit acceptance verification, and close S10 to `USER_ACCEPTANCE`.
 
 ## Accepted baseline retained
 
@@ -78,11 +78,18 @@ S10 makes the harness reliable and maintainable when new features are introduced
 - provider start/request/restart/shutdown lifecycle matrices;
 - a zero-unexplained-skip policy for mandatory acceptance.
 
-## Current repository vector after S10B
+## Current repository vector after S10C
 
-    PsychopatzCore  <updating on S10B commit>
-    ProjectHoomans  5f8b5000e7bfbb26050ff77d63bbdd733e4c3dbe
+    PsychopatzCore  <updating on S10C commit>
+    ProjectHoomans  f16f2b93ffa2849cfe68242dad24cdd24060029a
     DynamicTrading  9c8cb3dead56d66e32fccb901b9abd3dd6c2f393
+
+## S10C completed acceptance (2026-11-16)
+
+- Added `tools/semantic_harness/testing/feature_registry.json`, `feature_registry.py`, and `tests/test_feature_registry.py` mapping every supported top-level UI control, `ConvoEngineAuthoringPane` action, and `convo`/`--acceptance` CLI operation with AST symbol resolution and real-Tk enforcement.
+- Added `ProjectHoomans/tools/providers/pnc/tests/test_s10c_gui_journeys.py` (`4/4` PASS under `xvfb-run` in `133.70s`), covering preset selection validate/apply reconfiguration, Simulation preview/send/language/reset/load/save/settings/toolbar toggles/diagnostics/regressions/log-clear + worker error restart recovery, Quality Sweep plan/run/cancel, and Studio preview/S6M8 Audit + hermetic temp-repo create/duplicate/delete.
+- Hardened `ui/operation_lifecycle.py` (`poll_future`) to route `RuntimeError` into the standard non-modal worker failure handler cleanly.
+- Verified `core_python` (`200/200` PASS), `convo_audit` (`1/1` PASS), and `kahlua_static` (`3/3` PASS) with zero skips/failures.
 
 ## S10B completed acceptance (2026-11-16)
 

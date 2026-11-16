@@ -30,7 +30,7 @@ def poll_future(
     app.busy = False
     try:
         result = future.result()
-    except (HarnessError, ConfigurationError, OSError, ValueError) as error:
+    except (HarnessError, ConfigurationError, OSError, RuntimeError, ValueError) as error:
         app._set_status("Worker failed")
         app._set_controls(False)
         app._set_text(app.trace, str(error))
@@ -81,7 +81,7 @@ def poll_background_future(
     app._background_future = None
     try:
         result = future.result()
-    except (HarnessError, ConfigurationError, OSError, ValueError) as error:
+    except (HarnessError, ConfigurationError, OSError, RuntimeError, ValueError) as error:
         callback({"ok": False, "catalogError": str(error)[:400]})
         return
     callback(result.value)

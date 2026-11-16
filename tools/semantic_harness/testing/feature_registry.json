@@ -1,0 +1,381 @@
+{
+  "schema": "semantic.feature_registry.v1",
+  "features": [
+    {
+      "featureID": "world.selection.preset_reconfigure",
+      "surface": "World & Mods",
+      "controls": [
+        "app.selection_validate_button",
+        "app.selection_apply_button",
+        "app.selection_details_button"
+      ],
+      "canonicalOperation": "ModManager.resolve+worker.reconfigure",
+      "providerApplicability": ["all"],
+      "mutationClass": "workspace_config",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_selection_validate_apply_and_preset_reconfiguration"
+      ]
+    },
+    {
+      "featureID": "world.saved_world.discover_inspect_import",
+      "surface": "World & Mods",
+      "controls": [
+        "saved_world_discover_button",
+        "saved_world_inspect_button",
+        "saved_world_import_button",
+        "app.load_saved_npc_button"
+      ],
+      "canonicalOperation": "SaveCatalog+worker.configure",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_operational_world_browser:OperationalWorldBrowserTests.test_real_save_player_hierarchy_import_and_talk_at_supported_geometries",
+        "ProjectHoomans:tools.providers.pnc.tests.test_ui_organization:SemanticLabUIOrganizationTests.test_save_backed_simulation_is_compact_at_minimum_geometry"
+      ]
+    },
+    {
+      "featureID": "sim.conversation.open_close_submit",
+      "surface": "Simulation",
+      "controls": [
+        "app.open_conversation_button",
+        "app.close_conversation_button",
+        "app.send_button"
+      ],
+      "canonicalOperation": "worker.open_conversation+worker.input",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10a_label_speech_realization:S10ALabelSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "sim.conversation.preview",
+      "surface": "Simulation",
+      "controls": ["app.preview_button"],
+      "canonicalOperation": "worker.preview",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "sim.conversation.language",
+      "surface": "Simulation",
+      "controls": ["app.language_box"],
+      "canonicalOperation": "worker.set_language",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "sim.scenario.io_reset",
+      "surface": "Simulation",
+      "controls": ["app.reset_button", "app.load_button", "app.save_button"],
+      "canonicalOperation": "worker.reset+scenario.io",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "sim.scenario.settings_dialog",
+      "surface": "Simulation",
+      "controls": ["app.settings_button"],
+      "canonicalOperation": "settings.dialog.open",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "sim.workbench.toggle_apply_replay",
+      "surface": "Simulation",
+      "controls": [
+        "app.workbench_toggle_button",
+        "app.workbench_apply_button",
+        "app.replay_button"
+      ],
+      "canonicalOperation": "worker.configure+replay",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_simulation_workbench:SimulationWorkbenchTests.test_tk_workbench_applies_and_replays_latest_hub_utterance"
+      ]
+    },
+    {
+      "featureID": "sim.workbench.inventory_gift",
+      "surface": "Simulation",
+      "controls": ["give_button", "workbench.reset_button"],
+      "canonicalOperation": "worker.give_item+worker.reset_working_world",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_inventory_gift_workbench:InventoryGiftWorkbenchTests.test_real_save_gift_uses_production_route_and_resets_working_world"
+      ]
+    },
+    {
+      "featureID": "sim.workbench.relationship_propose",
+      "surface": "Simulation",
+      "controls": ["proposal_button"],
+      "canonicalOperation": "worker.propose_relationship",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_contextual_relationship_proposal_runtime:ContextualRelationshipProposalRuntimeTests.test_relationship_workbench_exposes_proposal_policy_and_action"
+      ]
+    },
+    {
+      "featureID": "sim.layout.toggles_and_reset",
+      "surface": "Simulation",
+      "controls": [
+        "app.reset_layout_button",
+        "app.diagnostics_toggle_button",
+        "app.advanced_toggle_button"
+      ],
+      "canonicalOperation": "ui.layout_state",
+      "providerApplicability": ["all"],
+      "mutationClass": "workspace_config",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_ui_state_persistence:UIStatePersistenceTests.test_layout_preferences_persist_and_reset_without_scenario_mutation",
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "sim.talk_parity.start_and_matrix",
+      "surface": "Simulation",
+      "controls": ["app.talk_start_button", "app.talk_matrix_button"],
+      "canonicalOperation": "worker.talk_start+worker.talk_matrix",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_contextual_talk_parity:ContextualTalkParityTests.test_tk_talk_parity_surface_runs_the_real_worker"
+      ]
+    },
+    {
+      "featureID": "sim.persona_matrix",
+      "surface": "Simulation",
+      "controls": ["app.capture_baseline_button", "app.persona_matrix_button"],
+      "canonicalOperation": "worker.persona_matrix",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_lab_persona_workflow:SemanticLabPersonaWorkflowTests.test_existing_lab_renders_controls_and_runs_matrix"
+      ]
+    },
+    {
+      "featureID": "sweep.simulation.plan_run_cancel_workbench",
+      "surface": "Quality Sweep",
+      "controls": [
+        "app.sweep_plan_button",
+        "app.sweep_run_button",
+        "app.sweep_cancel_button",
+        "app.sweep_open_workbench_button"
+      ],
+      "canonicalOperation": "DialogueQualitySweepService.plan_sweep+run_sweep",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_sweep_ui:SweepUiAndReviewTests.test_simulation_ui_quality_sweep_tab",
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_quality_sweep_and_simulation_sweep_journeys"
+      ]
+    },
+    {
+      "featureID": "sweep.dedicated.generate_cancel",
+      "surface": "Quality Sweep",
+      "controls": ["app.qs_generate_button", "app.qs_cancel_button"],
+      "canonicalOperation": "DialogueQualitySweepService.run_sweep",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_sweep_ui:SweepUiAndReviewTests.test_dedicated_quality_sweep_workbench",
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_quality_sweep_and_simulation_sweep_journeys"
+      ]
+    },
+    {
+      "featureID": "studio.developer_drawer",
+      "surface": "Studio",
+      "controls": ["app.developer_tools_button"],
+      "canonicalOperation": "studio.toggle_developer_tools",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_surface_consolidation:SurfaceConsolidationTkTests.test_structural_studio_tools_are_hidden_behind_developer_launcher"
+      ]
+    },
+    {
+      "featureID": "studio.convo_engine.authoring_audit",
+      "surface": "Studio",
+      "controls": [
+        "ConvoEngineAuthoringPane.refresh",
+        "ConvoEngineAuthoringPane.run_s6m8_audit",
+        "ConvoEngineAuthoringPane.new_family",
+        "ConvoEngineAuthoringPane.duplicate_family",
+        "ConvoEngineAuthoringPane.delete_family",
+        "ConvoEngineAuthoringPane.preview_record",
+        "ConvoEngineAuthoringPane.write_source"
+      ],
+      "canonicalOperation": "convo.catalog+convo.simulate+convo.change.*+convo.audit",
+      "providerApplicability": ["all"],
+      "mutationClass": "canonical_source",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_studio_convo_authoring_audit_and_hermetic_write_delete"
+      ]
+    },
+    {
+      "featureID": "diag.selection_explain_world_snapshot",
+      "surface": "Log & Diagnostics",
+      "controls": [
+        "app.snapshot_button",
+        "app.selection_explain_button",
+        "app.world_knowledge_button"
+      ],
+      "canonicalOperation": "worker.snapshot+explain_selection+world_knowledge",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_surface_consolidation:SurfaceConsolidationTkTests.test_regression_and_selection_explanation_stay_in_simulation",
+        "ProjectHoomans:tools.providers.pnc.tests.test_world_knowledge_gui:WorldKnowledgeGuiTests.test_existing_semantic_lab_pane_renders_worker_inspection",
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "diag.regressions",
+      "surface": "Log & Diagnostics",
+      "controls": [
+        "app.regression_greeting_button",
+        "app.regression_lifecycle_button",
+        "app.regression_rejection_button",
+        "app.regression_selection_button"
+      ],
+      "canonicalOperation": "worker.regression",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "diag.activity_log_clear",
+      "surface": "Log & Diagnostics",
+      "controls": ["app.clear_activity_log"],
+      "canonicalOperation": "activity_log.clear",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "diag.hub_graph_history",
+      "surface": "Log & Diagnostics",
+      "controls": ["app.dialogue_graph_pane"],
+      "canonicalOperation": "conversation_graph.render",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_hub_diagnostics_graph_history:HubDiagnosticsGraphHistoryTests.test_tk_unifies_hub_graph_and_retains_authored_history"
+      ]
+    },
+    {
+      "featureID": "worker.lifecycle.restart_and_recovery",
+      "surface": "Worker Lifecycle",
+      "controls": ["app.restart_button"],
+      "canonicalOperation": "worker.restart",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10a_label_speech_realization:S10ALabelSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+      ]
+    },
+    {
+      "featureID": "cli.convo_and_workspace_ops",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "workspace.describe",
+        "convo.operations",
+        "convo.catalog",
+        "convo.get",
+        "convo.impact",
+        "convo.validate",
+        "convo.simulate",
+        "convo.change",
+        "convo.build",
+        "convo.audit"
+      ],
+      "canonicalOperation": "OperationRegistry.dispatch",
+      "providerApplicability": ["all"],
+      "mutationClass": "canonical_source",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_s9h5_cli:ConvoEngineS9H5CliTests.test_main_cli_exposes_workspace_and_convo_operations",
+        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_s9r_closure:ConvoEngineS9RClosureTests.test_r5_convo_engine_pane_dispatches_canonical_operations"
+      ]
+    },
+    {
+      "featureID": "cli.acceptance_orchestrator",
+      "surface": "CLI & Agent Ops",
+      "controls": ["--acceptance"],
+      "canonicalOperation": "acceptance.run_acceptance_suites",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_acceptance_runner:AcceptanceRunnerTests.test_cli_routes_acceptance_flag_headless",
+        "PsychopatzCore:tools.semantic_harness.tests.test_acceptance_runner:AcceptanceRunnerTests.test_fast_subset_of_real_suites_executes_cleanly"
+      ]
+    }
+  ]
+}

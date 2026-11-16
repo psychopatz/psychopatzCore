@@ -844,7 +844,7 @@ Mandatory suites may not silently disappear. Display-required tests run under Xv
 
 ### S10C — feature-owned real GUI acceptance
 
-**Status:** ACTIVE (NEXT).
+**Status:** COMPLETE (`tools/semantic_harness/testing/feature_registry.json` and `feature_registry.py` map every supported GUI/CLI action to surface, canonical operation, provider applicability, mutation class, and AST/real-Tk verified acceptance owner; `tests/test_feature_registry.py` enforces zero unmapped `app.*_button` / Studio `ConvoEngineAuthoringPane` / `convo` CLI controls; `ProjectHoomans/tools/providers/pnc/tests/test_s10c_gui_journeys.py` passes 4/4 real Tk/Xvfb GUI journeys; `operation_lifecycle.poll_future` catches `RuntimeError` into the non-modal worker failure recovery path).
 
 Introduce one compact machine-readable Feature Acceptance Registry mapping supported public actions to surface, canonical operation/capability, provider applicability, mutation class and automated acceptance owner.
 
@@ -855,6 +855,8 @@ The mandatory Simulation/Conversation journeys include the identity-label regres
 **Gate:** every mandatory supported feature has acceptance ownership, every GUI feature has a real-surface case, the label/speech identity journey passes through the real selected provider, and adding an uncovered supported feature fails validation.
 
 ### S10D — provider lifecycle, maintainability and closure
+
+**Status:** ACTIVE (NEXT).
 
 Run start/request/restart/reconfigure/shutdown matrices for all supported manifest selections, repeat lifecycle transitions to expose stale globals/duplicate registration/registry drift, document the one-command acceptance workflow, and reconcile continuity docs only after all real-path gates pass.
 
