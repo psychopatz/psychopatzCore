@@ -13,6 +13,8 @@ from .generation_ownership import (
     HOOMANS_OWNER,
     OwnerConfigurationError,
     normalize_owner,
+    owner_repository,
+    package_descriptor,
     resolve_core_repository,
     resolve_hoomans_repository,
 )
@@ -196,8 +198,10 @@ def load_manifest(
     manifest_path: Path,
     *,
     package_repositories: Mapping[str, Path] | None = None,
+    visited_packages: set[str] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Load and validate the complete local/external Conversation graph."""
+    active_visited = set() if visited_packages is None else visited_packages
 
     resolved_package_repositories = dict(package_repositories or {})
     resolved_package_repositories.setdefault(
@@ -310,6 +314,73 @@ def load_manifest(
         )
     entries = sorted(
         [*explicit_entries, *discovered_entries, *external_entries, *external_root_entries],
+        key=lambda item: (item["order"], item["path"]),
+    )
+    pkg_identity = str(manifest.get("package") or default_owner)
+    active_visited.add(pkg_identity)
+
+    raw_imports = manifest.get("imports") or []
+    if not isinstance(raw_imports, list):
+        raise CompileError("PSDL package imports must be a list")
+    imported_entries: list[dict[str, Any]] = []
+    for imp in raw_imports:
+        if not isinstance(imp, str) or not imp.strip():
+            raise CompileError("PSDL package import entry must be a non-empty string")
+        try:
+            imp_desc = package_descriptor(imp.strip())
+        except OwnerConfigurationError as error:
+            raise CompileError(f"Unknown imported PSDL package {imp!r}: {error}") from error
+        if imp_desc.owner in active_visited:
+            continue
+        imp_repo = resolved_package_repositories.get(imp_desc.owner)
+        if imp_repo is None:
+            try:
+                imp_repo = owner_repository(repository, imp_desc.owner)
+            except OwnerConfigurationError as error:
+                raise CompileError(
+                    f"Missing repository for imported PSDL package {imp!r}: {error}"
+                ) from error
+        imp_root = imp_repo / imp_desc.source_root_relative
+        imp_manifest_path = imp_root / "package.json"
+        if not imp_manifest_path.is_file():
+            imp_manifest_path = imp_root / "manifest.json"
+        if not imp_manifest_path.is_file():
+            raise CompileError(
+                f"Imported PSDL package {imp!r} is missing package.json/manifest.json under {imp_root}"
+            )
+        imp_manifest, imp_loaded_entries = load_manifest(
+            imp_repo,
+            imp_manifest_path,
+            package_repositories=resolved_package_repositories,
+            visited_packages=active_visited,
+        )
+        manifest["sourceProfiles"].update(deepcopy(imp_manifest.get("sourceProfiles") or {}))
+        imp_ext_refs = (imp_manifest.get("externalReferences") or {}).get("patternIDs") or []
+        if imp_ext_refs:
+            ext_refs = manifest.setdefault("externalReferences", {})
+            pat_ids = ext_refs.setdefault("patternIDs", [])
+            for pid in imp_ext_refs:
+                if pid not in pat_ids:
+                    pat_ids.append(pid)
+        for imp_entry in imp_loaded_entries:
+            cloned = deepcopy(imp_entry)
+            if not cloned.get("sourceRepository"):
+                cloned["sourceRepository"] = str(imp_repo.expanduser().resolve())
+            if not cloned.get("sourcePath"):
+                cloned["sourcePath"] = (
+                    imp_root.relative_to(imp_repo).as_posix() + "/" + cloned["path"]
+                )
+            cloned.setdefault("importedFrom", imp_desc.owner)
+            cloned.setdefault("sourceOwner", str(cloned.get("owner") or imp_desc.owner))
+            logical = cloned["path"]
+            if logical in seen_paths:
+                logical = f"imports/{imp_desc.owner}/{logical}"
+                cloned["path"] = logical
+            seen_paths.add(logical)
+            imported_entries.append(cloned)
+
+    entries = sorted(
+        [*entries, *imported_entries],
         key=lambda item: (item["order"], item["path"]),
     )
     if not entries:

@@ -328,7 +328,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__becaffc7",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseRevenge",
         ["namespace"] = "corpse.revenge",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1045,7 +1045,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__becaffc7",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseRevenge",
         ["namespace"] = "corpse.revenge",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1756,7 +1756,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__becaffc7",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseRevenge",
         ["namespace"] = "corpse.revenge",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

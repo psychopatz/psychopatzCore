@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 from collections.abc import Mapping, Sequence
+from pathlib import Path
 from typing import Any
 
 from .errors import CompileError
@@ -135,4 +136,78 @@ def inspect_psdl(
     raise CompileError(f"Unsupported inspection mode {mode!r}; expected summary, source, ir, or impact")
 
 
-__all__ = ["inspect_psdl"]
+def locate_psdl(
+    compiled_model: Mapping[str, Any],
+    *,
+    record_id: str,
+    package_repositories: Mapping[str, Path] | None = None,
+) -> dict[str, Any]:
+    """Derive full source -> package -> portable plan -> generated module navigation."""
+    from .conversation_compiler import render_conversation_runtime_plan
+    from .generation_ownership import package_descriptor
+
+    records = compiled_model.get("psdlRuntimePlans") or []
+    by_id = {str(rec.get("id") or ""): rec for rec in records}
+    if record_id not in by_id:
+        raise CompileError(f"Unknown PSDL record ID: {record_id!r}")
+    rec = by_id[record_id]
+    owner = str(rec.get("owner") or "")
+    desc = package_descriptor(owner)
+    lineage = rec.get("lineage") or {}
+    source_path = str(lineage.get("sourcePath") or "")
+
+    # Read owning package's imports from its package.json if available
+    imported_packages: list[str] = []
+    if package_repositories and owner in package_repositories:
+        pkg_json = Path(package_repositories[owner]) / desc.source_root_relative / "package.json"
+        if pkg_json.is_file():
+            import json
+            pkg_doc = json.loads(pkg_json.read_text(encoding="utf-8"))
+            imported_packages = list(pkg_doc.get("imports") or [])
+
+    # Required capabilities
+    payload = rec.get("payload") or {}
+    caps = list(payload.get("requiredCapabilities") or [])
+    act = payload.get("action")
+    if isinstance(act, Mapping) and act.get("capability") and act["capability"] not in caps:
+        caps.append(str(act["capability"]))
+
+    # Generated backend modules from the canonical runtime plan renderer
+    _, reports = render_conversation_runtime_plan(dict(compiled_model))
+    generated_modules = sorted({
+        str(rep["module"])
+        for rep in reports
+        if record_id in (rep.get("recordIDs") or []) and rep.get("module")
+    })
+
+    # Portable Dialogue Plan presence
+    portable_plan = compiled_model.get("portablePlan") or {}
+    section_map = {
+        "dialogue": "dialogues",
+        "behavior": "behaviors",
+        "beat": "beats",
+        "realization": "realizations",
+    }
+    section = section_map.get(str(rec.get("kind") or ""), "dialogues")
+    in_portable = record_id in (portable_plan.get(section) or {})
+
+    deps, consumers = _build_dependency_graph(records)
+    return {
+        "id": record_id,
+        "kind": rec.get("kind"),
+        "package": desc.owner,
+        "owner": owner,
+        "authoredSourcePath": (desc.source_root_relative / source_path).as_posix() if source_path else "",
+        "packageRelativeSourcePath": source_path,
+        "authoringSchema": lineage.get("authoringSchema"),
+        "canonicalSchema": lineage.get("canonicalSchema"),
+        "importedPackages": imported_packages,
+        "requiredCapabilities": sorted(caps),
+        "portablePlanSection": section if in_portable else None,
+        "generatedModules": generated_modules,
+        "dependencies": sorted(deps.get(record_id, ())),
+        "consumers": sorted(consumers.get(record_id, ())),
+    }
+
+
+__all__ = ["inspect_psdl", "locate_psdl"]

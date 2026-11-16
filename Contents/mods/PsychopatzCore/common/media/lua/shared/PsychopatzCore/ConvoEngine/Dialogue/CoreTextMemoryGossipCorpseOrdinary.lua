@@ -214,7 +214,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -689,7 +689,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1158,7 +1158,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1627,7 +1627,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -2096,7 +2096,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

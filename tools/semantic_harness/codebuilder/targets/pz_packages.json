@@ -15,6 +15,7 @@
       "translationManifestRelative": "manifests/Conversation.json",
       "repositoryEnvironment": "PZ_TEST_CORE_REPOSITORY",
       "repositoryMarkers": ["tools/semantic_harness/codebuilder/sources/conversation"],
+      "sourceRootRelative": "tools/semantic_harness/codebuilder/sources/conversation",
       "isCore": true,
       "capabilities": ["speech"]
     },
@@ -35,6 +36,7 @@
       ],
       "repositoryEnvironment": "PZ_TEST_HOOMANS_REPOSITORY",
       "repositoryMarkers": ["Contents/mods/ProjectHoomans", "tools/providers/pnc"],
+      "sourceRootRelative": "tools/providers/pnc/codebuilder/sources/conversation",
       "isDefaultProject": true,
       "capabilities": [
         "speech",
@@ -62,6 +64,7 @@
       ],
       "repositoryEnvironment": "PZ_TEST_DYNAMIC_TRADING_REPOSITORY",
       "repositoryMarkers": ["Contents/mods/DTCommon", "tools/providers/dt"],
+      "sourceRootRelative": "tools/providers/dt/codebuilder/sources/conversation",
       "capabilities": ["speech", "DT.trade"]
     }
   }

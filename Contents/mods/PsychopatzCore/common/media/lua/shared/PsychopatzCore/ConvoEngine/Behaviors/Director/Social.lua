@@ -582,7 +582,7 @@ return {
                 ["dialogueAct"] = "ACKNOWLEDGE",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
         },
         ["stimuli"] = {
@@ -617,7 +617,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -653,7 +653,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -689,7 +689,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -725,7 +725,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -761,7 +761,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -797,7 +797,7 @@ return {
                 ["dialogueAct"] = "DISCLOSE",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -836,7 +836,7 @@ return {
                 ["dialogueAct"] = "WARN",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -870,7 +870,7 @@ return {
                 ["dialogueAct"] = "PROPOSE_ENGAGE",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -913,7 +913,7 @@ return {
                 ["dialogueAct"] = "PROPOSE_AVOID",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -956,7 +956,7 @@ return {
                 ["dialogueAct"] = "PROPOSE_HOLD",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -1001,7 +1001,7 @@ return {
                 ["dialogueAct"] = "ASK_FOLLOWUP",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -1035,7 +1035,7 @@ return {
                 ["dialogueAct"] = "ANSWER",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -1069,7 +1069,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -1103,7 +1103,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },
@@ -1137,7 +1137,7 @@ return {
                 ["dialogueAct"] = "INFORM",
             },
         },
-        ["owner"] = "PsychopatzCore",
+        ["owner"] = "ProjectHoomans",
         ["requiredCapabilities"] = {
             "speech",
         },

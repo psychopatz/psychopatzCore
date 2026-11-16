@@ -34,14 +34,66 @@ def compact_segment(
     value: str,
     canonical_id: str,
     *,
-    maximum: int = 32,
+    maximum: int = 64,
 ) -> str:
-    """Create a readable segment, hashing only when the label is too long."""
+    """Create a readable segment, hashing only when the label exceeds *maximum*."""
     slug = pascal_segment(value)
     if len(slug) <= maximum:
         return slug
     suffix = "__" + compact_hash(canonical_id)
     return slug[: max(1, maximum - len(suffix))] + suffix
+
+
+def semantic_chunk_label(record_ids: Iterable[str], *, domain: str = "") -> str:
+    """Derive a deterministic, human-readable chunk label from sorted record IDs."""
+    ids = [str(item).strip() for item in record_ids if str(item).strip()]
+    if not ids:
+        return "Chunk"
+    # Strip shared dot-prefix if all IDs share one (e.g. 'command.camp', 'command.follow' -> 'camp', 'follow')
+    split_ids = [rid.split(".") for rid in ids]
+    if len(split_ids[0]) > 1:
+        prefix_len = 0
+        for col in zip(*split_ids):
+            if len(set(col)) == 1:
+                prefix_len += 1
+            else:
+                break
+        if prefix_len > 0 and all(len(parts) > prefix_len for parts in split_ids):
+            short_ids = [".".join(parts[prefix_len:]) for parts in split_ids]
+        else:
+            short_ids = ids
+    else:
+        short_ids = ids
+
+    first_slug = pascal_segment(short_ids[0])
+    last_slug = pascal_segment(short_ids[-1])
+    if len(short_ids) == 1 or first_slug == last_slug:
+        label = first_slug
+    else:
+        label = f"{first_slug}To{last_slug}"
+    if len(label) > 64:
+        first_short = first_slug[:28]
+        last_short = last_slug[:28]
+        label = f"{first_short}To{last_short}" if first_short != last_short else first_short
+    return label or pascal_segment(domain or "Chunk")
+
+
+def audit_hashed_module_names(modules: Iterable[str]) -> list[dict[str, str]]:
+    """Report any remaining __<8hex> generated module names and their reason."""
+    findings: list[dict[str, str]] = []
+    pattern = re.compile(r"__([0-9a-f]{8})(?:\.lua)?$")
+    for mod in sorted(set(str(m) for m in modules)):
+        match = pattern.search(mod)
+        if not match:
+            continue
+        leaf = mod.rsplit("/", 1)[-1]
+        reason = (
+            "segment_length_limit"
+            if len(leaf) >= 60
+            else "collision_fallback"
+        )
+        findings.append({"module": mod, "hash": match.group(1), "reason": reason})
+    return findings
 
 
 class ModuleNameRegistry:
@@ -143,10 +195,12 @@ __all__ = [
     "CatalogNameError",
     "ModuleNameRegistry",
     "SOURCE_ROOT_SEGMENTS",
+    "audit_hashed_module_names",
     "compact_hash",
     "compact_segment",
     "module_file",
     "module_path",
     "pascal_segment",
+    "semantic_chunk_label",
     "source_owned_module",
 ]

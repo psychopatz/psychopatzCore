@@ -118,7 +118,7 @@ class BuildPlanner:
         )
         return compile_conversation_sources(
             runtime_base,
-            manifest_path=manifest_path,
+            manifest_path=None if len(package_repositories) > 1 else manifest_path,
             runtime_root=runtime_base,
             package_repositories=package_repositories,
         )

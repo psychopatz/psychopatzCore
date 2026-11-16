@@ -41,6 +41,7 @@ class PackageDescriptor:
     )
     repository_environment: str | None = None
     repository_markers: tuple[str, ...] = ()
+    source_root_relative: Path = Path("tools/semantic_harness/codebuilder/sources/conversation")
     backend: str = "pz-lua"
     localization_policy: str = "build42-json"
     capabilities: tuple[str, ...] = ("speech",)
@@ -99,6 +100,12 @@ def descriptor_from_mapping(owner: str, raw: Mapping[str, Any]) -> PackageDescri
             else None
         ),
         repository_markers=tuple(str(m) for m in (raw.get("repositoryMarkers") or ())),
+        source_root_relative=Path(
+            str(
+                raw.get("sourceRootRelative")
+                or "tools/semantic_harness/codebuilder/sources/conversation"
+            ).strip()
+        ),
         backend=str(raw.get("backend") or "pz-lua").strip(),
         localization_policy=str(raw.get("localizationPolicy") or "build42-json").strip(),
         capabilities=tuple(str(c) for c in (raw.get("capabilities") or ("speech",))),
@@ -329,9 +336,16 @@ def _resolve_by_descriptor(
             if candidate.is_dir() and any((candidate / m).exists() for m in descriptor.repository_markers):
                 return candidate.resolve()
         if base.parent.is_dir():
-            for child in sorted(base.parent.iterdir()):
-                if child.is_dir() and all((child / m).exists() for m in descriptor.repository_markers):
-                    return child.resolve()
+            try:
+                children = sorted(base.parent.iterdir())
+            except OSError:
+                children = []
+            for child in children:
+                try:
+                    if child.is_dir() and all((child / m).exists() for m in descriptor.repository_markers):
+                        return child.resolve()
+                except OSError:
+                    continue
     return None
 
 

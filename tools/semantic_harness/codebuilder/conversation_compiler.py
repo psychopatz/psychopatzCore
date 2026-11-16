@@ -50,7 +50,7 @@ from .conversation_rendering import (
     render_conversation_lua_records,
     render_conversation_ui_module,
 )
-from .catalog_naming import ModuleNameRegistry, module_path
+from .catalog_naming import ModuleNameRegistry, module_path, semantic_chunk_label
 from .conversation_discovery import (
     conversation_discovery_index,
     render_conversation_discovery_indexes,
@@ -90,6 +90,7 @@ from .generation_ownership import (
     combined_target_descriptor,
     conversation_prefix,
     normalize_owner,
+    package_descriptor as owner_package_descriptor,
     route_module_for_owner,
     resolve_core_repository,
     resolve_hoomans_repository,
@@ -218,20 +219,93 @@ def compile_conversation_sources(
             for owner, path in (package_repositories or {}).items()
         },
     }
+    explicit_manifest = manifest_path is not None
     if manifest_path is None:
-        manifest_path = repository / CONVERSATION_MANIFEST_RELATIVE
-        if not manifest_path.is_file():
-            manifest_path = (
-                resolved_package_repositories["PsychopatzCore"]
-                / CONVERSATION_MANIFEST_RELATIVE
-            )
+        hoomans_repo = resolved_package_repositories.get(HOOMANS_OWNER)
+        hoomans_pkg_path = (
+            hoomans_repo
+            / owner_package_descriptor(HOOMANS_OWNER).source_root_relative
+            / "package.json"
+            if hoomans_repo is not None
+            else None
+        )
+        local_pkg_path = repository / CONVERSATION_SOURCE_RELATIVE / "package.json"
+        local_manifest_path = repository / CONVERSATION_MANIFEST_RELATIVE
+        core_pkg_path = (
+            resolved_package_repositories["PsychopatzCore"]
+            / CONVERSATION_SOURCE_RELATIVE
+            / "package.json"
+        )
+        core_manifest_path = (
+            resolved_package_repositories["PsychopatzCore"]
+            / CONVERSATION_MANIFEST_RELATIVE
+        )
+        if local_pkg_path.is_file() and repository != resolved_package_repositories["PsychopatzCore"]:
+            manifest_path = local_pkg_path
+        elif local_manifest_path.is_file() and repository != resolved_package_repositories["PsychopatzCore"]:
+            manifest_path = local_manifest_path
+        elif hoomans_pkg_path is not None and hoomans_pkg_path.is_file():
+            manifest_path = hoomans_pkg_path
+        elif core_pkg_path.is_file():
+            manifest_path = core_pkg_path
+        else:
+            manifest_path = core_manifest_path
     manifest_path = manifest_path.expanduser().resolve()
     runtime_root = (runtime_root or repository).expanduser().resolve()
+    visited_packages: set[str] = set()
     manifest, entries = _load_manifest(
         repository,
         manifest_path,
         package_repositories=resolved_package_repositories,
+        visited_packages=visited_packages,
     )
+    if not explicit_manifest:
+        seen_entry_keys = {
+            (
+                str(e.get("owner") or ""),
+                str(e.get("sourcePath") or e.get("path") or ""),
+            )
+            for e in entries
+        }
+        seen_logical_paths = {str(e.get("path") or "") for e in entries}
+        for extra_owner, extra_repo in sorted(resolved_package_repositories.items()):
+            if extra_owner in visited_packages:
+                continue
+            extra_desc = owner_package_descriptor(extra_owner)
+            extra_root = extra_repo / extra_desc.source_root_relative
+            extra_pkg = extra_root / "package.json"
+            if not extra_pkg.is_file():
+                continue
+            extra_manifest, extra_entries = _load_manifest(
+                extra_repo,
+                extra_pkg,
+                package_repositories=resolved_package_repositories,
+                visited_packages=visited_packages,
+            )
+            manifest["sourceProfiles"].update(extra_manifest.get("sourceProfiles") or {})
+            for extra_entry in extra_entries:
+                dedup_key = (
+                    str(extra_entry.get("owner") or ""),
+                    str(extra_entry.get("sourcePath") or extra_entry.get("path") or ""),
+                )
+                if dedup_key in seen_entry_keys:
+                    continue
+                seen_entry_keys.add(dedup_key)
+                cloned = dict(extra_entry)
+                if not cloned.get("sourceRepository"):
+                    cloned["sourceRepository"] = str(extra_repo.expanduser().resolve())
+                if not cloned.get("sourcePath"):
+                    cloned["sourcePath"] = (
+                        extra_root.relative_to(extra_repo).as_posix()
+                        + "/"
+                        + str(cloned["path"])
+                    )
+                cloned.setdefault("sourceOwner", str(cloned.get("owner") or extra_desc.owner))
+                if cloned["path"] in seen_logical_paths:
+                    cloned["path"] = f"packages/{extra_desc.owner}/{cloned['path']}"
+                seen_logical_paths.add(cloned["path"])
+                entries.append(cloned)
+        entries.sort(key=lambda item: (item["order"], item["path"]))
     package_descriptor_doc = manifest.get("_packageDescriptor")
     source_root = manifest_path.parent
 
@@ -531,17 +605,18 @@ def compile_conversation_sources(
     behavior_by_id = {
         record["id"]: record for record in behaviors["records"]
     }
-    for behavior in behaviors["records"]:
-        outputs = behavior.get("outputs", {})
-        for output_name in ("speech", "flavor"):
-            output = outputs.get(output_name)
-            if isinstance(output, dict):
-                content_template_id = output.get("contentTemplateID")
-                if content_template_id not in available_content_templates:
-                    raise CompileError(
-                        f"behavior {behavior.get('id')} {output_name} output references "
-                        f"unknown Dialogue Content template {content_template_id}"
-                    )
+    if not bool(manifest.get("allowUnresolvedTemplateContracts", False)):
+        for behavior in behaviors["records"]:
+            outputs = behavior.get("outputs", {})
+            for output_name in ("speech", "flavor"):
+                output = outputs.get(output_name)
+                if isinstance(output, dict):
+                    content_template_id = output.get("contentTemplateID")
+                    if content_template_id not in available_content_templates:
+                        raise CompileError(
+                            f"behavior {behavior.get('id')} {output_name} output references "
+                            f"unknown Dialogue Content template {content_template_id}"
+                        )
     for beat in beats["records"]:
         for candidate in beat.get("candidates", []):
             behavior_id = candidate.get("behavior")
@@ -1263,10 +1338,16 @@ def render_conversation_runtime_plan(
                 first_id = str(chunk[0].get("id") or "record")
                 last_id = str(chunk[-1].get("id") or first_id)
                 chunk_key = f"{owner}:{kind}:{domain}:{first_id}:{last_id}"
+                is_split = start > 0 or end < len(grouped_plans)
+                segments = (
+                    [kind.title(), domain, semantic_chunk_label((str(p.get("id") or "") for p in chunk), domain=domain)]
+                    if is_split
+                    else [kind.title(), domain]
+                )
                 temp_names = psdl_names.clone()
                 module = module_path(
                     prefix,
-                    [kind.title(), domain],
+                    segments,
                     chunk_key,
                     temp_names,
                 )

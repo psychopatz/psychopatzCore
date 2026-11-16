@@ -393,9 +393,9 @@ class SemanticGenerationLifecycleG5Tests(unittest.TestCase):
                 repos["hoomans"]
                 / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/Dialogue"
             )
-            hash_shards = list(dialogue_dir.glob("ShardedDomain__*.lua"))
-            self.assertEqual(len(hash_shards), 1)
-            self.assertTrue(hash_shards[0].is_file())
+            split_shards = sorted((dialogue_dir / "ShardedDomain").glob("*.lua"))
+            self.assertEqual(len(split_shards), 2)
+            self.assertTrue(all(p.is_file() for p in split_shards))
 
             # Snapshot all file contents and mtimes after pass 1
             snapshot_pass1 = {
@@ -417,7 +417,7 @@ class SemanticGenerationLifecycleG5Tests(unittest.TestCase):
             self.assertEqual(pass2["prunedFiles"], [])
             self.assertEqual(pass2["prunedKeys"], [])
             self.assertEqual(pass2["writtenFiles"], [])
-            self.assertTrue(hash_shards[0].is_file())
+            self.assertTrue(all(p.is_file() for p in split_shards))
 
             snapshot_pass2 = {
                 (name, p.relative_to(root).as_posix()): (p.read_bytes(), p.stat().st_mtime_ns)

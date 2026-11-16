@@ -157,6 +157,10 @@ def build_parser() -> argparse.ArgumentParser:
     _add_repo_args(p_impact)
     p_impact.add_argument("record_id", help="Canonical PSDL record ID")
 
+    p_locate = sub.add_parser("locate", help="Locate package, source path, capabilities, and generated modules for a PSDL ID")
+    _add_repo_args(p_locate)
+    p_locate.add_argument("record_id", help="Canonical PSDL record ID")
+
     return parser
 
 
@@ -280,9 +284,9 @@ def main(arguments: list[str] | None = None) -> int:
                 "convo.audit",
                 {"checkDeterminism": bool(args.check_determinism)},
             )
-        elif args.command in {"get", "impact"}:
+        elif args.command in {"get", "impact", "locate"}:
             from tools.semantic_harness.codebuilder.conversation_compiler import compile_conversation_sources
-            from tools.semantic_harness.codebuilder.psdl_inspect import inspect_psdl
+            from tools.semantic_harness.codebuilder.psdl_inspect import inspect_psdl, locate_psdl
 
             pkg_repos = {
                 "PsychopatzCore": svc.core_repository,
@@ -293,21 +297,32 @@ def main(arguments: list[str] | None = None) -> int:
                 svc.core_repository,
                 package_repositories=pkg_repos,
             )
-            mode = (
-                "impact"
-                if args.command == "impact"
-                else ("source" if args.source else ("ir" if args.ir else "summary"))
-            )
-            result = {
-                "ok": True,
-                "mode": mode,
-                "record": inspect_psdl(
-                    compiled.get("psdlRuntimePlans") or [],
-                    compiled.get("_source_documents") or {},
-                    record_id=args.record_id,
-                    mode=mode,
-                ),
-            }
+            if args.command == "locate":
+                result = {
+                    "ok": True,
+                    "mode": "locate",
+                    "location": locate_psdl(
+                        compiled,
+                        record_id=args.record_id,
+                        package_repositories=pkg_repos,
+                    ),
+                }
+            else:
+                mode = (
+                    "impact"
+                    if args.command == "impact"
+                    else ("source" if args.source else ("ir" if args.ir else "summary"))
+                )
+                result = {
+                    "ok": True,
+                    "mode": mode,
+                    "record": inspect_psdl(
+                        compiled.get("psdlRuntimePlans") or [],
+                        compiled.get("_source_documents") or {},
+                        record_id=args.record_id,
+                        mode=mode,
+                    ),
+                }
         else:
             parser.error(f"unknown command: {args.command}")
             return 2

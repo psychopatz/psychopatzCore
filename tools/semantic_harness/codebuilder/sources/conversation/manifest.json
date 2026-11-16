@@ -411,26 +411,5 @@
   },
   "auxiliaryRoots": [
     "text"
-  ],
-  "externalSourceRoots": [
-    {
-      "path": "adopters/dt/dialogue",
-      "kind": "convo_engine",
-      "domain": "trading",
-      "order": 3010,
-      "owner": "DTCommon",
-      "optional": true,
-      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/dialogue",
-      "domainFromSubdir": true
-    },
-    {
-      "path": "adopters/hoomans/dialogue",
-      "kind": "convo_engine",
-      "domain": "general",
-      "order": 3011,
-      "owner": "ProjectHoomans",
-      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/dialogue",
-      "domainFromSubdir": true
-    }
   ]
 }

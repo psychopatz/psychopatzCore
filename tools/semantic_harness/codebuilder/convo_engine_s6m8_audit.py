@@ -366,7 +366,7 @@ def audit_convo_engine_workspace(
     try:
         compiled = compile_conversation_sources(
             runtime_base,
-            manifest_path=manifest_path,
+            manifest_path=None,
             runtime_root=runtime_base,
             package_repositories=package_repositories,
         )

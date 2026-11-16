@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/ConvoEngine/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "56dca873764e172f9335e7929cf2901799769cc1e737ef494dfb13c669953986"
+Registry.WHOLE_MODEL_FINGERPRINT = "89b22cb813b6820e922e6292086a95ead039453ef38cc0a9081c54939e325313"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -105,15 +105,15 @@ appendResponses(require "PsychopatzCore/ConvoEngine/Responses/Dialogue/CoreKnowl
 appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social")
 appendBeats(require "PsychopatzCore/ConvoEngine/Beats/Director/Social")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/Social")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social__d6475647")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeActivity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeFacts__d73c98cf")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeGossip")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeIdentity")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__becaffc7")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseRevenge")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextNeedsGifts")
