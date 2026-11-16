@@ -18,13 +18,13 @@ from tools.semantic_harness.codebuilder.generation_recipe import (
     load_generation_recipe,
 )
 from tools.semantic_harness.codebuilder.reconcile import reconcile_apply
-from tools.semantic_harness.tests.test_convo_engine_s9h6_build_planner import (
+from tools.semantic_harness.tests.test_convo_engine_build_planner import (
     _build_three_repo_fixture,
     _write_json,
 )
 
 
-class SemanticGenerationLifecycleG7Tests(unittest.TestCase):
+class SemanticGenerationOwnershipAndCleanupTests(unittest.TestCase):
     def test_steady_state_recipe_is_structurally_compact(self) -> None:
         recipe = load_generation_recipe(DEFAULT_RECIPE_PATH)
         self.assertEqual(recipe.surface("conversation_lua").preserved_by_owner, {})

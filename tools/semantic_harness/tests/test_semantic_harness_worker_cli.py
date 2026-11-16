@@ -28,7 +28,7 @@ def _run_cli(argv: list[str]) -> tuple[int, list[dict]]:
 
 
 @unittest.skipUnless(HOOMANS_ROOT.is_dir(), "ProjectHoomans sibling repository is required")
-class S10R2WorkerCliTests(unittest.TestCase):
+class SemanticHarnessWorkerCliTests(unittest.TestCase):
     def _base_args(self) -> list[str]:
         args = [
             "--no-gui",

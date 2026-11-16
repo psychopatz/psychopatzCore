@@ -192,7 +192,7 @@ def _build_three_repo_fixture(base: Path) -> dict[str, Path]:
     return {"core": core_repo, "hoomans": hoomans_repo, "dt": dt_repo}
 
 
-class ConvoEngineS9H6BuildPlannerTests(unittest.TestCase):
+class ConvoEngineBuildPlannerTests(unittest.TestCase):
     def test_build_planner_preview_effect_free_caches_and_clears_on_apply(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _build_three_repo_fixture(Path(tmp))

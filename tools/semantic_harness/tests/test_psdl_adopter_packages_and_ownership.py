@@ -31,7 +31,7 @@ HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
 DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
 
 
-class PsdlPackagesG9Tests(unittest.TestCase):
+class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.pkg_repos = {

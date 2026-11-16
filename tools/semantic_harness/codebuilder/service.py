@@ -60,7 +60,7 @@ from .convo_engine_normalization import (
     normalize_source_group,
     shard_offers_to_families as _shard_offers_to_families,
 )
-from .convo_engine_s6m8_audit import (
+from .convo_engine_integrity_audit import (
     audit_convo_engine_workspace,
     discover_convo_engine_repositories,
 )
@@ -2444,13 +2444,13 @@ class SemanticLabAuthoringService:
             editor_kind=editor_kind,
         )
 
-    def run_convo_engine_s6m8_audit(
+    def run_convo_engine_integrity_audit(
         self,
         *,
         check_determinism: bool = False,
         require_all_owners: bool = True,
     ) -> dict[str, Any]:
-        """Execute the S6M8 three-repository ConvoEngine integrity and determinism audit."""
+        """Execute the three-repository ConvoEngine integrity and determinism audit."""
         discovered = discover_convo_engine_repositories(
             self.core_repository,
             repository=self.repository,
@@ -2462,6 +2462,18 @@ class SemanticLabAuthoringService:
             discovered[CORE_OWNER] or self.core_repository,
             hoomans_repository=discovered[HOOMANS_OWNER],
             dynamic_trading_repository=discovered[DT_COMMON_OWNER],
+            check_determinism=check_determinism,
+            require_all_owners=require_all_owners,
+        )
+
+    def run_convo_engine_s6m8_audit(
+        self,
+        *,
+        check_determinism: bool = False,
+        require_all_owners: bool = True,
+    ) -> dict[str, Any]:
+        """Deprecated alias for run_convo_engine_integrity_audit()."""
+        return self.run_convo_engine_integrity_audit(
             check_determinism=check_determinism,
             require_all_owners=require_all_owners,
         )

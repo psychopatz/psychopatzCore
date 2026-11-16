@@ -110,7 +110,7 @@ class _FakeMessageBox:
         return True
 
 
-class ConvoEngineStudioS7Tests(unittest.TestCase):
+class ConvoEngineStudioAuthoringPaneTests(unittest.TestCase):
     def _service(self) -> SemanticLabAuthoringService:
         repo = HOOMANS_ROOT if HOOMANS_ROOT.is_dir() else ROOT
         return SemanticLabAuthoringService(
@@ -197,7 +197,7 @@ class ConvoEngineStudioS7Tests(unittest.TestCase):
         draft_report = pane.preview_record()
         self.assertTrue(draft_report and draft_report["ok"], f"Draft preview failed: {draft_report}")
 
-        audit_report = pane.run_s6m8_audit()
+        audit_report = pane.run_integrity_audit()
         if HOOMANS_ROOT.is_dir() and DT_ROOT.is_dir():
             self.assertTrue(audit_report["ok"], f"Audit violations: {audit_report['violations']}")
 

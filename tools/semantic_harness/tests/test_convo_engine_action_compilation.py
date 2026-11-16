@@ -29,7 +29,7 @@ ACTION_CONTRACTS = {
 }
 
 
-class ConvoEngineS6M6ActionTests(unittest.TestCase):
+class ConvoEngineActionCompilationTests(unittest.TestCase):
     def test_result_root_is_public_while_private_result_paths_fail_closed(self) -> None:
         self.assertEqual(validate_context_path("result.outcome"), "result.outcome")
         self.assertEqual(validate_context_path("result.reasonClass"), "result.reasonClass")

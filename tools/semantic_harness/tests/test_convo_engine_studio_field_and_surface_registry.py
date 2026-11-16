@@ -179,7 +179,7 @@ class _DummyMessagebox:
         return True
 
 
-class ConvoEngineS9H4StudioTests(unittest.TestCase):
+class ConvoEngineStudioFieldAndSurfaceRegistryTests(unittest.TestCase):
     def test_field_descriptor_registry_covers_all_compiler_fields_and_unknown_round_trip(self) -> None:
         known = known_field_names()
         self.assertTrue(PSDL_RECORD_FIELDS.issubset(known))

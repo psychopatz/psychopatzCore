@@ -34,7 +34,7 @@ def _run_cli(argv: list[str]) -> tuple[int, dict]:
     return rc, json.loads(output.getvalue())
 
 
-class S10R2CliActionsTests(unittest.TestCase):
+class SemanticHarnessCliDiscoveryTests(unittest.TestCase):
     def test_cli_selection_discovery_and_reset_ui_state(self) -> None:
         base = _repo_flags()
         rc_mods, mods_payload = _run_cli(["--list-mods", *base, "--jsonl"])

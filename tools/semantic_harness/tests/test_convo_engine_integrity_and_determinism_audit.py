@@ -12,7 +12,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from tools.semantic_harness.codebuilder.convo_engine_authoring import strip_stale_migration_metadata
-from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import (
+from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
     audit_convo_engine_workspace,
     discover_convo_engine_repositories,
 )
@@ -24,7 +24,7 @@ HOOMANS_ROOT = ROOT.parent / "ProjectHoomans"
 DT_ROOT = ROOT.parent / "DynamicTrading"
 
 
-class ConvoEngineS6M8AuditTests(unittest.TestCase):
+class ConvoEngineIntegrityAndDeterminismAuditTests(unittest.TestCase):
     def test_strip_stale_migration_metadata_removes_migration_only_keys(self) -> None:
         doc = {
             "schema": "psychopatz.convo-engine.v1",
@@ -107,7 +107,7 @@ class ConvoEngineS6M8AuditTests(unittest.TestCase):
             core_repository=ROOT,
             dynamic_trading_repository=DT_ROOT,
         )
-        report = svc.run_convo_engine_s6m8_audit(check_determinism=False)
+        report = svc.run_convo_engine_integrity_audit(check_determinism=False)
         self.assertTrue(report["ok"], f"Service audit violations: {report['violations']}")
         self.assertEqual(report["stats"]["legacyNameViolations"], 0)
 
@@ -191,7 +191,7 @@ class ConvoEngineS6M8AuditTests(unittest.TestCase):
             (src / "manifest.json").write_text("{}", encoding="utf-8")
 
             svc = SemanticLabAuthoringService(fake_core, core_repository=fake_core)
-            report = svc.run_convo_engine_s6m8_audit(check_determinism=False)
+            report = svc.run_convo_engine_integrity_audit(check_determinism=False)
             self.assertFalse(report["ok"])
             self.assertIn("missing_mandatory_repository", {v["code"] for v in report["violations"]})
 
@@ -209,7 +209,7 @@ class ConvoEngineS6M8AuditTests(unittest.TestCase):
             [
                 sys.executable,
                 "tools/semantic_harness/codebuilder/convo_engine_cli.py",
-                "audit-s6m8",
+                "audit-integrity",
             ],
             cwd=str(ROOT),
             capture_output=True,

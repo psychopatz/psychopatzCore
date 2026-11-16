@@ -17,7 +17,7 @@ from typing import Any, Iterable
 
 from .conversation_compiler import CONVERSATION_MANIFEST_RELATIVE
 from .conversation_manifest import load_manifest as _load_manifest
-from .convo_engine_s6m8_audit import discover_convo_engine_repositories
+from .convo_engine_integrity_audit import discover_convo_engine_repositories
 from .generation_ownership import CORE_OWNER
 
 

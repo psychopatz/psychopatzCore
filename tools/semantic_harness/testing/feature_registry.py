@@ -29,7 +29,7 @@ _VALID_MUTATION_CLASSES = frozenset({
 })
 
 _APP_BUTTON_RE = re.compile(r"\bapp\.([a-zA-Z0-9_]+_button)\s*=\s*")
-_STUDIO_COMMAND_RE = re.compile(r"command=self\.(refresh|run_s6m8_audit|new_family|duplicate_family|delete_family|preview_record|write_source)\b")
+_STUDIO_COMMAND_RE = re.compile(r"command=self\.(refresh|run_integrity_audit|new_family|duplicate_family|delete_family|preview_record|write_source)\b")
 _CONVO_SUBPARSER_RE = re.compile(r'convo_sub\.add_parser\(\s*"([a-z]+)"')
 
 CLI_MODIFIER_OPTIONS: frozenset[str] = frozenset({

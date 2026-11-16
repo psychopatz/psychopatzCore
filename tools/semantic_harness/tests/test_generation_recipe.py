@@ -21,7 +21,7 @@ from tools.semantic_harness.codebuilder.generation_recipe import (
     load_generation_recipe,
     validate_generation_recipe,
 )
-from tools.semantic_harness.tests.test_convo_engine_s9h6_build_planner import (
+from tools.semantic_harness.tests.test_convo_engine_build_planner import (
     _build_three_repo_fixture,
 )
 

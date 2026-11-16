@@ -124,7 +124,7 @@ def register_workspace_and_convo_subparsers(parser: argparse.ArgumentParser) -> 
     p_bld.add_argument("--owner", default=None)
     p_bld.add_argument("--check-determinism", action="store_true")
 
-    p_aud = convo_sub.add_parser("audit", parents=[repo_parent], help="Run the S6M8 ConvoEngine audit")
+    p_aud = convo_sub.add_parser("audit", parents=[repo_parent], help="Run the ConvoEngine integrity audit")
     p_aud.add_argument("--check-determinism", action="store_true")
     p_aud.add_argument("--no-require-all-owners", action="store_true")
 

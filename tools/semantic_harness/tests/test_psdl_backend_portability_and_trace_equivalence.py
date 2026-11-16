@@ -49,7 +49,7 @@ HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
 DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
 
 
-class PsdlPortabilityG8R7Tests(unittest.TestCase):
+class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.model = compile_conversation_sources(

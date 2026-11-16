@@ -100,7 +100,7 @@ class FeatureRegistryTests(unittest.TestCase):
             "mandatory": True,
             "requiresRealGui": False,
             "acceptanceOwners": [
-                "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_cli_actions:S10R2CliActionsTests.test_cli_selection_discovery_and_reset_ui_state",
+                "PsychopatzCore:tools.semantic_harness.tests.test_semantic_harness_cli_discovery:SemanticHarnessCliDiscoveryTests.test_cli_selection_discovery_and_reset_ui_state",
             ],
         })
         with tempfile.TemporaryDirectory() as tmp:

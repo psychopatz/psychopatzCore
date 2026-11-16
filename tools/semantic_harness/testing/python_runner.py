@@ -72,7 +72,7 @@ RESOURCE_SENSITIVE_MODULES = frozenset({
     # These Tk + Lua-worker GUI modules exceed tight startup/poll budgets
     # when 4 heavy Xvfb+Lua windows compete concurrently on the shared display.
     "test_semantic_harness_gui_journeys",
-    "test_s10d_provider_lifecycle",
+    "test_provider_lifecycle_and_reconfigure",
     "test_semantic_lab_persona_workflow",
     "test_surface_consolidation",
     "test_ui_organization",

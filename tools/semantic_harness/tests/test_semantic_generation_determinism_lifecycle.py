@@ -21,7 +21,7 @@ from tools.semantic_harness.codebuilder.reconcile import (
     reconcile_apply,
     reconcile_check,
 )
-from tools.semantic_harness.tests.test_convo_engine_s9h6_build_planner import (
+from tools.semantic_harness.tests.test_convo_engine_build_planner import (
     _build_three_repo_fixture,
     _sample_family,
     _write_json,
@@ -29,7 +29,7 @@ from tools.semantic_harness.tests.test_convo_engine_s9h6_build_planner import (
 from tools.semantic_harness.tests.test_reconcile_apply import _sample_ui_family
 
 
-class SemanticGenerationLifecycleG5Tests(unittest.TestCase):
+class SemanticGenerationDeterminismLifecycleTests(unittest.TestCase):
     def test_source_rename_retires_old_path_and_creates_new_path(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)

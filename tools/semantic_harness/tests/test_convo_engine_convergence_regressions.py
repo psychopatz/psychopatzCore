@@ -22,7 +22,7 @@ if str(ROOT) not in sys.path:
 
 from tools.semantic_harness.codebuilder import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.convo_engine_authoring import apply_family_patch
-from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import (
+from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
     audit_convo_engine_workspace,
 )
 from tools.semantic_harness.codebuilder.conversation_compiler import (
@@ -309,7 +309,7 @@ def _setup_three_repo_workspace(base: Path) -> dict[str, Path]:
     return {"core": core_repo, "hoomans": hoomans_repo, "dt": dt_repo}
 
 
-class ConvoEngineS9RegressionTests(unittest.TestCase):
+class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
     def test_01_project_hoomans_new_family_owner_routing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))

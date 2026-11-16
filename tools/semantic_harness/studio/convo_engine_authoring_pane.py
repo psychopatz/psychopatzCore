@@ -108,7 +108,7 @@ class ConvoEngineAuthoringPane:
         filter_entry.grid(row=0, column=1, sticky="ew", padx=(6, 6))
         filter_entry.bind("<KeyRelease>", lambda _event: self._apply_filter())
         ttk.Button(toolbar, text="Refresh families", command=self.refresh).grid(row=0, column=2)
-        ttk.Button(toolbar, text="Run S6M8 Audit", command=self.run_s6m8_audit).grid(
+        ttk.Button(toolbar, text="Run ConvoEngine Integrity Audit", command=self.run_integrity_audit).grid(
             row=0, column=3, padx=(6, 0)
         )
         ttk.Label(toolbar, textvariable=self._status_var).grid(
@@ -641,15 +641,19 @@ class ConvoEngineAuthoringPane:
             self.refresh()
         return written
 
-    def run_s6m8_audit(self) -> dict[str, Any]:
+    def run_integrity_audit(self) -> dict[str, Any]:
         report = self.service.dispatch_operation("convo.audit", {"checkDeterminism": False})
         self._set_report(report)
         self._status_var.set(
-            f"S6M8 Audit OK ({report['stats']['familyFilesChecked']} families, 0 violations)"
+            f"ConvoEngine Integrity Audit OK ({report['stats']['familyFilesChecked']} families, 0 violations)"
             if report.get("ok") is True
-            else f"S6M8 Audit found {report.get('violationCount')} violations"
+            else f"ConvoEngine Integrity Audit found {report.get('violationCount')} violations"
         )
         return report
+
+    def run_s6m8_audit(self) -> dict[str, Any]:
+        """Deprecated alias for run_integrity_audit()."""
+        return self.run_integrity_audit()
 
 
 __all__ = ["ConvoEngineAuthoringPane"]

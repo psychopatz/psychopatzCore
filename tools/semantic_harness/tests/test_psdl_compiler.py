@@ -115,7 +115,7 @@ def _catalog() -> dict:
 
 class PSDLCompilerTests(unittest.TestCase):
     def test_core_authoring_service_mutates_and_validates_convo_engine_families(self) -> None:
-        from tools.semantic_harness.tests.test_convo_engine_s9_regressions import (
+        from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
             _setup_three_repo_workspace,
         )
 

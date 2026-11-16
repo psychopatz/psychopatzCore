@@ -45,7 +45,7 @@ def _run_cli(argv: list[str]) -> tuple[int, dict]:
     return rc, json.loads(output.getvalue())
 
 
-class S10R1DatasetAndWorkflowTests(unittest.TestCase):
+class DatasetCompilerAndWorkflowTests(unittest.TestCase):
     def setUp(self) -> None:
         self.service = SemanticLabAuthoringService(
             repository=CORE_ROOT,
@@ -205,7 +205,7 @@ class S10R1DatasetAndWorkflowTests(unittest.TestCase):
         run_cli.assert_called_once()
 
     def test_workflow_generate_approved_runs_in_isolated_temp_workspace(self) -> None:
-        from tools.semantic_harness.tests.test_convo_engine_s9_regressions import (
+        from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
             _setup_three_repo_workspace,
         )
 

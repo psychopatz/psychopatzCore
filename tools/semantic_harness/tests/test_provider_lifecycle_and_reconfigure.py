@@ -157,7 +157,7 @@ def _assert_worker_roundtrip(
     testcase.assertFalse(worker.status().get("running"))
 
 
-class S10DProviderLifecycleTests(unittest.TestCase):
+class ProviderLifecycleAndReconfigureTests(unittest.TestCase):
     def test_manifest_preset_discovery_and_lifecycle_matrix(self) -> None:
         roots = _available_roots()
         if not HOOMANS_ROOT.is_dir():

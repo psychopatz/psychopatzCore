@@ -31,7 +31,7 @@ def _run_harness_cli(argv: list[str]) -> tuple[int, dict]:
     return rc, json.loads(buf.getvalue())
 
 
-class ConvoEngineS9H5CliTests(unittest.TestCase):
+class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
     def test_dead_legacy_psdl_crud_methods_removed_and_legacy_quarantined(self) -> None:
         for removed in (
             "preview_psdl_document",
@@ -139,7 +139,7 @@ class ConvoEngineS9H5CliTests(unittest.TestCase):
             self.assertTrue(payload_optin["ok"])
 
             # Create and preview-delete via main CLI convo change in an isolated workspace
-            from tools.semantic_harness.tests.test_convo_engine_s9_regressions import (
+            from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
                 _setup_three_repo_workspace,
             )
 

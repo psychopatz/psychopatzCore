@@ -282,7 +282,7 @@ class _WorkerMissingConvoProbeCapability:
         raise AssertionError("Worker without semantic.convo_probe must fail capability check")
 
 
-class ConvoEngineS9RClosureTests(unittest.TestCase):
+class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
     def test_r3_convo_simulate_descriptor_advertises_convo_probe_requirement(self) -> None:
         service = SemanticLabAuthoringService(core_repository=CORE_ROOT)
         try:
@@ -398,7 +398,7 @@ class ConvoEngineS9RClosureTests(unittest.TestCase):
                     self.assertIn("convo.catalog", dispatched)
 
                     dispatched.clear()
-                    audit_report = pane.run_s6m8_audit()
+                    audit_report = pane.run_integrity_audit()
                     self.assertTrue(audit_report.get("ok"), audit_report)
                     self.assertEqual(dispatched, ["convo.audit"])
 

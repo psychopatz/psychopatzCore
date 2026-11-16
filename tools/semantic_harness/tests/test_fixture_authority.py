@@ -332,6 +332,23 @@ class FixtureAuthorityTests(unittest.TestCase):
         cancel_semantic_fixtures(app)
         self.assertTrue(app._fixture_cancel_requested)
 
+    def test_core_semantic_harness_filenames_are_descriptive_not_milestone_coded(self) -> None:
+        from tools.semantic_harness.testing.lint import _find_history_tokens
+
+        tests_dir = CORE_ROOT / "tools" / "semantic_harness" / "tests"
+        codebuilder_dir = CORE_ROOT / "tools" / "semantic_harness" / "codebuilder"
+        violations = [
+            (str(path.relative_to(CORE_ROOT)), _find_history_tokens(path.stem))
+            for path in sorted(tests_dir.glob("test_*.py"))
+            if _find_history_tokens(path.stem)
+        ]
+        violations.extend(
+            (str(path.relative_to(CORE_ROOT)), _find_history_tokens(path.stem))
+            for path in sorted(codebuilder_dir.iterdir())
+            if path.is_file() and path.suffix in {".py", ".json"} and _find_history_tokens(path.stem)
+        )
+        self.assertEqual(violations, [])
+
 
 if __name__ == "__main__":
     unittest.main()

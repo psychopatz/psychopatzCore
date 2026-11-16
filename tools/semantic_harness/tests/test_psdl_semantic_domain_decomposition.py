@@ -22,7 +22,7 @@ HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
 DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
 
 
-class PsdlDecompositionG9RTests(unittest.TestCase):
+class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.pkg_repos = {

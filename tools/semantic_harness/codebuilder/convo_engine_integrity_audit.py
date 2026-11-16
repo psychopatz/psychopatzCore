@@ -417,7 +417,7 @@ def audit_convo_engine_workspace(
 
     return {
         "ok": len(violations) == 0,
-        "schema": "psychopatz.convo-engine.s6m8-audit.v1",
+        "schema": "psychopatz.convo-engine.integrity-audit.v1",
         "stats": stats,
         "compiled": compiled_summary,
         "determinism": determinism_summary,

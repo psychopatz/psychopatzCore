@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import (
+from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
     audit_convo_engine_workspace,
 )
 from tools.semantic_harness.kahlua_verifier.verify import (

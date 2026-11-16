@@ -24,7 +24,7 @@ from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringServi
 CORE_REPO = Path(__file__).resolve().parents[3]
 
 
-class ConvoEngineS6M5CompilerTests(unittest.TestCase):
+class ConvoEngineNormalizationAndOutcomesTests(unittest.TestCase):
     def test_fold_suggestion_pair_separates_label_and_say_with_text_rows(self) -> None:
         with TemporaryDirectory() as tmp:
             repo = Path(tmp)

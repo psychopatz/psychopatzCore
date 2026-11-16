@@ -240,10 +240,10 @@ class OperationRegistry:
                 mutates_canonical=False,
                 mutates_runtime=False,
                 input_version="1",
-                output_version="psychopatz.convo-engine.s6m8-audit.v1",
+                output_version="psychopatz.convo-engine.integrity-audit.v1",
                 summary="Run cross-repository ConvoEngine hygiene and determinism audit.",
             ),
-            lambda payload: self.service.run_convo_engine_s6m8_audit(
+            lambda payload: self.service.run_convo_engine_integrity_audit(
                 check_determinism=bool(payload.get("checkDeterminism", False)),
                 require_all_owners=bool(payload.get("requireAllOwners", True)),
             ),

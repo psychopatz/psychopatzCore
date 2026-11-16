@@ -85,10 +85,10 @@ _BOUNDED_PYTHON_FIXTURE_TESTS = frozenset({
     "tools/semantic_harness/tests/test_convo_engine_compiler.py",
     "tools/semantic_harness/tests/test_convo_engine_ownership_inventory.py",
     "tools/semantic_harness/tests/test_convo_engine_psdl_inventory.py",
-    "tools/semantic_harness/tests/test_convo_engine_s6m8_audit.py",
+    "tools/semantic_harness/tests/test_convo_engine_integrity_and_determinism_audit.py",
     "tools/semantic_harness/tests/test_psdl_authoring_audit.py",
     "tools/semantic_harness/tests/test_psdl_compiler.py",
-    "tools/semantic_harness/tests/test_semantic_generation_lifecycle_g5.py",
+    "tools/semantic_harness/tests/test_semantic_generation_determinism_lifecycle.py",
 })
 
 _BOUNDED_LUA_FIXTURE_TESTS = frozenset({
@@ -112,7 +112,7 @@ _BOUNDED_CODEBUILDER_MODULES = frozenset({
     "tools/semantic_harness/codebuilder/convo_engine_normalization.py",
     "tools/semantic_harness/codebuilder/convo_engine_ownership_inventory.py",
     "tools/semantic_harness/codebuilder/convo_engine_psdl_inventory.py",
-    "tools/semantic_harness/codebuilder/convo_engine_s6m8_audit.py",
+    "tools/semantic_harness/codebuilder/convo_engine_integrity_audit.py",
     "tools/semantic_harness/codebuilder/generation_recipe.json",
     "tools/semantic_harness/codebuilder/generation_recipe.py",
     "tools/semantic_harness/codebuilder/portable_runtime.py",

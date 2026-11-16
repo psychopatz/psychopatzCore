@@ -225,7 +225,7 @@ class WorkspaceAndConvoCatalogTests(unittest.TestCase):
             self.assertEqual(loaded["document"]["say"], {"EN": "caller line"})
 
     def test_gui_service_audit_and_codebuilder_agree_on_live_workspace_catalog(self) -> None:
-        from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import (
+        from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
             discover_convo_engine_repositories,
         )
 

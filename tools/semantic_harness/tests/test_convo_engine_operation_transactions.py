@@ -12,7 +12,7 @@ from tools.semantic_harness.codebuilder.errors import CompileError
 from tools.semantic_harness.codebuilder.psdl_compiler import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.convo_engine_authoring_pane import ConvoEngineAuthoringPane
-from tools.semantic_harness.tests.test_convo_engine_s9_regressions import (
+from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
     _FakeMessageBox,
     _FakeTk,
     _FakeTtk,
@@ -46,7 +46,7 @@ def _sample_doc(
     return payload
 
 
-class ConvoEngineS9H2TransactionTests(unittest.TestCase):
+class ConvoEngineOperationTransactionTests(unittest.TestCase):
     def test_operation_registry_exposes_eleven_versioned_operations(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))

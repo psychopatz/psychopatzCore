@@ -13,13 +13,13 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-HOLDOUT_PATH = Path(__file__).with_name("c7f_heldout_conversations.json")
+HOLDOUT_PATH = Path(__file__).with_name("heldout_conversations.json")
 ALLOWED_SOURCE_REFS = frozenset({"WordNet 3.0", "MASSIVE", "SGD"})
 MAX_CASES = 32
 MAX_UTTERANCE = 256
 
 
-def load_c7f_holdout(path: Path = HOLDOUT_PATH) -> dict[str, Any]:
+def load_heldout_conversation_eval(path: Path = HOLDOUT_PATH) -> dict[str, Any]:
     """Load and validate the bounded, evaluation-only holdout manifest."""
 
     try:
@@ -100,7 +100,7 @@ def _has_gameplay_effects(turn: dict[str, Any]) -> bool:
     )
 
 
-def score_c7f_holdout(
+def score_heldout_conversation_eval(
     cases: Iterable[dict[str, Any]],
     turns: Iterable[dict[str, Any]],
 ) -> dict[str, Any]:
@@ -150,4 +150,4 @@ def score_c7f_holdout(
     }
 
 
-__all__ = ["HOLDOUT_PATH", "load_c7f_holdout", "score_c7f_holdout"]
+__all__ = ["HOLDOUT_PATH", "load_heldout_conversation_eval", "score_heldout_conversation_eval"]

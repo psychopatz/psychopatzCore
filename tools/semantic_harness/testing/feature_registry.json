@@ -245,7 +245,7 @@
       "surface": "Studio",
       "controls": [
         "ConvoEngineAuthoringPane.refresh",
-        "ConvoEngineAuthoringPane.run_s6m8_audit",
+        "ConvoEngineAuthoringPane.run_integrity_audit",
         "ConvoEngineAuthoringPane.new_family",
         "ConvoEngineAuthoringPane.duplicate_family",
         "ConvoEngineAuthoringPane.delete_family",
@@ -336,9 +336,9 @@
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_identity_label_and_speech_realization:IdentityLabelAndSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
         "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_manifest_preset_discovery_and_lifecycle_matrix",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_worker_session_reconfigure_cross_provider_transition_and_repeat",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_repeated_start_restart_and_configure_leaves_zero_catalog_or_source_drift"
+        "PsychopatzCore:tools.semantic_harness.tests.test_provider_lifecycle_and_reconfigure:ProviderLifecycleAndReconfigureTests.test_manifest_preset_discovery_and_lifecycle_matrix",
+        "PsychopatzCore:tools.semantic_harness.tests.test_provider_lifecycle_and_reconfigure:ProviderLifecycleAndReconfigureTests.test_worker_session_reconfigure_cross_provider_transition_and_repeat",
+        "PsychopatzCore:tools.semantic_harness.tests.test_provider_lifecycle_and_reconfigure:ProviderLifecycleAndReconfigureTests.test_repeated_start_restart_and_configure_leaves_zero_catalog_or_source_drift"
       ]
     },
     {
@@ -362,8 +362,8 @@
       "mandatory": true,
       "requiresRealGui": false,
       "acceptanceOwners": [
-        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_s9h5_cli:ConvoEngineS9H5CliTests.test_main_cli_exposes_workspace_and_convo_operations",
-        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_s9r_closure:ConvoEngineS9RClosureTests.test_r5_convo_engine_pane_dispatches_canonical_operations"
+        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_unified_cli_routing:ConvoEngineUnifiedCliRoutingTests.test_main_cli_exposes_workspace_and_convo_operations",
+        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_studio_continuity_invariants:ConvoEngineStudioContinuityInvariantTests.test_r5_convo_engine_pane_dispatches_canonical_operations"
       ]
     },
     {
@@ -381,7 +381,7 @@
       "mandatory": true,
       "requiresRealGui": false,
       "acceptanceOwners": [
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_cli_actions:S10R2CliActionsTests.test_cli_selection_discovery_and_reset_ui_state"
+        "PsychopatzCore:tools.semantic_harness.tests.test_semantic_harness_cli_discovery:SemanticHarnessCliDiscoveryTests.test_cli_selection_discovery_and_reset_ui_state"
       ]
     },
     {
@@ -399,7 +399,7 @@
       "mandatory": true,
       "requiresRealGui": false,
       "acceptanceOwners": [
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_dataset_and_workflow:S10R1DatasetAndWorkflowTests.test_cli_routes_dataset_block_and_workflow_operations"
+        "PsychopatzCore:tools.semantic_harness.tests.test_dataset_compiler_and_workflow:DatasetCompilerAndWorkflowTests.test_cli_routes_dataset_block_and_workflow_operations"
       ]
     },
     {
@@ -417,8 +417,8 @@
       "mandatory": true,
       "requiresRealGui": false,
       "acceptanceOwners": [
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_dataset_and_workflow:S10R1DatasetAndWorkflowTests.test_cli_routes_dataset_block_and_workflow_operations",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_c5_variation_adapters_specs:S10R1HealthVariationAdaptersAndSpecsTests.test_interaction_spec_graph_validation_compile_and_codeblocks_cli"
+        "PsychopatzCore:tools.semantic_harness.tests.test_dataset_compiler_and_workflow:DatasetCompilerAndWorkflowTests.test_cli_routes_dataset_block_and_workflow_operations",
+        "PsychopatzCore:tools.semantic_harness.tests.test_context_health_variation_adapters_and_specs:ContextHealthVariationAdaptersAndSpecsTests.test_interaction_spec_graph_validation_compile_and_codeblocks_cli"
       ]
     },
     {
@@ -436,9 +436,9 @@
       "mandatory": true,
       "requiresRealGui": false,
       "acceptanceOwners": [
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_dataset_and_workflow:S10R1DatasetAndWorkflowTests.test_workflow_generate_approved_runs_in_isolated_temp_workspace",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_c5_variation_adapters_specs:S10R1HealthVariationAdaptersAndSpecsTests.test_dataset_adapters_massive_sgd_media_rejection_promotion_and_cli",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_c5_variation_adapters_specs:S10R1HealthVariationAdaptersAndSpecsTests.test_dialogue_content_limits_and_variation_auditor_live_plus_cli"
+        "PsychopatzCore:tools.semantic_harness.tests.test_dataset_compiler_and_workflow:DatasetCompilerAndWorkflowTests.test_workflow_generate_approved_runs_in_isolated_temp_workspace",
+        "PsychopatzCore:tools.semantic_harness.tests.test_context_health_variation_adapters_and_specs:ContextHealthVariationAdaptersAndSpecsTests.test_dataset_adapters_massive_sgd_media_rejection_promotion_and_cli",
+        "PsychopatzCore:tools.semantic_harness.tests.test_context_health_variation_adapters_and_specs:ContextHealthVariationAdaptersAndSpecsTests.test_dialogue_content_limits_and_variation_auditor_live_plus_cli"
       ]
     },
     {
@@ -461,8 +461,8 @@
       "requiresRealGui": false,
       "acceptanceOwners": [
         "PsychopatzCore:tools.semantic_harness.tests.test_doctor:DoctorTests.test_doctor_uses_core_default_scenario_and_worker_dispatch",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_worker_cli:S10R2WorkerCliTests.test_cli_worker_ping_capabilities_snapshot_input_language_and_doctor",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_worker_cli:S10R2WorkerCliTests.test_cli_runs_declarative_semantic_test_fixture_and_observatory_flags"
+        "PsychopatzCore:tools.semantic_harness.tests.test_semantic_harness_worker_cli:SemanticHarnessWorkerCliTests.test_cli_worker_ping_capabilities_snapshot_input_language_and_doctor",
+        "PsychopatzCore:tools.semantic_harness.tests.test_semantic_harness_worker_cli:SemanticHarnessWorkerCliTests.test_cli_runs_declarative_semantic_test_fixture_and_observatory_flags"
       ]
     },
     {
@@ -488,7 +488,7 @@
       "requiresRealGui": false,
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_response_observatory_matrix:ResponseQualityMatrixTests.test_cli_catalog_and_explain_use_real_lua",
-        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_worker_cli:S10R2WorkerCliTests.test_cli_runs_declarative_semantic_test_fixture_and_observatory_flags"
+        "PsychopatzCore:tools.semantic_harness.tests.test_semantic_harness_worker_cli:SemanticHarnessWorkerCliTests.test_cli_runs_declarative_semantic_test_fixture_and_observatory_flags"
       ]
     },
     {
