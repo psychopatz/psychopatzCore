@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_social_identity",
+        ["domainPath"] = "core_text_social_identity",
         ["exchangeFamily"] = {
             ["familyID"] = "identity.introduction",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_identity/identity_introduction.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialIdentity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialIdentity",
         ["namespace"] = "identity",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

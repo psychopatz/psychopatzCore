@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_needs_gifts",
+        ["domainPath"] = "core_text_needs_gifts",
         ["exchangeFamily"] = {
             ["familyID"] = "gift.preference.dislike",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference_dislike.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextNeedsGifts",
         ["namespace"] = "gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -168,6 +169,7 @@ return {
     },
     {
         ["domain"] = "core_text_needs_gifts",
+        ["domainPath"] = "core_text_needs_gifts",
         ["exchangeFamily"] = {
             ["familyID"] = "gift.preference.like",
             ["initiatingSay"] = {
@@ -228,7 +230,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference_like.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextNeedsGifts",
         ["namespace"] = "gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -334,6 +336,7 @@ return {
     },
     {
         ["domain"] = "core_text_needs_gifts",
+        ["domainPath"] = "core_text_needs_gifts",
         ["exchangeFamily"] = {
             ["familyID"] = "gift.preference.neutral",
             ["initiatingSay"] = {
@@ -394,7 +397,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextNeedsGifts",
         ["namespace"] = "gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -500,6 +503,7 @@ return {
     },
     {
         ["domain"] = "core_text_needs_gifts",
+        ["domainPath"] = "core_text_needs_gifts",
         ["exchangeFamily"] = {
             ["familyID"] = "gift.preference.unknown",
             ["initiatingSay"] = {
@@ -560,7 +564,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference_unknown.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextNeedsGifts",
         ["namespace"] = "gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

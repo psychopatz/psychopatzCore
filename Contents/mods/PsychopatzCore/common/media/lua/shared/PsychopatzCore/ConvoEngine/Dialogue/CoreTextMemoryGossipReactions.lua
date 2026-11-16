@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "negative.mockery.gear",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_mockery_gear.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "negative.mockery",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -168,6 +169,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "negative.mockery.retreat",
             ["initiatingSay"] = {
@@ -228,7 +230,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_mockery_retreat.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "negative.mockery",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -334,6 +336,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "negative.suspicion.story",
             ["initiatingSay"] = {
@@ -394,7 +397,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_suspicion_story.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "negative.suspicion",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -500,6 +503,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "negative.warning.abandoned",
             ["initiatingSay"] = {
@@ -560,7 +564,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_warning_abandoned.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "negative.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -666,6 +670,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "negative.warning.danger",
             ["initiatingSay"] = {
@@ -734,7 +739,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_warning_danger.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "negative.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -846,6 +851,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "neutral.horde_survival",
             ["initiatingSay"] = {
@@ -906,7 +912,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/neutral_horde_survival.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "neutral",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1012,6 +1018,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "neutral.sighting",
             ["initiatingSay"] = {
@@ -1080,7 +1087,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/neutral_sighting.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "neutral",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1192,6 +1199,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "positive.praise.help",
             ["initiatingSay"] = {
@@ -1252,7 +1260,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_praise_help.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "positive.praise",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1358,6 +1366,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "positive.protection",
             ["initiatingSay"] = {
@@ -1418,7 +1427,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_protection.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "positive",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1524,6 +1533,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "positive.rescue.return",
             ["initiatingSay"] = {
@@ -1584,7 +1594,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_rescue_return.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "positive.rescue",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1690,6 +1700,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
+        ["domainPath"] = "core_text_memory_gossip_reactions",
         ["exchangeFamily"] = {
             ["familyID"] = "positive.sympathy.loss",
             ["initiatingSay"] = {
@@ -1750,7 +1761,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_sympathy_loss.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
         ["namespace"] = "positive.sympathy",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

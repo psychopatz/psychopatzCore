@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_knowledge_facts",
+        ["domainPath"] = "core_knowledge_facts",
         ["exchangeFamily"] = {
             ["familyID"] = "question.knowledge",
             ["namespace"] = "question",
@@ -588,7 +589,7 @@ return {
             ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts__d73c98cf",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeFacts",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

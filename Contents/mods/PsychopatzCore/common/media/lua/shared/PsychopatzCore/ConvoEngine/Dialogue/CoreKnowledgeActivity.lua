@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_knowledge_activity",
+        ["domainPath"] = "core_knowledge_activity",
         ["exchangeFamily"] = {
             ["familyID"] = "question.activity.dataset.keep_moving",
             ["initiatingSay"] = {
@@ -293,7 +294,7 @@ return {
             ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeActivity",
         ["namespace"] = "question.activity.dataset",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -612,6 +613,7 @@ return {
     },
     {
         ["domain"] = "core_knowledge_activity",
+        ["domainPath"] = "core_knowledge_activity",
         ["exchangeFamily"] = {
             ["familyID"] = "question.activity.fishing",
             ["initiatingSay"] = {
@@ -903,7 +905,7 @@ return {
             ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeActivity",
         ["namespace"] = "question.activity",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

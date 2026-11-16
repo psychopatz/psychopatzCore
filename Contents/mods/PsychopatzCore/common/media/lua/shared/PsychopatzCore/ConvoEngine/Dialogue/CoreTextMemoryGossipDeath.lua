@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_memory_gossip_death",
+        ["domainPath"] = "core_text_memory_gossip_death",
         ["exchangeFamily"] = {
             ["familyID"] = "death.report",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_death/death_report.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
         ["namespace"] = "death",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -168,6 +169,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_death",
+        ["domainPath"] = "core_text_memory_gossip_death",
         ["exchangeFamily"] = {
             ["familyID"] = "death.sacrifice",
             ["initiatingSay"] = {
@@ -228,7 +230,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_death/death_sacrifice.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
         ["namespace"] = "death",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

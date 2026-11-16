@@ -30,6 +30,7 @@ return {
                 ["value"] = "again",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -62,6 +63,7 @@ return {
                 ["value"] = "again",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -90,6 +92,7 @@ return {
                 ["value"] = "see",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -122,6 +125,7 @@ return {
                 ["value"] = "again",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -167,6 +171,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -208,6 +213,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -253,6 +259,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -294,6 +301,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -335,6 +343,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -376,6 +385,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -417,6 +427,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -458,6 +469,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -499,6 +511,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -540,6 +553,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
     {
@@ -577,6 +591,7 @@ return {
                 "EmpatheticDialogues",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 155,
     },
 }

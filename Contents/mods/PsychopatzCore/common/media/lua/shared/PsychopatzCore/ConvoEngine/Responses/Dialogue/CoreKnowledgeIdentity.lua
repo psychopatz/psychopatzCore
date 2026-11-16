@@ -3,6 +3,7 @@ return {
     {
         ["domain"] = "identity",
         ["id"] = "question.identity",
+        ["owner"] = "PsychopatzCore",
         ["variants"] = {
             {
                 ["dialogueAct"] = "IDENTITY",

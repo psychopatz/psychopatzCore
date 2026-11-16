@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "social_lexemes",
+        ["domainPath"] = "social_lexemes",
         ["id"] = "lexeme.social.agreement.yes",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -12,7 +13,7 @@ return {
             ["sourcePath"] = "realization/social_lexemes/social_agreement_yes.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialLexemes",
         ["namespace"] = "lexeme.social.agreement",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -45,6 +46,7 @@ return {
     },
     {
         ["domain"] = "social_lexemes",
+        ["domainPath"] = "social_lexemes",
         ["id"] = "lexeme.social.apology.sorry",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -55,7 +57,7 @@ return {
             ["sourcePath"] = "realization/social_lexemes/social_apology_sorry.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialLexemes",
         ["namespace"] = "lexeme.social.apology",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -88,6 +90,7 @@ return {
     },
     {
         ["domain"] = "social_lexemes",
+        ["domainPath"] = "social_lexemes",
         ["id"] = "lexeme.social.disagreement.no",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -98,7 +101,7 @@ return {
             ["sourcePath"] = "realization/social_lexemes/social_disagreement_no.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialLexemes",
         ["namespace"] = "lexeme.social.disagreement",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -131,6 +134,7 @@ return {
     },
     {
         ["domain"] = "social_lexemes",
+        ["domainPath"] = "social_lexemes",
         ["id"] = "lexeme.social.profanity.fuck",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -141,7 +145,7 @@ return {
             ["sourcePath"] = "realization/social_lexemes/social_profanity_fuck.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialLexemes",
         ["namespace"] = "lexeme.social.profanity",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

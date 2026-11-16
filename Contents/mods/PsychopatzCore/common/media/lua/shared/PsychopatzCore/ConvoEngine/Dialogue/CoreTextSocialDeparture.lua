@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_social_departure",
+        ["domainPath"] = "core_text_social_departure",
         ["exchangeFamily"] = {
             ["familyID"] = "departure.confirmed",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_departure/departure_confirmed.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialDeparture",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialDeparture",
         ["namespace"] = "departure",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -168,6 +169,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_departure",
+        ["domainPath"] = "core_text_social_departure",
         ["exchangeFamily"] = {
             ["familyID"] = "departure.rejected",
             ["initiatingSay"] = {
@@ -228,7 +230,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_departure/departure_rejected.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialDeparture",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialDeparture",
         ["namespace"] = "departure",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -334,6 +336,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_departure",
+        ["domainPath"] = "core_text_social_departure",
         ["exchangeFamily"] = {
             ["familyID"] = "departure.warning",
             ["initiatingSay"] = {
@@ -394,7 +397,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_departure/departure_warning.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialDeparture",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialDeparture",
         ["namespace"] = "departure",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/ConvoEngine/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "89b22cb813b6820e922e6292086a95ead039453ef38cc0a9081c54939e325313"
+Registry.WHOLE_MODEL_FINGERPRINT = "a5fdc0f04bb555fe5bb6bef3eeed4068fded99f5666d40ec40ea999ea5f34520"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -102,14 +102,26 @@ appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/Common/WeatherNeeds"
 appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/Common/WellbeingActivity")
 appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/GroundedPersonal")
 appendResponses(require "PsychopatzCore/ConvoEngine/Responses/Dialogue/CoreKnowledgeIdentity")
-appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social")
-appendBeats(require "PsychopatzCore/ConvoEngine/Beats/Director/Social")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/Social")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social__d6475647")
+appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Acknowledgement")
+appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict")
+appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Context")
+appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair")
+appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/WorldEvents")
+appendBeats(require "PsychopatzCore/ConvoEngine/Beats/Director/Social/Conflict")
+appendBeats(require "PsychopatzCore/ConvoEngine/Beats/Director/Social/FirstContact")
+appendBeats(require "PsychopatzCore/ConvoEngine/Beats/Director/Social/Repair")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/Social/Conflict")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/Social/FirstContact")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/Social/Repair")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social/Acknowledgement")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social/Conflict")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social/Context")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social/Repair")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social/WorldEvents")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeActivity")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeFacts__d73c98cf")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeFacts")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeGossip")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary")

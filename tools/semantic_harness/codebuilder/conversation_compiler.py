@@ -1199,7 +1199,7 @@ def render_conversation_runtime_plan(
         entry = convo_entries_by_path.get(source_shard)
         if entry is None:
             return None
-        domain = str(entry.get("domain") or "general")
+        domain_path = str(entry.get("domainPath") or entry.get("domain") or "general")
         parts = source_shard.split("/")
         if len(parts) >= 3 and parts[0] == "adopters":
             category = parts[2]
@@ -1208,10 +1208,10 @@ def render_conversation_runtime_plan(
         else:
             category = "dialogue"
         if category in {"behavior", "beat"}:
-            return f"director/{domain}.json"
+            return f"director/{domain_path}.json"
         if category == "realization":
-            return f"templates/{domain}.json"
-        return f"dialogue/{domain}.json"
+            return f"templates/{domain_path}.json"
+        return f"dialogue/{domain_path}.json"
 
     def owned(
         item: dict[str, Any],
@@ -1232,6 +1232,8 @@ def render_conversation_runtime_plan(
             "domain": domain,
             "sourceShard": resolved_shard,
         }
+        if isinstance(owner, dict) and owner.get("owner") and "owner" not in result:
+            result["owner"] = owner["owner"]
         if module_shard is not None:
             result["moduleSourceShard"] = module_shard
         return result
@@ -1273,11 +1275,11 @@ def render_conversation_runtime_plan(
         for item in model["semantic"].get("flows", [])
     ]
     behavior_records = [
-        owned(item, domain="social")
+        owned(item, domain=str(item.get("domain") or "social"))
         for item in model.get("behaviors", [])
     ]
     beat_records = [
-        owned(item, domain="social")
+        owned(item, domain=str(item.get("domain") or "social"))
         for item in model.get("beats", [])
     ]
     realization_records = [
@@ -1324,12 +1326,14 @@ def render_conversation_runtime_plan(
             raise CompileError("PSDL runtime plan requires id")
         owner = normalize_owner(plan.get("owner"))
         kind = str(plan.get("kind") or "dialogue").lower()
-        domain = str(plan.get("domain") or "general")
-        psdl_groups.setdefault((owner, kind, domain), []).append(plan)
+        domain_path = str(plan.get("domainPath") or plan.get("domain") or "general")
+        psdl_groups.setdefault((owner, kind, domain_path), []).append(plan)
 
     psdl_names = ModuleNameRegistry()
-    for (owner, kind, domain), grouped_plans in sorted(psdl_groups.items()):
+    for (owner, kind, domain_path), grouped_plans in sorted(psdl_groups.items()):
         grouped_plans.sort(key=lambda item: str(item.get("id") or ""))
+        domain = domain_path.split("/")[0]
+        owner_prefix = conversation_prefix(owner)
         start = 0
         while start < len(grouped_plans):
             end = min(start + CONVERSATION_MAX_RECORDS_PER_SHARD, len(grouped_plans))
@@ -1337,16 +1341,17 @@ def render_conversation_runtime_plan(
                 chunk = grouped_plans[start:end]
                 first_id = str(chunk[0].get("id") or "record")
                 last_id = str(chunk[-1].get("id") or first_id)
-                chunk_key = f"{owner}:{kind}:{domain}:{first_id}:{last_id}"
+                chunk_key = f"{owner}:{kind}:{domain_path}:{first_id}:{last_id}"
                 is_split = start > 0 or end < len(grouped_plans)
+                path_segments = [kind.title(), *domain_path.split("/")]
                 segments = (
-                    [kind.title(), domain, semantic_chunk_label((str(p.get("id") or "") for p in chunk), domain=domain)]
+                    [*path_segments, semantic_chunk_label((str(p.get("id") or "") for p in chunk), domain=domain)]
                     if is_split
-                    else [kind.title(), domain]
+                    else path_segments
                 )
                 temp_names = psdl_names.clone()
                 module = module_path(
-                    prefix,
+                    owner_prefix,
                     segments,
                     chunk_key,
                     temp_names,

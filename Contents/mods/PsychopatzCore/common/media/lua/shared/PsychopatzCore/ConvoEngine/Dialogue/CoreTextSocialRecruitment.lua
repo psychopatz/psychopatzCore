@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.admire",
             ["initiatingSay"] = {
@@ -134,7 +135,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_admire.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -319,6 +320,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.fear",
             ["initiatingSay"] = {
@@ -451,7 +453,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_fear.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -636,6 +638,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.cooldown",
             ["initiatingSay"] = {
@@ -732,7 +735,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_cooldown.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -877,6 +880,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.general",
             ["initiatingSay"] = {
@@ -1009,7 +1013,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1194,6 +1198,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.hostile",
             ["initiatingSay"] = {
@@ -1290,7 +1295,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_hostile.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1435,6 +1440,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.leader",
             ["initiatingSay"] = {
@@ -1531,7 +1537,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_leader.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1676,6 +1682,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.member",
             ["initiatingSay"] = {
@@ -1772,7 +1779,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_member.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1917,6 +1924,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.relationship",
             ["initiatingSay"] = {
@@ -2301,7 +2309,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -2766,6 +2774,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_recruitment",
+        ["domainPath"] = "core_text_social_recruitment",
         ["exchangeFamily"] = {
             ["familyID"] = "recruitment.reject.unavailable",
             ["initiatingSay"] = {
@@ -2862,7 +2871,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_unavailable.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
         ["namespace"] = "recruitment.reject",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_social_goodbye",
+        ["domainPath"] = "core_text_social_goodbye",
         ["exchangeFamily"] = {
             ["familyID"] = "choice.goodbye",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_goodbye/choice_goodbye.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
         ["namespace"] = "choice",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -168,6 +169,7 @@ return {
     },
     {
         ["domain"] = "core_text_social_goodbye",
+        ["domainPath"] = "core_text_social_goodbye",
         ["exchangeFamily"] = {
             ["familyID"] = "response.goodbye",
             ["initiatingSay"] = {
@@ -588,7 +590,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
         ["namespace"] = "response",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

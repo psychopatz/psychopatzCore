@@ -65,19 +65,20 @@ def _chunk_records(
     """
     modules: list[tuple[str, str]] = []
     reports: list[dict[str, Any]] = []
-    grouped: dict[str, list[dict[str, Any]]] = {}
+    grouped: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for record in records:
+        rec_owner = str(record.get("owner") or "")
         source_shard = str(
             record.get("moduleSourceShard")
             or record.get("sourceShard")
             or f"{kind.lower()}/{record.get('domain') or 'general'}.json"
         )
-        grouped.setdefault(source_shard, []).append(record)
+        grouped.setdefault((rec_owner, source_shard), []).append(record)
 
     names = ModuleNameRegistry()
-    for source_shard in sorted(grouped):
+    for (rec_owner, source_shard) in sorted(grouped):
         items = sorted(
-            grouped[source_shard],
+            grouped[(rec_owner, source_shard)],
             key=(
                 (lambda item: (item.get("order", 0), str(item.get("id", ""))))
                 if kind == "UI"
@@ -102,8 +103,13 @@ def _chunk_records(
                 f"{max_bytes}-byte hard shard budget; split by semantic subdomain: "
                 f"{source_shard}"
             )
+        eff_prefix = (
+            conversation_prefix(normalize_owner(rec_owner))
+            if rec_owner
+            else module_prefix
+        )
         module = source_owned_module(
-            f"{module_prefix}/{kind}",
+            f"{eff_prefix}/{kind}",
             source_shard,
             names,
         )

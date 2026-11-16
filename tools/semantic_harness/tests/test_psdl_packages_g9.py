@@ -156,7 +156,7 @@ class PsdlPackagesG9Tests(unittest.TestCase):
         )
         self.assertEqual(loc_hoomans["package"], "ProjectHoomans")
         self.assertIn("PsychopatzCore", loc_hoomans["importedPackages"])
-        self.assertTrue(loc_hoomans["authoredSourcePath"].endswith("behavior/social/scene_horde_prompt.json"))
+        self.assertTrue(loc_hoomans["authoredSourcePath"].endswith("behavior/scene/horde/scene_horde_prompt.json"))
         self.assertTrue(loc_hoomans["generatedModules"])
 
         loc_core = locate_psdl(

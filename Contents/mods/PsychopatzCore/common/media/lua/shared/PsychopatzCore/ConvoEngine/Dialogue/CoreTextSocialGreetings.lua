@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_social_greetings",
+        ["domainPath"] = "core_text_social_greetings",
         ["exchangeFamily"] = {
             ["familyID"] = "response.ambient_visit.accepted",
             ["initiatingSay"] = {
@@ -62,7 +63,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_social_greetings/response_ambient_visit_accepted.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGreetings",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialGreetings",
         ["namespace"] = "response.ambient_visit",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

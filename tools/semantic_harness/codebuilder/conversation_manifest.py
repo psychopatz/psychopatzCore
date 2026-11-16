@@ -26,6 +26,7 @@ from .psdl_compact import (
 from .source_manifest import (
     SourceManifestError,
     derive_subdir_domain,
+    derive_subdir_domain_path,
     load_external_shard_entries,
     load_external_source_root_entries,
 )
@@ -173,19 +174,20 @@ def _source_root_entries(
             if relative in seen_paths:
                 raise CompileError(f"Conversation source-root shard is already registered: {relative}")
             seen_paths.add(relative)
-            entry_domain = (
-                derive_subdir_domain(
+            if source_root["domainFromSubdir"]:
+                entry_domain, entry_domain_path = derive_subdir_domain_path(
                     file_path.relative_to(directory),
                     fallback_domain=source_root["domain"],
                     validate_id=validate_id,
                 )
-                if source_root["domainFromSubdir"]
-                else source_root["domain"]
-            )
+            else:
+                entry_domain = source_root["domain"]
+                entry_domain_path = source_root["domain"]
             entries.append({
                 "path": relative,
                 "kind": source_root["kind"],
                 "domain": entry_domain,
+                "domainPath": entry_domain_path,
                 "order": source_root["order"],
                 "owner": source_root["owner"],
                 "discoveredFrom": source_root["path"],

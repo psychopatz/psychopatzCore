@@ -31,6 +31,7 @@ return {
                 ["value"] = "name",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -68,6 +69,7 @@ return {
                 ["value"] = "name",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -101,6 +103,7 @@ return {
                 ["value"] = "name",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -134,6 +137,7 @@ return {
                 ["value"] = "name",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -167,6 +171,7 @@ return {
                 ["value"] = "name",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -200,6 +205,7 @@ return {
                 ["value"] = "by",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -233,6 +239,7 @@ return {
                 ["value"] = "you",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -266,6 +273,7 @@ return {
                 ["value"] = "with",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -299,6 +307,7 @@ return {
                 ["value"] = "to",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
 }

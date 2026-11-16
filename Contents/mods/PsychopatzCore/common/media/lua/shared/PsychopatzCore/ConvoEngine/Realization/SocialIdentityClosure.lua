@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "social_identity_closure",
+        ["domainPath"] = "social_identity_closure",
         ["id"] = "construction.social.disclose_name",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -12,7 +13,7 @@ return {
             ["sourcePath"] = "realization/social_identity_closure/social_disclose_name.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -72,6 +73,7 @@ return {
     },
     {
         ["domain"] = "social_identity_closure",
+        ["domainPath"] = "social_identity_closure",
         ["id"] = "construction.social.end_conversation_done",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -82,7 +84,7 @@ return {
             ["sourcePath"] = "realization/social_identity_closure/social_end_conversation_done.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -126,6 +128,7 @@ return {
     },
     {
         ["domain"] = "social_identity_closure",
+        ["domainPath"] = "social_identity_closure",
         ["id"] = "construction.social.end_conversation_withdraw",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -136,7 +139,7 @@ return {
             ["sourcePath"] = "realization/social_identity_closure/social_end_conversation_withdraw.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -180,6 +183,7 @@ return {
     },
     {
         ["domain"] = "social_identity_closure",
+        ["domainPath"] = "social_identity_closure",
         ["id"] = "construction.social.mirror_retort",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -190,7 +194,7 @@ return {
             ["sourcePath"] = "realization/social_identity_closure/social_mirror_retort.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -242,6 +246,7 @@ return {
     },
     {
         ["domain"] = "social_identity_closure",
+        ["domainPath"] = "social_identity_closure",
         ["id"] = "construction.social.mirror_retort_challenge",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -252,7 +257,7 @@ return {
             ["sourcePath"] = "realization/social_identity_closure/social_mirror_retort_challenge.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -312,6 +317,7 @@ return {
     },
     {
         ["domain"] = "social_identity_closure",
+        ["domainPath"] = "social_identity_closure",
         ["id"] = "construction.social.refuse_identity",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -322,7 +328,7 @@ return {
             ["sourcePath"] = "realization/social_identity_closure/social_refuse_identity.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

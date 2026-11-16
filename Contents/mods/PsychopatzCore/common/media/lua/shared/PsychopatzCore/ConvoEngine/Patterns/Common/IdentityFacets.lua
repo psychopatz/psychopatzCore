@@ -31,6 +31,7 @@ return {
                 ["value"] = "with",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 122,
     },
     {
@@ -68,6 +69,7 @@ return {
                 ["value"] = "you",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 122,
     },
     {
@@ -101,6 +103,7 @@ return {
                 ["value"] = "surname",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 122,
     },
 }

@@ -197,6 +197,8 @@ def locate_psdl(
         "kind": rec.get("kind"),
         "package": desc.owner,
         "owner": owner,
+        "domain": rec.get("domain"),
+        "domainPath": rec.get("domainPath") or rec.get("domain"),
         "authoredSourcePath": (desc.source_root_relative / source_path).as_posix() if source_path else "",
         "packageRelativeSourcePath": source_path,
         "authoringSchema": lineage.get("authoringSchema"),

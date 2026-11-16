@@ -50,6 +50,7 @@ return {
                 "SGD",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 167,
     },
     {
@@ -102,6 +103,7 @@ return {
                 "SGD",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 167,
     },
     {
@@ -144,6 +146,7 @@ return {
                 "MASSIVE",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 166,
     },
     {
@@ -186,6 +189,7 @@ return {
                 "MASSIVE",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 166,
     },
     {
@@ -220,6 +224,7 @@ return {
                 "MASSIVE",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 166,
     },
     {
@@ -270,6 +275,7 @@ return {
                 "SGD",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 166,
     },
     {
@@ -322,6 +328,7 @@ return {
                 "SGD",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 165,
     },
     {
@@ -380,6 +387,7 @@ return {
                 "SGD",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 166,
     },
 }

@@ -47,6 +47,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 129,
     },
     {
@@ -84,6 +85,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 129,
     },
     {
@@ -138,6 +140,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 150,
     },
     {
@@ -192,6 +195,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 150,
     },
     {
@@ -246,6 +250,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 151,
     },
     {
@@ -296,6 +301,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 150,
     },
     {
@@ -350,6 +356,7 @@ return {
                 "Project Hoomans Authoring Review",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 150,
     },
 }

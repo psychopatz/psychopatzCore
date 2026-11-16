@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_text_memory_gossip_corpse_ordinary",
+        ["domainPath"] = "core_text_memory_gossip_corpse_ordinary",
         ["exchangeFamily"] = {
             ["familyID"] = "corpse.comrade",
             ["initiatingSay"] = {
@@ -214,7 +215,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -485,6 +486,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_corpse_ordinary",
+        ["domainPath"] = "core_text_memory_gossip_corpse_ordinary",
         ["exchangeFamily"] = {
             ["familyID"] = "corpse.friend",
             ["initiatingSay"] = {
@@ -689,7 +691,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -954,6 +956,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_corpse_ordinary",
+        ["domainPath"] = "core_text_memory_gossip_corpse_ordinary",
         ["exchangeFamily"] = {
             ["familyID"] = "corpse.hostile",
             ["initiatingSay"] = {
@@ -1158,7 +1161,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1423,6 +1426,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_corpse_ordinary",
+        ["domainPath"] = "core_text_memory_gossip_corpse_ordinary",
         ["exchangeFamily"] = {
             ["familyID"] = "corpse.neutral",
             ["initiatingSay"] = {
@@ -1627,7 +1631,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1892,6 +1896,7 @@ return {
     },
     {
         ["domain"] = "core_text_memory_gossip_corpse_ordinary",
+        ["domainPath"] = "core_text_memory_gossip_corpse_ordinary",
         ["exchangeFamily"] = {
             ["familyID"] = "corpse.relative",
             ["initiatingSay"] = {
@@ -2096,7 +2101,7 @@ return {
             ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCorpseOrdinary",
         ["namespace"] = "corpse",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

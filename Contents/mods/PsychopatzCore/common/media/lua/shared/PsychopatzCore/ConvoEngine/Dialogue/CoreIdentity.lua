@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_identity",
+        ["domainPath"] = "core_identity",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -101,7 +102,7 @@ return {
             ["sourcePath"] = "dialogue/core_identity/question_identity.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreIdentity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity",
         ["namespace"] = "offer.question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -244,6 +245,7 @@ return {
     },
     {
         ["domain"] = "core_identity",
+        ["domainPath"] = "core_identity",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -343,7 +345,7 @@ return {
             ["sourcePath"] = "dialogue/core_identity/question_identity_faction.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreIdentity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -486,6 +488,7 @@ return {
     },
     {
         ["domain"] = "core_identity",
+        ["domainPath"] = "core_identity",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -585,7 +588,7 @@ return {
             ["sourcePath"] = "dialogue/core_identity/question_identity_nickname.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreIdentity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -728,6 +731,7 @@ return {
     },
     {
         ["domain"] = "core_identity",
+        ["domainPath"] = "core_identity",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -827,7 +831,7 @@ return {
             ["sourcePath"] = "dialogue/core_identity/question_identity_surname.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreIdentity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

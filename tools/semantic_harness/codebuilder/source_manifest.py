@@ -150,6 +150,30 @@ def validate_relative_directory_path(value: Any, label: str) -> str:
     return normalized
 
 
+def derive_subdir_domain_path(
+    relative_to_root: Path,
+    *,
+    fallback_domain: str,
+    validate_id: Callable[[Any, str], str],
+) -> tuple[str, str]:
+    """Derive broad domain and full semantic domainPath from subdirectories below source root."""
+    dir_parts = relative_to_root.parts[:-1]
+    if dir_parts:
+        normalized_parts = []
+        for raw_part in dir_parts:
+            seg = raw_part.strip().lower().replace("-", "_")
+            if seg:
+                normalized_parts.append(validate_id(seg, "derived shard domainPath segment"))
+        if normalized_parts:
+            return normalized_parts[0], "/".join(normalized_parts)
+    domain = derive_subdir_domain(
+        relative_to_root,
+        fallback_domain=fallback_domain,
+        validate_id=validate_id,
+    )
+    return domain, domain
+
+
 def derive_subdir_domain(
     relative_to_root: Path,
     *,
@@ -273,19 +297,20 @@ def load_external_source_root_entries(
                     f"duplicate Conversation shard path: {logical_path}"
                 )
             seen_paths.add(logical_path)
-            entry_domain = (
-                derive_subdir_domain(
+            if root_spec["domainFromSubdir"]:
+                entry_domain, entry_domain_path = derive_subdir_domain_path(
                     rel,
                     fallback_domain=root_spec["domain"],
                     validate_id=validate_id,
                 )
-                if root_spec["domainFromSubdir"]
-                else root_spec["domain"]
-            )
+            else:
+                entry_domain = root_spec["domain"]
+                entry_domain_path = root_spec["domain"]
             entry = {
                 "path": logical_path,
                 "kind": root_spec["kind"],
                 "domain": entry_domain,
+                "domainPath": entry_domain_path,
                 "order": root_spec["order"],
                 "owner": root_spec["owner"],
                 "sourceOwner": root_spec["owner"],

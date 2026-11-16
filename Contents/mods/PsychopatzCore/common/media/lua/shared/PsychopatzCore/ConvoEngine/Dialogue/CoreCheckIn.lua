@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_check_in",
+        ["domainPath"] = "core_check_in",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -102,7 +103,7 @@ return {
             ["sourcePath"] = "dialogue/core_check_in/question_activity.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn",
         ["namespace"] = "offer.question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -251,6 +252,7 @@ return {
     },
     {
         ["domain"] = "core_check_in",
+        ["domainPath"] = "core_check_in",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -359,7 +361,7 @@ return {
             ["sourcePath"] = "dialogue/core_check_in/question_wellbeing.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn",
         ["namespace"] = "offer.question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -513,6 +515,7 @@ return {
     },
     {
         ["domain"] = "core_check_in",
+        ["domainPath"] = "core_check_in",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -613,7 +616,7 @@ return {
             ["sourcePath"] = "dialogue/core_check_in/question_date.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -757,6 +760,7 @@ return {
     },
     {
         ["domain"] = "core_check_in",
+        ["domainPath"] = "core_check_in",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -857,7 +861,7 @@ return {
             ["sourcePath"] = "dialogue/core_check_in/question_time.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1001,6 +1005,7 @@ return {
     },
     {
         ["domain"] = "core_check_in",
+        ["domainPath"] = "core_check_in",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -1101,7 +1106,7 @@ return {
             ["sourcePath"] = "dialogue/core_check_in/question_weather.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -1247,6 +1252,7 @@ return {
     },
     {
         ["domain"] = "core_check_in",
+        ["domainPath"] = "core_check_in",
         ["exchangeFamily"] = {
             ["affordance"] = {
                 ["consumers"] = {
@@ -1347,7 +1353,7 @@ return {
             ["sourcePath"] = "dialogue/core_check_in/question_wellbeing_detail.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_knowledge_gossip",
+        ["domainPath"] = "core_knowledge_gossip",
         ["exchangeFamily"] = {
             ["familyID"] = "gossip.unknown",
             ["initiatingSay"] = {
@@ -553,7 +554,7 @@ return {
             ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeGossip",
         ["namespace"] = "gossip",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "core_knowledge_identity",
+        ["domainPath"] = "core_knowledge_identity",
         ["exchangeFamily"] = {
             ["familyID"] = "question.identity",
             ["initiatingSay"] = {
@@ -579,7 +580,7 @@ return {
             ["sourcePath"] = "dialogue/core_knowledge_identity/question_identity.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeIdentity",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeIdentity",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

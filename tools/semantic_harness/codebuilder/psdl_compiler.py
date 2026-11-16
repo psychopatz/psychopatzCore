@@ -1510,6 +1510,8 @@ def render_pz_backend_from_portable_plan(
         row["owner"] = normalize_owner(entry.get("owner") or row.get("owner"), default=default_owner)
         if "domain" in entry:
             row["domain"] = entry["domain"]
+        if "domainPath" in entry or "domain" in entry:
+            row["domainPath"] = entry.get("domainPath") or entry["domain"]
         if "path" in entry:
             row["sourceShard"] = entry["path"]
         runtime_plans.append(row)
@@ -1522,6 +1524,8 @@ def render_pz_backend_from_portable_plan(
             record["sourceShard"] = entry["path"]
         if "domain" in entry:
             record["domain"] = entry["domain"]
+        if "domainPath" in entry or "domain" in entry:
+            record["domainPath"] = entry.get("domainPath") or entry["domain"]
         behaviors.append(record)
     beats: list[dict[str, Any]] = []
     for record in director_plan["beats"]:
@@ -1530,6 +1534,8 @@ def render_pz_backend_from_portable_plan(
             record["sourceShard"] = entry["path"]
         if "domain" in entry:
             record["domain"] = entry["domain"]
+        if "domainPath" in entry or "domain" in entry:
+            record["domainPath"] = entry.get("domainPath") or entry["domain"]
         beats.append(record)
 
     ui_rows: list[dict[str, Any]] = []

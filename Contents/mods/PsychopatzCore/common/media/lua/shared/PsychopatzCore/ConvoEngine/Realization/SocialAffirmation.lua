@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "social_affirmation",
+        ["domainPath"] = "social_affirmation",
         ["id"] = "construction.social.acknowledge",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -12,7 +13,7 @@ return {
             ["sourcePath"] = "realization/social_affirmation/social_acknowledge.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -56,6 +57,7 @@ return {
     },
     {
         ["domain"] = "social_affirmation",
+        ["domainPath"] = "social_affirmation",
         ["id"] = "construction.social.agree",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -66,7 +68,7 @@ return {
             ["sourcePath"] = "realization/social_affirmation/social_agree.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -110,6 +112,7 @@ return {
     },
     {
         ["domain"] = "social_affirmation",
+        ["domainPath"] = "social_affirmation",
         ["id"] = "construction.social.apologize",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -120,7 +123,7 @@ return {
             ["sourcePath"] = "realization/social_affirmation/social_apologize.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -176,6 +179,7 @@ return {
     },
     {
         ["domain"] = "social_affirmation",
+        ["domainPath"] = "social_affirmation",
         ["id"] = "construction.social.comfort",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -186,7 +190,7 @@ return {
             ["sourcePath"] = "realization/social_affirmation/social_comfort.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -230,6 +234,7 @@ return {
     },
     {
         ["domain"] = "social_affirmation",
+        ["domainPath"] = "social_affirmation",
         ["id"] = "construction.social.deescalate",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -240,7 +245,7 @@ return {
             ["sourcePath"] = "realization/social_affirmation/social_deescalate.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -284,6 +289,7 @@ return {
     },
     {
         ["domain"] = "social_affirmation",
+        ["domainPath"] = "social_affirmation",
         ["id"] = "construction.social.disagree",
         ["kind"] = "realization",
         ["lineage"] = {
@@ -294,7 +300,7 @@ return {
             ["sourcePath"] = "realization/social_affirmation/social_disagree.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["module"] = "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation",
         ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {

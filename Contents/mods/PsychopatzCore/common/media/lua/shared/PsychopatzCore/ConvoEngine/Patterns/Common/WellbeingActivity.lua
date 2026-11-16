@@ -31,6 +31,7 @@ return {
                 ["value"] = "on",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -64,6 +65,7 @@ return {
                 ["value"] = "on",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -101,6 +103,7 @@ return {
                 ["value"] = "today",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -142,6 +145,7 @@ return {
                 ["value"] = "lately",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -175,6 +179,7 @@ return {
                 ["value"] = "okay",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -204,6 +209,7 @@ return {
                 ["value"] = "going",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -233,6 +239,7 @@ return {
                 ["value"] = "doing",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -266,6 +273,7 @@ return {
                 ["value"] = "up",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -295,6 +303,7 @@ return {
                 ["value"] = "managing",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -328,6 +337,7 @@ return {
                 ["value"] = "been",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -357,6 +367,7 @@ return {
                 ["value"] = "going",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -382,6 +393,7 @@ return {
                 ["value"] = "going",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
     {
@@ -434,6 +446,7 @@ return {
                 "SGD",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 164,
     },
     {
@@ -463,6 +476,7 @@ return {
                 ["value"] = "right",
             },
         },
+        ["owner"] = "PsychopatzCore",
         ["priority"] = 120,
     },
 }

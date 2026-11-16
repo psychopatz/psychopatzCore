@@ -2,6 +2,7 @@
 return {
     {
         ["domain"] = "social",
+        ["domainPath"] = "social",
         ["exchangeFamily"] = {
             ["familyID"] = "interaction.world_event.warning",
             ["initiatingSay"] = {
@@ -293,7 +294,7 @@ return {
             ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/Social",
         ["namespace"] = "interaction.world_event",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
@@ -612,6 +613,7 @@ return {
     },
     {
         ["domain"] = "social",
+        ["domainPath"] = "social",
         ["exchangeFamily"] = {
             ["familyID"] = "interaction.world_event.warning_flavor",
             ["initiatingSay"] = {
@@ -903,7 +905,7 @@ return {
             ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json",
             ["sourceSchema"] = "psychopatz.psdl.v2",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["module"] = "PsychopatzCore/ConvoEngine/Dialogue/Social",
         ["namespace"] = "interaction.world_event",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
