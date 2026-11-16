@@ -427,6 +427,40 @@ class SemanticGenerationLifecycleG5Tests(unittest.TestCase):
             }
             self.assertEqual(snapshot_pass1, snapshot_pass2)
 
+    def test_g6_agent_workflow_and_cli_discoverability(self) -> None:
+        import subprocess
+        from tools.semantic_harness.codebuilder.generation_recipe import load_generation_recipe
+
+        recipe = load_generation_recipe(DEFAULT_RECIPE_PATH)
+        # 1. Recipe exposes canonical check and apply CLI invocations
+        self.assertIn("reconcile.py", recipe.canonical_cli.get("check", ""))
+        self.assertIn("--check", recipe.canonical_cli.get("check", ""))
+        self.assertIn("reconcile.py", recipe.canonical_cli.get("apply", ""))
+        self.assertIn("--apply", recipe.canonical_cli.get("apply", ""))
+
+        # 2. CLI --help documents canonical sources and check/apply commands
+        proc = subprocess.run(
+            [sys.executable, "tools/semantic_harness/codebuilder/reconcile.py", "--help"],
+            cwd=str(CORE_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(proc.returncode, 0)
+        self.assertIn("--check", proc.stdout)
+        self.assertIn("--apply", proc.stdout)
+        self.assertIn("sources/conversation", proc.stdout)
+        self.assertIn("generation_recipe.json", proc.stdout)
+
+        # 3. Root AGENTS.md and codebuilder/README.md document the canonical workflow
+        core_agents = (CORE_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("Semantic CodeBuilder generated artifacts", core_agents)
+        self.assertIn("generation_recipe.json", core_agents)
+        readme = (CORE_ROOT / "tools/semantic_harness/codebuilder/README.md").read_text(encoding="utf-8")
+        self.assertIn("reconcile.py", readme)
+        self.assertIn("--check", readme)
+        self.assertIn("--apply", readme)
+
 
 if __name__ == "__main__":
     unittest.main()

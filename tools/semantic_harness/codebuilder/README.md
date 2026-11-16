@@ -87,24 +87,49 @@ The combined Project Hoomans Conversation registry/manifest remains the adopter 
 
 The reviewed WordNet lexicon is generic semantic infrastructure and generates into PsychopatzCore.
 
-## Generate Conversation artifacts
+## Generate and Reconcile Conversation artifacts
+
+Canonical check/apply reconciliation workflow (from `psychopatzCore`):
+
+```bash
+python3 tools/semantic_harness/codebuilder/reconcile.py \
+  --recipe tools/semantic_harness/codebuilder/generation_recipe.json \
+  --repository ../ProjectHoomans \
+  --core-repository . \
+  --hoomans-repository ../ProjectHoomans \
+  --dynamic-trading-repository ../DynamicTrading \
+  --check
+
+python3 tools/semantic_harness/codebuilder/reconcile.py \
+  --recipe tools/semantic_harness/codebuilder/generation_recipe.json \
+  --repository ../ProjectHoomans \
+  --core-repository . \
+  --hoomans-repository ../ProjectHoomans \
+  --dynamic-trading-repository ../DynamicTrading \
+  --apply
+```
+
+Direct `build.py` invocation delegates to the same recipe-driven reconciler:
 
 ```bash
 python3 tools/semantic_harness/codebuilder/build.py \
   --conversation-manifest \
   tools/semantic_harness/codebuilder/sources/conversation/manifest.json \
-  --conversation-output-root . \
-  --core-repository ../psychopatzCore
+  --conversation-output-root ../ProjectHoomans \
+  --core-repository .
 ```
 
-This deterministically generates owner-routed bounded Lua modules, composition
-registries, and package-owned Conversation translation catalogs from the
-canonical shard model. UI strings are maintained in the owning mod's common
-translation catalogs and are not CodeBuilder dialogue sources. Generated UI
-entries are merged into the existing package catalog so shared Core UI keys
-authored outside CodeBuilder are never deleted by a rebuild.
+This deterministically generates and reconciles owner-routed bounded Lua modules,
+composition registries, `Conversation/Text` catalogs, and package-owned
+Conversation translation catalogs from the canonical shard model. UI strings
+are maintained in the owning mod's common translation catalogs; generated UI
+entries are reconciled into the existing package catalog with generated-key
+ownership so package-authored UI keys survive while obsolete formerly generated
+UI keys and retired legacy artifacts are pruned automatically.
 
-Generated Lua/JSON is never an authoring source.
+Generated Lua/JSON is never an authoring source. Do not manually delete or
+patch generated runtime artifacts, and do not infer staleness from
+hash-suffixed module filenames.
 
 ### Agent authoring rule
 

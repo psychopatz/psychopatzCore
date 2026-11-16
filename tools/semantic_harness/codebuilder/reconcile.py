@@ -910,7 +910,20 @@ def _format_summary_lines(report: Mapping[str, Any]) -> list[str]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        epilog=(
+            "Canonical workflow:\n"
+            "  1. Edit canonical semantic sources (tools/semantic_harness/codebuilder/sources/conversation/ "
+            "or adopter tools/providers/<id>/codebuilder/sources/conversation/).\n"
+            "  2. Check state:  python3 tools/semantic_harness/codebuilder/reconcile.py "
+            "--recipe tools/semantic_harness/codebuilder/generation_recipe.json --check\n"
+            "  3. Apply cleanup: python3 tools/semantic_harness/codebuilder/reconcile.py "
+            "--recipe tools/semantic_harness/codebuilder/generation_recipe.json --apply\n"
+            "  4. Verify closure with --check again.\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     parser.add_argument(
         "--recipe",
         type=Path,

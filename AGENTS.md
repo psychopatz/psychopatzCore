@@ -23,6 +23,12 @@ Keep this file limited to repository-wide rules that remain useful across unrela
 - Product-specific gameplay rules remain with the adopting repository unless an explicit shared contract moves that responsibility.
 - Reuse established public seams rather than duplicating adopter-owned state in Core.
 
+## Semantic CodeBuilder generated artifacts
+
+- Treat canonical semantic source/manifests and `tools/semantic_harness/codebuilder/generation_recipe.json` (`reconcile.py --check` / `--apply`) as authority. Generated Lua/translation artifacts are downstream output, not hand-edit targets.
+- For semantic generation drift or cleanup, use the canonical recipe-driven check/apply workflow. Do not manually delete or patch suspected generated leftovers, and do not infer staleness from hash-suffixed filenames.
+- Safe cleanup must be owner-scoped and closed-set: remove only artifacts/keys proven CodeBuilder-owned, preserve authored or mixed-package content, and treat unexpected leftovers as a generator-lifecycle defect to fix at the source.
+
 ## Runtime and publication
 
 - A Git commit or push is not Steam Workshop publication.
