@@ -4,7 +4,7 @@
 **Estimated developer progress:** S0-S9R retained; S10A accepted; S10B-S10D mechanisms implemented but completion/closure claims reopened by audit.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S10R — acceptance integrity, public-surface ownership, reproducible closure.
-**Immediate Next Chunk:** S10R2 — make Feature Acceptance Registry public-surface discovery complete across all supported top-level CLI actions (`--list-datasets`, `--search-datasets`, `--show-dataset`, `--validate-dataset`, `--workflow-preview`, `--workflow-generate`, `--adapt-dataset`, `--inspect-interaction-history`, etc.) with negative validation tests.
+**Immediate Next Chunk:** S10R3 — audit current `hoomans_lua` failures at the live ProjectHoomans checkpoint, fix any S10-owned failures or enforce reviewed machine-classified unrelated-baseline provenance/signatures (never promoting via `convoScopeOk`), and verify overall nine-suite `--acceptance` PASS.
 
 ## Accepted baseline retained
 
@@ -107,6 +107,12 @@ Its Hoomans count also does not reproduce from the exact recorded participant co
     pnc-with-dthoomans
 
 A newly supported non-alias worker-bearing provider can therefore avoid lifecycle acceptance. S10R must derive the executable matrix from current manifest discovery.
+
+## S10R2 completed acceptance (2026-11-16)
+
+- Extended `tools/semantic_harness/testing/feature_registry.py` (`discover_public_top_level_cli_actions`) to inspect live `cli._parser()._actions`, separating configuration/filter modifiers (`CLI_MODIFIER_OPTIONS`), mapping option aliases onto one canonical control, and enforcing AST-verified ownership over all 66 discovered public top-level CLI actions plus `app.*_button`, Studio `ConvoEngineAuthoringPane`, and `convo.*` subcommands.
+- Updated `tools/semantic_harness/testing/feature_registry.json` with ownership entries for all top-level CLI actions and added headless + real-worker CLI acceptance in `test_s10r2_cli_actions.py` and `test_s10r2_worker_cli.py`.
+- Verified negative registry failure on uncovered newly added top-level actions (`test_feature_registry.py` `4/4`, `test_s10r2_cli_actions.py` `1/1`, `test_s10r2_worker_cli.py` `2/2`, `test_acceptance_runner.py` `6/6`, `test_convo_engine_s9r_closure.py` `4/4` — `17/17 OK`).
 
 ## S10R1 completed acceptance (2026-11-16)
 

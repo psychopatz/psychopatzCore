@@ -146,6 +146,8 @@ The lifecycle matrix must derive its executable provider/preset set from current
 
 ### S10R2 — make Feature Acceptance Registry discovery complete
 
+**Status:** COMPLETE (`feature_registry.py` dynamically inspects live `argparse` `_parser()._actions` excluding explicit `CLI_MODIFIER_OPTIONS`, maps aliases to canonical primary flags, supports `retiredControls`, and requires real AST-verified owners for all 66 top-level CLI actions in addition to `app.*_button` / Studio / `convo.*`; `test_feature_registry.py` `4/4` PASS including negative tests for uncovered new actions and aliases; `test_s10r2_cli_actions.py` `1/1` and `test_s10r2_worker_cli.py` `2/2` PASS).
+
 1. Discover supported top-level argparse actions in addition to `convo` subcommands.
 2. Normalize aliases/groups so one user action does not create duplicate ownership records.
 3. Require every supported public GUI/CLI/agent action to have:

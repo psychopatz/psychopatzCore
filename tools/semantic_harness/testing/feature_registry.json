@@ -367,6 +367,205 @@
       ]
     },
     {
+      "featureID": "cli.selection_discovery_and_ui_reset",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--list-mods",
+        "--list-presets",
+        "--show-selection",
+        "--reset-ui-state"
+      ],
+      "canonicalOperation": "ModManager.describe+HarnessConfig.discover",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_cli_actions:S10R2CliActionsTests.test_cli_selection_discovery_and_reset_ui_state"
+      ]
+    },
+    {
+      "featureID": "cli.dataset_library",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--list-datasets",
+        "--search-datasets",
+        "--show-dataset",
+        "--validate-dataset"
+      ],
+      "canonicalOperation": "SemanticDatasetCatalog",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_dataset_and_workflow:S10R1DatasetAndWorkflowTests.test_cli_routes_dataset_block_and_workflow_operations"
+      ]
+    },
+    {
+      "featureID": "cli.semantic_blocks_and_codeblocks",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--list-blocks",
+        "--search-blocks",
+        "--validate-blocks",
+        "--validate-codeblocks"
+      ],
+      "canonicalOperation": "SemanticBlockRegistry+validate_codeblock_document",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_dataset_and_workflow:S10R1DatasetAndWorkflowTests.test_cli_routes_dataset_block_and_workflow_operations",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_c5_variation_adapters_specs:S10R1HealthVariationAdaptersAndSpecsTests.test_interaction_spec_graph_validation_compile_and_codeblocks_cli"
+      ]
+    },
+    {
+      "featureID": "cli.workflow_and_adapters",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--workflow-preview",
+        "--workflow-generate",
+        "--adapt-dataset",
+        "--variation-audit"
+      ],
+      "canonicalOperation": "SemanticInteractionAuthoring+dataset_adapters+variation_auditor",
+      "providerApplicability": ["all"],
+      "mutationClass": "canonical_source",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_dataset_and_workflow:S10R1DatasetAndWorkflowTests.test_workflow_generate_approved_runs_in_isolated_temp_workspace",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_c5_variation_adapters_specs:S10R1HealthVariationAdaptersAndSpecsTests.test_dataset_adapters_massive_sgd_media_rejection_promotion_and_cli",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r1_c5_variation_adapters_specs:S10R1HealthVariationAdaptersAndSpecsTests.test_dialogue_content_limits_and_variation_auditor_live_plus_cli"
+      ]
+    },
+    {
+      "featureID": "cli.worker_doctor_session_and_tests",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--doctor",
+        "--doctor-json",
+        "--ping",
+        "--capabilities",
+        "--snapshot",
+        "--input",
+        "--language",
+        "--run-semantic-tests"
+      ],
+      "canonicalOperation": "worker.session+doctor+testing.executor",
+      "providerApplicability": ["all"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "PsychopatzCore:tools.semantic_harness.tests.test_doctor:DoctorTests.test_doctor_uses_core_default_scenario_and_worker_dispatch",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_worker_cli:S10R2WorkerCliTests.test_cli_worker_ping_capabilities_snapshot_input_language_and_doctor",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_worker_cli:S10R2WorkerCliTests.test_cli_runs_declarative_semantic_test_fixture_and_observatory_flags"
+      ]
+    },
+    {
+      "featureID": "cli.response_observatory",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--response-pools",
+        "--response-pool",
+        "--explain-response-pool",
+        "--compare-response-reports",
+        "--response-quality-matrix",
+        "--response-translation-coverage",
+        "--response-codebuilder-lineage",
+        "--response-selection-coverage",
+        "--inspect-response-turn",
+        "--preview-response-proposal",
+        "--review-response-proposal"
+      ],
+      "canonicalOperation": "inspection.observatory",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_response_observatory_matrix:ResponseQualityMatrixTests.test_cli_catalog_and_explain_use_real_lua",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_worker_cli:S10R2WorkerCliTests.test_cli_runs_declarative_semantic_test_fixture_and_observatory_flags"
+      ]
+    },
+    {
+      "featureID": "cli.saved_world_and_actor_inspection",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--discover-saves",
+        "--inspect-save",
+        "--load-saved-pair",
+        "--list-players",
+        "--list-factions",
+        "--list-communities",
+        "--search-npcs",
+        "--inspect-player",
+        "--inspect-npc",
+        "--inspect-inventories",
+        "--inspect-relationship",
+        "--inspect-dossier",
+        "--inspect-interaction-history",
+        "--inspect-social-context",
+        "--working-world-diff"
+      ],
+      "canonicalOperation": "SaveCatalog+worker.inspect_actor_state+inspect_npc_dossier",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10r1_worker_precision_and_history:S10R1WorkerPrecisionAndHistoryTests.test_real_worker_backstory_navigation_and_cli_inspect_interaction_history",
+        "ProjectHoomans:tools.providers.pnc.tests.test_cli_parity:CLIParityTests.test_discovery_and_saved_world_queries_are_machine_readable"
+      ]
+    },
+    {
+      "featureID": "cli.actor_actions_resets_and_talk",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--gift",
+        "--recruit",
+        "--propose",
+        "--reset-world",
+        "--reset-turn",
+        "--reset-conversation",
+        "--reset-actor",
+        "--reload-save",
+        "--talk-start",
+        "--talk-matrix"
+      ],
+      "canonicalOperation": "worker.actor_actions+reset+talk",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_cli_parity:CLIParityTests.test_saved_pair_actions_diff_reset_and_source_hash",
+        "ProjectHoomans:tools.providers.pnc.tests.test_cli_parity:CLIParityTests.test_talk_proposal_and_recruitment_commands_reuse_worker"
+      ]
+    },
+    {
+      "featureID": "cli.quality_sweep",
+      "surface": "CLI & Agent Ops",
+      "controls": [
+        "--sweep-plan",
+        "--sweep-run",
+        "--sweep-status",
+        "--sweep-report",
+        "--sweep-replay"
+      ],
+      "canonicalOperation": "DialogueQualitySweepService",
+      "providerApplicability": ["pnc", "pnc-with-dthoomans"],
+      "mutationClass": "runtime_state",
+      "mandatory": true,
+      "requiresRealGui": false,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_sweep_ui:SweepUiAndReviewTests.test_cli_argument_parsing"
+      ]
+    },
+    {
       "featureID": "cli.acceptance_orchestrator",
       "surface": "CLI & Agent Ops",
       "controls": ["--acceptance"],

@@ -1,4 +1,4 @@
-"""S10C Feature Acceptance Registry completeness and AST ownership gate."""
+"""S10C/S10R2 Feature Acceptance Registry completeness and AST ownership gate."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
+from tools.semantic_harness.entrypoints.cli import _parser
 from tools.semantic_harness.testing.feature_registry import (
     load_feature_registry,
     validate_feature_registry,
@@ -20,9 +21,10 @@ class FeatureRegistryTests(unittest.TestCase):
         hoomans = HOOMANS_ROOT if HOOMANS_ROOT.is_dir() else None
         result = validate_feature_registry(CORE_ROOT, hoomans_repo=hoomans)
         self.assertTrue(result["ok"], f"Feature registry errors: {result['errors']}")
-        self.assertGreaterEqual(result["featureCount"], 20)
+        self.assertGreaterEqual(result["featureCount"], 30)
         self.assertGreaterEqual(result["discoveredUiControls"], 25)
         self.assertGreaterEqual(result["discoveredCliCommands"], 8)
+        self.assertGreaterEqual(result["discoveredTopLevelCliActions"], 60)
 
     def test_unmapped_ui_control_fails_registry_validation(self) -> None:
         payload = load_feature_registry()
@@ -46,6 +48,73 @@ class FeatureRegistryTests(unittest.TestCase):
                 any("app.qs_generate_button" in err for err in result["errors"]),
                 result["errors"],
             )
+
+    def test_unmapped_new_top_level_cli_action_fails_registry_validation(self) -> None:
+        augmented = _parser()
+        augmented.add_argument(
+            "--hypothetical-new-action",
+            action="store_true",
+            help="Uncovered public CLI action",
+        )
+        result = validate_feature_registry(
+            CORE_ROOT,
+            hoomans_repo=HOOMANS_ROOT if HOOMANS_ROOT.is_dir() else None,
+            cli_parser=augmented,
+        )
+        self.assertFalse(result["ok"])
+        self.assertTrue(
+            any("--hypothetical-new-action" in err for err in result["errors"]),
+            result["errors"],
+        )
+
+    def test_cli_alias_shares_canonical_feature_without_duplicate_record(self) -> None:
+        augmented = _parser()
+        augmented.add_argument(
+            "--list-datasets-alias",
+            dest="list_datasets",
+            action="store_true",
+        )
+        # Same option group alias shares canonical primary flag:
+        aliased = _parser()
+        aliased.add_argument(
+            "--list-mods-v2",
+            "--list-mods-alias",
+            action="store_true",
+        )
+        res_missing = validate_feature_registry(
+            CORE_ROOT,
+            hoomans_repo=HOOMANS_ROOT if HOOMANS_ROOT.is_dir() else None,
+            cli_parser=aliased,
+        )
+        self.assertFalse(res_missing["ok"])
+        self.assertTrue(any("--list-mods-v2" in err for err in res_missing["errors"]))
+        # Adding only primary canonical flag covers the alias on the same option group:
+        payload = load_feature_registry()
+        payload["features"].append({
+            "featureID": "cli.alias_demo",
+            "surface": "CLI & Agent Ops",
+            "controls": ["--list-mods-v2"],
+            "canonicalOperation": "ModManager.describe",
+            "providerApplicability": ["all"],
+            "mutationClass": "read_only",
+            "mandatory": True,
+            "requiresRealGui": False,
+            "acceptanceOwners": [
+                "PsychopatzCore:tools.semantic_harness.tests.test_s10r2_cli_actions:S10R2CliActionsTests.test_cli_selection_discovery_and_reset_ui_state",
+            ],
+        })
+        with tempfile.TemporaryDirectory() as tmp:
+            import json
+
+            reg_path = Path(tmp) / "registry.json"
+            reg_path.write_text(json.dumps(payload), encoding="utf-8")
+            res_ok = validate_feature_registry(
+                CORE_ROOT,
+                hoomans_repo=HOOMANS_ROOT if HOOMANS_ROOT.is_dir() else None,
+                registry_path=reg_path,
+                cli_parser=aliased,
+            )
+            self.assertTrue(res_ok["ok"], res_ok["errors"])
 
 
 if __name__ == "__main__":

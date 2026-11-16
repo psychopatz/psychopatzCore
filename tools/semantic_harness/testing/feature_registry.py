@@ -32,6 +32,77 @@ _APP_BUTTON_RE = re.compile(r"\bapp\.([a-zA-Z0-9_]+_button)\s*=\s*")
 _STUDIO_COMMAND_RE = re.compile(r"command=self\.(refresh|run_s6m8_audit|new_family|duplicate_family|delete_family|preview_record|write_source)\b")
 _CONVO_SUBPARSER_RE = re.compile(r'convo_sub\.add_parser\(\s*"([a-z]+)"')
 
+CLI_MODIFIER_OPTIONS: frozenset[str] = frozenset({
+    "-h",
+    "--help",
+    "--scenario",
+    "--case",
+    "--lua",
+    "--repository",
+    "--core-repository",
+    "--hoomans-repository",
+    "--dynamic-trading-repository",
+    "--profile",
+    "--preset",
+    "--mods",
+    "--provider-root",
+    "--ui-state",
+    "--activity-log",
+    "--activity-client",
+    "--no-gui",
+    "--cli",
+    "--gui",
+    "--interactive",
+    "--jsonl",
+    "--trace",
+    "--audit",
+    "--semantic-test-file",
+    "--semantic-test-suite",
+    "--semantic-test-filter",
+    "--response-offset",
+    "--response-limit",
+    "--response-context-file",
+    "--response-salt",
+    "--dataset-source",
+    "--dataset-manifest",
+    "--workflow-blocks",
+    "--approve-workflow",
+    "--save",
+    "--player",
+    "--npc",
+    "--gift-quantity",
+    "--talk-utterance",
+    "--sweep-id",
+    "--sweep-strategy",
+    "--sweep-batch-size",
+    "--sweep-max-cases",
+    "--sweep-cluster-id",
+    "--sweep-case-id",
+    "--sweep-severity",
+    "--sweep-flag",
+    "--sweep-source",
+    "--sweep-pool",
+    "--sweep-language",
+    "--sweep-surfaces",
+    "--sweep-languages",
+    "--sweep-bundle",
+    "--sweep-reachability",
+    "--sweep-sentences",
+    "--variation-audit-json",
+    "--variation-audit-ledger",
+    "--variation-audit-shard",
+    "--variation-audit-under-10",
+    "--acceptance-suite",
+    "--acceptance-jobs",
+    "--acceptance-timeout",
+    "--acceptance-kahlua-root",
+    "--acceptance-report",
+    "--allow-unrelated-baselines",
+    "--timeout",
+    "--startup-timeout",
+    "--shutdown-timeout",
+})
+
 
 def load_feature_registry(path: Path | None = None) -> dict[str, Any]:
     target = path or DEFAULT_REGISTRY_PATH
@@ -68,6 +139,35 @@ def discover_public_convo_cli_commands(core_repo: Path) -> set[str]:
         f"convo.{match.group(1)}"
         for match in _CONVO_SUBPARSER_RE.finditer(ops_file.read_text(encoding="utf-8"))
     }
+
+
+def discover_public_top_level_cli_actions(
+    *,
+    parser: Any | None = None,
+    modifier_options: frozenset[str] = CLI_MODIFIER_OPTIONS,
+) -> tuple[set[str], dict[str, str]]:
+    """Discover canonical public top-level argparse actions and alias mappings."""
+    if parser is None:
+        from tools.semantic_harness.entrypoints.cli import _parser
+
+        parser = _parser()
+
+    canonical_actions: set[str] = set()
+    alias_to_canonical: dict[str, str] = {}
+    for action in getattr(parser, "_actions", ()):
+        options = [
+            opt
+            for opt in getattr(action, "option_strings", ())
+            if opt not in modifier_options
+        ]
+        if not options:
+            continue
+        long_opts = [opt for opt in options if opt.startswith("--")]
+        primary = long_opts[0] if long_opts else options[0]
+        canonical_actions.add(primary)
+        for opt in options:
+            alias_to_canonical[opt] = primary
+    return canonical_actions, alias_to_canonical
 
 
 def _resolve_repo_root(
@@ -123,10 +223,12 @@ def validate_feature_registry(
     *,
     hoomans_repo: Path | None = None,
     registry_path: Path | None = None,
+    cli_parser: Any | None = None,
 ) -> dict[str, Any]:
     """Validate completeness, schema integrity, and real-path acceptance ownership."""
     payload = load_feature_registry(registry_path)
     features = payload["features"]
+    retired_controls = {str(item) for item in payload.get("retiredControls") or ()}
     seen_ids: set[str] = set()
     registered_controls: set[str] = set()
     errors: list[str] = []
@@ -192,10 +294,21 @@ def validate_feature_registry(
     if missing_cli:
         errors.append(f"unmapped public convo CLI commands: {missing_cli}")
 
+    discovered_top_level_cli, alias_to_canonical = discover_public_top_level_cli_actions(
+        parser=cli_parser
+    )
+    covered_top_level = set()
+    for ctrl in registered_controls | retired_controls:
+        covered_top_level.add(alias_to_canonical.get(ctrl, ctrl))
+    missing_top_level_cli = sorted(discovered_top_level_cli - covered_top_level)
+    if missing_top_level_cli:
+        errors.append(f"unmapped public top-level CLI actions: {missing_top_level_cli}")
+
     return {
         "ok": not errors,
         "featureCount": len(features),
         "discoveredUiControls": len(discovered_buttons),
         "discoveredCliCommands": len(discovered_convo_cli),
+        "discoveredTopLevelCliActions": len(discovered_top_level_cli),
         "errors": errors,
     }
