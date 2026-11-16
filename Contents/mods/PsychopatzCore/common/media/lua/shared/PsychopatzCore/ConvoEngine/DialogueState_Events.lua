@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Event history and bounded semantic recording for dialogue state.
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Semantics = PsychopatzCore.Semantics or {}

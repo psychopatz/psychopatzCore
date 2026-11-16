@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Core-owned typed text binding and resolver contract.
 --
 -- This resolves already-authored semantic placeholders. It never parses

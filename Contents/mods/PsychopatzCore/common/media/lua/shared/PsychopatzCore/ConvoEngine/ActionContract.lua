@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Core-owned ConvoEngine registered semantic action contract & result boundary.
 --
 -- Keeps read-only discovery (ActionProviders.collect) strictly separate from

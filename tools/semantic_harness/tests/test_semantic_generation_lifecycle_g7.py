@@ -27,8 +27,8 @@ from tools.semantic_harness.tests.test_convo_engine_s9h6_build_planner import (
 class SemanticGenerationLifecycleG7Tests(unittest.TestCase):
     def test_steady_state_recipe_is_structurally_compact(self) -> None:
         recipe = load_generation_recipe(DEFAULT_RECIPE_PATH)
-        conv_tr = recipe.surface("conversation_translations")
-        self.assertEqual(conv_tr.preserved_by_owner, {})
+        self.assertEqual(recipe.surface("conversation_lua").preserved_by_owner, {})
+        self.assertEqual(recipe.surface("conversation_translations").preserved_by_owner, {})
         self.assertLessEqual(len(recipe.retired), 5)
         for entry in recipe.retired:
             self.assertEqual(entry.kind, "directory_glob")
@@ -58,7 +58,7 @@ class SemanticGenerationLifecycleG7Tests(unittest.TestCase):
                 / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/DialogueBlocks.lua"
             )
             engine_lua.parent.mkdir(parents=True, exist_ok=True)
-            engine_lua.write_text("-- Hand-written adapter\nreturn {}\n", encoding="utf-8")
+            engine_lua.write_text("-- ConvoEngine: hand-written adapter\nreturn {}\n", encoding="utf-8")
 
             core_ui_en = (
                 repos["core"]

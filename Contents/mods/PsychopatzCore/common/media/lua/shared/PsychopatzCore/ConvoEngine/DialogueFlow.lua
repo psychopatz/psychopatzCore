@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Generic, reusable semantic dialogue flow and condition evaluator for PsychopatzCore.
 --
 -- Provides gate evaluation (numeric, string, relationship, capability) and

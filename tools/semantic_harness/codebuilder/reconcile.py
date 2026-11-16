@@ -88,6 +88,20 @@ def _has_generated_lua_header(path: Path, marker: str = "-- Generated") -> bool:
     return first_line.startswith(marker) and "do not edit by hand." in first_line
 
 
+def _has_handwritten_convo_lua_header(
+    path: Path,
+    marker: str = "-- ConvoEngine: hand-written",
+) -> bool:
+    try:
+        with path.open("r", encoding="utf-8", errors="replace") as handle:
+            lines = [handle.readline() for _ in range(5)]
+    except OSError:
+        return False
+    if not lines or lines[0].lstrip().startswith("-- Generated"):
+        return False
+    return any(line.lstrip().startswith(marker) for line in lines)
+
+
 def _read_string_map(path: Path) -> dict[str, str]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -446,7 +460,9 @@ def check_owner_surface_state(
             rel_path = file_path.relative_to(owner_repo).as_posix()
             if rel_path in desired_by_path or rel_path in claimed_retired_paths:
                 continue
-            if rel_path in conv_lua_preserved:
+            if rel_path in conv_lua_preserved or (
+                file_path.suffix == ".lua" and _has_handwritten_convo_lua_header(file_path)
+            ):
                 preserved.append({
                     "owner": norm_owner,
                     "surface": conv_lua_surface.id,

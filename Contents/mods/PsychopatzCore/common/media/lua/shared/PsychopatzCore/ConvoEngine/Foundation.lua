@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Core-owned generated semantic foundation.
 --
 -- This module is deliberately provider-neutral.  Project Hoomans and

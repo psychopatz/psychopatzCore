@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Semantics = PsychopatzCore.Semantics or {}
 PsychopatzCore.ConvoEngine = PsychopatzCore.ConvoEngine or {}

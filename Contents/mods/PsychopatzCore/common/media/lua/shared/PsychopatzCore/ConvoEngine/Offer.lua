@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Core-owned semantic affordance contract.
 --
 -- Offers are executable meaning frames with presentation fallbacks. They do

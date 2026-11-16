@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Core-owned ConvoEngine exchange-family affordance, slot, reply, and continuation evaluator.
 --
 -- Evaluates compiled exchangeFamily records from generated Conversation registries

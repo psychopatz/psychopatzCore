@@ -65,12 +65,12 @@ class ReconcileApplyTests(unittest.TestCase):
                 _sample_family(owner="ProjectHoomans", namespace="temp_domain", family_id="pnc_temp_b"),
             )
 
-            # Place a declared preserved authored neighbor file
+            # Place a structurally marked hand-written adapter neighbor file
             preserved_neighbor = (
                 repos["hoomans"]
                 / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/DialogueBlocks.lua"
             )
-            preserved_bytes = b"-- Hand-authored DialogueBlocks adapter\nreturn { preserved = true }\n"
+            preserved_bytes = b"-- ConvoEngine: hand-written adapter\nreturn { preserved = true }\n"
             preserved_neighbor.parent.mkdir(parents=True, exist_ok=True)
             preserved_neighbor.write_bytes(preserved_bytes)
 

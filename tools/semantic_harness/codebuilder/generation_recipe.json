@@ -15,26 +15,7 @@
         "DTCommon"
       ],
       "policy": "owned_fileset",
-      "generatedMarker": "-- Generated",
-      "preserved": {
-        "PsychopatzCore": [
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/ActionContract.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/Affordance.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueFlow.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueRouter.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueState.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueState_Events.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueState_References.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueTurn.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/Foundation.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/Offer.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/TextBinding.lua"
-        ],
-        "ProjectHoomans": [
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/DialogueBlocks.lua"
-        ],
-        "DTCommon": []
-      }
+      "generatedMarker": "-- Generated"
     },
     {
       "id": "conversation_translations",

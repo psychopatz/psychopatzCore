@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Bounded multi-clause turn support built on the existing candidate parser.
 --
 -- This is deliberately not a second grammar. A turn is split only at safe

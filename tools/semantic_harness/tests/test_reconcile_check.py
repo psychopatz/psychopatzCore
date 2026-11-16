@@ -99,12 +99,12 @@ class ReconcileCheckTests(unittest.TestCase):
             stale_text.parent.mkdir(parents=True, exist_ok=True)
             stale_text.write_text('{"old": "text"}\n', encoding="utf-8")
 
-            # 4. Preserved authored Lua file declared in recipe
+            # 4. Legitimate hand-written engine/adapter Lua file (structurally marked)
             preserved_lua = (
                 repos["hoomans"]
                 / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/DialogueBlocks.lua"
             )
-            preserved_lua.write_text("-- Hand-authored adapter\nreturn {}\n", encoding="utf-8")
+            preserved_lua.write_text("-- ConvoEngine: hand-written adapter\nreturn {}\n", encoding="utf-8")
 
             # 5. Unknown unowned neighbor file inside ConvoEngine root (no generated header, not in preserved list)
             unknown_lua = (

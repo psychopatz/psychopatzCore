@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Reference bookkeeping for bounded semantic dialogue state.
 -- This spoke exposes only small internal helpers plus the public resolver.
 PsychopatzCore = PsychopatzCore or {}
