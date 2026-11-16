@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "corpse.revenge",
-  "id": "relative",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "corpse.revenge.relative",
   "target": {
     "required": true,
     "type": "entity.person"

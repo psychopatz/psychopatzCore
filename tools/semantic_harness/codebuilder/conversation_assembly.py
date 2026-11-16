@@ -88,6 +88,8 @@ def _compile_shard(
     runtime_root: Path,
     default_owner: str,
     package_repositories: Mapping[str, Path] | None = None,
+    package: Mapping[str, Any] | None = None,
+    text_loader: Any = None,
 ) -> dict[str, Any]:
     kind = entry["kind"]
     path = entry["path"]
@@ -98,6 +100,8 @@ def _compile_shard(
                 source_path=path,
                 default_owner=normalize_owner(entry.get("owner"), default=default_owner),
                 validate_cross_references=False,
+                package=package,
+                text_loader=text_loader,
             )
             return compiled
         raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")
@@ -318,6 +322,9 @@ def _ui_translations(
 def _conversation_record_ids(
     document: dict[str, Any],
     entry: dict[str, Any],
+    *,
+    package: Mapping[str, Any] | None = None,
+    text_loader: Any = None,
 ) -> list[str]:
     kind = entry["kind"]
     if kind in CONVO_ENGINE_SHARD_KINDS:
@@ -326,6 +333,8 @@ def _conversation_record_ids(
             source_path=entry["path"],
             default_owner=entry.get("owner"),
             validate_cross_references=False,
+            package=package,
+            text_loader=text_loader,
         )
         record_ids = [
             str(item["id"])

@@ -1,0 +1,68 @@
+{
+  "schema": "psdl.target-registry.v1",
+  "version": 1,
+  "packages": {
+    "PsychopatzCore": {
+      "owner": "PsychopatzCore",
+      "aliases": ["core", "psychopatzcore"],
+      "backend": "pz-lua",
+      "localizationPolicy": "build42-json",
+      "sharedLuaRelative": "Contents/mods/PsychopatzCore/common/media/lua/shared",
+      "conversationPrefix": "PsychopatzCore/ConvoEngine",
+      "translationRelative": "Contents/mods/PsychopatzCore/common/media/translation",
+      "registryModule": "PsychopatzCore/ConvoEngine/Registry",
+      "registryNamespace": "PsychopatzCore.ConvoEngine.Registry",
+      "translationManifestRelative": "manifests/Conversation.json",
+      "repositoryEnvironment": "PZ_TEST_CORE_REPOSITORY",
+      "repositoryMarkers": ["tools/semantic_harness/codebuilder/sources/conversation"],
+      "isCore": true,
+      "capabilities": ["speech"]
+    },
+    "ProjectHoomans": {
+      "owner": "ProjectHoomans",
+      "aliases": ["hoomans", "projecthoomans", "pnc"],
+      "backend": "pz-lua",
+      "localizationPolicy": "build42-json",
+      "sharedLuaRelative": "Contents/mods/ProjectHoomans/common/media/lua/shared",
+      "conversationPrefix": "PNC/ConvoEngine",
+      "translationRelative": "Contents/mods/ProjectHoomans/common/media/translation",
+      "registryModule": "PNC/ConvoEngine/Registry",
+      "registryNamespace": "PNC.ConvoEngine.Registry",
+      "translationManifestRelative": "manifests/Conversation.json",
+      "capabilityGlobs": [
+        "Contents/mods/ProjectHoomans/*/media/lua/**/PNC_Semantic*.lua",
+        "Contents/mods/ProjectHoomans/*/media/lua/**/PNC/ConvoEngine/**/*.lua"
+      ],
+      "repositoryEnvironment": "PZ_TEST_HOOMANS_REPOSITORY",
+      "repositoryMarkers": ["Contents/mods/ProjectHoomans", "tools/providers/pnc"],
+      "isDefaultProject": true,
+      "capabilities": [
+        "speech",
+        "hoomans.social",
+        "hoomans.camp.establish",
+        "pnc:companion.follow",
+        "pnc:companion.stay"
+      ],
+      "resolvers": ["pnc.camp.location_phrase"]
+    },
+    "DTCommon": {
+      "owner": "DTCommon",
+      "aliases": ["dt", "dtcommon", "dynamictrading", "dynamic_trading", "dynamic-trading"],
+      "backend": "pz-lua",
+      "localizationPolicy": "build42-json",
+      "sharedLuaRelative": "Contents/mods/DTCommon/common/media/lua/shared",
+      "conversationPrefix": "DTCommon/ConvoEngine",
+      "translationRelative": "Contents/mods/DTCommon/common/media/translation",
+      "registryModule": "DTCommon/ConvoEngine/Registry",
+      "registryNamespace": "DTCommon.ConvoEngine.Registry",
+      "translationManifestRelative": "manifests/Conversation.json",
+      "capabilityIds": ["DT.trade"],
+      "capabilityGlobs": [
+        "Contents/mods/DTCommon/*/media/lua/**/DTCommon_Semantic*.lua"
+      ],
+      "repositoryEnvironment": "PZ_TEST_DYNAMIC_TRADING_REPOSITORY",
+      "repositoryMarkers": ["Contents/mods/DTCommon", "tools/providers/dt"],
+      "capabilities": ["speech", "DT.trade"]
+    }
+  }
+}

@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "choice",
-  "id": "goodbye",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "choice.goodbye",
   "metadata": {
     "textKey": "choice.goodbye",
     "textTarget": "social/goodbye/closing",

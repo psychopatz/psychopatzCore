@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "offer.question",
-  "id": "activity",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "offer.question.activity",
   "metadata": {
     "textNamespace": "UI_PNC_Conversation_Suggestion",
     "ui": {

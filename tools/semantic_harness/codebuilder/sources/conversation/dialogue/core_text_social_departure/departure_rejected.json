@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "departure",
-  "id": "rejected",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "departure.rejected",
   "metadata": {
     "textKey": "departure.rejected",
     "textTarget": "social/departure/response",

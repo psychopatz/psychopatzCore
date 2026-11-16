@@ -1,6 +1,7 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "construction.social.contextual_accept",
   "dialogueAct": "ACCEPT",
-  "id": "contextual_accept",
   "strategy": "ACCEPT",
   "translations": {
     "EN": [
@@ -16,9 +17,5 @@
       }
     ]
   },
-  "type": "construction",
-  "kind": "realization",
-  "owner": "PsychopatzCore",
-  "namespace": "construction.social",
-  "schema": "psychopatz.convo-engine.v1"
+  "type": "construction"
 }

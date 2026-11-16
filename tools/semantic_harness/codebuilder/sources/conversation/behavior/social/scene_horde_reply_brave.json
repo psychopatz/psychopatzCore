@@ -1,10 +1,11 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.scene_horde_reply_brave",
   "act": "COMBAT_HORDE_REPLY",
   "baseRelevance": 1.0,
   "continuation": {
     "mode": "terminate"
   },
-  "id": "scene_horde_reply_brave",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -13,29 +14,11 @@
       "dialogueAct": "PROPOSE_ENGAGE"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
   "stimuli": [
     "NPC_SEMANTIC_ACT"
   ],
-  "version": 1,
-  "when": {
-    "all": [
-      {
-        "op": "eq",
-        "path": "stimulus.semantic.intent",
-        "value": "COMBAT_HORDE_REPLY"
-      },
-      {
-        "op": "gte",
-        "path": "actor.disposition.confidence",
-        "value": 0.65
-      }
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"COMBAT_HORDE_REPLY\" && actor.disposition.confidence >= 0.65"
 }

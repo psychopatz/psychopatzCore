@@ -1,25 +1,19 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "social_behavior",
+  "id": "behavior.deescalate",
   "act": "DEESCALATE",
   "baseRelevance": 0.35,
-  "id": "deescalate",
-  "mode": "beat",
   "modifiers": [
     {
       "delta": 0.4,
       "reason": "fear_favors_deescalation",
-      "when": {
-        "op": "gte",
-        "path": "actor.condition.panic",
-        "value": 0.6
-      }
+      "when": "actor.condition.panic >= 0.6"
     },
     {
       "delta": 0.2,
       "reason": "danger_favors_deescalation",
-      "when": {
-        "op": "truthy",
-        "path": "world.immediateDanger"
-      }
+      "when": "world.immediateDanger"
     }
   ],
   "outputs": {
@@ -28,33 +22,5 @@
       "dialogueAct": "DEESCALATE"
     }
   },
-  "owner": "PsychopatzCore",
-  "requiredCapabilities": [
-    "speech"
-  ],
-  "stimuli": [
-    "HUMAN_UTTERANCE",
-    "NPC_SEMANTIC_ACT"
-  ],
-  "version": 1,
-  "when": {
-    "any": [
-      {
-        "op": "in",
-        "path": "stimulus.semantic.speechAct",
-        "values": [
-          "INSULT",
-          "HOSTILE_REMARK",
-          "THREATEN"
-        ]
-      },
-      {
-        "op": "truthy",
-        "path": "world.immediateDanger"
-      }
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"] || world.immediateDanger"
 }

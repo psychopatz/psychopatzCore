@@ -1,7 +1,8 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.acknowledge_reply",
   "act": "ACKNOWLEDGE_REPLY",
   "baseRelevance": 0.65,
-  "id": "acknowledge_reply",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -10,7 +11,6 @@
       "dialogueAct": "ACKNOWLEDGE"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
@@ -18,21 +18,5 @@
     "HUMAN_UTTERANCE",
     "NPC_SEMANTIC_ACT"
   ],
-  "version": 1,
-  "when": {
-    "all": [
-      {
-        "op": "truthy",
-        "path": "pragmatic.contextualAdmission.admitted"
-      },
-      {
-        "op": "eq",
-        "path": "pragmatic.contextualAdmission.selected.relation",
-        "value": "response"
-      }
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"response\""
 }

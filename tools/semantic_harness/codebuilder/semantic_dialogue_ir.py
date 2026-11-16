@@ -21,9 +21,10 @@ from .rule_contract import normalize_predicate
 CANONICAL_IR_SCHEMA = "psychopatz.semantic.dialogue-ir.v1"
 CANONICAL_IR_VERSION = 1
 CONVO_ENGINE_SCHEMA = "psychopatz.convo-engine.v1"
+COMPACT_PSDL_SCHEMA = "psychopatz.psdl.v2"
 LEGACY_PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
 PSDL_SCHEMA = LEGACY_PSDL_SCHEMA
-SUPPORTED_SOURCE_SCHEMAS = frozenset({CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA})
+SUPPORTED_SOURCE_SCHEMAS = frozenset({COMPACT_PSDL_SCHEMA, CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA})
 MAX_PARTICIPANTS = 8
 MAX_SLOTS = 16
 MAX_REFERENCES = 16

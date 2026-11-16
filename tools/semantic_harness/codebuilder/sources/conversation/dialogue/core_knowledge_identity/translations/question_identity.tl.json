@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "neutral": [
+      "Isa lang akong survivor na sumusubok makaraos.",
+      "Ibang tao ako noon bago nagkawasak-wasak ang lahat.",
+      "Isa lang akong tao na naghahanap ng masisilungan at makakain.",
+      "Nabubuhay ako araw-araw, tulad mo rin.",
+      "Walang gaanong maikukwento. Ginagawa lang ang kailangan para mabuhay.",
+      "Isa akong survivor dito sa lugar.",
+      "Isang tao lang na sumusubok mauna sa mga patay.",
+      "Nasa kalsada na ako simula no'ng magsimula ang outbreak.",
+      "Simpleng survivor lang. Hanggang doon lang.",
+      "Sinusubukang manatiling humihinga, tulad ng iba."
+    ],
+    "guarded": [
+      "Sino'ng nagtatanong? Ang mga pangalan ay delikado rito.",
+      "Bakit kailangan mong malaman kung sino ako?",
+      "Survivor lang na sumusubok mabuhay. Hanggang doon na lang.",
+      "Hindi ko ibinibigay ang pinagmulan ko sa kahit sino.",
+      "Isang survivor na may sandata. 'Yon lang ang mahalaga.",
+      "Huwag mong kalkalin ang pagkatao ko. Magpokus sa kalsada.",
+      "Hindi itinataboy ng pangalan ang mga infected. Ano'ng gusto mo?",
+      "Hindi mo kailangan ng kwento ng buhay ko para sumabay sa akin.",
+      "Itinatago ko ang pagkatao ko hangga't hindi kita lubos na pinagkakatiwalaan.",
+      "Ako ay kung sino ang kailangan para mabuhay."
+    ],
+    "terse": [
+      "Isang survivor.",
+      "Ako lang.",
+      "Walang halaga.",
+      "Isa pang lagalag.",
+      "Nabubuhay lang.",
+      "Walang espesyal.",
+      "Isang mandirigma.",
+      "Tulad mo rin.",
+      "Isang estranghero lang.",
+      "Humihinga pa."
+    ],
+    "warm": [
+      "Masaya akong kasama ka sa kalsadang 'to, kaibigan.",
+      "Isang simpleng tao na sumusubok gumawa ng kabutihan sa sirang mundong 'to.",
+      "Isa akong taong nagpapahalaga sa mabuting kasama rito.",
+      "Tawagin mo akong kaibigan. Magkasama tayo sa laban na 'to.",
+      "May normal akong buhay noon, pero ngayon may mga taong mahalaga na sa akin.",
+      "Nagpapasalamat lang na nakatagpo kita sa gitna ng kaguluhang ito.",
+      "Isang kaibigan at kakampi. 'Yan ang nais kong maging para sa'yo.",
+      "Masaya lang ako na nakatayo rito at nakakausap ka.",
+      "Magkasosyo tayo rito. 'Yon lang ang mahalaga sa akin.",
+      "Isang tapat na kasama sa mahabang daan sa unahan."
+    ]
+  }
+}

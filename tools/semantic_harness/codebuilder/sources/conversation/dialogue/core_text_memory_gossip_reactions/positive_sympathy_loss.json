@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "positive.sympathy",
-  "id": "loss",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "positive.sympathy.loss",
   "target": {
     "required": true,
     "type": "entity.person"

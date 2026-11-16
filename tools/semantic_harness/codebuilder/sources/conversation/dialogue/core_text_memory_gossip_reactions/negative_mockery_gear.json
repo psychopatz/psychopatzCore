@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "negative.mockery",
-  "id": "gear",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "negative.mockery.gear",
   "target": {
     "required": true,
     "type": "entity.person"

@@ -90,13 +90,13 @@ def _check_source_file(
         return
 
     schema = doc.get("schema")
-    if schema != CONVO_ENGINE_SCHEMA:
+    if schema not in {CONVO_ENGINE_SCHEMA, "psychopatz.psdl.v2"}:
         code = "legacy_schema_present" if schema == LEGACY_PSDL_SCHEMA else "unexpected_schema"
         violations.append({
             "code": code,
             "owner": owner,
             "path": str(file_path),
-            "message": f"{rel} uses schema {schema!r}, expected {CONVO_ENGINE_SCHEMA!r}",
+            "message": f"{rel} uses schema {schema!r}, expected {CONVO_ENGINE_SCHEMA!r} or 'psychopatz.psdl.v2'",
         })
 
     if "records" in doc:
@@ -302,6 +302,8 @@ def audit_convo_engine_workspace(
             if not subdir.is_dir():
                 continue
             for file_path in sorted(subdir.rglob("*.json")):
+                if "translations" in file_path.relative_to(source_root).parts:
+                    continue
                 stats["familyFilesChecked"] += 1
                 _check_source_file(owner, subdir, file_path, source_root, violations)
 

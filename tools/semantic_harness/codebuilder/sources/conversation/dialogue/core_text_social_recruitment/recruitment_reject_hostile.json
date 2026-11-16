@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "recruitment.reject",
-  "id": "hostile",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "recruitment.reject.hostile",
   "metadata": {
     "textTarget": "social/recruitment/response",
     "textRows": [

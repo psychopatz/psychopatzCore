@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "recruitment.reject",
-  "id": "cooldown",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "recruitment.reject.cooldown",
   "metadata": {
     "textTarget": "social/recruitment/response",
     "textRows": [

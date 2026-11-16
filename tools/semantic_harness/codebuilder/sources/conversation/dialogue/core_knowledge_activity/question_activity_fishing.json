@@ -1,17 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "question.activity",
-  "id": "fishing",
-  "owner": "PsychopatzCore",
-  "participants": {
-    "speaker": [
-      "participant"
-    ],
-    "addressee": [
-      "participant"
-    ]
-  },
+  "schema": "psychopatz.psdl.v2",
+  "id": "question.activity.fishing",
   "metadata": {
     "category": "psychopatzcore:knowledge",
     "responseAct": "KNOWLEDGE_RESPONSE"
@@ -19,121 +8,21 @@
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": [
-            "Fishing is a solid way to secure fresh food.",
-            "We can catch fish here if we have rod and bait.",
-            "The water looks promising for catching dinner.",
-            "Fishing requires patience, but it provides calories.",
-            "A good spot to cast a line and get some food.",
-            "We should try fishing if our rations are running low.",
-            "Fish are clean protein out here in the wild.",
-            "Check the line and bait. We could catch something good.",
-            "Fishing by the river is a viable survival task.",
-            "We can cast a line here while the area is clear."
-          ],
-          "TL": [
-            "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain.",
-            "Makakahuli tayo ng isda rito kung may pamingwit at pain.",
-            "Mukhang maganda ang tubig para makahuli ng hapunan.",
-            "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas.",
-            "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain.",
-            "Dapat nating subukan ang pangingisda kung paubos na ang rasyon.",
-            "Malinis na protina ang isda rito sa labas.",
-            "Tignan ang pisi at pain. Baka makahuli tayo ng maganda.",
-            "Mabisang gawaing kaligtasan ang pangingisda sa ilog.",
-            "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar."
-          ]
-        }
+        "id": "neutral"
       },
       {
-        "id": "guarded",
-        "text": {
-          "EN": [
-            "Fishing leaves you exposed by the water. Watch your back.",
-            "Water draws the dead. Keep your weapon close while casting.",
-            "Don't get tunnel vision looking at the bobber.",
-            "Fish fast and leave. Banks are ambush territory.",
-            "Quiet catches only. Splashing brings infected.",
-            "Watch the treeline while you work the line.",
-            "If something rustles in the reeds, drop the rod and draw.",
-            "Fishing is risky out here. Keep eyes peeled.",
-            "Get the protein and get off the shore.",
-            "Don't get dragged in. Watch the water."
-          ],
-          "TL": [
-            "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo.",
-            "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit.",
-            "Huwag matutok sa lumulutang na pamingwit.",
-            "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang.",
-            "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected.",
-            "Bantayan ang kakahuyan habang humahawak ng tali.",
-            "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas.",
-            "Delikado ang pangingisda rito. Buksan ang mga mata.",
-            "Kunin ang isda at umalis agad sa pampang.",
-            "Huwag magpahila sa tubig. Bantayan ang paligid."
-          ]
-        }
+        "id": "guarded"
       },
       {
-        "id": "terse",
-        "text": {
-          "EN": [
-            "Fishing.",
-            "Cast a line.",
-            "Need bait.",
-            "Watch the water.",
-            "Good food source.",
-            "Fish quietly.",
-            "Cast here.",
-            "Rod and reel.",
-            "Catch dinner.",
-            "Fresh fish."
-          ],
-          "TL": [
-            "Pangingisda.",
-            "Ihagis ang pamingwit.",
-            "Kailangan ng pain.",
-            "Bantayan ang tubig.",
-            "Magandang pagkain.",
-            "Mangisda nang tahimik.",
-            "Dito maghagis.",
-            "Pamingwit at ikutan.",
-            "Hulihin ang hapunan.",
-            "Sariwang isda."
-          ]
-        }
+        "id": "terse"
       },
       {
-        "id": "warm",
-        "text": {
-          "EN": [
-            "Fishing by the water sounds peaceful right now.",
-            "I'd love to catch some fresh fish for us to cook.",
-            "A nice fresh catch would make a wonderful meal for us.",
-            "It feels good to take a moment by the water and fish.",
-            "Let's see if we can catch something tasty together.",
-            "Fishing reminds me of quieter times. Let's cast a line.",
-            "A warm fire and fresh fish would do wonders for our mood.",
-            "I'll keep watch while you fish, or we can take turns.",
-            "Fresh catch would be a real treat for both of us.",
-            "Let's catch a good meal and share it tonight."
-          ],
-          "TL": [
-            "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon.",
-            "Gusto kong makahuli ng sariwang isda para lutuin natin.",
-            "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin.",
-            "Masarap magpahinga sandali sa tabi ng tubig at mangisda.",
-            "Tignan natin kung makakahuli tayo ng masarap nang magkasama.",
-            "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo.",
-            "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin.",
-            "Babantayan kita habang nangingisda ka, o magsalitan tayo.",
-            "Tunay na pabuya para sa atin ang sariwang huli.",
-            "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi."
-          ]
-        }
+        "id": "warm"
       }
     ]
+  },
+  "textSidecars": {
+    "EN": "translations/question_activity_fishing.en.json",
+    "TL": "translations/question_activity_fishing.tl.json"
   }
 }

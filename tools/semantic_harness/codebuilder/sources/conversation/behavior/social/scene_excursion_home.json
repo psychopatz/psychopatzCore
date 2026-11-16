@@ -1,4 +1,6 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.scene_excursion_home",
   "act": "EXCURSION_STATUS_REPORT",
   "baseRelevance": 1.0,
   "continuation": {
@@ -7,7 +9,6 @@
     "speechAct": "ACKNOWLEDGE",
     "target": "other"
   },
-  "id": "scene_excursion_home",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -16,20 +17,11 @@
       "dialogueAct": "INFORM"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
   "stimuli": [
     "TASK_EVENT"
   ],
-  "version": 1,
-  "when": {
-    "op": "eq",
-    "path": "stimulus.semantic.intent",
-    "value": "EXCURSION_HOME"
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"EXCURSION_HOME\""
 }

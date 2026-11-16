@@ -1,25 +1,19 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "social_behavior",
+  "id": "behavior.end_conversation",
   "act": "END_INTERACTION",
   "baseRelevance": 0.2,
-  "id": "end_conversation",
-  "mode": "beat",
   "modifiers": [
     {
       "delta": 0.3,
       "reason": "danger_favors_exit",
-      "when": {
-        "op": "truthy",
-        "path": "world.immediateDanger"
-      }
+      "when": "world.immediateDanger"
     },
     {
       "delta": 0.45,
       "reason": "low_forgiveness_favors_exit",
-      "when": {
-        "op": "lt",
-        "path": "actor.disposition.forgiveness",
-        "value": 0.25
-      }
+      "when": "actor.disposition.forgiveness < 0.25"
     }
   ],
   "outputs": {
@@ -28,38 +22,5 @@
       "dialogueAct": "END_CONVERSATION"
     }
   },
-  "owner": "PsychopatzCore",
-  "requiredCapabilities": [
-    "speech"
-  ],
-  "stimuli": [
-    "HUMAN_UTTERANCE",
-    "NPC_SEMANTIC_ACT"
-  ],
-  "version": 1,
-  "when": {
-    "any": [
-      {
-        "op": "in",
-        "path": "stimulus.semantic.speechAct",
-        "values": [
-          "INSULT",
-          "HOSTILE_REMARK",
-          "THREATEN"
-        ]
-      },
-      {
-        "op": "eq",
-        "path": "stimulus.semantic.intent",
-        "value": "APOLOGIZE"
-      },
-      {
-        "op": "truthy",
-        "path": "world.immediateDanger"
-      }
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"] || stimulus.semantic.intent == \"APOLOGIZE\" || world.immediateDanger"
 }

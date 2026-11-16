@@ -1,26 +1,19 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "social_behavior",
+  "id": "behavior.warn",
   "act": "WARN",
   "baseRelevance": 0.65,
-  "id": "warn",
-  "mode": "beat",
   "modifiers": [
     {
       "delta": 0.12,
       "reason": "low_approval",
-      "when": {
-        "op": "lt",
-        "path": "relationship.approval",
-        "value": 0
-      }
+      "when": "relationship.approval < 0"
     },
     {
       "delta": 0.08,
       "reason": "confident",
-      "when": {
-        "op": "gte",
-        "path": "actor.disposition.confidence",
-        "value": 0.6
-      }
+      "when": "actor.disposition.confidence >= 0.6"
     }
   ],
   "outputs": {
@@ -29,25 +22,5 @@
       "dialogueAct": "BOUNDARY_WARNING"
     }
   },
-  "owner": "PsychopatzCore",
-  "requiredCapabilities": [
-    "speech"
-  ],
-  "stimuli": [
-    "HUMAN_UTTERANCE",
-    "NPC_SEMANTIC_ACT"
-  ],
-  "version": 1,
-  "when": {
-    "op": "in",
-    "path": "stimulus.semantic.speechAct",
-    "values": [
-      "INSULT",
-      "HOSTILE_REMARK",
-      "THREATEN"
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"]"
 }

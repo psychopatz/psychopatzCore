@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "negative.warning",
-  "id": "abandoned",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "negative.warning.abandoned",
   "target": {
     "required": true,
     "type": "entity.person"

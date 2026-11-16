@@ -1,10 +1,11 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.scene_horde_reply_steady",
   "act": "COMBAT_HORDE_REPLY",
   "baseRelevance": 0.65,
   "continuation": {
     "mode": "terminate"
   },
-  "id": "scene_horde_reply_steady",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -13,20 +14,11 @@
       "dialogueAct": "PROPOSE_HOLD"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
   "stimuli": [
     "NPC_SEMANTIC_ACT"
   ],
-  "version": 1,
-  "when": {
-    "op": "eq",
-    "path": "stimulus.semantic.intent",
-    "value": "COMBAT_HORDE_REPLY"
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"COMBAT_HORDE_REPLY\""
 }

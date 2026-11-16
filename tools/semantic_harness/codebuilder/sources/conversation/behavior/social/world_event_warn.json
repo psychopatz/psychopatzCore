@@ -1,8 +1,6 @@
 {
-  "kind": "behavior",
-  "id": "world_event_warn",
-  "owner": "PsychopatzCore",
-  "version": 1,
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.world_event_warn",
   "act": "WARN_GROUP",
   "mode": "one_shot",
   "stimuli": [
@@ -23,12 +21,7 @@
       "contentTemplateID": "interaction.world_event.warning_flavor"
     }
   },
-  "when": {
-    "path": "world.immediateDanger",
-    "op": "truthy"
-  },
+  "when": "world.immediateDanger",
   "baseRelevance": 0.8,
-  "modifiers": [],
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "modifiers": []
 }

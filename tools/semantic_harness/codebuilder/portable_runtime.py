@@ -99,6 +99,42 @@ def evaluate_predicate(predicate: Any, context: Mapping[str, Any]) -> bool:
     raise CompileError(f"Unsupported predicate op {op!r}")
 
 
+def _expand_match_tokens(match: Sequence[Any], concept_map: Mapping[str, list[str]]) -> list[str]:
+    """Expand a structured match token sequence (literals + @CONCEPT) into flat phrases."""
+    phrases = [""]
+    for tok in match:
+        options: list[str] = []
+        if isinstance(tok, str):
+            if tok.startswith("@"):
+                cid = tok[1:].strip().lower()
+                options = list(concept_map.get(cid) or [tok])
+            else:
+                options = [tok]
+        elif isinstance(tok, Mapping):
+            kind = tok.get("kind")
+            if kind == "concept":
+                cid = str(tok.get("id") or "").strip().lower()
+                options = list(concept_map.get(cid) or [])
+            elif kind == "literal":
+                val = str(tok.get("value") or "")
+                options = [val]
+                if tok.get("optional"):
+                    options.append("")
+        if not options:
+            continue
+        next_phrases: list[str] = []
+        for prefix in phrases:
+            for opt in options:
+                joined = f"{prefix} {opt}".strip() if prefix and opt else (prefix or opt)
+                next_phrases.append(joined)
+                if len(next_phrases) >= 256:
+                    break
+            if len(next_phrases) >= 256:
+                break
+        phrases = next_phrases
+    return [p for p in phrases if p]
+
+
 def compile_portable_plan(
     records: Sequence[Mapping[str, Any]],
     *,
@@ -117,22 +153,47 @@ def compile_portable_plan(
         payload = copy.deepcopy(rec.get("payload") or {})
         entry = {
             "id": rec_id,
+            "kind": kind,
             "owner": rec.get("owner"),
             "when": copy.deepcopy(rec.get("when")),
             **payload,
         }
+        for top_key in (
+            "schema",
+            "canonicalIRVersion",
+            "participants",
+            "namespace",
+            "localID",
+            "target",
+            "slots",
+            "references",
+            "lineage",
+            "sourcePath",
+            "sourceSchema",
+            "source",
+        ):
+            if top_key in rec and rec[top_key] is not None:
+                entry[top_key] = copy.deepcopy(rec[top_key])
         if kind == "dialogue":
             dialogues[rec_id] = entry
             recog = payload.get("recognition")
             if isinstance(recog, Mapping):
+                concept_map = {
+                    str(c.get("id") or "").strip().lower(): [str(a) for a in (c.get("aliases") or [])]
+                    for c in (recog.get("concepts") or [])
+                    if isinstance(c, Mapping) and c.get("id")
+                }
                 for pat in recog.get("patterns") or []:
                     if isinstance(pat, Mapping):
+                        flat_patterns = list(pat.get("patterns") or pat.get("phrases") or [])
+                        if not flat_patterns and isinstance(pat.get("match"), list):
+                            flat_patterns = _expand_match_tokens(pat["match"], concept_map)
                         recognition_rules.append({
                             "id": pat.get("id") or rec_id,
                             "dialogueID": rec_id,
                             "policy": pat.get("policy") or recog.get("policy") or "exact",
                             "mutating": bool(pat.get("mutating") or payload.get("action")),
-                            "patterns": list(pat.get("patterns") or pat.get("phrases") or []),
+                            "patterns": flat_patterns,
                             "semantic": copy.deepcopy(pat.get("semantic") or pat.get("emit") or {}),
                         })
             meta = payload.get("metadata")
@@ -165,6 +226,54 @@ def compile_portable_plan(
         "realizations": {k: realizations[k] for k in sorted(realizations)},
         "recognitionRules": recognition_rules,
     }
+
+
+def portable_plan_records(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Reconstruct canonical IR record envelopes from a validated Portable Dialogue Plan."""
+    if plan.get("schema") != PORTABLE_PLAN_SCHEMA:
+        raise CompileError(f"Unsupported portable plan schema: {plan.get('schema')!r}")
+    records: list[dict[str, Any]] = []
+    for section, default_kind in (
+        ("behaviors", "behavior"),
+        ("beats", "beat"),
+        ("dialogues", "dialogue"),
+        ("realizations", "realization"),
+    ):
+        bucket = plan.get(section) or {}
+        if not isinstance(bucket, Mapping):
+            continue
+        for rec_id in sorted(bucket):
+            entry = copy.deepcopy(dict(bucket[rec_id]))
+            kind = str(entry.pop("kind", None) or default_kind)
+            owner = entry.pop("owner", None)
+            when = entry.pop("when", None)
+            entry_id = str(entry.pop("id", None) or rec_id)
+            rec: dict[str, Any] = {
+                "id": entry_id,
+                "kind": kind,
+                "owner": owner,
+                "when": when,
+            }
+            for top_key in (
+                "schema",
+                "canonicalIRVersion",
+                "participants",
+                "namespace",
+                "localID",
+                "target",
+                "slots",
+                "references",
+                "lineage",
+                "sourcePath",
+                "sourceSchema",
+                "source",
+            ):
+                if top_key in entry:
+                    rec[top_key] = entry.pop(top_key)
+            rec["payload"] = entry
+            records.append(rec)
+    records.sort(key=lambda item: item["id"])
+    return records
 
 
 class PortableReferenceVM:

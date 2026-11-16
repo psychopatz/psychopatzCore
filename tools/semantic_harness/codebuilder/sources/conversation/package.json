@@ -1,0 +1,189 @@
+{
+  "schema": "psychopatz.psdl.package.v2",
+  "version": 1,
+  "package": "ProjectHoomans",
+  "defaultOwner": "PsychopatzCore",
+  "registryOwner": "ProjectHoomans",
+  "defaults": {
+    "participants": {
+      "speaker": [
+        "participant"
+      ],
+      "addressee": [
+        "participant"
+      ]
+    }
+  },
+  "profiles": {
+    "social_beat": {
+      "kind": "beat",
+      "version": 1,
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ]
+    },
+    "social_behavior": {
+      "kind": "behavior",
+      "version": 1,
+      "mode": "beat",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ]
+    },
+    "dialogue_participant": {
+      "kind": "dialogue",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      }
+    },
+    "lexeme_realization": {
+      "kind": "realization",
+      "type": "lexeme"
+    }
+  },
+  "sourceRoots": [
+    {
+      "path": "behavior",
+      "kind": "convo_engine",
+      "domain": "social",
+      "order": 3000,
+      "owner": "PsychopatzCore",
+      "domainFromSubdir": true
+    },
+    {
+      "path": "beat",
+      "kind": "convo_engine",
+      "domain": "social",
+      "order": 3001,
+      "owner": "PsychopatzCore",
+      "domainFromSubdir": true
+    },
+    {
+      "path": "realization",
+      "kind": "convo_engine",
+      "domain": "general",
+      "order": 3002,
+      "owner": "PsychopatzCore",
+      "domainFromSubdir": true
+    },
+    {
+      "path": "dialogue",
+      "kind": "convo_engine",
+      "domain": "general",
+      "order": 3003,
+      "owner": "PsychopatzCore",
+      "domainFromSubdir": true
+    }
+  ],
+  "externalSourceRoots": [
+    {
+      "path": "adopters/dt/dialogue",
+      "kind": "convo_engine",
+      "domain": "trading",
+      "order": 3010,
+      "owner": "DTCommon",
+      "optional": true,
+      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/dialogue",
+      "domainFromSubdir": true
+    },
+    {
+      "path": "adopters/hoomans/dialogue",
+      "kind": "convo_engine",
+      "domain": "general",
+      "order": 3011,
+      "owner": "ProjectHoomans",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/dialogue",
+      "domainFromSubdir": true
+    }
+  ],
+  "auxiliaryRoots": [
+    "text"
+  ],
+  "externalReferences": {
+    "patternIDs": [
+      "pnc.question.activity",
+      "pnc.question.date",
+      "pnc.question.health.are_you_hurt",
+      "pnc.question.identity",
+      "pnc.question.needs_offer_plain",
+      "pnc.question.time",
+      "pnc.question.weather",
+      "pnc.question.wellbeing_feeling",
+      "pnc.question.wellbeing_follow_up_what_is_wrong",
+      "pnc.social.gossip_event",
+      "pnc.question.identity.nickname",
+      "pnc.question.identity.surname",
+      "pnc.question.identity.faction"
+    ]
+  },
+  "shards": [
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1800,
+      "path": "patterns/common/greeting_whats_up.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.common.greeting.whats.up",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1801,
+      "path": "patterns/common/wellbeing_activity.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.common.wellbeing.activity",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1804,
+      "path": "patterns/common/weather_needs.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.common.weather.needs",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
+    },
+    {
+      "domain": "grounded_personal",
+      "kind": "patterns",
+      "order": 2000,
+      "path": "patterns/grounded_personal.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.grounded.personal",
+      "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
+    }
+  ],
+  "externalShards": [
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1802,
+      "owner": "PsychopatzCore",
+      "path": "patterns/common/identity.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity.json",
+      "shardId": "conversation.patterns.common.identity",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1803,
+      "owner": "PsychopatzCore",
+      "path": "patterns/common/identity_facets.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity_facets.json",
+      "shardId": "conversation.patterns.common.identity.facets",
+      "sourceProfile": "conversation.source.psychopatzcore.identity.facets.2d5d841ade"
+    }
+  ]
+}

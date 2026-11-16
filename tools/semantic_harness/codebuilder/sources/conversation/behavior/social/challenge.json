@@ -1,17 +1,14 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "social_behavior",
+  "id": "behavior.challenge",
   "act": "CHALLENGE",
   "baseRelevance": 0.5,
-  "id": "challenge",
-  "mode": "beat",
   "modifiers": [
     {
       "delta": 0.12,
       "reason": "confidence_supports_challenge",
-      "when": {
-        "op": "gte",
-        "path": "actor.disposition.confidence",
-        "value": 0.55
-      }
+      "when": "actor.disposition.confidence >= 0.55"
     }
   ],
   "outputs": {
@@ -20,24 +17,5 @@
       "dialogueAct": "CHALLENGE"
     }
   },
-  "owner": "PsychopatzCore",
-  "requiredCapabilities": [
-    "speech"
-  ],
-  "stimuli": [
-    "HUMAN_UTTERANCE",
-    "NPC_SEMANTIC_ACT"
-  ],
-  "version": 1,
-  "when": {
-    "op": "in",
-    "path": "stimulus.semantic.intent",
-    "values": [
-      "GREET",
-      "GOSSIP"
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent in [\"GREET\", \"GOSSIP\"]"
 }

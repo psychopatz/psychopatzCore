@@ -601,6 +601,15 @@ def build_desired_artifact_ledger(
         enabled_owners_list.append(HOOMANS_OWNER)
     if out_dt is not None:
         enabled_owners_list.append(DT_COMMON_OWNER)
+    for extra_owner, extra_path in out_overrides.items():
+        if extra_owner not in out_repos_by_owner:
+            out_repos_by_owner[extra_owner] = extra_path
+        if extra_owner not in enabled_owners_list:
+            enabled_owners_list.append(extra_owner)
+    if registry_owner not in out_repos_by_owner:
+        out_repos_by_owner[registry_owner] = repo_path
+    if registry_owner not in enabled_owners_list:
+        enabled_owners_list.append(registry_owner)
     enabled_owners = tuple(enabled_owners_list)
     enabled_set = set(enabled_owners)
 

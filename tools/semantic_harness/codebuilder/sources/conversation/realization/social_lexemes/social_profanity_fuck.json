@@ -1,4 +1,7 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "lexeme_realization",
+  "id": "lexeme.social.profanity.fuck",
   "aliases": [
     "fuck",
     "fuck you",
@@ -11,11 +14,5 @@
   "forms": {
     "EN": "fuck",
     "TL": "Putang ina mo"
-  },
-  "id": "fuck",
-  "type": "lexeme",
-  "kind": "realization",
-  "owner": "PsychopatzCore",
-  "namespace": "lexeme.social.profanity",
-  "schema": "psychopatz.convo-engine.v1"
+  }
 }

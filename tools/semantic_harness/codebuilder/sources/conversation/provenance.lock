@@ -1,0 +1,299 @@
+{
+  "schema": "psychopatz.psdl.provenance.v1",
+  "version": 1,
+  "sourceProfiles": {
+    "conversation.source.dtcommon.247519f6f9": {
+      "owner": "DTCommon",
+      "version": "1",
+      "contentLicense": "Dynamic Trading authored semantic pack data"
+    },
+    "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Combat Kill Killer Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Combat Kill Witness Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.combat.reaction.content.7c2490ce89": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Combat Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Common Interaction Seed",
+      "owner": "ProjectHoomans",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "DailyDialog",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "CC BY 4.0; metadata-only reference",
+          "name": "EmpatheticDialogues",
+          "reviewedOn": "2026-10-19",
+          "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+          "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "WordNet 3.0 license",
+          "name": "WordNet 3.0",
+          "reviewedOn": "2026-10-19",
+          "url": "https://wordnet.princeton.edu/",
+          "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY 4.0",
+          "name": "MASSIVE",
+          "recordRefs": [
+            {
+              "intent": "weather_query",
+              "locale": "en-US",
+              "partition": "train",
+              "recordID": "98"
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+          "sourceVersion": "1.0",
+          "url": "https://github.com/alexa/massive",
+          "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY-SA 4.0",
+          "name": "SGD",
+          "recordRefs": [
+            {
+              "dialogueID": "90_00031",
+              "intent": "GetWeather",
+              "service": "Weather_1",
+              "turn": 6
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+          "sourceVersion": "DSTC8 train",
+          "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+          "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.contextual.clarification.7566bb2296": {
+      "name": "Project Hoomans contextual clarification",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.contextual.replies.661f723f41": {
+      "name": "Project Hoomans contextual replies",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.conversation.authoring.51ad5f4261": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Conversation Authoring",
+      "owner": "ProjectHoomans",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Dialogue Content Registry",
+      "version": "3"
+    },
+    "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Dynamic Conversation Realization",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Grounded Personal Dialogue",
+      "references": [
+        {
+          "license": "Project Hoomans authored content",
+          "name": "Project Hoomans Authoring Review",
+          "reviewedOn": "2026-10-20",
+          "url": "https://github.com/psychopatz/ProjectHoomans",
+          "use": "Reviewed semantic shapes for identity-seeded personal backstory questions and bounded follow-up references."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.horde.combat.reaction.content.6b85f7eeca": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Horde Combat Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.hostile.human.kill.banter.e965e02b70": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Hostile Human Kill Banter",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.pragmatic.interaction.content.94c0f33556": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Pragmatic Interaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Pragmatic Interaction",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.scene.runtime.adopter.content.e852ad5c7e": {
+      "name": "Project Hoomans Scene Runtime Adopter Content",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.scene.runtime.adopters.3354ce55df": {
+      "name": "Project Hoomans Scene Runtime Adopters",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.social.conversation.director.0cab482bd0": {
+      "name": "Project Hoomans Social Conversation Director",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.social.conversation.director.content.91a6fbca03": {
+      "name": "Project Hoomans Social Conversation Director Content",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Weapon-Aware Zombie Kill Reactions",
+      "version": "1"
+    },
+    "conversation.source.projecthoomans.8378f35867": {
+      "owner": "ProjectHoomans",
+      "version": "1"
+    },
+    "conversation.source.psychopatzcore.common.interaction.seed.90325218e8": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "PsychopatzCore Common Interaction Seed",
+      "owner": "PsychopatzCore",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "DailyDialog",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "CC BY 4.0; metadata-only reference",
+          "name": "EmpatheticDialogues",
+          "reviewedOn": "2026-10-19",
+          "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+          "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "WordNet 3.0 license",
+          "name": "WordNet 3.0",
+          "reviewedOn": "2026-10-19",
+          "url": "https://wordnet.princeton.edu/",
+          "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY 4.0",
+          "name": "MASSIVE",
+          "recordRefs": [
+            {
+              "intent": "weather_query",
+              "locale": "en-US",
+              "partition": "train",
+              "recordID": "98"
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+          "sourceVersion": "1.0",
+          "url": "https://github.com/alexa/massive",
+          "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY-SA 4.0",
+          "name": "SGD",
+          "recordRefs": [
+            {
+              "dialogueID": "90_00031",
+              "intent": "GetWeather",
+              "service": "Weather_1",
+              "turn": 6
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+          "sourceVersion": "DSTC8 train",
+          "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+          "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.psychopatzcore.identity.facets.2d5d841ade": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "PsychopatzCore Identity Facets",
+      "owner": "PsychopatzCore",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "PsychopatzCore Identity Facets Review",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "PsychopatzCore Static Conversation Suggestions",
+      "owner": "PsychopatzCore",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "PsychopatzCore Static Suggestions Review",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        }
+      ],
+      "version": "1"
+    }
+  }
+}

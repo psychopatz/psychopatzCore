@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "neutral": [
+      "Fishing is a solid way to secure fresh food.",
+      "We can catch fish here if we have rod and bait.",
+      "The water looks promising for catching dinner.",
+      "Fishing requires patience, but it provides calories.",
+      "A good spot to cast a line and get some food.",
+      "We should try fishing if our rations are running low.",
+      "Fish are clean protein out here in the wild.",
+      "Check the line and bait. We could catch something good.",
+      "Fishing by the river is a viable survival task.",
+      "We can cast a line here while the area is clear."
+    ],
+    "guarded": [
+      "Fishing leaves you exposed by the water. Watch your back.",
+      "Water draws the dead. Keep your weapon close while casting.",
+      "Don't get tunnel vision looking at the bobber.",
+      "Fish fast and leave. Banks are ambush territory.",
+      "Quiet catches only. Splashing brings infected.",
+      "Watch the treeline while you work the line.",
+      "If something rustles in the reeds, drop the rod and draw.",
+      "Fishing is risky out here. Keep eyes peeled.",
+      "Get the protein and get off the shore.",
+      "Don't get dragged in. Watch the water."
+    ],
+    "terse": [
+      "Fishing.",
+      "Cast a line.",
+      "Need bait.",
+      "Watch the water.",
+      "Good food source.",
+      "Fish quietly.",
+      "Cast here.",
+      "Rod and reel.",
+      "Catch dinner.",
+      "Fresh fish."
+    ],
+    "warm": [
+      "Fishing by the water sounds peaceful right now.",
+      "I'd love to catch some fresh fish for us to cook.",
+      "A nice fresh catch would make a wonderful meal for us.",
+      "It feels good to take a moment by the water and fish.",
+      "Let's see if we can catch something tasty together.",
+      "Fishing reminds me of quieter times. Let's cast a line.",
+      "A warm fire and fresh fish would do wonders for our mood.",
+      "I'll keep watch while you fish, or we can take turns.",
+      "Fresh catch would be a real treat for both of us.",
+      "Let's catch a good meal and share it tonight."
+    ]
+  }
+}

@@ -399,7 +399,7 @@ def expand_compact_psdl_document(
     # Dialogue doesn't use top-level participants if omitted and kind != dialogue?
     # Wait: behavior/beat do NOT allow `participants` in PSDL_RECORD_FIELDS?
     # Let's check: PSDL_RECORD_FIELDS allows `participants` on all kinds, or keep it only for dialogue/realization
-    if doc.get("kind") in ("behavior", "beat") and "participants" in doc and "participants" not in document:
+    if doc.get("kind") in ("behavior", "beat", "realization") and "participants" in doc and "participants" not in document:
         doc.pop("participants", None)
 
     # Expand keyed candidates map -> ordered list of {behavior, relevance}
@@ -438,6 +438,31 @@ def expand_compact_psdl_document(
                         for vid, lang_map in by_var.items()
                     ]
                 }
+        elif any("reply" in sc for sc in loaded_by_locale.values() if isinstance(sc, Mapping)):
+            reply_doc = doc.setdefault("reply", {})
+            for outcome, outcome_payload in reply_doc.items():
+                if not isinstance(outcome_payload, dict):
+                    continue
+                say_block = outcome_payload.get("say")
+                if not isinstance(say_block, dict):
+                    continue
+                for turn_key, turn_payload in say_block.items():
+                    if not isinstance(turn_payload, dict):
+                        continue
+                    variants = turn_payload.get("variants")
+                    if not isinstance(variants, list):
+                        continue
+                    for variant in variants:
+                        if not isinstance(variant, dict):
+                            continue
+                        vid = str(variant.get("id") or "")
+                        lang_map: dict[str, Any] = {}
+                        for lang, sc in loaded_by_locale.items():
+                            sc_turn = ((sc.get("reply") or {}).get(outcome) or {}).get(str(turn_key)) or {}
+                            if vid in sc_turn:
+                                lang_map[lang] = sc_turn[vid]
+                        if lang_map:
+                            variant["text"] = lang_map
         elif any("translations" in sc for sc in loaded_by_locale.values() if isinstance(sc, Mapping)):
             merged_tr: dict[str, Any] = {}
             for lang, sc in loaded_by_locale.items():

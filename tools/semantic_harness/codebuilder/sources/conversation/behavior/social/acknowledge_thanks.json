@@ -1,17 +1,14 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.acknowledge_thanks",
   "act": "ACKNOWLEDGE_THANKS",
   "baseRelevance": 0.55,
-  "id": "acknowledge_thanks",
   "mode": "one_shot",
   "modifiers": [
     {
       "delta": 0.1,
       "reason": "sociable_acknowledgement",
-      "when": {
-        "op": "gte",
-        "path": "actor.disposition.sociability",
-        "value": 0.65
-      }
+      "when": "actor.disposition.sociability >= 0.65"
     }
   ],
   "outputs": {
@@ -20,7 +17,6 @@
       "dialogueAct": "ACKNOWLEDGE"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
@@ -28,26 +24,5 @@
     "HUMAN_UTTERANCE",
     "NPC_SEMANTIC_ACT"
   ],
-  "version": 1,
-  "when": {
-    "all": [
-      {
-        "op": "eq",
-        "path": "stimulus.semantic.intent",
-        "value": "THANK"
-      },
-      {
-        "op": "truthy",
-        "path": "pragmatic.contextualAdmission.admitted"
-      },
-      {
-        "op": "eq",
-        "path": "pragmatic.contextualAdmission.selected.relation",
-        "value": "gratitude"
-      }
-    ]
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"THANK\" && pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"gratitude\""
 }

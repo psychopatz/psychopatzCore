@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "identity",
-  "id": "introduction",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "identity.introduction",
   "metadata": {
     "textKey": "identity.introduction",
     "textTarget": "social/identity/response",

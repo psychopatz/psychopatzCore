@@ -1,13 +1,10 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "lexeme_realization",
+  "id": "lexeme.social.agreement.yes",
   "concept": "AGREEMENT_YES",
   "forms": {
     "EN": "yeah",
     "TL": "oo"
-  },
-  "id": "yes",
-  "type": "lexeme",
-  "kind": "realization",
-  "owner": "PsychopatzCore",
-  "namespace": "lexeme.social.agreement",
-  "schema": "psychopatz.convo-engine.v1"
+  }
 }

@@ -1,17 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "question",
-  "id": "identity",
-  "owner": "PsychopatzCore",
-  "participants": {
-    "speaker": [
-      "participant"
-    ],
-    "addressee": [
-      "participant"
-    ]
-  },
+  "schema": "psychopatz.psdl.v2",
+  "id": "question.identity",
   "metadata": {
     "category": "psychopatzcore:knowledge",
     "responseAct": "KNOWLEDGE_RESPONSE"
@@ -19,120 +8,16 @@
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": [
-            "I'm just a survivor trying to make it through.",
-            "I used to be someone else before all this fell apart.",
-            "Just another person looking for shelter and food.",
-            "I'm surviving day by day, same as you.",
-            "Not much to tell. Just doing what it takes to live.",
-            "I'm a survivor out here in the county.",
-            "Just someone trying to stay one step ahead of the dead.",
-            "I've been on the road since the outbreak started.",
-            "Simple survivor. That's about the extent of it.",
-            "Trying to stay breathing, same as everyone else."
-          ],
-          "TL": [
-            "Isa lang akong survivor na sumusubok makaraos.",
-            "Ibang tao ako noon bago nagkawasak-wasak ang lahat.",
-            "Isa lang akong tao na naghahanap ng masisilungan at makakain.",
-            "Nabubuhay ako araw-araw, tulad mo rin.",
-            "Walang gaanong maikukwento. Ginagawa lang ang kailangan para mabuhay.",
-            "Isa akong survivor dito sa lugar.",
-            "Isang tao lang na sumusubok mauna sa mga patay.",
-            "Nasa kalsada na ako simula no'ng magsimula ang outbreak.",
-            "Simpleng survivor lang. Hanggang doon lang.",
-            "Sinusubukang manatiling humihinga, tulad ng iba."
-          ]
-        }
+        "id": "neutral"
       },
       {
-        "id": "guarded",
-        "text": {
-          "EN": [
-            "Who's asking? Names can be dangerous out here.",
-            "Why do you need to know who I am?",
-            "Just a survivor trying not to die. Leave it at that.",
-            "I don't give my background to just anyone.",
-            "A survivor with a weapon. That's all that matters.",
-            "Don't pry into my identity. Keep focused on the road.",
-            "Names don't keep the infected away. What do you want?",
-            "You don't need my life story to walk beside me.",
-            "I keep my identity to myself until I know I can trust you.",
-            "I am who I need to be to survive."
-          ],
-          "TL": [
-            "Sino'ng nagtatanong? Ang mga pangalan ay delikado rito.",
-            "Bakit kailangan mong malaman kung sino ako?",
-            "Survivor lang na sumusubok mabuhay. Hanggang doon na lang.",
-            "Hindi ko ibinibigay ang pinagmulan ko sa kahit sino.",
-            "Isang survivor na may sandata. 'Yon lang ang mahalaga.",
-            "Huwag mong kalkalin ang pagkatao ko. Magpokus sa kalsada.",
-            "Hindi itinataboy ng pangalan ang mga infected. Ano'ng gusto mo?",
-            "Hindi mo kailangan ng kwento ng buhay ko para sumabay sa akin.",
-            "Itinatago ko ang pagkatao ko hangga't hindi kita lubos na pinagkakatiwalaan.",
-            "Ako ay kung sino ang kailangan para mabuhay."
-          ]
-        }
+        "id": "guarded"
       },
       {
-        "id": "terse",
-        "text": {
-          "EN": [
-            "A survivor.",
-            "Just me.",
-            "Doesn't matter.",
-            "Another wanderer.",
-            "Just surviving.",
-            "Nobody special.",
-            "A fighter.",
-            "Same as you.",
-            "Just a stranger.",
-            "Still breathing."
-          ],
-          "TL": [
-            "Isang survivor.",
-            "Ako lang.",
-            "Walang halaga.",
-            "Isa pang lagalag.",
-            "Nabubuhay lang.",
-            "Walang espesyal.",
-            "Isang mandirigma.",
-            "Tulad mo rin.",
-            "Isang estranghero lang.",
-            "Humihinga pa."
-          ]
-        }
+        "id": "terse"
       },
       {
-        "id": "warm",
-        "text": {
-          "EN": [
-            "I'm glad to share this road with you, friend.",
-            "Just an old soul trying to do some good in a ruined world.",
-            "I'm someone who values good company out here.",
-            "Call me a friend. We're in this struggle together.",
-            "I used to have a regular life, but now I have people I care about.",
-            "Just someone grateful to have found you in all this chaos.",
-            "A friend and ally. That's who I want to be for you.",
-            "I'm just happy to be standing here talking to you.",
-            "We're partners out here. That's all that matters to me.",
-            "A loyal companion on the long road ahead."
-          ],
-          "TL": [
-            "Masaya akong kasama ka sa kalsadang 'to, kaibigan.",
-            "Isang simpleng tao na sumusubok gumawa ng kabutihan sa sirang mundong 'to.",
-            "Isa akong taong nagpapahalaga sa mabuting kasama rito.",
-            "Tawagin mo akong kaibigan. Magkasama tayo sa laban na 'to.",
-            "May normal akong buhay noon, pero ngayon may mga taong mahalaga na sa akin.",
-            "Nagpapasalamat lang na nakatagpo kita sa gitna ng kaguluhang ito.",
-            "Isang kaibigan at kakampi. 'Yan ang nais kong maging para sa'yo.",
-            "Masaya lang ako na nakatayo rito at nakakausap ka.",
-            "Magkasosyo tayo rito. 'Yon lang ang mahalaga sa akin.",
-            "Isang tapat na kasama sa mahabang daan sa unahan."
-          ]
-        }
+        "id": "warm"
       }
     ]
   },
@@ -262,5 +147,9 @@
         }
       }
     }
+  },
+  "textSidecars": {
+    "EN": "translations/question_identity.en.json",
+    "TL": "translations/question_identity.tl.json"
   }
 }

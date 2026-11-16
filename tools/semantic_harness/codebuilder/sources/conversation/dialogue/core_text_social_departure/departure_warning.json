@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "departure",
-  "id": "warning",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "departure.warning",
   "metadata": {
     "textKey": "departure.warning",
     "textTarget": "social/departure/response",

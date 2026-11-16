@@ -1,43 +1,24 @@
-"""Owner-aware CodeBuilder output routing for generated semantic artifacts."""
+"""Data-driven owner and target routing for generated semantic artifacts."""
 
 from __future__ import annotations
 
+import json
 import os
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator, Mapping
 
+DEFAULT_TARGETS_PATH = Path(__file__).resolve().parent / "targets" / "pz_packages.json"
+
+# Compatibility constants for existing callers; routing itself is data-driven.
 CORE_OWNER = "PsychopatzCore"
 HOOMANS_OWNER = "ProjectHoomans"
 DT_COMMON_OWNER = "DTCommon"
 
-CORE_CONVERSATION_PREFIX = "PsychopatzCore/ConvoEngine"
-HOOMANS_CONVERSATION_PREFIX = "PNC/ConvoEngine"
-DT_COMMON_CONVERSATION_PREFIX = "DTCommon/ConvoEngine"
-
-CORE_SHARED_RELATIVE = Path(
-    "Contents/mods/PsychopatzCore/common/media/lua/shared"
-)
-HOOMANS_SHARED_RELATIVE = Path(
-    "Contents/mods/ProjectHoomans/common/media/lua/shared"
-)
-
-CORE_TRANSLATION_RELATIVE = Path(
-    "Contents/mods/PsychopatzCore/common/media/translation"
-)
-HOOMANS_TRANSLATION_RELATIVE = Path(
-    "Contents/mods/ProjectHoomans/common/media/translation"
-)
-DT_COMMON_SHARED_RELATIVE = Path(
-    "Contents/mods/DTCommon/common/media/lua/shared"
-)
-DT_COMMON_TRANSLATION_RELATIVE = Path(
-    "Contents/mods/DTCommon/common/media/translation"
-)
-
 
 class OwnerConfigurationError(ValueError):
-    """Raised when generated-artifact ownership cannot be resolved safely."""
+    """Raised when generated-artifact ownership or target routing cannot be resolved safely."""
 
 
 @dataclass(frozen=True)
@@ -59,57 +40,13 @@ class PackageDescriptor:
         "capabilityRequired",
     )
     repository_environment: str | None = None
-
-
-PACKAGE_DESCRIPTORS = {
-    CORE_OWNER: PackageDescriptor(
-        owner=CORE_OWNER,
-        aliases=("core", "psychopatzcore"),
-        shared_lua_relative=CORE_SHARED_RELATIVE,
-        conversation_prefix=CORE_CONVERSATION_PREFIX,
-        translation_relative=CORE_TRANSLATION_RELATIVE,
-        registry_module=CORE_CONVERSATION_PREFIX + "/Registry",
-        registry_namespace="PsychopatzCore.ConvoEngine.Registry",
-        translation_manifest_relative=Path("manifests/Conversation.json"),
-        repository_environment="PZ_TEST_CORE_REPOSITORY",
-    ),
-    HOOMANS_OWNER: PackageDescriptor(
-        owner=HOOMANS_OWNER,
-        aliases=("hoomans", "projecthoomans", "pnc"),
-        shared_lua_relative=HOOMANS_SHARED_RELATIVE,
-        conversation_prefix=HOOMANS_CONVERSATION_PREFIX,
-        translation_relative=HOOMANS_TRANSLATION_RELATIVE,
-        registry_module=HOOMANS_CONVERSATION_PREFIX + "/Registry",
-        registry_namespace="PNC.ConvoEngine.Registry",
-        translation_manifest_relative=Path("manifests/Conversation.json"),
-        capability_globs=(
-            "Contents/mods/ProjectHoomans/*/media/lua/**/PNC_Semantic*.lua",
-            "Contents/mods/ProjectHoomans/*/media/lua/**/PNC/ConvoEngine/**/*.lua",
-        ),
-        repository_environment="PZ_TEST_HOOMANS_REPOSITORY",
-    ),
-    DT_COMMON_OWNER: PackageDescriptor(
-        owner=DT_COMMON_OWNER,
-        aliases=(
-            "dt",
-            "dtcommon",
-            "dynamictrading",
-            "dynamic_trading",
-            "dynamic-trading",
-        ),
-        shared_lua_relative=DT_COMMON_SHARED_RELATIVE,
-        conversation_prefix=DT_COMMON_CONVERSATION_PREFIX,
-        translation_relative=DT_COMMON_TRANSLATION_RELATIVE,
-        registry_module=DT_COMMON_CONVERSATION_PREFIX + "/Registry",
-        registry_namespace="DTCommon.ConvoEngine.Registry",
-        translation_manifest_relative=Path("manifests/Conversation.json"),
-        capability_ids=("DT.trade",),
-        capability_globs=(
-            "Contents/mods/DTCommon/*/media/lua/**/DTCommon_Semantic*.lua",
-        ),
-        repository_environment="PZ_TEST_DYNAMIC_TRADING_REPOSITORY",
-    ),
-}
+    repository_markers: tuple[str, ...] = ()
+    backend: str = "pz-lua"
+    localization_policy: str = "build42-json"
+    capabilities: tuple[str, ...] = ("speech",)
+    resolvers: tuple[str, ...] = ()
+    is_core: bool = False
+    is_default_project: bool = False
 
 
 def _owner_key(value: Any) -> str:
@@ -123,13 +60,150 @@ def _owner_key(value: Any) -> str:
     )
 
 
-_OWNER_KEYS = {
-    _owner_key(descriptor.owner): descriptor.owner
-    for descriptor in PACKAGE_DESCRIPTORS.values()
-}
-for _descriptor in PACKAGE_DESCRIPTORS.values():
-    for _alias in _descriptor.aliases:
-        _OWNER_KEYS[_owner_key(_alias)] = _descriptor.owner
+def descriptor_from_mapping(owner: str, raw: Mapping[str, Any]) -> PackageDescriptor:
+    """Construct a PackageDescriptor from a JSON target-registry entry."""
+    if not isinstance(raw, Mapping):
+        raise OwnerConfigurationError(f"Package descriptor for {owner!r} must be an object")
+    required = ("sharedLuaRelative", "conversationPrefix", "translationRelative")
+    for field in required:
+        val = raw.get(field)
+        if not isinstance(val, str) or not val.strip():
+            raise OwnerConfigurationError(
+                f"Package descriptor {owner!r} requires non-empty {field}"
+            )
+    prefix = str(raw["conversationPrefix"]).strip()
+    registry_module = str(raw.get("registryModule") or f"{prefix}/Registry").strip()
+    registry_ns = str(
+        raw.get("registryNamespace") or f"{prefix.replace('/', '.')}.Registry"
+    ).strip()
+    return PackageDescriptor(
+        owner=str(raw.get("owner") or owner).strip(),
+        aliases=tuple(str(a) for a in (raw.get("aliases") or ())),
+        shared_lua_relative=Path(str(raw["sharedLuaRelative"]).strip()),
+        conversation_prefix=prefix,
+        translation_relative=Path(str(raw["translationRelative"]).strip()),
+        registry_module=registry_module,
+        registry_namespace=registry_ns,
+        translation_manifest_relative=Path(
+            str(raw.get("translationManifestRelative") or "manifests/Conversation.json").strip()
+        ),
+        capability_ids=tuple(str(x) for x in (raw.get("capabilityIds") or ())),
+        capability_globs=tuple(str(x) for x in (raw.get("capabilityGlobs") or ())),
+        capability_fields=tuple(
+            str(x)
+            for x in (raw.get("capabilityFields") or ("capabilityID", "capabilityRequired"))
+        ),
+        repository_environment=(
+            str(raw["repositoryEnvironment"]).strip()
+            if raw.get("repositoryEnvironment")
+            else None
+        ),
+        repository_markers=tuple(str(m) for m in (raw.get("repositoryMarkers") or ())),
+        backend=str(raw.get("backend") or "pz-lua").strip(),
+        localization_policy=str(raw.get("localizationPolicy") or "build42-json").strip(),
+        capabilities=tuple(str(c) for c in (raw.get("capabilities") or ("speech",))),
+        resolvers=tuple(str(r) for r in (raw.get("resolvers") or ())),
+        is_core=bool(raw.get("isCore", False)),
+        is_default_project=bool(raw.get("isDefaultProject", False)),
+    )
+
+
+PACKAGE_DESCRIPTORS: dict[str, PackageDescriptor] = {}
+_OWNER_KEYS: dict[str, str] = {}
+
+
+def _rebuild_owner_keys() -> None:
+    _OWNER_KEYS.clear()
+    for desc in PACKAGE_DESCRIPTORS.values():
+        _OWNER_KEYS[_owner_key(desc.owner)] = desc.owner
+        for alias in desc.aliases:
+            _OWNER_KEYS[_owner_key(alias)] = desc.owner
+
+
+def register_package_descriptor(descriptor: PackageDescriptor) -> None:
+    """Register or update one data-driven package descriptor."""
+    PACKAGE_DESCRIPTORS[descriptor.owner] = descriptor
+    _rebuild_owner_keys()
+
+
+def load_package_descriptors(path: Path = DEFAULT_TARGETS_PATH) -> dict[str, PackageDescriptor]:
+    """Load package/target descriptors from a JSON registry file."""
+    raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    packages = raw.get("packages")
+    if not isinstance(packages, Mapping) or not packages:
+        raise OwnerConfigurationError(f"Target registry {path} must define non-empty packages")
+    loaded: dict[str, PackageDescriptor] = {}
+    for owner, entry in packages.items():
+        desc = descriptor_from_mapping(str(owner), entry)
+        loaded[desc.owner] = desc
+    return loaded
+
+
+def _initialize_builtin_descriptors() -> None:
+    for desc in load_package_descriptors(DEFAULT_TARGETS_PATH).values():
+        PACKAGE_DESCRIPTORS[desc.owner] = desc
+    _rebuild_owner_keys()
+
+
+_initialize_builtin_descriptors()
+
+
+@contextmanager
+def temporary_package_descriptors(
+    extra: Mapping[str, Mapping[str, Any] | PackageDescriptor],
+) -> Iterator[None]:
+    """Temporarily register additional package descriptors (used by data-driven tests/plugins)."""
+    snapshot = dict(PACKAGE_DESCRIPTORS)
+    try:
+        for owner, spec in extra.items():
+            desc = (
+                spec
+                if isinstance(spec, PackageDescriptor)
+                else descriptor_from_mapping(str(owner), spec)
+            )
+            PACKAGE_DESCRIPTORS[desc.owner] = desc
+        _rebuild_owner_keys()
+        yield
+    finally:
+        PACKAGE_DESCRIPTORS.clear()
+        PACKAGE_DESCRIPTORS.update(snapshot)
+        _rebuild_owner_keys()
+
+
+def target_descriptor_for_owner(owner: Any) -> dict[str, Any]:
+    """Return a capability_abi-compatible psychopatz.psdl.target.v1 descriptor for an owner."""
+    desc = package_descriptor(owner)
+    return {
+        "schema": "psychopatz.psdl.target.v1",
+        "target": desc.owner,
+        "backend": desc.backend,
+        "providedCapabilities": list(desc.capabilities),
+        "providedResolvers": list(desc.resolvers),
+        "outputRoots": {
+            "lua": str(desc.shared_lua_relative),
+            "translation": str(desc.translation_relative),
+        },
+        "localization": {"policy": desc.localization_policy},
+    }
+
+
+def combined_target_descriptor(owners: Any) -> dict[str, Any]:
+    """Build a merged psychopatz.psdl.target.v1 descriptor across active package owners."""
+    caps: set[str] = set()
+    resolvers: set[str] = set()
+    targets: list[str] = []
+    for owner in owners:
+        desc = package_descriptor(owner)
+        targets.append(desc.owner)
+        caps.update(desc.capabilities)
+        resolvers.update(desc.resolvers)
+    return {
+        "schema": "psychopatz.psdl.target.v1",
+        "target": "+".join(sorted(set(targets))) or "default",
+        "backend": "pz-lua",
+        "providedCapabilities": sorted(caps),
+        "providedResolvers": sorted(resolvers),
+    }
 
 
 def package_descriptor(value: Any, *, default: Any = None) -> PackageDescriptor:
@@ -226,6 +300,33 @@ def module_owner(module: str) -> str:
     return matches[0].owner
 
 
+def _resolve_by_descriptor(
+    project_repository: Path,
+    descriptor: PackageDescriptor,
+    *,
+    explicit: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path | None:
+    if explicit is not None:
+        return explicit.expanduser().resolve()
+    if descriptor.repository_environment:
+        env = os.environ.get(descriptor.repository_environment)
+        if env:
+            return Path(env).expanduser().resolve()
+    base = (runtime_root or project_repository).expanduser().resolve()
+    if descriptor.repository_markers:
+        if all((base / marker).exists() for marker in descriptor.repository_markers):
+            return base
+        for candidate in (base.parent / descriptor.owner, base.parent / descriptor.owner.lower()):
+            if candidate.is_dir() and any((candidate / m).exists() for m in descriptor.repository_markers):
+                return candidate.resolve()
+        if base.parent.is_dir():
+            for child in sorted(base.parent.iterdir()):
+                if child.is_dir() and all((child / m).exists() for m in descriptor.repository_markers):
+                    return child.resolve()
+    return None
+
+
 def resolve_core_repository(
     project_repository: Path,
     *,
@@ -235,9 +336,13 @@ def resolve_core_repository(
     """Resolve the Core checkout without coupling generated paths to Hoomans."""
     if explicit is not None:
         return explicit.expanduser().resolve()
-    env = os.environ.get("PZ_TEST_CORE_REPOSITORY")
-    if env:
-        return Path(env).expanduser().resolve()
+    core_desc = next((d for d in PACKAGE_DESCRIPTORS.values() if d.is_core), None)
+    if core_desc is not None:
+        resolved = _resolve_by_descriptor(
+            project_repository, core_desc, explicit=explicit, runtime_root=runtime_root
+        )
+        if resolved is not None:
+            return resolved
     base = (runtime_root or project_repository).expanduser().resolve()
     return (base.parent / "psychopatzCore").resolve()
 
@@ -248,21 +353,17 @@ def resolve_hoomans_repository(
     explicit: Path | None = None,
     runtime_root: Path | None = None,
 ) -> Path:
-    """Resolve the ProjectHoomans checkout when invoked from Core or Hoomans."""
+    """Resolve the default project checkout when invoked from Core or ProjectHoomans."""
     if explicit is not None:
         return explicit.expanduser().resolve()
-    env = os.environ.get("PZ_TEST_HOOMANS_REPOSITORY")
-    if env:
-        return Path(env).expanduser().resolve()
-    base = (runtime_root or project_repository).expanduser().resolve()
-    if (base / "Contents/mods/ProjectHoomans").is_dir() or (
-        base / "tools/providers/pnc"
-    ).is_dir():
-        return base
-    sibling = (base.parent / "ProjectHoomans").resolve()
-    if sibling.is_dir():
-        return sibling
-    return base
+    proj_desc = next((d for d in PACKAGE_DESCRIPTORS.values() if d.is_default_project), None)
+    if proj_desc is not None:
+        resolved = _resolve_by_descriptor(
+            project_repository, proj_desc, explicit=explicit, runtime_root=runtime_root
+        )
+        if resolved is not None:
+            return resolved
+    return project_repository.expanduser().resolve()
 
 
 def owner_repository(
@@ -272,27 +373,32 @@ def owner_repository(
     core_repository: Path | None = None,
     dynamic_trading_repository: Path | None = None,
     runtime_root: Path | None = None,
+    explicit_repositories: Mapping[str, Path] | None = None,
 ) -> Path:
+    """Resolve the physical repository for *owner* purely from its PackageDescriptor."""
     descriptor = package_descriptor(owner)
-    if descriptor.owner == HOOMANS_OWNER:
+    if explicit_repositories and descriptor.owner in explicit_repositories:
+        return Path(explicit_repositories[descriptor.owner]).expanduser().resolve()
+    if descriptor.is_core and core_repository is not None:
+        return core_repository.expanduser().resolve()
+    if descriptor.owner == DT_COMMON_OWNER and dynamic_trading_repository is not None:
+        return dynamic_trading_repository.expanduser().resolve()
+    if descriptor.repository_environment:
+        configured = os.environ.get(descriptor.repository_environment)
+        if configured:
+            return Path(configured).expanduser().resolve()
+    if descriptor.is_default_project:
         return project_repository.expanduser().resolve()
-    if descriptor.owner == CORE_OWNER:
+    if descriptor.is_core:
         return resolve_core_repository(
             project_repository,
             explicit=core_repository,
             runtime_root=runtime_root,
         )
-    if descriptor.owner == DT_COMMON_OWNER:
-        if dynamic_trading_repository is not None:
-            return dynamic_trading_repository.expanduser().resolve()
-        environment = descriptor.repository_environment
-        configured = os.environ.get(environment) if environment else None
-        if configured:
-            return Path(configured).expanduser().resolve()
-        raise OwnerConfigurationError(
-            "DTCommon generation requires an explicit DynamicTrading "
-            "repository or PZ_TEST_DYNAMIC_TRADING_REPOSITORY"
-        )
+    if descriptor.repository_markers:
+        base = (runtime_root or project_repository).expanduser().resolve()
+        if all((base / marker).exists() for marker in descriptor.repository_markers):
+            return base
     raise OwnerConfigurationError(
         "no repository resolver configured for owner: " + descriptor.owner
     )

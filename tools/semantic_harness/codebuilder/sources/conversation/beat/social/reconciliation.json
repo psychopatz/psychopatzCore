@@ -1,69 +1,20 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "social_beat",
+  "id": "beat.reconciliation",
   "baseRelevance": 0.85,
-  "candidates": [
-    {
-      "behavior": "behavior.reconcile",
-      "relevance": 0.65
-    },
-    {
-      "behavior": "behavior.warn",
-      "relevance": 0.3
-    },
-    {
-      "behavior": "behavior.end_conversation",
-      "relevance": 0.15
-    }
-  ],
+  "candidates": {
+    "behavior.reconcile": 0.65,
+    "behavior.warn": 0.3,
+    "behavior.end_conversation": 0.15
+  },
   "cooldownTurns": 4,
-  "entry": {
-    "all": [
-      {
-        "op": "eq",
-        "path": "stimulus.semantic.intent",
-        "value": "APOLOGIZE"
-      },
-      {
-        "op": "truthy",
-        "path": "pragmatic.contextualAdmission.admitted"
-      },
-      {
-        "op": "eq",
-        "path": "pragmatic.contextualAdmission.selected.relation",
-        "value": "repair"
-      }
-    ]
-  },
-  "exit": {
-    "any": [
-      {
-        "op": "gte",
-        "path": "beat.turnsInBeat",
-        "value": 2
-      },
-      {
-        "op": "truthy",
-        "path": "scene.ended"
-      },
-      {
-        "op": "truthy",
-        "path": "world.immediateDanger"
-      }
-    ]
-  },
+  "entry": "stimulus.semantic.intent == \"APOLOGIZE\" && pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"repair\"",
+  "exit": "beat.turnsInBeat >= 2 || scene.ended || world.immediateDanger",
   "group": "beat_group.social_primary",
-  "id": "reconciliation",
   "maintain": {
     "op": "falsy",
     "path": "scene.ended"
   },
-  "maxTurns": 2,
-  "owner": "PsychopatzCore",
-  "stimuli": [
-    "HUMAN_UTTERANCE",
-    "NPC_SEMANTIC_ACT"
-  ],
-  "version": 1,
-  "kind": "beat",
-  "namespace": "beat",
-  "schema": "psychopatz.convo-engine.v1"
+  "maxTurns": 2
 }

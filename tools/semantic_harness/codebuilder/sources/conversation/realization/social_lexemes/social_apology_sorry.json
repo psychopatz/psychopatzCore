@@ -1,13 +1,10 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "profile": "lexeme_realization",
+  "id": "lexeme.social.apology.sorry",
   "concept": "APOLOGY_SORRY",
   "forms": {
     "EN": "sorry",
     "TL": "pasensya"
-  },
-  "id": "sorry",
-  "type": "lexeme",
-  "kind": "realization",
-  "owner": "PsychopatzCore",
-  "namespace": "lexeme.social.apology",
-  "schema": "psychopatz.convo-engine.v1"
+  }
 }

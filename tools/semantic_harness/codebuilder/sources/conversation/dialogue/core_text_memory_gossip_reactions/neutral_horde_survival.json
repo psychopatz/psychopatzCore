@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "neutral",
-  "id": "horde_survival",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "neutral.horde_survival",
   "metadata": {
     "textKey": "neutral.horde_survival",
     "textTarget": "memory/gossip",

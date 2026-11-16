@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "neutral": [
+      "I'm just a survivor trying to make it through.",
+      "I used to be someone else before all this fell apart.",
+      "Just another person looking for shelter and food.",
+      "I'm surviving day by day, same as you.",
+      "Not much to tell. Just doing what it takes to live.",
+      "I'm a survivor out here in the county.",
+      "Just someone trying to stay one step ahead of the dead.",
+      "I've been on the road since the outbreak started.",
+      "Simple survivor. That's about the extent of it.",
+      "Trying to stay breathing, same as everyone else."
+    ],
+    "guarded": [
+      "Who's asking? Names can be dangerous out here.",
+      "Why do you need to know who I am?",
+      "Just a survivor trying not to die. Leave it at that.",
+      "I don't give my background to just anyone.",
+      "A survivor with a weapon. That's all that matters.",
+      "Don't pry into my identity. Keep focused on the road.",
+      "Names don't keep the infected away. What do you want?",
+      "You don't need my life story to walk beside me.",
+      "I keep my identity to myself until I know I can trust you.",
+      "I am who I need to be to survive."
+    ],
+    "terse": [
+      "A survivor.",
+      "Just me.",
+      "Doesn't matter.",
+      "Another wanderer.",
+      "Just surviving.",
+      "Nobody special.",
+      "A fighter.",
+      "Same as you.",
+      "Just a stranger.",
+      "Still breathing."
+    ],
+    "warm": [
+      "I'm glad to share this road with you, friend.",
+      "Just an old soul trying to do some good in a ruined world.",
+      "I'm someone who values good company out here.",
+      "Call me a friend. We're in this struggle together.",
+      "I used to have a regular life, but now I have people I care about.",
+      "Just someone grateful to have found you in all this chaos.",
+      "A friend and ally. That's who I want to be for you.",
+      "I'm just happy to be standing here talking to you.",
+      "We're partners out here. That's all that matters to me.",
+      "A loyal companion on the long road ahead."
+    ]
+  }
+}

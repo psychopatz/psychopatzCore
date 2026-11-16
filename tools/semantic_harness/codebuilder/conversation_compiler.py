@@ -84,8 +84,10 @@ from tools.semantic_harness.codebuilder.translation_support import (
     merge_language_sets,
     normalize_language,
 )
+from .capability_abi import validate_target_capabilities
 from .generation_ownership import (
     HOOMANS_OWNER,
+    combined_target_descriptor,
     conversation_prefix,
     normalize_owner,
     route_module_for_owner,
@@ -93,6 +95,7 @@ from .generation_ownership import (
     resolve_hoomans_repository,
     source_owner,
 )
+from .portable_runtime import compile_portable_plan
 from .psdl_compiler import (
     _validate_cross_references as _validate_convo_engine_cross_references,
     compile_convo_engine_document,
@@ -103,6 +106,7 @@ from .psdl_compiler import (
     render_psdl_semantic_pack_plan,
     render_psdl_runtime_plan,
     render_psdl_ui_plan,
+    render_pz_backend_from_portable_plan,
 )
 from .conversation_assembly import CONVO_ENGINE_SHARD_KINDS
 
@@ -113,15 +117,55 @@ def _registry_owner(model: dict[str, Any]) -> str:
     return normalize_owner(owner)
 
 
+def _package_for_entry(
+    package_doc: Mapping[str, Any] | None,
+    entry: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    if package_doc is None:
+        return None
+    pkg = dict(package_doc)
+    if entry.get("owner"):
+        pkg["defaultOwner"] = entry["owner"]
+    return pkg
+
+
+def _make_sidecar_loader(source_root: Path, entry: Mapping[str, Any]):
+    if entry.get("sourceRepository") and entry.get("sourcePath"):
+        base_root = Path(str(entry["sourceRepository"])).expanduser().resolve()
+        shard_dir = (base_root / str(entry["sourcePath"])).parent
+    else:
+        base_root = source_root.expanduser().resolve()
+        shard_dir = (base_root / str(entry["path"])).parent
+
+    def load_sidecar(rel_path: str) -> dict[str, Any]:
+        candidate = (shard_dir / rel_path).resolve()
+        if not candidate.is_file():
+            candidate = (base_root / rel_path).resolve()
+        if base_root not in candidate.parents and candidate != base_root:
+            raise CompileError(f"textSidecars path escapes source root: {rel_path!r}")
+        if not candidate.is_file():
+            raise CompileError(f"Missing textSidecars file {rel_path!r} for {entry['path']}")
+        return _read_json(candidate, f"textSidecars {rel_path}")
+
+    return load_sidecar
+
+
 def _compiled_psdl_documents(
     loaded: list[tuple[dict[str, Any], dict[str, Any], str]],
     *,
     default_owner: str | None = None,
+    package: Mapping[str, Any] | None = None,
+    source_root: Path | None = None,
 ) -> list[tuple[dict[str, Any], dict[str, Any]]]:
     compiled: list[tuple[dict[str, Any], dict[str, Any]]] = []
     for document, entry, _fingerprint_value in loaded:
         if entry.get("kind") not in CONVO_ENGINE_SHARD_KINDS:
             continue
+        loader = (
+            _make_sidecar_loader(source_root, entry)
+            if source_root is not None
+            else None
+        )
         compiled.append(
             (
                 compile_convo_engine_document(
@@ -129,6 +173,8 @@ def _compiled_psdl_documents(
                     source_path=entry["path"],
                     default_owner=entry.get("owner") or default_owner,
                     validate_cross_references=False,
+                    package=_package_for_entry(package, entry),
+                    text_loader=loader,
                 ),
                 entry,
             )
@@ -185,6 +231,9 @@ def compile_conversation_sources(
         manifest_path,
         package_repositories=resolved_package_repositories,
     )
+    package_descriptor_doc = manifest.get("_packageDescriptor")
+    source_root = manifest_path.parent
+
     def compile_shard(document: dict[str, Any], entry: dict[str, Any]) -> Any:
         _hydrate_shard_provenance(document, entry, manifest["sourceProfiles"])
         return _compile_shard(
@@ -193,6 +242,16 @@ def compile_conversation_sources(
             runtime_root=runtime_root,
             default_owner=manifest["defaultOwner"],
             package_repositories=resolved_package_repositories,
+            package=_package_for_entry(package_descriptor_doc, entry),
+            text_loader=_make_sidecar_loader(source_root, entry),
+        )
+
+    def record_ids_for(document: dict[str, Any], entry: dict[str, Any]) -> list[str]:
+        return _conversation_record_ids(
+            document,
+            entry,
+            package=_package_for_entry(package_descriptor_doc, entry),
+            text_loader=_make_sidecar_loader(source_root, entry),
         )
 
     def owner_for(_document: dict[str, Any], entry: dict[str, Any]) -> str:
@@ -200,11 +259,11 @@ def compile_conversation_sources(
 
     loaded, shard_reports, source_documents = assemble_shards(
         entries,
-        source_root=manifest_path.parent,
+        source_root=source_root,
         source_overrides=source_overrides,
         read_document=_read_json,
         compile_shard=compile_shard,
-        record_ids_for=_conversation_record_ids,
+        record_ids_for=record_ids_for,
         owner_for=owner_for,
     )
 
@@ -230,6 +289,8 @@ def compile_conversation_sources(
     psdl_documents = _compiled_psdl_documents(
         loaded,
         default_owner=manifest["defaultOwner"],
+        package=package_descriptor_doc,
+        source_root=source_root,
     )
     merged_convo_records = [
         record
@@ -238,51 +299,39 @@ def compile_conversation_sources(
     ]
     if merged_convo_records:
         _validate_convo_engine_cross_references(merged_convo_records)
-    psdl_ui: list[dict[str, Any]] = []
-    psdl_packs: list[dict[str, Any]] = []
-    psdl_runtime_plans: list[dict[str, Any]] = []
-    psdl_response_pools: list[dict[str, Any]] = []
-    psdl_response_pool_owners: dict[str, str] = {}
-    psdl_flows: list[dict[str, Any]] = []
-    psdl_realizations: list[dict[str, Any]] = []
-    for compiled_psdl, entry in psdl_documents:
-        for plan in render_psdl_runtime_plan(compiled_psdl):
-            runtime_plan = _copy_json(plan)
-            runtime_plan["owner"] = normalize_owner(entry.get("owner"))
-            runtime_plan["domain"] = entry["domain"]
-            runtime_plan["sourceShard"] = entry["path"]
-            psdl_runtime_plans.append(runtime_plan)
-        director_plan = render_psdl_director_plan(compiled_psdl)
-        for record in director_plan["behaviors"]:
-            record["sourceShard"] = entry["path"]
-            record["domain"] = entry["domain"]
-            behaviors["records"].append(record)
-        for record in director_plan["beats"]:
-            record["sourceShard"] = entry["path"]
-            record["domain"] = entry["domain"]
-            beats["records"].append(record)
-        for row in render_psdl_ui_plan(compiled_psdl):
-            row.pop("sourceRecordID", None)
-            row.pop("owner", None)
-            psdl_ui.append(row)
-        for pack in render_psdl_semantic_pack_plan(compiled_psdl):
-            record = _copy_json(pack)
-            record["owner"] = normalize_owner(entry.get("owner"))
-            record["domain"] = entry["domain"]
-            record["sourceShard"] = entry["path"]
-            psdl_packs.append(record)
-        for pool in render_psdl_response_pool_plan(compiled_psdl):
-            psdl_response_pools.append(pool)
-            pool_id = str(pool.get("id") or "")
-            if pool_id:
-                psdl_response_pool_owners[pool_id] = normalize_owner(
-                    entry.get("owner"),
-                    default=manifest["defaultOwner"],
-                )
-        psdl_flows.extend(render_psdl_flow_plan(compiled_psdl))
-        psdl_realizations.extend(
-            render_psdl_realization_plan(compiled_psdl, source_path=entry["path"])
+        active_owners = {
+            normalize_owner(rec.get("owner"), default=manifest["defaultOwner"])
+            for rec in merged_convo_records
+        } | {manifest["registryOwner"]}
+        validate_target_capabilities(
+            merged_convo_records,
+            combined_target_descriptor(sorted(active_owners)),
         )
+    entry_by_record_id: dict[str, dict[str, Any]] = {}
+    for compiled_psdl, entry in psdl_documents:
+        for record in compiled_psdl.get("records", []):
+            rec_id = str(record.get("id") or "")
+            if rec_id:
+                entry_by_record_id[rec_id] = entry
+
+    portable_plan = compile_portable_plan(
+        merged_convo_records,
+        package=manifest["registryOwner"],
+    )
+    pz_projection = render_pz_backend_from_portable_plan(
+        portable_plan,
+        entry_by_record_id=entry_by_record_id,
+        default_owner=manifest["defaultOwner"],
+    )
+    psdl_ui = pz_projection["ui"]
+    psdl_packs = pz_projection["semanticPacks"]
+    psdl_runtime_plans = pz_projection["runtimePlans"]
+    behaviors["records"].extend(pz_projection["behaviors"])
+    beats["records"].extend(pz_projection["beats"])
+    psdl_response_pools = pz_projection["responsePools"]
+    psdl_response_pool_owners = pz_projection["responsePoolOwners"]
+    psdl_flows = pz_projection["flows"]
+    psdl_realizations = pz_projection["realizations"]
     if psdl_response_pools:
         dialogue["responsePools"].extend(psdl_response_pools)
         dialogue["responsePools"].sort(key=lambda item: str(item.get("id", "")))
@@ -592,6 +641,7 @@ def compile_conversation_sources(
         "realization": realization["records"],
         "packs": packs,
         "psdlRuntimePlans": psdl_runtime_plans,
+        "portablePlan": portable_plan,
         "ui": ui,
         "uiTexts": ui_texts,
         "uiTranslations": _ui_translations(ui, ui_texts),

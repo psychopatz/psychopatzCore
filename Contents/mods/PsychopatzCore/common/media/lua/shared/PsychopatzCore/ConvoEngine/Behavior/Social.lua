@@ -64,11 +64,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "SHARE_MEMORY",
-            },
         },
         ["references"] = {
         },
@@ -128,11 +123,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "SHARE_NEWS",
-            },
         },
         ["references"] = {
         },
@@ -191,19 +181,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["all"] = {
-                    {
-                        ["op"] = "truthy",
-                        ["path"] = "pragmatic.contextualAdmission.admitted",
-                    },
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "pragmatic.contextualAdmission.selected.relation",
-                        ["value"] = "repair",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -270,19 +247,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["all"] = {
-                    {
-                        ["op"] = "truthy",
-                        ["path"] = "pragmatic.contextualAdmission.admitted",
-                    },
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "pragmatic.contextualAdmission.selected.relation",
-                        ["value"] = "response",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -358,24 +322,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["all"] = {
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "stimulus.semantic.intent",
-                        ["value"] = "THANK",
-                    },
-                    {
-                        ["op"] = "truthy",
-                        ["path"] = "pragmatic.contextualAdmission.admitted",
-                    },
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "pragmatic.contextualAdmission.selected.relation",
-                        ["value"] = "gratitude",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -464,11 +410,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "SHARE_MEMORY",
-            },
         },
         ["references"] = {
         },
@@ -536,14 +477,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "in",
-                ["path"] = "stimulus.semantic.intent",
-                ["values"] = {
-                    "GREET",
-                    "GOSSIP",
-                },
-            },
         },
         ["references"] = {
         },
@@ -605,20 +538,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["any"] = {
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "pragmatic.contextualAdmission.status",
-                        ["value"] = "unresolved",
-                    },
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "pragmatic.contextualAdmission.status",
-                        ["value"] = "ambiguous",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -703,23 +622,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["any"] = {
-                    {
-                        ["op"] = "in",
-                        ["path"] = "stimulus.semantic.speechAct",
-                        ["values"] = {
-                            "INSULT",
-                            "HOSTILE_REMARK",
-                            "THREATEN",
-                        },
-                    },
-                    {
-                        ["op"] = "truthy",
-                        ["path"] = "world.immediateDanger",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -807,28 +709,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["any"] = {
-                    {
-                        ["op"] = "in",
-                        ["path"] = "stimulus.semantic.speechAct",
-                        ["values"] = {
-                            "INSULT",
-                            "HOSTILE_REMARK",
-                            "THREATEN",
-                        },
-                    },
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "stimulus.semantic.intent",
-                        ["value"] = "APOLOGIZE",
-                    },
-                    {
-                        ["op"] = "truthy",
-                        ["path"] = "world.immediateDanger",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -922,19 +802,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["all"] = {
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "stimulus.semantic.intent",
-                        ["value"] = "APOLOGIZE",
-                    },
-                    {
-                        ["op"] = "truthy",
-                        ["path"] = "pragmatic.contextualAdmission.admitted",
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -1019,15 +886,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "in",
-                ["path"] = "stimulus.semantic.speechAct",
-                ["values"] = {
-                    "INSULT",
-                    "HOSTILE_REMARK",
-                    "THREATEN",
-                },
-            },
         },
         ["references"] = {
         },
@@ -1097,11 +955,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "ACKNOWLEDGE_EXCURSION",
-            },
         },
         ["references"] = {
         },
@@ -1167,11 +1020,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "EXCURSION_DEPARTING",
-            },
         },
         ["references"] = {
         },
@@ -1237,11 +1085,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "EXCURSION_FAILED",
-            },
         },
         ["references"] = {
         },
@@ -1307,11 +1150,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "EXCURSION_HOME",
-            },
         },
         ["references"] = {
         },
@@ -1377,11 +1215,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "EXCURSION_PREPARING",
-            },
         },
         ["references"] = {
         },
@@ -1447,11 +1280,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "EXCURSION_RETURNING",
-            },
         },
         ["references"] = {
         },
@@ -1517,11 +1345,6 @@ return {
                 "AMBIENT_SOCIAL_OPPORTUNITY",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "SHARE_GROUNDED_NEWS",
-            },
         },
         ["references"] = {
         },
@@ -1590,11 +1413,6 @@ return {
                 "DANGER_CHANGED",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "COMBAT_HORDE_ALERT",
-            },
         },
         ["references"] = {
         },
@@ -1658,20 +1476,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["all"] = {
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "stimulus.semantic.intent",
-                        ["value"] = "COMBAT_HORDE_REPLY",
-                    },
-                    {
-                        ["op"] = "gte",
-                        ["path"] = "actor.disposition.confidence",
-                        ["value"] = 0.65,
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -1744,20 +1548,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["all"] = {
-                    {
-                        ["op"] = "eq",
-                        ["path"] = "stimulus.semantic.intent",
-                        ["value"] = "COMBAT_HORDE_REPLY",
-                    },
-                    {
-                        ["op"] = "lt",
-                        ["path"] = "actor.disposition.confidence",
-                        ["value"] = 0.35,
-                    },
-                },
-            },
         },
         ["references"] = {
         },
@@ -1830,11 +1620,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "COMBAT_HORDE_REPLY",
-            },
         },
         ["references"] = {
         },
@@ -1909,11 +1694,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "SHARE_GROUNDED_NEWS",
-            },
         },
         ["references"] = {
         },
@@ -1977,11 +1757,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "ASK_NEWS_FOLLOWUP",
-            },
         },
         ["references"] = {
         },
@@ -2045,11 +1820,6 @@ return {
                 "DANGER_CHANGED",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "POST_COMBAT_CLEAR",
-            },
         },
         ["references"] = {
         },
@@ -2113,11 +1883,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "TASK_WORK_ASSIGNED",
-            },
         },
         ["references"] = {
         },
@@ -2181,11 +1946,6 @@ return {
                 "TASK_EVENT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "eq",
-                ["path"] = "stimulus.semantic.intent",
-                ["value"] = "TASK_WORK_COMPLETED",
-            },
         },
         ["references"] = {
         },
@@ -2262,15 +2022,6 @@ return {
                 "NPC_SEMANTIC_ACT",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "in",
-                ["path"] = "stimulus.semantic.speechAct",
-                ["values"] = {
-                    "INSULT",
-                    "HOSTILE_REMARK",
-                    "THREATEN",
-                },
-            },
         },
         ["references"] = {
         },
@@ -2339,10 +2090,6 @@ return {
                 "DANGER_CHANGED",
             },
             ["version"] = 1,
-            ["when"] = {
-                ["op"] = "truthy",
-                ["path"] = "world.immediateDanger",
-            },
         },
         ["references"] = {
         },

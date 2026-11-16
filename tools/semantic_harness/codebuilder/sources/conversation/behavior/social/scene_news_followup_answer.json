@@ -1,10 +1,11 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.scene_news_followup_answer",
   "act": "ANSWER_NEWS",
   "baseRelevance": 1.0,
   "continuation": {
     "mode": "terminate"
   },
-  "id": "scene_news_followup_answer",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -13,20 +14,11 @@
       "dialogueAct": "ANSWER"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
   "stimuli": [
     "NPC_SEMANTIC_ACT"
   ],
-  "version": 1,
-  "when": {
-    "op": "eq",
-    "path": "stimulus.semantic.intent",
-    "value": "ASK_NEWS_FOLLOWUP"
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"ASK_NEWS_FOLLOWUP\""
 }

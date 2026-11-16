@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "recruitment",
-  "id": "fear",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "recruitment.fear",
   "metadata": {
     "textTarget": "social/recruitment/response",
     "textRows": [

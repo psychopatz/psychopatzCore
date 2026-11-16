@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "gift.preference",
-  "id": "unknown",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "gift.preference.unknown",
   "metadata": {
     "textKey": "gift.preference.unknown",
     "textTarget": "needs/gifts/preference",

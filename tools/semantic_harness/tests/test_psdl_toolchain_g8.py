@@ -1,289 +1,347 @@
-"""G8A-G8F acceptance tests for the compact portable PSDL toolchain & standard runtime."""
+"""G8R1–G8R5: Production compact PSDL, portable-plan seam, special-logic migration,
+data-driven routing, and cross-backend trace equivalence tests."""
 
 from __future__ import annotations
 
 import json
-import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-CORE_ROOT = Path(__file__).resolve().parents[3]
-if str(CORE_ROOT) not in sys.path:
-    sys.path.insert(0, str(CORE_ROOT))
-
 from tools.semantic_harness.codebuilder.capability_abi import (
     TARGET_DESCRIPTOR_SCHEMA,
-    generate_adapter_stub_guidance,
     validate_target_capabilities,
 )
+from tools.semantic_harness.codebuilder.conversation_compiler import (
+    compile_conversation_sources,
+)
 from tools.semantic_harness.codebuilder.errors import CompileError
+from tools.semantic_harness.codebuilder.generation_ownership import (
+    PACKAGE_DESCRIPTORS,
+    temporary_package_descriptors,
+)
+from tools.semantic_harness.codebuilder.generation_recipe import (
+    build_desired_artifact_ledger,
+    load_generation_recipe,
+)
 from tools.semantic_harness.codebuilder.portable_runtime import (
+    PORTABLE_PLAN_SCHEMA,
     PortableReferenceVM,
-    compile_portable_plan,
 )
 from tools.semantic_harness.codebuilder.psdl_compact import (
     COMPACT_PSDL_SCHEMA,
     PACKAGE_DESCRIPTOR_SCHEMA,
-    expand_compact_psdl_document,
-    parse_predicate_expr,
-    split_manifest_and_provenance,
-    validate_package_descriptor,
+    PROVENANCE_LOCK_SCHEMA,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
+from tools.semantic_harness.codebuilder.psdl_compiler import (
+    render_pz_backend_from_portable_plan,
+)
 from tools.semantic_harness.codebuilder.psdl_inspect import inspect_psdl
 from tools.semantic_harness.codebuilder.reconcile import reconcile_apply, reconcile_check
-from tools.semantic_harness.tests.test_convo_engine_s9h6_build_planner import (
-    _build_three_repo_fixture,
-)
+
+CORE_ROOT = Path(__file__).resolve().parents[3]
+HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
+DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
+RECIPE_PATH = CORE_ROOT / "tools/semantic_harness/codebuilder/generation_recipe.json"
 
 
-class PSDLToolchainG8Tests(unittest.TestCase):
-    def test_g8a_compact_behavior_and_beat_match_canonical_ir_and_reduce_size(self) -> None:
-        verbose_behavior_path = (
-            CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/behavior/social/retaliate_verbally.json"
-        )
-        verbose_beat_path = (
-            CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/beat/social/argument_escalation.json"
-        )
-        verbose_behavior = json.loads(verbose_behavior_path.read_text(encoding="utf-8"))
-        verbose_beat = json.loads(verbose_beat_path.read_text(encoding="utf-8"))
-
-        manifest_doc = json.loads(
-            (CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/manifest.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        pkg, prov = split_manifest_and_provenance(manifest_doc)
-        pkg["defaultOwner"] = "PsychopatzCore"
-        validate_package_descriptor(pkg)
-        self.assertIn("sourceProfiles", prov)
-        self.assertNotIn("sourceProfiles", pkg)
-
-        compact_behavior = {
-            "schema": COMPACT_PSDL_SCHEMA,
-            "profile": "social_behavior",
-            "id": "behavior.retaliate_verbally",
-            "act": "RETALIATE_VERBALLY",
-            "baseRelevance": 0.55,
-            "when": "stimulus.semantic.speechAct in [INSULT, HOSTILE_REMARK, THREATEN]",
-            "modifiers": [
-                {
-                    "delta": 0.2,
-                    "reason": "aggressive_personality",
-                    "when": "actor.disposition.aggression >= .65",
-                },
-                {
-                    "delta": -0.3,
-                    "reason": "fear_suppresses_retaliation",
-                    "when": "actor.condition.panic >= .6",
-                },
-            ],
-            "outputs": {
-                "speech": {
-                    "contentTemplateID": "interaction.argument.retaliate",
-                    "dialogueAct": "RETALIATE_VERBALLY",
-                }
+class PsdlProductionToolchainTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.model = compile_conversation_sources(
+            CORE_ROOT,
+            package_repositories={
+                "PsychopatzCore": CORE_ROOT,
+                "ProjectHoomans": HOOMANS_ROOT,
+                "DTCommon": DT_ROOT,
             },
-        }
-        compact_beat = {
-            "schema": COMPACT_PSDL_SCHEMA,
-            "profile": "social_beat",
-            "id": "beat.argument_escalation",
-            "group": "beat_group.social_primary",
-            "baseRelevance": 0.7,
-            "cooldownTurns": 3,
-            "maxTurns": 6,
-            "entry": "stimulus.semantic.speechAct in [INSULT, HOSTILE_REMARK, THREATEN]",
-            "maintain": "history.hostilityCount > 0",
-            "exit": "stimulus.semantic.intent == APOLOGIZE || scene.ended || beat.turnsInBeat >= 6 || world.immediateDanger",
-            "candidates": {
-                "behavior.warn": 0.65,
-                "behavior.retaliate_verbally": 0.55,
-                "behavior.deescalate": 0.35,
-                "behavior.end_conversation": 0.2,
-            },
-        }
-
-        expanded_beh = expand_compact_psdl_document(compact_behavior, package=pkg)
-        expanded_beat = expand_compact_psdl_document(compact_beat, package=pkg)
-        ir_verbose_beh = compile_convo_engine_document(verbose_behavior)["records"][0]
-        ir_compact_beh = compile_convo_engine_document(expanded_beh)["records"][0]
-        ir_verbose_beat = compile_convo_engine_document(verbose_beat, validate_cross_references=False)["records"][0]
-        ir_compact_beat = compile_convo_engine_document(expanded_beat, validate_cross_references=False)["records"][0]
-
-        for ir in (ir_verbose_beh, ir_compact_beh, ir_verbose_beat, ir_compact_beat):
-            ir.pop("lineage", None)
-        self.assertEqual(ir_compact_beh, ir_verbose_beh)
-        self.assertEqual(ir_compact_beat, ir_verbose_beat)
-
-        # Measure byte reduction
-        self.assertLess(
-            len(json.dumps(compact_beat)),
-            len(json.dumps(verbose_beat)) * 0.75,
         )
+        cls.portable_plan = cls.model["portablePlan"]
 
-    def test_g8a_rejects_deep_inheritance_and_unsafe_paths_and_loads_sidecars(self) -> None:
+    def test_g8r1_production_compact_psdl_corpus_and_sidecars(self) -> None:
+        conv_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation"
+        pkg = json.loads((conv_root / "package.json").read_text(encoding="utf-8"))
+        prov = json.loads((conv_root / "provenance.lock").read_text(encoding="utf-8"))
+        self.assertEqual(pkg["schema"], PACKAGE_DESCRIPTOR_SCHEMA)
+        self.assertEqual(prov["schema"], PROVENANCE_LOCK_SCHEMA)
+
+        v1_count = 0
+        v2_count = 0
+        for root in (
+            conv_root,
+            HOOMANS_ROOT / "tools/providers/pnc/codebuilder/sources/conversation",
+            DT_ROOT / "tools/providers/dt/codebuilder/sources/conversation",
+        ):
+            for p in root.rglob("*.json"):
+                if "translations" in p.relative_to(root).parts:
+                    continue
+                d = json.loads(p.read_text(encoding="utf-8"))
+                if d.get("schema") == "psychopatz.convo-engine.v1":
+                    v1_count += 1
+                elif d.get("schema") == COMPACT_PSDL_SCHEMA:
+                    v2_count += 1
+
+        self.assertEqual(v1_count, 0)
+        self.assertGreaterEqual(v2_count, 577)
+
+        # Verify large localized family via textSidecars compiled into runtime plans
+        knowledge_plan = next(
+            p for p in self.model["psdlRuntimePlans"] if p["id"] == "question.knowledge"
+        )
+        known_variants = (
+            knowledge_plan["payload"]["reply"]["known"]["say"]["realizations"]["1"]["variants"]
+        )
+        self.assertTrue(known_variants[0]["text"]["EN"])
+        self.assertTrue(known_variants[0]["text"]["TL"])
+
+    def test_g8r2_portable_dialogue_plan_is_production_seam(self) -> None:
+        self.assertEqual(self.portable_plan["schema"], PORTABLE_PLAN_SCHEMA)
+        self.assertIn("behavior.retaliate_verbally", self.portable_plan["behaviors"])
+        self.assertIn("beat.argument_escalation", self.portable_plan["beats"])
+        self.assertIn("question.knowledge", self.portable_plan["dialogues"])
+
+        # Bypassing portable plan seam must fail closed
         with self.assertRaises(CompileError):
-            validate_package_descriptor({
-                "schema": PACKAGE_DESCRIPTOR_SCHEMA,
-                "extends": "other.json",
-            })
-        with self.assertRaises(CompileError):
-            parse_predicate_expr("private.secret == true")
+            render_pz_backend_from_portable_plan({"schema": "invalid.plan"})
 
-        sidecars = {
-            "text/EN/command.camp.json": {"variants": {"neutral": ["Okay, setting up camp."]}},
-            "text/TL/command.camp.json": {"variants": {"neutral": ["Sige, magtatayo ng kampo."]}},
-        }
-        pkg = {
-            "schema": PACKAGE_DESCRIPTOR_SCHEMA,
-            "defaultOwner": "ProjectHoomans",
-            "defaults": {"participants": {"speaker": ["participant"], "addressee": ["participant"]}},
-            "profiles": {},
-        }
-        compact_dlg = {
-            "schema": COMPACT_PSDL_SCHEMA,
-            "id": "command.camp",
-            "textSidecars": {
-                "EN": "text/EN/command.camp.json",
-                "TL": "text/TL/command.camp.json",
-            },
-        }
-        expanded = expand_compact_psdl_document(
-            compact_dlg,
-            package=pkg,
-            text_loader=lambda p: sidecars[p],
+    def test_g8r3_profanity_beats_behaviors_fuzzy_and_camp_production(self) -> None:
+        # 1. Handwritten pnc.social.profanity* must be absent from Catalog_Register.lua
+        catalog_reg = (
+            HOOMANS_ROOT
+            / "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/ConvoEngine/Social/Catalog_Register.lua"
+        ).read_text(encoding="utf-8")
+        self.assertNotIn('"pnc.social.profanity"', catalog_reg)
+        self.assertNotIn('"pnc.social.profanity_prefixed"', catalog_reg)
+        self.assertNotIn('"pnc.social.profanity_you"', catalog_reg)
+
+        # Generated Pack lua exists and carries the compiled profanity patterns
+        pack_files = list(
+            (
+                HOOMANS_ROOT
+                / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/Packs/Dialogue"
+            ).glob("SocialReactionsHostile*.lua")
         )
-        compiled = compile_convo_engine_document(expanded)
-        self.assertEqual(compiled["records"][0]["id"], "command.camp")
+        self.assertTrue(pack_files)
+        pack_lua = pack_files[0].read_text(encoding="utf-8")
+        self.assertIn("pnc.social.profanity", pack_lua)
+        self.assertIn("pnc.social.profanity_you", pack_lua)
 
-    def test_g8b_g8c_g8d_g8e_portable_runtime_profanity_camp_abi_and_inspect(self) -> None:
-        records = []
-        # 1. Profanity recognition & projection
-        profanity_doc = compile_convo_engine_document({
-            "schema": COMPACT_PSDL_SCHEMA,
-            "id": "social.profanity",
-            "owner": "PsychopatzCore",
-            "recognition": {
-                "packID": "social.profanity",
-                "version": 1,
-                "patterns": [
+        # 2. Reference VM executes real production profanity + beat + behavior
+        vm = PortableReferenceVM(self.portable_plan)
+        trace_profanity = vm.step(
+            utterance="you are an ass",
+            context={
+                "stimulus": {"type": "HUMAN_UTTERANCE"},
+                "actor": {"disposition": {"aggression": 0.8}, "condition": {"panic": 0.0}},
+                "history": {"hostilityCount": 1},
+            },
+        )
+        self.assertEqual(trace_profanity["recognition"]["ruleID"], "pnc.social.profanity_you")
+        self.assertEqual(trace_profanity["recognition"]["semantic"]["speechAct"], "HOSTILE_REMARK")
+        self.assertEqual(trace_profanity["activeBeat"], "beat.argument_escalation")
+        self.assertEqual(trace_profanity["selectedBehavior"], "behavior.retaliate_verbally")
+
+        # 3. Real camp production record owns action contract & reply outcomes
+        camp_dlg = self.portable_plan["dialogues"]["command.camp"]
+        self.assertEqual(camp_dlg["action"]["capability"], "hoomans.camp.establish")
+        self.assertTrue(camp_dlg["action"]["mutating"])
+        self.assertIn("queued", camp_dlg["reply"])
+        self.assertIn("rejected", camp_dlg["reply"])
+        self.assertIn("failed", camp_dlg["reply"])
+
+        # 4. Fuzzy recovery safety on mutating capability
+        fuzzy_vm = PortableReferenceVM(
+            {
+                "schema": PORTABLE_PLAN_SCHEMA,
+                "runtimeVersion": "1.0.0",
+                "package": "ProjectHoomans",
+                "dialogues": {"command.camp": camp_dlg},
+                "behaviors": {},
+                "beats": {},
+                "realizations": {},
+                "recognitionRules": [
                     {
-                        "id": "pnc.social.profanity",
-                        "policy": "exact",
-                        "phrases": ["fuck", "fuck you", "asshole"],
-                        "semantic": {"intent": "INSULT", "speechAct": "INSULT"},
+                        "id": "pnc.command.camp",
+                        "dialogueID": "command.camp",
+                        "policy": "safe_recovered",
+                        "mutating": True,
+                        "patterns": ["set up camp"],
+                        "semantic": {"speechAct": "COMMAND", "intent": "CAMP"},
                     }
                 ],
-            },
-            "say": {"EN": "Watch your mouth.", "TL": "Ingat sa pananalita mo."},
-        })["records"]
-        records.extend(profanity_doc)
+            }
+        )
+        fuzzy = fuzzy_vm.recognize("set up cmp")
+        self.assertIsNotNone(fuzzy)
+        self.assertEqual(fuzzy["mode"], "fuzzy")
+        self.assertTrue(fuzzy["requiresConfirmation"])
+        exact = fuzzy_vm.recognize("set up camp")
+        self.assertEqual(exact["mode"], "exact")
+        self.assertFalse(exact["requiresConfirmation"])
 
-        # 2. Camp command with typed capability ABI & reply outcomes (no PZ geometry)
-        camp_doc = compile_convo_engine_document({
-            "schema": COMPACT_PSDL_SCHEMA,
-            "id": "command.camp",
-            "owner": "SyntheticAdopter",
-            "requiredCapabilities": ["companion.camp"],
-            "metadata": {
-                "recognitionPolicy": "safe_recovered",
-                "utterances": {"positives": ["set up camp here"]},
-                "emit": {"intent": "REQUEST", "action": "CAMP"},
-            },
-            "action": {"capability": "companion.camp", "mode": "immediate"},
-            "say": {"EN": "Setting up camp.", "TL": "Magtatayo ng kampo."},
-            "reply": {
-                "queued": {"say": {"EN": "Okay, I'll set up camp.", "TL": "Sige, magtatayo ako ng kampo."}},
-                "rejected": {"say": {"EN": "I can't camp here.", "TL": "Hindi ako makakakampo rito."}},
-            },
-        })["records"]
-        records.extend(camp_doc)
+    def test_g8r4_data_driven_synthetic_adopter_normal_build(self) -> None:
+        # Missing capability fails closed before generation
+        with self.assertRaises(CompileError):
+            validate_target_capabilities(
+                [
+                    {
+                        "id": "command.camp",
+                        "kind": "dialogue",
+                        "owner": "ProjectHoomans",
+                        "payload": {"requiredCapabilities": ["hoomans.camp.establish"]},
+                    }
+                ],
+                {
+                    "schema": TARGET_DESCRIPTOR_SCHEMA,
+                    "target": "MinimalTarget",
+                    "backend": "pz-lua",
+                    "providedCapabilities": ["speech"],
+                    "providedResolvers": [],
+                },
+            )
 
-        # G8D: Target missing companion.camp fails closed and emits stub guidance
-        incomplete_target = {
-            "schema": TARGET_DESCRIPTOR_SCHEMA,
-            "target": "minimal_target",
-            "providedCapabilities": ["speech"],
-            "providedResolvers": [],
-        }
-        with self.assertRaises(CompileError) as ctx:
-            validate_target_capabilities(records, incomplete_target)
-        self.assertIn("companion.camp", str(ctx.exception))
-        guidance = generate_adapter_stub_guidance(records, incomplete_target)
-        self.assertEqual(guidance["missingCapabilities"], ["companion.camp"])
-
-        # G8D: Complete target passes
-        full_target = {
-            "schema": TARGET_DESCRIPTOR_SCHEMA,
-            "target": "reference_target",
-            "providedCapabilities": ["companion.camp"],
-            "providedResolvers": [],
-        }
-        self.assertTrue(validate_target_capabilities(records, full_target)["ok"])
-
-        # G8B & G8E: Compile portable plan and execute in Reference VM
-        plan = compile_portable_plan(records, package="SyntheticAdopter")
-        called_caps: list[str] = []
-
-        def adapter(cap: str, _action: dict, _ctx: dict) -> dict:
-            called_caps.append(cap)
-            return {"outcome": "queued"}
-
-        vm = PortableReferenceVM(plan, capability_adapter=adapter)
-        prof_step = vm.step(utterance="fuck you")
-        self.assertEqual(prof_step["recognition"]["semantic"]["speechAct"], "INSULT")
-        self.assertEqual(prof_step["text"], "Watch your mouth.")
-
-        # Exact camp command executes capability
-        camp_exact = vm.step(utterance="set up camp here")
-        self.assertEqual(camp_exact["actionOutcome"], "queued")
-        self.assertEqual(camp_exact["text"], "Okay, I'll set up camp.")
-        self.assertEqual(called_caps, ["companion.camp"])
-
-        # Fuzzy typo on safe_recovered mutating action requires confirmation & does NOT execute
-        camp_fuzzy = vm.step(utterance="set up cmpp here")
-        self.assertEqual(camp_fuzzy["recognition"]["mode"], "fuzzy")
-        self.assertEqual(camp_fuzzy["actionOutcome"], "confirmation_required")
-        self.assertEqual(len(called_caps), 1)
-
-        # G8E: Progressive-disclosure inspection
-        summary = inspect_psdl(records, {}, record_id="command.camp", mode="summary")
-        self.assertEqual(summary["requiredCapabilities"], ["companion.camp"])
-        self.assertEqual(summary["outcomes"], ["queued", "rejected"])
-        self.assertNotIn("Okay, I'll set up camp.", json.dumps(summary))
-
-    def test_g8f_clean_rebuild_and_second_noop(self) -> None:
+        # Synthetic adopter defined purely via descriptor data runs through normal production compiler & ledger
         with tempfile.TemporaryDirectory() as tmp:
-            repos = _build_three_repo_fixture(Path(tmp))
-            build1 = reconcile_apply(
-                repos["hoomans"],
-                core_repository=repos["core"],
-                hoomans_repository=repos["hoomans"],
-                dynamic_trading_repository=repos["dt"],
+            ws = Path(tmp)
+            adopter_repo = ws / "SyntheticSurvivalMod"
+            src_root = adopter_repo / "tools/semantic_harness/codebuilder/sources/conversation"
+            (src_root / "dialogue/survival").mkdir(parents=True)
+            (adopter_repo / "Contents/mods/SyntheticSurvivalMod/common/media/lua/shared").mkdir(parents=True)
+            (adopter_repo / "Contents/mods/SyntheticSurvivalMod/common/media/translation").mkdir(parents=True)
+
+            (src_root / "package.json").write_text(
+                json.dumps(
+                    {
+                        "schema": PACKAGE_DESCRIPTOR_SCHEMA,
+                        "version": 1,
+                        "package": "SyntheticSurvivalMod",
+                        "defaultOwner": "SyntheticSurvivalMod",
+                        "registryOwner": "SyntheticSurvivalMod",
+                        "defaults": {
+                            "participants": {"speaker": ["participant"], "addressee": ["participant"]}
+                        },
+                        "profiles": {},
+                        "sourceRoots": [
+                            {
+                                "path": "dialogue",
+                                "kind": "convo_engine",
+                                "domain": "survival",
+                                "order": 100,
+                                "owner": "SyntheticSurvivalMod",
+                                "domainFromSubdir": False,
+                            }
+                        ],
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
             )
-            self.assertTrue(build1["clean"])
-            self.assertGreater(len(build1["writtenFiles"]), 0)
-
-            build2 = reconcile_apply(
-                repos["hoomans"],
-                core_repository=repos["core"],
-                hoomans_repository=repos["hoomans"],
-                dynamic_trading_repository=repos["dt"],
+            (src_root / "provenance.lock").write_text(
+                json.dumps(
+                    {
+                        "schema": PROVENANCE_LOCK_SCHEMA,
+                        "version": 1,
+                        "sourceProfiles": {"default": {"owner": "SyntheticSurvivalMod", "version": "1"}},
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
             )
-            self.assertTrue(build2["clean"])
-            self.assertEqual(build2["writtenFiles"], [])
-            self.assertEqual(build2["prunedFiles"], [])
-
-            check = reconcile_check(
-                repos["hoomans"],
-                core_repository=repos["core"],
-                hoomans_repository=repos["hoomans"],
-                dynamic_trading_repository=repos["dt"],
+            (src_root / "dialogue/survival/fire_check.json").write_text(
+                json.dumps(
+                    {
+                        "schema": COMPACT_PSDL_SCHEMA,
+                        "id": "survival.fire_check",
+                        "metadata": {"category": "synthetic:survival", "responseAct": "REPLY"},
+                        "say": {
+                            "variants": [
+                                {"id": "neutral", "text": {"EN": ["The fire is burning."], "TL": ["Nagliliyab ang apoy."]}}
+                            ]
+                        },
+                    },
+                    indent=2,
+                ),
+                encoding="utf-8",
             )
-            self.assertTrue(check["clean"])
 
+            synthetic_descriptor = {
+                "owner": "SyntheticSurvivalMod",
+                "aliases": ["synthetic", "syntheticsurvival"],
+                "backend": "pz-lua",
+                "localizationPolicy": "build42-json",
+                "sharedLuaRelative": "Contents/mods/SyntheticSurvivalMod/common/media/lua/shared",
+                "conversationPrefix": "Synthetic/ConvoEngine",
+                "translationRelative": "Contents/mods/SyntheticSurvivalMod/common/media/translation",
+                "repositoryMarkers": ["Contents/mods/SyntheticSurvivalMod"],
+                "isDefaultProject": True,
+                "capabilities": ["speech"],
+            }
+            with temporary_package_descriptors({"SyntheticSurvivalMod": synthetic_descriptor}):
+                compiled = compile_conversation_sources(
+                    adopter_repo,
+                    manifest_path=src_root / "package.json",
+                    package_repositories={"SyntheticSurvivalMod": adopter_repo},
+                )
+                self.assertEqual(compiled["portablePlan"]["package"], "SyntheticSurvivalMod")
+                self.assertIn("survival.fire_check", compiled["portablePlan"]["dialogues"])
+                raw_recipe = json.loads(RECIPE_PATH.read_text(encoding="utf-8"))
+                raw_recipe["surfaces"] = [
+                    {**s, "owners": ["SyntheticSurvivalMod"] if s.get("generator") == "conversation" else s["owners"]}
+                    for s in raw_recipe["surfaces"]
+                ]
+                raw_recipe["retired"] = []
+                syn_recipe_path = ws / "generation_recipe.json"
+                syn_recipe_path.write_text(json.dumps(raw_recipe, indent=2), encoding="utf-8")
+                syn_recipe = load_generation_recipe(syn_recipe_path)
+                ledger = build_desired_artifact_ledger(
+                    adopter_repo,
+                    recipe=syn_recipe,
+                    model=compiled,
+                )
+                paths = {row.path for row in ledger.rows}
+                self.assertTrue(
+                    any("Synthetic/ConvoEngine/" in p for p in paths),
+                    f"Expected Synthetic/ConvoEngine/ in {sorted(paths)[:10]}",
+                )
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_g8r5_cross_backend_trace_equivalence_and_inspect(self) -> None:
+        # Compare Reference VM traces against PZ backend runtime plan projections from the same Portable Plan
+        vm = PortableReferenceVM(self.portable_plan)
+        pz_by_id = {p["id"]: p for p in self.model["psdlRuntimePlans"]}
+        pz_beh_by_id = {b["id"]: b for b in self.model["behaviors"]}
+        pz_beat_by_id = {b["id"]: b for b in self.model["beats"]}
+
+        # 1. Profanity -> Hostile beat -> Retaliate behavior
+        t1 = vm.step(
+            utterance="fuck",
+            context={
+                "stimulus": {"type": "HUMAN_UTTERANCE"},
+                "actor": {"disposition": {"aggression": 0.9}, "condition": {"panic": 0.0}},
+                "history": {"hostilityCount": 1},
+            },
+        )
+        self.assertEqual(t1["recognition"]["ruleID"], "pnc.social.profanity")
+        self.assertIn(t1["activeBeat"], pz_beat_by_id)
+        self.assertIn(t1["selectedBehavior"], pz_beh_by_id)
+        self.assertEqual(
+            pz_beh_by_id[t1["selectedBehavior"]]["outputs"]["speech"]["dialogueAct"],
+            "RETALIATE_VERBALLY",
+        )
+
+        # 2. Camp command dialogue & outcomes match between Portable Plan and PZ projection
+        self.assertIn("command.camp", pz_by_id)
+        self.assertEqual(
+            pz_by_id["command.camp"]["payload"]["action"],
+            self.portable_plan["dialogues"]["command.camp"]["action"],
+        )
+
+        # 3. Progressive disclosure inspection works on compact PSDL
+        from tools.semantic_harness.codebuilder.portable_runtime import portable_plan_records
+        summary = inspect_psdl(
+            portable_plan_records(self.portable_plan),
+            self.model.get("_source_documents") or {},
+            record_id="behavior.retaliate_verbally",
+            mode="summary",
+        )
+        self.assertEqual(summary["id"], "behavior.retaliate_verbally")
+        self.assertEqual(summary["kind"], "behavior")

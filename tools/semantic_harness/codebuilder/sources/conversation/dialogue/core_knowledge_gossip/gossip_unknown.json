@@ -1,17 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "gossip",
-  "id": "unknown",
-  "owner": "PsychopatzCore",
-  "participants": {
-    "speaker": [
-      "participant"
-    ],
-    "addressee": [
-      "participant"
-    ]
-  },
+  "schema": "psychopatz.psdl.v2",
+  "id": "gossip.unknown",
   "metadata": {
     "category": "psychopatzcore:knowledge",
     "responseAct": "KNOWLEDGE_RESPONSE"
@@ -19,237 +8,33 @@
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": [
-            "I haven't heard any news lately.",
-            "Things have been fairly quiet on that front.",
-            "No recent rumors have reached me.",
-            "Haven't picked up any word from other survivors.",
-            "I don't have any updates to share right now.",
-            "Nothing new to report on that topic.",
-            "Word travels slow. Haven't heard anything.",
-            "I haven't caught any talk recently.",
-            "No gossip on my radar at the moment.",
-            "Haven't heard much of anything lately."
-          ],
-          "TL": [
-            "Wala akong narinig na balita kamakailan.",
-            "Medyo tahimik ang mga bagay sa bahaging 'yan.",
-            "Walang kamakailang tsismis ang nakarating sa akin.",
-            "Walang nasagap na balita mula sa ibang survivor.",
-            "Wala akong anumang balita na maibabahagi ngayon.",
-            "Walang bagong maiuulat sa paksang 'yan.",
-            "Mabagal kumalat ang balita. Wala akong narinig.",
-            "Wala akong nasagap na usapan kamakailan.",
-            "Walang tsismis sa akin sa ngayon.",
-            "Halos wala akong narinig na anuman kamakailan."
-          ]
-        }
+        "id": "neutral"
       },
       {
-        "id": "bond_guarded",
-        "text": {
-          "EN": [
-            "{addressee.name}, I don't have anything to share.",
-            "{addressee.name}, haven't heard any reliable rumors.",
-            "Keep your head down, {addressee.name}. No news out there.",
-            "{addressee.name}, nothing trustworthy has reached my ears.",
-            "Not much word going around, {addressee.name}.",
-            "{addressee.name}, gossip gets people killed. I have none.",
-            "Nothing to report, {addressee.name}. Stay on your guard.",
-            "{addressee.name}, nobody's talking about anything useful.",
-            "I haven't heard any safe news, {addressee.name}.",
-            "{addressee.name}, keep to our business. No rumors here."
-          ],
-          "TL": [
-            "{addressee.name}, wala akong maibabahagi sa'yo.",
-            "{addressee.name}, wala akong naririnig na maaasahang balita.",
-            "Mag-ingat ka, {addressee.name}. Walang balita sa labas.",
-            "{addressee.name}, walang mapagkakatiwalaang balitang nakarating sa akin.",
-            "{addressee.name}, walang gaanong kumakalat na balita.",
-            "{addressee.name}, ang tsismis ay nakakamatay. Wala ako no'n.",
-            "Walang maiuulat, {addressee.name}. Manatiling alerto.",
-            "{addressee.name}, walang nag-uusap ng anumang kapaki-pakinabang.",
-            "Wala akong naririnig na ligtas na balita, {addressee.name}.",
-            "{addressee.name}, magpokus tayo sa sarili natin. Walang tsismis dito."
-          ]
-        }
+        "id": "bond_guarded"
       },
       {
-        "id": "bond_neutral",
-        "text": {
-          "EN": [
-            "{addressee.name}, I haven't heard any news lately.",
-            "{addressee.name}, things have been quiet on the gossip front.",
-            "Nothing new to pass along, {addressee.name}.",
-            "{addressee.name}, haven't picked up any fresh word.",
-            "I don't have any updates right now, {addressee.name}.",
-            "{addressee.name}, no recent rumors to speak of.",
-            "Haven't caught any news from the others, {addressee.name}.",
-            "{addressee.name}, it's been quiet around here lately.",
-            "No rumors have reached me yet, {addressee.name}.",
-            "{addressee.name}, I'll let you know if I hear anything."
-          ],
-          "TL": [
-            "{addressee.name}, wala akong narinig na balita kamakailan.",
-            "{addressee.name}, tahimik ang paligid pagdating sa mga balita.",
-            "Walang bagong maipapasa sa'yo, {addressee.name}.",
-            "{addressee.name}, wala akong nasagap na bagong balita.",
-            "Wala akong anumang balita ngayon, {addressee.name}.",
-            "{addressee.name}, walang kamakailang tsismis na masasabi.",
-            "Walang nasagap na balita mula sa iba, {addressee.name}.",
-            "{addressee.name}, naging tahimik dito kamakailan.",
-            "Wala pang nakakarating na tsismis sa akin, {addressee.name}.",
-            "{addressee.name}, sasabihan kita kapag may narinig ako."
-          ]
-        }
+        "id": "bond_neutral"
       },
       {
-        "id": "bond_terse",
-        "text": {
-          "EN": [
-            "{addressee.name}, no news.",
-            "Nothing, {addressee.name}.",
-            "{addressee.name}, heard nothing.",
-            "Quiet, {addressee.name}.",
-            "{addressee.name}, no rumors.",
-            "No word, {addressee.name}.",
-            "{addressee.name}, all quiet.",
-            "Nothing to share, {addressee.name}.",
-            "{addressee.name}, zero news.",
-            "Blank slate, {addressee.name}."
-          ],
-          "TL": [
-            "{addressee.name}, walang balita.",
-            "Wala, {addressee.name}.",
-            "{addressee.name}, walang narinig.",
-            "Tahimik, {addressee.name}.",
-            "{addressee.name}, walang tsismis.",
-            "Walang balita, {addressee.name}.",
-            "{addressee.name}, tahimik lahat.",
-            "Walang maibabahagi, {addressee.name}.",
-            "{addressee.name}, walang balita.",
-            "Walang anuman, {addressee.name}."
-          ]
-        }
+        "id": "bond_terse"
       },
       {
-        "id": "bond_warm",
-        "text": {
-          "EN": [
-            "{addressee.name}, I haven't heard any news, sorry.",
-            "Wish I had something to tell you, {addressee.name}, but it's quiet.",
-            "{addressee.name}, haven't heard a peep from the other camps.",
-            "Sorry, {addressee.name}, no interesting stories today.",
-            "{addressee.name}, I'll definitely share the moment I hear anything.",
-            "Nothing new reaching my ears, {addressee.name}. Hope you're well.",
-            "{addressee.name}, all's quiet on my end, my friend.",
-            "Haven't caught any rumors, {addressee.name}, but I'll keep listening.",
-            "{addressee.name}, nothing yet, but stay safe out there.",
-            "I'd love to share news with you, {addressee.name}, but nothing yet."
-          ],
-          "TL": [
-            "{addressee.name}, wala akong narinig na balita, pasensya na.",
-            "Sana may maikwento ako sa'yo, {addressee.name}, pero tahimik ang paligid.",
-            "{addressee.name}, wala akong narinig kahit kaunti mula sa ibang kampo.",
-            "Pasensya na, {addressee.name}, walang magagandang kwento ngayon.",
-            "{addressee.name}, ibabahagi ko agad kapag may narinig ako.",
-            "Walang bagong dumarating sa akin, {addressee.name}. Sana ayos ka lang.",
-            "{addressee.name}, tahimik ang lahat sa panig ko, kaibigan.",
-            "Walang nasagap na tsismis, {addressee.name}, pero patuloy akong makikinig.",
-            "{addressee.name}, wala pa sa ngayon, pero mag-ingat ka sa labas.",
-            "Gusto ko sanang magbahagi ng balita sa'yo, {addressee.name}, pero wala pa."
-          ]
-        }
+        "id": "bond_warm"
       },
       {
-        "id": "guarded",
-        "text": {
-          "EN": [
-            "I don't have anything to share.",
-            "I don't traffic in rumors. Keep moving.",
-            "No news worth risking our necks over.",
-            "I keep my ears open for danger, not talk.",
-            "Haven't heard anything reliable. Watch yourself.",
-            "Rumors are cheap and usually wrong. Nothing to say.",
-            "I don't listen to chatter. Mind your business.",
-            "No word that concerns you.",
-            "Nothing to share. Keep your guard up.",
-            "Don't ask me for gossip."
-          ],
-          "TL": [
-            "Wala akong maibabahagi sa'yo.",
-            "Hindi ako nakikipagtsismisan. Lakad na.",
-            "Walang balitang karapat-dapat ipagsapalaran ang buhay natin.",
-            "Bukas ang tenga ko sa panganib, hindi sa kwento.",
-            "Wala akong narinig na mapagkakatiwalaan. Mag-ingat ka.",
-            "Mura ang tsismis at kadalasang mali. Walang masasabi.",
-            "Hindi ako nakikinig sa daldalan. Asikasuhin mo ang sarili mo.",
-            "Walang balitang may kinalaman sa'yo.",
-            "Walang maibabahagi. Panatilihing mataas ang depensa.",
-            "Huwag kang magtanong sa akin ng tsismis."
-          ]
-        }
+        "id": "guarded"
       },
       {
-        "id": "terse",
-        "text": {
-          "EN": [
-            "No news.",
-            "Heard nothing.",
-            "Nothing.",
-            "Quiet.",
-            "No rumors.",
-            "No word.",
-            "Nothing new.",
-            "All quiet.",
-            "Zero news.",
-            "Blank."
-          ],
-          "TL": [
-            "Walang balita.",
-            "Walang narinig.",
-            "Wala.",
-            "Tahimik.",
-            "Walang tsismis.",
-            "Walang balita.",
-            "Walang bago.",
-            "Tahimik lahat.",
-            "Walang balita.",
-            "Wala."
-          ]
-        }
+        "id": "terse"
       },
       {
-        "id": "warm",
-        "text": {
-          "EN": [
-            "I haven't heard any news, sorry.",
-            "Wish I had something interesting to tell you.",
-            "Haven't heard any rumors, but I'll let you know.",
-            "All quiet on my side, but I'll keep an ear out.",
-            "Sorry, no fresh news today, my friend.",
-            "Nothing reaching my ears lately. Hope all is well.",
-            "I'll be sure to tell you if I hear anything new.",
-            "Quiet days out there. No rumors to report.",
-            "Nothing to share right now, but stay safe.",
-            "I haven't heard any stories, but I'm glad you asked."
-          ],
-          "TL": [
-            "Wala akong narinig na balita, pasensya na.",
-            "Sana may magandang balita akong maikwento sa'yo.",
-            "Walang narinig na tsismis, pero sasabihan kita.",
-            "Tahimik sa panig ko, pero makikinig ako.",
-            "Pasensya na, walang bagong balita ngayon, kaibigan.",
-            "Walang dumarating sa akin kamakailan. Sana ayos ka lang.",
-            "Tiyak na sasabihin ko sa'yo kapag may narinig akong bago.",
-            "Tahimik ang mga araw sa labas. Walang maiuulat na tsismis.",
-            "Walang maibabahagi ngayon, pero mag-ingat ka.",
-            "Wala akong narinig na kwento, pero salamat sa pagtatanong."
-          ]
-        }
+        "id": "warm"
       }
     ]
+  },
+  "textSidecars": {
+    "EN": "translations/gossip_unknown.en.json",
+    "TL": "translations/gossip_unknown.tl.json"
   }
 }

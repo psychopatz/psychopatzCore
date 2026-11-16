@@ -37,6 +37,10 @@ from .convo_engine_exchange import (
     resolve_family_identity,
     validate_semantic_reference,
 )
+from .portable_runtime import (
+    PORTABLE_PLAN_SCHEMA,
+    portable_plan_records,
+)
 from .psdl_compact import (
     COMPACT_PSDL_SCHEMA,
     expand_compact_psdl_document,
@@ -831,16 +835,21 @@ def compile_convo_engine_document(
     allow_legacy_schema: bool = True,
     validate_cross_references: bool = True,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
+    package: Mapping[str, Any] | None = None,
+    text_loader: Any = None,
 ) -> dict[str, Any]:
     """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
     is_compact = (
         document.get("schema") == COMPACT_PSDL_SCHEMA
         or "profile" in document
         or "textSidecars" in document
+        or package is not None
     )
     raw_records, doc_owner, doc_schema = _record_values(
         document,
         allow_legacy_schema=allow_legacy_schema,
+        package=package,
+        text_loader=text_loader,
     )
     resolved_default_owner = doc_owner if doc_owner is not None else default_owner
     display_path = str(source_path) if source_path is not None else None
@@ -1471,6 +1480,128 @@ def render_psdl_semantic_pack_plan(compiled: Mapping[str, Any]) -> list[dict[str
         )
         packs.extend(validated["packs"])
     return sorted(packs, key=lambda item: str(item.get("id", "")))
+
+
+def render_pz_backend_from_portable_plan(
+    portable_plan: Mapping[str, Any],
+    *,
+    entry_by_record_id: Mapping[str, Mapping[str, Any]] | None = None,
+    default_owner: Any = None,
+) -> dict[str, Any]:
+    """G8R2: Project PZ runtime plans/registries exclusively from a Portable Dialogue Plan."""
+    if not isinstance(portable_plan, Mapping) or portable_plan.get("schema") != PORTABLE_PLAN_SCHEMA:
+        raise CompileError(
+            f"PZ backend requires a validated Portable Dialogue Plan ({PORTABLE_PLAN_SCHEMA})"
+        )
+    records = portable_plan_records(portable_plan)
+    compiled_envelope = {
+        "schema": PSDL_COMPILED_SCHEMA,
+        "version": 1,
+        "records": records,
+    }
+    entry_map = entry_by_record_id or {}
+
+    runtime_plans: list[dict[str, Any]] = []
+    for plan in render_psdl_runtime_plan(compiled_envelope):
+        row = _copy(plan)
+        entry = entry_map.get(str(row.get("id") or "")) or {}
+        row["owner"] = normalize_owner(entry.get("owner") or row.get("owner"), default=default_owner)
+        if "domain" in entry:
+            row["domain"] = entry["domain"]
+        if "path" in entry:
+            row["sourceShard"] = entry["path"]
+        runtime_plans.append(row)
+
+    director_plan = render_psdl_director_plan(compiled_envelope)
+    behaviors: list[dict[str, Any]] = []
+    for record in director_plan["behaviors"]:
+        entry = entry_map.get(str(record.get("id") or "")) or {}
+        if "path" in entry:
+            record["sourceShard"] = entry["path"]
+        if "domain" in entry:
+            record["domain"] = entry["domain"]
+        behaviors.append(record)
+    beats: list[dict[str, Any]] = []
+    for record in director_plan["beats"]:
+        entry = entry_map.get(str(record.get("id") or "")) or {}
+        if "path" in entry:
+            record["sourceShard"] = entry["path"]
+        if "domain" in entry:
+            record["domain"] = entry["domain"]
+        beats.append(record)
+
+    ui_rows: list[dict[str, Any]] = []
+    for row in render_psdl_ui_plan(compiled_envelope):
+        row.pop("sourceRecordID", None)
+        row.pop("owner", None)
+        ui_rows.append(row)
+
+    semantic_packs: list[dict[str, Any]] = []
+    for record in records:
+        entry = entry_map.get(str(record.get("id") or "")) or {}
+        for pack in render_psdl_semantic_pack_plan({
+            "schema": PSDL_COMPILED_SCHEMA,
+            "version": 1,
+            "records": [record],
+        }):
+            pack_row = _copy(pack)
+            pack_row["owner"] = normalize_owner(
+                entry.get("owner") or pack_row.get("owner"),
+                default=default_owner,
+            )
+            if "domain" in entry:
+                pack_row["domain"] = entry["domain"]
+            if "path" in entry:
+                pack_row["sourceShard"] = entry["path"]
+            semantic_packs.append(pack_row)
+
+    response_pools: list[dict[str, Any]] = []
+    response_pool_owners: dict[str, str] = {}
+    for record in records:
+        entry = entry_map.get(str(record.get("id") or "")) or {}
+        rec_owner = normalize_owner(
+            entry.get("owner") or record.get("owner"),
+            default=default_owner,
+        )
+        for pool in render_psdl_response_pool_plan({
+            "schema": PSDL_COMPILED_SCHEMA,
+            "version": 1,
+            "records": [record],
+        }):
+            response_pools.append(pool)
+            pool_id = str(pool.get("id") or "")
+            if pool_id:
+                response_pool_owners[pool_id] = rec_owner
+
+    flows = render_psdl_flow_plan(compiled_envelope)
+    realizations: list[dict[str, Any]] = []
+    for record in records:
+        if record.get("kind") != "realization":
+            continue
+        entry = entry_map.get(str(record.get("id") or "")) or {}
+        realizations.extend(
+            render_psdl_realization_plan(
+                {
+                    "schema": PSDL_COMPILED_SCHEMA,
+                    "version": 1,
+                    "records": [record],
+                },
+                source_path=entry.get("path"),
+            )
+        )
+
+    return {
+        "portablePlanSchema": portable_plan["schema"],
+        "runtimePlans": runtime_plans,
+        "behaviors": behaviors,
+        "beats": beats,
+        "ui": ui_rows,
+        "semanticPacks": semantic_packs,
+        "responsePools": response_pools,
+        "responsePoolOwners": response_pool_owners,
+        "flows": flows,
+        "realizations": realizations,
+    }
 
 
 __all__ = [

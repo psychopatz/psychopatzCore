@@ -1,9 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "response.ambient_visit",
-  "id": "accepted",
-  "owner": "PsychopatzCore",
+  "schema": "psychopatz.psdl.v2",
+  "id": "response.ambient_visit.accepted",
   "metadata": {
     "textKey": "response.ambient_visit.accepted.1",
     "textTarget": "social/greetings/ambient_visit/arrival",

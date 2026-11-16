@@ -1,17 +1,6 @@
 {
-  "schema": "psychopatz.convo-engine.v1",
-  "kind": "dialogue",
-  "namespace": "question.activity.dataset",
-  "id": "keep_moving",
-  "owner": "PsychopatzCore",
-  "participants": {
-    "speaker": [
-      "participant"
-    ],
-    "addressee": [
-      "participant"
-    ]
-  },
+  "schema": "psychopatz.psdl.v2",
+  "id": "question.activity.dataset.keep_moving",
   "metadata": {
     "category": "psychopatzcore:knowledge",
     "responseAct": "KNOWLEDGE_RESPONSE"
@@ -19,121 +8,21 @@
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": [
-            "We should keep moving. It's not safe to linger.",
-            "Staying mobile is our best option right now.",
-            "We need to continue forward and find shelter.",
-            "It's best if we keep moving down this route.",
-            "Let's keep the pace. We have ground to cover.",
-            "We shouldn't remain stationary for too long.",
-            "Keep walking. We need to reach our objective.",
-            "Moving along is the safest strategy right now.",
-            "Let's continue on our way.",
-            "We should maintain our momentum and keep moving."
-          ],
-          "TL": [
-            "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
-            "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
-            "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
-            "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
-            "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
-            "Hindi tayo dapat manatiling nakatigil nang matagal.",
-            "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
-            "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
-            "Magpatuloy tayo sa ating daan.",
-            "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad."
-          ]
-        }
+        "id": "neutral"
       },
       {
-        "id": "guarded",
-        "text": {
-          "EN": [
-            "We need to keep moving. Sitting still will get us killed.",
-            "Don't loiter. The dead migrate toward stillness.",
-            "Keep your boots moving. Danger is everywhere.",
-            "We stay on the road. Tarrying is suicide.",
-            "Keep moving. Eyes on the woodline.",
-            "No resting in the open. Walk.",
-            "Movement keeps us alive. Don't freeze up.",
-            "Keep marching. We're too exposed right here.",
-            "Keep going. Resting here is asking for trouble.",
-            "Step lively. A static survivor is a dead survivor."
-          ],
-          "TL": [
-            "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
-            "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
-            "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
-            "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
-            "Tuloy ang lakad. Tumingin sa kakahuyan.",
-            "Walang pahinga sa lantad na lugar. Lakad.",
-            "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
-            "Magmartsa pa. Masyado tayong lantad dito.",
-            "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
-            "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor."
-          ]
-        }
+        "id": "guarded"
       },
       {
-        "id": "terse",
-        "text": {
-          "EN": [
-            "Keep moving.",
-            "Move.",
-            "Don't stop.",
-            "Walk.",
-            "Keep pace.",
-            "Forward.",
-            "Keep going.",
-            "Step up.",
-            "Don't linger.",
-            "On the move."
-          ],
-          "TL": [
-            "Tuloy sa paglakad.",
-            "Galaw.",
-            "Huwag hihinto.",
-            "Lakad.",
-            "Sumabay.",
-            "Sulong.",
-            "Tuloy lang.",
-            "Hakbang.",
-            "Huwag magtagal.",
-            "Kilos."
-          ]
-        }
+        "id": "terse"
       },
       {
-        "id": "warm",
-        "text": {
-          "EN": [
-            "Let's keep moving together, friend. We'll find safety.",
-            "We should keep going. I'll stay right by your side.",
-            "Let's keep our feet moving. A warm fire awaits us eventually.",
-            "Keep up the good pace. We're doing fine.",
-            "Let's keep walking together. We're safer on the move.",
-            "We'll get through this path. Just keep moving with me.",
-            "Let's keep going, one step at a time.",
-            "I'm with you. Let's keep walking until we find shelter.",
-            "Keep moving forward. We've got this.",
-            "Let's keep our spirits up and keep walking."
-          ],
-          "TL": [
-            "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
-            "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
-            "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
-            "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
-            "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
-            "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
-            "Magpatuloy tayo, bawat hakbang.",
-            "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
-            "Tuloy sa pagsulong. Kaya natin 'to.",
-            "Panatilihing mataas ang loob natin at magpatuloy sa paglakad."
-          ]
-        }
+        "id": "warm"
       }
     ]
+  },
+  "textSidecars": {
+    "EN": "translations/question_activity_dataset_keep_moving.en.json",
+    "TL": "translations/question_activity_dataset_keep_moving.tl.json"
   }
 }

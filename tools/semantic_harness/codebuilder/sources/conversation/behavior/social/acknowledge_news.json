@@ -1,7 +1,8 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.acknowledge_news",
   "act": "ACKNOWLEDGE_NEWS",
   "baseRelevance": 0.55,
-  "id": "acknowledge_news",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -13,18 +14,9 @@
       "dialogueAct": "ACKNOWLEDGE"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [],
   "stimuli": [
     "NPC_SEMANTIC_ACT"
   ],
-  "version": 1,
-  "when": {
-    "op": "eq",
-    "path": "stimulus.semantic.intent",
-    "value": "SHARE_NEWS"
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"SHARE_NEWS\""
 }

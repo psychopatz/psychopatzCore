@@ -58,7 +58,7 @@ _TEXT_EXTENSIONS = frozenset({
 _PSDL_RE = re.compile(r"psdl", re.IGNORECASE)
 _ACTIVE_CODE_TOKEN_RE = re.compile(
     r"""(?x)
-    psdl\.[a-z0-9_.:-]+
+    (?<!psychopatz\.)psdl\.[a-z0-9_.:-]+
     | pnc\.psdl\.[a-z0-9_.:-]+
     | Conversation/Text/psdl/
     | "psdl/[^"]*"
@@ -122,6 +122,7 @@ _BOUNDED_CODEBUILDER_MODULES = frozenset({
     "tools/semantic_harness/codebuilder/reconcile.py",
     "tools/semantic_harness/codebuilder/semantic_dialogue_ir.py",
     "tools/semantic_harness/codebuilder/service.py",
+    "tools/semantic_harness/codebuilder/targets/pz_packages.json",
     "tools/semantic_harness/ui/studio_surface_builder.py",
 })
 

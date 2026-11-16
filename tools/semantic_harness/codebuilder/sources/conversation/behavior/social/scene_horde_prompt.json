@@ -1,4 +1,6 @@
 {
+  "schema": "psychopatz.psdl.v2",
+  "id": "behavior.scene_horde_prompt",
   "act": "COMBAT_HORDE_PROMPT",
   "baseRelevance": 1.0,
   "continuation": {
@@ -7,7 +9,6 @@
     "speechAct": "REPLY",
     "target": "other"
   },
-  "id": "scene_horde_prompt",
   "mode": "one_shot",
   "modifiers": [],
   "outputs": {
@@ -19,20 +20,11 @@
       "dialogueAct": "WARN"
     }
   },
-  "owner": "PsychopatzCore",
   "requiredCapabilities": [
     "speech"
   ],
   "stimuli": [
     "DANGER_CHANGED"
   ],
-  "version": 1,
-  "when": {
-    "op": "eq",
-    "path": "stimulus.semantic.intent",
-    "value": "COMBAT_HORDE_ALERT"
-  },
-  "kind": "behavior",
-  "namespace": "behavior",
-  "schema": "psychopatz.convo-engine.v1"
+  "when": "stimulus.semantic.intent == \"COMBAT_HORDE_ALERT\""
 }

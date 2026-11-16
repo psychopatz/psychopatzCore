@@ -16,6 +16,11 @@ from .generation_ownership import (
     resolve_core_repository,
     resolve_hoomans_repository,
 )
+from .psdl_compact import (
+    PACKAGE_DESCRIPTOR_SCHEMA,
+    PROVENANCE_LOCK_SCHEMA,
+    validate_package_descriptor,
+)
 from .source_manifest import (
     SourceManifestError,
     derive_subdir_domain,
@@ -201,11 +206,51 @@ def load_manifest(
     resolved_package_repositories.setdefault(
         "PsychopatzCore", resolve_core_repository(repository)
     )
-    manifest = read_json(manifest_path, "Conversation manifest")
-    if manifest.get("schema") != CONVERSATION_MANIFEST_SCHEMA:
-        raise CompileError(
-            f"Conversation manifest requires schema {CONVERSATION_MANIFEST_SCHEMA}"
+    root = manifest_path.parent
+    package_path = manifest_path if manifest_path.name == "package.json" else (root / "package.json")
+    provenance_path = root / "provenance.lock"
+    package_doc: dict[str, Any] | None = None
+    if package_path.is_file():
+        package_doc = validate_package_descriptor(
+            read_json(package_path, "PSDL package descriptor")
         )
+    if manifest_path.name == "package.json":
+        manifest = dict(package_doc or {})
+        manifest.setdefault("shards", [])
+    else:
+        manifest = read_json(manifest_path, "Conversation manifest")
+        if manifest.get("schema") not in {CONVERSATION_MANIFEST_SCHEMA, PACKAGE_DESCRIPTOR_SCHEMA}:
+            raise CompileError(
+                f"Conversation manifest requires schema {CONVERSATION_MANIFEST_SCHEMA}"
+            )
+    if package_doc is not None:
+        manifest["_packageDescriptor"] = package_doc
+        for key in (
+            "defaultOwner",
+            "registryOwner",
+            "sourceRoots",
+            "externalSourceRoots",
+            "auxiliaryRoots",
+            "externalReferences",
+            "shards",
+            "externalShards",
+            "requiredCapabilities",
+            "imports",
+            "defaults",
+            "profiles",
+        ):
+            if key in package_doc and key not in manifest:
+                manifest[key] = deepcopy(package_doc[key])
+    if provenance_path.is_file():
+        prov_doc = read_json(provenance_path, "PSDL provenance lock")
+        if prov_doc.get("schema") != PROVENANCE_LOCK_SCHEMA:
+            raise CompileError(
+                f"PSDL provenance lock requires schema {PROVENANCE_LOCK_SCHEMA}"
+            )
+        if isinstance(prov_doc.get("sourceProfiles"), dict):
+            manifest.setdefault("sourceProfiles", {}).update(
+                deepcopy(prov_doc["sourceProfiles"])
+            )
     try:
         default_owner = normalize_owner(manifest.get("defaultOwner"))
         registry_owner = normalize_owner(
@@ -275,7 +320,7 @@ def load_manifest(
         for path in root.rglob("*.json")
         if (
             path.is_file()
-            and path.name != "manifest.json"
+            and path.name not in {"manifest.json", "package.json"}
             and "translations" not in path.relative_to(root).parts
         )
     }
