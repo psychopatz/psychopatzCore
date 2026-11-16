@@ -23,6 +23,7 @@ from tools.semantic_harness.testing.resolver import (
 from tools.semantic_harness.ui.regression_controller import (
     cancel_semantic_fixtures,
     discover_semantic_fixture_domains,
+    run_regression,
     run_regression_command_rejections,
     run_regression_lifecycle,
     run_regression_selection,
@@ -196,10 +197,21 @@ class FixtureAuthorityTests(unittest.TestCase):
             _start_operation=lambda op, finish: captured.append(("op", op)),
         )
 
+        run_regression(app)
         run_regression_lifecycle(app)
         run_regression_command_rejections(app)
         run_regression_selection(app)
-        self.assertEqual(len(captured), 3, app.regression_status_var.value)
+        self.assertEqual(len(captured), 4, app.regression_status_var.value)
+        controller_src = (
+            CORE_ROOT / "tools/semantic_harness/ui/regression_controller.py"
+        ).read_text(encoding="utf-8")
+        for forbidden in (
+            'kind="regression"',
+            "def _resolve_regression_fixture",
+            "def _fixture_cases",
+            "run_quality_matrix",
+        ):
+            self.assertNotIn(forbidden, controller_src)
         roots = resolve_fixture_roots(
             kind="semantic",
             core_repository=CORE_ROOT,
