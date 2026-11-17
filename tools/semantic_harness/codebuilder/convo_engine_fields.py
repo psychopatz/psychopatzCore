@@ -93,6 +93,20 @@ CONVO_ENGINE_FIELD_DESCRIPTORS: tuple[FieldDescriptor, ...] = (
     FieldDescriptor("forms", "Linguistic forms", "realization", "json", ("realization",), "Inflected or register-specific realization forms."),
     FieldDescriptor("translations", "Inline translations", "realization", "json", ("realization",), "Explicit inline locale overrides."),
     FieldDescriptor("aliases", "Aliases", "realization", "json", ("realization",), "Alternative lexical surface forms."),
+    FieldDescriptor("roles", "Role specifications", "participants", "json", ("dialogue", "beat"), "Participant-agnostic semantic role cardinality specs."),
+    FieldDescriptor("participantSet", "Participant set", "participants", "json", ("dialogue", "beat"), "Bounded participant set constraints."),
+    FieldDescriptor("statePolicy", "State policy", "dialogue", "json", ("dialogue",), "Pre-admission state policy rules and outcomes."),
+    FieldDescriptor("inputPolicy", "Input policy", "dialogue", "scalar", ("dialogue",), "Typed vs click parity input policy."),
+    FieldDescriptor("repeatPolicy", "Repeat policy", "dialogue", "scalar", ("dialogue",), "Idempotence, cooldown, and repeat retirement policy."),
+    FieldDescriptor("postconditions", "Postconditions", "dialogue", "json", ("dialogue",), "Expected post-state assertions."),
+    FieldDescriptor("closure", "Closure residue", "dialogue", "json", ("dialogue",), "Semantic episode closure and memory residue contract."),
+    FieldDescriptor("archetype", "Conversation archetype", "dialogue", "scalar", ("dialogue", "beat"), "Archetype classification for discovery and analysis."),
+    FieldDescriptor("topics", "Topics", "dialogue", "json", ("dialogue", "beat"), "Structured TopicRef discovery metadata."),
+    FieldDescriptor("events", "Events", "dialogue", "json", ("dialogue", "beat"), "Structured EventRef discovery metadata."),
+    FieldDescriptor("activities", "Activities", "dialogue", "json", ("dialogue", "beat"), "Structured ActivityRef discovery metadata."),
+    FieldDescriptor("memories", "Memories", "dialogue", "json", ("dialogue", "beat"), "Structured MemoryRef discovery metadata."),
+    FieldDescriptor("domains", "Domains", "dialogue", "json", ("dialogue", "beat"), "Structured DomainRef ownership metadata."),
+    FieldDescriptor("queries", "Portable queries", "dialogue", "json", ("dialogue",), "Read-only portable domain fact queries."),
 )
 
 _KNOWN_FIELDS = frozenset(item.name for item in CONVO_ENGINE_FIELD_DESCRIPTORS)

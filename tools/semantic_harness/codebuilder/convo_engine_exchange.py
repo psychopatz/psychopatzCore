@@ -21,6 +21,12 @@ from typing import Any
 
 from .conversation_model import copy_json
 from .errors import CompileError
+from .s11_normalizer import (
+    normalize_closure,
+    normalize_domain_modifiers,
+    normalize_effects,
+    normalize_postconditions,
+)
 from .translation_support import DEFAULT_LANGUAGE
 
 
@@ -718,7 +724,10 @@ def normalize_reply_outcomes(
         branch = value[raw_name]
         if not isinstance(branch, Mapping):
             raise CompileError(f"{label}.{raw_name} must be an object")
-        allowed = {"when", "say", "turns", "variants", "act", "after", "metadata"}
+        allowed = {
+            "when", "say", "turns", "variants", "act", "after", "metadata",
+            "effects", "modifiers", "postconditions", "closure",
+        }
         unsupported = set(branch) - allowed
         if unsupported:
             raise CompileError(
@@ -784,6 +793,18 @@ def normalize_reply_outcomes(
             if not isinstance(branch["metadata"], Mapping):
                 raise CompileError(f"{label}.{raw_name}.metadata must be an object")
             normalized["metadata"] = _copy(branch["metadata"])
+        if "effects" in branch:
+            normalized["effects"] = normalize_effects(branch["effects"], f"{label}.{raw_name}.effects")
+        if "modifiers" in branch:
+            normalized["modifiers"] = normalize_domain_modifiers(
+                branch["modifiers"], f"{label}.{raw_name}.modifiers"
+            )
+        if "postconditions" in branch:
+            normalized["postconditions"] = normalize_postconditions(
+                branch["postconditions"], f"{label}.{raw_name}.postconditions"
+            )
+        if "closure" in branch:
+            normalized["closure"] = normalize_closure(branch["closure"], f"{label}.{raw_name}.closure")
         outcomes[raw_name] = normalized
     return outcomes
 

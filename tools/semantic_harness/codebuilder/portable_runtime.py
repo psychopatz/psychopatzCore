@@ -23,6 +23,22 @@ PORTABLE_PLAN_SCHEMA = "psychopatz.psdl.portable-plan.v1"
 STANDARD_RUNTIME_VERSION = "1.0.0"
 
 _RECOGNITION_POLICIES = frozenset({"exact", "tolerant", "safe_recovered"})
+_IR_TOP_KEYS = (
+    "schema",
+    "canonicalIRVersion",
+    "participants",
+    "roles",
+    "participantSet",
+    "namespace",
+    "localID",
+    "target",
+    "slots",
+    "references",
+    "lineage",
+    "sourcePath",
+    "sourceSchema",
+    "source",
+)
 _TOKEN_RE = re.compile(r"[a-z0-9']+")
 
 
@@ -158,20 +174,7 @@ def compile_portable_plan(
             "when": copy.deepcopy(rec.get("when")),
             **payload,
         }
-        for top_key in (
-            "schema",
-            "canonicalIRVersion",
-            "participants",
-            "namespace",
-            "localID",
-            "target",
-            "slots",
-            "references",
-            "lineage",
-            "sourcePath",
-            "sourceSchema",
-            "source",
-        ):
+        for top_key in _IR_TOP_KEYS:
             if top_key in rec and rec[top_key] is not None:
                 entry[top_key] = copy.deepcopy(rec[top_key])
         if kind == "dialogue":
@@ -254,20 +257,7 @@ def portable_plan_records(plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                 "owner": owner,
                 "when": when,
             }
-            for top_key in (
-                "schema",
-                "canonicalIRVersion",
-                "participants",
-                "namespace",
-                "localID",
-                "target",
-                "slots",
-                "references",
-                "lineage",
-                "sourcePath",
-                "sourceSchema",
-                "source",
-            ):
+            for top_key in _IR_TOP_KEYS:
                 if top_key in entry:
                     rec[top_key] = entry.pop(top_key)
             rec["payload"] = entry

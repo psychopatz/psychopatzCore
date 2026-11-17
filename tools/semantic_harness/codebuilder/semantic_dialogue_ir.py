@@ -15,6 +15,13 @@ from .convo_engine_exchange import resolve_family_identity
 from .conversation_model import canonical_json, copy_json, fingerprint
 from .errors import CompileError
 from .rule_contract import normalize_predicate
+from .semantic_contract import (
+    FORBIDDEN_POSITIONAL_ROLES,
+    ParticipantSet,
+    RoleSpec,
+    SEMANTIC_ROLES,
+    validate_semantic_role,
+)
 
 
 CANONICAL_IR_SCHEMA = "psychopatz.semantic.dialogue-ir.v1"
@@ -31,7 +38,7 @@ MAX_SLOT_SUGGEST_LIMIT = 8
 MAX_CONTEXT_PATH_LENGTH = 128
 MAX_CONTEXT_SEGMENTS = 8
 
-PARTICIPANT_ROLES = frozenset({"speaker", "addressee", "initiator", "observer"})
+PARTICIPANT_ROLES = SEMANTIC_ROLES
 PARTICIPANT_KINDS = frozenset({"participant", "actor", "player", "npc"})
 SLOT_TYPES = frozenset({
     "entity.any", "entity.person", "entity.item", "entity.location",
@@ -42,10 +49,12 @@ REFERENCE_TYPES = SLOT_TYPES | frozenset({"entity.event", "entity.fact"})
 TARGET_TYPES = REFERENCE_TYPES
 CONTEXT_ROOTS = frozenset({
     "speaker", "addressee", "initiator", "observer", "participants", "target",
-    "actor", "beat",
+    "actor", "subject", "beneficiary", "mediator", "supporter", "witness",
+    "audience", "source", "beat",
     "relationship", "scene", "world", "slot", "reference", "conversation",
     "pragmatic", "stimulus", "history", "capability", "knowledge", "interaction",
     "flow", "social", "task", "action", "decision", "result",
+    "inventory", "mood", "memory", "modifier", "event", "activity", "topic", "domain",
 })
 PRIVATE_SEGMENTS = frozenset({"private", "secret", "undiscovered", "java", "lua", "callback"})
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")
@@ -89,15 +98,44 @@ def normalize_participants(value: Any, label: str = "participants") -> dict[str,
         return {"speaker": ["participant"], "addressee": ["participant"]}
     if not isinstance(value, Mapping):
         raise CompileError(f"{label} must be an object keyed by participant role")
-    unsupported = set(value) - PARTICIPANT_ROLES
-    if unsupported:
-        raise CompileError(f"{label} contains unsupported roles: {', '.join(sorted(unsupported))}")
+    for role in value:
+        validate_semantic_role(role, label)
     output: dict[str, list[str]] = {}
     for role in sorted(value):
         output[role] = _normalize_participant_kinds(value[role], f"{label}.{role}")
     if "speaker" not in output or "addressee" not in output:
         raise CompileError(f"{label} requires speaker and addressee roles")
     return output
+
+
+def normalize_roles(value: Any, label: str = "roles") -> dict[str, dict[str, Any]] | None:
+    if value is None:
+        return None
+    if not isinstance(value, Mapping) or not value:
+        raise CompileError(f"{label} must be a non-empty object keyed by semantic role")
+    output: dict[str, dict[str, Any]] = {}
+    for role_name in sorted(value, key=lambda item: str(item)):
+        spec = RoleSpec.from_mapping(str(role_name), value[role_name], f"{label}.{role_name}")
+        output[spec.role] = spec.to_dict()
+    return output
+
+
+def normalize_participant_set(value: Any, label: str = "participantSet") -> dict[str, Any] | None:
+    if value is None:
+        return None
+    if isinstance(value, list):
+        return ParticipantSet.from_iterable(value, max_size=MAX_PARTICIPANTS, label=label).to_dict()
+    if isinstance(value, Mapping):
+        max_size = value.get("maxSize")
+        if max_size is not None and (isinstance(max_size, bool) or not isinstance(max_size, int) or max_size < 1 or max_size > MAX_PARTICIPANTS):
+            raise CompileError(f"{label}.maxSize must be an integer 1..{MAX_PARTICIPANTS}")
+        raw_parts = value.get("participants", [])
+        return ParticipantSet.from_iterable(
+            raw_parts,
+            max_size=max_size if max_size is not None else MAX_PARTICIPANTS,
+            label=f"{label}.participants",
+        ).to_dict()
+    raise CompileError(f"{label} must be a list of EntityRef or an object with participants/maxSize")
 
 
 def _normalize_typed_map(
@@ -227,9 +265,14 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
         for key in sorted(source)
         if key not in {
             "schema", "_authoringSchema", "kind", "namespace", "id", "owner",
-            "participants", "target", "slots", "references", "when", "constraints",
+            "participants", "roles", "participantSet", "target", "slots",
+            "references", "when", "constraints",
         }
     }
+    normalized_roles = normalize_roles(source.get("roles"), f"{record_id}.roles")
+    normalized_participant_set = normalize_participant_set(
+        source.get("participantSet"), f"{record_id}.participantSet"
+    )
     authoring_schema = str(source.get("_authoringSchema") or source_schema)
     lineage: dict[str, Any] = {
         "sourceId": record_id,
@@ -259,6 +302,10 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
     }
     if namespace is not None:
         ir["namespace"] = namespace
+    if normalized_roles is not None:
+        ir["roles"] = normalized_roles
+    if normalized_participant_set is not None:
+        ir["participantSet"] = normalized_participant_set
     return ir
 
 
@@ -279,6 +326,10 @@ def validate_canonical_ir(ir: Any) -> bool:
         return False
     try:
         normalize_participants(ir.get("participants"))
+        if ir.get("roles") is not None:
+            normalize_roles(ir.get("roles"))
+        if ir.get("participantSet") is not None:
+            normalize_participant_set(ir.get("participantSet"))
         normalize_target(ir.get("target"))
         normalize_slots(ir.get("slots"))
         normalize_references(ir.get("references"))

@@ -53,9 +53,11 @@ from .semantic_dialogue_ir import (
     REFERENCE_TYPES,
     SLOT_TYPES,
     SUPPORTED_SOURCE_SCHEMAS,
+    _validate_predicate_paths,
     canonicalize_dialogue,
     validate_context_path,
 )
+from .s11_normalizer import normalize_s11_dialogue_fields
 from .translation_support import DEFAULT_LANGUAGE, normalize_language
 
 
@@ -73,6 +75,9 @@ PSDL_RECORD_FIELDS = frozenset({
     "maxTurns", "effects", "policy", "metadata", "style", "resolver",
     "recognition",
     "type", "strategy", "dialogueAct", "concept", "forms", "translations", "aliases",
+    "roles", "participantSet", "statePolicy", "inputPolicy", "repeatPolicy",
+    "postconditions", "closure", "archetype", "topics", "events", "activities",
+    "memories", "domains", "queries",
 }) | (EXCHANGE_FAMILY_FIELDS - {"namespace"})
 TRANSITION_KINDS = frozenset({
     "continue", "await_participant", "terminate", "resume_previous",
@@ -556,6 +561,13 @@ def _normalize_module_payload(
                 consumers=CONSUMERS,
                 action_contracts=action_contracts,
             )
+        normalize_s11_dialogue_fields(
+            payload,
+            label=label,
+            normalize_predicate=_normalize_predicate,
+            validate_paths=_validate_predicate_paths,
+            validate_path=validate_context_path,
+        )
     if kind == "dialogue" and not any(
         field in payload for field in ("respond", "response", "variants", "turns", "text", "offers", "say", "reply", "recognition")
     ):

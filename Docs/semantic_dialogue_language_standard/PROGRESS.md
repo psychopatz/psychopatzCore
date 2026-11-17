@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11A1 accepted (canonical S11 v1 data model & domain-schema contracts frozen); advancing to S11A2 source → IR → Portable Plan.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A1 accepted; S11A2-S11A8 foundation build active before any production dialogue migration.
+**Status:** IN_PROGRESS — S11A2 accepted (canonical source -> IR -> Portable Dialogue Plan carries all S11A1 structures); advancing to S11A3 Reference VM <-> PZ/Lua structural parity.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A2 accepted; S11A3-S11A8 foundation build active before any production dialogue migration.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
-**Immediate Next Chunk:** S11A2 — canonical compact source → Canonical Semantic Dialogue IR → Portable Dialogue Plan carrying all S11A1 structures (proven with synthetic/minimal fixtures). Do not migrate production dialogue.
+**Immediate Next Chunk:** S11A3 — Reference VM <-> PZ/Lua structural parity for the frozen S11A1/S11A2 structures (synthetic fixtures only; no production dialogue migration).
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
