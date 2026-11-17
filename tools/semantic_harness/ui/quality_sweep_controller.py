@@ -43,6 +43,8 @@ def init_quality_sweep_state(app: Any) -> None:
 
     app.quality_sweep_is_running = False
     app.quality_sweep_cancel_requested = False
+    app._quality_sweep_thread = None
+    app._qs_reachability_thread = None
     app.quality_sweep_plan: CoveragePlan | None = None
     app.quality_sweep_manifest: Any | None = None
     app.quality_sweep_cluster_report: Any | None = None
@@ -215,7 +217,9 @@ def on_qs_run(app: Any) -> None:
         except Exception as exc:
             event_queue.put(("error", str(exc)))
 
-    threading.Thread(target=worker_thread_fn, daemon=True).start()
+    thread = threading.Thread(target=worker_thread_fn, daemon=True)
+    app._quality_sweep_thread = thread
+    thread.start()
 
     def poll() -> None:
         handled = False
@@ -338,7 +342,9 @@ def on_qs_reachability_scan(app: Any) -> None:
         except Exception as exc:
             q.put(("error", str(exc)))
 
-    threading.Thread(target=worker, daemon=True).start()
+    thread = threading.Thread(target=worker, daemon=True)
+    app._qs_reachability_thread = thread
+    thread.start()
 
     def poll() -> None:
         try:

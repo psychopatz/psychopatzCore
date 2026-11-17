@@ -14,12 +14,12 @@ authoring contract:
 
 from __future__ import annotations
 
-import copy
 import math
 import re
 from collections.abc import Callable, Mapping
 from typing import Any
 
+from .conversation_model import copy_json
 from .errors import CompileError
 from .translation_support import DEFAULT_LANGUAGE
 
@@ -86,7 +86,7 @@ _FORBIDDEN_ID_PARTS = frozenset({
 
 
 def _copy(value: Any) -> Any:
-    return copy.deepcopy(value)
+    return copy_json(value)
 
 
 def _check_no_forbidden_parts(value: str, label: str) -> None:

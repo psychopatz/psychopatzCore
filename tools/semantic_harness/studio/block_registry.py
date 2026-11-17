@@ -19,6 +19,8 @@ class SemanticBlockRegistryPane:
         scrolled_text: Any,
         service: SemanticLabAuthoringService,
         on_refresh: Callable[[], Any] | None = None,
+        *,
+        auto_load: bool = True,
     ) -> None:
         self._tk = tk
         self._ttk = ttk
@@ -29,7 +31,11 @@ class SemanticBlockRegistryPane:
         self.frame.rowconfigure(1, weight=1)
         self.frame.columnconfigure(0, weight=1)
         self.frame.columnconfigure(1, weight=3)
-        self._catalog: dict[str, Any] = service.list_semantic_blocks()
+        self._catalog: dict[str, Any] = (
+            service.list_semantic_blocks()
+            if auto_load
+            else {"categories": [], "blocks": []}
+        )
         self._blocks: list[dict[str, Any]] = []
         self._production_catalog: dict[str, Any] | None = None
         self._query = tk.StringVar()
@@ -41,13 +47,14 @@ class SemanticBlockRegistryPane:
         toolbar.columnconfigure(0, weight=1)
         ttk.Entry(toolbar, textvariable=self._query).grid(row=0, column=0, sticky="ew")
         categories = ["all"] + [item["id"] for item in self._catalog.get("categories", [])]
-        ttk.Combobox(
+        self._category_box = ttk.Combobox(
             toolbar,
             textvariable=self._category,
             values=categories,
             state="readonly",
             width=22,
-        ).grid(row=0, column=1, padx=(6, 0))
+        )
+        self._category_box.grid(row=0, column=1, padx=(6, 0))
         ttk.Button(toolbar, text="Search", command=self.search).grid(row=0, column=2, padx=(6, 0))
         ttk.Button(toolbar, text="Refresh live", command=self.request_refresh).grid(row=0, column=3, padx=(6, 0))
         ttk.Label(toolbar, textvariable=self._status).grid(row=0, column=4, padx=(12, 0), sticky="e")
@@ -69,14 +76,25 @@ class SemanticBlockRegistryPane:
         right.columnconfigure(0, weight=1)
         self._detail = scrolled_text(right, wrap="none", state="disabled")
         self._detail.grid(row=0, column=0, sticky="nsew")
-        self._render()
+        self._defer_catalog = not auto_load
+        if auto_load:
+            self._render()
+
+    def ensure_loaded(self) -> None:
+        if self._defer_catalog:
+            self._defer_catalog = False
+            self._catalog = self.service.list_semantic_blocks(self._production_catalog)
+            self._render()
 
     def set_catalog(self, production_catalog: dict[str, Any] | None = None) -> None:
         self._production_catalog = production_catalog if isinstance(production_catalog, dict) else None
+        if self._defer_catalog:
+            return
         self._catalog = self.service.list_semantic_blocks(self._production_catalog)
         self._render()
 
     def refresh(self) -> None:
+        self._defer_catalog = False
         self.set_catalog(self._production_catalog)
         self._status.set(
             f"{self._catalog.get('blockCount', 0)} blocks · "
@@ -101,6 +119,10 @@ class SemanticBlockRegistryPane:
         self._status.set(f"{len(self._blocks)} matching blocks")
 
     def _render(self) -> None:
+        categories = ["all"] + [item["id"] for item in self._catalog.get("categories", [])]
+        box = getattr(self, "_category_box", None)
+        if box is not None and callable(getattr(box, "configure", None)):
+            box.configure(values=categories)
         self._blocks = list(self._catalog.get("blocks", []))
         self._render_items()
         self._status.set(

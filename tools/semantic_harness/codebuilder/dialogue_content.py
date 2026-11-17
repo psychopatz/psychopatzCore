@@ -276,9 +276,52 @@ def compile_dialogue_content(document: dict[str, Any]) -> dict[str, Any]:
     return compiled
 
 
+_INDENTS = tuple(" " * i for i in range(64))
+
+
+def _indent_str(indent: int) -> str:
+    return _INDENTS[indent] if indent < 64 else " " * indent
+
+
 def _lua_value(value: Any, indent: int = 0) -> str:
     if value is None:
         return "nil"
+    t = type(value)
+    if t is str:
+        return _lua_string(value)
+    if t is bool:
+        return "true" if value else "false"
+    if t is int:
+        return str(value)
+    if t is dict:
+        if not value:
+            return "{\n" + _indent_str(indent) + "}"
+        child_indent = indent + 4
+        child_pad = _indent_str(child_indent)
+        lines = ["{"]
+        append = lines.append
+        for key in sorted(value):
+            k_str = key if type(key) is str else str(key)
+            append(
+                f"{child_pad}[{_lua_string(k_str)}] = {_lua_value(value[key], child_indent)},"
+            )
+        append(_indent_str(indent) + "}")
+        return "\n".join(lines)
+    if t is list:
+        if not value:
+            return "{\n" + _indent_str(indent) + "}"
+        child_indent = indent + 4
+        child_pad = _indent_str(child_indent)
+        lines = ["{"]
+        append = lines.append
+        for item in value:
+            append(f"{child_pad}{_lua_value(item, child_indent)},")
+        append(_indent_str(indent) + "}")
+        return "\n".join(lines)
+    if t is float:
+        if not math.isfinite(value):
+            raise CompileError("cannot render non-finite dialogue content number")
+        return format(value, ".15g")
     if isinstance(value, bool):
         return "true" if value else "false"
     if isinstance(value, str):
@@ -290,21 +333,25 @@ def _lua_value(value: Any, indent: int = 0) -> str:
             raise CompileError("cannot render non-finite dialogue content number")
         return format(value, ".15g")
     if isinstance(value, list):
+        child_indent = indent + 4
+        child_pad = _indent_str(child_indent)
         lines = ["{"]
         for item in value:
-            lines.append(" " * (indent + 4) + _lua_value(item, indent + 4) + ",")
-        lines.append(" " * indent + "}")
+            lines.append(child_pad + _lua_value(item, child_indent) + ",")
+        lines.append(_indent_str(indent) + "}")
         return "\n".join(lines)
     if isinstance(value, dict):
+        child_indent = indent + 4
+        child_pad = _indent_str(child_indent)
         lines = ["{"]
         for key in sorted(value):
             lines.append(
-                " " * (indent + 4)
+                child_pad
                 + f"[{_lua_string(str(key))}] = "
-                + _lua_value(value[key], indent + 4)
+                + _lua_value(value[key], child_indent)
                 + ","
             )
-        lines.append(" " * indent + "}")
+        lines.append(_indent_str(indent) + "}")
         return "\n".join(lines)
     raise CompileError(f"cannot render dialogue content value {type(value).__name__}")
 

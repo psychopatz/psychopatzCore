@@ -8,7 +8,6 @@ dialogue runtime.
 
 from __future__ import annotations
 
-import copy
 import json
 import re
 from collections import Counter
@@ -17,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from .conversation_contract import CONVERSATION_SHARD_SCHEMA
-from .conversation_model import fingerprint
+from .conversation_model import copy_json, fingerprint
 from .conversation_validation import _validate_behavior_shard, _validate_beat_shard
 from .conversation_ui_contract import validate_ui_shard
 from .errors import CompileError
@@ -101,7 +100,7 @@ _FORBIDDEN_ID_PARTS = frozenset({
 
 
 def _copy(value: Any) -> Any:
-    return copy.deepcopy(value)
+    return copy_json(value)
 
 
 def _id(value: Any, label: str) -> str:

@@ -425,6 +425,7 @@ def _run_authoring_operation(
 
 
 def cli(arguments: argparse.Namespace) -> int:
+    authoring_service: SemanticLabAuthoringService | None = None
     try:
         if (
             getattr(arguments, "list_mods", False)
@@ -1127,6 +1128,9 @@ def cli(arguments: argparse.Namespace) -> int:
     except (HarnessError, ConfigurationError, OSError, ValueError) as error:
         print(f"semantic harness error: {error}", file=sys.stderr)
         return 2
+    finally:
+        if authoring_service is not None:
+            authoring_service.close()
     return 0
 
 

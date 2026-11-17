@@ -65,6 +65,7 @@ class ConvoProbe:
         self._worker_script = Path(worker_script).expanduser() if worker_script is not None else None
         self._owned_worker: Any | None = None
         self._verified_worker_id: int | None = None
+        self._atexit_registered = True
         atexit.register(self.close)
 
     def _resolve_engine_core_root(self) -> Path:
@@ -130,6 +131,9 @@ class ConvoProbe:
             else:
                 worker = self._start_owned_worker()
             self._owned_worker = worker
+            if not self._atexit_registered:
+                atexit.register(self.close)
+                self._atexit_registered = True
         if worker is None:
             raise ConvoProbeUnavailableError("ConvoProbe worker is unavailable")
 
@@ -147,6 +151,12 @@ class ConvoProbe:
         self._verified_worker_id = None
 
     def close(self) -> None:
+        if self._atexit_registered:
+            try:
+                atexit.unregister(self.close)
+            except Exception:
+                pass
+            self._atexit_registered = False
         worker = self._owned_worker
         self._owned_worker = None
         self._verified_worker_id = None

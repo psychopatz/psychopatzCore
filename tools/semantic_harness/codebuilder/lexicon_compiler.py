@@ -336,6 +336,8 @@ def compile_wordnet(
 
 
 def _lua_string(value: str) -> str:
+    if "\\" not in value and '"' not in value and "\n" not in value:
+        return f'"{value}"'
     return '"' + value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n") + '"'
 
 

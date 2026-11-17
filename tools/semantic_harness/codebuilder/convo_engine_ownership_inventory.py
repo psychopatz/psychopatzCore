@@ -6,6 +6,7 @@ import argparse
 from collections import Counter
 import datetime
 import json
+import os
 from pathlib import Path, PurePosixPath
 import re
 from typing import Any, Mapping
@@ -645,6 +646,13 @@ def _norm(value: str) -> str:
     return value.replace("\\", "/").lstrip("./")
 
 
+def _rel_posix(path: Path, root: Path, root_prefix: str) -> str:
+    p = path.as_posix()
+    if p.startswith(root_prefix):
+        return _norm(p[len(root_prefix):])
+    return _norm(str(path.relative_to(root)))
+
+
 def _lua_module_from_rel(relative: str) -> str | None:
     parts = PurePosixPath(_norm(relative)).parts
     for index in range(len(parts) - 2):
@@ -743,6 +751,37 @@ def _map_hoomans_convo_module(module: str, target_base: str) -> str:
     return target_base
 
 
+_SKIP_REPO_DIRS = frozenset({
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".venv",
+    ".architecture-refactor",
+    ".codebase-memory",
+})
+
+
+def _iter_repo_files(
+    root: Path,
+    *,
+    suffixes: tuple[str, ...],
+) -> list[Path]:
+    if not root.is_dir():
+        return []
+    collected: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [
+            d for d in sorted(dirnames)
+            if d not in _SKIP_REPO_DIRS and not d.startswith(".venv")
+        ]
+        base = Path(dirpath)
+        for name in filenames:
+            if name.endswith(suffixes):
+                collected.append(base / name)
+    return sorted(collected)
+
+
 def _scan_cross_repo_references(
     repositories: Mapping[str, Path],
 ) -> tuple[dict[str, dict[str, list[str]]], list[dict[str, Any]]]:
@@ -750,34 +789,32 @@ def _scan_cross_repo_references(
     callers: dict[str, dict[str, set[str]]] = {}
     legacy_refs: list[dict[str, Any]] = []
     for repo_name, root in repositories.items():
-        for ext in ("*.lua", "*.py"):
-            for path in sorted(root.rglob(ext)):
-                rel = _norm(str(path.relative_to(root)))
-                if "/.git/" in f"/{rel}" or "/__pycache__/" in f"/{rel}" or "/.venv/" in f"/{rel}":
-                    continue
-                if "/Semantics/Generated/" in rel:
-                    continue
-                try:
-                    text = path.read_text(encoding="utf-8")
-                except (OSError, UnicodeDecodeError):
-                    continue
-                is_test = rel.startswith("tests/") or "/tests/" in f"/{rel}"
-                bucket = "tests" if is_test else ("tools" if rel.startswith("tools/") else "production")
-                caller_id = f"{repo_name}:{rel}"
-                for match in _LUA_REQUIRE_RE.finditer(text):
-                    mod = match.group(1)
-                    callers.setdefault(mod, {"production": set(), "tests": set(), "tools": set()})[bucket].add(caller_id)
-                for match in _PY_MODULE_STRING_RE.finditer(text):
-                    mod = match.group(1)
-                    callers.setdefault(mod, {"production": set(), "tests": set(), "tools": set()})[bucket].add(caller_id)
-                tokens = []
-                if "Semantics/Generated/Conversation" in text:
-                    tokens.append("Semantics/Generated/Conversation")
-                if "Conversation/PSDL" in text or "PNC_ConversationPSDLBlocks" in text:
-                    tokens.append("Conversation/PSDL")
-                if "PSDL_PLANS" in text or "PSDL_RESPONSE_TEMPLATES" in text:
-                    tokens.append("PSDL_PLANS")
-                if tokens and not (rel.startswith("Docs/") or rel.startswith("docs/")):
+        root_prefix = root.as_posix().rstrip("/") + "/"
+        for path in _iter_repo_files(root, suffixes=(".lua", ".py")):
+            rel = _rel_posix(path, root, root_prefix)
+            if "/Semantics/Generated/" in rel:
+                continue
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            is_test = rel.startswith("tests/") or "/tests/" in f"/{rel}"
+            bucket = "tests" if is_test else ("tools" if rel.startswith("tools/") else "production")
+            caller_id = f"{repo_name}:{rel}"
+            for match in _LUA_REQUIRE_RE.finditer(text):
+                mod = match.group(1)
+                callers.setdefault(mod, {"production": set(), "tests": set(), "tools": set()})[bucket].add(caller_id)
+            for match in _PY_MODULE_STRING_RE.finditer(text):
+                mod = match.group(1)
+                callers.setdefault(mod, {"production": set(), "tests": set(), "tools": set()})[bucket].add(caller_id)
+            tokens = []
+            if "Semantics/Generated/Conversation" in text:
+                tokens.append("Semantics/Generated/Conversation")
+            if "Conversation/PSDL" in text or "PNC_ConversationPSDLBlocks" in text:
+                tokens.append("Conversation/PSDL")
+            if "PSDL_PLANS" in text or "PSDL_RESPONSE_TEMPLATES" in text:
+                tokens.append("PSDL_PLANS")
+            if tokens and not (rel.startswith("Docs/") or rel.startswith("docs/")):
                     legacy_refs.append({
                         "repository": repo_name,
                         "path": rel,
@@ -979,10 +1016,21 @@ def _collision_audit(
 ) -> dict[str, Any]:
     existing_convo_engine_files: list[str] = []
     for repo_name, root in repositories.items():
-        for path in sorted(root.rglob("*ConvoEngine*")):
-            rel = _norm(str(path.relative_to(root)))
-            if "/.git/" in f"/{rel}":
-                continue
+        if not root.is_dir():
+            continue
+        root_prefix = root.as_posix().rstrip("/") + "/"
+        matched: list[str] = []
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = [
+                d for d in sorted(dirnames)
+                if d not in _SKIP_REPO_DIRS and not d.startswith(".venv")
+            ]
+            base = Path(dirpath)
+            for name in dirnames + filenames:
+                if "ConvoEngine" in name:
+                    rel = _rel_posix(base / name, root, root_prefix)
+                    matched.append(rel)
+        for rel in sorted(matched):
             existing_convo_engine_files.append(f"{repo_name}:{rel}")
 
     target_owners: dict[str, list[str]] = {}
@@ -1021,12 +1069,13 @@ def build_ownership_inventory(
 
     for repo_name in REPO_NAMES:
         root = Path(repositories[repo_name]).expanduser().resolve()
+        root_prefix = root.as_posix().rstrip("/") + "/"
         lua_files = sorted(root.glob("Contents/mods/*/common/media/lua/**/*.lua")) + sorted(
             root.glob("Contents/mods/*/42.20/media/lua/**/*.lua")
         )
         repo_count = 0
         for path in lua_files:
-            rel = _norm(str(path.relative_to(root)))
+            rel = _rel_posix(path, root, root_prefix)
             module = _lua_module_from_rel(rel)
             if not module:
                 continue

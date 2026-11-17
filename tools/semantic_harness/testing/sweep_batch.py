@@ -312,87 +312,121 @@ class SweepBatchExecutor:
 
         # Open evidence file in append mode
         with open(self.evidence_path, "a", encoding="utf-8") as out_f:
-            for case_id in batch.case_ids:
-                if case_id in batch.completed_case_ids:
-                    # Already completed in a prior interrupted/partial run: do not re-run or duplicate
-                    continue
+            active_worker: Any | None = None
+            try:
+                for case_id in batch.case_ids:
+                    if case_id in batch.completed_case_ids:
+                        # Already completed in a prior interrupted/partial run: do not re-run or duplicate
+                        continue
 
-                if is_cancelled and is_cancelled():
-                    batch.status = "CANCELLED"
-                    self.manifest.status = "CANCELLED"
-                    self.manifest.save(self.artifact_dir)
-                    raise SweepExecutionCancelled(f"Execution cancelled during {batch.batch_id}")
+                    if is_cancelled and is_cancelled():
+                        batch.status = "CANCELLED"
+                        self.manifest.status = "CANCELLED"
+                        self.manifest.save(self.artifact_dir)
+                        raise SweepExecutionCancelled(f"Execution cancelled during {batch.batch_id}")
 
-                planned_case = self.case_map.get(case_id)
-                if not planned_case:
-                    continue
+                    planned_case = self.case_map.get(case_id)
+                    if not planned_case:
+                        continue
 
-                try:
-                    case_res = self._execute_single_case(planned_case, batch.batch_id, out_f)
-                    completed_in_batch += 1
-                    batch.completed_case_ids.append(case_id)
-                    if case_res.get("invalid_surface"):
-                        invalid_in_batch += 1
-                except Exception as exc:
-                    failed_in_batch += 1
-                    batch.completed_case_ids.append(case_id)
-                    # Record failure as a synthetic error row rather than crashing the batch
-                    error_row = {
-                        "schema": "pnc.semantic-dialogue-quality-evidence.v1",
-                        "schemaVersion": 1,
-                        "rowID": f"{case_id}:0:0",
-                        "identity": {
-                            "sweepID": self.plan.sweep_id,
-                            "caseID": case_id,
-                            "batchID": batch.batch_id,
-                            "strategy": planned_case.strategy,
-                            "turnIndex": 0,
-                            "messageIndex": 0,
-                            "speaker": "npc",
-                            "language": planned_case.language,
-                            "salt": None,
-                            "historyMode": "isolated",
-                            "plannedSurface": planned_case.surface,
-                            "reachedSurface": "execution_error",
-                            "surfaceStatus": "EXECUTION_ERROR",
-                            "input": {"text": planned_case.surface},
-                        },
-                        "trigger": {
-                            "parameters": planned_case.parameters,
-                            "personaSummary": {},
-                            "relationshipSummary": {},
-                            "stateSummary": {},
-                            "actorSummary": {},
-                        },
-                        "semanticPath": {},
-                        "output": {
-                            "finalText": "",
-                            "fallbackReason": f"execution_error: {exc}",
-                            "recentResponses": [],
-                        },
-                        "selectionProvenance": {
-                            "provenance": "UNKNOWN",
-                            "canonicalSourceOwner": "UNKNOWN",
-                            "fingerprints": {},
-                        },
-                        "authority": {"actionCount": 0, "transportCount": 0, "actions": []},
-                        "quality": {
-                            "flags": [
-                                {
-                                    "name": "EXECUTION_ERROR",
-                                    "severity": "CRITICAL",
-                                    "confidence": "DEFINITE",
-                                    "detail": str(exc),
-                                }
-                            ],
-                            "clusterKeys": ["execution_error"],
-                            "reviewState": "FLAGGED",
-                            "reviewNotes": str(exc),
-                        },
-                        "traceHandle": {"caseID": case_id, "turnIndex": 0, "lazy": True},
-                    }
-                    out_f.write(json.dumps(error_row) + "\n")
-                    out_f.flush()
+                    try:
+                        if active_worker is None:
+                            scenario = self.inventory.project_to_scenario(
+                                planned_case.parameters, DEFAULT_SCENARIO
+                            )
+                            scenario.setdefault("runtime", {})["language"] = planned_case.language
+                            scenario["runtime"]["phraseSalt"] = f"{planned_case.case_id}:{planned_case.strategy}"
+                            scenario["runtime"]["caseID"] = planned_case.case_id
+                            active_worker = self.worker_factory(scenario)
+                            active_worker.__enter__()
+                            case_res = self._execute_single_case(
+                                planned_case, batch.batch_id, out_f,
+                                worker=active_worker, import_scenario=False,
+                            )
+                        else:
+                            case_res = self._execute_single_case(
+                                planned_case, batch.batch_id, out_f,
+                                worker=active_worker, import_scenario=True,
+                            )
+                        if not hasattr(active_worker, "import_source"):
+                            active_worker.__exit__(None, None, None)
+                            active_worker = None
+                        completed_in_batch += 1
+                        batch.completed_case_ids.append(case_id)
+                        if case_res.get("invalid_surface"):
+                            invalid_in_batch += 1
+                    except Exception as exc:
+                        if active_worker is not None:
+                            try:
+                                active_worker.__exit__(None, None, None)
+                            except Exception:
+                                pass
+                            active_worker = None
+                        failed_in_batch += 1
+                        batch.completed_case_ids.append(case_id)
+                        # Record failure as a synthetic error row rather than crashing the batch
+                        error_row = {
+                            "schema": "pnc.semantic-dialogue-quality-evidence.v1",
+                            "schemaVersion": 1,
+                            "rowID": f"{case_id}:0:0",
+                            "identity": {
+                                "sweepID": self.plan.sweep_id,
+                                "caseID": case_id,
+                                "batchID": batch.batch_id,
+                                "strategy": planned_case.strategy,
+                                "turnIndex": 0,
+                                "messageIndex": 0,
+                                "speaker": "npc",
+                                "language": planned_case.language,
+                                "salt": None,
+                                "historyMode": "isolated",
+                                "plannedSurface": planned_case.surface,
+                                "reachedSurface": "execution_error",
+                                "surfaceStatus": "EXECUTION_ERROR",
+                                "input": {"text": planned_case.surface},
+                            },
+                            "trigger": {
+                                "parameters": planned_case.parameters,
+                                "personaSummary": {},
+                                "relationshipSummary": {},
+                                "stateSummary": {},
+                                "actorSummary": {},
+                            },
+                            "semanticPath": {},
+                            "output": {
+                                "finalText": "",
+                                "fallbackReason": f"execution_error: {exc}",
+                                "recentResponses": [],
+                            },
+                            "selectionProvenance": {
+                                "provenance": "UNKNOWN",
+                                "canonicalSourceOwner": "UNKNOWN",
+                                "fingerprints": {},
+                            },
+                            "authority": {"actionCount": 0, "transportCount": 0, "actions": []},
+                            "quality": {
+                                "flags": [
+                                    {
+                                        "name": "EXECUTION_ERROR",
+                                        "severity": "CRITICAL",
+                                        "confidence": "DEFINITE",
+                                        "detail": str(exc),
+                                    }
+                                ],
+                                "clusterKeys": ["execution_error"],
+                                "reviewState": "FLAGGED",
+                                "reviewNotes": str(exc),
+                            },
+                            "traceHandle": {"caseID": case_id, "turnIndex": 0, "lazy": True},
+                        }
+                        out_f.write(json.dumps(error_row) + "\n")
+                        out_f.flush()
+            finally:
+                if active_worker is not None:
+                    try:
+                        active_worker.__exit__(None, None, None)
+                    except Exception:
+                        pass
 
         batch.duration += time.monotonic() - batch_start
         batch.completed_at = time.time()
@@ -442,6 +476,9 @@ class SweepBatchExecutor:
         case: PlannedCase,
         batch_id: str,
         out_file: Any,
+        *,
+        worker: Any | None = None,
+        import_scenario: bool = True,
     ) -> dict[str, Any]:
         """Execute a planned case against LuaSemanticWorker and stream rows."""
         scenario = self.inventory.project_to_scenario(case.parameters, DEFAULT_SCENARIO)
@@ -451,8 +488,16 @@ class SweepBatchExecutor:
         scenario["runtime"]["caseID"] = case.case_id
 
         has_invalid_surface = False
+        owns_worker = worker is None
+        active_worker = worker
+        if owns_worker:
+            active_worker = self.worker_factory(scenario)
+            active_worker.__enter__()
+        elif import_scenario and hasattr(active_worker, "import_source"):
+            active_worker.import_source(scenario)
 
-        with self.worker_factory(scenario) as worker:
+        try:
+            worker = active_worker
             if hasattr(worker, "set_language"):
                 worker.set_language(case.language)
 
@@ -522,6 +567,9 @@ class SweepBatchExecutor:
                         has_invalid_surface = True
                     out_file.write(json.dumps(row) + "\n")
                 out_file.flush()
+        finally:
+            if owns_worker and active_worker is not None:
+                active_worker.__exit__(None, None, None)
 
         return {"invalid_surface": has_invalid_surface}
 

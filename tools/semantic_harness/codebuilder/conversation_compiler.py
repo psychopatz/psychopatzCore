@@ -8,7 +8,12 @@ same merged, validated model.
 
 from __future__ import annotations
 
+from copy import deepcopy
+import json
+import os
 from pathlib import Path
+import pickle
+import threading
 from typing import Any, Iterable, Mapping
 
 from .dialogue_content import (
@@ -189,6 +194,78 @@ def _compiled_psdl_documents(
 
 
 
+_COMPILE_CACHE_LOCK = threading.RLock()
+_COMPILE_CACHE: dict[
+    tuple[Any, ...],
+    tuple[tuple[tuple[str, int, int], ...], bytes],
+] = {}
+
+
+def _stat_tuple(path: Path) -> tuple[str, int, int] | None:
+    try:
+        st = os.stat(path)
+    except OSError:
+        return None
+    return (str(path), st.st_mtime_ns, st.st_size)
+
+
+def _watched_files_unchanged(watched: tuple[tuple[str, int, int], ...]) -> bool:
+    for path_str, mtime_ns, size in watched:
+        try:
+            st = os.stat(path_str)
+        except OSError:
+            return False
+        if st.st_mtime_ns != mtime_ns or st.st_size != size:
+            return False
+    return True
+
+
+def _collect_watched_files(
+    repository: Path,
+    manifest_path: Path,
+    resolved_package_repositories: Mapping[str, Path],
+    model: Mapping[str, Any],
+) -> tuple[tuple[str, int, int], ...]:
+    paths: dict[str, Path] = {str(manifest_path): manifest_path}
+    roots_to_watch: list[Path] = [manifest_path.parent]
+    for extra_owner, extra_repo in resolved_package_repositories.items():
+        extra_desc = owner_package_descriptor(extra_owner)
+        extra_pkg = extra_repo / extra_desc.source_root_relative / "package.json"
+        if extra_pkg.is_file():
+            paths[str(extra_pkg)] = extra_pkg
+            roots_to_watch.append(extra_pkg.parent)
+    for root_dir in roots_to_watch:
+        if root_dir.is_dir():
+            for dirpath, _dirnames, _filenames in os.walk(root_dir):
+                paths[dirpath] = Path(dirpath)
+    source_docs = model.get("_source_documents") or {}
+    for entry in model.get("_manifest_entries") or []:
+        if not isinstance(entry, dict):
+            continue
+        source_repo = Path(entry.get("sourceRepository") or repository)
+        source_rel = entry.get("sourcePath")
+        if source_rel:
+            full = (source_repo / str(source_rel)).resolve()
+        else:
+            full = (manifest_path.parent / str(entry.get("path") or "")).resolve()
+        paths[str(full)] = full
+        doc = source_docs.get(entry.get("path"))
+        if isinstance(doc, dict) and isinstance(doc.get("textSidecars"), dict):
+            base_dir = full.parent
+            for rel in doc["textSidecars"].values():
+                if isinstance(rel, str) and rel:
+                    sidecar = (base_dir / rel).resolve()
+                    if not sidecar.is_file():
+                        sidecar = (manifest_path.parent / rel).resolve()
+                    paths[str(sidecar)] = sidecar
+    stats: list[tuple[str, int, int]] = []
+    for p in sorted(paths):
+        st = _stat_tuple(paths[p])
+        if st is not None:
+            stats.append(st)
+    return tuple(stats)
+
+
 def compile_conversation_sources(
     repository: Path,
     *,
@@ -252,6 +329,54 @@ def compile_conversation_sources(
             manifest_path = core_manifest_path
     manifest_path = manifest_path.expanduser().resolve()
     runtime_root = (runtime_root or repository).expanduser().resolve()
+
+    cache_key: tuple[Any, ...] | None = None
+    if not source_overrides:
+        cache_key = (
+            str(repository),
+            str(manifest_path),
+            str(runtime_root),
+            tuple(sorted((k, str(v)) for k, v in resolved_package_repositories.items())),
+            json.dumps(target_descriptor, sort_keys=True) if target_descriptor is not None else None,
+        )
+        with _COMPILE_CACHE_LOCK:
+            cached = _COMPILE_CACHE.get(cache_key)
+            if cached is not None:
+                watched, cached_bytes = cached
+                if _watched_files_unchanged(watched):
+                    return pickle.loads(cached_bytes)
+
+    model = _compile_conversation_sources_uncached(
+        repository=repository,
+        manifest_path=manifest_path,
+        explicit_manifest=explicit_manifest,
+        runtime_root=runtime_root,
+        source_overrides=source_overrides,
+        package_repositories=package_repositories,
+        resolved_package_repositories=resolved_package_repositories,
+        target_descriptor=target_descriptor,
+    )
+    if cache_key is not None:
+        watched = _collect_watched_files(
+            repository, manifest_path, resolved_package_repositories, model
+        )
+        cached_bytes = pickle.dumps(model, protocol=pickle.HIGHEST_PROTOCOL)
+        with _COMPILE_CACHE_LOCK:
+            _COMPILE_CACHE[cache_key] = (watched, cached_bytes)
+    return model
+
+
+def _compile_conversation_sources_uncached(
+    *,
+    repository: Path,
+    manifest_path: Path,
+    explicit_manifest: bool,
+    runtime_root: Path,
+    source_overrides: dict[str, dict[str, Any]] | None,
+    package_repositories: Mapping[str, Path] | None,
+    resolved_package_repositories: Mapping[str, Path],
+    target_descriptor: Mapping[str, Any] | None,
+) -> dict[str, Any]:
     visited_packages: set[str] = set()
     manifest, entries = _load_manifest(
         repository,

@@ -123,6 +123,7 @@ class ConvoEngineStudioAuthoringPaneTests(unittest.TestCase):
         if not HOOMANS_ROOT.is_dir():
             self.skipTest("ProjectHoomans sibling repository unavailable")
         svc = self._service()
+        self.addCleanup(svc.close)
         families = svc.list_convo_engine_families()
         self.assertGreaterEqual(len(families), 500)
         contracts = svc.list_convo_engine_action_contracts()
@@ -174,6 +175,7 @@ class ConvoEngineStudioAuthoringPaneTests(unittest.TestCase):
 
     def test_studio_convo_engine_pane_browse_edit_trace_and_audit(self) -> None:
         svc = self._service()
+        self.addCleanup(svc.close)
         pane = ConvoEngineAuthoringPane(
             _FakeWidget(),
             _FakeTk,

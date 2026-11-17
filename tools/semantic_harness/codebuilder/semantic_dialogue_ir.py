@@ -7,13 +7,12 @@ Those remain downstream consumers of the canonical IR.
 
 from __future__ import annotations
 
-import copy
 import re
 from collections.abc import Mapping
 from typing import Any
 
 from .convo_engine_exchange import resolve_family_identity
-from .conversation_model import canonical_json, fingerprint
+from .conversation_model import canonical_json, copy_json, fingerprint
 from .errors import CompileError
 from .rule_contract import normalize_predicate
 
@@ -50,10 +49,6 @@ CONTEXT_ROOTS = frozenset({
 })
 PRIVATE_SEGMENTS = frozenset({"private", "secret", "undiscovered", "java", "lua", "callback"})
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")
-
-
-def copy_json(value: Any) -> Any:
-    return copy.deepcopy(value)
 
 
 def validate_context_path(path: Any, label: str = "context path") -> str:

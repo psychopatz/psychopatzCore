@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -335,7 +336,8 @@ def _resolve_by_descriptor(
         for candidate in (base.parent / descriptor.owner, base.parent / descriptor.owner.lower()):
             if candidate.is_dir() and any((candidate / m).exists() for m in descriptor.repository_markers):
                 return candidate.resolve()
-        if base.parent.is_dir():
+        temp_roots = {Path(tempfile.gettempdir()).resolve(), Path("/tmp").resolve()}
+        if base.parent.is_dir() and base.parent.resolve() not in temp_roots:
             try:
                 children = sorted(base.parent.iterdir())
             except OSError:

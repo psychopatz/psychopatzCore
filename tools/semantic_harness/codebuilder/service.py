@@ -154,6 +154,7 @@ class SemanticLabAuthoringService:
         self.block_registry = SemanticBlockRegistry(
             self.repository,
             DATASET_SOURCE_SPECS,
+            package_repositories=self.package_repositories,
         )
         self.interaction_authoring = SemanticInteractionAuthoring(
             self.dataset_catalog,
@@ -182,12 +183,20 @@ class SemanticLabAuthoringService:
         self.operations = OperationRegistry(self)
 
     def close(self) -> None:
-        """Close any pooled ConvoProbe Lua worker session."""
-        if hasattr(self, "convo_probe") and self.convo_probe is not None:
-            self.convo_probe.close()
+        """Close and clear any pooled ConvoProbe Lua worker session."""
+        probe = self.__dict__.pop("convo_probe", None)
+        self.convo_probe = None
+        if hasattr(self, "harness") and getattr(self.harness, "runtime", None) is probe:
+            self.harness.runtime = None
+        if probe is not None and hasattr(probe, "close"):
+            probe.close()
 
     def attach_convo_probe_worker(self, worker: Any | None) -> None:
         """Attach an existing worker (or custom test worker) to ConvoProbe."""
+        if getattr(self, "convo_probe", None) is None:
+            self.convo_probe = ConvoProbe(self.workspace_snapshot)
+            if hasattr(self, "harness"):
+                self.harness.runtime = self.convo_probe
         self.convo_probe.attach_worker(worker)
 
     def refresh_workspace(self) -> WorkspaceSnapshot:

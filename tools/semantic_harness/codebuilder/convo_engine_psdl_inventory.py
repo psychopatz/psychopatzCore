@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections import Counter
 from collections.abc import Iterable, Mapping
@@ -133,21 +134,29 @@ _OBSOLETE_ALIAS_PATHS = frozenset({
 })
 
 
-def _posix(path: Path, root: Path) -> str:
+def _posix(path: Path, root: Path, root_prefix: str | None = None) -> str:
+    prefix = root_prefix if root_prefix is not None else (root.as_posix().rstrip("/") + "/")
+    path_str = path.as_posix()
+    if path_str.startswith(prefix):
+        return path_str[len(prefix):]
     return path.relative_to(root).as_posix()
 
 
 def _iter_first_party_files(repo_root: Path) -> Iterable[Path]:
     if not repo_root.is_dir():
         return
-    for path in sorted(repo_root.rglob("*")):
-        if not path.is_file():
-            continue
-        if path.suffix.lower() not in _TEXT_EXTENSIONS:
-            continue
-        parts = path.relative_to(repo_root).parts
-        if any(part in _SKIP_DIR_NAMES or part.startswith(".venv") for part in parts):
-            continue
+    collected: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(repo_root):
+        dirnames[:] = [
+            d for d in sorted(dirnames)
+            if d not in _SKIP_DIR_NAMES and not d.startswith(".venv")
+        ]
+        base = Path(dirpath)
+        for name in sorted(filenames):
+            path = base / name
+            if path.suffix.lower() in _TEXT_EXTENSIONS:
+                collected.append(path)
+    for path in sorted(collected):
         yield path
 
 
@@ -235,6 +244,12 @@ def _classify_source_json(
     )
 
 
+def _relative_prefix(root: Path, target_dir: Path) -> str | None:
+    if not target_dir.is_dir():
+        return None
+    return target_dir.relative_to(root).as_posix().rstrip("/") + "/"
+
+
 def _classify_entry(
     owner: str,
     repo_root: Path,
@@ -242,30 +257,43 @@ def _classify_entry(
     *,
     core_root: Path,
     dt_root: Path | None,
+    src_prefix: str | None = None,
+    gen_prefix: str | None = None,
+    trans_prefix: str | None = None,
+    root_prefix: str | None = None,
 ) -> dict[str, Any] | None:
-    rel = _posix(file_path, repo_root)
+    rel = _posix(file_path, repo_root, root_prefix)
+    path_has_psdl = "psdl" in rel.lower()
     text = file_path.read_text(encoding="utf-8", errors="replace")
-    lines = text.splitlines()
-    path_has_psdl = bool(_PSDL_RE.search(rel))
-    text_has_psdl = bool(_PSDL_RE.search(text))
+    text_has_psdl = "psdl" in text.lower()
     if not path_has_psdl and not text_has_psdl:
         return None
+    lines = text.splitlines()
 
-    src_root = _source_root_for_owner(owner, repo_root)
-    gen_root = generated_conversation_root(
-        repo_root,
-        owner,
-        core_repository=core_root,
-        dynamic_trading_repository=dt_root,
-        runtime_root=repo_root,
-    )
-    trans_root = translation_root(
-        repo_root,
-        owner,
-        core_repository=core_root,
-        dynamic_trading_repository=dt_root,
-        runtime_root=repo_root,
-    )
+    if src_prefix is None:
+        src_prefix = _relative_prefix(repo_root, _source_root_for_owner(owner, repo_root)) or ""
+    if gen_prefix is None:
+        gen_prefix = _relative_prefix(
+            repo_root,
+            generated_conversation_root(
+                repo_root,
+                owner,
+                core_repository=core_root,
+                dynamic_trading_repository=dt_root,
+                runtime_root=repo_root,
+            ),
+        ) or ""
+    if trans_prefix is None:
+        trans_prefix = _relative_prefix(
+            repo_root,
+            translation_root(
+                repo_root,
+                owner,
+                core_repository=core_root,
+                dynamic_trading_repository=dt_root,
+                runtime_root=repo_root,
+            ),
+        ) or ""
 
     classification = CLASS_BOUNDED_MIGRATION_OR_FIXTURE
     surface = "other"
@@ -278,11 +306,11 @@ def _classify_entry(
         surface = "obsolete_alias_module"
         tokens = ["PSDLAuthoringPane"]
         rationale = "Zero-caller compatibility alias wrapper; remove after caller-zero"
-    elif _is_under_relative(rel, repo_root, src_root):
+    elif src_prefix and rel.startswith(src_prefix):
         classification, surface, tokens, samples, rationale = _classify_source_json(
             owner, rel, text, lines
         )
-    elif _is_under_relative(rel, repo_root, gen_root):
+    elif gen_prefix and rel.startswith(gen_prefix):
         surface = "generated_convo_engine_lua"
         tokens = sorted(set(_ACTIVE_CODE_TOKEN_RE.findall(text)))
         if tokens or path_has_psdl:
@@ -291,7 +319,7 @@ def _classify_entry(
         else:
             classification = CLASS_BOUNDED_MIGRATION_OR_FIXTURE
             rationale = "Generated ConvoEngine Lua header/comment reference without active identity"
-    elif _is_under_relative(rel, repo_root, trans_root) and "/Conversation/" in f"/{rel}":
+    elif trans_prefix and rel.startswith(trans_prefix) and "/Conversation/" in f"/{rel}":
         surface = "conversation_translation"
         tokens = sorted(set(_ACTIVE_CODE_TOKEN_RE.findall(text)))
         if "/Conversation/Text/psdl/" in f"/{rel}" or path_has_psdl or tokens:
@@ -420,6 +448,28 @@ def classify_psdl_references(
 
     entries: list[dict[str, Any]] = []
     for owner, root in repo_map:
+        src_prefix = _relative_prefix(root, _source_root_for_owner(owner, root)) or ""
+        gen_prefix = _relative_prefix(
+            root,
+            generated_conversation_root(
+                root,
+                owner,
+                core_repository=core_root,
+                dynamic_trading_repository=dt_root,
+                runtime_root=root,
+            ),
+        ) or ""
+        trans_prefix = _relative_prefix(
+            root,
+            translation_root(
+                root,
+                owner,
+                core_repository=core_root,
+                dynamic_trading_repository=dt_root,
+                runtime_root=root,
+            ),
+        ) or ""
+        root_prefix = root.as_posix().rstrip("/") + "/"
         for file_path in _iter_first_party_files(root):
             item = _classify_entry(
                 owner,
@@ -427,6 +477,10 @@ def classify_psdl_references(
                 file_path,
                 core_root=core_root,
                 dt_root=dt_root,
+                src_prefix=src_prefix,
+                gen_prefix=gen_prefix,
+                trans_prefix=trans_prefix,
+                root_prefix=root_prefix,
             )
             if item is not None:
                 entries.append(item)

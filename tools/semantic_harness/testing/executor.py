@@ -7,6 +7,7 @@ continuity, evaluates bounded path expectations, and records conflicts.
 from __future__ import annotations
 
 import json
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
@@ -334,6 +335,7 @@ def execute_cases_parallel(
     jobs: int = 1,
     worker_factory: Callable[[dict[str, Any]], LuaSemanticWorker] = LuaSemanticWorker,
     fail_fast: bool = False,
+    progress_callback: Callable[[CaseResult, int, int], None] | None = None,
     **worker_kwargs: Any,
 ) -> list[CaseResult]:
     """Execute cases across up to `jobs` warm-worker shards while preserving result order."""
@@ -343,6 +345,7 @@ def execute_cases_parallel(
             cases,
             worker_factory=worker_factory,
             fail_fast=fail_fast,
+            progress_callback=progress_callback,
             **worker_kwargs,
         )
     worker_count = min(worker_count, len(cases))
@@ -351,6 +354,18 @@ def execute_cases_parallel(
         shards[index % worker_count].append((index, case))
 
     ordered_results: list[CaseResult | None] = [None] * len(cases)
+    total = len(cases)
+    completed_count = 0
+    progress_lock = threading.Lock()
+
+    def _on_shard_progress(res: CaseResult, _idx: int, _shard_total: int) -> None:
+        nonlocal completed_count
+        if progress_callback is None:
+            return
+        with progress_lock:
+            completed_count += 1
+            current = completed_count
+            progress_callback(res, current, total)
 
     def _run_shard(shard: list[tuple[int, SemanticCase]]) -> list[tuple[int, CaseResult]]:
         shard_cases = [item[1] for item in shard]
@@ -358,6 +373,7 @@ def execute_cases_parallel(
             shard_cases,
             worker_factory=worker_factory,
             fail_fast=False,
+            progress_callback=_on_shard_progress if progress_callback is not None else None,
             **worker_kwargs,
         )
         return [(shard[i][0], shard_results[i]) for i in range(len(shard))]

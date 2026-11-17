@@ -34,6 +34,15 @@ def fingerprint(value: Any) -> str:
 
 def copy_json(value: Any) -> Any:
     """Copy JSON-compatible data before enriching a compiled model."""
+    val_type = type(value)
+    if val_type is dict:
+        return {key: copy_json(item) for key, item in value.items()}
+    if val_type is list:
+        return [copy_json(item) for item in value]
+    if val_type is tuple:
+        return tuple(copy_json(item) for item in value)
+    if val_type is str or val_type is int or val_type is float or val_type is bool or value is None:
+        return value
     return copy.deepcopy(value)
 
 

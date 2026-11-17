@@ -30,6 +30,8 @@ class ConvoEngineAuthoringPane:
         scrolled_text: Any,
         messagebox: Any,
         service: Any,
+        *,
+        auto_refresh: bool = True,
     ) -> None:
         self._tk = tk
         self._ttk = ttk
@@ -83,7 +85,9 @@ class ConvoEngineAuthoringPane:
 
         self._build_toolbar()
         self._build_body()
-        self.refresh()
+        self._refreshed = False
+        if auto_refresh:
+            self.refresh()
 
     def _load_field_descriptors(self) -> list[dict[str, Any]]:
         describe = getattr(self.service, "describe_convo_engine_fields", None)
@@ -301,7 +305,13 @@ class ConvoEngineAuthoringPane:
             offset += len(items)
         return families
 
+    def ensure_refreshed(self) -> None:
+        """Populate ConvoEngine families and action contracts on first use."""
+        if not self._refreshed:
+            self.refresh()
+
     def refresh(self) -> None:
+        self._refreshed = True
         try:
             self._families = self._load_catalog_families()
             self._action_contracts = self.service.list_convo_engine_action_contracts()

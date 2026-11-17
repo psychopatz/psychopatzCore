@@ -204,7 +204,20 @@ def build_studio_editors(
         scrolled_text,
         app.authoring_service,
         on_refresh=app.refresh_flow_catalog,
+        auto_load=False,
     )
+    if (
+        callable(getattr(advanced_notebook, "bind", None))
+        and callable(getattr(advanced_notebook, "select", None))
+    ):
+        def _load_blocks_on_select(_event: Any = None) -> None:
+            try:
+                if str(advanced_notebook.select()) == str(blocks_frame):
+                    app.block_registry.ensure_loaded()
+            except Exception:
+                pass
+
+        advanced_notebook.bind("<<NotebookTabChanged>>", _load_blocks_on_select, add="+")
     app.workflow_pane = SemanticLabWorkflowPane(
         workflow_frame,
         app._tk,
@@ -215,6 +228,14 @@ def build_studio_editors(
         on_generate=app.generate_workflow,
         on_inspect=app.inspect_live_worker,
     )
+    main_tabs = getattr(app, "main_tabs", None)
+    studio_tab = getattr(app, "studio_tab", None)
+    defer_convo_refresh = (
+        main_tabs is not None
+        and studio_tab is not None
+        and callable(getattr(main_tabs, "bind", None))
+        and callable(getattr(main_tabs, "select", None))
+    )
     app.convo_engine_authoring = ConvoEngineAuthoringPane(
         psdl_frame,
         app._tk,
@@ -222,5 +243,16 @@ def build_studio_editors(
         scrolled_text,
         app._messagebox,
         app.authoring_service,
+        auto_refresh=not defer_convo_refresh,
     )
     app.psdl_authoring = app.convo_engine_authoring
+    if defer_convo_refresh:
+        def _refresh_studio_on_select(_event: Any = None) -> None:
+            try:
+                if str(main_tabs.select()) == str(studio_tab):
+                    app.convo_engine_authoring.ensure_refreshed()
+            except Exception:
+                pass
+
+        main_tabs.bind("<<NotebookTabChanged>>", _refresh_studio_on_select, add="+")
+        _refresh_studio_on_select()

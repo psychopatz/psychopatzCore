@@ -860,25 +860,29 @@ def reconcile_apply(
         write_owner_receipt(resolved_receipt_root, owner, ledger)
 
     # Step 4: Post-write closure check (rebuild ledger so manifests reflect any pruned files).
-    post_ledger = build_desired_artifact_ledger(
-        repository,
-        recipe=active_recipe,
-        model=model,
-        core_repository=core_repository,
-        hoomans_repository=hoomans_repository,
-        dynamic_trading_repository=dynamic_trading_repository,
-        output_repositories=output_repositories,
-        wordnet_home=wordnet_home,
-        allowlist_path=allowlist_path,
-    )
-    post_check = reconcile_check(
-        repository,
-        recipe=active_recipe,
-        ledger=post_ledger,
-        receipt_root=resolved_receipt_root,
-        wordnet_home=wordnet_home,
-        allowlist_path=allowlist_path,
-    )
+    if not written_files and not pruned_files and not pruned_keys and pre_check["clean"]:
+        post_ledger = ledger
+        post_check = pre_check
+    else:
+        post_ledger = build_desired_artifact_ledger(
+            repository,
+            recipe=active_recipe,
+            model=model,
+            core_repository=core_repository,
+            hoomans_repository=hoomans_repository,
+            dynamic_trading_repository=dynamic_trading_repository,
+            output_repositories=output_repositories,
+            wordnet_home=wordnet_home,
+            allowlist_path=allowlist_path,
+        )
+        post_check = reconcile_check(
+            repository,
+            recipe=active_recipe,
+            ledger=post_ledger,
+            receipt_root=resolved_receipt_root,
+            wordnet_home=wordnet_home,
+            allowlist_path=allowlist_path,
+        )
     if strict_closure and not post_check["clean"]:
         c = post_check["counts"]
         raise CompileError(

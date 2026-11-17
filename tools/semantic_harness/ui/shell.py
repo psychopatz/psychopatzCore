@@ -276,6 +276,8 @@ class SemanticHarnessApp:
     def _build_deferred_studio_editors(self) -> None:
         if self.closed or self._studio_editors_ready:
             return
+        self._start_worker_after = None
+        self._start_worker()
         try:
             build_studio_editors(self, **self._studio_editor_kwargs)
         except Exception as error:  # keep deferred startup failures visible
@@ -295,7 +297,6 @@ class SemanticHarnessApp:
         self._studio_editors_ready = True
         self._studio_editor_build_after = None
         self._set_controls(False)
-        self._start_worker_after = self.root.after(20, self._start_worker)
 
     def _build_saved_world_browser(self, parent: Any) -> None:
         build_saved_world_browser(self, parent)

@@ -3,8 +3,16 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 from typing import Any
+
+def _disable_ibus_xim() -> None:
+    if os.environ.get("XMODIFIERS", "") in {"", "@im=ibus"}:
+        os.environ["XMODIFIERS"] = "@im=none"
+
+
+_disable_ibus_xim()
 
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.inspection.transcript import TranscriptBuffer
@@ -19,6 +27,7 @@ from .state import state_path as ui_state_path
 
 
 def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
+    _disable_ibus_xim()
     import tkinter as tk
     from tkinter import filedialog, messagebox, ttk
     from tkinter.scrolledtext import ScrolledText

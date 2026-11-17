@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from pathlib import Path
+import threading
 from typing import Any
 
 from ..codebuilder.conversation_compiler import compile_conversation_sources
@@ -16,6 +17,7 @@ from ..codebuilder.psdl_compiler import render_pz_backend_from_portable_plan
 from ..codebuilder.psdl_inspect import inspect_psdl, locate_psdl
 from ..runtime.config import HarnessConfig
 
+_MODEL_CACHE_LOCK = threading.Lock()
 _MODEL_CACHE: dict[tuple[str, tuple[tuple[str, str], ...]], dict[str, Any]] = {}
 
 
@@ -61,13 +63,14 @@ def get_compiled_model(
         str(core_root),
         tuple(sorted((k, str(v)) for k, v in repos.items())),
     )
-    model = _MODEL_CACHE.get(cache_key)
-    if model is None:
-        model = compile_conversation_sources(
-            core_root,
-            package_repositories=repos,
-        )
-        _MODEL_CACHE[cache_key] = model
+    with _MODEL_CACHE_LOCK:
+        model = _MODEL_CACHE.get(cache_key)
+        if model is None:
+            model = compile_conversation_sources(
+                core_root,
+                package_repositories=repos,
+            )
+            _MODEL_CACHE[cache_key] = model
     return model, repos
 
 

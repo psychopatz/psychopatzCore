@@ -319,6 +319,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 hoomans_repository=repos["hoomans"],
                 dynamic_trading_repository=repos["dt"],
             )
+            self.addCleanup(service.close)
             self.assertEqual(
                 service.package_repositories["ProjectHoomans"],
                 repos["hoomans"].resolve(),
@@ -345,6 +346,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 hoomans_repository=repos["hoomans"],
                 dynamic_trading_repository=repos["dt"],
             )
+            self.addCleanup(service.close)
             pane = ConvoEngineAuthoringPane(
                 _FakeWidget(), _FakeTk, _FakeTtk, _FakeWidget, _FakeMessageBox(), service
             )
@@ -365,6 +367,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             target = (
                 repos["core"]
                 / "tools/semantic_harness/codebuilder/sources/conversation/dialogue/social/core_greet.json"
@@ -386,6 +389,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             pane = ConvoEngineAuthoringPane(
                 _FakeWidget(), _FakeTk, _FakeTtk, _FakeWidget, _FakeMessageBox(), service
             )
@@ -417,6 +421,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             pane = ConvoEngineAuthoringPane(
                 _FakeWidget(), _FakeTk, _FakeTtk, _FakeWidget, _FakeMessageBox(), service
             )
@@ -454,6 +459,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             with self.assertRaises(CompileError):
                 moved = service.move_convo_engine_source(
                     target_path,
@@ -484,6 +490,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             sources = service.list_dataset_sources()
             self.assertTrue(sources)
             for row in sources:
@@ -497,6 +504,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             workflows = service.list_workflow_datasets()
             self.assertTrue(workflows)
             for row in workflows:
@@ -513,6 +521,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             doc = _sample_family(
                 owner="PsychopatzCore",
                 namespace="social",
@@ -549,6 +558,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             contracts = service.list_convo_engine_action_contracts()
             contract_ids = {item["id"] for item in contracts}
             self.assertNotIn("pnc.companion.camp", contract_ids)
@@ -562,6 +572,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 hoomans_repository=repos["hoomans"],
                 dynamic_trading_repository=repos["dt"],
             )
+            self.addCleanup(service.close)
             families = service.list_convo_engine_families()
             ids = {item["canonicalID"] for item in families}
             self.assertIn("social.core_greet", ids)
@@ -646,6 +657,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 hoomans_repository=repos["hoomans"],
                 dynamic_trading_repository=repos["dt"],
             )
+            self.addCleanup(service.close)
             self.assertTrue(hasattr(service, "describe_workspace"))
             ws = service.describe_workspace()
             self.assertIn("providers", ws)
@@ -674,6 +686,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
                 repos["core"],
                 core_repository=repos["core"],
             )
+            self.addCleanup(service.close)
             pane = ConvoEngineAuthoringPane(
                 _FakeWidget(), _FakeTk, _FakeTtk, _FakeWidget, _FakeMessageBox(), service
             )

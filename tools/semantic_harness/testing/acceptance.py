@@ -72,7 +72,9 @@ _ERROR_COUNT_RE = re.compile(r"errors=(\d+)")
 _GUI_IMPORT_RE = re.compile(
     r"\bSemanticHarnessApp\b|\bimport\s+tkinter\b|\bfrom\s+tkinter\b"
 )
-_WORKER_IMPORT_RE = re.compile(r"\bLuaSemanticWorker\b")
+_WORKER_IMPORT_RE = re.compile(
+    r"\bLuaSemanticWorker\b|\bWarmWorkerTestMixin\b"
+)
 _RUNTIME_SKIP_RE = re.compile(r"\.\.\.\s+skipped\s+['\"]([^'\"]+)['\"]")
 _CONVO_NAME_RE = re.compile(
     r"(?:convo|semantic|speech|response|identity|greeting|dialogue|discourse|pnc_s10)"

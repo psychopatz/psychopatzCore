@@ -177,16 +177,22 @@ def _real_case(
     scenario: dict[str, Any],
     utterance: str,
     *,
+    worker: LuaSemanticWorker | None = None,
     candidate_overlay_root: Path | None = None,
     candidate_overlay_module: str | None = None,
 ) -> dict[str, Any]:
-    with LuaSemanticWorker(
-        scenario,
-        candidate_overlay_root=candidate_overlay_root,
-        candidate_overlay_module=candidate_overlay_module,
-    ) as worker:
+    if worker is not None:
+        worker.import_source(scenario)
         turn = worker.input(utterance)
         inspector = build_conversation_inspector(turn)
+    else:
+        with LuaSemanticWorker(
+            scenario,
+            candidate_overlay_root=candidate_overlay_root,
+            candidate_overlay_module=candidate_overlay_module,
+        ) as owned_worker:
+            turn = owned_worker.input(utterance)
+            inspector = build_conversation_inspector(turn)
     responses = [
         m["payload"] for m in turn.get("messages", [])
         if m.get("speaker") == "npc" and isinstance(m.get("payload"), dict)
@@ -282,37 +288,37 @@ def preview_authored_variant(
         source_diff: list[str] = []
         evidence = source_evidence(worker)
 
-    proposed_translations = normalize_translations(
-        entries[0].get("translations"),
-        "isolated preview translations",
-    )
-    original_translation_hashes: dict[str, tuple[Path, str]] = {}
-    baseline_content: dict[str, str] = {}
-    cases: list[tuple[str, dict[str, Any], dict[str, Any], str]] = []
-    for language in proposed_translations:
-        scenario = merge(DEFAULT_SCENARIO, overrides)
-        scenario.setdefault("runtime", {})["language"] = language
-        observed = _real_case(scenario, utterance)
-        target_ids = {variant_id} | ({template_id} if template_id else set())
-        selection = [
-            m for m in observed["messages"]
-            if m.get("id") in target_ids
-        ]
-        if len(selection) != 1 or not isinstance(
-            selection[0]["translationKey"], str
-        ):
-            raise ValueError("fixture did not realize precisely the proposed variant")
-        key = selection[0]["translationKey"]
-        src, relative, content = _verified_translation_asset(
-            repository, language, key
+        proposed_translations = normalize_translations(
+            entries[0].get("translations"),
+            "isolated preview translations",
         )
-        if not isinstance(content.get(key), str):
-            raise ValueError("missing canonical translation text")
-        baseline_content[language] = content[key]
-        original_translation_hashes[language] = (
-            src, _sha256(src.read_bytes())
-        )
-        cases.append((language, scenario, observed, relative))
+        original_translation_hashes: dict[str, tuple[Path, str]] = {}
+        baseline_content: dict[str, str] = {}
+        cases: list[tuple[str, dict[str, Any], dict[str, Any], str]] = []
+        for language in proposed_translations:
+            scenario = merge(DEFAULT_SCENARIO, overrides)
+            scenario.setdefault("runtime", {})["language"] = language
+            observed = _real_case(scenario, utterance, worker=worker)
+            target_ids = {variant_id} | ({template_id} if template_id else set())
+            selection = [
+                m for m in observed["messages"]
+                if m.get("id") in target_ids
+            ]
+            if len(selection) != 1 or not isinstance(
+                selection[0]["translationKey"], str
+            ):
+                raise ValueError("fixture did not realize precisely the proposed variant")
+            key = selection[0]["translationKey"]
+            src, relative, content = _verified_translation_asset(
+                repository, language, key
+            )
+            if not isinstance(content.get(key), str):
+                raise ValueError("missing canonical translation text")
+            baseline_content[language] = content[key]
+            original_translation_hashes[language] = (
+                src, _sha256(src.read_bytes())
+            )
+            cases.append((language, scenario, observed, relative))
 
     with tempfile.TemporaryDirectory(prefix="pnc-observatory-proposal-") as dirname:
         overlay = Path(dirname)
@@ -338,70 +344,79 @@ def preview_authored_variant(
 
         result_cases = []
         selected_fingerprint = None
-        for language, scenario, baseline, _ in cases:
-            # Run the exact production worker with only the two staged
-            # authoritative source files substituted; all other behavior
-            # remains loaded from the actual checkout and installed Core.
-            with LuaSemanticWorker(
-                scenario, repository=repository,
-                candidate_overlay_root=overlay,
-                candidate_overlay_module="",
-            ) as worker:
-                candidate_turn = worker.input(utterance)
+        candidate_worker: LuaSemanticWorker | None = None
+        try:
+            for language, scenario, baseline, _ in cases:
+                # Run the exact production worker with only the two staged
+                # authoritative source files substituted; all other behavior
+                # remains loaded from the actual checkout and installed Core.
+                if candidate_worker is None:
+                    candidate_worker = LuaSemanticWorker(
+                        scenario, repository=repository,
+                        candidate_overlay_root=overlay,
+                        candidate_overlay_module="",
+                    )
+                    candidate_worker.__enter__()
+                else:
+                    candidate_worker.import_source(scenario)
+                candidate_turn = candidate_worker.input(utterance)
                 final_inspector = build_conversation_inspector(candidate_turn)
-                candidate_detail = worker.response_pool_detail(
+                candidate_detail = candidate_worker.response_pool_detail(
                     proposal["poolID"], limit=16)
-            candidate_messages = [
-                m["payload"] for m in candidate_turn.get("messages", [])
-                if m.get("speaker") == "npc"
-                and isinstance(m.get("payload"), dict)
-            ]
-            candidate = {
-                "accepted": candidate_turn.get("accepted"),
-                "messages": [{
-                    "id": m.get("semanticTemplateID") or m.get("key"),
-                    "variantID": m.get("semanticVariantID"),
-                    "translationKey": m.get("translationKey"),
-                    "text": m.get("text"),
-                } for m in candidate_messages[-4:]],
-                "actionCount": final_inspector.get("effects", {})
-                    .get("sideEffects", {}).get("actionCount"),
-                "transportCount": final_inspector.get("effects", {})
-                    .get("sideEffects", {}).get("transportCount"),
-            }
-            candidate_variant = next(
-                v for v in candidate_detail["variants"]
-                if v["id"] == variant_id
-            )
-            base_variant = _semantic_variant_metadata(variant)
-            new_variant = _semantic_variant_metadata(candidate_variant)
-            if base_variant != new_variant:
-                raise ValueError("candidate unexpectedly changed variant metadata")
-            expected_new = proposed_translations[language]
-            before_text = [
-                m["text"] for m in baseline["messages"]
-                if m.get("id") in target_ids
-            ]
-            after_text = [
-                m["text"] for m in candidate["messages"]
-                if m.get("id") in target_ids
-            ]
-            if (len(after_text) != 1 or after_text[0] != expected_new
-                    or before_text == after_text):
-                raise ValueError("real-Lua candidate did not change target translation")
-            if (baseline["actionCount"] != candidate["actionCount"]
-                or baseline["transportCount"] != candidate["transportCount"]
-                or baseline["accepted"] != candidate["accepted"]
-                or [m["id"] for m in baseline["messages"]]
-                   != [m["id"] for m in candidate["messages"]]):
-                raise ValueError("candidate altered gameplay effects or selected keys")
-            selected_fingerprint = _content_fingerprint(
-                proposed_translations
-            )
-            result_cases.append({
-                "language": language, "status": "PASS",
-                "baseline": baseline, "candidate": candidate,
-            })
+                candidate_messages = [
+                    m["payload"] for m in candidate_turn.get("messages", [])
+                    if m.get("speaker") == "npc"
+                    and isinstance(m.get("payload"), dict)
+                ]
+                candidate = {
+                    "accepted": candidate_turn.get("accepted"),
+                    "messages": [{
+                        "id": m.get("semanticTemplateID") or m.get("key"),
+                        "variantID": m.get("semanticVariantID"),
+                        "translationKey": m.get("translationKey"),
+                        "text": m.get("text"),
+                    } for m in candidate_messages[-4:]],
+                    "actionCount": final_inspector.get("effects", {})
+                        .get("sideEffects", {}).get("actionCount"),
+                    "transportCount": final_inspector.get("effects", {})
+                        .get("sideEffects", {}).get("transportCount"),
+                }
+                candidate_variant = next(
+                    v for v in candidate_detail["variants"]
+                    if v["id"] == variant_id
+                )
+                base_variant = _semantic_variant_metadata(variant)
+                new_variant = _semantic_variant_metadata(candidate_variant)
+                if base_variant != new_variant:
+                    raise ValueError("candidate unexpectedly changed variant metadata")
+                expected_new = proposed_translations[language]
+                before_text = [
+                    m["text"] for m in baseline["messages"]
+                    if m.get("id") in target_ids
+                ]
+                after_text = [
+                    m["text"] for m in candidate["messages"]
+                    if m.get("id") in target_ids
+                ]
+                if (len(after_text) != 1 or after_text[0] != expected_new
+                        or before_text == after_text):
+                    raise ValueError("real-Lua candidate did not change target translation")
+                if (baseline["actionCount"] != candidate["actionCount"]
+                    or baseline["transportCount"] != candidate["transportCount"]
+                    or baseline["accepted"] != candidate["accepted"]
+                    or [m["id"] for m in baseline["messages"]]
+                       != [m["id"] for m in candidate["messages"]]):
+                    raise ValueError("candidate altered gameplay effects or selected keys")
+                selected_fingerprint = _content_fingerprint(
+                    proposed_translations
+                )
+                result_cases.append({
+                    "language": language, "status": "PASS",
+                    "baseline": baseline, "candidate": candidate,
+                })
+        finally:
+            if candidate_worker is not None:
+                candidate_worker.__exit__(None, None, None)
     if _sha256(content_source.read_bytes()) != original_hash or any(
         _sha256(path.read_bytes()) != sha for path, sha
         in original_translation_hashes.values()

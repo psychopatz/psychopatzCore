@@ -57,24 +57,26 @@ class DialogueQualitySweepService:
         inventory: SweepDimensionInventory | None = None,
     ) -> CoveragePlan:
         """Generate a deterministic coverage plan."""
-        inv = inventory or self.get_dimension_inventory(worker)
-
-        # Default to the current production interaction inventory rather than a
-        # historical hard-coded surface list.  Expected fallback probes stay
-        # available to explicit callers but are excluded from the user-facing
-        # sentence review by default.
         resolved_surfaces = list(surfaces) if surfaces else None
-        if resolved_surfaces is None:
-            if worker is not None:
-                discovered = discover_interaction_surfaces(worker)
-            else:
-                with self.worker_factory(DEFAULT_SCENARIO) as temp_worker:
+        if worker is None and (inventory is None or resolved_surfaces is None):
+            with self.worker_factory(DEFAULT_SCENARIO) as temp_worker:
+                inv = inventory or self.get_dimension_inventory(temp_worker)
+                if resolved_surfaces is None:
                     discovered = discover_interaction_surfaces(temp_worker)
-            resolved_surfaces = [
-                item.surface_id
-                for item in discovered
-                if item.executable and not item.expect_fallback
-            ]
+                    resolved_surfaces = [
+                        item.surface_id
+                        for item in discovered
+                        if item.executable and not item.expect_fallback
+                    ]
+        else:
+            inv = inventory or self.get_dimension_inventory(worker)
+            if resolved_surfaces is None:
+                discovered = discover_interaction_surfaces(worker)
+                resolved_surfaces = [
+                    item.surface_id
+                    for item in discovered
+                    if item.executable and not item.expect_fallback
+                ]
 
         planner = CoveragePlanner(inv, sweep_id=sweep_id)
         surfaces = resolved_surfaces

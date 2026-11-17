@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from typing import Any
 
@@ -59,11 +60,24 @@ def close_app(app: Any) -> None:
     # worker/process close operation is bounded and is submitted for cleanup;
     # waiting here can make the window appear frozen when the worker is still
     # draining a request or its stdout reader is unwinding.
+    for thread_attr in ("_quality_sweep_thread", "_qs_reachability_thread"):
+        thread = getattr(app, thread_attr, None)
+        if thread is not None and thread.is_alive():
+            app.quality_sweep_cancel_requested = True
+            thread.join(timeout=2.0)
+    authoring_service = getattr(app, "authoring_service", None)
+    if authoring_service is not None and hasattr(authoring_service, "close"):
+        try:
+            authoring_service.close()
+        except Exception:
+            pass
     app.session.close(wait=False)
     app.root.destroy()
 
 
 def run_gui(app_class: Any, arguments: argparse.Namespace) -> int:
+    if os.environ.get("XMODIFIERS", "") in {"", "@im=ibus"}:
+        os.environ["XMODIFIERS"] = "@im=none"
     try:
         import tkinter as tk
     except ImportError as error:

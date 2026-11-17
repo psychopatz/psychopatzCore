@@ -8,10 +8,10 @@ PsychopatzCore parser, and the Project Hoomans Lua registry/dispatchers.
 
 from __future__ import annotations
 
-import copy
+from .conversation_model import copy_json
 import json
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 
 SCHEMA_VERSION = 1
 MAX_BLOCKS = 512
@@ -235,12 +235,14 @@ class SemanticBlockRegistry:
         dataset_specs: Iterable[dict[str, Any]],
         *,
         max_blocks: int = MAX_BLOCKS,
+        package_repositories: Mapping[str, Path] | None = None,
     ) -> None:
         self.repository = repository.expanduser().resolve()
         self.dataset_specs = {
             str(spec["id"]): spec for spec in dataset_specs if isinstance(spec, dict)
         }
         self.max_blocks = max(1, int(max_blocks))
+        self.package_repositories = package_repositories
 
     def catalog(self, production_catalog: dict[str, Any] | None = None) -> dict[str, Any]:
         production_catalog = production_catalog if isinstance(production_catalog, dict) else {}
@@ -285,7 +287,7 @@ class SemanticBlockRegistry:
                 continue
             if needle and needle not in json.dumps(block, ensure_ascii=False, sort_keys=True).lower():
                 continue
-            results.append(copy.deepcopy(block))
+            results.append(copy_json(block))
             if len(results) >= max(1, int(limit)):
                 break
         return results
@@ -314,7 +316,7 @@ class SemanticBlockRegistry:
             if block.get("available") is not True:
                 diagnostics.append({"severity": "error", "blockID": block_id, "message": "block contract is unavailable"})
                 continue
-            selected.append(copy.deepcopy(block))
+            selected.append(copy_json(block))
         if not requested:
             diagnostics.append({"severity": "error", "message": "at least one block is required"})
         return {
@@ -335,7 +337,7 @@ class SemanticBlockRegistry:
         production_catalog: dict[str, Any],
     ) -> dict[str, Any]:
         block = {
-            **copy.deepcopy(spec),
+            **copy_json(spec),
             "kind": "block_type",
             "reusable": True,
             "available": True,
@@ -398,7 +400,7 @@ class SemanticBlockRegistry:
         for value in values:
             item = value.get(key) if key and isinstance(value, dict) else value
             if item:
-                output.append(copy.deepcopy(item))
+                output.append(copy_json(item))
         return sorted(output, key=lambda item: json.dumps(item, ensure_ascii=False, sort_keys=True))
 
     def _value_blocks(self, catalog: dict[str, Any]) -> list[dict[str, Any]]:
@@ -419,7 +421,7 @@ class SemanticBlockRegistry:
                 "contract": "registered typed capability binding",
                 "reusable": True,
                 "available": action.get("dispatchable") is not False,
-                "definition": copy.deepcopy(action),
+                "definition": copy_json(action),
                 "ports": block_port_contract("gameplay_actions.capability"),
             })
         for fact in catalog.get("factCatalog", []):
@@ -434,7 +436,7 @@ class SemanticBlockRegistry:
                     "contract": "typed authoritative fact provider",
                     "reusable": True,
                     "available": True,
-                    "definition": copy.deepcopy(fact),
+                    "definition": copy_json(fact),
                     "ports": block_port_contract("world_facts.engine_fact"),
                 })
         for event in catalog.get("eventCatalog", []):
@@ -449,7 +451,7 @@ class SemanticBlockRegistry:
                     "contract": "bounded observation; not executable by itself",
                     "reusable": True,
                     "available": True,
-                    "definition": copy.deepcopy(event),
+                    "definition": copy_json(event),
                     "ports": block_port_contract("world_facts.engine_event"),
                 })
         blocks.extend(self._response_blocks())
@@ -461,7 +463,10 @@ class SemanticBlockRegistry:
         try:
             from .conversation_compiler import compile_conversation_sources
 
-            model = compile_conversation_sources(self.repository)
+            model = compile_conversation_sources(
+                self.repository,
+                package_repositories=self.package_repositories,
+            )
             for pool in model.get("dialogue", {}).get("responsePools", []):
                 if not isinstance(pool, dict) or not (pool.get("poolID") or pool.get("id")):
                     continue

@@ -629,5 +629,12 @@ def open_runtime_settings(host: SettingsDialogHost) -> None:
     ttk.Button(footer, text="Apply & Save", command=lambda: apply(True)).grid(
         row=0, column=3
     )
-    dialog.grab_set()
-    dialog.focus_force()
+    dialog.update_idletasks()
+    try:
+        dialog.grab_set()
+    except tk.TclError:
+        pass
+    try:
+        dialog.focus_force()
+    except tk.TclError:
+        pass
