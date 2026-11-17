@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11A6 accepted (generic memory/modifier retention, stacking/dedupe, and bounded expiry lifecycle); advancing to S11A7 compiler/runtime optimization.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A6 accepted; S11A7-S11A8 foundation build active before any production dialogue migration.
+**Status:** IN_PROGRESS — S11A7 accepted (dependency index, required-fact projection, authoritative invalidation, incremental cache); advancing to S11A8 Foundation Freeze Gate.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A7 accepted; S11A8 Foundation Freeze Gate next before production dialogue migration (`S11B`).
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
-**Immediate Next Chunk:** S11A7 — compiler/runtime optimization (stable compiled IDs, required-fact dependency indexes, fact->consuming-family & action/effect/modifier invalidation maps, dependency-driven projection, incremental analysis fingerprints, no shadow state).
+**Immediate Next Chunk:** S11A8 — verify full S11A0-A7 foundation freeze gate, deterministic/no-op CodeBuilder generation, zero Kahlua errors, and flip `MIGRATION_ALLOWED = true` before S11B Identity reference migration.
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
