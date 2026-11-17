@@ -5,20 +5,20 @@ status: DIRTY_RESUMABLE
 checkpoint_mode: committed_handoff
 phase_commit: self
 phase: S11A — foundation build and freeze before production migration
-chunk: S11A5 — direct domain adapters (S11A4 accepted)
+chunk: S11A6 — memory/modifier lifecycle (S11A5 accepted)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 foundation_order_doc: Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md
-updated_at: 2026-11-18T07:56:00Z
+updated_at: 2026-11-18T07:58:00Z
 ~~~
 
-## What became true in S11A4
+## What became true in S11A5
 
-- Added `tools/semantic_harness/codebuilder/completeness_analyzer.py` (`analyze_portable_plan`, `COMPLETENESS_REPORT_SCHEMA`) analyzing the frozen S11A1-A3 Portable Dialogue Plan for reachability/`unreachable_branch`, `dead_end`, `unhandled_state_outcome`, `unhandled_action_outcome`, `pending_without_exit`, Tarjan SCC `unbounded_loop` / `missing_repeat_policy`, `stale_poststate_risk`, `dangling_memory`, `lost_commitment`, `role_unbound`, `role_cardinality_mismatch`, `ambiguous_group_effect`, `unbounded_group_reaction`, and `uncovered_fixture` with machine-readable `repairHint` diagnostics.
-- Exposed `CodeBuilderService.analyze_convo_completeness` in `tools/semantic_harness/codebuilder/service.py` so Semantic Lab / CLI consume the compiler report directly.
-- Verified `tools.semantic_harness.tests.test_s11_completeness_analyzer` (`4/4 PASS`).
+- Added Core-owned `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/S11DomainAdapters.lua` (`RegisterDomainAdapter`, `RegisterEffectHandler`, `RegisterQueryHandler`, `RegisterMemoryAdapter`, `DispatchEffect`, `ApplyModifier`, `RecordMemoryResidue`, `ResolveQuery`, `ExecuteAction` delegating to `ActionContract.Execute`).
+- Added ProjectHoomans adopter binding `Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/ConvoEngine/PNC_S11DomainAdapters.lua` routing portable relationship, mood, memory, and inventory contracts directly to `PNC.Relationships`, `PNC.Morale`, `PNC.Conversation.Memory`, and `PNC.Inventory` with zero shadow state or compatibility shims.
+- Verified `0` Kahlua errors via `pz_verify.py --kahlua` and `2/2 PASS` in `tools.semantic_harness.tests.test_s11_domain_adapters`.
 
 ## Immediate Next Chunk
 
-Execute **S11A5** (connect portable facts/actions/effects/modifiers/memory to existing authoritative systems through typed adapters) and continue automatically through S11A8.
+Execute **S11A6** (generic memory/modifier lifecycle: retention, stacking/dedupe, bounded game-time expiry) and continue automatically through S11A8.
