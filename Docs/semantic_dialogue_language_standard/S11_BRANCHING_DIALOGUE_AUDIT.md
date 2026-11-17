@@ -904,4 +904,7 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - required-fact/dependency and invalidation ownership;
 - bounded memory/modifier growth and expiry/dedupe policy where relevant;
 - fact-provider cost ownership for automatic/hot-path queries;
+- CodeBuilder canonical-source/recipe ownership for migrated dialogue/semantic logic, with generated outputs treated as downstream-only;
+- parity + caller-zero retirement proof for any superseded project-owned legacy implementation;
+- no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
