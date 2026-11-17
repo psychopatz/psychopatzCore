@@ -10,6 +10,7 @@ restart handling.
 from __future__ import annotations
 
 from copy import deepcopy
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
@@ -68,10 +69,15 @@ class SemanticWorker:
             path=default_activity_path(launch_spec.working_directory),
             client="api",
         )
+        effective_spec = launch_spec
+        if self._import_source_on_start:
+            env = dict(launch_spec.environment)
+            env.setdefault("SEMANTIC_HARNESS_DEFER_INITIAL_IMPORT", "1")
+            effective_spec = replace(launch_spec, environment=env)
         factory = runtime_factory or (
             lambda spec, log: LuaProcess(spec, activity_log=log)
         )
-        self.runtime = factory(launch_spec, self.activity_log)
+        self.runtime = factory(effective_spec, self.activity_log)
         try:
             self.runtime.start()
             if self._import_source_on_start:

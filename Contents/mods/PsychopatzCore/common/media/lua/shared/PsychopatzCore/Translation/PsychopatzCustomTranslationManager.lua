@@ -389,31 +389,52 @@ local function isMissingReason(reason)
 end
 
 local function readCatalog(source, language)
+    Manager._decodedCatalogCache = Manager._decodedCatalogCache or {}
+    local cacheKey = systemKey(source.modID, source.systemName) .. ":" .. tostring(language)
+    local cached = Manager._decodedCatalogCache[cacheKey]
+    if cached then
+        source._lastShardCount = cached.shardCount or 0
+        return cached.catalog, cached.reason, cached.path
+    end
+    local catalog, reason, resolvedPath
     if source.manifestPath then
-        return mergeManifestShards(source, language)
-    end
-    local nestedPath = pathFor(source, language)
-    local raw, readReason = readText(source.modID, nestedPath)
-    if raw then
-        local catalog, decodeReason = decodeCatalog(raw, nestedPath)
-        return catalog, decodeReason, nestedPath
-    end
-
-    -- Keep old flat catalogs working for external mods while new Core-owned
-    -- catalogs use the clearer per-system directory layout.
-    if isMissingReason(readReason) then
-        local legacyPath = legacyPathFor(source, language)
-        if legacyPath ~= nestedPath then
-            raw, readReason = readText(source.modID, legacyPath)
-            if raw then
-                local catalog, decodeReason = decodeCatalog(raw, legacyPath)
-                return catalog, decodeReason, legacyPath
+        catalog, reason, resolvedPath = mergeManifestShards(source, language)
+    else
+        local nestedPath = pathFor(source, language)
+        local raw, readReason = readText(source.modID, nestedPath)
+        if raw then
+            local decodeReason
+            catalog, decodeReason = decodeCatalog(raw, nestedPath)
+            reason, resolvedPath = decodeReason, nestedPath
+        elseif isMissingReason(readReason) then
+            -- Keep old flat catalogs working for external mods while new Core-owned
+            -- catalogs use the clearer per-system directory layout.
+            local legacyPath = legacyPathFor(source, language)
+            if legacyPath ~= nestedPath then
+                raw, readReason = readText(source.modID, legacyPath)
+                if raw then
+                    local decodeReason
+                    catalog, decodeReason = decodeCatalog(raw, legacyPath)
+                    reason, resolvedPath = decodeReason, legacyPath
+                else
+                    catalog, reason, resolvedPath = nil, readReason, legacyPath
+                end
+            else
+                catalog, reason, resolvedPath = nil, readReason, nestedPath
             end
-            return nil, readReason, legacyPath
+        else
+            catalog, reason, resolvedPath = nil, readReason, nestedPath
         end
     end
-
-    return nil, readReason, nestedPath
+    if catalog ~= nil then
+        Manager._decodedCatalogCache[cacheKey] = {
+            catalog = catalog,
+            reason = reason,
+            path = resolvedPath,
+            shardCount = source._lastShardCount or 0,
+        }
+    end
+    return catalog, reason, resolvedPath
 end
 
 local function dataFor(modID)
@@ -586,16 +607,19 @@ function Manager.getLanguage()
 end
 
 function Manager.setLanguageOverride(language)
+    local previousLanguage = activeLanguage()
     if language == nil or tostring(language) == "" then
         Manager._languageOverride = nil
-        invalidateLoadedCatalogs()
-        return activeLanguage()
+    else
+        Manager._languageOverride = normalizeLanguage(language)
     end
-
-    language = normalizeLanguage(language)
-    Manager._languageOverride = language
-    invalidateLoadedCatalogs()
-    return language
+    local currentLanguage = activeLanguage()
+    if previousLanguage ~= currentLanguage then
+        invalidateLoadedCatalogs()
+    else
+        resetLookupDiagnostics()
+    end
+    return currentLanguage
 end
 
 function Manager.clearLanguageOverride()

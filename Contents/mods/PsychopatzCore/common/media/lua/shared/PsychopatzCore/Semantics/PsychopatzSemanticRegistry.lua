@@ -15,6 +15,7 @@ Registry.SpeechActs = Registry.SpeechActs or {}
 Registry.Patterns = Registry.Patterns or {}
 Registry.PatternOrder = Registry.PatternOrder or {}
 Registry.OrderedPatterns = Registry.OrderedPatterns or {}
+Registry._patternsDirty = Registry._patternsDirty == true
 Registry.Revision = tonumber(Registry.Revision) or 0
 Registry.MaxPhraseTokens = tonumber(Registry.MaxPhraseTokens) or 1
 
@@ -266,6 +267,19 @@ local function refreshOrderedPatterns()
     end
 end
 
+local function sortPatterns()
+    table.sort(Registry.PatternOrder, function(left, right)
+        local leftPattern = Registry.Patterns[left]
+        local rightPattern = Registry.Patterns[right]
+        local leftPriority = leftPattern and leftPattern.priority or 0
+        local rightPriority = rightPattern and rightPattern.priority or 0
+        if leftPriority ~= rightPriority then return leftPriority > rightPriority end
+        return tostring(left) < tostring(right)
+    end)
+    refreshOrderedPatterns()
+    Registry._patternsDirty = false
+end
+
 function Registry.RegisterPattern(definition)
     if type(definition) ~= "table"
         or type(definition.id) ~= "string"
@@ -278,27 +292,12 @@ function Registry.RegisterPattern(definition)
     local pattern = copyValue(definition)
     pattern.priority = tonumber(pattern.priority) or 0
     pattern.confidence = tonumber(pattern.confidence) or 0.70
+    local isNew = Registry.Patterns[pattern.id] == nil
     Registry.Patterns[pattern.id] = pattern
-
-    local found = false
-    local index
-    for index = 1, #Registry.PatternOrder do
-        if Registry.PatternOrder[index] == pattern.id then
-            found = true
-            break
-        end
+    if isNew then
+        Registry.PatternOrder[#Registry.PatternOrder + 1] = pattern.id
     end
-    if not found then Registry.PatternOrder[#Registry.PatternOrder + 1] = pattern.id end
-
-    table.sort(Registry.PatternOrder, function(left, right)
-        local leftPattern = Registry.Patterns[left]
-        local rightPattern = Registry.Patterns[right]
-        local leftPriority = leftPattern and leftPattern.priority or 0
-        local rightPriority = rightPattern and rightPattern.priority or 0
-        if leftPriority ~= rightPriority then return leftPriority > rightPriority end
-        return tostring(left) < tostring(right)
-    end)
-    refreshOrderedPatterns()
+    Registry._patternsDirty = true
     bumpRevision()
     return true, pattern
 end
@@ -341,7 +340,7 @@ function Registry.UnregisterPattern(id)
         end
     end
     Registry.PatternOrder = newOrder
-    refreshOrderedPatterns()
+    Registry._patternsDirty = true
     bumpRevision()
     return true
 end
@@ -385,6 +384,7 @@ function Registry.UnregisterByOwner(ownerID)
 end
 
 function Registry.GetPatterns()
+    if Registry._patternsDirty then sortPatterns() end
     return Registry.OrderedPatterns
 end
 
@@ -408,6 +408,7 @@ function Registry.Reset()
     Registry.Patterns = {}
     Registry.PatternOrder = {}
     Registry.OrderedPatterns = {}
+    Registry._patternsDirty = false
     Registry.MaxPhraseTokens = 1
     bumpRevision()
 end
