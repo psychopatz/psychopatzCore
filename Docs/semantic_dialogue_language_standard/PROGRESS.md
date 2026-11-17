@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11 post-G9 architecture reconciled; P0 behavior still reproduces on current HEADs.
-**Estimated developer progress:** S0-S10R + G7-G9 structural cleanup retained as accepted infrastructure; S11A is active and has not started implementation.
+**Status:** IN_PROGRESS — S11A0 accepted (preflight, baselines, P0 fixtures, ownership inventory complete); advancing to S11A1 canonical data-model freeze.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0 accepted; S11A1-S11A8 foundation build active before any production dialogue migration.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
-**Immediate Next Chunk:** S11A0 — preflight/baseline/legacy ownership inventory only: verify all three repos, reconcile or explicitly baseline the two pre-existing DT generated fingerprint drifts, freeze P0 declarative regressions, record compile/runtime/save-size baselines, and classify relevant existing surfaces as KEEP_AUTHORITY / ADAPT / MIGRATE_LATER / RETIRE_AFTER_PARITY / GENERATED_DO_NOT_EDIT / UNRELATED. Do not implement the new production semantic model and do not migrate production dialogue in this chunk.
+**Immediate Next Chunk:** S11A1 — canonical data-model freeze (`EntityRef`, `ParticipantSet`, `RoleSpec`/`RoleBinding`/cardinality, `Predicate`/`Query`, `Action`/`SemanticOutcome`, `Effect`/`Modifier`/`Retention`/`MemoryResidue`, `TopicRef`/`EventRef`/`ActivityRef`/`MemoryRef`/`DomainRef`, `SemanticBeat`/`ConversationArchetype`, `statePolicy`/`inputPolicy`/`repeatPolicy`/`postconditions`, `continuation`/`closure`). Do not migrate production dialogue.
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
