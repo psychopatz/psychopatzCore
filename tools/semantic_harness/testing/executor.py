@@ -149,6 +149,7 @@ def execute_case(
         "config": worker_kwargs.get("config"),
     }
 
+    turn_records: list[dict[str, Any]] = []
     try:
         for index, turn_spec in enumerate(case.turns):
             turn_start = time.monotonic()
@@ -189,7 +190,19 @@ def execute_case(
             elif suggestion_frame:
                 resolved_frame = suggestion_frame
                 if "candidateID" in suggestion_frame or "permittedAction" in suggestion_frame:
-                    suggestions = ((last_record or {}).get("observation") or {}).get("suggestions") or {}
+                    source_turn = suggestion_frame.get("fromTurn")
+                    if source_turn is not None:
+                        if (
+                            not isinstance(source_turn, int)
+                            or isinstance(source_turn, bool)
+                            or source_turn < 0
+                            or source_turn >= len(turn_records)
+                        ):
+                            raise ValueError(f"suggestionClick fromTurn '{source_turn}' is out of range")
+                        source_record = turn_records[source_turn]
+                    else:
+                        source_record = last_record
+                    suggestions = ((source_record or {}).get("observation") or {}).get("suggestions") or {}
                     if "candidateID" in suggestion_frame:
                         cid = suggestion_frame["candidateID"]
                         gid = suggestion_frame.get("groupID")
@@ -227,6 +240,7 @@ def execute_case(
 
             turn_elapsed = time.monotonic() - turn_start
             last_record = record
+            turn_records.append(record)
 
             # Track streaming conflicts
             ledger.add(record)
