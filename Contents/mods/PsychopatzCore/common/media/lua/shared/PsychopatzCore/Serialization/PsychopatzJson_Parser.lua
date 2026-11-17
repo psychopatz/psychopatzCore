@@ -33,87 +33,98 @@ function Parser.New(text, limits, nullMarker)
     }
 end
 
+local ESCAPE_REPLACEMENTS = {
+    ['"'] = '"',
+    ["\\"] = "\\",
+    ["/"] = "/",
+    b = "\b",
+    f = "\f",
+    n = "\n",
+    r = "\r",
+    t = "\t",
+}
+
 function Parser.Whitespace(state)
-    while state.position <= state.length
-        and string.match(
-            string.sub(state.text, state.position, state.position), "%s")
-    do
-        state.position = state.position + 1
+    local _, finish = string.find(state.text, "^%s+", state.position)
+    if finish then
+        state.position = finish + 1
     end
 end
 
 function Parser.ParseString(state)
-    if string.sub(state.text, state.position, state.position) ~= '"' then
+    local text = state.text
+    local position = state.position
+    if string.sub(text, position, position) ~= '"' then
         error("expected string")
     end
-    state.position = state.position + 1
-    local output = {}
-    while state.position <= state.length do
-        local character = string.sub(
-            state.text, state.position, state.position)
-        state.position = state.position + 1
-        if character == '"' then return table.concat(output) end
-        if character == "\\" then
-            local escaped = string.sub(
-                state.text, state.position, state.position)
-            state.position = state.position + 1
-            local replacements = {
-                ['"'] = '"', ["\\"] = "\\", ["/"] = "/",
-                b = "\b", f = "\f", n = "\n", r = "\r", t = "\t",
-            }
-            if escaped == "u" then
-                local hex = string.sub(
-                    state.text, state.position, state.position + 3)
-                if not string.match(hex, "^%x%x%x%x$") then
-                    error("invalid unicode escape")
-                end
-                state.position = state.position + 4
-                local code = tonumber(hex, 16)
-                if code >= 0xd800 and code <= 0xdbff
-                    and string.sub(
-                        state.text, state.position, state.position + 1)
-                        == "\\u"
-                then
-                    local lowHex = string.sub(
-                        state.text, state.position + 2, state.position + 5)
-                    local low = tonumber(lowHex, 16)
-                    if not low or low < 0xdc00 or low > 0xdfff then
-                        error("invalid unicode surrogate")
-                    end
-                    state.position = state.position + 6
-                    code = 0x10000 + (code - 0xd800) * 0x400
-                        + (low - 0xdc00)
-                elseif code >= 0xd800 and code <= 0xdfff then
-                    error("unpaired unicode surrogate")
-                end
-                output[#output + 1] = utf8Character(code)
-            elseif replacements[escaped] then
-                output[#output + 1] = replacements[escaped]
-            else
-                error("invalid escape")
+    position = position + 1
+    local start = position
+    local output = nil
+    local length = state.length
+    while position <= length do
+        local special = string.find(text, '["\\%z\1-\31]', position)
+        if not special then
+            error("unterminated string")
+        end
+        local byte = string.byte(text, special)
+        if byte == 34 then
+            state.position = special + 1
+            if not output then
+                return string.sub(text, start, special - 1)
             end
+            if special > start then
+                output[#output + 1] = string.sub(text, start, special - 1)
+            end
+            return table.concat(output)
+        end
+        if byte < 32 then
+            error("control character in string")
+        end
+        output = output or {}
+        if special > start then
+            output[#output + 1] = string.sub(text, start, special - 1)
+        end
+        position = special + 1
+        local escaped = string.sub(text, position, position)
+        position = position + 1
+        if escaped == "u" then
+            local hex = string.sub(text, position, position + 3)
+            if not string.match(hex, "^%x%x%x%x$") then
+                error("invalid unicode escape")
+            end
+            position = position + 4
+            local code = tonumber(hex, 16)
+            if code >= 0xd800 and code <= 0xdbff
+                and string.sub(text, position, position + 1) == "\\u"
+            then
+                local lowHex = string.sub(text, position + 2, position + 5)
+                local low = tonumber(lowHex, 16)
+                if not low or low < 0xdc00 or low > 0xdfff then
+                    error("invalid unicode surrogate")
+                end
+                position = position + 6
+                code = 0x10000 + (code - 0xd800) * 0x400 + (low - 0xdc00)
+            elseif code >= 0xd800 and code <= 0xdfff then
+                error("unpaired unicode surrogate")
+            end
+            output[#output + 1] = utf8Character(code)
+        elseif ESCAPE_REPLACEMENTS[escaped] then
+            output[#output + 1] = ESCAPE_REPLACEMENTS[escaped]
         else
-            if string.byte(character) < 32 then
-                error("control character in string")
-            end
-            output[#output + 1] = character
+            error("invalid escape")
         end
         if #output > state.limits.maxString then error("string limit") end
+        start = position
     end
     error("unterminated string")
 end
 
 function Parser.ParseNumber(state)
-    local start = state.position
-    while state.position <= state.length
-        and string.match(
-            string.sub(state.text, state.position, state.position),
-            "[-+0-9.eE]")
-    do
-        state.position = state.position + 1
-    end
-    local value = tonumber(string.sub(state.text, start, state.position - 1))
+    local start, finish = string.find(state.text, "^[-+0-9.eE]+", state.position)
+    if not start then error("invalid number") end
+    local value = tonumber(string.sub(state.text, start, finish))
     if value == nil then error("invalid number") end
+    state.position = finish + 1
     return value
 end
 

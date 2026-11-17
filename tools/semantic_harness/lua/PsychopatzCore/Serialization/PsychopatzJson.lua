@@ -17,10 +17,29 @@ local function limits(value)
     }
 end
 
+local ESCAPE_MAP = {
+    ["\\"] = "\\\\",
+    ['"'] = '\\"',
+    ["\b"] = "\\b",
+    ["\f"] = "\\f",
+    ["\n"] = "\\n",
+    ["\r"] = "\\r",
+    ["\t"] = "\\t",
+}
+
+local function escapeChar(character)
+    local mapped = ESCAPE_MAP[character]
+    if mapped then return mapped end
+    return string.format("\\u%04x", string.byte(character))
+end
+
 local function escaped(value)
-    return string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(
-        tostring(value), "\\", "\\\\"), '"', '\\"'), "\n", "\\n"),
-        "\r", "\\r"), "\t", "\\t")
+    local text = tostring(value)
+    if not string.find(text, '[%z\1-\31"\\]') then
+        return text
+    end
+    local result = string.gsub(text, '[%z\1-\31"\\]', escapeChar)
+    return result
 end
 
 local function isArray(value)
@@ -71,12 +90,20 @@ local function encode(value, depth, config)
     return "{" .. table.concat(parts, ",") .. "}"
 end
 
+local ESCAPE_REPLACEMENTS = {
+    ['"'] = '"',
+    ["\\"] = "\\",
+    ["/"] = "/",
+    b = "\b",
+    f = "\f",
+    n = "\n",
+    r = "\r",
+    t = "\t",
+}
+
 local function whitespace(text, position)
-    while position <= #text
-        and string.match(string.sub(text, position, position), "%s")
-    do
-        position = position + 1
-    end
+    local _, finish = string.find(text, "^%s+", position)
+    if finish then return finish + 1 end
     return position
 end
 
@@ -85,46 +112,56 @@ local function parseString(text, position)
         error("expected JSON string")
     end
     position = position + 1
-    local output = {}
-    while position <= #text do
-        local character = string.sub(text, position, position)
+    local start = position
+    local output = nil
+    local length = #text
+    while position <= length do
+        local special = string.find(text, '["\\]', position)
+        if not special then
+            error("unterminated JSON string")
+        end
+        if string.byte(text, special) == 34 then
+            if not output then
+                return string.sub(text, start, special - 1), special + 1
+            end
+            if special > start then
+                output[#output + 1] = string.sub(text, start, special - 1)
+            end
+            return table.concat(output), special + 1
+        end
+        output = output or {}
+        if special > start then
+            output[#output + 1] = string.sub(text, start, special - 1)
+        end
+        position = special + 1
+        local escapedCharacter = string.sub(text, position, position)
         position = position + 1
-        if character == '"' then return table.concat(output), position end
-        if character == "\\" then
-            local escapedCharacter = string.sub(text, position, position)
-            position = position + 1
-            local replacements = {
-                ['"'] = '"', ["\\"] = "\\", ["/"] = "/",
-                b = "\b", f = "\f", n = "\n", r = "\r", t = "\t",
-            }
-            if escapedCharacter == "u" then
-                local hex = string.sub(text, position, position + 3)
-                if not string.match(hex, "^%x%x%x%x$") then
-                    error("invalid JSON unicode escape")
-                end
-                position = position + 4
-                local code = tonumber(hex, 16)
-                if code <= 0x7f then
-                    output[#output + 1] = string.char(code)
-                elseif code <= 0x7ff then
-                    output[#output + 1] = string.char(
-                        0xc0 + math.floor(code / 0x40),
-                        0x80 + code % 0x40
-                    )
-                else
-                    output[#output + 1] = string.char(
-                        0xe0 + math.floor(code / 0x1000),
-                        0x80 + math.floor(code / 0x40) % 0x40,
-                        0x80 + code % 0x40
-                    )
-                end
+        if escapedCharacter == "u" then
+            local hex = string.sub(text, position, position + 3)
+            if not string.match(hex, "^%x%x%x%x$") then
+                error("invalid JSON unicode escape")
+            end
+            position = position + 4
+            local code = tonumber(hex, 16)
+            if code <= 0x7f then
+                output[#output + 1] = string.char(code)
+            elseif code <= 0x7ff then
+                output[#output + 1] = string.char(
+                    0xc0 + math.floor(code / 0x40),
+                    0x80 + code % 0x40
+                )
             else
-                output[#output + 1] = replacements[escapedCharacter]
-                    or error("invalid JSON escape")
+                output[#output + 1] = string.char(
+                    0xe0 + math.floor(code / 0x1000),
+                    0x80 + math.floor(code / 0x40) % 0x40,
+                    0x80 + code % 0x40
+                )
             end
         else
-            output[#output + 1] = character
+            output[#output + 1] = ESCAPE_REPLACEMENTS[escapedCharacter]
+                or error("invalid JSON escape")
         end
+        start = position
     end
     error("unterminated JSON string")
 end
@@ -190,8 +227,9 @@ parseValue = function(text, position, depth, config)
         return config.preserveNull and Json.NULL or nil, position + 4
     end
     local number = string.match(
-        string.sub(text, position),
-        "^-?%d+%.?%d*[eE]?[+-]?%d*"
+        text,
+        "^-?%d+%.?%d*[eE]?[+-]?%d*",
+        position
     )
     if number and number ~= "" then return tonumber(number), position + #number end
     error("invalid JSON value")

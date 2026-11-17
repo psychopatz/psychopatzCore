@@ -126,10 +126,10 @@ class ImportedSourceSnapshot:
         supplied_provenance.setdefault("defaultSource", source_kind)
         supplied_provenance.setdefault("paths", {})
         return cls(
-            data=_freeze(deepcopy(dict(scenario))),
+            data=_freeze(scenario),
             metadata=_freeze(supplied_metadata),
             provenance=_freeze(supplied_provenance),
-            provider_payloads=_freeze(deepcopy(dict(provider_payloads or {}))),
+            provider_payloads=_freeze(provider_payloads or {}),
         )
 
     @property

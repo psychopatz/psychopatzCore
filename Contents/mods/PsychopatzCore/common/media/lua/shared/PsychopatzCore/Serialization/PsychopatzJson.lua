@@ -30,10 +30,29 @@ local function limitsOrDefault(limits)
     }
 end
 
+local ESCAPE_MAP = {
+    ["\\"] = "\\\\",
+    ['"'] = '\\"',
+    ["\b"] = "\\b",
+    ["\f"] = "\\f",
+    ["\n"] = "\\n",
+    ["\r"] = "\\r",
+    ["\t"] = "\\t",
+}
+
+local function escapeChar(character)
+    local mapped = ESCAPE_MAP[character]
+    if mapped then return mapped end
+    return string.format("\\u%04x", string.byte(character))
+end
+
 local function escape(value)
-    return string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(
-        tostring(value), "\\", "\\\\"), '"', '\\"'), "\n", "\\n"),
-        "\r", "\\r"), "\t", "\\t")
+    local text = tostring(value)
+    if not string.find(text, '[%z\1-\31"\\]') then
+        return text
+    end
+    local result = string.gsub(text, '[%z\1-\31"\\]', escapeChar)
+    return result
 end
 
 local function isArray(value)
