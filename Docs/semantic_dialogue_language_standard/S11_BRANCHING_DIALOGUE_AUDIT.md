@@ -1,10 +1,10 @@
 # S11 Branching Dialogue and Stateful Outcome Audit
 
-**Status:** ACTIVE AUDIT INPUT FOR S11  
-**Audit date:** 2026-11-16  
-**Normative goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`  
-**Approved shared architecture:** `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`  
-**Repositories inspected:** PsychopatzCore + ProjectHoomans current `main`; DynamicTrading retained as compatibility participant.  
+**Status:** ACTIVE AUDIT INPUT FOR S11
+**Audit date:** 2026-11-18
+**Normative goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
+**Approved shared architecture:** `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
+**Repositories inspected:** PsychopatzCore + ProjectHoomans current `main`; DynamicTrading retained as compatibility participant.
 **Purpose:** enumerate every maintained conversation family with meaningful branching/state constraints and classify whether it is a confirmed S11 defect, a high-risk parity surface, or a reference-good contract to preserve.
 
 ## Audit method
@@ -881,7 +881,15 @@ S11 is not complete when identity alone is fixed.
 
 The parent completion gate now requires the state/outcome acceptance inventory to cover **every family listed in this audit**, with each row classified as repaired, explicitly presentation-only, or reference-good and regression-protected.
 
-All repaired/high-risk families must consume the single existing-registry `StatePolicy -> SemanticOutcome` architecture defined in `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`. Creating family-specific eligibility/state engines is not an acceptable audit closure even if behavior tests pass.
+All repaired/high-risk families must consume the canonical compact-source → IR → Portable Dialogue Plan state/outcome contract defined in S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, with mutation routed through the existing ActionContract/capability authority. Creating family-specific eligibility/state engines or runtime-only policy is not an acceptable audit closure even if behavior tests pass.
+
+They must also pass the compiler completeness/memory-continuity contract in S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md: every reachable branch must terminate/progress/bound its pending state; every continuation obligation needs an owner/exit; and meaningful closure residue must be explicitly projected to existing same-day ConversationMemory or a domain authority rather than left in stale flow state.
+
+State predicates and consequences must additionally follow S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md. Item ownership/count checks, relationship/mood thresholds, immediate effects, timed buffs/debuffs, duration and stacking must normalize into the shared portable fact/effect/modifier contract and registered adopter schemas. A branch is not considered repaired if it introduces a local relationship/mood/inventory evaluator or modifier system.
+
+Runtime/compiler behavior must also follow S11_COMPILER_RUNTIME_OPTIMIZATION.md. A repaired branch/family declares the authoritative facts it reads, participates in generated dependency/invalidation indexes, avoids expensive automatic-path queries without cost/caching ownership, and does not create unbounded memory/modifier instance growth or per-frame global scans.
+
+Reusable dialogue structure must also follow S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md: participant count is generic by default, semantic roles/cardinality are dynamically bindable, two-person dialogue is a specialization rather than a separate architecture, discoverable semantic act/topic/event/activity/memory metadata is available for future deterministic candidate selection, and no LLM is required for semantic correctness.
 
 A future branch/stateful semantic feature must fail acceptance if it is introduced without:
 
@@ -891,5 +899,9 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - effect/admission policy;
 - contextual response owner;
 - post-transition refresh expectation;
-- repeat/idempotence policy where effects exist;
+- repeat/idempotence and modifier stacking/retention policy where effects exist;
+- portable fact/effect domain-schema ownership for item/relationship/mood or other stateful constraints;
+- required-fact/dependency and invalidation ownership;
+- bounded memory/modifier growth and expiry/dedupe policy where relevant;
+- fact-provider cost ownership for automatic/hot-path queries;
 - automated acceptance owner.

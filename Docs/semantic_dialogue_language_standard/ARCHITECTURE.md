@@ -4,7 +4,7 @@
 
 **ConvoEngine** is the normative first-party conversation authoring/compiler system for **PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon**.
 
-The previous name **PSDL** meant **Psychopatz Semantic Dialogue Language**. `PSDL` / `psdl` is now a migration-era internal alias only; new public documentation, APIs, source layout, and runtime layout use **ConvoEngine**. Do not perform an unsafe blind rename—remove the old alias through tested compiler/service migration and caller-zero evidence.
+**ConvoEngine** is the public system name. PSDL remains the current portable schema/toolchain identifier used by compact source and package contracts (psychopatz.psdl.*). It is not a second runtime or a legacy authoring authority. Do not rename these accepted schema/toolchain identifiers as incidental S11 cleanup; source ownership and generated runtime naming still follow ConvoEngine conventions.
 
 ConvoEngine itself is **Core-owned infrastructure**. Its language schema, canonical IR, compiler, generic validator, shared predicate/reference/binding contracts, package-routing logic and reusable authoring service belong physically in `psychopatzCore`. ProjectHoomans and DynamicTrading/DTCommon are adopters: they may own domain-specific ConvoEngine records and adapters, but they must not fork or duplicate the language/compiler/runtime authority.
 
@@ -32,15 +32,70 @@ No second parser, response engine, scene runtime, button engine, relationship au
 
 ### Single semantic state/outcome authority
 
-State-aware dialogue follows the same non-duplication rule.
+State-aware dialogue follows the same non-duplication rule through the accepted post-G9 production seam:
 
-Semantic IR describes what a participant means. Existing gameplay/domain systems remain authoritative for what is true. Stateful semantic acts are resolved by extending the existing Core semantic capability/flow contracts with one shared Predicate-backed state/outcome evaluation contract; buttons, typed input, flow transitions, response selection, gameplay admission and post-turn projection consume that same result.
+~~~text
+compact ConvoEngine/PSDL source
+→ Canonical Semantic Dialogue IR
+→ Portable Dialogue Plan
+→ descriptor-selected backend/generated runtime
+→ typed ActionContract/capability adapter when mutation is required
+→ authoritative adopter gameplay system
+~~~
+
+Semantic source describes meaning and state-aware policy. Existing gameplay/domain systems remain authoritative for mutable truth.
+
+S11 state/input/repeat/postcondition policy is authored canonically and carried through the Portable Dialogue Plan. Runtime capability catalogs, suggestion providers and Semantic Lab are projections/consumers, not alternate authoring authorities.
+
+The canonical outcome envelope spans pre-admission state classification and the existing ActionContract result lifecycle; do not create a second action/result runtime merely named SemanticOutcome.
 
 Do not introduce a second persisted semantic state store, action/capability registry, condition DSL, suggestion-only eligibility engine, typed-input state engine, response-side state evaluator, or repeat/cooldown subsystem.
 
-Core owns reusable `StatePolicy` / `SemanticOutcome` shapes and validation. Adopters project bounded public facts from their existing authorities and retain domain-specific reasons/effects. A state projection is read-only derived context, never another source of truth.
+Core owns portable schema/runtime mechanisms and generic validation/outcome vocabulary. Adopters project bounded public facts from their existing authorities, implement typed capability adapters, and retain domain-specific reasons/effects. A state projection is read-only derived context, never another source of truth.
 
-The active S11 design is specified in `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`; once S11 closes, its accepted generic contract becomes part of this architecture.
+The active S11 designs are specified in S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md, S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md, S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md, S11_COMPILER_RUNTIME_OPTIMIZATION.md, and S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md; once S11 closes, their accepted generic contracts become part of this architecture.
+
+### Dialogue closure and memory continuity invariant
+
+Canonical compiler analysis must distinguish live conversational continuation from semantic residue. A dialogue branch may terminate while a domain obligation, resolved fact, or state-transition reference remains relevant.
+
+Working conversation context is short-lived. Same-day semantic episode context enriches the existing ConversationMemory. Durable/gameplay truth remains in existing domain/event authorities. Do not keep flows pending merely to simulate memory, and do not persist prose transcript summaries as competing truth.
+
+The compiler owns the canonical conversation graph/completeness report used by CodeBuilder, Semantic Lab and fixture coverage. UI/tool surfaces must not maintain separate reachability or open-endedness logic.
+
+### Portable facts/effects/modifier invariant
+
+Core compiler semantics are generic: EntityRef, Predicate/Query, Action, Effect, Modifier, Retention and MemoryResidue. Adopters register domain schemas/providers/adapters for relationship, mood, inventory, health, traits, needs, tasks, quests, combat and future domains.
+
+Conditions are read-only semantic queries. Mutations route through existing ActionContract/domain authorities. Timed buffs/debuffs use one generic game-time modifier lifecycle with explicit stacking/retention semantics. Semantic memory records what happened and remains distinct from active modifier state.
+
+Authoring sugar may be compact, but it must lower into explicit portable canonical IR before Portable Plan/backend generation. Raw adopter persistence paths, opaque callbacks, and domain-specific mini-languages that bypass canonical analysis are not valid semantic authority.
+
+### Compiler-heavy / runtime-light invariant
+
+Expensive semantic reasoning belongs in compiler/analyzer stages. Generated runtime should consume compact deterministic definitions, stable dependency/index metadata, and bounded predicate/state programs.
+
+Compiled families declare required authoritative facts. Runtime projects only required facts and invalidates affected semantic consumers after authoritative state changes. A safe full-rebuild path may remain as recovery/fallback until dependency parity is proven; it is not the normal steady-state strategy.
+
+Static definition metadata is generated once; persisted memory/modifier instances store only mutable data and references. Timed expiry uses bounded game-time scheduling rather than global per-frame scans. Repeated aggregatable memories/modifiers use definition-driven dedupe/aggregation. Presets/macros expand before runtime. Detailed traces are requested on demand.
+
+Performance gates are evidence-based: baseline first, then regression thresholds. Optimization may not weaken semantic correctness, completeness analysis, Portable Plan/backend parity, or adopter gameplay authority.
+
+### Participant-agnostic / LLM-minimized emergent-dialogue invariant
+
+Canonical dialogue is participant-count agnostic by default. A scene exposes a bounded ParticipantSet of EntityRefs; semantic roles are dynamically bound views over that set with explicit cardinality. `speaker`/`addressee` are convenience roles, not a hard-coded two-actor architecture.
+
+Reusable semantic families/archetypes expose machine-readable act/topic/event/activity/memory hooks, required/optional roles, required facts, repeat/cooldown policy, continuation/closure metadata and realization references. Future autonomous Dialogue Director logic may discover and rank these candidates, but it is a consumer of ConvoEngine metadata, not a semantic authority.
+
+S11 does not implement autonomous beat/topic scoring. It must only preserve the typed participant/role/archetype/reference metadata and compiler analysis needed so that a later deterministic utility-driven director can operate with minimal or zero LLM use.
+
+Semantic correctness, role legality, state/outcome admission, actions/effects, memory truth and closure must never require an LLM. LLM use is optional and bounded to presentation or ranking among already-valid candidates.
+
+### Foundation freeze / migration invariant
+
+S11 foundation order is authoritative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md` and ROADMAP. Production semantic-family migration is forbidden until the S11A8 foundation freeze gate passes. Build/freeze the canonical model and compiler path first, then analyzers/adapters/lifecycle/optimization, then migrate production content once.
+
+Migrated project-owned semantic paths are replaced, not preserved through compatibility shims. After canonical-source parity and caller-zero proof, obsolete internal definitions/wrappers/registries/fallbacks are deleted. Dialogue/semantic source changes must flow through the existing CodeBuilder canonical source + generation recipe + reconcile pipeline; generated Lua/registries/manifests/translations remain downstream-only.
 
 ## Runtime namespace boundary
 

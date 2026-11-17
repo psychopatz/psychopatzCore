@@ -56,22 +56,56 @@ If a missing capability is discovered, prove it with source/tests before changin
 
 ### S11 state/outcome discipline
 
-For stateful semantic behavior, read `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md` and `S11_BRANCHING_DIALOGUE_AUDIT.md` before implementation.
+For stateful semantic behavior, read S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md first, then S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md, S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md, S11_COMPILER_RUNTIME_OPTIMIZATION.md, S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md, and S11_BRANCHING_DIALOGUE_AUDIT.md before implementation.
 
-S11 extends existing semantic mechanisms; it does not add another runtime stack:
+S11 extends the accepted post-G9 ConvoEngine pipeline:
 
-- reuse `PsychopatzSemanticPredicate` as the condition language/evaluator;
-- extend existing capability/flow descriptors with `statePolicy`, `inputPolicy`, `repeatPolicy`, and bounded postcondition/presentation metadata;
-- normalize state/admission into one canonical `SemanticOutcome`;
-- keep `CandidateEligibility` limited to parse/context candidate eligibility;
-- keep gameplay/domain authorities final for mutation;
-- expose new contract fields through the existing capability catalog;
-- carry authored repeat semantics through the existing dialogue history/repeat machinery;
-- rebuild state-sensitive affordances from fresh authority after state changes.
+- author state/input/repeat/postcondition policy in compact ConvoEngine/PSDL source;
+- normalize it through Canonical Semantic Dialogue IR and Portable Dialogue Plan;
+- reuse the existing canonical predicate AST / PsychopatzSemanticPredicate;
+- evaluate one portable pre-admission outcome for buttons, typed input and flow entry;
+- short-circuit no_op / reject / confirm / defer before gameplay dispatch;
+- use existing ActionContract.Execute plus adopter capability adapter for mutation;
+- use existing ActionContract.ProjectResult/outcome mapping for authoritative post-dispatch results;
+- rebuild state-sensitive affordances from fresh authority after state changes;
+- expose compiled policy through existing catalog/Semantic Lab diagnostics rather than authoring it there;
+- carry repeat semantics through existing dialogue history/repeat machinery;
+- keep CandidateEligibility limited to parser/context candidate safety;
+- derive one compiler conversation graph from canonical IR/Portable Plan for reachability, completeness, cycle/progress, obligation, closure and memory-residue diagnostics;
+- let CodeBuilder/Semantic Lab consume that compiler report rather than reimplement graph analysis;
+- close conversation-local flow state when semantically done while transferring any real-world promise/task into existing domain authority and compact same-day ConversationMemory episode references;
+- never use raw transcript summaries or stale live flow state as the canonical one-day memory;
+- normalize actor/target fact queries, inventory constraints, relationship/mood predicates, typed effects, duration literals, stacking and reusable presets into canonical IR/Portable Plan before backend generation;
+- keep `when` predicates read-only; use existing ActionContract/domain adapters for mutation;
+- use one generic modifier lifecycle/retention model for timed buffs/debuffs and require adopter domain schemas for allowed fields/ranges/roles/authority;
+- keep semantic memory and active modifiers distinct even when one episode creates both;
+- reject opaque provider callbacks or raw persistence-path predicates that make completeness/backend parity blind;
+- prefer compile-time normalization/analysis over runtime discovery; generated runtime consumes compact definitions and indexes;
+- compile family required-fact metadata and invalidate semantic projections by authoritative fact changes; retain a safe full-rebuild fallback until parity is proven;
+- never optimize by creating a shadow inventory/relationship/mood store;
+- use stable compiled IDs for compact runtime/persistence only when source IDs remain recoverable and migration-safe;
+- use bounded game-time scheduling for timed memory/modifier expiry and definition-driven dedupe/aggregation for repeatable instances;
+- keep presets/macros compile-time only and detailed decision traces opt-in;
+- measure compile/runtime/save-size baselines before establishing hard performance thresholds; correctness gates remain higher priority than speed;
+- model scenes as bounded ParticipantSets plus dynamically bound semantic roles/cardinality, not participant-number-specific dialogue variants;
+- keep two-person dialogue as a specialization of the generic participant/role model;
+- preserve structured TopicRef/EventRef/ActivityRef/MemoryRef-compatible metadata and discoverable semantic act/archetype metadata for a future Dialogue Director;
+- keep realization separate from semantic meaning so authored/templates can function without an LLM;
+- do not implement autonomous beat/topic scoring in S11; only establish the typed metadata and bounded compiler/runtime seams;
+- semantic correctness and gameplay authority must require zero LLM calls;
+- obey the S11A0→S11A8 foundation order and do not migrate production semantic families before the S11A8 freeze gate;
+- classify legacy surfaces before editing them as KEEP_AUTHORITY / ADAPT / MIGRATE_LATER / RETIRE_AFTER_PARITY / GENERATED_DO_NOT_EDIT / UNRELATED;
+- do not add compatibility shims, fallback readers, dual registries, dual writes, forwarding wrappers, or parallel old/new semantic paths for project-owned internal code; migrate callers and delete obsolete code after parity/caller-zero proof;
+- author migrated dialogue/semantic logic in canonical CodeBuilder source/recipes and use the shared authoring/migration service; run generation through `tools/semantic_harness/codebuilder/generation_recipe.json` and recipe-driven reconcile; generated Lua/registries/manifests/translations are downstream-only and must not be hand-edited;
+- for bulk dialogue migrations, read canonical compact source plus compiler/recipe evidence rather than repeatedly reading generated downstream copies.
 
-Do not create a `StatefulDialogueRegistry`, second action catalog, second predicate DSL, separate button-state evaluator, separate typed-input state evaluator, separate cooldown engine, or persistent semantic shadow copy of gameplay state.
+Behavioral regressions belong primarily in provider-owned declarative fixtures under tools/providers/<provider>/fixtures/. Keep imperative tests for compiler/schema, Portable Plan/Reference VM, backend parity, ActionContract lifecycle, GUI/protocol/static/performance responsibilities.
 
-At review, search for duplicated domain-state predicates. A fix fails S11 if button and typed paths are green only because they contain separate copies of the same gameplay-state rule.
+For S11, Reference VM and PZ/Lua backend must agree on matched state rule, outcome, reason, admission and reply outcome for the same canonical family plus projected state.
+
+Do not create a StatefulDialogueRegistry, second action catalog, second predicate DSL, relationship/mood/inventory mini-DSL that bypasses canonical normalization, separate button-state evaluator, separate typed-input state evaluator, separate cooldown/modifier engine, persistent semantic shadow state, semantic shadow inventory/cache without authoritative invalidation ownership, runtime preset-expansion system, participant-count-specific dialogue copies where role binding would suffice, autonomous S11 Dialogue Director/scorer, LLM-required semantic authority, compatibility shim/fallback/dual-path for migrated internal semantic code, or hand-written/generated runtime descriptor that becomes a second semantic authoring authority.
+
+At review, search for duplicated domain-state predicates and policy fields present only in generated/adopter Lua but absent from canonical source/Portable Plan. Either defect fails S11 even if focused behavior tests are green.
 
 ## ConvoEngine / CodeBuilder authoring discipline
 

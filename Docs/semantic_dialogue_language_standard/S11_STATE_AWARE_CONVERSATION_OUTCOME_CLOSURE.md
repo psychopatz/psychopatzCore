@@ -1,6 +1,6 @@
 # S11 — State-Aware Conversation Outcome Closure
 
-**Status:** ACTIVE — opened by native/Semantic Lab regression evidence on 2026-11-16.  
+**Status:** ACTIVE — post-G9 architecture reconciled; implementation not yet started.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.  
 **Accepted baseline retained:** S0-S10 + S10R infrastructure and acceptance integrity remain accepted unless S11 evidence directly disproves a retained behavior.  
 **Primary adopter:** ProjectHoomans.  
@@ -160,116 +160,19 @@ Rendered wording remains presentation. It may not become state authority.
 
 ## Required architecture contract
 
-The detailed approved design is `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`.
+The authoritative execution order is `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`. The detailed normative designs are S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md, S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md, S11_COMPILER_RUNTIME_OPTIMIZATION.md, and S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md.
 
-The central architectural rule is:
+Implementation follows compact ConvoEngine/PSDL source → Canonical Semantic Dialogue IR → Portable Dialogue Plan → descriptor-selected backend/generated runtime → typed ActionContract/capability adapter → authoritative adopter gameplay state.
 
-> Semantic IR describes meaning. Existing authoritative game systems describe reality. The existing semantic capability/flow contract, extended with one Core Predicate-based StatePolicy, combines those into one canonical SemanticOutcome. Suggestions, typed input, flow transitions, responses, effects and post-turn projections consume that outcome; no parallel semantic state or eligibility engine exists.
+Canonical source owns statePolicy, inputPolicy, repeatPolicy, optional postcondition/presentation policy, and the compact portable facts/effects/modifier declarations defined by S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md. Existing gameplay state remains truth. Reuse the existing predicate AST / PsychopatzSemanticPredicate. Equivalent click/free-text routes must produce the same canonical state outcome before presentation-specific wording. Actor/target item constraints, relationship/mood checks, immediate effects, and timed modifiers must normalize into portable IR and registered adopter domain schemas rather than raw persistence paths or opaque Lua callbacks.
 
-### 1. Reuse existing authoritative state
+The pre-admission state result and existing ActionContract result lifecycle form one normalized outcome contract. If dispatch is admitted, use ActionContract.Execute; normalize authority through ActionContract.ProjectResult. Do not create a second action/result registry merely named SemanticOutcome.
 
-Do not introduce a second relationship store, identity store, task store, companion-order store, knowledge store, or UI-owned shadow state.
+Recognized constrained input must close through owned reply/effect/no-op/confirmation/defer semantics. Effectful repeat policy uses existing history/repeat machinery. State-changing outcomes rebuild state-sensitive projection from fresh authority.
 
-State evaluation must consume existing canonical/adopter projections such as:
+Behavioral S11 regressions are declarative-first through provider fixtures; imperative tests remain for compiler/schema, Portable Plan/Reference VM, backend parity, ActionContract lifecycle, GUI/protocol/static/performance responsibilities.
 
-- player-scoped NPC presentation/knowledge;
-- relationship and interaction history;
-- dialogue context obligations;
-- actor authority/capability state;
-- NPC task/order/behavior/health state;
-- gift/task/event lifecycle;
-- world/base/destination facts;
-- existing ConvoEngine predicates and response outcomes.
-
-Core owns the portable `StatePolicy` / `SemanticOutcome` contract, validation, generic outcome/admission vocabulary, and reuses the existing `PsychopatzSemanticPredicate` evaluator. ProjectHoomans projects its existing authoritative gameplay facts into that contract and keeps gameplay-specific predicates/reasons/effects.
-
-Do not add a parallel `StatefulDialogueRegistry`, second capability catalog, second condition DSL, second repeat/cooldown engine, or a persistent semantic shadow copy of gameplay state.
-
-### 2. Separate semantic availability from presentation policy
-
-A state evaluation must be capable of expressing, at minimum, the concepts needed to distinguish:
-
-```text
-actionable
-redundant / already satisfied
-pending / already active
-completed
-blocked
-unavailable
-unknown / insufficient state
-ambiguous
-```
-
-Exact enum names are implementation decisions; do not create enum proliferation when an existing outcome vocabulary can be extended cleanly.
-
-The result must provide enough stable reason/outcome data for callers to choose:
-
-```text
-SHOW
-HIDE
-DISABLE
-ALTERNATE
-```
-
-without reimplementing the underlying state test.
-
-### 3. Clicked suggestions and typed input share outcome semantics
-
-Equivalent semantic actions reached through:
-
-- a root menu;
-- a response-channel button;
-- a generated affordance;
-- a typed/free-text input;
-- a compatible provider route;
-
-must converge before authoritative effect selection.
-
-They may have different presentation/provenance, but they may not disagree on whether the current state is already satisfied, blocked, pending, or actionable.
-
-### 4. Every recognized constrained turn has an immersive outcome
-
-For recognized semantic input, state-specific outcomes must exist for reachable cases.
-
-Examples:
-
-```text
-FOLLOW while already following
-  -> no duplicate order
-  -> "I'm already following you."
-
-STAY while already staying
-  -> no duplicate order
-  -> "I'm already staying here."
-
-GO HOME while already returning
-  -> no duplicate return-home admission
-  -> "I'm already on my way back."
-
-known fact requested again
-  -> reminder/reconfirmation reply
-  -> no duplicate disclosure consequence
-
-known identity stated again
-  -> reconfirmation/reminder
-  -> no first-introduction reward
-```
-
-Generic `"I can't do that yet."` remains valid only when the actual classified outcome is genuinely generic and no more truthful state-specific outcome exists.
-
-### 5. Post-turn projection must be monotonic with accepted state transitions
-
-Once an authoritative action resolves a pending obligation or changes eligibility, every subsequent suggestion/menu/snapshot projection must consume the new state.
-
-A completed/cleared obligation may not resurrect because:
-
-- an old response-channel projection survived;
-- stale `conversationMenuOptions` were preserved;
-- a root refresh rebuilt from pre-action context;
-- worker snapshot rehydration read an obsolete copy;
-- provider-local state disagreed with live dialogue state.
-
-Refresh/preservation logic may retain closures or presentation metadata only when their state-sensitive eligibility is revalidated.
+S11 fails if it introduces runtime-Lua-only policy absent from canonical source/Portable Plan, a second state/action/capability registry, second predicate DSL, domain-specific relationship/mood/inventory mini-DSLs that bypass canonical normalization, suggestion-only or typed-only gameplay-state authority, response-side state re-derivation, second repeat/cooldown/modifier-lifecycle system, persisted semantic shadow truth, or generated-file hand edits as semantic authoring.
 
 ## Identity reference implementation
 
@@ -428,90 +331,61 @@ This matrix may extend an existing Feature Acceptance Registry or another canoni
 
 A newly added state-constrained public semantic action must fail validation if it has no state/outcome acceptance ownership.
 
+The compiler must also own a machine-readable Dialogue Completeness Report derived from canonical IR/Portable Plan. For each maintained family it must classify reachable closure/progress, unhandled state/action outcomes, pending obligations, cycles, memory residue, and fixture coverage. Semantic Lab/Studio consume this report rather than reimplementing graph analysis.
+
+Every terminal branch with meaningful residue must classify that residue as none, resolved episode, durable fact reference, open/deferred domain obligation, or state transition. Same-day semantic episodes enrich the existing ConversationMemory; they do not create another memory store.
+
 ## S11 phase plan
 
-### S11A — regression freeze + single semantic state/outcome substrate
+### S11A — foundation build and freeze before production migration
 
 **State:** ACTIVE.
 
-1. Freeze the identity and branching-audit P0 regressions before behavior repair: known/reconfirmation contradiction, duplicate identity reward, stale identity choices, repeated FOLLOW/STAY/GO HOME/CAMP and busy-command bypass, needs proposal self-loop, hostile greeting follow-up contradiction, recruitment stale transition/duplicate request, and relationship-proposal stale transition.
-2. Inventory current state predicates and outcome/reply ownership across Core and ProjectHoomans; record overlapping transition ownership for identity, greeting, needs and wellbeing.
-3. Implement the approved `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md` substrate in Core by extending existing semantic structures rather than adding parallel registries:
-   - one Predicate-based `StatePolicy` evaluator;
-   - one normalized `SemanticOutcome` shape;
-   - bounded generic outcome/admission vocabulary;
-   - descriptor fields for `statePolicy`, `inputPolicy`, `repeatPolicy`, and optional `expectedPostconditions`/presentation mapping;
-   - discovery through the existing capability catalog;
-   - validation for malformed/missing stateful contracts.
-4. Keep CandidateEligibility limited to parse/context eligibility; stateful gameplay admission must happen after candidate selection through the shared StatePolicy path.
-5. Make directional identity knowledge explicit as a projection of existing authority without adding a second identity store.
-6. Add negative tests proving a stateful public capability cannot silently introduce a second/unowned state path.
+The exact execution order is normative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md` and ROADMAP S11A:
 
-**Gate:** P0 regressions are frozen; the shared Core substrate exists and is discoverable; no new parallel state/action/eligibility registry exists; stateful descriptors can produce canonical SemanticOutcome diagnostics from projected authoritative state; identity/companion repairs can consume the substrate without UI-owned state truth.
+```text
+S11A0  preflight + baselines + legacy ownership inventory
+S11A1  canonical data-model freeze
+S11A2  compact source → canonical IR → Portable Dialogue Plan
+S11A3  Reference VM ↔ PZ/Lua structural parity
+S11A4  Dialogue Completeness Analyzer over the frozen model
+S11A5  direct adapters to existing authoritative domain systems
+S11A6  memory/modifier lifecycle
+S11A7  compiler/runtime optimization
+S11A8  FOUNDATION FREEZE GATE
+```
 
-### S11B — identity reference migration onto the shared substrate
+No production legacy semantic-family migration is allowed before S11A8.
 
-1. Migrate identity onto the S11A StatePolicy/SemanticOutcome substrate; do not implement a separate identity state evaluator.
-2. Stop known-NPC reminder questions from automatically creating first-contact player-name obligations.
-3. Add first-contact versus reconfirmation/repetition identity outcome classification.
-4. Add known-state response-channel variants for truthful/refuse/lie semantics where a reciprocal beat is actually active.
-5. Route free-text identity input through the same state classification.
-6. Make first-introduction relationship effects idempotent.
-7. Revalidate/rebuild state-sensitive root/response-channel choices after authoritative identity results.
-8. Eliminate snapshot/refresh resurrection of resolved identity choices.
-9. Preserve S10A label/speech separation and natural realization variants.
-10. Prove button and typed identity routes emit the same canonical SemanticOutcome for the same projected state before presentation-specific wording is selected.
+S11A0 must classify relevant current surfaces as KEEP_AUTHORITY / ADAPT / MIGRATE_LATER / RETIRE_AFTER_PARITY / GENERATED_DO_NOT_EDIT / UNRELATED. S11A1-A3 use synthetic/minimal semantic fixtures to develop the generic compiler model instead of repeatedly migrating production dialogue while the schema is moving.
 
-**Gate:** all identity routes consume the shared substrate and produce state-correct replies/effects; repeated truthful claims cannot farm relationship rewards; resolved first-contact choices do not reappear; no identity-only shadow state/eligibility engine was introduced.
+S11A4 is intentionally after the canonical model and backend structural parity so the analyzer is built once against ParticipantSet/roles, facts/actions/effects/modifiers, memory residue, semantic beats/archetypes and continuation/closure rather than retrofitted repeatedly.
 
-### S11C — constrained-domain parity sweep
+S11A5 adapts existing RelationshipService, inventory authority, morale/mood authority, ConversationMemory and ActionContract directly. It must not create compatibility shims, fallback readers, dual stores/registries, or old/new execution paths.
 
-`S11_BRANCHING_DIALOGUE_AUDIT.md` defines the required sweep and its evidence classification. S11C must not stop after identity.
+Dialogue/semantic content migration must use canonical CodeBuilder source/recipes. The recipe ledger is `tools/semantic_harness/codebuilder/generation_recipe.json`; use recipe-driven `reconcile.py --check` / `--apply`. Generated Lua, generated manifests/registries, generated translations and other recipe-owned outputs are downstream-only.
 
-1. Migrate companion-order state rules out of suggestion-only ownership and onto the same capability `statePolicy` consumed by suggestions and typed input. Cover already-following, already-staying, already-returning/home, camp-active, busy/combat/hostile/dead/incapacitated and related state reasons; typed commands must not bypass the same canonical SemanticOutcome that shapes suggestions.
-2. Close the needs/proposal flow so accepted input cannot remain in an unbounded `proposal_pending -> proposal_pending` loop without authoritative progress/defer/cancel semantics.
-3. Reconcile greeting/parley state ownership so hostile/busy/combat/dead/incapacitated actors cannot receive contradictory friendly follow-up obligations through typed input.
-4. Repair recruitment and relationship-proposal post-transition projection; repeated input must reach already-member/already-lover/cooldown outcomes without duplicate mutation/request admission.
-5. Classify every stateful root action with natural conversational meaning as `typed_parity_required`, `typed_routes_to_confirmation`, or `presentation_only_by_design`; departure/disband must preserve its warning/confirmation boundary.
-6. Carry `repeatPolicy` through the existing PSDL/dialogue-block compiler and existing conversation history/repeat machinery; do not create a second repeat/cooldown subsystem. Audit every effectful PSDL branch for explicit one-shot, cooldown/max-use, state-retired, idempotent, or intentionally-repeatable semantics. Relationship effects must not be farmable through category repetition.
-7. Add production-state parity for parameterized tasks and quest lifecycle stages; preserve their existing specific authority reasons and response families.
-8. Apply the contract to knowledge/gossip/fact repetition, gifts/consent, event follow-ups, settlement/ambient visits, territory, ceasefire and pragmatic social repair where the audit requires coverage.
-9. Retain domain-specific authority/effects in the owning adopter; do not centralize ProjectHoomans gameplay policy in Core.
-10. Preserve the audit's reference-good contracts for wellbeing convergence, event-window expiry, grounded gossip unknown handling, gift consent/expiry, departure confirmation, settlement expiry and pragmatic apology/reconciliation.
+**S11A gate:** S11A0-S11A8 pass; canonical source→IR→Portable Plan and both backends carry the frozen model; completeness analysis understands the final model; authoritative adapters and memory/modifier lifecycle are stable; optimization/dependency/persistence contracts are proven; deterministic/no-op generation passes; zero-LLM semantic correctness passes; no production family was migrated before the freeze; and no compatibility shim or parallel legacy semantic authority was introduced.
 
-**Gate:** every family listed in `S11_BRANCHING_DIALOGUE_AUDIT.md` has a final classification of repaired, explicitly presentation-only, or reference-good/regression-protected; every maintained constrained family has button/free-text/effect/reply/repeat/post-transition coverage; and all migrated families use the same existing-registry StatePolicy/SemanticOutcome substrate rather than domain-specific duplicate evaluators.
+### S11B — identity reference migration
 
-### S11D — real-surface outcome-closure acceptance
+Fix known/reminder first-contact leakage, classify first introduction/reconfirmation/repetition/correction/deception, make first-introduction effects idempotent, eliminate stale choice resurrection, preserve S10A label/speech semantics, and prove typed/click canonical outcome parity.
 
-Run the regression through:
+### S11C — companion commands + flow reference migrations
 
-1. focused Lua/state-policy tests;
-2. real manifest-selected ProjectHoomans worker;
-3. real response-channel click path;
-4. free-text/inputbox path;
-5. real Tk/Xvfb Semantic Lab conversation UI;
-6. snapshot/restart/reconfigure lifecycle where state persistence matters.
+Normalize maintained companion commands toward compact action/execute plus ActionContract, use one portable state policy for affordances and typed input, prove zero dispatch for already-satisfied/blocked commands, and repair/migrate Needs/Greeting semantic flow definitions with bounded progress.
 
-Add adversarial repeat loops. For identity, state the same canonical name at least ten times after the first accepted introduction and prove no additional first-introduction approval/respect/familiarity is applied.
+### S11D — full constrained-domain sweep + real-surface acceptance
 
-Add negative acceptance proving a newly introduced stateful semantic action without outcome ownership fails validation.
+Cover every family in S11_BRANCHING_DIALOGUE_AUDIT.md. Use declarative fixture sweep plus compiler/schema/completeness/Portable Plan/Reference VM tests, Reference VM ↔ PZ/Lua parity, real provider worker, response-channel click, inputbox/free text, Tk/Xvfb, cross-conversation same-day context-reference cases, and persistence-sensitive lifecycle tests.
 
-S11D must also exercise the branching-audit regressions through the real worker/inputbox and, where user-visible, real Tk/Xvfb surfaces: repeated companion commands, needs proposal closure, hostile greeting/parley, recruitment transition, relationship proposal transition, destructive typed confirmation, effectful authored-choice repeat policy, active task state and real quest lifecycle transitions.
-
-**Gate:** automated developer acceptance proves no reachable constrained semantic state in the mandatory branching audit is button-only, typed-input-open-ended, effect-duplicating, unbounded-self-looping, or stale-projection-dependent.
+For conversations that create promises/tasks/commitments, prove the conversational branch closes while the domain obligation remains authoritative and recallable. After the obligation changes state, later same-day reference must use current authority rather than stale remembered status.
 
 ### S11E — retained acceptance and closure
 
-1. Re-run focused S10A label/speech acceptance.
-2. Re-run all S11 identity/state-parity suites.
-3. Re-run canonical nine-suite `--acceptance`.
-4. Preserve S10R signature-based unrelated-baseline rules; do not widen waivers to hide S11 failures.
-5. Reconcile ROADMAP/PROGRESS/HANDOFF and any stable architecture/runbook contracts actually changed.
-6. Commit changed adopter repositories first and Core last using exact phase-owned paths.
-7. Record exact participant commit vector and residual-work fingerprints.
-8. Do not push, publish Workshop content, or launch native Project Zomboid without explicit authorization.
+Rerun S10A label/speech, all S11 fixtures/tests, canonical nine-suite acceptance, CodeBuilder reconciliation and deterministic/no-op generation, strict S10R baselines, and git diff --check; reconcile docs; commit adopters first/Core last; record exact vector/fingerprints; do not push/publish.
 
-**Gate:** only after S11A-S11E are accepted may the project return to `USER_ACCEPTANCE`.
+**Gate:** only after S11A-S11E are accepted may the project return to USER_ACCEPTANCE. Closure additionally requires that compiler completeness catches open-ended/unhandled branches, meaningful same-day context survives branch closure through existing ConversationMemory/domain authority without retaining stale live flow state, and the richer semantic system remains within measured runtime/save-size budgets using compile-time normalization, compact definitions, dependency-driven projection/invalidation, bounded expiry scheduling, dedupe/aggregation, and on-demand diagnostics.
 
 ## Mandatory regression scenarios
 
@@ -610,6 +484,9 @@ Developer acceptance requires all of the following:
 - Do not solve only the Semantic Lab projection while leaving native Project Zomboid conversation state inconsistent.
 - Do not solve only the native menu while leaving the worker/harness inconsistent.
 - Do not rewrite all dialogue families or translations without state/evidence need.
+- Do not migrate production semantic families before the S11A8 foundation freeze.
+- Do not preserve superseded project-owned semantic paths through compatibility shims, forwarding wrappers, fallback readers, dual registries/writes or parallel old/new execution paths; after parity/caller-zero proof, delete obsolete code.
+- Do not hand-edit recipe-owned generated Lua/registries/manifests/translations. Author canonical dialogue/logic through CodeBuilder source/recipes and regenerate/reconcile downstream.
 - Do not weaken server authority for identity, relationships, tasks, or knowledge.
 - Do not broaden unrelated-baseline/skip policy to make S11 green.
 - Do not push, PR, release, publish Workshop content, or launch native Project Zomboid without explicit user authorization.
@@ -629,6 +506,9 @@ S11 is developer-complete only when:
 9. real Tk/Xvfb acceptance exercises both response-channel click and inputbox routes;
 10. canonical nine-suite acceptance and retained S10/S10R gates pass;
 11. continuity docs and exact participant/residual checkpoint truth are reconciled;
-12. accepted phase work is locally committed without automatic push/publication.
+12. accepted phase work is locally committed without automatic push/publication;
+13. S11A0-S11A8 completed in the authoritative foundation-first order and no production family was migrated before the freeze;
+14. migrated dialogue/semantic content is authored through canonical CodeBuilder source/recipes with deterministic reconcile/no-op generation rather than generated-file edits;
+15. superseded project-owned internal semantic implementations have caller-zero/parity proof and are deleted, with no compatibility shim/fallback/dual-path residue.
 
 Only then return to user-owned native Project Zomboid acceptance.

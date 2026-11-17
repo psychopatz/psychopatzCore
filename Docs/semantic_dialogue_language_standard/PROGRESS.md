@@ -1,70 +1,68 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11 State-Aware Conversation Outcome Closure opened by verified post-S10R native/Semantic Lab regression evidence.
-**Estimated developer progress:** S0-S10 + S10R retained as accepted infrastructure; S11A is active.
+**Status:** IN_PROGRESS — S11 post-G9 architecture reconciled; P0 behavior still reproduces on current HEADs.
+**Estimated developer progress:** S0-S10R + G7-G9 structural cleanup retained as accepted infrastructure; S11A is active and has not started implementation.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11A — regression freeze + single semantic state/outcome substrate.
-**Immediate Next Chunk:** Freeze the full S11A P0 regression matrix, then implement the approved Core StatePolicy/SemanticOutcome substrate by extending the existing Predicate / Offer / capability / flow contracts—no parallel registry or shadow state system.
+**Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
+**Immediate Next Chunk:** S11A0 — preflight/baseline/legacy ownership inventory only: verify all three repos, reconcile or explicitly baseline the two pre-existing DT generated fingerprint drifts, freeze P0 declarative regressions, record compile/runtime/save-size baselines, and classify relevant existing surfaces as KEEP_AUTHORITY / ADAPT / MIGRATE_LATER / RETIRE_AFTER_PARITY / GENERATED_DO_NOT_EDIT / UNRELATED. Do not implement the new production semantic model and do not migrate production dialogue in this chunk.
 
-## S11 reopened developer work (2026-11-16)
+## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
-Normative goal:
+Normative goal: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
-`Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
+Re-audited structural-cleanup HEADs:
 
-Approved architecture:
+~~~text
+psychopatzCore   a583dbd246b6d8f6f4ba519462aecae92424a06f
+ProjectHoomans   942ef41304287e6dadc6023a0c2577910cef2408
+DynamicTrading   e21387081776e3c8c8e2ba34d419a83441be801f
+~~~
 
-`Docs/semantic_dialogue_language_standard/S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
+Accepted cleanup architecture is now compact PSDL/ConvoEngine package → canonical Semantic Dialogue IR → Portable Dialogue Plan → descriptor-selected backend → generated runtime → typed capability adapter.
 
-Fresh production-worker evidence disproves the prior conclusion that only native visual/gameplay acceptance remained:
+Focused structural baseline reruns are green: Core G8/G9 production/backend/decomposition 13/13; Hoomans focused stateful/flow/proposal 15/15. These suites do not catch S11.
 
-- a known NPC correctly selects `question.identity.known` yet the same turn creates a first-contact `PLAYER_NAME` pending obligation;
-- the Response Channel then exposes `Say your real name`, `Don't tell your name`, and `Lie about your name` despite the NPC saying the characters already know one another;
-- a truthful repeated identity claim can reapply the first-introduction relationship effect (`approval +1`, `respect +2`, `familiarity +6`) on every accepted repetition;
-- after an accepted identity exchange clears the live pending obligation, a later snapshot can resurrect the same first-contact identity choices;
-- existing tests currently encode contradictory expectations: known-identity response parity is tested while another smoke test still requires a known identity question to create the first-contact player-name obligation.
+Fresh production-worker audit still reproduces all major P0 defects: known reminder → PLAYER_NAME, stranger choices in known state, repeat identity reward farming, stale identity choices, repeated/busy companion command dispatch, Needs proposal self-loop, hostile greeting plus friendly follow-up, stale recruitment, and stale relationship proposal.
 
-S11 treats identity as the reference implementation for a broader invariant: state-constrained button suggestions and free-text input must share one authoritative state/outcome classification, and every recognized reachable state must have an immersive reply/effect/no-op outcome.
+The old runtime-descriptor-first S11 design is superseded. State/input/repeat/postcondition policy must be authored in canonical compact source and survive canonical IR → Portable Dialogue Plan → Reference VM/PZ backend. Existing Core ActionContract is the mutation/result seam; SemanticOutcome is a normalized data contract around pre-admission plus ActionContract.ProjectResult, not a second execution runtime.
 
-The approved implementation direction is explicitly **single-system**: Semantic IR continues to describe meaning; existing gameplay systems remain state authority; the existing semantic capability/flow descriptors are extended with one Predicate-backed `statePolicy` and canonical `SemanticOutcome`. Suggestions, typed input, flow transitions, responses, effects and refresh all consume that result. Do not create a second state store, action registry, suggestion-only eligibility engine, typed-input state engine, condition DSL, or repeat/cooldown subsystem.
+Provider-owned declarative fixtures under tools/providers/pnc/fixtures/v1/ are the primary behavioral acceptance surface. Correct existing contracts that bless repeated FOLLOW dispatch and unbounded Needs pending state; preserve valid first-contact identity fixtures.
+
+Authoritative S11 execution order:
+
+`Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`
+
+Foundation contracts:
+
+`Docs/semantic_dialogue_language_standard/S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md`
+
+`Docs/semantic_dialogue_language_standard/S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md`
+
+`Docs/semantic_dialogue_language_standard/S11_COMPILER_RUNTIME_OPTIMIZATION.md`
+
+`Docs/semantic_dialogue_language_standard/S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md`
+
+Before broad S11 migration, the compiler must build one canonical conversation graph and report reachability, missing state/action branches, unbounded cycles, continuation obligations, closure classes, semantic memory residue, and fixture coverage. Closed branches with meaningful residue project compact same-day semantic episodes through the existing ConversationMemory/domain authorities; live flow state is not memory.
+
+Conditions and consequences must also normalize through one portable EntityRef / Predicate-Query / Action / Effect / Modifier / Retention vocabulary. ProjectHoomans relationship effects/memories, morale modifiers, and inventory query/consumption services remain domain authorities behind compiler-visible schemas; no relationship/mood/inventory mini-DSL or duplicate modifier engine is allowed.
+
+Optimization is compiler-heavy/runtime-light. S11A must measure baselines before hard thresholds, generate stable compact definitions/dependency indexes, project only required facts, invalidate by authoritative fact changes with a safe full-rebuild fallback, lower eligible rules to compact runtime programs while retaining generic evaluator parity, support incremental analysis by normalized fingerprints, schedule timed expiry without per-frame global scans, dedupe/aggregate repeated memories/modifiers, persist only mutable instance data, and keep detailed traces opt-in.
+
+Future emergent dialogue must be possible without rebuilding semantics around an LLM. S11 therefore generalizes scenes to bounded ParticipantSets plus dynamic role/cardinality binding and preserves machine-readable semantic act/archetype/topic/event/activity/memory discovery metadata. The autonomous Dialogue Director/scorer is explicitly out of scope; semantic correctness must require zero LLM calls.
+
+Current CodeBuilder reconcile check is desired=407, missing=0, stale=0, ambiguous=0, drifted=2. The two pre-existing drifts are DTCommon generated ConvoEngine/Manifest.lua and ConvoEngine/Registry.lua whole-model fingerprints. Close or explicitly baseline them before S11 source implementation.
 
 S11 sequence:
 
-```text
-S11A — freeze regressions + single StatePolicy/SemanticOutcome substrate
-  ->
-S11B — identity migration onto shared substrate + effect idempotence + refresh correctness
-  ->
-S11C — constrained-domain parity sweep
-  ->
-S11D — real worker / inputbox / response-channel / Tk-Xvfb closure acceptance
-  ->
-S11E — retained canonical acceptance + exact committed closure
-```
+~~~text
+S11A — preflight + declarative regression freeze + compiler completeness/memory continuity + participant-agnostic portable facts/effects/modifiers + optimized runtime substrate
+→ S11B — identity reference migration
+→ S11C — companion commands + Needs/Greeting flow migrations
+→ S11D — full constrained-domain sweep + real surfaces
+→ S11E — retained acceptance + generation closure + exact handoff
+~~~
 
-Do not return to `USER_ACCEPTANCE` until S11A-S11E pass.
-
-### Expanded branching/state audit
-
-Mandatory audit input:
-
-`Docs/semantic_dialogue_language_standard/S11_BRANCHING_DIALOGUE_AUDIT.md`
-
-The cross-dialogue audit confirms that identity is one instance of a wider state-parity class. Additional runtime-verified defects include:
-
-- repeated FOLLOW/STAY/GO HOME/CAMP commands and busy-state FOLLOW can dispatch through typed input even when suggestion eligibility says the action is already satisfied or unavailable;
-- the needs flow can remain indefinitely in `proposal_pending -> proposal_pending` on repeated acceptance;
-- hostile/busy greeting state can hide the continuation button while typed continuation still completes the semantic flow, and hostile `hello` can combine parley wording with the friendly `How have you been?` follow-up;
-- successful recruitment can leave Recruit visible and admit another recruitment request;
-- accepted relationship proposal can leave its affordance visible even though authority now returns `already_lover`;
-- natural free-text equivalents for relationship proposal, disband/departure, ceasefire and territory currently fall to generic clarification instead of an explicitly owned parity/confirmation policy;
-- effectful authored wellbeing/trust/affinity choices have relationship effects but no explicit repeat/cooldown/retirement policy.
-
-High-risk but comparatively strong authorities that require parity coverage rather than redesign include parameterized task admission, quest lifecycle, settlement/ambient visits, territory and parley state transitions.
-
-Reference-good contracts to preserve include wellbeing answer convergence, event follow-up expiry, grounded gossip unknown handling, gift consent/expiry, departure warning/confirmation, settlement expiry and pragmatic apology/reconciliation. A fresh focused rerun of coherent conversation, event follow-up, gift and grounded-gossip suites passed `14/14`.
-
-S11C/S11D must cover every family in the audit, not only identity. Each family must migrate onto the same existing-registry state/outcome substrate; a family-specific duplicate evaluator is not an acceptable fix.
+Do not return to USER_ACCEPTANCE until S11A-S11E pass.
 
 ## Accepted baseline retained
 

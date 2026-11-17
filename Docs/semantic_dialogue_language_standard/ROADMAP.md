@@ -881,99 +881,99 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** ACTIVE — S11A regression freeze + single semantic state/outcome substrate.
+**Status:** ACTIVE — S11A preflight/regression freeze + portable state/outcome substrate.
 
-Normative design: `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`. Approved no-split-system architecture: `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`. Mandatory branching/state audit scope: `S11_BRANCHING_DIALOGUE_AUDIT.md`.
+Normative design: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved post-G9 architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching/state audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
-S11 is opened by verified production-worker/native Semantic Lab evidence after S10R:
+Fresh 2026-11-18 production-worker audit confirms the original P0 scope still reproduces on current structural-cleanup HEADs: known-identity first-contact leakage/reward farming/stale choices; repeated or busy companion-command dispatch; Needs proposal_pending self-loop; hostile greeting plus friendly follow-up; stale recruitment; and stale relationship proposal.
 
-- a known NPC can select the correct `question.identity.known` reply while the dialogue state simultaneously creates a first-contact `PLAYER_NAME` obligation;
-- the Response Channel then exposes first-contact truthful/refuse/lie identity choices;
-- repeated truthful identity claims can reapply the first-introduction relationship effect;
-- a resolved identity exchange can clear live pending state yet later snapshot/view projection can resurrect the same first-contact choices;
-- current tests encode conflicting assumptions about known identity and first-contact obligations.
+The implementation seam changed after G7-G9:
 
-S11 does not patch only the visible identity buttons. It establishes the invariant that every state-constrained semantic act has one authoritative state/outcome classification consumed by both suggestions and free-text input. Every recognized reachable constrained state must resolve to an immersive reply/effect/no-op, even when the equivalent button is hidden or disabled. This must be achieved by extending the existing Core Predicate / Offer / capability / flow system; no parallel semantic state store, action registry, eligibility engine, typed-input state engine, or repeat engine is allowed.
+~~~text
+compact ConvoEngine/PSDL
+→ canonical IR
+→ Portable Dialogue Plan
+→ backend/runtime
+→ ActionContract/capability adapter
+→ authoritative gameplay
+~~~
 
-### S11A — regression freeze + single semantic state/outcome substrate
+Do not make runtime Lua capability descriptors or Semantic Lab the primary S11 authoring authority. Do not create a second outcome execution engine beside ActionContract.
+
+### S11A — foundation build and freeze before production migration
 
 **Status:** ACTIVE.
 
-- freeze the identity and branching-audit P0 regressions with real-worker acceptance before behavior repair;
-- map directional identity facts and overlapping transition ownership for identity, greeting, needs and wellbeing onto existing authoritative state;
-- implement the approved `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md` in Core by extending existing semantic structures:
-  - one `PsychopatzSemanticPredicate`-backed `StatePolicy` evaluator;
-  - one canonical `SemanticOutcome` result shape;
-  - bounded generic outcome/admission vocabulary;
-  - existing capability/flow descriptors extended with `statePolicy`, `inputPolicy`, `repeatPolicy`, and optional postcondition/presentation metadata;
-  - discovery through the existing capability catalog;
-- keep CandidateEligibility focused on parse/context validity rather than creating a second gameplay-state admission engine;
-- make malformed/missing state contracts fail validation;
-- reconcile tests that currently bless duplicate dispatch or contradictory pending behavior.
+Execution order is authoritative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`. Do not use foundation-doc local prose to reorder these subphases.
 
-**Gate:** P0 regressions are executable; the shared substrate is discoverable and tested; no parallel state/action/eligibility/repeat registry was created; identity and companion-command migrations can consume the same canonical StatePolicy/SemanticOutcome path.
+#### S11A0 — preflight, baselines, legacy ownership inventory
+Verify repo/worktree truth; reconcile or explicitly baseline the two pre-existing DTCommon generated fingerprint drifts; freeze P0 defects as declarative fixtures; measure compile/runtime/save-size baselines; classify relevant legacy surfaces as KEEP_AUTHORITY / ADAPT / MIGRATE_LATER / RETIRE_AFTER_PARITY / GENERATED_DO_NOT_EDIT / UNRELATED. Do not migrate production dialogue.
 
-### S11B — identity reference migration onto the shared substrate
+#### S11A1 — canonical data-model freeze
+Freeze the generic S11 structural model: EntityRef, ParticipantSet, RoleSpec/RoleBinding/cardinality, Predicate/Query, Action/SemanticOutcome, Effect/Modifier/Retention/MemoryResidue, TopicRef/EventRef/ActivityRef/MemoryRef/DomainRef, SemanticBeat/ConversationArchetype, state/input/repeat/postcondition and continuation/closure policy. Do not migrate production dialogue.
+
+#### S11A2 — canonical source → IR → Portable Plan
+Extend compact canonical source and CodeBuilder authoring to carry the frozen model through canonical IR and Portable Dialogue Plan. Use synthetic/minimal fixtures rather than production legacy families as compiler-development scaffolding.
+
+#### S11A3 — Reference VM / PZ structural parity
+Project the frozen model through both backends and prove equivalent structure/diagnostics before broad runtime integration.
+
+#### S11A4 — canonical Dialogue Completeness Analyzer
+Build reachability, outcome completeness, SCC/progress, continuation-obligation, role/cardinality, effect/modifier lifecycle, closure/residue, memory-continuity, typed/click ownership and fixture-coverage analysis over the final S11A1-A3 representation.
+
+#### S11A5 — existing-domain adapters
+Connect portable contracts directly to existing authoritative RelationshipService, inventory services, morale/mood authority, ConversationMemory and ActionContract. This is infrastructure integration, not production dialogue migration. Do not introduce compatibility shims, fallback readers, duplicate registries/stores or dual execution paths.
+
+#### S11A6 — memory/modifier runtime lifecycle
+Finalize same-day/timed/permanent/until memory semantics, timed modifiers, game-time expiry, stacking/dedupe/aggregation and bounded scheduling.
+
+#### S11A7 — compiler/runtime optimization
+Add stable IDs, dependency indexes, required-fact projection, authoritative invalidation, compact lowering, incremental analysis, bounded expiry scheduling, compact persistence, opt-in traces and evidence-based performance/save-size budgets.
+
+#### S11A8 — FOUNDATION FREEZE GATE
+Before any production semantic-family migration, prove canonical model stability; source→IR→Portable Plan completeness; Reference VM↔PZ structural parity; completeness coverage over the final model; direct authoritative adapters; stable memory/modifier lifecycle; deterministic/no-op CodeBuilder generation; dependency/optimization metadata; zero-LLM semantic correctness; and two-person dialogue as a specialization of the generic participant/role model.
+
+**Migration barrier:** production legacy semantic-family migration is forbidden before S11A8 passes.
+
+**CodeBuilder rule:** dialogue/semantic migrations must edit canonical CodeBuilder source/recipe inputs and regenerate downstream through `tools/semantic_harness/codebuilder/generation_recipe.json` with recipe-driven reconcile. Generated Lua/registries/manifests/translations are downstream-only and must not be hand-edited.
+
+**No-shim rule:** migrated project-owned internal code is replaced, not preserved via compatibility wrappers, fallback readers, dual registries/writes or parallel old/new semantic paths. After parity and caller-zero proof, retire/delete obsolete code in the same migration phase. Preserve compatibility only for a verified external/public contract explicitly required by the user.
+
+**Gate:** S11A0-S11A8 are accepted; no production migration occurred before the freeze; all generic contracts are stable and portable; generation is deterministic/no-op; performance/save-size baselines and budgets exist; no parallel semantic/effect/modifier/memory/optimization authority or legacy compatibility path remains.
+
+### S11B — identity reference migration
 
 **Status:** PENDING S11A.
 
-- migrate identity onto the S11A StatePolicy/SemanticOutcome substrate with no identity-only evaluator;
-- stop known-NPC reminder questions from creating first-contact player-name obligations by default;
-- distinguish first introduction from reconfirmation/repetition/correction/deception outcomes;
-- provide known-state truthful/refuse/lie response-channel variants when a reciprocal reconfirmation beat is actually active;
-- route equivalent free-text identity input through the same state classification;
-- make first-introduction relationship effects idempotent;
-- revalidate state-sensitive menu/response choices after authoritative identity results;
-- eliminate refresh/snapshot resurrection of resolved first-contact identity choices;
-- retain S10A label-versus-spoken-speech semantics;
-- prove button and free-text identity routes emit the same canonical SemanticOutcome for the same projected authoritative state.
+Use Identity as the first production reference migration only after S11A8. Author the migrated semantic definition in canonical CodeBuilder source/recipes, regenerate downstream through the generation recipe, prove known/reminder state, first-contact/reconfirmation/repetition/correction/deception classification, first-introduction effect idempotence, stale post-turn projection and click/free-text parity, then prove obsolete project-owned Identity semantic paths have zero callers and delete them. Do not add compatibility wrappers or keep old/new identity authorities in parallel.
 
-**Gate:** identity click and free-text routes agree with authoritative state; repeated truthful claims cannot farm first-contact rewards; resolved first-contact choices stay resolved.
+**Gate:** identity routes are state-correct and repeat-safe; repeated truthful claims cannot farm relationship effects; retired first-contact choices do not return.
 
-### S11C — constrained-domain parity sweep
+### S11C — companion commands + flow reference migrations
 
 **Status:** PENDING S11B.
 
-Audit and repair the same parity contract for every maintained family classified in `S11_BRANCHING_DIALOGUE_AUDIT.md`, including companion orders, the needs/proposal branch, greeting/parley, recruitment, relationship proposal, destructive root actions, authored effect repeat semantics, home/camp/task state, production quest lifecycle, knowledge/gossip repetition, gifts/consent, settlement/ambient visits, territory, cooldowns, event follow-ups and pragmatic social repair. Each migrated family must consume the same shared StatePolicy/SemanticOutcome substrate; do not create family-specific shadow evaluators.
+Recipe-author the maintained companion command, Needs and Greeting migrations against the frozen S11 substrate. Normalize commands toward compact action/execute + ActionContract ownership using command.camp as reference; carry already-following/staying/returning/camp-active/busy/combat/hostile/dead/incapacitated policy canonically; repair Needs/Greeting bounded progress; regenerate downstream through CodeBuilder; prove parity and caller-zero; then delete obsolete project-owned hand-authored semantic definitions. Do not preserve them behind shims/fallbacks.
 
-Stateful root actions with natural conversational meaning must be classified as `typed_parity_required`, `typed_routes_to_confirmation`, or `presentation_only_by_design`. These map into the shared descriptor `inputPolicy`; do not maintain a separate typed-action policy table. Every effectful authored choice must explicitly own one-shot/cooldown/max-use/state-retired/idempotent/intentionally-repeatable semantics through the existing dialogue history/repeat system, not a second cooldown engine.
+**Gate:** companion button/typed parity is canonical and zero-duplicate-dispatch; Needs/Greeting have bounded coherent state transitions; no family-specific shadow evaluator remains.
 
-Use domain-owned authority and effects; do not centralize ProjectHoomans gameplay policy into Core. Preserve the branching audit's reference-good contracts rather than rewriting them.
-
-**Gate:** every family in the mandatory audit is classified as repaired, explicitly presentation-only, or reference-good/regression-protected, and each maintained constrained family has button/free-text/effect/reply/repeat/post-transition coverage for every reachable state in the canonical acceptance inventory.
-
-### S11D — real-surface outcome-closure acceptance
+### S11D — full constrained-domain sweep + real surfaces
 
 **Status:** PENDING S11C.
 
-- focused Lua/state-policy acceptance;
-- real manifest-selected PNC worker;
-- real response-channel click path;
-- free-text/inputbox path;
-- real Tk/Xvfb Semantic Lab UI;
-- refresh/snapshot/restart/reconfigure checks where state persistence matters;
-- adversarial repeat loops, including ten repeated truthful identity claims after first introduction;
-- real worker/inputbox regressions for repeated companion commands, needs proposal closure, hostile greeting/parley, recruitment/proposal transitions, destructive typed confirmation, effectful authored-choice repeat policy, active task state and real quest lifecycle;
-- regression protection for wellbeing convergence, event expiry, grounded gossip unknown handling, gift consent/expiry, departure confirmation, settlement expiry and pragmatic social repair;
-- negative validation proving a newly added stateful semantic action without outcome ownership fails acceptance.
+Cover every maintained family in S11_BRANCHING_DIALOGUE_AUDIT.md, including recruitment, relationship proposal, destructive confirmation, authored effect repeat semantics, tasks/quests, knowledge/gossip, gifts/consent, events, settlement visits, territory/ceasefire and pragmatic social repair. Migrate through canonical CodeBuilder source/recipes, regenerate downstream, prove parity/caller-zero, and delete superseded project-owned legacy semantic implementations instead of leaving compatibility layers.
 
-**Gate:** no reachable maintained constrained semantic state in the branching audit is button-only, free-text-open-ended, effect-duplicating, unbounded-self-looping, or stale-projection-dependent.
+Use declarative fixtures as primary behavioral authority. Run compiler/schema/completeness/Portable Plan tests, Reference VM ↔ PZ/Lua parity, real ProjectHoomans worker, response-channel click, inputbox/free text, real Tk/Xvfb, cross-conversation same-day context-reference scenarios, and restart/reconfigure where state persistence matters.
+
+**Gate:** no maintained constrained state is button-only, typed-open-ended, duplicate-effecting, unbounded-self-looping, stale-projection-dependent, or backend-divergent.
 
 ### S11E — retained acceptance and reproducible closure
 
 **Status:** PENDING S11D.
 
-- rerun retained S10A label/speech gates;
-- run all S11 state/outcome suites;
-- rerun canonical nine-suite `--acceptance`;
-- keep S10R signature-based unrelated baseline policy strict;
-- reconcile stable architecture/runbook contracts only when implementation proves they changed;
-- preserve unrelated work;
-- commit changed adopter repositories first and Core last;
-- record exact participant commit vector and residual fingerprints;
-- do not push or publish.
+Rerun retained S10A label/speech gates, all S11 fixtures/tests, canonical nine-suite acceptance, CodeBuilder recipe reconciliation and deterministic/no-op generation, strict S10R unrelated-baseline policy, legacy caller-zero/retirement checks and git diff --check; fail closure if migrated internal legacy/shim/dual-path code remains; reconcile docs; commit changed adopters first and Core last; record exact participant vector/residual fingerprints; do not push/publish.
 
-**Completion gate:** S11A-S11E accepted; identity and every maintained constrained family obey state/outcome parity through the single existing-registry StatePolicy/SemanticOutcome path; no parallel semantic state/action/eligibility/repeat system remains; repeated already-satisfied acts are effect-idempotent; post-turn projection is current; canonical acceptance is green; exact closure checkpoint is recorded. Only then return to user-owned native Project Zomboid acceptance.
+**Completion gate:** S11A-S11E accepted; compiler completeness can prove/flag every reachable branch and obligation; meaningful terminal outcomes persist compact same-day semantic episode context through existing ConversationMemory/domain authority; conditions/effects/modifiers are portable, typed and domain-schema validated; timed relationship/mood modifiers use one generic game-time lifecycle while remaining distinct from semantic memory; compiler-heavy/runtime-light optimization is proven with stable compact definitions, dependency-driven projection/invalidation, bounded expiry processing, dedupe/aggregation, compact persistence, incremental analysis, on-demand traces, and measured performance/save-size budgets; all maintained stateful families use one canonical portable state/outcome contract integrated with existing ActionContract lifecycle; buttons/typed input agree; effects/repeats are safe; flows progress; state-changing outcomes refresh projection; Reference VM/PZ backend agree; canonical acceptance is green; exact closure checkpoint is recorded. Only then return to user-owned native Project Zomboid acceptance.
 
 ## Commit protocol
 

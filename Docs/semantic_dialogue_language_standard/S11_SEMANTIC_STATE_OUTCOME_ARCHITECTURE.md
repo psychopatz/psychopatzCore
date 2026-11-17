@@ -1,110 +1,140 @@
 # S11 Semantic State / Outcome Architecture
 
-**Status:** APPROVED DESIGN — implementation begins in S11A after regression freeze.
-**Date:** 2026-11-16
+**Status:** APPROVED POST-G9 DESIGN — implementation begins with S11A preflight/regression freeze.
+**Date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory evidence input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
+**Compiler/memory foundation:** `S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md`
+**Portable facts/effects/modifier foundation:** `S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md`
+**Compiler/runtime optimization foundation:** `S11_COMPILER_RUNTIME_OPTIMIZATION.md`
+**LLM-minimized emergent-dialogue foundation:** `S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md`
 
 ## Decision
 
-S11 must improve the existing semantic data structures rather than add parallel state/eligibility systems.
+S11 remains required: the current production ProjectHoomans worker still reproduces the identity, repeated-command, needs-loop, hostile-greeting, recruitment-refresh, and relationship-proposal-refresh defects.
 
-The architecture is:
+The implementation architecture changed after the G7-G9 structural cleanup.
+
+The semantic-plan authority is now:
 
 ```text
-player text / semantic button / authored offer
-                    |
-                    v
-              Semantic IR
-             "what is meant"
-                    |
-                    v
-      canonical projected game state
-      "what is actually true now"
-                    |
-                    v
-     existing capability / flow contract
-     + Core Predicate-based statePolicy
-                    |
-                    v
-        one StateOutcome evaluation
-                    |
-        +-----------+------------+
-        |           |            |
-        v           v            v
-   presentation  admission    response
-    policy        policy       family
-        |           |            |
-        +-----------+------------+
-                    |
-                    v
-          authoritative gameplay
-          authority when admitted
-                    |
-                    v
-       authoritative result mapping
-                    |
-                    v
-          canonical SemanticOutcome
-                    |
-                    v
-      fresh post-state projection
+compact ConvoEngine / PSDL source
+→ Canonical Semantic Dialogue IR
+→ Portable Dialogue Plan
+→ descriptor-selected backend
+→ generated runtime
+→ typed capability / ActionContract adapter
+→ authoritative gameplay/domain system
 ```
 
-There must not be separate semantic truth for:
+S11 must extend this pipeline. It must not attach a second authored state system beside it.
 
-- suggestion/button eligibility;
-- typed-input admission;
-- flow-entry admission;
-- root-menu admission;
-- gameplay-action admission;
-- response selection;
-- post-turn suggestion refresh.
+The governing rule is:
 
-Those surfaces may present the result differently, but they must consume the same canonical state/outcome contract.
+> ConvoEngine source describes semantic meaning and state-aware conversational policy. Existing domain systems own mutable truth. The Portable Dialogue Plan carries the canonical state/outcome policy. The runtime evaluates that policy against a bounded projection of current authoritative state. Mutating actions then enter the existing `ActionContract`/capability adapter boundary. Buttons, typed input, flows, replies, diagnostics, and refresh consume the same normalized outcome.
+
+## Authority boundaries
+
+State-aware semantic policy is authored in compact ConvoEngine/PSDL source and normalized through the canonical IR into the Portable Dialogue Plan. Hand-written ProjectHoomans Lua descriptors, suggestion providers, root menus, and Semantic Lab catalogs are projections or consumers, not the S11 authoring authority.
+
+ProjectHoomans remains authoritative for mutable Hoomans gameplay facts and effects. DynamicTrading/DTCommon remains authoritative for its own domain state and actions. Core never manufactures adopter gameplay truth.
+
+Core already owns `PsychopatzCore/ConvoEngine/ActionContract.lua`. S11 extends this action/result lifecycle rather than creating a second outcome execution engine. `ActionContract.Execute()` remains the mutation boundary and `ActionContract.ProjectResult()` remains the bounded post-authority normalization seam.
+
+A state-aware turn therefore has two phases of one outcome lifecycle:
+
+```text
+pre-admission state outcome
+→ dispatch / no-op / reject / confirm / defer
+→ if dispatch: ActionContract.Execute
+→ domain authority
+→ ActionContract.ProjectResult
+→ post-authority outcome
+```
+
+The canonical `SemanticOutcome` is a data contract spanning these phases, not a second registry/runtime.
 
 ## Non-negotiable no-split-system rules
 
-### NS1 — no second persisted state store
+1. No second persisted semantic copy of relationship, identity, order, task, quest, gift, event, knowledge, or world truth.
+2. No `StatefulDialogueRegistry`, second capability catalog, or second action registry.
+3. No second predicate/condition DSL. Reuse the existing canonical predicate AST and `PsychopatzSemanticPredicate`.
+4. No suggestion-only gameplay-state authority.
+5. No typed-input-only gameplay-state authority.
+6. No response-side re-derivation of gameplay state.
+7. No second cooldown/repeat/history subsystem.
+8. No UI/Semantic Lab-owned source of truth.
+9. No hand-editing generated ConvoEngine runtime artifacts.
+10. No family-specific duplicate evaluator merely to make button and typed paths both green.
 
-Do not create a semantic-owned copy of relationship, identity, task, quest, companion-order, health, gift, event, world/base, or knowledge truth.
+## Current post-G9 seams to extend
 
-Domain systems remain authoritative.
+### Compact PSDL / ConvoEngine source
 
-The semantic layer may only build a bounded, read-only projection of those authorities for evaluation.
+Current production packages use `psychopatz.psdl.v2` and `psychopatz.psdl.package.v2`. These schema/toolchain identifiers remain current implementation terminology beneath the public ConvoEngine system. They are not a second runtime and must not be renamed as part of S11.
 
-### NS2 — no second action/capability registry
+The accepted production seam is:
 
-Do not add a separate `StatefulDialogueRegistry`, `ConversationStateActionRegistry`, or similar catalog beside the existing semantic capability/action/offer registries.
+```text
+compact source
+→ canonical IR
+→ Portable Dialogue Plan
+→ backend projection
+```
 
-Extend the existing descriptor contracts.
+State/outcome fields must survive this entire path.
 
-### NS3 — no suggestion-only eligibility authority
+### Canonical predicate
 
-Existing suggestion-specific predicates such as companion `already_following` logic must move behind, or delegate to, the shared state/outcome evaluator.
+Reuse the current predicate normalization/evaluation used by the compiler, Portable Reference VM, and Lua runtime. State policy conditions must be portable predicate AST, not adopter callbacks.
 
-Suggestion code may decide presentation layout/ranking. It may not independently decide gameplay-state truth.
+### Portable Dialogue Plan
 
-### NS4 — CandidateEligibility remains parse/context eligibility
+The Portable Dialogue Plan is the cross-backend semantic-plan authority. S11 state policy, input policy, repeat policy, and postcondition metadata must be present there so the Reference VM and PZ/Lua backend can be tested for equivalence.
 
-`Dialogue/CandidateEligibility.lua` may continue to validate:
+### Offer, ActionContract, capability ABI, and catalogs
 
-- IR validity;
-- required semantic context;
-- required captures;
-- event-follow-up scope;
-- fuzzy/recovered mutation safety;
-- reference resolution.
+`Offer.lua` remains the semantic affordance/presentation contract. Stateful availability must derive from the same canonical outcome used by typed input.
 
-It must not become a second gameplay-state admission engine.
+Use the existing ActionContract for authoritative mutation and normalized result projection. S11 may extend its generic result envelope where necessary but must not add a parallel lifecycle.
 
-After candidate selection, stateful semantic acts go through the shared StateOutcome evaluator.
+The current capability ABI and typed adapter boundary remain valid. State policy must remain package-neutral; Core must not hard-code PNC action IDs, source roots, or Hoomans-specific reasons.
 
-### NS5 — gameplay authority remains authoritative
+CapabilityCatalog/Semantic Lab may expose the compiled contract for diagnostics. They do not author it.
 
-Core state evaluation must never replace server/domain mutation authority.
+CandidateEligibility remains parser/context safety, not gameplay-state admission.
 
-The shared evaluator decides semantic admission intent such as:
+## Portable state policy
+
+A stateful semantic family may declare a bounded `statePolicy` using the existing predicate AST. Conceptually:
+
+```json
+{
+  "statePolicy": [
+    {
+      "id": "already_following",
+      "when": {"path": "addressee.companion.orderKind", "op": "eq", "value": "follow"},
+      "outcome": "already_satisfied",
+      "reason": "already_following",
+      "admission": "no_op"
+    },
+    {
+      "id": "default",
+      "outcome": "actionable",
+      "reason": "actionable",
+      "admission": "dispatch"
+    }
+  ]
+}
+```
+
+The exact compact syntax may evolve, but canonical IR must remain explicit and validation-friendly. Evaluation must be deterministic, non-mutating, fail-closed, and diagnostic.
+
+## Canonical outcome envelope
+
+Use one normalized data envelope across pre-admission and post-authority stages. It carries semantic identity/family/capability, matched state rule, outcome, reason, admission, response outcome, presentation implication, authoritative result when dispatched, stateChanged, and expected postconditions.
+
+Generic pre-admission outcomes should remain small:
 
 ```text
 actionable
@@ -113,251 +143,25 @@ blocked
 unavailable
 requires_confirmation
 pending
+deferred
 ```
 
-If the result is actionable, the existing domain authority still performs the mutation and may reject it because of newer authoritative state.
-
-The authority result is then normalized through the descriptor's existing `outcomeMapping`.
-
-### NS6 — no response-side state re-derivation
-
-Response selection consumes the canonical semantic outcome and reason.
-
-It may use personality/localization/variation to choose wording, but it may not independently decide that the actor is already following, already a lover, already recruited, etc.
-
-### NS7 — post-transition UI is rebuilt from fresh authority
-
-State-changing outcomes invalidate state-sensitive semantic projection.
-
-Do not preserve stale eligibility merely because an old closure/menu row still exists.
-
-Root menus, response channels, generated suggestions and worker snapshots must re-evaluate against the new authoritative state.
-
-## Existing architecture to extend
-
-S11 must reuse these existing pieces.
-
-### Core Predicate
-
-`PsychopatzCore/Semantics/PsychopatzSemanticPredicate.lua`
-
-Already provides:
-
-- bounded declarative predicates;
-- projected-field lookup;
-- typed comparisons;
-- all/any/not composition;
-- unknown/private handling;
-- diagnostic trace.
-
-This is the condition language for `statePolicy`.
-
-Do not invent another condition DSL.
-
-### Core Offer
-
-`PsychopatzCore/ConvoEngine/Offer.lua`
-
-Already provides:
-
-- stable offer ID;
-- UI label;
-- spoken utterance;
-- typed semantic frame;
-- constraints;
-- consumers;
-- priority/visibility.
-
-Offer constraints remain useful for contextual presentation.
-
-When an offer represents a stateful semantic capability, its state availability must resolve through the same capability StateOutcome policy used by typed input.
-
-Do not copy state rules into `Offer.constraints` and a capability policy independently unless the constraints are presentation-only and are explicitly proven not to alter semantic admission.
-
-### Existing capability descriptors
-
-ProjectHoomans command/task/gift/etc descriptors already expose fields such as:
+Existing action/result outcomes remain valid after dispatch:
 
 ```text
-capabilityID
-owner
-route
-workflowKind
-triggerFrames
-requiredSlots
-permissionGate
-outcomeMapping
-responsePools
-arguments
-requires
-result
-```
-
-S11 extends these descriptors rather than replacing them.
-
-### CapabilityCatalog
-
-`PNC_SemanticCapabilityCatalog.lua` already discovers live semantic registrations and publishes descriptor fields to tools.
-
-Extend it to expose the S11 contract automatically.
-
-Do not maintain a manually duplicated state-action list for Semantic Lab.
-
-## New Core contracts
-
-Exact module/file names may follow current repository conventions, but the responsibilities below are mandatory.
-
-### 1. StatePolicy
-
-A bounded declarative policy attached to the existing capability/flow contract.
-
-Conceptual descriptor:
-
-```lua
-statePolicy = {
-    {
-        id = "dead",
-        when = {
-            path = "actor.healthState",
-            op = "eq",
-            value = "dead",
-        },
-        outcome = "unavailable",
-        reason = "companion_dead",
-    },
-    {
-        id = "busy",
-        when = {
-            path = "actor.activity",
-            op = "in",
-            values = { "busy", "combat", "hostile" },
-        },
-        outcome = "blocked",
-        reason = "companion_busy",
-    },
-    {
-        id = "already_following",
-        when = {
-            path = "companion.orderKind",
-            op = "eq",
-            value = "follow",
-        },
-        outcome = "already_satisfied",
-        reason = "already_following",
-    },
-    {
-        id = "default",
-        outcome = "actionable",
-        reason = "actionable",
-    },
-}
-```
-
-The policy evaluator must:
-
-- evaluate rules deterministically in documented order/priority;
-- use Core Predicate for `when`;
-- return one canonical state classification;
-- fail closed on malformed policy;
-- preserve bounded diagnostics;
-- never mutate state.
-
-### 2. SemanticOutcome
-
-A normalized result consumed by suggestions, typed input, flows, responses, diagnostics and acceptance.
-
-Conceptual shape:
-
-```lua
-{
-    capabilityID = "pnc:companion.follow",
-    semantic = {
-        intent = "REQUEST",
-        action = "FOLLOW",
-    },
-
-    state = {
-        outcome = "already_satisfied",
-        reason = "already_following",
-        policyRuleID = "already_following",
-    },
-
-    admission = {
-        mode = "no_op",
-    },
-
-    response = {
-        outcome = "already_satisfied",
-        family = "command.follow.already_following",
-    },
-
-    presentation = {
-        action = "hide",
-    },
-
-    stateChanged = false,
-}
-```
-
-An actionable pre-authority result may look like:
-
-```lua
-{
-    capabilityID = "pnc:companion.follow",
-    state = {
-        outcome = "actionable",
-        reason = "actionable",
-    },
-    admission = {
-        mode = "dispatch",
-    },
-    response = {
-        outcome = "queued",
-    },
-    expectedPostconditions = {
-        {
-            path = "companion.orderKind",
-            op = "eq",
-            value = "follow",
-        },
-    },
-}
-```
-
-After gameplay authority returns, existing `outcomeMapping` maps domain results such as `queued`, `accepted`, `rejected`, `failed`, `already_active`, etc. into the canonical SemanticOutcome.
-
-### 3. Small generic outcome vocabulary
-
-Core owns only generic semantic state classes.
-
-Initial target vocabulary:
-
-```text
-actionable
-already_satisfied
-blocked
-unavailable
-requires_confirmation
-pending
-active
-completed
+queued
+accepted
 rejected
 failed
-deferred
-unknown
+completed
+pending
 ```
 
-Do not encode domain meaning such as `already_following`, `already_lover`, or `quest_rewarded` as Core outcome types.
+Adopter-specific meaning stays in `reason`, such as `already_following`, `already_lover`, `already_member`, `companion_busy`, and `quest_already_active`.
 
-Those remain adopter/domain `reason` values.
+## Admission, input, repeat, and postconditions
 
-Avoid adding a new outcome type when an existing generic state plus a specific reason expresses the case.
-
-### 4. Admission mode
-
-Semantic outcome must explicitly say what the caller should do.
-
-Initial bounded modes:
+Admission modes are bounded:
 
 ```text
 dispatch
@@ -368,39 +172,9 @@ defer
 none
 ```
 
-Examples:
+Recognition does not imply authorization.
 
-```text
-already_following
-  outcome = already_satisfied
-  admission = no_op
-
-companion_busy
-  outcome = blocked
-  admission = reject
-
-disband natural-language request
-  outcome = requires_confirmation
-  admission = confirm
-
-valid FOLLOW
-  outcome = actionable
-  admission = dispatch
-```
-
-This prevents parser recognition from being mistaken for mutation authorization.
-
-## Descriptor extensions
-
-Extend existing capability/flow/offer-adjacent descriptors with the smallest required fields.
-
-### statePolicy
-
-Canonical pre-admission state classification.
-
-### inputPolicy
-
-Every stateful public semantic action declares one:
+Every maintained stateful public act owns one portable input policy:
 
 ```text
 typed_parity
@@ -408,19 +182,7 @@ typed_confirmation
 presentation_only
 ```
 
-Meaning:
-
-- `typed_parity`: recognized free text enters the same StateOutcome contract as the button;
-- `typed_confirmation`: recognized free text enters the same state contract but cannot directly mutate; it opens the same confirmation lifecycle;
-- `presentation_only`: no direct typed semantic action is promised; this must be explicit, justified and acceptance-owned.
-
-Do not create separate typed handlers with independent state logic.
-
-### repeatPolicy
-
-Every effectful semantic/dialogue act declares explicit repeat semantics.
-
-Initial modes:
+Effectful authored acts declare repeat semantics in canonical source:
 
 ```text
 once
@@ -431,422 +193,148 @@ repeatable
 idempotent
 ```
 
-Examples:
+Carry repeat policy through canonical IR/Portable Plan into the existing history/repeat machinery; do not add another cooldown engine.
 
-```lua
-repeatPolicy = {
-    mode = "idempotent",
-    key = "identity_introduction",
-}
+Expected postconditions are verification/refresh contracts, not mutation instructions. A failed postcondition is diagnostic evidence; never patch shadow state to make it pass.
 
-repeatPolicy = {
-    mode = "state_retired",
-    postcondition = {
-        path = "relationship.kind",
-        op = "eq",
-        value = "lover",
-    },
-}
-
-repeatPolicy = {
-    mode = "cooldown",
-    window = "24h",
-}
-```
-
-Effectful authored choices must fail validation if repeat semantics are omitted.
-
-Non-effectful small talk may remain repeatable when explicitly or safely classified by schema policy.
-
-### expectedPostconditions
-
-Optional declarative checks describing what should become true after an accepted state-changing authority result.
-
-They are validation/refresh hints, not mutation instructions.
-
-Examples:
+## Canonical evaluation lifecycle
 
 ```text
-FOLLOW accepted
-  -> companion.orderKind == follow
-
-recruitment accepted
-  -> actorAuthority.companion == true
-
-relationship proposal accepted
-  -> relationship.kind == lover
+1. player text / affordance / authored continuation
+2. semantic IR / selected family
+3. bounded fresh projection of authoritative state
+4. evaluate portable statePolicy
+5. apply inputPolicy
+6. short-circuit no_op/reject/confirm/defer OR dispatch
+7. if dispatch, execute existing ActionContract/capability adapter
+8. normalize authoritative result through existing result mapping
+9. select reply from normalized outcome + reason
+10. rebuild state-sensitive projection from fresh authority
 ```
 
-A postcondition failure must surface as diagnostic/acceptance evidence; do not mutate local shadow state to make it pass.
+Buttons and typed input may present differently, but they must not disagree about canonical state outcome for the same family and projected state.
 
-### presentationPolicy
+## Identity reference migration
 
-Only presentation behavior derived from the canonical state outcome.
+Identity is the first reference migration. Project directional facts from current authorities, distinguish first introduction/reconfirmation/repetition/correction/deception, prevent known-name reminders from opening first-contact obligations, make first-introduction effects idempotent, prevent stale choice resurrection, and prove typed/click convergence before wording selection.
 
-Typical mapping:
+Identity must not get an identity-only state evaluator.
+
+## Companion command reference migration
+
+Companion commands are the second proof that the architecture is generic. The current cleanup already provides the modern pattern for `command.camp`:
 
 ```text
-actionable            -> show
-already_satisfied     -> hide or alternate
-blocked               -> hide/disable
-unavailable           -> hide/disable
-requires_confirmation -> alternate/confirmation
-pending               -> alternate/pending
+compact PSDL action/execute
+→ registered Core ActionContract
+→ Hoomans capability adapter
 ```
 
-Domain descriptors may override presentation choice where needed, but they may not override the underlying state classification.
+Normalize maintained FOLLOW/STAY/STOP/GO HOME/CAMP/combat commands toward that path where feasible. Already-satisfied or blocked typed commands must dispatch zero gameplay requests.
 
-## Canonical evaluation sequence
+## Flow migration and bounded progress
 
-Every stateful semantic route uses this lifecycle.
+The generic flow runtime may remain. Hand-written domain flow definitions such as identity/needs/greeting must not become a second semantic authoring authority when their semantic definition can live in canonical source.
 
-### Step 1 — produce Semantic IR
+A nonterminal self-loop must prove bounded progress through authoritative state change, required-slot progress, bounded retry, timeout/expiry, explicit defer, cancel/refuse, or eventual terminal authority result.
 
-Source can be:
+The current `proposal_pending -> proposal_pending` ACCEPT loop with no progress must fail validation. Needs must either create a real commitment/task or truthfully close as conversational acknowledgement. Greeting/parley must consume the same actor-state policy.
 
-- parser/free text;
-- response-channel click;
-- root/menu click;
-- generated affordance;
-- compatible provider.
+## Dialogue completeness and memory continuity
 
-### Step 2 — resolve existing capability/flow owner
+`S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md` is normative for the compiler foundation.
 
-Use current registries/capability discovery.
+Before broad content migration, the compiler must derive one semantic conversation graph from canonical IR/Portable Plan and prove reachability, branch/outcome completeness, bounded cycle/progress, continuation-obligation ownership, terminal closure classification, memory-residue ownership, and same-day context-reference continuity.
 
-No separate S11 registry.
+A conversation-local flow may close while a domain obligation remains pending. Do not keep flow state artificially open to simulate memory.
 
-### Step 3 — build bounded state projection
+Meaningful terminal residue must project through the existing ConversationMemory/domain authority rather than raw transcript prose or a second memory store. The existing same-day topic memory should be enriched with compact semantic episode references such as family/outcome/reason/important bounded references/closure class/domain-obligation reference. Current authoritative domain state always wins over remembered episode state.
 
-Read current authoritative domain state into the established public context projection.
+The compiler/completeness report is the single analysis authority for CodeBuilder scaffolding, Semantic Lab visualization, fixture coverage, and agent repair packets. Do not implement a second graph/completeness analyzer in the UI.
 
-Do not persist it as semantic truth.
+## Portable facts, effects, and timed modifiers
 
-### Step 4 — evaluate StatePolicy
+`S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md` is normative for compact state conditions and consequences.
 
-Return the canonical pre-admission SemanticOutcome.
+Core compiler vocabulary remains small: EntityRef, Predicate/Query, Action, Effect, Modifier, Retention, and MemoryResidue. Adopters register domain schemas/providers/adapters for relationship, mood, inventory, health, traits, needs, tasks, quests, combat, and future domains.
 
-### Step 5 — apply input policy
+`when` is read-only and resolves through registered semantic fact/query providers. `execute` requests authoritative mutation through the existing ActionContract/capability path. `effects` apply typed adopter-owned consequences. Timed buffs/debuffs use one generic modifier lifecycle with game-time retention and explicit stacking. `memory` remains semantic episode persistence and is distinct from active modifiers.
 
-For typed input:
+Authoring sugar such as actor/target item constraints, relationship thresholds, duration literals, and reusable presets must normalize into explicit canonical IR before Portable Plan generation. Raw adopter persistence paths and opaque Lua callbacks are not portable semantic policy.
 
-- parity -> continue according to canonical admission;
-- confirmation -> enter shared confirmation lifecycle;
-- presentation-only -> return explicit contextual response/clarification policy without inventing mutation.
+ProjectHoomans current `pnc:relationship` / `pnc:memory`, RelationshipService memories/decay, `PNC_MoraleModifierDefinitions`, and authoritative inventory query/consumption services are reference seams to adapt, not duplicate.
 
-### Step 6 — admit or short-circuit
+## Compiler/runtime optimization
+
+`S11_COMPILER_RUNTIME_OPTIMIZATION.md` is normative for keeping the expanded semantic system cheap enough for Project Zomboid.
+
+The optimization rule is: do expensive reasoning at compile time; generate compact deterministic definitions, dependency indexes, and analysis artifacts; keep runtime evaluation bounded and authority-driven.
+
+Compiled families should declare required facts. Runtime should project only those facts and invalidate only consumers affected by authoritative state changes. Static definition data stays in generated definitions; persisted memory/modifier instances keep only mutable data and stable references.
+
+Timed memories/modifiers must use bounded game-time scheduling rather than per-frame global scans. Presets/macros expand at compile time. Detailed decision traces are opt-in diagnostics, not normal runtime allocations.
+
+Optimization must be measured. S11A establishes current baselines and evidence-based performance/save-size budgets before hard thresholds. Never weaken semantic correctness, completeness, backend parity, or domain authority merely to improve a benchmark.
+
+## Participant-agnostic emergent-dialogue foundation
+
+`S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md` is normative for future-proofing the semantic model without implementing the future Dialogue Director.
+
+Canonical IR/Portable Plan must be able to represent a bounded ParticipantSet plus dynamically bound semantic roles with cardinality. `speaker`/`addressee` remain convenience roles, not a two-person hard limit.
+
+Reusable families/archetypes should preserve structured semantic act, TopicRef, EventRef, ActivityRef and MemoryRef-compatible metadata; required/optional role contracts; required facts; repeat/cooldown; continuation/closure; and realization references. This makes future candidate discovery/scoring mechanical rather than prose- or LLM-dependent.
+
+S11 must not implement autonomous beat/topic selection, global social utility scoring, personality conversation planning, or unrestricted procedural semantic generation. Future director logic remains a consumer of validated ConvoEngine candidates.
+
+Semantic correctness and gameplay authority must be executable with zero LLM calls. Optional future LLM use may assist presentation or bounded ranking among already-valid candidates only.
+
+## Testing authority after the structural cleanup
+
+Behavioral semantic acceptance is provider-owned declarative fixture data under `tools/providers/pnc/fixtures/v1/`. Use those fixtures as the primary S11 behavioral regression authority.
+
+Imperative tests remain appropriate for compiler/schema validation, Portable Plan normalization, Reference VM, PZ backend projection, ActionContract lifecycle, static ownership guards, worker lifecycle/protocol, GUI/Tk/Xvfb, and performance.
+
+Correct existing behavior contracts that bless the defects rather than adding contradictory parallel tests. Repeated FOLLOW currently expects a second dispatch, and a Needs fixture currently permits `proposal_pending` to remain open after acknowledgement. Valid first-contact identity fixtures remain valid.
+
+## Cross-backend parity gate
+
+For the same canonical family, semantic input, and projected state, Portable Reference VM and PZ/Lua backend must agree on matched state rule, outcome, reason, admission, and reply outcome.
+
+## Validation requirements
+
+Add generic validation for malformed/duplicate policy rules, unsupported outcome/admission, missing input/repeat policy, unbounded self-loops, dispatch after no-op/reject, stale post-state projection, button/typed mismatch, missing acceptance ownership, adopter reason leaking into Core vocabulary, Portable Plan/backend policy divergence, and any new parallel registry/evaluator.
+
+## DynamicTrading scope
+
+DTCommon is a mandatory portability participant, not an automatic Hoomans behavior-rewrite target. S11 compiler/schema/Portable Plan changes must remain generic.
+
+Before S11 source implementation begins, close or explicitly baseline pre-existing CodeBuilder reconciliation drift. The 2026-11-18 audit found exactly two pre-existing DTCommon generated fingerprint drifts:
 
 ```text
-dispatch -> call existing gameplay authority
-no_op    -> do not dispatch; select state-specific response
-reject   -> do not dispatch; select blocked/unavailable response
-confirm  -> create bounded confirmation obligation
-defer    -> create bounded defer/pending state
+DTCommon/ConvoEngine/Manifest.lua
+DTCommon/ConvoEngine/Registry.lua
 ```
 
-### Step 7 — normalize authoritative result
+## S11 implementation sequence
 
-Use the descriptor's existing `outcomeMapping`.
+### Preflight
+Verify all three repositories, preserve unrelated work, and reconcile or baseline the two DT generated drifts.
 
-Do not make the UI infer success from transport acknowledgement alone.
+### S11A — regression freeze + compiler-completeness/participant-agnostic/portable/optimized substrate
+Encode P0 regressions as declarative fixtures; build the canonical conversation graph/completeness analyzer; add reachability, outcome completeness, bounded-cycle/progress, continuation-obligation, closure/residue, same-day semantic episode continuity, branch/fixture coverage and machine-readable repair diagnostics; add the portable EntityRef/fact-query/action/effect/modifier/retention vocabulary and adopter domain-schema registration; add stable definition IDs, dependency metadata, dependency-driven projection/invalidation, compact runtime lowering, incremental analysis, bounded timed-expiry scheduling, dedupe/aggregation, compact persistence, on-demand traces, and measured performance budgets; extend compact source → IR → Portable Plan → backend/Reference VM with state/input/repeat/postcondition policy; integrate outcomes/effects with existing ActionContract/domain authorities; add parity and negative guards.
 
-### Step 8 — select response
+### S11B — identity migration
+Fix known/reminder state, idempotence, reconfirmation/repetition, stale projection, and typed/click parity.
 
-Use canonical outcome + reason + personality/localization.
+### S11C — companion + flow reference migrations
+Normalize companion actions toward canonical action/execute + ActionContract; remove duplicate state tests after proof; repair/migrate Needs and Greeting.
 
-Response wording does not determine state.
+### S11D — full constrained-domain sweep
+Cover every family in `S11_BRANCHING_DIALOGUE_AUDIT.md`, preserving reference-good authorities.
 
-### Step 9 — invalidate/rebuild state-sensitive projection
+### S11E — real surfaces + closure
+Run S11 fixtures, compiler/backend parity, real worker, click/inputbox, Tk/Xvfb, S10A label/speech, canonical nine-suite acceptance, reconciliation/no-op generation, and `git diff --check`; then commit adopters first and Core last.
 
-When `stateChanged == true` or an expected postcondition is associated with the result:
+## Completion gate
 
-- rebuild semantic state projection;
-- re-evaluate root/menu candidates;
-- re-evaluate response-channel candidates;
-- re-evaluate generated affordances;
-- update snapshot diagnostics.
-
-No stale eligibility preservation.
-
-## Identity reference contract
-
-Identity should use the same architecture, not a special side system.
-
-Conceptual projected facts:
-
-```text
-identity.npcKnownToPlayer
-identity.playerKnownToNPC
-identity.playerClaimState
-dialogue.identityExchangeKind
-```
-
-These are projections from existing knowledge/relationship/interaction authority.
-
-Example policy:
-
-```text
-first-contact truthful claim
-  -> actionable / dispatch identity authority
-  -> repeatPolicy idempotent(identity_introduction)
-
-known canonical repeat
-  -> already_satisfied / no_op
-  -> identity.reconfirmation response
-
-known-person false claim
-  -> actionable or rejected according to adopter deception policy
-  -> never overwrite canonical identity
-
-known NPC name question
-  -> reminder response
-  -> no first-contact PLAYER_NAME obligation unless explicit reconfirmation state is opened
-```
-
-Do not add a separate identity-state engine.
-
-## Companion command reference contract
-
-FOLLOW is the second required proof that the model is generic.
-
-Current duplicated suggestion-only checks for:
-
-- dead/incapacitated;
-- busy/combat/hostile;
-- already following;
-- already staying;
-- camp availability;
-
-must be moved behind or delegated to capability StatePolicy.
-
-Then:
-
-```text
-button FOLLOW + already following
-    -> StateOutcome already_satisfied
-    -> hidden/alternate
-
-typed "Follow me" + already following
-    -> same StateOutcome
-    -> no dispatch
-    -> "I'm already following you."
-
-typed "Follow me" + busy
-    -> StateOutcome blocked / companion_busy
-    -> no dispatch
-    -> contextual busy response
-```
-
-This is the acceptance proof that S11 did not create another UI-only patch.
-
-## Flow schema improvements
-
-Manual flows remain part of the same system.
-
-Flow nodes may use the same StatePolicy/Predicate contract for:
-
-- flow-entry admission;
-- branch admission;
-- continuation state.
-
-### No unbounded self-loop
-
-A flow transition returning to the same node must declare bounded semantic progress.
-
-Accepted progress forms include:
-
-- authoritative state change;
-- required-slot progress;
-- bounded retry count;
-- timeout/expiry;
-- explicit defer;
-- explicit cancel/refuse route;
-- terminal completion reached after the authority result.
-
-The validator must reject a self-loop like:
-
-```text
-proposal_pending
-  ACCEPT -> proposal_pending
-```
-
-when nothing observable can progress.
-
-### Needs repair direction
-
-The current needs proposal must either:
-
-1. dispatch a real authority-backed promise/task/commitment and consume its result; or
-2. truthfully close as a conversational acknowledgement with no implied gameplay commitment.
-
-Do not keep an infinite semantic proposal loop.
-
-### Greeting repair direction
-
-Greeting flow entry and continuation must evaluate the same actor-state policy used by greeting/parley presentation.
-
-A hostile/busy/combat/dead/incapacitated actor may not receive a contradictory friendly follow-up merely because the typed parser matched `hello` or `thanks`.
-
-## Authored PSDL effect integration
-
-Do not create a separate repeat/cooldown engine for authored PSDL choices.
-
-Carry `repeatPolicy` through the existing dialogue-block/choice compilation into the existing conversation history/repeat machinery.
-
-Effectful choices without explicit repeat semantics fail authoring validation.
-
-State-changing effects such as ceasefire or territory claim should usually use `state_retired` with a postcondition rather than an arbitrary cooldown.
-
-## State projection ownership
-
-Core may define the portable shape/evaluator.
-
-ProjectHoomans projects domain state into it.
-
-Examples of adopter-owned projection fields:
-
-```text
-actorAuthority.*
-npcState.healthState
-npcState.activeBehavior
-npcState.orderKind
-relationship.*
-identity.*
-quest.*
-task.*
-gift.*
-event.*
-world/base/destination facts
-```
-
-Do not force every domain into one gigantic universal state object.
-
-Projection is capability-driven and bounded: only fields needed by registered policies need to be exposed.
-
-## Diagnostics and Semantic Lab
-
-Because the contract becomes declarative, Semantic Lab should expose the decision trace.
-
-Example:
-
-```text
-Input
-  "Follow me"
-
-IR
-  REQUEST / FOLLOW
-
-Capability
-  pnc:companion.follow
-
-Projected state
-  companion.orderKind = follow
-  actor.activity = idle
-
-StatePolicy
-  rule = already_following
-
-SemanticOutcome
-  outcome = already_satisfied
-  reason = already_following
-  admission = no_op
-
-Response
-  command.follow.already_following
-
-Post projection
-  FOLLOW hidden
-  STAY visible
-  GO HOME visible
-```
-
-Diagnostics must also detect cross-surface contradiction:
-
-```text
-same capability + same state projection
-button outcome != typed outcome
-    -> acceptance failure
-```
-
-## Validation rules
-
-Add schema/acceptance validation for at least:
-
-1. stateful public capability missing `inputPolicy`;
-2. effectful action/choice missing `repeatPolicy`;
-3. malformed or unreachable `statePolicy` default;
-4. duplicate policy rule IDs;
-5. unknown generic outcome/admission values;
-6. self-looping flow with no bounded progress declaration;
-7. state-changing outcome with stale post-projection in real worker acceptance;
-8. button/typed canonical outcome mismatch for the same capability/state;
-9. new stateful capability absent from S11 acceptance ownership;
-10. ProjectHoomans-specific domain outcome accidentally added to Core's generic outcome vocabulary.
-
-## Migration strategy
-
-Do not perform a flag-day rewrite.
-
-### M1 — substrate without behavior change
-
-Implement Core StatePolicy + SemanticOutcome normalization and descriptor validation.
-
-Expose them through the current capability catalog.
-
-Keep existing behavior adapters temporarily delegating into the new evaluator where possible.
-
-### M2 — identity reference migration
-
-Migrate identity to prove:
-
-- directional identity state projection;
-- first-contact vs reconfirmation;
-- effect idempotence;
-- response-channel refresh.
-
-### M3 — companion-command migration
-
-Move existing suggestion state rules into/delegate them to capability StatePolicy.
-
-Make typed input consume the same result.
-
-Delete duplicate state logic only after parity tests prove replacement.
-
-### M4 — flow migration
-
-Migrate needs and greeting.
-
-Add bounded self-loop/progress validation.
-
-### M5 — social/root transition migration
-
-Recruitment, relationship proposal, disband confirmation, territory, ceasefire and settlement transitions.
-
-### M6 — authored repeat semantics
-
-Wellbeing/trust/affinity and other effectful PSDL choices.
-
-### M7 — tasks/quests/reference-good families
-
-Apply parity/coverage to tasks and quests while preserving their stronger existing authority.
-
-Protect gift/gossip/event/departure reference-good behavior.
-
-## Deletion rule
-
-Do not delete old eligibility/state code merely because a new evaluator exists.
-
-Deletion requires:
-
-- all callers migrated;
-- click + typed + worker tests green;
-- no alternate authority remains;
-- current reference-good behavior retained;
-- caller-zero proof for the old helper.
-
-## Completion architecture invariant
-
-S11 is architecturally correct only when this statement is true:
-
-> Semantic IR describes meaning. Existing authoritative game systems describe reality. The existing semantic capability/flow contract, extended with one Core Predicate-based StatePolicy, combines those into one canonical SemanticOutcome. Suggestions, typed input, flow transitions, responses, effects and post-turn projections consume that outcome; no parallel semantic state or eligibility engine exists.
-
+S11 is complete only when all maintained stateful families have one canonical portable state/outcome policy; actor/target conditions and typed effects/modifiers use one compiler-normalized portable vocabulary with adopter domain schemas; generated definitions/indexes are deterministic and compact; runtime fetches only required authoritative facts, invalidates affected dependencies, avoids per-frame global memory/modifier scans, and persists only mutable instance data; buttons and typed input agree; already-satisfied/blocked actions do not duplicate gameplay dispatch; effectful repeats and timed modifiers are safe; every reachable branch is classified as terminal/progressing/bounded-pending or invalid; continuation obligations have owners/exits; meaningful terminal residue survives through existing same-day ConversationMemory/domain authorities without stale live flow state; state-changing results refresh affordances; Reference VM and PZ backend agree; measured performance/save-size budgets pass; no parallel semantic/effect/modifier authority exists; declarative behavioral fixtures and canonical acceptance are green; and exact cross-repository closure is recorded.
