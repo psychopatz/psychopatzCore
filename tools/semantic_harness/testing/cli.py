@@ -8,7 +8,12 @@ import time
 from pathlib import Path
 from typing import Sequence
 
-from .executor import CaseResult, execute_case, execute_cases_batch
+from .executor import (
+    CaseResult,
+    execute_cases,
+    execute_cases_batch,
+    execute_cases_parallel,
+)
 from .loader import (
     SemanticCase,
     discover_cases,
@@ -132,6 +137,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="batch chunk size when running with --batch-state",
     )
     parser.add_argument(
+        "--jobs",
+        "-j",
+        type=int,
+        default=1,
+        help="number of parallel warm-worker shards to run",
+    )
+    parser.add_argument(
         "--verbose",
         "-v",
         action="store_true",
@@ -235,23 +247,44 @@ def run_cli(argv: Sequence[str] | None = None) -> int:
         if batch_res.skipped_ids:
             print(f"Resumed batch: skipped {len(batch_res.skipped_ids)} already-completed case(s).")
     else:
-        for c in filtered:
-            res = execute_case(c, **worker_kwargs)
-            results.append(res)
+        def _print_result(res: CaseResult) -> None:
             print(res.summary())
-            if res.passed:
-                passed_count += 1
-            else:
-                failed_count += 1
-                if args.verbose or True:
-                    for f in res.failures:
-                        print(f"    FAILURE: {f.message}")
-                    for conf in res.conflicts:
-                        print(f"    CONFLICT: {conf}")
-                    if res.error:
-                        print(f"    ERROR: {res.error}")
-                if args.fail_fast:
-                    break
+            if not res.passed:
+                for f in res.failures:
+                    print(f"    FAILURE: {f.message}")
+                for conf in res.conflicts:
+                    print(f"    CONFLICT: {conf}")
+                if res.error:
+                    print(f"    ERROR: {res.error}")
+
+        if args.jobs > 1 and not args.fail_fast:
+            results = execute_cases_parallel(
+                filtered,
+                jobs=args.jobs,
+                fail_fast=args.fail_fast,
+                **worker_kwargs,
+            )
+            for res in results:
+                _print_result(res)
+                if res.passed:
+                    passed_count += 1
+                else:
+                    failed_count += 1
+        else:
+            def _on_progress(res: CaseResult, _idx: int, _total: int) -> None:
+                nonlocal passed_count, failed_count
+                _print_result(res)
+                if res.passed:
+                    passed_count += 1
+                else:
+                    failed_count += 1
+
+            results = execute_cases(
+                filtered,
+                fail_fast=args.fail_fast,
+                progress_callback=_on_progress,
+                **worker_kwargs,
+            )
 
     total_time = time.monotonic() - total_start
     print(f"\nSEMANTIC TESTS: PASS {passed_count}, FAIL {failed_count}, TOTAL {len(results)} in {total_time:.2f}s")

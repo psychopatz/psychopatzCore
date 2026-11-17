@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -19,6 +20,44 @@ from .comparator import AssertionFailure, evaluate_expectations
 from .loader import SemanticCase
 from .operations import execute_operation, get_operation_spec
 from .runner import ConflictLedger
+
+
+CATALOG_MUTATING_OPERATIONS = frozenset(
+    {"beat.register", "behavior.register", "flow.register", "flow.generate"}
+)
+
+
+def _case_mutates_catalog(case: SemanticCase) -> bool:
+    for turn in case.turns:
+        action = turn.get("action")
+        if action in CATALOG_MUTATING_OPERATIONS:
+            return True
+    return False
+
+
+def _case_needs_worker(case: SemanticCase) -> bool:
+    for turn in case.turns:
+        action = turn.get("action")
+        if action is None:
+            return True
+        if get_operation_spec(action).authority != "compiler":
+            return True
+    return False
+
+
+def _case_worker_key(case: SemanticCase) -> tuple[bool]:
+    runtime = case.scenario.get("runtime") if isinstance(case.scenario, dict) else None
+    mods = runtime.get("availableMods") if isinstance(runtime, dict) else None
+    dt = bool(mods.get("DTHoomans")) if isinstance(mods, dict) else False
+    return (dt,)
+
+
+def _close_worker_quietly(worker: Any | None) -> None:
+    if worker is not None:
+        try:
+            worker.__exit__(None, None, None)
+        except Exception:
+            pass
 
 
 @dataclass(frozen=True)
@@ -69,6 +108,7 @@ class CaseResult:
 def execute_case(
     case: SemanticCase,
     *,
+    worker: Any | None = None,
     worker_factory: Callable[[dict[str, Any]], LuaSemanticWorker] = LuaSemanticWorker,
     **worker_kwargs: Any,
 ) -> CaseResult:
@@ -79,7 +119,8 @@ def execute_case(
     all_failures: list[AssertionFailure] = []
     ledger = ConflictLedger()
 
-    worker: Any | None = None
+    owns_worker = worker is None
+    warm_worker_imported = False
     last_record: dict[str, Any] | None = None
     pending_languages: list[str] = []
     runtime_lang = case.scenario.get("runtime", {}).get("language")
@@ -87,13 +128,18 @@ def execute_case(
         pending_languages.append(str(runtime_lang))
 
     def _get_worker() -> Any:
-        nonlocal worker
+        nonlocal worker, warm_worker_imported
         if worker is None:
             worker = worker_factory(scenario, **worker_kwargs)
             worker.__enter__()
-            for lang in pending_languages:
-                worker.set_language(lang)
-            pending_languages.clear()
+            warm_worker_imported = True
+        elif not warm_worker_imported:
+            if hasattr(worker, "import_source"):
+                worker.import_source(scenario)
+            warm_worker_imported = True
+        for lang in pending_languages:
+            worker.set_language(lang)
+        pending_languages.clear()
         return worker
 
     compiler_context = {
@@ -109,14 +155,14 @@ def execute_case(
             # Turn-level session / scenario / language directives
             if isinstance(turn_spec.get("scenarioPatch"), dict):
                 scenario = merge(scenario, turn_spec["scenarioPatch"])
-                if worker is not None:
+                if worker is not None and warm_worker_imported:
                     worker.configure(scenario)
                     ledger.reset_turn_sequence()
             if turn_spec.get("resetConversation"):
                 _get_worker().reset_conversation()
                 ledger.reset_turn_sequence()
             if "language" in turn_spec:
-                if worker is not None:
+                if worker is not None and warm_worker_imported:
                     worker.set_language(turn_spec["language"])
                 else:
                     pending_languages.append(str(turn_spec["language"]))
@@ -226,7 +272,7 @@ def execute_case(
             error=str(exc),
         )
     finally:
-        if worker is not None:
+        if owns_worker and worker is not None:
             worker.__exit__(None, None, None)
 
 
@@ -235,16 +281,93 @@ def execute_cases(
     *,
     worker_factory: Callable[[dict[str, Any]], LuaSemanticWorker] = LuaSemanticWorker,
     fail_fast: bool = False,
+    progress_callback: Callable[[CaseResult, int, int], None] | None = None,
     **worker_kwargs: Any,
 ) -> list[CaseResult]:
-    """Execute a collection of semantic cases sequentially with isolated worker sessions."""
+    """Execute a collection of semantic cases sequentially with hermetic warm-worker reuse."""
     results: list[CaseResult] = []
-    for case in cases:
-        result = execute_case(case, worker_factory=worker_factory, **worker_kwargs)
-        results.append(result)
-        if fail_fast and not result.passed:
-            break
+    total = len(cases)
+    active_worker: Any | None = None
+    active_key: tuple[bool] | None = None
+    try:
+        for idx, case in enumerate(cases):
+            needs_worker = _case_needs_worker(case)
+            case_key = _case_worker_key(case)
+            if needs_worker and active_worker is not None and case_key != active_key:
+                _close_worker_quietly(active_worker)
+                active_worker = None
+                active_key = None
+            if needs_worker and active_worker is None:
+                active_worker = worker_factory(
+                    merge(DEFAULT_SCENARIO, case.scenario),
+                    **worker_kwargs,
+                )
+                active_worker.__enter__()
+                active_key = case_key
+            result = execute_case(
+                case,
+                worker=active_worker if needs_worker else None,
+                worker_factory=worker_factory,
+                **worker_kwargs,
+            )
+            results.append(result)
+            if progress_callback is not None:
+                progress_callback(result, idx + 1, total)
+            if active_worker is not None and (
+                result.error is not None
+                or _case_mutates_catalog(case)
+                or not hasattr(active_worker, "import_source")
+            ):
+                _close_worker_quietly(active_worker)
+                active_worker = None
+                active_key = None
+            if fail_fast and not result.passed:
+                break
+    finally:
+        _close_worker_quietly(active_worker)
     return results
+
+
+def execute_cases_parallel(
+    cases: list[SemanticCase],
+    *,
+    jobs: int = 1,
+    worker_factory: Callable[[dict[str, Any]], LuaSemanticWorker] = LuaSemanticWorker,
+    fail_fast: bool = False,
+    **worker_kwargs: Any,
+) -> list[CaseResult]:
+    """Execute cases across up to `jobs` warm-worker shards while preserving result order."""
+    worker_count = max(1, int(jobs))
+    if worker_count == 1 or len(cases) <= 1 or fail_fast:
+        return execute_cases(
+            cases,
+            worker_factory=worker_factory,
+            fail_fast=fail_fast,
+            **worker_kwargs,
+        )
+    worker_count = min(worker_count, len(cases))
+    shards: list[list[tuple[int, SemanticCase]]] = [[] for _ in range(worker_count)]
+    for index, case in enumerate(cases):
+        shards[index % worker_count].append((index, case))
+
+    ordered_results: list[CaseResult | None] = [None] * len(cases)
+
+    def _run_shard(shard: list[tuple[int, SemanticCase]]) -> list[tuple[int, CaseResult]]:
+        shard_cases = [item[1] for item in shard]
+        shard_results = execute_cases(
+            shard_cases,
+            worker_factory=worker_factory,
+            fail_fast=False,
+            **worker_kwargs,
+        )
+        return [(shard[i][0], shard_results[i]) for i in range(len(shard))]
+
+    with ThreadPoolExecutor(max_workers=worker_count) as pool:
+        for shard_pairs in pool.map(_run_shard, shards):
+            for original_index, res in shard_pairs:
+                ordered_results[original_index] = res
+
+    return [res for res in ordered_results if res is not None]
 
 
 @dataclass(frozen=True)
@@ -283,36 +406,67 @@ def execute_cases_batch(
     total = len(cases)
     effective_batch = max(1, int(batch_size))
 
-    for offset in range(0, total, effective_batch):
-        chunk = cases[offset : offset + effective_batch]
-        for idx, case in enumerate(chunk):
-            if cancel_check is not None and cancel_check():
-                cancelled = True
-                break
-            if case.case_id in completed_map:
-                skipped_ids.append(case.case_id)
-                continue
-            res = execute_case(case, worker_factory=worker_factory, **worker_kwargs)
-            results.append(res)
-            completed_map[case.case_id] = res.passed
-            if state_file is not None:
-                state_file.parent.mkdir(parents=True, exist_ok=True)
-                state_file.write_text(
-                    json.dumps(
-                        {
-                            "schema": "semantic.fixture-batch.v1",
-                            "completed": completed_map,
-                        },
-                        indent=2,
-                    ),
-                    encoding="utf-8",
+    active_worker: Any | None = None
+    active_key: tuple[bool] | None = None
+    try:
+        for offset in range(0, total, effective_batch):
+            chunk = cases[offset : offset + effective_batch]
+            for idx, case in enumerate(chunk):
+                if cancel_check is not None and cancel_check():
+                    cancelled = True
+                    break
+                if case.case_id in completed_map:
+                    skipped_ids.append(case.case_id)
+                    continue
+                needs_worker = _case_needs_worker(case)
+                case_key = _case_worker_key(case)
+                if needs_worker and active_worker is not None and case_key != active_key:
+                    _close_worker_quietly(active_worker)
+                    active_worker = None
+                    active_key = None
+                if needs_worker and active_worker is None:
+                    active_worker = worker_factory(
+                        merge(DEFAULT_SCENARIO, case.scenario),
+                        **worker_kwargs,
+                    )
+                    active_worker.__enter__()
+                    active_key = case_key
+                res = execute_case(
+                    case,
+                    worker=active_worker if needs_worker else None,
+                    worker_factory=worker_factory,
+                    **worker_kwargs,
                 )
-            if progress_callback is not None:
-                progress_callback(res, offset + idx + 1, total)
-            if fail_fast and not res.passed:
+                results.append(res)
+                if active_worker is not None and (
+                    res.error is not None
+                    or _case_mutates_catalog(case)
+                    or not hasattr(active_worker, "import_source")
+                ):
+                    _close_worker_quietly(active_worker)
+                    active_worker = None
+                    active_key = None
+                completed_map[case.case_id] = res.passed
+                if state_file is not None:
+                    state_file.parent.mkdir(parents=True, exist_ok=True)
+                    state_file.write_text(
+                        json.dumps(
+                            {
+                                "schema": "semantic.fixture-batch.v1",
+                                "completed": completed_map,
+                            },
+                            indent=2,
+                        ),
+                        encoding="utf-8",
+                    )
+                if progress_callback is not None:
+                    progress_callback(res, offset + idx + 1, total)
+                if fail_fast and not res.passed:
+                    break
+            if cancelled or (fail_fast and any(not r.passed for r in results)):
                 break
-        if cancelled or (fail_fast and any(not r.passed for r in results)):
-            break
+    finally:
+        _close_worker_quietly(active_worker)
 
     passed_count = sum(1 for ok in completed_map.values() if ok)
     failed_count = sum(1 for ok in completed_map.values() if not ok)

@@ -80,6 +80,8 @@ function RuntimeState.resetContainers(runtime)
     runtime.runtimeRelationshipOverrides = {}
     runtime.lastSemanticActionResult = nil
     runtime.playerModData = {}
+    runtime.playerConduct = nil
+    runtime.socialEvents = {}
 end
 
 function RuntimeState.resetTurn(runtime)
