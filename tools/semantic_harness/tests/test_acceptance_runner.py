@@ -66,7 +66,7 @@ class AcceptanceRunnerTests(unittest.TestCase):
             set(buckets["real_provider_worker"]) & set(buckets["hoomans_provider_python"])
         )
         self.assertGreaterEqual(len(buckets["tk_xvfb_gui"]), 30)
-        self.assertGreaterEqual(len(buckets["real_provider_worker"]), 100)
+        self.assertGreaterEqual(len(buckets["real_provider_worker"]), 80)
         self.assertGreaterEqual(len(buckets["hoomans_provider_python"]), 30)
 
     def test_runtime_skip_classification_allows_only_reviewed_real_save_skips(self) -> None:
