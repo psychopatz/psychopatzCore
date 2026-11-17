@@ -1,4 +1,4 @@
-"""Tests for the S10B unified multi-suite acceptance runner."""
+"""Tests for the unified multi-suite acceptance runner."""
 
 from __future__ import annotations
 

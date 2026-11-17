@@ -21,12 +21,12 @@ from tools.semantic_harness.codebuilder.reconcile import (
     reconcile_apply,
     reconcile_check,
 )
-from tools.semantic_harness.tests.test_convo_engine_build_planner import (
+from tools.semantic_harness.tests.convo_engine_test_support import (
     _build_three_repo_fixture,
     _sample_family,
     _write_json,
 )
-from tools.semantic_harness.tests.test_reconcile_apply import _sample_ui_family
+from tools.semantic_harness.tests.convo_engine_test_support import _sample_ui_family
 
 
 class SemanticGenerationDeterminismLifecycleTests(unittest.TestCase):
@@ -427,7 +427,7 @@ class SemanticGenerationDeterminismLifecycleTests(unittest.TestCase):
             }
             self.assertEqual(snapshot_pass1, snapshot_pass2)
 
-    def test_g6_agent_workflow_and_cli_discoverability(self) -> None:
+    def test_agent_workflow_and_cli_discoverability(self) -> None:
         import subprocess
         from tools.semantic_harness.codebuilder.generation_recipe import load_generation_recipe
 

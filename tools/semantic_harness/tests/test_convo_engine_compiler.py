@@ -29,7 +29,7 @@ def _load_fixture() -> dict:
     return json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
 
 
-class ConvoEngineS6M1ACompilerTests(unittest.TestCase):
+class ConvoEngineCompilerTests(unittest.TestCase):
     def test_compact_fixture_previews_and_validates_through_codebuilder(self) -> None:
         core_repo = Path(__file__).resolve().parents[3]
         service = SemanticLabAuthoringService(

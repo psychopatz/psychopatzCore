@@ -453,7 +453,7 @@ def classify_psdl_references(
     by_surface = Counter(item["surface"] for item in entries)
 
     return {
-        "schema": "psychopatz.convo-engine.s8r1-psdl-inventory.v1",
+        "schema": "psychopatz.convo-engine.psdl-inventory.v1",
         "counts": {
             "total": len(entries),
             "byClassification": dict(sorted(by_class.items())),

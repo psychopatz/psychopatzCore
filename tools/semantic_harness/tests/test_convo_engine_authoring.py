@@ -15,7 +15,7 @@ from tools.semantic_harness.codebuilder.errors import CompileError
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 
 
-class ConvoEngineS6M1BAuthoringTests(unittest.TestCase):
+class ConvoEngineAuthoringTests(unittest.TestCase):
     def test_service_create_edit_move_and_write_convo_engine_family(self) -> None:
         core_repo = Path(__file__).resolve().parents[3]
         with TemporaryDirectory() as tmp:
@@ -471,7 +471,7 @@ class ConvoEngineS6M1BAuthoringTests(unittest.TestCase):
             self.assertEqual(domains["adopters/dt/dialogue/trade/hello.json"], "trade")
             self.assertTrue(core_repo.is_dir())
 
-    def test_s6m4_service_normalizes_style_bundle_and_legacy_numeric_realizations(self) -> None:
+    def test_service_normalizes_style_bundle_and_legacy_numeric_realizations(self) -> None:
         core_repo = Path(__file__).resolve().parents[3]
         with TemporaryDirectory() as tmp:
             repo = Path(tmp)
@@ -579,7 +579,7 @@ class ConvoEngineS6M1BAuthoringTests(unittest.TestCase):
             self.assertTrue(compiled["ok"])
             self.assertEqual(compiled["runtimePlan"][0]["responsePlan"]["dialogueAct"], None)
 
-    def test_s6m4_single_record_style_identity_uses_response_template_id(self) -> None:
+    def test_single_record_style_identity_uses_response_template_id(self) -> None:
         from tools.semantic_harness.codebuilder.convo_engine_normalization import normalize_documents
 
         clarify = normalize_documents([{

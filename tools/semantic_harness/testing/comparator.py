@@ -93,7 +93,21 @@ def compare_value(
                     message=f"At '{path}': string {actual!r} does not contain {expected!r}",
                 )
         elif isinstance(actual, (list, tuple, set, frozenset)):
-            if expected not in actual:
+            if isinstance(expected, dict):
+                matched = any(
+                    isinstance(item, dict)
+                    and all(item.get(k) == v for k, v in expected.items())
+                    for item in actual
+                )
+                if not matched:
+                    return AssertionFailure(
+                        path=path,
+                        operator=operator,
+                        expected=expected,
+                        actual=actual,
+                        message=f"At '{path}': collection does not contain matching dict {expected!r}",
+                    )
+            elif expected not in actual:
                 return AssertionFailure(
                     path=path,
                     operator=operator,
@@ -139,6 +153,19 @@ def compare_value(
                     actual=actual,
                     message=f"At '{path}': string {actual!r} unexpectedly contains {expected!r}",
                 )
+            elif isinstance(actual, (list, tuple, set, frozenset)) and isinstance(expected, dict):
+                if any(
+                    isinstance(item, dict)
+                    and all(item.get(k) == v for k, v in expected.items())
+                    for item in actual
+                ):
+                    return AssertionFailure(
+                        path=path,
+                        operator=operator,
+                        expected=expected,
+                        actual=actual,
+                        message=f"At '{path}': collection unexpectedly contains matching dict {expected!r}",
+                    )
             elif isinstance(actual, (list, tuple, set, frozenset, dict)) and expected in actual:
                 return AssertionFailure(
                     path=path,

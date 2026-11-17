@@ -9,6 +9,7 @@ dialogue runtime.
 from __future__ import annotations
 
 import copy
+import json
 import re
 from collections import Counter
 from collections.abc import Mapping
@@ -827,6 +828,38 @@ def _validate_cross_references(records: list[dict[str, Any]]) -> None:
                 )
 
 
+def _default_sidecar_loader(source_path: str | Path) -> Any:
+    resolved = Path(source_path).expanduser().resolve()
+    shard_dir = resolved.parent
+    base_root = shard_dir
+    for parent in resolved.parents:
+        if (
+            (parent / "manifest.json").is_file()
+            or (parent / "package.json").is_file()
+            or (parent / "provider.json").is_file()
+        ):
+            base_root = parent
+            break
+
+    def load_sidecar(rel_path: str) -> dict[str, Any]:
+        candidate = (shard_dir / rel_path).resolve()
+        if not candidate.is_file():
+            candidate = (base_root / rel_path).resolve()
+        if base_root not in candidate.parents and candidate != base_root and shard_dir not in candidate.parents:
+            raise CompileError(f"textSidecars path escapes source root: {rel_path!r}")
+        if not candidate.is_file():
+            raise CompileError(f"Missing textSidecars file {rel_path!r} for {source_path}")
+        try:
+            data = json.loads(candidate.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            raise CompileError(f"Invalid textSidecars JSON {rel_path!r}: {error}") from error
+        if not isinstance(data, dict):
+            raise CompileError(f"textSidecars {rel_path!r} must be a JSON object")
+        return data
+
+    return load_sidecar
+
+
 def compile_convo_engine_document(
     document: Mapping[str, Any],
     *,
@@ -845,11 +878,16 @@ def compile_convo_engine_document(
         or "textSidecars" in document
         or package is not None
     )
+    resolved_text_loader = text_loader
+    if resolved_text_loader is None and source_path is not None:
+        src_parent = Path(source_path).expanduser().parent
+        if src_parent.is_dir():
+            resolved_text_loader = _default_sidecar_loader(source_path)
     raw_records, doc_owner, doc_schema = _record_values(
         document,
         allow_legacy_schema=allow_legacy_schema,
         package=package,
-        text_loader=text_loader,
+        text_loader=resolved_text_loader,
     )
     resolved_default_owner = doc_owner if doc_owner is not None else default_owner
     display_path = str(source_path) if source_path is not None else None

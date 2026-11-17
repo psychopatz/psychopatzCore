@@ -12,7 +12,7 @@ from tools.semantic_harness.codebuilder.errors import CompileError
 from tools.semantic_harness.codebuilder.psdl_compiler import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.convo_engine_authoring_pane import ConvoEngineAuthoringPane
-from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
+from tools.semantic_harness.tests.convo_engine_test_support import (
     _FakeMessageBox,
     _FakeTk,
     _FakeTtk,

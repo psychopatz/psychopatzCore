@@ -283,7 +283,7 @@ class _WorkerMissingConvoProbeCapability:
 
 
 class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
-    def test_r3_convo_simulate_descriptor_advertises_convo_probe_requirement(self) -> None:
+    def test_convo_simulate_descriptor_advertises_convo_probe_requirement(self) -> None:
         service = SemanticLabAuthoringService(core_repository=CORE_ROOT)
         try:
             desc = service.operations.describe("convo.simulate")
@@ -309,7 +309,7 @@ class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
         finally:
             service.close()
 
-    def test_r4_harness_context_owns_build_planner_without_private_registry_factory(self) -> None:
+    def test_harness_context_owns_build_planner_without_private_registry_factory(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _build_three_repo_fixture(Path(tmp))
             service = SemanticLabAuthoringService(
@@ -355,7 +355,7 @@ class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
                 refreshed.workspace_fingerprint,
             )
 
-    def test_r5_convo_engine_pane_dispatches_canonical_operations(self) -> None:
+    def test_convo_engine_pane_dispatches_canonical_operations(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _build_three_repo_fixture(Path(tmp))
             service = SemanticLabAuthoringService(
@@ -417,7 +417,7 @@ class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
             finally:
                 service.close()
 
-    def test_continuity_docs_have_no_stale_pre_s9_claims(self) -> None:
+    def test_continuity_docs_have_no_stale_legacy_claims(self) -> None:
         docs_dir = CORE_ROOT / "Docs/semantic_dialogue_language_standard"
         doc_names = (
             "PROGRESS.md",

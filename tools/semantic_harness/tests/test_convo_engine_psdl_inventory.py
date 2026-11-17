@@ -18,7 +18,7 @@ from tools.semantic_harness.codebuilder.convo_engine_psdl_inventory import (
 
 
 class ConvoEnginePsdlInventoryTests(unittest.TestCase):
-    def test_distinguishes_all_four_s8r1_classifications_by_evidence(self) -> None:
+    def test_distinguishes_all_four_inventory_classifications_by_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             core = root / "psychopatzCore"

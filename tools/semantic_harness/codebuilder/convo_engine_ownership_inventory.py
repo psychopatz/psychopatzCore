@@ -1,4 +1,4 @@
-"""S6M2A ownership inventory and classification for ConvoEngine vs generic Semantics."""
+"""Ownership inventory and classification for ConvoEngine vs generic Semantics."""
 
 from __future__ import annotations
 
@@ -1014,7 +1014,7 @@ def build_ownership_inventory(
     *,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
-    """Build machine-readable S6M2A ownership inventory across Core, ProjectHoomans, and DynamicTrading."""
+    """Build machine-readable ownership inventory across Core, ProjectHoomans, and DynamicTrading."""
     callers, legacy_refs = _scan_cross_repo_references(repositories)
     records: list[dict[str, Any]] = []
     repo_reports: list[dict[str, Any]] = []
@@ -1077,7 +1077,7 @@ def build_ownership_inventory(
 
     return {
         "schema": OWNERSHIP_INVENTORY_SCHEMA,
-        "phase": "S6M2A",
+        "scope": "ownership-inventory",
         "generatedAtUtc": generated_at or datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "repositories": repo_reports,
         "collisionCheck": collisions,

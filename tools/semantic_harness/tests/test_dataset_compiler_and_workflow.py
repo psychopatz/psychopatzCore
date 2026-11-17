@@ -205,7 +205,7 @@ class DatasetCompilerAndWorkflowTests(unittest.TestCase):
         run_cli.assert_called_once()
 
     def test_workflow_generate_approved_runs_in_isolated_temp_workspace(self) -> None:
-        from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
+        from tools.semantic_harness.tests.convo_engine_test_support import (
             _setup_three_repo_workspace,
         )
 

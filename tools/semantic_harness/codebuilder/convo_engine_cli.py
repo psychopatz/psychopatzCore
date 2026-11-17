@@ -140,7 +140,6 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_audit = sub.add_parser(
         "audit-integrity",
-        aliases=["audit-s6m8"],
         help="Run the ConvoEngine integrity, hygiene, compiler, layout, and determinism audit",
     )
     _add_repo_args(p_audit)
@@ -280,7 +279,7 @@ def main(arguments: list[str] | None = None) -> int:
                 write=args.write,
                 prune_sources=args.prune_sources,
             )
-        elif args.command in {"audit-integrity", "audit-s6m8"}:
+        elif args.command == "audit-integrity":
             result = svc.dispatch_operation(
                 "convo.audit",
                 {"checkDeterminism": bool(args.check_determinism)},

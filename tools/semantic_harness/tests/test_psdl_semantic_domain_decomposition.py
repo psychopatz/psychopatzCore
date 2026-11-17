@@ -36,7 +36,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
         )
         cls.rendered, cls.reports = render_conversation_runtime_plan(cls.model)
 
-    def test_g9r1_semantic_path_contract_and_zero_global_hashes(self) -> None:
+    def test_semantic_path_contract_and_zero_global_hashes(self) -> None:
         domain, dpath = derive_subdir_domain_path(
             Path("social/conflict/retaliate_verbally.json"),
             fallback_domain="social",
@@ -55,7 +55,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
 
         self.assertEqual(audit_hashed_module_names([m for m, _ in self.rendered]), [])
 
-    def test_g9r2_source_semantic_decomposition(self) -> None:
+    def test_source_semantic_decomposition(self) -> None:
         core_beh = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/behavior"
         for sub in ("acknowledgement", "conflict", "repair", "context", "world_events"):
             self.assertTrue((core_beh / "social" / sub).is_dir())
@@ -66,7 +66,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
             self.assertTrue((hoomans_beh / "scene" / sub).is_dir())
             self.assertTrue(list((hoomans_beh / "scene" / sub).glob("*.json")))
 
-    def test_g9r3_owner_isolated_decomposed_surfaces_and_no_stale_refs(self) -> None:
+    def test_owner_isolated_decomposed_surfaces_and_no_stale_refs(self) -> None:
         modules = {mod: src for mod, src in self.rendered}
         # Core director contains ONLY Core behaviors, decomposed by domainPath
         self.assertIn("PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict", modules)
@@ -82,7 +82,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
             self.assertNotIn("Social__d6475647", src, mod)
             self.assertNotIn("CoreKnowledgeFacts__d73c98cf", src, mod)
 
-    def test_g9r4_variant_growth_cross_owner_shuffle_and_navigation(self) -> None:
+    def test_variant_growth_cross_owner_shuffle_and_navigation(self) -> None:
         base_map = {mod: src for mod, src in self.rendered}
 
         # 1. Adding a same-type variant under social/conflict changes only Conflict modules
@@ -141,7 +141,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
         self.assertEqual(loc["domainPath"], "social/conflict")
         self.assertEqual(loc["package"], "PsychopatzCore")
 
-    def test_g9r4_real_source_variant_and_new_subdomain_are_local(self) -> None:
+    def test_real_source_variant_and_new_subdomain_are_local(self) -> None:
         base_map = {mod: src for mod, src in self.rendered}
         behavior_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/behavior/social"
         conflict_dir = behavior_root / "conflict"

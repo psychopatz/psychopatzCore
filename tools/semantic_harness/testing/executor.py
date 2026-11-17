@@ -106,7 +106,15 @@ def execute_case(
         for index, turn_spec in enumerate(case.turns):
             turn_start = time.monotonic()
 
-            # Turn-level language override
+            # Turn-level session / scenario / language directives
+            if isinstance(turn_spec.get("scenarioPatch"), dict):
+                scenario = merge(scenario, turn_spec["scenarioPatch"])
+                if worker is not None:
+                    worker.configure(scenario)
+                    ledger.reset_turn_sequence()
+            if turn_spec.get("resetConversation"):
+                _get_worker().reset_conversation()
+                ledger.reset_turn_sequence()
             if "language" in turn_spec:
                 if worker is not None:
                     worker.set_language(turn_spec["language"])
@@ -137,7 +145,16 @@ def execute_case(
                     suggestions = ((last_record or {}).get("observation") or {}).get("suggestions") or {}
                     if "candidateID" in suggestion_frame:
                         cid = suggestion_frame["candidateID"]
-                        pool = suggestions.get("candidates") or []
+                        gid = suggestion_frame.get("groupID")
+                        if gid:
+                            groups = suggestions.get("groups") or []
+                            grp = next(
+                                (g for g in groups if isinstance(g, dict) and g.get("id") == gid),
+                                None,
+                            )
+                            pool = (grp or {}).get("candidates") or []
+                        else:
+                            pool = suggestions.get("candidates") or []
                         matched = [r for r in pool if isinstance(r, dict) and r.get("id") == cid]
                         if len(matched) != 1 or not isinstance(matched[0].get("frame"), dict):
                             raise ValueError(f"suggestion candidate '{cid}' unavailable in previous turn")

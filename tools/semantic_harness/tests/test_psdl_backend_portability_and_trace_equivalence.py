@@ -76,7 +76,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
     def tearDownClass(cls) -> None:
         cls.probe.close()
 
-    def test_g8r7a_descriptor_selected_backend_dispatch(self) -> None:
+    def test_descriptor_selected_backend_dispatch(self) -> None:
         self.assertIn("pz-lua", list_backends())
         self.assertIn("portable-json", list_backends())
         self.assertEqual(self.model["targetBackend"], "pz-lua")
@@ -190,7 +190,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
                     PORTABLE_PLAN_SCHEMA,
                 )
 
-    def test_g8r7b_executed_reference_vm_vs_lua_convo_probe_equivalence(self) -> None:
+    def test_executed_reference_vm_vs_lua_convo_probe_equivalence(self) -> None:
         # 1. Exact profanity + beat.argument_escalation + behavior.retaliate_verbally
         vm = PortableReferenceVM(self.portable_plan)
         hostile_ctx = {
@@ -307,7 +307,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
             normalized_trace_comparison_key(lua_fuzzy),
         )
 
-    def test_g8r7c_authored_vs_canonical_source_lineage(self) -> None:
+    def test_authored_vs_canonical_source_lineage(self) -> None:
         records_by_id = {
             r["id"]: r for r in portable_plan_records(self.portable_plan)
         }

@@ -363,7 +363,7 @@
       "requiresRealGui": false,
       "acceptanceOwners": [
         "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_unified_cli_routing:ConvoEngineUnifiedCliRoutingTests.test_main_cli_exposes_workspace_and_convo_operations",
-        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_studio_continuity_invariants:ConvoEngineStudioContinuityInvariantTests.test_r5_convo_engine_pane_dispatches_canonical_operations"
+        "PsychopatzCore:tools.semantic_harness.tests.test_convo_engine_studio_continuity_invariants:ConvoEngineStudioContinuityInvariantTests.test_convo_engine_pane_dispatches_canonical_operations"
       ]
     },
     {
@@ -577,6 +577,23 @@
       "acceptanceOwners": [
         "PsychopatzCore:tools.semantic_harness.tests.test_acceptance_runner:AcceptanceRunnerTests.test_cli_routes_acceptance_flag_headless",
         "PsychopatzCore:tools.semantic_harness.tests.test_acceptance_runner:AcceptanceRunnerTests.test_fast_subset_of_real_suites_executes_cleanly"
+      ]
+    },
+    {
+      "featureID": "gui.semantic_fixtures_runner",
+      "surface": "Simulation",
+      "controls": [
+        "app.fixture_domains_button",
+        "app.fixture_run_button",
+        "app.fixture_cancel_button"
+      ],
+      "canonicalOperation": "regression_controller.run_semantic_fixtures",
+      "providerApplicability": ["all"],
+      "mutationClass": "read_only",
+      "mandatory": true,
+      "requiresRealGui": true,
+      "acceptanceOwners": [
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     }
   ]

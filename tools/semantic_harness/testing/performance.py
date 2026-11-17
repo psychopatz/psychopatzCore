@@ -250,7 +250,7 @@ def run_benchmark(*, samples: int = 8, warmup: int = 2, serial_turns: int = 24) 
 
     return {
         "schemaVersion": 1,
-        "kind": "contextual-semantic-phase6-performance",
+        "kind": "contextual-semantic-performance",
         "scope": "semantic_lab_real_lua_worker_non_native",
         "nativeAcceptance": False,
         "generatedAtUtc": datetime.now(timezone.utc).isoformat(),

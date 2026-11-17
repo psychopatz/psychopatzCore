@@ -37,6 +37,7 @@ CONVO_ENGINE_FIELD_DESCRIPTORS: tuple[FieldDescriptor, ...] = (
     FieldDescriptor("id", "Local / Family ID", "identity", "scalar", ALL_FAMILY_KINDS, "Compact local family identifier."),
     FieldDescriptor("version", "Version", "identity", "scalar", ALL_FAMILY_KINDS, "Optional integer schema/content revision."),
     FieldDescriptor("owner", "Owner", "identity", "scalar", ALL_FAMILY_KINDS, "Owning mod package (manifest-routed)."),
+    FieldDescriptor("_authoringSchema", "Authoring schema", "identity", "scalar", ALL_FAMILY_KINDS, "Normalized authoring-schema provenance tag."),
     # Participants, target, slots
     FieldDescriptor("participants", "Participants", "participants", "json", ("dialogue", "behavior", "beat"), "Speaker and addressee role filters."),
     FieldDescriptor("target", "Target", "participants", "json", ("dialogue", "behavior", "beat"), "Target entity contract and constraints."),
@@ -46,6 +47,7 @@ CONVO_ENGINE_FIELD_DESCRIPTORS: tuple[FieldDescriptor, ...] = (
     FieldDescriptor("invoke", "Semantic invoke intent / subject / target", "exchange", "json", ("dialogue",), "Structured semantic invoke contract (act, intent, subject, topic)."),
     FieldDescriptor("affordance", "Affordance (UI-only label, consumers, utility)", "exchange", "json", ("dialogue", "behavior"), "UI button label, player/NPC consumers, channels, utility dimensions."),
     FieldDescriptor("execute", "Registered execute action & typed inputs", "exchange", "json", ("dialogue", "behavior", "beat"), "Typed action contract reference and bound parameters."),
+    FieldDescriptor("action", "Action", "dialogue", "json", ("dialogue", "behavior", "beat"), "Compact action binding shorthand compiled into execute."),
     FieldDescriptor("say", "Initiating say (string or stable numeric realization keys)", "exchange", "json", ("dialogue", "behavior", "realization"), "Actor speech template or keyed realization map."),
     FieldDescriptor("reply", "Named reply outcomes & independent realizations", "exchange", "json", ("dialogue",), "Outcome-keyed reply realizations and state bindings."),
     FieldDescriptor("after", "Chaining (recommend, recommendGroup, goto, end, resume)", "exchange", "json", ("dialogue", "behavior", "beat"), "Post-exchange transition, recommendation, and flow controls."),

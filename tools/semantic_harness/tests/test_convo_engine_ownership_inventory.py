@@ -1,4 +1,4 @@
-"""Tests for S6M2A ConvoEngine vs generic Semantics ownership inventory."""
+"""Tests for ConvoEngine vs generic Semantics ownership inventory."""
 
 from __future__ import annotations
 
@@ -58,7 +58,7 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
             generated_at="2026-11-13T00:00:00Z",
         )
         self.assertEqual(report["schema"], OWNERSHIP_INVENTORY_SCHEMA)
-        self.assertEqual(report["phase"], "S6M2A")
+        self.assertEqual(report["scope"], "ownership-inventory")
         self.assertTrue(report["collisionCheck"]["collisionSafe"])
         self.assertEqual(report["collisionCheck"]["targetPathCollisions"], {})
 

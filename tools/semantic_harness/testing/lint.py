@@ -68,6 +68,23 @@ def _normalized_case_signature(case: SemanticCase) -> str:
     )
 
 
+_SYNTHETIC_ID_KEYS = frozenset({"id", "characterUUID", "npcID", "requestID"})
+
+
+def _iter_synthetic_ids(obj: Any) -> list[tuple[str, str]]:
+    found: list[tuple[str, str]] = []
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if key in _SYNTHETIC_ID_KEYS and isinstance(value, str):
+                found.append((f"synthetic_{key}", value))
+            else:
+                found.extend(_iter_synthetic_ids(value))
+    elif isinstance(obj, list):
+        for item in obj:
+            found.extend(_iter_synthetic_ids(item))
+    return found
+
+
 def lint_fixtures(
     fixtures_dir: Path | Sequence[Path],
     *,
@@ -131,7 +148,11 @@ def lint_fixtures(
                 seen_ids[c.case_id] = f
 
                 if enforce_naming:
-                    for kind, val in (("suite", c.suite), ("case_id", c.case_id)):
+                    checks = [("suite", c.suite), ("case_id", c.case_id)]
+                    checks.extend(
+                        _iter_synthetic_ids({"scenario": c.scenario, "turns": c.turns})
+                    )
+                    for kind, val in checks:
                         tokens = _find_history_tokens(val)
                         if tokens:
                             results["naming_violations"].append({

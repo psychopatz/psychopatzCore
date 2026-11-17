@@ -157,8 +157,8 @@ def run_semantic_fixtures(
             matched,
             batch_size=16,
             cancel_check=lambda: bool(getattr(app, "_fixture_cancel_requested", False)),
-            worker_factory=lambda scenario: LuaSemanticWorker(
-                scenario, config=worker.config
+            worker_factory=lambda scenario, config=None: LuaSemanticWorker(
+                scenario, config=config or worker.config
             ),
             config=worker.config,
         )

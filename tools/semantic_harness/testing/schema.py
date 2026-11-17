@@ -84,7 +84,12 @@ def validate_operator_spec(path: str, operator_dict: dict[str, Any]) -> None:
                 raise SchemaValidationError(
                     f"Operator 'oneOf' at '{path}' requires a collection, got {type(expected_value).__name__}"
                 )
-        elif op in {"contains", "notContains", "prefix"}:
+        elif op in {"contains", "notContains"}:
+            if not isinstance(expected_value, (str, int, float, bool, dict)):
+                raise SchemaValidationError(
+                    f"Operator '{op}' at '{path}' requires a scalar or dict value, got {type(expected_value).__name__}"
+                )
+        elif op == "prefix":
             if not isinstance(expected_value, (str, int, float, bool)):
                 raise SchemaValidationError(
                     f"Operator '{op}' at '{path}' requires a scalar string or number, got {type(expected_value).__name__}"
@@ -162,6 +167,16 @@ def validate_turn(turn: Any, index: int, case_id: str) -> dict[str, Any]:
         if not isinstance(turn["language"], str):
             raise SchemaValidationError(f"{context} language must be a string")
         validated["language"] = turn["language"].upper()
+
+    # Optional session / scenario directives
+    if "resetConversation" in turn:
+        if not isinstance(turn["resetConversation"], bool):
+            raise SchemaValidationError(f"{context} resetConversation must be a boolean")
+        validated["resetConversation"] = turn["resetConversation"]
+    if "scenarioPatch" in turn:
+        if not isinstance(turn["scenarioPatch"], dict):
+            raise SchemaValidationError(f"{context} scenarioPatch must be an object")
+        validated["scenarioPatch"] = turn["scenarioPatch"]
 
     # Optional expectations
     if "expect" in turn:

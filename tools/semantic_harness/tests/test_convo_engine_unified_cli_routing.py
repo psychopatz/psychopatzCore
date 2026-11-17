@@ -139,7 +139,7 @@ class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
             self.assertTrue(payload_optin["ok"])
 
             # Create and preview-delete via main CLI convo change in an isolated workspace
-            from tools.semantic_harness.tests.test_convo_engine_convergence_regressions import (
+            from tools.semantic_harness.tests.convo_engine_test_support import (
                 _setup_three_repo_workspace,
             )
 

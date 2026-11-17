@@ -2466,18 +2466,6 @@ class SemanticLabAuthoringService:
             require_all_owners=require_all_owners,
         )
 
-    def run_convo_engine_s6m8_audit(
-        self,
-        *,
-        check_determinism: bool = False,
-        require_all_owners: bool = True,
-    ) -> dict[str, Any]:
-        """Deprecated alias for run_convo_engine_integrity_audit()."""
-        return self.run_convo_engine_integrity_audit(
-            check_determinism=check_determinism,
-            require_all_owners=require_all_owners,
-        )
-
     def list_convo_engine_families(self) -> list[dict[str, Any]]:
         """List all canonical ConvoEngine single-family sources across repositories."""
         return self.convo_catalog.list_summaries()

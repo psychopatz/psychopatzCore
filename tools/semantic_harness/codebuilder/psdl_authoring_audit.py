@@ -611,7 +611,7 @@ def build_inventory(repository_specs: Mapping[str, Path]) -> dict[str, Any]:
         "scope": {
             "primary": "PsychopatzCore",
             "mandatory_adopters": ["ProjectHoomans", "DynamicTrading"],
-            "phase": "S0",
+            "scope": "psdl-authoring-audit",
         },
         "repositories": repository_reports,
         "surfaces": surfaces,

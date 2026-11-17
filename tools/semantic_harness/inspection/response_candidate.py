@@ -99,7 +99,25 @@ def _convo_engine_translation_asset(
         if doc_family != family_id:
             continue
         say = doc.get("say") if isinstance(doc.get("say"), dict) else {}
-        for variant in say.get("variants") or []:
+        variants = list(say.get("variants") or [])
+        if any(not isinstance(v.get("text"), dict) for v in variants if isinstance(v, dict)) or "textSidecars" in doc:
+            from ..codebuilder.psdl_compiler import compile_convo_engine_document
+            compiled = compile_convo_engine_document(
+                doc,
+                source_path=src_path,
+                default_owner=doc.get("owner") or "ProjectHoomans",
+                validate_cross_references=False,
+            )
+            records = compiled.get("records") or []
+            if records:
+                variants = (
+                    ((records[0].get("payload") or {}).get("say") or {})
+                    .get("realizations", {})
+                    .get("1", {})
+                    .get("variants")
+                    or variants
+                )
+        for variant in variants:
             if not isinstance(variant, dict) or variant.get("id") != style:
                 continue
             text_map = variant.get("text") if isinstance(variant.get("text"), dict) else {}

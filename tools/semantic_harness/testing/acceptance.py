@@ -1,4 +1,4 @@
-"""Unified S10B multi-suite developer acceptance orchestration."""
+"""Unified multi-suite developer acceptance orchestration."""
 
 from __future__ import annotations
 
@@ -796,7 +796,7 @@ def run_acceptance_suites(
     kahlua_game_root: Path | None = None,
     allow_unrelated_baselines: bool = True,
 ) -> dict[str, Any]:
-    """Execute the S10B multi-suite developer acceptance matrix."""
+    """Execute the multi-suite developer acceptance matrix."""
     started = time.monotonic()
     repos = resolve_repositories(
         core_repository, hoomans_repository, dynamic_trading_repository
@@ -955,7 +955,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="append",
         dest="suites",
         choices=REQUIRED_SUITES,
-        help="Run specific suite(s); defaults to all S10B suites",
+        help="Run specific suite(s); defaults to all developer acceptance suites",
     )
     parser.add_argument("--core-repository", type=Path)
     parser.add_argument("--hoomans-repository", type=Path)

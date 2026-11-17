@@ -17,7 +17,7 @@ from tools.semantic_harness.codebuilder.reconcile import (
     reconcile_apply,
     reconcile_check,
 )
-from tools.semantic_harness.tests.test_convo_engine_build_planner import (
+from tools.semantic_harness.tests.convo_engine_test_support import (
     _build_three_repo_fixture,
     _sample_family,
     _write_json,

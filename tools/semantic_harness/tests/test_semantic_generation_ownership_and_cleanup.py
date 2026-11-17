@@ -18,7 +18,7 @@ from tools.semantic_harness.codebuilder.generation_recipe import (
     load_generation_recipe,
 )
 from tools.semantic_harness.codebuilder.reconcile import reconcile_apply
-from tools.semantic_harness.tests.test_convo_engine_build_planner import (
+from tools.semantic_harness.tests.convo_engine_test_support import (
     _build_three_repo_fixture,
     _write_json,
 )

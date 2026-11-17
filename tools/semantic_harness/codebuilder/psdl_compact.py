@@ -430,7 +430,10 @@ def expand_compact_psdl_document(
                 for v in existing_variants:
                     vid = str(v.get("id") or "")
                     if vid in by_var:
-                        v["text"] = by_var[vid]
+                        merged_text = dict(by_var[vid])
+                        if isinstance(v.get("text"), Mapping):
+                            merged_text.update(v["text"])
+                        v["text"] = merged_text
             else:
                 doc["say"] = {
                     "variants": [

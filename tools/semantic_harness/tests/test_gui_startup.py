@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import gc
 import json
 import os
 import tempfile
@@ -128,15 +129,22 @@ class GuiStartupTests(unittest.TestCase):
             root._semantic_harness_bootstrap = bootstrap
             root.update_idletasks()
             root.update()
+            app = None
             try:
-                SemanticHarnessApp(
+                app = SemanticHarnessApp(
                     root,
                     _parser().parse_args(
                         ["--gui", "--ui-state", str(state_path)]
                     ),
                 )
             finally:
-                root.destroy()
+                if app is not None:
+                    app.close()
+                    del app
+                else:
+                    root.destroy()
+                del root
+                gc.collect()
 
     @unittest.skipUnless(os.environ.get("DISPLAY"), "requires a Tk display")
     def test_run_gui_maps_window_before_app_constructor(self) -> None:

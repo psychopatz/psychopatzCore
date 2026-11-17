@@ -84,6 +84,11 @@ def _convo_engine_generated_matches(
             continue
         if lua_path.is_file() and template_id in lua_path.read_text(encoding="utf-8"):
             return True
+        lua_dir = lua_path.with_suffix("")
+        if lua_dir.is_dir():
+            for leaf in sorted(lua_dir.rglob("*.lua")):
+                if template_id in leaf.read_text(encoding="utf-8"):
+                    return True
     return False
 
 

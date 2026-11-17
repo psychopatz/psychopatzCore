@@ -651,9 +651,5 @@ class ConvoEngineAuthoringPane:
         )
         return report
 
-    def run_s6m8_audit(self) -> dict[str, Any]:
-        """Deprecated alias for run_integrity_audit()."""
-        return self.run_integrity_audit()
-
 
 __all__ = ["ConvoEngineAuthoringPane"]

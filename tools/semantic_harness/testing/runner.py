@@ -60,6 +60,9 @@ class ConflictLedger:
         self._truncation_reasons: set[str] = set()
         self._turn_index = 0
 
+    def reset_turn_sequence(self) -> None:
+        self._previous_sequence = 0
+
     def _record(self, conflict: dict[str, Any]) -> None:
         if len(self._conflicts) < MAX_REPORTED_CONFLICTS:
             self._conflicts.append(conflict)

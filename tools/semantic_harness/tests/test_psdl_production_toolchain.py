@@ -58,7 +58,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         )
         cls.portable_plan = cls.model["portablePlan"]
 
-    def test_g8r1_production_compact_psdl_corpus_and_sidecars(self) -> None:
+    def test_production_compact_psdl_corpus_and_sidecars(self) -> None:
         conv_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation"
         pkg = json.loads((conv_root / "package.json").read_text(encoding="utf-8"))
         prov = json.loads((conv_root / "provenance.lock").read_text(encoding="utf-8"))
@@ -94,7 +94,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         self.assertTrue(known_variants[0]["text"]["EN"])
         self.assertTrue(known_variants[0]["text"]["TL"])
 
-    def test_g8r2_portable_dialogue_plan_is_production_seam(self) -> None:
+    def test_portable_dialogue_plan_is_production_seam(self) -> None:
         self.assertEqual(self.portable_plan["schema"], PORTABLE_PLAN_SCHEMA)
         self.assertIn("behavior.retaliate_verbally", self.portable_plan["behaviors"])
         self.assertIn("beat.argument_escalation", self.portable_plan["beats"])
@@ -104,7 +104,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         with self.assertRaises(CompileError):
             render_pz_backend_from_portable_plan({"schema": "invalid.plan"})
 
-    def test_g8r3_profanity_beats_behaviors_fuzzy_and_camp_production(self) -> None:
+    def test_profanity_beats_behaviors_fuzzy_and_camp_production(self) -> None:
         # 1. Handwritten pnc.social.profanity* must be absent from Catalog_Register.lua
         catalog_reg = (
             HOOMANS_ROOT
@@ -179,7 +179,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         self.assertEqual(exact["mode"], "exact")
         self.assertFalse(exact["requiresConfirmation"])
 
-    def test_g8r4_data_driven_synthetic_adopter_normal_build(self) -> None:
+    def test_data_driven_synthetic_adopter_normal_build(self) -> None:
         # Missing capability fails closed before generation
         with self.assertRaises(CompileError):
             validate_target_capabilities(
@@ -304,7 +304,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
                     f"Expected Synthetic/ConvoEngine/ in {sorted(paths)[:10]}",
                 )
 
-    def test_g8r5_cross_backend_trace_equivalence_and_inspect(self) -> None:
+    def test_cross_backend_trace_equivalence_and_inspect(self) -> None:
         # Compare Reference VM traces against PZ backend runtime plan projections from the same Portable Plan
         vm = PortableReferenceVM(self.portable_plan)
         pz_by_id = {p["id"]: p for p in self.model["psdlRuntimePlans"]}

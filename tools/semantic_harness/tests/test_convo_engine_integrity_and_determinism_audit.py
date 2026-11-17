@@ -53,7 +53,7 @@ class ConvoEngineIntegrityAndDeterminismAuditTests(unittest.TestCase):
         self.assertEqual(cleaned["metadata"]["runtimeBlockID"], "core:example")
         self.assertEqual(cleaned["metadata"]["contentOwner"], "psychopatz.core")
 
-    def test_live_three_repository_s6m8_audit_and_two_pass_determinism(self) -> None:
+    def test_live_three_repository_integrity_audit_and_two_pass_determinism(self) -> None:
         if not HOOMANS_ROOT.is_dir() or not DT_ROOT.is_dir():
             self.skipTest("Sibling participant repositories are unavailable")
         report = audit_convo_engine_workspace(
@@ -99,7 +99,7 @@ class ConvoEngineIntegrityAndDeterminismAuditTests(unittest.TestCase):
             self.assertIn("stale_migration_metadata", codes)
             self.assertIn("missing_convo_engine_runtime_root", codes)
 
-    def test_service_exposes_s6m8_audit(self) -> None:
+    def test_service_exposes_integrity_audit(self) -> None:
         if not HOOMANS_ROOT.is_dir() or not DT_ROOT.is_dir():
             self.skipTest("Sibling participant repositories are unavailable")
         svc = SemanticLabAuthoringService(

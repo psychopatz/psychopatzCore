@@ -18,6 +18,7 @@ from .convo_engine_exchange import resolve_family_identity
 from .conversation_model import fingerprint
 from .errors import CompileError
 from .psdl_compiler import (
+    COMPACT_PSDL_SCHEMA,
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
     compile_convo_engine_sources,
@@ -164,16 +165,16 @@ def apply_family_patch(
     if not isinstance(patch, Mapping) or not patch:
         raise CompileError("ConvoEngine patch must be a non-empty object")
     candidate = copy.deepcopy(dict(document))
-    if candidate.get("schema") != CONVO_ENGINE_SCHEMA:
+    if candidate.get("schema") not in {CONVO_ENGINE_SCHEMA, COMPACT_PSDL_SCHEMA}:
         raise CompileError(
-            f"Editing requires canonical schema {CONVO_ENGINE_SCHEMA}; migrate legacy sources first"
+            f"Editing requires canonical schema {CONVO_ENGINE_SCHEMA} or {COMPACT_PSDL_SCHEMA}; migrate legacy sources first"
         )
     if "records" in candidate:
         raise CompileError(
             "apply_family_patch operates on single-family documents; shard multi-record documents first"
         )
-    if "schema" in patch and patch["schema"] != CONVO_ENGINE_SCHEMA:
-        raise CompileError(f"ConvoEngine edits cannot change schema away from {CONVO_ENGINE_SCHEMA}")
+    if "schema" in patch and patch["schema"] not in {CONVO_ENGINE_SCHEMA, COMPACT_PSDL_SCHEMA}:
+        raise CompileError(f"ConvoEngine edits cannot change schema away from {CONVO_ENGINE_SCHEMA}/{COMPACT_PSDL_SCHEMA}")
     for key in ("id", "namespace", "kind"):
         if key in patch and patch[key] != candidate.get(key):
             raise CompileError(

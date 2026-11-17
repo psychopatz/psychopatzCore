@@ -44,7 +44,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
             package_repositories=cls.pkg_repos,
         )
 
-    def test_g9a_self_contained_adopter_packages_and_imports(self) -> None:
+    def test_self_contained_adopter_packages_and_imports(self) -> None:
         core_pkg_path = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/package.json"
         hoomans_pkg_path = HOOMANS_ROOT / "tools/providers/pnc/codebuilder/sources/conversation/package.json"
         dt_pkg_path = DT_ROOT / "tools/providers/dt/codebuilder/sources/conversation/package.json"
@@ -97,7 +97,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
             with self.assertRaises(CompileError):
                 compile_conversation_sources(ws, manifest_path=pkg_dir / "package.json")
 
-    def test_g9b_semantic_ownership_audit(self) -> None:
+    def test_semantic_ownership_audit(self) -> None:
         plans_by_id = {p["id"]: p for p in self.model["psdlRuntimePlans"]}
         # Reusable Core social beats/behaviors stay in PsychopatzCore
         for core_id in (
@@ -121,7 +121,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
         ):
             self.assertEqual(plans_by_id[hoomans_id]["owner"], "ProjectHoomans")
 
-    def test_g9c_readable_deterministic_shard_naming_and_collision_fallback(self) -> None:
+    def test_readable_deterministic_shard_naming_and_collision_fallback(self) -> None:
         # ProjectHoomans generated ConvoEngine tree has zero avoidable __<8hex>.lua files
         hoomans_gen = HOOMANS_ROOT / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine"
         hashed_hoomans = list(hoomans_gen.rglob("*__*.lua"))
@@ -148,7 +148,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
 
         self.assertEqual(semantic_chunk_label(["command.camp", "command.follow"]), "CampToFollow")
 
-    def test_g9d_navigation_locate(self) -> None:
+    def test_navigation_locate(self) -> None:
         loc_hoomans = locate_psdl(
             self.model,
             record_id="behavior.scene_horde_prompt",
