@@ -1,9 +1,9 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** DEVELOPER_COMPLETE (S0-S8 + S8R developer-side complete; live native Project Zomboid SP/MP visual/feel acceptance remains user-owned).
+**Parent status:** IN_PROGRESS — S0-S10R + G7-G9 retained as accepted infrastructure; S11 is the active developer objective. Live native Project Zomboid SP/MP visual/feel acceptance remains user-owned after developer closure.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** S8R closes the reopened S8 gate. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
+**Developer completion boundary:** S11A-S11E. Do not return to user-owned native acceptance until the full S11 gate is closed. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
 
 ## Objective and ownership
 
