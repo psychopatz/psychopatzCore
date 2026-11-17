@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11A5 accepted (direct typed domain adapters wired to existing authorities); advancing to S11A6 memory/modifier lifecycle.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A5 accepted; S11A6-S11A8 foundation build active before any production dialogue migration.
+**Status:** IN_PROGRESS — S11A6 accepted (generic memory/modifier retention, stacking/dedupe, and bounded expiry lifecycle); advancing to S11A7 compiler/runtime optimization.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A6 accepted; S11A7-S11A8 foundation build active before any production dialogue migration.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
-**Immediate Next Chunk:** S11A6 — finalize generic memory/modifier lifecycle (SESSION/TIMED/UNTIL/PERMANENT retention, stacking/dedupe replace/refresh/extend/stack/accumulate/ignore, distinct memory vs modifier objects, bounded game-time expiry).
+**Immediate Next Chunk:** S11A7 — compiler/runtime optimization (stable compiled IDs, required-fact dependency indexes, fact->consuming-family & action/effect/modifier invalidation maps, dependency-driven projection, incremental analysis fingerprints, no shadow state).
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
