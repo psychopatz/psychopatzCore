@@ -1,4 +1,4 @@
-"""Machine-readable Feature Acceptance Registry validation for S10C."""
+"""Machine-readable Feature Acceptance Registry validation."""
 
 from __future__ import annotations
 

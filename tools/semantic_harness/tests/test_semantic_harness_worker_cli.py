@@ -1,4 +1,4 @@
-"""S10R2 real-worker CLI acceptance for session, language, doctor, observatory, and fixture runner flags."""
+"""Real-worker CLI acceptance for session, language, doctor, observatory, and fixture runner flags."""
 
 from __future__ import annotations
 

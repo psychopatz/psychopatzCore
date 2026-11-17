@@ -34,6 +34,11 @@ def spec(
     )
 
 
+CORE_REPO = Path(__file__).resolve().parents[3]
+HOOMANS_REPO = CORE_REPO.parent / "ProjectHoomans"
+DT_REPO = CORE_REPO.parent / "DynamicTrading"
+
+
 class ModManagerTests(unittest.TestCase):
     def test_resolves_dependencies_and_routes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -104,10 +109,10 @@ class ModManagerTests(unittest.TestCase):
 
     def test_manifest_environment_is_part_of_the_activation_contract(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
             repository_roots=(
-                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
-                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+                str(HOOMANS_REPO),
+                str(DT_REPO),
             ),
         )
 
@@ -115,11 +120,11 @@ class ModManagerTests(unittest.TestCase):
 
         self.assertEqual(
             plan.environment["SEMANTIC_HARNESS_PNC_REPOSITORY"],
-            "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
+            str(HOOMANS_REPO),
         )
         self.assertEqual(
             plan.environment["SEMANTIC_HARNESS_DT_REPOSITORY"],
-            "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+            str(DT_REPO),
         )
         self.assertIn("${runtime:ProjectHoomans}", plan.environment["PZ_TEST_HOOMANS_RUNTIME"])
 
@@ -150,10 +155,10 @@ class ModManagerTests(unittest.TestCase):
 
     def test_discovers_workspace_provider_manifests(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
             repository_roots=(
-                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
-                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+                str(HOOMANS_REPO),
+                str(DT_REPO),
             ),
         )
 
@@ -171,10 +176,10 @@ class ModManagerTests(unittest.TestCase):
 
     def test_live_product_compositions_have_dependency_closed_bootstraps(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
             repository_roots=(
-                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
-                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+                str(HOOMANS_REPO),
+                str(DT_REPO),
             ),
         )
 
@@ -222,10 +227,10 @@ class ModManagerTests(unittest.TestCase):
 
     def test_dynamic_trading_hoomans_includes_project_hoomans_dependency(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
             repository_roots=(
-                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
-                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+                str(HOOMANS_REPO),
+                str(DT_REPO),
             ),
         )
 
@@ -238,7 +243,7 @@ class ModManagerTests(unittest.TestCase):
 
     def test_core_is_not_a_standalone_preset(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
         )
 
         with self.assertRaisesRegex(ModManagerError, "not a standalone"):
@@ -248,10 +253,10 @@ class ModManagerTests(unittest.TestCase):
 
     def test_resolves_save_mod_ids_and_keeps_unknown_mods_visible(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
             repository_roots=(
-                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
-                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+                str(HOOMANS_REPO),
+                str(DT_REPO),
             ),
         )
 
@@ -272,9 +277,9 @@ class ModManagerTests(unittest.TestCase):
 
     def test_resolves_legacy_dynamic_trading_save_aliases(self) -> None:
         manager = ModManager.discover(
-            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            core_repository=str(CORE_REPO),
             repository_roots=(
-                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+                str(DT_REPO),
             ),
         )
 

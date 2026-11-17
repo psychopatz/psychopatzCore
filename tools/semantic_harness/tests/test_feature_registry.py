@@ -1,4 +1,4 @@
-"""S10C/S10R2 Feature Acceptance Registry completeness and AST ownership gate."""
+"""Feature Acceptance Registry completeness and AST ownership gate."""
 
 from __future__ import annotations
 

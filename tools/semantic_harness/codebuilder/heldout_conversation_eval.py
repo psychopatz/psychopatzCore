@@ -1,4 +1,4 @@
-"""Bounded C7F held-out scoring over real-worker observations.
+"""Bounded held-out conversation evaluation scoring over real-worker observations.
 
 The fixture contains Project Hoomans-authored evaluation paraphrases and
 metadata-only source references. It never loads or packages an external
@@ -25,41 +25,41 @@ def load_heldout_conversation_eval(path: Path = HOLDOUT_PATH) -> dict[str, Any]:
     try:
         document = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as error:
-        raise ValueError(f"cannot read C7F holdout {path}: {error}") from error
+        raise ValueError(f"cannot read held-out conversation evaluation {path}: {error}") from error
     if not isinstance(document, dict) or document.get("schemaVersion") != 1:
-        raise ValueError("C7F holdout requires schemaVersion 1")
+        raise ValueError("held-out conversation evaluation requires schemaVersion 1")
     if document.get("rawCorpusPackaged") is not False:
-        raise ValueError("C7F holdout must not package raw corpus data")
+        raise ValueError("held-out conversation evaluation must not package raw corpus data")
     cases = document.get("cases")
     if not isinstance(cases, list) or not cases or len(cases) > MAX_CASES:
-        raise ValueError(f"C7F holdout requires 1..{MAX_CASES} cases")
+        raise ValueError(f"held-out conversation evaluation requires 1..{MAX_CASES} cases")
     seen: set[str] = set()
     for case in cases:
         if not isinstance(case, dict):
-            raise ValueError("C7F holdout cases must be objects")
+            raise ValueError("held-out conversation evaluation cases must be objects")
         case_id = case.get("id")
         if not isinstance(case_id, str) or not case_id or case_id in seen:
-            raise ValueError("C7F holdout case IDs must be unique non-empty strings")
+            raise ValueError("held-out conversation evaluation case IDs must be unique non-empty strings")
         seen.add(case_id)
         setup = case.get("setup", [])
         if not isinstance(setup, list) or not all(
             isinstance(value, str) and 0 < len(value) <= MAX_UTTERANCE
             for value in setup
         ):
-            raise ValueError(f"C7F holdout setup is invalid for {case_id}")
+            raise ValueError(f"held-out conversation evaluation setup is invalid for {case_id}")
         utterance = case.get("utterance")
         if not isinstance(utterance, str) or not 0 < len(utterance) <= MAX_UTTERANCE:
-            raise ValueError(f"C7F holdout utterance is invalid for {case_id}")
+            raise ValueError(f"held-out conversation evaluation utterance is invalid for {case_id}")
         source_refs = case.get("sourceRefs", [])
         if not isinstance(source_refs, list) or any(
             ref not in ALLOWED_SOURCE_REFS for ref in source_refs
         ):
-            raise ValueError(f"C7F holdout sourceRefs are invalid for {case_id}")
+            raise ValueError(f"held-out conversation evaluation sourceRefs are invalid for {case_id}")
         expected = case.get("expected")
         if not isinstance(expected, dict) or not isinstance(
             expected.get("recognized"), bool
         ):
-            raise ValueError(f"C7F holdout expected result is invalid for {case_id}")
+            raise ValueError(f"held-out conversation evaluation expected result is invalid for {case_id}")
     return document
 
 

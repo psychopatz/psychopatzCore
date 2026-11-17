@@ -1,4 +1,4 @@
-"""S10R2 headless CLI discovery and option acceptance tests (no Lua worker needed)."""
+"""Headless CLI discovery and option acceptance tests (no Lua worker needed)."""
 
 from __future__ import annotations
 

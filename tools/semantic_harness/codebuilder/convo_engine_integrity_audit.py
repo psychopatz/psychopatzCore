@@ -1,4 +1,4 @@
-"""S6M8 three-repository ConvoEngine integrity, hygiene, and determinism audit."""
+"""Three-repository ConvoEngine integrity, hygiene, and determinism audit."""
 
 from __future__ import annotations
 
@@ -236,7 +236,7 @@ def audit_convo_engine_workspace(
     check_determinism: bool = False,
     require_all_owners: bool = False,
 ) -> dict[str, Any]:
-    """Run the S6M8/S8R three-repository ConvoEngine architectural and determinism audit."""
+    """Run the three-repository ConvoEngine architectural and determinism audit."""
     core_root = Path(core_repository).expanduser().resolve()
     hoomans_root = (
         Path(hoomans_repository).expanduser().resolve()

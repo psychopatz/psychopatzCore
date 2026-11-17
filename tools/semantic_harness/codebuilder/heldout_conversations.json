@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "name": "Project Hoomans C7F held-out conversation evaluation",
+  "name": "Project Hoomans held-out conversation evaluation",
   "contentLicense": "Project Hoomans authored evaluation metadata",
   "rawCorpusPackaged": false,
   "use": "Evaluation only; paraphrases are authored test inputs informed by reviewed source mappings.",

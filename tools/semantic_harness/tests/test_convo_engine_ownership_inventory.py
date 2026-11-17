@@ -13,9 +13,9 @@ from tools.semantic_harness.codebuilder import (
     map_generated_convo_engine_module,
 )
 
-CORE_REPO = Path("/home/psychopatz/Zomboid/Workshop/psychopatzCore")
-HOOMANS_REPO = Path("/home/psychopatz/Zomboid/Workshop/ProjectHoomans")
-DT_REPO = Path("/home/psychopatz/Zomboid/Workshop/DynamicTrading")
+CORE_REPO = Path(__file__).resolve().parents[3]
+HOOMANS_REPO = CORE_REPO.parent / "ProjectHoomans"
+DT_REPO = CORE_REPO.parent / "DynamicTrading"
 
 
 class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
