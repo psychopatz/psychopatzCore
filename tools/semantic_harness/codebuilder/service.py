@@ -1203,6 +1203,21 @@ class SemanticLabAuthoringService:
             else None
         )
 
+    def analyze_convo_completeness(
+        self,
+        *,
+        covered_family_ids: Iterable[str] | None = None,
+    ) -> dict[str, Any]:
+        """Run the canonical S11A4 Dialogue Completeness Analyzer on the compiled Portable Plan."""
+        from .completeness_analyzer import analyze_portable_plan
+
+        model, _rendered, _reports = self._conversation_plan()
+        portable_plan = model.get("portablePlan")
+        return analyze_portable_plan(
+            portable_plan,
+            covered_family_ids=covered_family_ids,
+        )
+
     @staticmethod
     def _content_shard_report(model: dict[str, Any], source_shard: str) -> dict[str, Any]:
         for report in model.get("shards", []):

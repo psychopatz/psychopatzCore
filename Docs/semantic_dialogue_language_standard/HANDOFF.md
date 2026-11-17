@@ -5,21 +5,20 @@ status: DIRTY_RESUMABLE
 checkpoint_mode: committed_handoff
 phase_commit: self
 phase: S11A — foundation build and freeze before production migration
-chunk: S11A4 — Dialogue Completeness Analyzer (S11A3 accepted)
+chunk: S11A5 — direct domain adapters (S11A4 accepted)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 foundation_order_doc: Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md
-updated_at: 2026-11-18T07:55:00Z
+updated_at: 2026-11-18T07:56:00Z
 ~~~
 
-## What became true in S11A3
+## What became true in S11A4
 
-- Added Kahlua2-clean `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/S11PolicyEvaluator.lua` (`ValidateRoleBindings`, `EvaluateStatePolicy`, `EvaluateQueries`, `ProjectConsequences`, `EvaluateFamily`) and wired `evaluate_s11_family` through `ConvoProbe.lua` and `convo_probe.py`.
-- Added matching `validate_role_bindings`, `evaluate_state_policy`, `evaluate_queries`, `project_consequences`, `evaluate_s11_family`, and `statePolicy` pre-admission short-circuiting to `PortableReferenceVM` in `portable_runtime.py`.
-- Projected `roles` and `participantSet` in `render_convo_engine_runtime_plan` (`psdl_compiler.py`).
-- Verified `9/9 PASS` across `test_s11_vm_lua_parity`, `test_convo_engine_lua_probe_capabilities`, and `test_psdl_backend_portability_and_trace_equivalence`, plus `0` Kahlua errors via `pz_verify.py --kahlua`.
+- Added `tools/semantic_harness/codebuilder/completeness_analyzer.py` (`analyze_portable_plan`, `COMPLETENESS_REPORT_SCHEMA`) analyzing the frozen S11A1-A3 Portable Dialogue Plan for reachability/`unreachable_branch`, `dead_end`, `unhandled_state_outcome`, `unhandled_action_outcome`, `pending_without_exit`, Tarjan SCC `unbounded_loop` / `missing_repeat_policy`, `stale_poststate_risk`, `dangling_memory`, `lost_commitment`, `role_unbound`, `role_cardinality_mismatch`, `ambiguous_group_effect`, `unbounded_group_reaction`, and `uncovered_fixture` with machine-readable `repairHint` diagnostics.
+- Exposed `CodeBuilderService.analyze_convo_completeness` in `tools/semantic_harness/codebuilder/service.py` so Semantic Lab / CLI consume the compiler report directly.
+- Verified `tools.semantic_harness.tests.test_s11_completeness_analyzer` (`4/4 PASS`).
 
 ## Immediate Next Chunk
 
-Execute **S11A4** (Dialogue Completeness Analyzer over the frozen S11A1-A3 canonical model) and continue automatically through S11A8.
+Execute **S11A5** (connect portable facts/actions/effects/modifiers/memory to existing authoritative systems through typed adapters) and continue automatically through S11A8.

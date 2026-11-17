@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11A3 accepted (Reference VM <-> PZ/Lua backend structural parity green); advancing to S11A4 Dialogue Completeness Analyzer.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A3 accepted; S11A4-S11A8 foundation build active before any production dialogue migration.
+**Status:** IN_PROGRESS — S11A4 accepted (Dialogue Completeness Analyzer over canonical S11A1-A3 model); advancing to S11A5 direct domain adapters.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A4 accepted; S11A5-S11A8 foundation build active before any production dialogue migration.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
-**Immediate Next Chunk:** S11A4 — Dialogue Completeness Analyzer over the frozen S11A1-A3 canonical model (reachability, state/action completeness, SCC/cycle bounded progress, continuation/closure, role/cardinality, memory residue, typed/click parity, machine-readable diagnostics).
+**Immediate Next Chunk:** S11A5 — connect portable facts/queries/actions/effects/modifiers/memory directly to existing authoritative systems (ActionContract, RelationshipService, inventory authority, morale/mood authority, ConversationMemory) via typed adapters without compatibility shims or production dialogue migration.
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
