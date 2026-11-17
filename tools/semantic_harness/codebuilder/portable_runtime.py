@@ -17,6 +17,10 @@ from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
 from .errors import CompileError
+from .semantic_contract import (
+    FORBIDDEN_POSITIONAL_ROLES,
+    SemanticOutcomeEnvelope,
+)
 
 
 PORTABLE_PLAN_SCHEMA = "psychopatz.psdl.portable-plan.v1"
@@ -433,13 +437,27 @@ class PortableReferenceVM:
 
         if dialogue_id and dialogue_id in (self.plan.get("dialogues") or {}):
             dlg = self.plan["dialogues"][dialogue_id]
-            action = dlg.get("action")
-            if isinstance(action, Mapping) and self.capability_adapter is not None:
-                if recog and recog.get("requiresConfirmation"):
-                    action_outcome = "confirmation_required"
+            state_outcome: dict[str, Any] | None = None
+            if dlg.get("statePolicy"):
+                state_outcome = self.evaluate_state_policy(dialogue_id, ctx)
+                if state_outcome["admission"] in ("no_op", "reject", "confirm", "defer", "none"):
+                    action_outcome = state_outcome.get("replyOutcome") or state_outcome["outcome"]
                 else:
-                    res = self.capability_adapter(str(action.get("capability") or ""), action, ctx)
-                    action_outcome = str(res.get("outcome") or "queued")
+                    action = dlg.get("action")
+                    if isinstance(action, Mapping) and self.capability_adapter is not None:
+                        if recog and recog.get("requiresConfirmation"):
+                            action_outcome = "confirmation_required"
+                        else:
+                            res = self.capability_adapter(str(action.get("capability") or ""), action, ctx)
+                            action_outcome = str(res.get("outcome") or "queued")
+            else:
+                action = dlg.get("action")
+                if isinstance(action, Mapping) and self.capability_adapter is not None:
+                    if recog and recog.get("requiresConfirmation"):
+                        action_outcome = "confirmation_required"
+                    else:
+                        res = self.capability_adapter(str(action.get("capability") or ""), action, ctx)
+                        action_outcome = str(res.get("outcome") or "queued")
             reply = dlg.get("reply")
             if action_outcome and isinstance(reply, Mapping) and action_outcome in reply:
                 branch = reply[action_outcome]
@@ -447,7 +465,7 @@ class PortableReferenceVM:
             else:
                 text = self._select_variant(dlg, locale=locale, style=style, context=ctx)
 
-        return {
+        result = {
             "runtimeVersion": STANDARD_RUNTIME_VERSION,
             "recognition": recog,
             "activeBeat": self.active_beat,
@@ -455,6 +473,167 @@ class PortableReferenceVM:
             "selectedDialogue": dialogue_id,
             "actionOutcome": action_outcome,
             "text": text,
+        }
+        if dialogue_id and dialogue_id in (self.plan.get("dialogues") or {}) and self.plan["dialogues"][dialogue_id].get("statePolicy"):
+            result["stateOutcome"] = state_outcome
+        return result
+
+    def validate_role_bindings(
+        self,
+        dialogue_id: str,
+        role_bindings: Mapping[str, Any] | None = None,
+        participant_set: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        dlg = (self.plan.get("dialogues") or {}).get(dialogue_id) or {}
+        bindings = dict(role_bindings or {})
+        pset = participant_set if participant_set is not None else dlg.get("participantSet")
+        if isinstance(pset, Mapping):
+            max_size = pset.get("maxSize")
+            parts = pset.get("participants") or []
+            if isinstance(max_size, int) and len(parts) > max_size:
+                return {"ok": False, "reason": "participant_set_exceeds_max_size"}
+        for role_name in bindings:
+            if role_name in FORBIDDEN_POSITIONAL_ROLES:
+                return {"ok": False, "reason": f"forbidden_positional_role:{role_name}"}
+        specs = dlg.get("roles") or {}
+        bound_roles: dict[str, int] = {}
+        for role_name, spec in specs.items():
+            if role_name in FORBIDDEN_POSITIONAL_ROLES:
+                return {"ok": False, "reason": f"forbidden_positional_role:{role_name}"}
+            entities = list(bindings.get(role_name) or [])
+            count = len(entities)
+            card = str((spec or {}).get("cardinality") or "ONE")
+            if card == "ONE" and count != 1:
+                return {"ok": False, "reason": f"role_cardinality_mismatch:{role_name}:ONE"}
+            if card == "OPTIONAL_ONE" and count > 1:
+                return {"ok": False, "reason": f"role_cardinality_mismatch:{role_name}:OPTIONAL_ONE"}
+            if card == "ONE_OR_MORE" and count < 1:
+                return {"ok": False, "reason": f"role_cardinality_mismatch:{role_name}:ONE_OR_MORE"}
+            if card == "BOUNDED_MANY":
+                lo = int((spec or {}).get("min") or 0)
+                hi = int((spec["max"]) if (spec or {}).get("max") is not None else count)
+                if count < lo or count > hi:
+                    return {"ok": False, "reason": f"role_cardinality_mismatch:{role_name}:BOUNDED_MANY"}
+            allowed_kinds = list((spec or {}).get("kinds") or [])
+            for ent in entities:
+                ent_kind = ent.get("kind") if isinstance(ent, Mapping) else None
+                if allowed_kinds and ent_kind not in allowed_kinds:
+                    return {"ok": False, "reason": f"role_entity_kind_mismatch:{role_name}"}
+            bound_roles[role_name] = count
+        out: dict[str, Any] = {"ok": True, "reason": "roles_valid"}
+        if bound_roles:
+            out["boundRoles"] = bound_roles
+        return out
+
+    def evaluate_state_policy(
+        self,
+        dialogue_id: str,
+        context: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        dlg = (self.plan.get("dialogues") or {}).get(dialogue_id) or {}
+        rules = dlg.get("statePolicy") or []
+        postconditions = tuple(dlg.get("postconditions") or ())
+        ctx = dict(context or {})
+        if not rules:
+            return SemanticOutcomeEnvelope(
+                family_id=dialogue_id,
+                matched_rule_id="default_actionable",
+                outcome="actionable",
+                reason="ready",
+                admission="dispatch",
+                state_changed=False,
+                postconditions=postconditions,
+            ).to_dict()
+        for rule in rules:
+            when = rule.get("when")
+            if when is None or evaluate_predicate(when, ctx):
+                return SemanticOutcomeEnvelope(
+                    family_id=dialogue_id,
+                    matched_rule_id=str(rule.get("id") or ""),
+                    outcome=str(rule.get("outcome") or "actionable"),
+                    reason=str(rule.get("reason") or rule.get("outcome") or "ready"),
+                    admission=str(rule.get("admission") or "dispatch"),
+                    state_changed=False,
+                    reply_outcome=rule.get("replyOutcome"),
+                    postconditions=postconditions,
+                ).to_dict()
+        return SemanticOutcomeEnvelope(
+            family_id=dialogue_id,
+            matched_rule_id="default_unavailable",
+            outcome="unavailable",
+            reason="no_state_rule_matched",
+            admission="no_op",
+            state_changed=False,
+            postconditions=postconditions,
+        ).to_dict()
+
+    def evaluate_queries(
+        self,
+        dialogue_id: str,
+        context: Mapping[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
+        dlg = (self.plan.get("dialogues") or {}).get(dialogue_id) or {}
+        ctx = dict(context or {})
+        results: list[dict[str, Any]] = []
+        for q in dlg.get("queries") or []:
+            qid = q.get("id")
+            if not qid:
+                continue
+            path = q.get("path", "")
+            actual = _resolve_path(ctx, path)
+            if actual is None and "default" in q:
+                actual = q["default"]
+            passed = actual is not None
+            if q.get("op") is not None:
+                passed = evaluate_predicate({"path": path, "op": q["op"], "value": q.get("value")}, ctx)
+            results.append({"id": qid, "path": path, "value": actual, "passed": passed})
+        return results
+
+    def project_consequences(
+        self,
+        dialogue_id: str,
+        reply_outcome: str | None = None,
+    ) -> dict[str, Any]:
+        dlg = (self.plan.get("dialogues") or {}).get(dialogue_id) or {}
+        effects = list(dlg.get("effects") or [])
+        modifiers = list(dlg.get("modifiers") or [])
+        postconditions = list(dlg.get("postconditions") or [])
+        closure = copy.deepcopy(dlg.get("closure") or {"closureClass": "none"})
+        continuation = dlg.get("continuation") or "close"
+        if reply_outcome and isinstance(dlg.get("reply"), Mapping) and reply_outcome in dlg["reply"]:
+            branch = dlg["reply"][reply_outcome]
+            effects.extend(branch.get("effects") or [])
+            modifiers.extend(branch.get("modifiers") or [])
+            postconditions.extend(branch.get("postconditions") or [])
+            if isinstance(branch.get("closure"), Mapping):
+                closure = copy.deepcopy(branch["closure"])
+        return {
+            "effects": effects,
+            "modifiers": modifiers,
+            "postconditions": postconditions,
+            "closure": closure,
+            "continuation": continuation,
+        }
+
+    def evaluate_s11_family(
+        self,
+        dialogue_id: str,
+        *,
+        context: Mapping[str, Any] | None = None,
+        role_bindings: Mapping[str, Any] | None = None,
+        participant_set: Mapping[str, Any] | None = None,
+        reply_outcome: str | None = None,
+    ) -> dict[str, Any]:
+        role_check = self.validate_role_bindings(dialogue_id, role_bindings, participant_set)
+        state_outcome = self.evaluate_state_policy(dialogue_id, context)
+        effective_reply = reply_outcome or state_outcome.get("replyOutcome")
+        queries = self.evaluate_queries(dialogue_id, context)
+        consequences = self.project_consequences(dialogue_id, effective_reply)
+        return {
+            "roleValidation": role_check,
+            "stateOutcome": state_outcome,
+            "queries": queries,
+            "consequences": consequences,
         }
 
 

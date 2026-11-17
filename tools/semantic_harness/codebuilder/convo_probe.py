@@ -349,6 +349,26 @@ class ConvoProbe:
             payload["plans"] = [dict(p) for p in plans]
         return self.call("simulate_exchange", payload)
 
+    def evaluate_s11_family(
+        self,
+        plan_entry: Mapping[str, Any],
+        *,
+        context: Mapping[str, Any] | None = None,
+        role_bindings: Mapping[str, Any] | None = None,
+        participant_set: Mapping[str, Any] | None = None,
+        reply_outcome: str | None = None,
+    ) -> dict[str, Any]:
+        return self.call(
+            "evaluate_s11_family",
+            {
+                "planEntry": dict(plan_entry),
+                "context": dict(context or {}),
+                "roleBindings": dict(role_bindings or {}),
+                "participantSet": dict(participant_set) if participant_set is not None else None,
+                "replyOutcome": reply_outcome,
+            },
+        )
+
 
 __all__ = [
     "CONVO_TRACE_SCHEMA",

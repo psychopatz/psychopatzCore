@@ -13,11 +13,13 @@ local function modules()
     local Affordance = require "PsychopatzCore/ConvoEngine/Affordance"
     local TextBinding = require "PsychopatzCore/ConvoEngine/TextBinding"
     local ActionContract = require "PsychopatzCore/ConvoEngine/ActionContract"
+    local S11PolicyEvaluator = require "PsychopatzCore/ConvoEngine/S11PolicyEvaluator"
     _mods = {
         Predicate = Predicate,
         Affordance = Affordance,
         TextBinding = TextBinding,
         ActionContract = ActionContract,
+        S11PolicyEvaluator = S11PolicyEvaluator,
     }
     return _mods
 end
@@ -38,6 +40,7 @@ ConvoProbe.OPS = {
     "list_action_contracts",
     "project_action_result",
     "simulate_exchange",
+    "evaluate_s11_family",
 }
 
 local function sortedKeys(tbl)
@@ -611,6 +614,23 @@ function ConvoProbe.handle(_context, command, payload)
             return nil, err or "simulate_exchange_failed", false
         end
         return res, nil, false
+    elseif op == "evaluate_s11_family" then
+        local entry = payload.planEntry
+        if type(entry) ~= "table" then
+            return nil, "convo_probe_plan_entry_required", false
+        end
+        local eval = mods.S11PolicyEvaluator.EvaluateFamily(
+            entry,
+            payload.context,
+            payload.roleBindings,
+            payload.participantSet,
+            payload.replyOutcome
+        )
+        return sanitizeJson({
+            ok = true,
+            schema = ConvoProbe.SCHEMA,
+            evaluation = eval,
+        }), nil, false
     end
     return nil, "convo_probe_unknown_op:" .. op, false
 end

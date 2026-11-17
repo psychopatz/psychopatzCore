@@ -1149,6 +1149,10 @@ def render_convo_engine_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[s
         }
         if "namespace" in record:
             plan["namespace"] = record["namespace"]
+        if "roles" in record:
+            plan["roles"] = _copy(record["roles"])
+        if "participantSet" in record:
+            plan["participantSet"] = _copy(record["participantSet"])
         exchange_family = project_exchange_family_runtime(record)
         if exchange_family is not None:
             plan["exchangeFamily"] = exchange_family
