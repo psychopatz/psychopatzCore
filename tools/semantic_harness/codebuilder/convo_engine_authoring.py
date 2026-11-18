@@ -467,6 +467,18 @@ def source_fingerprint_mismatch(
 ) -> dict[str, Any] | None:
     if not expected_source_fingerprint or not target.is_file():
         return None
+    current = load_json_document(target)
+    actual = fingerprint(current)
+    if actual != expected_source_fingerprint:
+        return {
+            "ok": False,
+            "stale": True,
+            "reason": "source_fingerprint_mismatch",
+            "expectedSourceFingerprint": expected_source_fingerprint,
+            "sourceFingerprint": actual,
+            "writes": [],
+        }
+    return None
 
 
 def collapse_convo_engine_families(
