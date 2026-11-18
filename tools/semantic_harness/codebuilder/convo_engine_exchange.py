@@ -21,7 +21,7 @@ from typing import Any
 
 from .conversation_model import copy_json
 from .errors import CompileError
-from .s11_normalizer import (
+from .convo_engine_state_normalizer import (
     normalize_closure,
     normalize_domain_modifiers,
     normalize_effects,

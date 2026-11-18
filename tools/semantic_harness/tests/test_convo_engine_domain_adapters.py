@@ -10,7 +10,7 @@ CORE_ROOT = Path(__file__).resolve().parents[3]
 HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
 
 
-class S11DomainAdaptersTests(unittest.TestCase):
+class ConvoEngineDomainAdaptersTests(unittest.TestCase):
     def _run_lua(self, script: str) -> str:
         core_lua = CORE_ROOT / "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua"
         hoomans_lua = HOOMANS_ROOT / "Contents/mods/ProjectHoomans/42.20/media/lua/shared/?.lua"

@@ -57,7 +57,7 @@ from .semantic_dialogue_ir import (
     canonicalize_dialogue,
     validate_context_path,
 )
-from .s11_normalizer import normalize_s11_dialogue_fields
+from .convo_engine_state_normalizer import normalize_s11_dialogue_fields
 from .translation_support import DEFAULT_LANGUAGE, normalize_language
 
 

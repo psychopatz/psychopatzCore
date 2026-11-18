@@ -20,7 +20,7 @@ def _plan(records: list[dict]) -> dict:
     return compile_portable_plan(compiled["records"], package="test")
 
 
-class S11CompletenessAnalyzerTests(unittest.TestCase):
+class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
     def test_clean_state_aware_family_passes(self) -> None:
         plan = _plan(
             [

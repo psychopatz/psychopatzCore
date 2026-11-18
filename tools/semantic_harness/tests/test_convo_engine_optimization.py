@@ -9,7 +9,7 @@ from pathlib import Path
 
 from tools.semantic_harness.codebuilder.portable_runtime import compile_portable_plan
 from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
-from tools.semantic_harness.codebuilder.s11_dependency_index import (
+from tools.semantic_harness.codebuilder.convo_engine_dependency_index import (
     DEPENDENCY_INDEX_SCHEMA,
     IncrementalAnalysisCache,
     build_dependency_index,
@@ -21,7 +21,7 @@ from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE
 CORE_ROOT = Path(__file__).resolve().parents[3]
 
 
-class S11OptimizationTests(unittest.TestCase):
+class ConvoEngineOptimizationTests(unittest.TestCase):
     def _sample_plan(self) -> dict:
         compiled = compile_convo_engine_document(
             {

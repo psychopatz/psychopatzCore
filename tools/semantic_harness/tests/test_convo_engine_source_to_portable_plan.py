@@ -28,7 +28,7 @@ def _doc(record: dict) -> dict:
     }
 
 
-class S11SourceToPortablePlanTests(unittest.TestCase):
+class ConvoEngineSourceToPortablePlanTests(unittest.TestCase):
     def test_synthetic_one_to_one_state_action_and_roundtrip(self) -> None:
         source = {
             "kind": "dialogue",

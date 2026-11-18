@@ -9,7 +9,7 @@ from pathlib import Path
 CORE_ROOT = Path(__file__).resolve().parents[3]
 
 
-class S11LifecycleTests(unittest.TestCase):
+class ConvoEngineLifecycleTests(unittest.TestCase):
     def _run_lua(self, script: str) -> str:
         core_lua = CORE_ROOT / "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua"
         proc = subprocess.run(

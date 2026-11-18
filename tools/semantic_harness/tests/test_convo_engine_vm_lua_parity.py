@@ -26,7 +26,7 @@ def _compile_plan(records: list[dict]) -> dict:
     return compile_portable_plan(compiled["records"], package="test")
 
 
-class S11VmLuaParityTests(unittest.TestCase):
+class ConvoEngineVmLuaParityTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.snapshot = WorkspaceCatalog.discover(
