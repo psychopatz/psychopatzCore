@@ -139,6 +139,9 @@ class SemanticObservatoryPane:
         ttk.Button(
             toolbar, text="Open proposal…", command=self.preview_proposal
         ).pack(side="right")
+        ttk.Button(
+            toolbar, text="Run ConvoEngine Integrity Audit", command=self.run_convo_integrity_audit
+        ).pack(side="right", padx=(0, 6))
         self.review_decision_status = ttk.Label(
             toolbar, textvariable=self.review_decision_var
         )
@@ -164,6 +167,17 @@ class SemanticObservatoryPane:
             "preserved runtime metadata, isolated Lua results, and effect parity.\n"
             "No review action writes production files by itself.",
         )
+
+    def run_convo_integrity_audit(self) -> dict[str, Any]:
+        from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
+
+        service = SemanticLabAuthoringService(self._repository)
+        try:
+            report = service.dispatch_operation("convo.audit", {"checkDeterminism": False})
+        finally:
+            service.close()
+        self._display("Review", json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
+        return report
 
     def _display(self, view: str, value: str) -> None:
         widget = self.views[view]

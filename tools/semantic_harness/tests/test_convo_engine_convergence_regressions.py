@@ -477,13 +477,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
             pane = ConvoEngineAuthoringPane(
                 _FakeWidget(), _FakeTk, _FakeTtk, _FakeWidget, _FakeMessageBox(), service
             )
-            idx = next(
-                i
-                for i, item in enumerate(pane._filtered_families)
-                if item["canonicalID"] == "social.target_topic"
-            )
-            pane._family_list.selection_set(idx)
-            pane._family_selected()
+            self.assertTrue(pane.select_family("social.target_topic"))
             pane.delete_family()
             self.assertTrue(target_path.is_file())
 
@@ -694,13 +688,7 @@ class ConvoEngineConvergenceRegressionTests(unittest.TestCase):
             pane = ConvoEngineAuthoringPane(
                 _FakeWidget(), _FakeTk, _FakeTtk, _FakeWidget, _FakeMessageBox(), service
             )
-            idx = next(
-                i
-                for i, item in enumerate(pane._filtered_families)
-                if item["canonicalID"] == "social.future_roundtrip"
-            )
-            pane._family_list.selection_set(idx)
-            pane._family_selected()
+            self.assertTrue(pane.select_family("social.future_roundtrip"))
             # Simulate an older editor encountering a future top-level field in memory.
             pane._document["futureProtocolHint"] = {"version": 9}
             pane._write_json_editor("say", "Updated say text.")

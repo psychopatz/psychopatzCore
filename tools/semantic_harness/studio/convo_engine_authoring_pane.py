@@ -1,9 +1,9 @@
-"""ConvoEngine-native family authoring and trace pane for Semantic Lab.
+"""ConvoEngine-native family authoring pane for Semantic Lab.
 
-The pane consumes SemanticLabAuthoringService directly for hierarchical family
-browsing, compact family CRUD, reply-outcome editing, registered execute action
-selection, separated button-vs-speech simulation, and end-to-end
-``affordance -> invoke -> speech -> execute -> result -> reply -> after`` trace.
+The pane consumes SemanticLabAuthoringService directly for compact,
+health-colored family browsing, kind-discoverable filtering, progressive
+disclosure of identity/participants/State & Flow, single-path normal dialogue
+authoring, and canonical write validation.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from tools.semantic_harness.codebuilder.convo_engine_fields import (
     describe_unknown_fields,
@@ -19,15 +19,19 @@ from tools.semantic_harness.codebuilder.convo_engine_fields import (
 )
 from tools.semantic_harness.studio.completeness_workbench import (
     DialogueCompletenessWorkbench,
+    SEMANTIC_TAG_STYLES,
 )
 
 
-_S11_CONTROL_NAMES: tuple[str, ...] = (
-    "statePolicy",
+_S11_COMMON_NAMES: tuple[str, ...] = (
     "inputPolicy",
     "repeatPolicy",
+    "statePolicy",
     "postconditions",
     "closure",
+)
+
+_S11_ADVANCED_NAMES: tuple[str, ...] = (
     "roles",
     "participantSet",
     "topics",
@@ -37,14 +41,43 @@ _S11_CONTROL_NAMES: tuple[str, ...] = (
     "domains",
 )
 
+_S11_CONTROL_NAMES: tuple[str, ...] = _S11_COMMON_NAMES + _S11_ADVANCED_NAMES
+
 _S11_SCALAR_CHOICES: dict[str, tuple[str, ...]] = {
     "inputPolicy": ("", "typed_parity", "click_only", "typed_only"),
     "repeatPolicy": ("", "once", "cooldown", "max_uses", "state_retired", "unlimited"),
 }
 
+_HEALTH_BADGES: dict[str, str] = {
+    "RED": "! Broken",
+    "ORANGE": "! Risky",
+    "YELLOW": "? Review",
+    "BLUE": "-> Cont.",
+    "PURPLE": "* Oblig.",
+    "GREEN": "OK",
+}
+
+_KIND_FILTER_SPECS: tuple[tuple[str, str], ...] = (
+    ("all", "All"),
+    ("dialogue", "Dialogues"),
+    ("behavior", "Behaviors"),
+    ("beat", "Beats"),
+    ("realization", "Realizations"),
+)
+
+_COMMON_OUTCOMES: tuple[str, ...] = (
+    "acknowledged",
+    "accepted",
+    "known",
+    "unknown",
+    "refused",
+    "failed",
+    "valid",
+)
+
 
 class ConvoEngineAuthoringPane:
-    """Browse, edit, validate, and trace canonical ConvoEngine exchange families."""
+    """Browse, edit, and validate canonical ConvoEngine families."""
 
     def __init__(
         self,
@@ -56,12 +89,15 @@ class ConvoEngineAuthoringPane:
         service: Any,
         *,
         auto_refresh: bool = True,
+        on_preview_in_simulation: Callable[[str | None, dict[str, Any] | None], None] | None = None,
     ) -> None:
         self._tk = tk
         self._ttk = ttk
         self._ScrolledText = scrolled_text
         self._messagebox = messagebox
         self.service = service
+        self._on_preview_in_simulation = on_preview_in_simulation
+
         self._field_descriptors = self._load_field_descriptors()
         self._s11_descriptors = self._load_s11_field_descriptors()
         self._s11_json_descriptors = [
@@ -73,6 +109,7 @@ class ConvoEngineAuthoringPane:
         self._s11_scalar_vars: dict[str, Any] = {
             str(d["name"]): tk.StringVar() for d in self._s11_scalar_descriptors
         }
+
         self.frame = ttk.Frame(parent, padding=6)
         self.frame.grid(row=0, column=0, sticky="nsew")
         self.frame.rowconfigure(2, weight=1)
@@ -81,6 +118,7 @@ class ConvoEngineAuthoringPane:
 
         self._families: list[dict[str, Any]] = []
         self._filtered_families: list[dict[str, Any]] = []
+        self._family_health_by_id: dict[str, dict[str, Any]] = {}
         self._current_family_id: str | None = None
         self._syncing_selection: bool = False
         self._current_entry: dict[str, Any] | None = None
@@ -89,38 +127,52 @@ class ConvoEngineAuthoringPane:
         self._editors: dict[str, Any] = {}
         self._editor_boxes: dict[str, Any] = {}
         self._s11_scalar_widgets: dict[str, Any] = {}
+        self._normal_widgets: dict[str, Any] = {}
         self._highlighted_field: str | None = None
         self._action_contracts: list[dict[str, Any]] = []
+        self._kind_filter: str = "all"
+
+        self._family_settings_visible = False
+        self._participants_visible = False
+        self._advanced_schema_visible = False
+        self._advanced_s11_visible = False
+        self._validation_details_visible = False
 
         self._status_var = tk.StringVar(value="Refresh to load ConvoEngine families")
         self._filter_var = tk.StringVar()
+        self._kind_filter_vars: dict[str, Any] = {
+            key: tk.StringVar(value=f"{label} (0)") for key, label in _KIND_FILTER_SPECS
+        }
+
+        self._header_title_var = tk.StringVar(value="No family selected")
+        self._header_meta_var = tk.StringVar(value="")
+        self._participants_summary_var = tk.StringVar(value="Participants: Default")
+        self._conditional_meta_var = tk.StringVar(value="")
+
         self._canonical_id_var = tk.StringVar()
         self._kind_var = tk.StringVar(value="dialogue")
         self._namespace_var = tk.StringVar(value="social")
         self._id_var = tk.StringVar(value="new_family")
         self._owner_var = tk.StringVar(value="ProjectHoomans")
+        self._source_path_var = tk.StringVar(value="")
         self._speaker_var = tk.StringVar(value='["participant"]')
         self._addressee_var = tk.StringVar(value='["participant"]')
-        self._target_var = tk.StringVar(value='{"type": "entity.any"}')
+        self._target_var = tk.StringVar(value='{"type":"entity.any"}')
         self._slots_var = tk.StringVar(value="{}")
+        self._unknown_fields_var = tk.StringVar(value="(none)")
+
         self._affordance_label_var = tk.StringVar()
         self._say_single_var = tk.StringVar()
         self._execute_action_var = tk.StringVar()
         self._recommend_pick_var = tk.StringVar()
-        self._reply_outcome_var = tk.StringVar(value="valid")
+        self._after_mode_var = tk.StringVar(value="end")
+        self._reply_outcome_var = tk.StringVar(value="acknowledged")
         self._reply_say_var = tk.StringVar()
-        self._unknown_fields_var = tk.StringVar(value="(none)")
+        self._reply_summary_var = tk.StringVar(value="Outcomes: (none)")
 
-        self._preview_speaker_var = tk.StringVar(value="player")
-        self._preview_addressee_var = tk.StringVar(value="npc")
-        self._preview_target_var = tk.StringVar(value="companion")
-        self._preview_style_var = tk.StringVar(value="neutral")
-        self._preview_locale_var = tk.StringVar(value="EN")
-        self._preview_outcome_var = tk.StringVar(value="")
-        self._preview_slots_var = tk.StringVar(value="{}")
-        self._preview_button_var = tk.StringVar()
-        self._preview_speech_var = tk.StringVar()
-        self._preview_reply_var = tk.StringVar()
+        self._loaded_affordance_label = ""
+        self._loaded_say_single = ""
+        self._loaded_execute_action = ""
 
         self._build_toolbar()
         self._build_body()
@@ -138,11 +190,7 @@ class ConvoEngineAuthoringPane:
 
     def _load_s11_field_descriptors(self) -> list[dict[str, Any]]:
         describe = getattr(self.service, "describe_convo_engine_fields", None)
-        items = (
-            describe()
-            if callable(describe)
-            else list_field_descriptors()
-        )
+        items = describe() if callable(describe) else list_field_descriptors()
         by_name = {
             str(item["name"]): item
             for item in (items or ())
@@ -158,150 +206,175 @@ class ConvoEngineAuthoringPane:
         toolbar = ttk.Frame(self.frame)
         toolbar.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 5))
         toolbar.columnconfigure(1, weight=1)
-        ttk.Label(toolbar, text="Filter families (owner / kind / namespace / id)").grid(
-            row=0, column=0, sticky="w"
-        )
+        ttk.Label(toolbar, text="Filter families").grid(row=0, column=0, sticky="w")
         filter_entry = ttk.Entry(toolbar, textvariable=self._filter_var)
         filter_entry.grid(row=0, column=1, sticky="ew", padx=(6, 6))
         filter_entry.bind("<KeyRelease>", lambda _event: self._apply_filter())
-        ttk.Button(toolbar, text="Refresh families", command=self.refresh).grid(row=0, column=2)
-        ttk.Button(toolbar, text="Run ConvoEngine Integrity Audit", command=self.run_integrity_audit).grid(
-            row=0, column=3, padx=(6, 0)
-        )
+        ttk.Button(toolbar, text="↻ Refresh", command=self.refresh).grid(row=0, column=2)
         ttk.Label(toolbar, textvariable=self._status_var).grid(
-            row=1, column=0, columnspan=4, sticky="w", pady=(4, 0)
+            row=1, column=0, columnspan=3, sticky="w", pady=(4, 0)
         )
 
     def _build_body(self) -> None:
         ttk = self._ttk
         left = ttk.LabelFrame(self.frame, text="ConvoEngine families")
         left.grid(row=2, column=0, sticky="nsew", padx=(0, 7))
-        left.rowconfigure(0, weight=1)
+        left.rowconfigure(1, weight=1)
         left.columnconfigure(0, weight=1)
-        self._family_list = self._tk.Listbox(left, width=40, exportselection=False)
-        self._family_list.grid(row=0, column=0, sticky="nsew")
-        self._family_list.bind("<<ListboxSelect>>", lambda _event: self._family_selected())
-        scroll = ttk.Scrollbar(left, orient="vertical", command=self._family_list.yview)
-        scroll.grid(row=0, column=1, sticky="ns")
-        self._family_list.configure(yscrollcommand=scroll.set)
+
+        kind_bar = ttk.Frame(left)
+        kind_bar.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 4))
+        self._kind_buttons: dict[str, Any] = {}
+        for col_idx, (kind_key, _label) in enumerate(_KIND_FILTER_SPECS):
+            btn = ttk.Button(
+                kind_bar,
+                textvariable=self._kind_filter_vars[kind_key],
+                command=lambda k=kind_key: self.set_kind_filter(k),
+            )
+            btn.grid(row=0, column=col_idx, padx=(0, 2), sticky="ew")
+            self._kind_buttons[kind_key] = btn
+
+        self._family_tree = ttk.Treeview(
+            left,
+            columns=("health", "family"),
+            show="headings",
+            selectmode="browse",
+        )
+        self._family_tree.heading("health", text="Health")
+        self._family_tree.heading("family", text="Family")
+        self._family_tree.column("health", width=74, minwidth=64, stretch=False)
+        self._family_tree.column("family", width=220, minwidth=140, stretch=True)
+        for tag_name, style in SEMANTIC_TAG_STYLES.items():
+            self._family_tree.tag_configure(tag_name, **style)
+        self._family_tree.grid(row=1, column=0, sticky="nsew")
+        self._family_tree.bind("<<TreeviewSelect>>", lambda _event: self._family_selected())
+        scroll = ttk.Scrollbar(left, orient="vertical", command=self._family_tree.yview)
+        scroll.grid(row=1, column=1, sticky="ns")
+        self._family_tree.configure(yscrollcommand=scroll.set)
 
         actions = ttk.Frame(left)
-        actions.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(5, 0))
-        ttk.Button(actions, text="New family", command=self.new_family).pack(side="left")
-        ttk.Button(actions, text="Duplicate", command=self.duplicate_family).pack(side="left", padx=3)
-        ttk.Button(actions, text="Delete", command=self.delete_family).pack(side="left")
+        actions.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(5, 0))
+        ttk.Button(actions, text="+ New", command=self.new_family).pack(side="left")
+
+        menubutton_cls = getattr(ttk, "Menubutton", ttk.Button)
+        overflow_btn = menubutton_cls(actions, text="⋯")
+        menu_cls = getattr(self._tk, "Menu", None)
+        if callable(menu_cls):
+            overflow_menu = menu_cls(overflow_btn, tearoff=0)
+            overflow_menu.add_command(label="Duplicate", command=self.duplicate_family)
+            overflow_menu.add_command(label="Move family…", command=self.open_move_family)
+            overflow_menu.add_command(label="Open source path", command=self.open_source_location)
+            overflow_menu.add_separator()
+            overflow_menu.add_command(label="Delete", command=self.delete_family)
+            overflow_btn.configure(menu=overflow_menu)
+        overflow_btn.pack(side="left", padx=(4, 0))
+        self._family_overflow_btn = overflow_btn
 
         right = ttk.Frame(self.frame)
         right.grid(row=2, column=1, sticky="nsew")
         right.rowconfigure(1, weight=1)
         right.columnconfigure(0, weight=1)
 
-        identity = ttk.LabelFrame(right, text="Family identity, participants & compact controls")
-        identity.grid(row=0, column=0, sticky="ew", pady=(0, 5))
-        for col in (1, 3):
-            identity.columnconfigure(col, weight=1)
+        self._build_selected_header(right)
+        self._build_right_notebook(right)
 
-        self._entry(identity, 0, 0, "Canonical ID", self._canonical_id_var, readonly=True)
-        self._entry(identity, 0, 2, "Owner", self._owner_var)
-        ttk.Label(identity, text="Kind").grid(row=1, column=0, sticky="w", padx=4, pady=2)
+    def _build_selected_header(self, right: Any) -> None:
+        ttk = self._ttk
+        header = ttk.Frame(right, padding=(4, 2))
+        header.grid(row=0, column=0, sticky="ew", pady=(0, 5))
+        header.columnconfigure(0, weight=1)
+
+        top_row = ttk.Frame(header)
+        top_row.grid(row=0, column=0, sticky="ew")
+        top_row.columnconfigure(0, weight=1)
+        ttk.Label(top_row, textvariable=self._header_title_var).grid(row=0, column=0, sticky="w")
+        ttk.Button(
+            top_row,
+            text="Preview in Simulation",
+            command=self.preview_in_simulation,
+        ).grid(row=0, column=1, padx=(6, 4))
+        ttk.Button(
+            top_row,
+            text="Family settings…",
+            command=self.toggle_family_settings,
+        ).grid(row=0, column=2)
+
+        ttk.Label(header, textvariable=self._header_meta_var).grid(row=1, column=0, sticky="w")
+
+        part_row = ttk.Frame(header)
+        part_row.grid(row=2, column=0, sticky="ew", pady=(2, 0))
+        part_row.columnconfigure(0, weight=1)
+        ttk.Label(part_row, textvariable=self._participants_summary_var).grid(row=0, column=0, sticky="w")
+        ttk.Button(
+            part_row,
+            text="Edit participants…",
+            command=self.toggle_participants_editor,
+        ).grid(row=0, column=1)
+
+        self._conditional_meta_label = ttk.Label(header, textvariable=self._conditional_meta_var)
+        self._conditional_meta_label.grid(row=3, column=0, sticky="w")
+        self._set_visible(self._conditional_meta_label, False)
+
+        # Collapsible participants editor (hidden by default)
+        self._participants_panel = ttk.LabelFrame(header, text="Participants")
+        self._participants_panel.grid(row=4, column=0, sticky="ew", pady=(4, 0))
+        self._participants_panel.columnconfigure(1, weight=1)
+        self._participants_panel.columnconfigure(3, weight=1)
+        self._entry(self._participants_panel, 0, 0, "Speaker", self._speaker_var)
+        self._entry(self._participants_panel, 0, 2, "Addressee", self._addressee_var)
+        self._set_visible(self._participants_panel, False)
+
+        # Collapsible Family settings (hidden by default)
+        self._family_settings_panel = ttk.LabelFrame(header, text="Family settings")
+        self._family_settings_panel.grid(row=5, column=0, sticky="ew", pady=(4, 0))
+        for col in (1, 3):
+            self._family_settings_panel.columnconfigure(col, weight=1)
+        self._entry(self._family_settings_panel, 0, 0, "Canonical ID", self._canonical_id_var, readonly=True)
+        self._entry(self._family_settings_panel, 0, 2, "Owner (Move)", self._owner_var)
+        ttk.Label(self._family_settings_panel, text="Kind").grid(row=1, column=0, sticky="w", padx=4, pady=2)
         self._kind_box = ttk.Combobox(
-            identity,
+            self._family_settings_panel,
             textvariable=self._kind_var,
             state="readonly",
             values=("dialogue", "behavior", "beat", "realization"),
             width=18,
         )
         self._kind_box.grid(row=1, column=1, sticky="ew", padx=(0, 5), pady=2)
-        self._entry(identity, 1, 2, "Namespace", self._namespace_var)
-        self._entry(identity, 2, 0, "Family ID", self._id_var)
-        self._entry(identity, 2, 2, "Slots JSON", self._slots_var)
-        self._entry(identity, 3, 0, "Speaker kinds", self._speaker_var)
-        self._entry(identity, 3, 2, "Addressee kinds", self._addressee_var)
-        self._entry(identity, 4, 0, "UI-only affordance label", self._affordance_label_var)
-        self._entry(identity, 4, 2, "Direct single say / key 1", self._say_single_var)
+        self._entry(self._family_settings_panel, 1, 2, "Namespace", self._namespace_var)
+        self._entry(self._family_settings_panel, 2, 0, "Family ID", self._id_var)
+        self._entry(self._family_settings_panel, 2, 2, "Source path", self._source_path_var, readonly=True)
+        self._entry(
+            self._family_settings_panel,
+            3,
+            0,
+            "Extra / preserved fields",
+            self._unknown_fields_var,
+            readonly=True,
+        )
+        ttk.Label(
+            self._family_settings_panel,
+            text="Changing kind alters schema validation; prefer + New for another kind.",
+        ).grid(row=3, column=2, columnspan=2, sticky="w", padx=4)
+        self._set_visible(self._family_settings_panel, False)
 
-        ttk.Label(identity, text="Execute contract").grid(row=5, column=0, sticky="w", padx=4, pady=2)
-        self._execute_box = ttk.Combobox(identity, textvariable=self._execute_action_var, width=24)
-        self._execute_box.grid(row=5, column=1, sticky="ew", padx=(0, 5), pady=2)
-        ttk.Label(identity, text="Recommend family").grid(row=5, column=2, sticky="w", padx=4, pady=2)
-        rec_row = ttk.Frame(identity)
-        rec_row.grid(row=5, column=3, sticky="ew", padx=(0, 5), pady=2)
-        rec_row.columnconfigure(0, weight=1)
-        self._recommend_box = ttk.Combobox(rec_row, textvariable=self._recommend_pick_var, width=22)
-        self._recommend_box.grid(row=0, column=0, sticky="ew")
-        ttk.Button(rec_row, text="+Recommend", command=self.add_recommendation).grid(row=0, column=1, padx=(4, 0))
-
-        self._entry(identity, 6, 0, "Reply outcome name", self._reply_outcome_var)
-        reply_row = ttk.Frame(identity)
-        reply_row.grid(row=6, column=2, columnspan=2, sticky="ew", padx=4, pady=2)
-        reply_row.columnconfigure(1, weight=1)
-        ttk.Label(reply_row, text="Reply say").grid(row=0, column=0, sticky="w", padx=(0, 4))
-        ttk.Entry(reply_row, textvariable=self._reply_say_var).grid(row=0, column=1, sticky="ew")
-        ttk.Button(reply_row, text="Set reply", command=self.set_reply_outcome).grid(row=0, column=2, padx=(4, 2))
-        ttk.Button(reply_row, text="Del reply", command=self.delete_reply_outcome).grid(row=0, column=3)
-        self._entry(identity, 7, 0, "Extra / preserved fields", self._unknown_fields_var, readonly=True)
-
+    def _build_right_notebook(self, right: Any) -> None:
+        ttk = self._ttk
         notebook = ttk.Notebook(right)
         notebook.grid(row=1, column=0, sticky="nsew")
-        structured = ttk.Frame(notebook, padding=4)
-        s11_controls = ttk.Frame(notebook, padding=4)
+        structured = ttk.Frame(notebook, padding=6)
+        s11_controls = ttk.Frame(notebook, padding=6)
         completeness_tab = ttk.Frame(notebook, padding=4)
-        preview = ttk.Frame(notebook, padding=4)
-        notebook.add(structured, text="Exchange family structure")
-        notebook.add(s11_controls, text="S11 Semantic Controls")
+        notebook.add(structured, text="Dialogue")
+        notebook.add(s11_controls, text="State & Flow")
         notebook.add(completeness_tab, text="Dialogue Completeness")
-        notebook.add(preview, text="Simulation / trace")
+
         self._right_notebook = notebook
         self._structured_tab = structured
         self._s11_controls_tab = s11_controls
         self._completeness_tab = completeness_tab
 
-        s11_controls.columnconfigure(0, weight=1)
-        s11_controls.rowconfigure(1, weight=1)
-        s11_scalars = ttk.Frame(s11_controls)
-        s11_scalars.grid(row=0, column=0, sticky="ew", pady=(0, 4))
-        for col_idx, descriptor in enumerate(self._s11_scalar_descriptors):
-            name = str(descriptor["name"])
-            label = str(descriptor["label"])
-            ttk.Label(s11_scalars, text=label).grid(row=0, column=col_idx * 2, sticky="w", padx=4)
-            choices = _S11_SCALAR_CHOICES.get(name)
-            if choices:
-                box = ttk.Combobox(
-                    s11_scalars,
-                    textvariable=self._s11_scalar_vars[name],
-                    values=choices,
-                    width=18,
-                )
-                box.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
-                self._s11_scalar_widgets[name] = box
-            else:
-                entry = ttk.Entry(s11_scalars, textvariable=self._s11_scalar_vars[name])
-                entry.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
-                self._s11_scalar_widgets[name] = entry
-            s11_scalars.columnconfigure(col_idx * 2 + 1, weight=1)
-
-        s11_json_host = ttk.PanedWindow(s11_controls, orient="vertical")
-        s11_json_host.grid(row=1, column=0, sticky="nsew")
-        s11_upper = ttk.Frame(s11_json_host)
-        s11_lower = ttk.Frame(s11_json_host)
-        s11_upper.columnconfigure(0, weight=1)
-        s11_lower.columnconfigure(0, weight=1)
-        s11_json_host.add(s11_upper, weight=1)
-        s11_json_host.add(s11_lower, weight=1)
-        s11_split = max(1, (len(self._s11_json_descriptors) + 1) // 2)
-        for index, descriptor in enumerate(self._s11_json_descriptors):
-            name = str(descriptor["name"])
-            label = str(descriptor["label"])
-            host = s11_upper if index < s11_split else s11_lower
-            row = index if index < s11_split else index - s11_split
-            box = ttk.LabelFrame(host, text=label)
-            box.grid(row=row, column=0, sticky="nsew", padx=2, pady=2)
-            host.rowconfigure(row, weight=1)
-            box.columnconfigure(0, weight=1)
-            editor = self._ScrolledText(box, height=3, wrap="none")
-            editor.grid(row=0, column=0, sticky="nsew")
-            self._editors[name] = editor
-            self._editor_boxes[name] = box
+        self._build_dialogue_tab(structured)
+        self._build_state_and_flow_tab(s11_controls)
 
         completeness_tab.rowconfigure(0, weight=1)
         completeness_tab.columnconfigure(0, weight=1)
@@ -327,10 +400,101 @@ class ConvoEngineAuthoringPane:
 
             notebook.bind("<<NotebookTabChanged>>", _on_tab_change, add="+")
 
+    def _build_dialogue_tab(self, structured: Any) -> None:
+        ttk = self._ttk
         structured.columnconfigure(0, weight=1)
-        structured.rowconfigure(0, weight=1)
-        fields = ttk.PanedWindow(structured, orient="vertical")
-        fields.grid(row=0, column=0, sticky="nsew")
+        structured.rowconfigure(3, weight=1)
+
+        # Single normal editing path for dialogue concepts
+        normal = ttk.LabelFrame(structured, text="Conversation turn")
+        normal.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        normal.columnconfigure(1, weight=1)
+        normal.columnconfigure(3, weight=1)
+
+        aff_entry = self._entry(normal, 0, 0, "Button label", self._affordance_label_var)
+        say_entry = self._entry(normal, 0, 2, "Spoken line", self._say_single_var)
+        self._normal_widgets["affordance"] = aff_entry
+        self._normal_widgets["say"] = say_entry
+
+        ttk.Label(normal, text="Action").grid(row=1, column=0, sticky="w", padx=4, pady=2)
+        self._execute_box = ttk.Combobox(normal, textvariable=self._execute_action_var, width=24)
+        self._execute_box.grid(row=1, column=1, sticky="ew", padx=(0, 5), pady=2)
+        self._normal_widgets["execute"] = self._execute_box
+
+        ttk.Label(normal, text="After this").grid(row=1, column=2, sticky="w", padx=4, pady=2)
+        after_row = ttk.Frame(normal)
+        after_row.grid(row=1, column=3, sticky="ew", padx=(0, 5), pady=2)
+        after_row.columnconfigure(1, weight=1)
+        self._after_mode_box = ttk.Combobox(
+            after_row,
+            textvariable=self._after_mode_var,
+            state="readonly",
+            values=("end", "continue", "recommend"),
+            width=11,
+        )
+        self._after_mode_box.grid(row=0, column=0, padx=(0, 4))
+        self._recommend_box = ttk.Combobox(after_row, textvariable=self._recommend_pick_var, width=18)
+        self._recommend_box.grid(row=0, column=1, sticky="ew")
+        ttk.Button(after_row, text="+Recommend", command=self.add_recommendation).grid(row=0, column=2, padx=(4, 0))
+        self._normal_widgets["after"] = self._recommend_box
+
+        ttk.Label(normal, text="NPC outcome").grid(row=2, column=0, sticky="w", padx=4, pady=2)
+        self._reply_outcome_box = ttk.Combobox(
+            normal,
+            textvariable=self._reply_outcome_var,
+            values=_COMMON_OUTCOMES,
+            width=18,
+        )
+        self._reply_outcome_box.grid(row=2, column=1, sticky="ew", padx=(0, 5), pady=2)
+        reply_row = ttk.Frame(normal)
+        reply_row.grid(row=2, column=2, columnspan=2, sticky="ew", padx=4, pady=2)
+        reply_row.columnconfigure(1, weight=1)
+        ttk.Label(reply_row, text="Reply line").grid(row=0, column=0, sticky="w", padx=(0, 4))
+        reply_say_entry = ttk.Entry(reply_row, textvariable=self._reply_say_var)
+        reply_say_entry.grid(row=0, column=1, sticky="ew")
+        ttk.Button(reply_row, text="Set reply", command=self.set_reply_outcome).grid(row=0, column=2, padx=(4, 2))
+        ttk.Button(reply_row, text="Del reply", command=self.delete_reply_outcome).grid(row=0, column=3)
+        self._normal_widgets["reply"] = reply_say_entry
+
+        ttk.Label(normal, textvariable=self._reply_summary_var).grid(
+            row=3, column=0, columnspan=4, sticky="w", padx=4, pady=(2, 2)
+        )
+
+        # Primary save/validate bar
+        action_bar = ttk.Frame(structured)
+        action_bar.grid(row=1, column=0, sticky="ew", pady=(0, 6))
+        ttk.Button(action_bar, text="Validate", command=self.preview_record).pack(side="left")
+        ttk.Button(action_bar, text="Write canonical source", command=self.write_source).pack(
+            side="left", padx=6
+        )
+        ttk.Button(action_bar, text="Advanced schema / details ▸", command=self.toggle_advanced_schema).pack(
+            side="right"
+        )
+        ttk.Button(action_bar, text="Validation details ▸", command=self.toggle_validation_details).pack(
+            side="right", padx=(0, 6)
+        )
+
+        # Collapsible validation report (hidden by default)
+        self._validation_details_frame = ttk.LabelFrame(structured, text="Validation details")
+        self._validation_details_frame.grid(row=2, column=0, sticky="ew", pady=(0, 6))
+        self._validation_details_frame.columnconfigure(0, weight=1)
+        self._report = self._ScrolledText(self._validation_details_frame, height=6, wrap="none", state="disabled")
+        self._report.grid(row=0, column=0, sticky="nsew")
+        self._set_visible(self._validation_details_frame, False)
+
+        # Collapsible Advanced schema / raw JSON editors (hidden by default)
+        self._advanced_schema_frame = ttk.LabelFrame(structured, text="Advanced schema / raw JSON")
+        self._advanced_schema_frame.grid(row=3, column=0, sticky="nsew")
+        self._advanced_schema_frame.columnconfigure(0, weight=1)
+        self._advanced_schema_frame.rowconfigure(1, weight=1)
+
+        slots_bar = ttk.Frame(self._advanced_schema_frame)
+        slots_bar.grid(row=0, column=0, sticky="ew", pady=(0, 4))
+        slots_bar.columnconfigure(1, weight=1)
+        self._entry(slots_bar, 0, 0, "Slots JSON", self._slots_var)
+
+        fields = ttk.PanedWindow(self._advanced_schema_frame, orient="vertical")
+        fields.grid(row=1, column=0, sticky="nsew")
         upper = ttk.Frame(fields)
         lower = ttk.Frame(fields)
         upper.columnconfigure(0, weight=1)
@@ -347,40 +511,131 @@ class ConvoEngineAuthoringPane:
             box.grid(row=row, column=0, sticky="nsew", padx=2, pady=2)
             host.rowconfigure(row, weight=1)
             box.columnconfigure(0, weight=1)
-            editor = self._ScrolledText(box, height=4, wrap="none")
+            editor = self._ScrolledText(box, height=3, wrap="none")
+            editor.grid(row=0, column=0, sticky="nsew")
+            self._editors[name] = editor
+            self._editor_boxes[name] = box
+        self._set_visible(self._advanced_schema_frame, False)
+
+    def _build_state_and_flow_tab(self, s11_controls: Any) -> None:
+        ttk = self._ttk
+        s11_controls.columnconfigure(0, weight=1)
+        s11_controls.rowconfigure(1, weight=1)
+        s11_controls.rowconfigure(3, weight=1)
+
+        s11_scalars = ttk.Frame(s11_controls)
+        s11_scalars.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        for col_idx, descriptor in enumerate(self._s11_scalar_descriptors):
+            name = str(descriptor["name"])
+            label = "Input mode" if name == "inputPolicy" else (
+                "Repeat behavior" if name == "repeatPolicy" else str(descriptor["label"])
+            )
+            ttk.Label(s11_scalars, text=label).grid(row=0, column=col_idx * 2, sticky="w", padx=4)
+            choices = _S11_SCALAR_CHOICES.get(name)
+            if choices:
+                box = ttk.Combobox(
+                    s11_scalars,
+                    textvariable=self._s11_scalar_vars[name],
+                    values=choices,
+                    width=18,
+                )
+                box.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
+                self._s11_scalar_widgets[name] = box
+            else:
+                entry = ttk.Entry(s11_scalars, textvariable=self._s11_scalar_vars[name])
+                entry.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
+                self._s11_scalar_widgets[name] = entry
+            s11_scalars.columnconfigure(col_idx * 2 + 1, weight=1)
+
+        common_json = [d for d in self._s11_json_descriptors if d.get("name") in _S11_COMMON_NAMES]
+        adv_json = [d for d in self._s11_json_descriptors if d.get("name") in _S11_ADVANCED_NAMES]
+
+        common_host = ttk.Frame(s11_controls)
+        common_host.grid(row=1, column=0, sticky="nsew")
+        common_host.columnconfigure(0, weight=1)
+        for row, descriptor in enumerate(common_json):
+            name = str(descriptor["name"])
+            label = str(descriptor["label"])
+            box = ttk.LabelFrame(common_host, text=label)
+            box.grid(row=row, column=0, sticky="nsew", padx=2, pady=2)
+            common_host.rowconfigure(row, weight=1)
+            box.columnconfigure(0, weight=1)
+            editor = self._ScrolledText(box, height=3, wrap="none")
             editor.grid(row=0, column=0, sticky="nsew")
             self._editors[name] = editor
             self._editor_boxes[name] = box
 
-        preview.columnconfigure(0, weight=1)
-        preview.rowconfigure(3, weight=1)
-        ctx = ttk.LabelFrame(preview, text="Actor-neutral simulation context (player<->NPC or NPC<->NPC)")
-        ctx.grid(row=0, column=0, sticky="ew", pady=(0, 5))
-        for col in (1, 3):
-            ctx.columnconfigure(col, weight=1)
-        self._entry(ctx, 0, 0, "Speaker", self._preview_speaker_var)
-        self._entry(ctx, 0, 2, "Addressee", self._preview_addressee_var)
-        self._entry(ctx, 1, 0, "Target", self._preview_target_var)
-        self._entry(ctx, 1, 2, "Style", self._preview_style_var)
-        self._entry(ctx, 2, 0, "Locale", self._preview_locale_var)
-        self._entry(ctx, 2, 2, "Result outcome override", self._preview_outcome_var)
-        self._entry(ctx, 3, 0, "Slot values JSON", self._preview_slots_var)
+        adv_bar = ttk.Frame(s11_controls)
+        adv_bar.grid(row=2, column=0, sticky="ew", pady=(4, 2))
+        ttk.Button(
+            adv_bar,
+            text="Advanced semantic fields ▸",
+            command=self.toggle_advanced_s11,
+        ).pack(side="left")
 
-        separated = ttk.LabelFrame(preview, text="Separated button label vs spoken action vs reply")
-        separated.grid(row=1, column=0, sticky="ew", pady=(0, 5))
-        separated.columnconfigure(1, weight=1)
-        self._entry(separated, 0, 0, "UI Button (button_label)", self._preview_button_var, readonly=True)
-        self._entry(separated, 1, 0, "Initiating Speech (spoken_action)", self._preview_speech_var, readonly=True)
-        self._entry(separated, 2, 0, "Selected Reply (response)", self._preview_reply_var, readonly=True)
+        self._advanced_s11_frame = ttk.Frame(s11_controls)
+        self._advanced_s11_frame.grid(row=3, column=0, sticky="nsew")
+        self._advanced_s11_frame.columnconfigure(0, weight=1)
+        for row, descriptor in enumerate(adv_json):
+            name = str(descriptor["name"])
+            label = str(descriptor["label"])
+            box = ttk.LabelFrame(self._advanced_s11_frame, text=label)
+            box.grid(row=row, column=0, sticky="nsew", padx=2, pady=2)
+            self._advanced_s11_frame.rowconfigure(row, weight=1)
+            box.columnconfigure(0, weight=1)
+            editor = self._ScrolledText(box, height=2, wrap="none")
+            editor.grid(row=0, column=0, sticky="nsew")
+            self._editors[name] = editor
+            self._editor_boxes[name] = box
+        self._set_visible(self._advanced_s11_frame, False)
 
-        preview_buttons = ttk.Frame(preview)
-        preview_buttons.grid(row=2, column=0, sticky="ew", pady=(0, 5))
-        ttk.Button(preview_buttons, text="Validate & trace", command=self.preview_record).pack(side="left")
-        ttk.Button(preview_buttons, text="Write canonical source", command=self.write_source).pack(
-            side="left", padx=6
-        )
-        self._report = self._ScrolledText(preview, wrap="none", state="disabled")
-        self._report.grid(row=3, column=0, sticky="nsew")
+    @staticmethod
+    def _set_visible(widget: Any, visible: bool) -> None:
+        if visible:
+            if callable(getattr(widget, "grid", None)):
+                widget.grid()
+        else:
+            if callable(getattr(widget, "grid_remove", None)):
+                widget.grid_remove()
+
+    def toggle_family_settings(self) -> None:
+        self._family_settings_visible = not self._family_settings_visible
+        self._set_visible(self._family_settings_panel, self._family_settings_visible)
+
+    def toggle_participants_editor(self) -> None:
+        self._participants_visible = not self._participants_visible
+        self._set_visible(self._participants_panel, self._participants_visible)
+
+    def toggle_advanced_schema(self) -> None:
+        self._advanced_schema_visible = not self._advanced_schema_visible
+        self._set_visible(self._advanced_schema_frame, self._advanced_schema_visible)
+
+    def toggle_advanced_s11(self) -> None:
+        self._advanced_s11_visible = not self._advanced_s11_visible
+        self._set_visible(self._advanced_s11_frame, self._advanced_s11_visible)
+
+    def toggle_validation_details(self) -> None:
+        self._validation_details_visible = not self._validation_details_visible
+        self._set_visible(self._validation_details_frame, self._validation_details_visible)
+
+    def open_move_family(self) -> None:
+        self._family_settings_visible = True
+        self._set_visible(self._family_settings_panel, True)
+        self._status_var.set("Edit Owner in Family settings and Write canonical source to move family")
+
+    def open_source_location(self) -> None:
+        self._family_settings_visible = True
+        self._set_visible(self._family_settings_panel, True)
+        path = self._source_path_var.get()
+        self._status_var.set(f"Source path: {path}" if path else "No saved source path yet")
+
+    def preview_in_simulation(self) -> None:
+        if callable(self._on_preview_in_simulation):
+            self._on_preview_in_simulation(self._current_family_id, self._document)
+        else:
+            self._status_var.set(
+                f"Preview in Simulation ready for {self._current_family_id or '(none)'}"
+            )
 
     def _entry(
         self,
@@ -391,16 +646,21 @@ class ConvoEngineAuthoringPane:
         variable: Any,
         *,
         readonly: bool = False,
-    ) -> None:
+    ) -> Any:
         self._ttk.Label(parent, text=label).grid(row=row, column=column, sticky="w", padx=4, pady=2)
         entry = self._ttk.Entry(parent, textvariable=variable)
         entry.grid(row=row, column=column + 1, sticky="ew", padx=(0, 5), pady=2)
         if readonly:
             entry.configure(state="readonly")
+        return entry
 
     @staticmethod
     def _pretty(value: Any) -> str:
         return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+
+    @staticmethod
+    def _compact_json(value: Any) -> str:
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
 
     def _set_report(self, value: Any) -> None:
         self._report.configure(state="normal")
@@ -438,6 +698,45 @@ class ConvoEngineAuthoringPane:
             offset += len(items)
         return families
 
+    def _refresh_health_projection(self) -> None:
+        analyze = getattr(self.service, "analyze_convo_completeness", None)
+        if not callable(analyze):
+            return
+        try:
+            report = analyze(strict_manifest=False)
+        except Exception:
+            return
+        self._update_health_from_report(report)
+
+    def _update_health_from_report(self, report: dict[str, Any] | None) -> None:
+        if not isinstance(report, dict):
+            return
+        rows = report.get("families") or {}
+        by_id: dict[str, dict[str, Any]] = {}
+        if isinstance(rows, dict):
+            for fid, row in rows.items():
+                if isinstance(row, dict):
+                    by_id[str(row.get("familyId") or fid)] = row
+        else:
+            for row in rows:
+                if isinstance(row, dict) and row.get("familyId"):
+                    by_id[str(row["familyId"])] = row
+        if by_id:
+            self._family_health_by_id = by_id
+
+    def _update_kind_counts(self) -> None:
+        counts = {"all": len(self._families), "dialogue": 0, "behavior": 0, "beat": 0, "realization": 0}
+        for item in self._families:
+            kind = str(item.get("kind") or "dialogue")
+            if kind in counts:
+                counts[kind] += 1
+        for key, label in _KIND_FILTER_SPECS:
+            self._kind_filter_vars[key].set(f"{label} ({counts.get(key, 0)})")
+
+    def set_kind_filter(self, kind: str) -> None:
+        self._kind_filter = kind if kind in dict(_KIND_FILTER_SPECS) else "all"
+        self._apply_filter()
+
     def ensure_refreshed(self) -> None:
         """Populate ConvoEngine families and action contracts on first use."""
         if not self._refreshed:
@@ -453,6 +752,8 @@ class ConvoEngineAuthoringPane:
             self._filtered_families = []
             self._status_var.set(f"ConvoEngine family load failed: {error}")
             return
+        self._refresh_health_projection()
+        self._update_kind_counts()
         contract_ids = [item["id"] for item in self._action_contracts]
         self._execute_box.configure(values=contract_ids)
         self._recommend_box.configure(values=[item["canonicalID"] for item in self._families])
@@ -460,46 +761,70 @@ class ConvoEngineAuthoringPane:
 
     def _apply_filter(self) -> None:
         needle = self._filter_var.get().strip().lower()
-        self._family_list.delete(0, "end")
+        self._family_tree.delete(*self._family_tree.get_children())
         self._filtered_families = [
             item
             for item in self._families
-            if not needle
-            or needle in str(item.get("canonicalID", "")).lower()
-            or needle in str(item.get("owner", "")).lower()
-            or needle in str(item.get("kind", "")).lower()
-            or needle in str(item.get("path", "")).lower()
+            if (self._kind_filter == "all" or str(item.get("kind") or "") == self._kind_filter)
+            and (
+                not needle
+                or needle in str(item.get("canonicalID", "")).lower()
+                or needle in str(item.get("owner", "")).lower()
+                or needle in str(item.get("kind", "")).lower()
+                or needle in str(item.get("namespace", "")).lower()
+                or needle in str(item.get("path", "")).lower()
+            )
         ]
-        selected_idx: int | None = None
-        for idx, item in enumerate(self._filtered_families):
-            self._family_list.insert(
+        selected_fid: str | None = None
+        for item in self._filtered_families:
+            fid = str(item.get("canonicalID") or item.get("id") or "")
+            health_row = self._family_health_by_id.get(fid) or {}
+            status = str(health_row.get("semanticStatus") or "GREEN")
+            badge = _HEALTH_BADGES.get(status, status)
+            self._family_tree.insert(
+                "",
                 "end",
-                f"[{item['owner']}] {item['kind']} · {item['canonicalID']}",
+                iid=fid,
+                values=(badge, fid),
+                tags=(status,),
             )
             if self._current_family_id and (
                 item.get("canonicalID") == self._current_family_id
                 or item.get("id") == self._current_family_id
             ):
-                selected_idx = idx
-        if selected_idx is not None:
-            self._set_family_listbox_selection(selected_idx)
+                selected_fid = fid
+        if selected_fid is not None:
+            self._set_family_tree_selection(selected_fid)
             self._family_selected()
-        elif self._current_family_id is None and self._filtered_families:
-            self._set_family_listbox_selection(0)
+        elif self._current_family_id is not None:
+            self._status_var.set(
+                f"Selected family {self._current_family_id} is outside the active filter"
+            )
+        elif self._filtered_families:
+            first_fid = str(
+                self._filtered_families[0].get("canonicalID")
+                or self._filtered_families[0].get("id")
+                or ""
+            )
+            self._set_family_tree_selection(first_fid)
             self._family_selected()
-        elif not self._filtered_families:
+        else:
             self._status_var.set("No ConvoEngine families match filter")
 
-    def _set_family_listbox_selection(self, idx: int) -> None:
+    def _set_family_tree_selection(self, fid: str) -> None:
         try:
-            self._family_list.selection_clear(0, "end")
+            self._family_tree.selection_set(fid)
         except Exception:
             pass
-        self._family_list.selection_set(idx)
-        try:
-            self._family_list.see(idx)
-        except Exception:
-            pass
+        if callable(getattr(self._family_tree, "see", None)):
+            try:
+                self._family_tree.see(fid)
+            except Exception:
+                pass
+
+    def select_family(self, family_id: str) -> bool:
+        """Select a family in the primary browser by canonical ID."""
+        return self.select_family_from_completeness(family_id)
 
     def select_family_from_completeness(self, family_id: str) -> bool:
         """Synchronize main editor selection from Workbench without reentrant loops."""
@@ -515,16 +840,19 @@ class ConvoEngineAuthoringPane:
             return False
         self._syncing_selection = True
         try:
-            if self._filter_var.get() and not any(
+            in_filtered = any(
                 e.get("canonicalID") == family_id or e.get("id") == family_id
                 for e in self._filtered_families
-            ):
+            )
+            if not in_filtered:
                 self._current_family_id = family_id
                 self._filter_var.set("")
+                self._kind_filter = "all"
                 self._apply_filter()
-            for idx, entry in enumerate(self._filtered_families):
+            for entry in self._filtered_families:
                 if entry.get("canonicalID") == family_id or entry.get("id") == family_id:
-                    self._set_family_listbox_selection(idx)
+                    fid = str(entry.get("canonicalID") or entry.get("id") or "")
+                    self._set_family_tree_selection(fid)
                     self._family_selected()
                     return True
             return False
@@ -594,7 +922,20 @@ class ConvoEngineAuthoringPane:
             self._right_notebook.select(target_tab)
         if not field_name:
             return None
-        widget = self._editors.get(field_name) or self._s11_scalar_widgets.get(field_name)
+        if field_name in _S11_ADVANCED_NAMES:
+            self._advanced_s11_visible = True
+            self._set_visible(self._advanced_s11_frame, True)
+        if field_name == "when":
+            self._advanced_schema_visible = True
+            self._set_visible(self._advanced_schema_frame, True)
+
+        widget = (
+            self._s11_scalar_widgets.get(field_name)
+            or self._normal_widgets.get(field_name)
+            or self._editors.get(field_name)
+        )
+        if field_name in _S11_CONTROL_NAMES and field_name not in self._s11_scalar_widgets:
+            widget = self._editors.get(field_name)
         if widget is not None:
             if callable(getattr(widget, "focus_set", None)):
                 try:
@@ -636,10 +977,20 @@ class ConvoEngineAuthoringPane:
         return result
 
     def _family_selected(self) -> None:
-        selection = self._family_list.curselection()
-        if not selection or int(selection[0]) >= len(self._filtered_families):
+        selection = self._family_tree.selection()
+        if not selection:
             return
-        entry = self._filtered_families[int(selection[0])]
+        selected_fid = str(selection[0])
+        entry = next(
+            (
+                item
+                for item in self._filtered_families
+                if str(item.get("canonicalID") or item.get("id") or "") == selected_fid
+            ),
+            None,
+        )
+        if entry is None:
+            return
         dispatch = getattr(self.service, "dispatch_operation", None)
         if callable(dispatch):
             try:
@@ -664,9 +1015,7 @@ class ConvoEngineAuthoringPane:
         self._document = document
         self._loaded_fingerprint = loaded_fp
         self._load_family_form(document)
-        self._status_var.set(
-            f"{entry['owner']} · {entry['canonicalID']} ({entry['path']})"
-        )
+        self._status_var.set(f"{entry['canonicalID']}")
         if hasattr(self, "completeness_workbench") and self._current_family_id:
             if not self._syncing_selection:
                 self._syncing_selection = True
@@ -682,30 +1031,91 @@ class ConvoEngineAuthoringPane:
     def _load_family_form(self, doc: dict[str, Any]) -> None:
         ns = doc.get("namespace") or ""
         fid = str(doc.get("id") or "")
-        self._canonical_id_var.set(f"{ns}.{fid}" if ns else fid)
-        self._kind_var.set(str(doc.get("kind") or "dialogue"))
+        canonical_id = f"{ns}.{fid}" if ns else fid
+        kind = str(doc.get("kind") or "dialogue")
+        owner = str(doc.get("owner") or (self._current_entry or {}).get("owner") or "")
+        source_path = str((self._current_entry or {}).get("sourcePath") or "")
+
+        self._canonical_id_var.set(canonical_id)
+        self._kind_var.set(kind)
         self._namespace_var.set(str(ns))
         self._id_var.set(fid)
-        self._owner_var.set(str(doc.get("owner") or (self._current_entry or {}).get("owner") or ""))
+        self._owner_var.set(owner)
+        self._source_path_var.set(source_path)
+
+        health_row = self._family_health_by_id.get(canonical_id) or {}
+        status = str(health_row.get("semanticStatus") or "GREEN")
+        badge = _HEALTH_BADGES.get(status, status)
+        self._header_title_var.set(canonical_id or "(draft)")
+        self._header_meta_var.set(
+            f"{kind.capitalize()} · {owner or 'auto'} · {badge}"
+            + (f" · {ns}" if ns else "")
+        )
+
         participants = doc.get("participants") or {}
-        self._speaker_var.set(self._pretty(participants.get("speaker", ["participant"])).strip())
-        self._addressee_var.set(self._pretty(participants.get("addressee", ["participant"])).strip())
-        self._target_var.set(self._pretty(doc.get("target", {"type": "entity.any"})).strip())
-        self._slots_var.set(self._pretty(doc.get("slots", {})).strip())
+        speaker = participants.get("speaker", ["participant"])
+        addressee = participants.get("addressee", ["participant"])
+        self._speaker_var.set(self._compact_json(speaker))
+        self._addressee_var.set(self._compact_json(addressee))
+        if speaker == ["participant"] and addressee == ["participant"]:
+            self._participants_summary_var.set("Participants: Default (participant ↔ participant)")
+        else:
+            self._participants_summary_var.set(
+                f"Participants: {', '.join(map(str, speaker))} ↔ {', '.join(map(str, addressee))}"
+            )
+
+        self._target_var.set(self._compact_json(doc.get("target", {"type": "entity.any"})))
+        slots = doc.get("slots", {})
+        self._slots_var.set(self._compact_json(slots))
+
+        unknown = describe_unknown_fields(doc)
+        self._unknown_fields_var.set(", ".join(unknown.keys()) if unknown else "(none)")
+
+        cond_parts: list[str] = []
+        if slots:
+            cond_parts.append(f"Slots: {len(slots)}")
+        if unknown:
+            cond_parts.append(f"Extra fields: {', '.join(unknown.keys())}")
+        self._conditional_meta_var.set(" · ".join(cond_parts))
+        self._set_visible(self._conditional_meta_label, bool(cond_parts))
 
         aff = doc.get("affordance")
-        if isinstance(aff, dict):
-            lbl = aff.get("label")
-            self._affordance_label_var.set(lbl if isinstance(lbl, str) else "")
-        else:
-            self._affordance_label_var.set("")
+        aff_label = aff.get("label") if isinstance(aff, dict) and isinstance(aff.get("label"), str) else ""
+        self._affordance_label_var.set(aff_label)
+        self._loaded_affordance_label = aff_label
 
         say = doc.get("say")
-        self._say_single_var.set(say if isinstance(say, str) else "")
+        say_single = say if isinstance(say, str) else ""
+        self._say_single_var.set(say_single)
+        self._loaded_say_single = say_single
+
         exe = doc.get("execute")
-        self._execute_action_var.set(
-            exe.get("use", "") if isinstance(exe, dict) else (exe if isinstance(exe, str) else "")
-        )
+        exe_action = exe.get("use", "") if isinstance(exe, dict) else (exe if isinstance(exe, str) else "")
+        self._execute_action_var.set(exe_action)
+        self._loaded_execute_action = exe_action
+
+        after = doc.get("after")
+        if isinstance(after, dict) and after.get("recommend"):
+            self._after_mode_var.set("recommend")
+        elif isinstance(after, dict) and after.get("continue"):
+            self._after_mode_var.set("continue")
+        else:
+            self._after_mode_var.set("end")
+
+        reply = doc.get("reply")
+        if isinstance(reply, dict) and reply:
+            keys = sorted(str(k) for k in reply.keys())
+            self._reply_summary_var.set(f"Outcomes: {', '.join(keys)}")
+            first_key = keys[0]
+            self._reply_outcome_var.set(first_key)
+            first_branch = reply.get(first_key)
+            self._reply_say_var.set(
+                str(first_branch.get("say") or "") if isinstance(first_branch, dict) else ""
+            )
+        else:
+            self._reply_summary_var.set("Outcomes: (none)")
+            self._reply_say_var.set("")
+
         for descriptor in self._field_descriptors + self._s11_json_descriptors:
             name = str(descriptor["name"])
             self._write_json_editor(name, doc.get(name))
@@ -713,8 +1123,10 @@ class ConvoEngineAuthoringPane:
             name = str(descriptor["name"])
             val = doc.get(name)
             self._s11_scalar_vars[name].set("" if val is None else str(val))
-        unknown = describe_unknown_fields(doc)
-        self._unknown_fields_var.set(", ".join(unknown.keys()) if unknown else "(none)")
+
+        has_advanced_s11 = any(doc.get(name) for name in _S11_ADVANCED_NAMES)
+        self._advanced_s11_visible = has_advanced_s11
+        self._set_visible(self._advanced_s11_frame, has_advanced_s11)
 
     def _form_document(self) -> dict[str, Any]:
         if self._document is None:
@@ -756,21 +1168,30 @@ class ConvoEngineAuthoringPane:
                 doc.pop(name, None)
 
         single_say = self._say_single_var.get().strip()
-        if single_say and "say" not in doc:
+        if single_say != self._loaded_say_single:
+            if single_say:
+                doc["say"] = single_say
+            elif isinstance(doc.get("say"), str):
+                doc.pop("say", None)
+        elif single_say and "say" not in doc:
             doc["say"] = single_say
+
         aff_label = self._affordance_label_var.get().strip()
-        if aff_label:
-            aff_obj = copy.deepcopy(doc.get("affordance") or {})
-            if isinstance(aff_obj, dict) and isinstance(aff_obj.get("label"), str | type(None)):
-                aff_obj["label"] = aff_label
-                doc["affordance"] = aff_obj
+        if aff_label != self._loaded_affordance_label or (aff_label and "affordance" not in doc):
+            if aff_label:
+                aff_obj = copy.deepcopy(doc.get("affordance") or {})
+                if isinstance(aff_obj, dict) and isinstance(aff_obj.get("label"), str | type(None)):
+                    aff_obj["label"] = aff_label
+                    doc["affordance"] = aff_obj
+
         exe_action = self._execute_action_var.get().strip()
-        if exe_action:
-            exe_obj = doc.get("execute")
-            if isinstance(exe_obj, dict):
-                exe_obj["use"] = exe_action
-            elif not exe_obj:
-                doc["execute"] = exe_action
+        if exe_action != self._loaded_execute_action or (exe_action and "execute" not in doc):
+            if exe_action:
+                exe_obj = doc.get("execute")
+                if isinstance(exe_obj, dict):
+                    exe_obj["use"] = exe_action
+                else:
+                    doc["execute"] = exe_action
         return doc
 
     def add_recommendation(self) -> None:
@@ -786,6 +1207,7 @@ class ConvoEngineAuthoringPane:
         if target not in rec:
             rec.append(target)
         after["recommend"] = rec
+        self._after_mode_var.set("recommend")
         self._write_json_editor("after", after)
         self._status_var.set(f"Added recommendation {target}; validate and write explicitly")
 
@@ -803,6 +1225,7 @@ class ConvoEngineAuthoringPane:
         branch["say"] = say_text
         reply[outcome] = branch
         self._write_json_editor("reply", reply)
+        self._reply_summary_var.set(f"Outcomes: {', '.join(sorted(str(k) for k in reply.keys()))}")
         self._status_var.set(f"Updated reply.{outcome}; validate and write explicitly")
 
     def delete_reply_outcome(self) -> None:
@@ -813,6 +1236,9 @@ class ConvoEngineAuthoringPane:
         if isinstance(reply, dict) and outcome in reply:
             reply.pop(outcome)
             self._write_json_editor("reply", reply or None)
+            self._reply_summary_var.set(
+                f"Outcomes: {', '.join(sorted(str(k) for k in reply.keys()))}" if reply else "Outcomes: (none)"
+            )
             self._status_var.set(f"Removed reply.{outcome}; validate and write explicitly")
 
     def new_family(self) -> None:
@@ -856,7 +1282,7 @@ class ConvoEngineAuthoringPane:
         self._current_entry = None
         self._loaded_fingerprint = None
         self._load_family_form(dup)
-        self._status_var.set(f"Duplicated as {dup['id']} in memory; set target path & write")
+        self._status_var.set(f"Duplicated as {dup['id']} in memory; write explicitly")
 
     def delete_family(self) -> dict[str, Any] | None:
         if self._current_entry is None:
@@ -880,6 +1306,7 @@ class ConvoEngineAuthoringPane:
         if res.get("ok") is True:
             self._loaded_fingerprint = None
             self._current_entry = None
+            self._current_family_id = None
             self.refresh()
             self._status_var.set("Deleted canonical family source via ConvoTransaction")
         else:
@@ -891,30 +1318,23 @@ class ConvoEngineAuthoringPane:
     def preview_record(self) -> dict[str, Any] | None:
         try:
             doc = self._form_document()
-            slot_values = json.loads(self._preview_slots_var.get() or "{}")
             report = self.service.dispatch_operation(
                 "convo.simulate",
                 {
                     "document": doc,
                     "sourcePath": (self._current_entry or {}).get("sourcePath"),
-                    "speaker": self._preview_speaker_var.get().strip() or "player",
-                    "addressee": self._preview_addressee_var.get().strip() or "npc",
-                    "npcTarget": self._preview_target_var.get().strip() or None,
-                    "slotValues": slot_values,
-                    "style": self._preview_style_var.get().strip() or "neutral",
-                    "locale": self._preview_locale_var.get().strip() or "EN",
-                    "resultOutcome": self._preview_outcome_var.get().strip() or None,
+                    "speaker": "player",
+                    "addressee": "npc",
+                    "npcTarget": "companion",
+                    "slotValues": {},
+                    "style": "neutral",
+                    "locale": "EN",
+                    "resultOutcome": None,
                 },
             )
-            btn = report.get("buttonPreview") or {}
-            speech = report.get("initiatingSpeechPreview") or {}
-            rep = (report.get("replyPreview") or {}).get("speech") or {}
-            self._preview_button_var.set(str(btn.get("renderedLabel") or ""))
-            self._preview_speech_var.set(str(speech.get("renderedText") or ""))
-            self._preview_reply_var.set(str(rep.get("renderedText") or ""))
             self._set_report(report)
             self._status_var.set(
-                "ConvoEngine validated & traced (affordance -> speech -> execute -> result -> reply)"
+                "Validated canonical ConvoEngine record"
                 if report.get("ok") is True
                 else "ConvoEngine validation rejected"
             )

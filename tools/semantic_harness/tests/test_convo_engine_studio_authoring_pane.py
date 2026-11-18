@@ -39,6 +39,15 @@ class _FakeWidget:
     def grid(self, *_args: Any, **_kwargs: Any) -> None:
         return None
 
+    def grid_remove(self, *_args: Any, **_kwargs: Any) -> None:
+        return None
+
+    def add_command(self, *_args: Any, **_kwargs: Any) -> None:
+        return None
+
+    def add_separator(self, *_args: Any, **_kwargs: Any) -> None:
+        return None
+
     def pack(self, *_args: Any, **_kwargs: Any) -> None:
         return None
 
@@ -91,6 +100,7 @@ class _FakeWidget:
 class _FakeTk:
     StringVar = _FakeVar
     Listbox = _FakeWidget
+    Menu = _FakeWidget
 
 
 from tools.semantic_harness.tests.convo_engine_test_support import _FakeTreeview
@@ -103,6 +113,7 @@ class _FakeTtk:
     Entry = _FakeWidget
     Button = _FakeWidget
     Combobox = _FakeWidget
+    Menubutton = _FakeWidget
     Scrollbar = _FakeWidget
     Notebook = _FakeWidget
     PanedWindow = _FakeWidget
@@ -189,7 +200,7 @@ class ConvoEngineStudioAuthoringPaneTests(unittest.TestCase):
             svc,
         )
         self.assertIsInstance(pane, ConvoEngineAuthoringPane)
-        self.assertGreaterEqual(pane._family_list.size(), 40)
+        self.assertGreaterEqual(len(pane._family_tree.get_children()), 40)
 
         report = pane.preview_record()
         self.assertTrue(report and report["ok"], f"Preview failed: {report}")

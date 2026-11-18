@@ -48,8 +48,9 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                     pane._right_notebook.tab(tab_id, "text")
                     for tab_id in pane._right_notebook.tabs()
                 ]
-                self.assertIn("S11 Semantic Controls", tab_labels)
+                self.assertIn("State & Flow", tab_labels)
                 self.assertIn("Dialogue Completeness", tab_labels)
+                self.assertNotIn("Simulation / trace", tab_labels)
 
                 # Select Dialogue Completeness tab and verify canonical report loads
                 pane._right_notebook.select(pane._completeness_tab)
@@ -219,6 +220,87 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
             self.assertIn("PURPLE", wb_synth._family_tree.item("tktest.purple_obl")["tags"])
             for color in ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN"):
                 self.assertTrue(bool(wb_synth._family_tree.tag_configure(color, "background")))
+        finally:
+            root.destroy()
+
+    def test_real_tk_r9r1f_primary_browser_progressive_disclosure_and_single_line_entries(self) -> None:
+        if not os.environ.get("DISPLAY"):
+            self.skipTest("Tk display is unavailable")
+        root = tk.Tk()
+        root.withdraw()
+        try:
+            preview_calls: list[str | None] = []
+            service = SemanticLabAuthoringService()
+            try:
+                pane = ConvoEngineAuthoringPane(
+                    root,
+                    tk,
+                    ttk,
+                    scrolledtext.ScrolledText,
+                    _FakeMessageBox(),
+                    service,
+                    auto_refresh=True,
+                    on_preview_in_simulation=lambda fid, _doc: preview_calls.append(fid),
+                )
+                root.update_idletasks()
+
+                # 1. Primary browser is compact (no [Owner] kind prefix) and health-colored
+                all_children = pane._family_tree.get_children()
+                self.assertGreaterEqual(len(all_children), 500)
+                first_row = pane._family_tree.item(all_children[0])
+                self.assertEqual(first_row["values"][1], all_children[0])
+                self.assertNotIn("[ProjectHoomans]", str(first_row["values"][1]))
+                self.assertIn("ORANGE", pane._family_tree.item("command.camp")["tags"])
+                for color in ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN"):
+                    self.assertTrue(bool(pane._family_tree.tag_configure(color, "background")))
+
+                # 2. Kind filters expose live counts and immediately surface Beats/Behaviors/Realizations
+                self.assertIn("520", pane._kind_filter_vars["dialogue"].get())
+                self.assertIn("30", pane._kind_filter_vars["behavior"].get())
+                self.assertIn("3", pane._kind_filter_vars["beat"].get())
+                self.assertIn("35", pane._kind_filter_vars["realization"].get())
+
+                pane.select_family("command.camp")
+                self.assertEqual(pane._current_family_id, "command.camp")
+
+                pane.set_kind_filter("beat")
+                beat_children = pane._family_tree.get_children()
+                self.assertEqual(len(beat_children), 3)
+                # Filtering out command.camp must preserve logical selection
+                self.assertEqual(pane._current_family_id, "command.camp")
+
+                pane.set_kind_filter("behavior")
+                self.assertEqual(len(pane._family_tree.get_children()), 30)
+                pane.set_kind_filter("realization")
+                self.assertEqual(len(pane._family_tree.get_children()), 35)
+                pane.set_kind_filter("all")
+
+                # 3. Single-line Entry variables contain zero newline/carriage-return control chars
+                for var in (pane._speaker_var, pane._addressee_var, pane._target_var, pane._slots_var):
+                    val = var.get()
+                    self.assertNotIn("\n", val)
+                    self.assertNotIn("\r", val)
+
+                # 4. Progressive disclosure: advanced panels collapsed by default, revealed on diagnostic focus
+                self.assertFalse(pane._family_settings_visible)
+                self.assertFalse(pane._participants_visible)
+                self.assertFalse(pane._advanced_schema_visible)
+                self.assertFalse(pane._advanced_s11_visible)
+                pane.focus_field("roles", "role_unbound")
+                self.assertTrue(pane._advanced_s11_visible)
+
+                # 5. Surface consolidation: no Simulation / trace tab, Preview in Simulation routes out
+                tab_labels = [
+                    pane._right_notebook.tab(tab_id, "text")
+                    for tab_id in pane._right_notebook.tabs()
+                ]
+                self.assertNotIn("Simulation / trace", tab_labels)
+                self.assertIn("Dialogue", tab_labels)
+                self.assertIn("State & Flow", tab_labels)
+                pane.preview_in_simulation()
+                self.assertEqual(preview_calls, ["command.camp"])
+            finally:
+                service.close()
         finally:
             root.destroy()
 

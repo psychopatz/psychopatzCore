@@ -28,9 +28,27 @@ class _FakeWidget:
         self._config: dict[str, Any] = {}
 
     def grid(self, *_args: Any, **_kwargs: Any) -> None:
+        self._mapped = True
         return None
 
+    def grid_remove(self, *_args: Any, **_kwargs: Any) -> None:
+        self._mapped = False
+        return None
+
+    def winfo_ismapped(self) -> bool:
+        return bool(getattr(self, "_mapped", False))
+
     def pack(self, *_args: Any, **_kwargs: Any) -> None:
+        self._mapped = True
+        return None
+
+    def add_command(self, *_args: Any, **_kwargs: Any) -> None:
+        return None
+
+    def add_separator(self, *_args: Any, **_kwargs: Any) -> None:
+        return None
+
+    def post(self, *_args: Any, **_kwargs: Any) -> None:
         return None
 
     def bind(self, *_args: Any, **_kwargs: Any) -> None:
@@ -173,6 +191,7 @@ class _FakeTreeview(_FakeWidget):
 class _FakeTk:
     StringVar = _FakeVar
     Listbox = _FakeWidget
+    Menu = _FakeWidget
 
 
 class _FakeTtk:
@@ -182,6 +201,7 @@ class _FakeTtk:
     Entry = _FakeWidget
     Button = _FakeWidget
     Combobox = _FakeWidget
+    Menubutton = _FakeWidget
     Scrollbar = _FakeWidget
     Notebook = _FakeWidget
     PanedWindow = _FakeWidget

@@ -330,11 +330,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
             auto_refresh=True,
         )
         # 1. Select action.trade in main editor -> Workbench must synchronize to action.trade
-        trade_idx = next(
-            i for i, e in enumerate(pane._filtered_families) if e.get("canonicalID") == "action.trade"
-        )
-        pane._family_list.selection_set(trade_idx)
-        pane._family_selected()
+        self.assertTrue(pane.select_family("action.trade"))
         self.assertEqual(pane._current_family_id, "action.trade")
         pane.completeness_workbench.ensure_loaded()
         self.assertEqual(pane.completeness_workbench._selected_family_id, "action.trade")

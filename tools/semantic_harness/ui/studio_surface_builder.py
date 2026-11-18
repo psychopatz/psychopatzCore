@@ -172,6 +172,12 @@ def build_studio_editors(
         and callable(getattr(main_tabs, "bind", None))
         and callable(getattr(main_tabs, "select", None))
     )
+    def _preview_in_simulation(family_id: str | None, _doc: dict[str, Any] | None) -> None:
+        if hasattr(app, "main_tabs") and hasattr(app, "simulation_tab"):
+            app.main_tabs.select(app.simulation_tab)
+        if family_id and hasattr(app, "status_var") and callable(getattr(app.status_var, "set", None)):
+            app.status_var.set(f"Simulation workspace opened for {family_id}")
+
     app.convo_engine_authoring = ConvoEngineAuthoringPane(
         psdl_frame,
         app._tk,
@@ -180,6 +186,7 @@ def build_studio_editors(
         app._messagebox,
         app.authoring_service,
         auto_refresh=not defer_convo_refresh,
+        on_preview_in_simulation=_preview_in_simulation,
     )
     app.psdl_authoring = app.convo_engine_authoring
     if defer_convo_refresh:
