@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11B accepted (Identity reference migration & Identity P0 regressions fixed); advancing to S11C companion commands, Needs, and Greeting migrations.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A8 + S11B accepted; S11C-S11E remaining.
+**Status:** IN_PROGRESS — S11C accepted (companion commands, Needs, Greeting state-aware closure; 9/9 P0 cases + 13/13 first-contact + 5/5 context-repair + 9/9 automatic flow generation PASS); advancing to S11D/S11E.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A8 + S11B-S11C accepted; S11D-S11E remaining.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11C — companion commands (`FOLLOW`/`STAY`/`GO HOME`/`CAMP`) + Needs + Greeting migrations.
-**Immediate Next Chunk:** S11C — migrate companion command state-aware dispatch (`already_satisfied` / `blocked` zero dispatch), Needs `proposal_pending` closure/progress, and Greeting hostile/friendly coherence.
+**Active phase:** S11D — remaining constrained-domain audit & parity, followed by S11E final closure.
+**Immediate Next Chunk:** S11D/S11E — verify remaining S11 domain families (recruitment, relationship proposals, gifts, knowledge, events, settlement/territory, DTCommon), run Completeness Analyzer across the full compiled 3-repo Portable Plan, run S11E closure gates (reconcile --check, Kahlua, Core/Hoomans/DT suites, git diff --check).
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 

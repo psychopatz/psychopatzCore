@@ -4,21 +4,22 @@
 status: DIRTY_RESUMABLE
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S11C — companion commands + Needs + Greeting (S11B accepted)
-chunk: S11C — companion commands, Needs, and Greeting state-aware closure
+phase: S11D — remaining constrained-domain audit & S11E closure (S11C accepted)
+chunk: S11D/S11E — remaining domain audit + full S11E closure gates
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 foundation_order_doc: Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md
-updated_at: 2026-11-18T08:11:30Z
+updated_at: 2026-11-18T08:17:30Z
 ~~~
 
-## What became true in S11B
+## What became true in S11C
 
-- Migrated `question_identity.json` (`offer.question.identity`) to carry S11 `statePolicy` (`already_known` -> `no_op`, `first_contact_question` -> `dispatch`), `inputPolicy: "typed_parity"`, `repeatPolicy: "state_retired"`, `postconditions`, and `closure`, and reconciled all three owners via `reconcile.py --apply` (`clean=true`).
-- Fixed known-NPC identity question obligation leak in `Input_Context.lua` (`Internal.RecordContextTurn` passing `ShallowContext(view).identityState`) and `ContextState_Turns.lua` (`not identityKnown` guard on `pendingIdentityExchange`), and fixed repeat truthful identity reward farming in `PNC_PlayerKnowledgeCommands_Identity.lua` (idempotent guard on `before.identityTrust == "trusted"` / `identity_introduction` memory).
-- Verified `16/16 PASS` across all Identity P0 cases (`known_identity_question_no_player_name_obligation`, `repeat_truthful_identity_no_reward_farming`, `resolved_identity_choices_do_not_resurrect`) and all `13/13` `identity_pending_exchange_interruptions` cases.
+- Fixed typed companion command state-aware pre-admission in `Input_Actions_Dispatch.lua` (blocks hostile/ineligible and already-active `FOLLOW`/`STAY`/`CAMP`/`RETURN`/`GO_HOME` with zero gameplay dispatch and `dispatchCount = 0`).
+- Fixed Needs `proposal_pending` self-loop in `Flow_Needs.lua` (`onMatch = "complete"` + terminal `complete` node).
+- Fixed hostile greeting continuation in `Flow_Greeting.lua`, `FlowKernel_Matching.lua`, `FlowKernel_Preview.lua`, `FlowRegistry_Validation.lua`, and `FlowRegistry_Validation_Normalization.lua` (evaluates flow `constraints`/`when` at trigger time via `PsychopatzSemanticPredicate`).
+- Verified `27/27 PASS` (`state_aware_outcome_closure.json` `9/9`, `identity_pending_exchange_interruptions.json` `13/13`, `context_repair_and_pronouns.json` `5/5`), `9/9 PASS` in `test_automatic_flow_generation.py`, and `0` Kahlua errors.
 
 ## Immediate Next Chunk
 
-Execute **S11C** (companion commands `FOLLOW`/`STAY`/`GO HOME`/`CAMP`, Needs `proposal_pending`, and Greeting hostile/friendly coherence).
+Execute **S11D/S11E** (audit remaining domain families + Completeness Analyzer + full S11E acceptance & closure).
