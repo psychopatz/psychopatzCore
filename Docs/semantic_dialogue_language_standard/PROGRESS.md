@@ -2,17 +2,22 @@
 
 **Status:** IN_PROGRESS — S12 ConvoEngine v1 Dynamic Dataset Modernization is active.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12D — ProjectHoomans dataset modernization (classified batches).
-**Immediate Next Chunk:** S12D — modernize ProjectHoomans-owned families by domain priority using the S12B classification inventory.
+**Active phase:** S12E — DynamicTrading / DTCommon dataset modernization.
+**Immediate Next Chunk:** S12E — modernize DTCommon-owned trading families with typed roles, slots, and composition hooks.
 **Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true` (classified batches only; S12B inventory accepted).
 
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   S12C commit: self (base f57098c)
-ProjectHoomans   5039b405
+psychopatzCore   S12D docs commit: self (base 7db9e31)
+ProjectHoomans   S12D commit (just committed)
 DynamicTrading   f9c8e60f
 ~~~
+
+## S12D completed
+
+- Modernized 450 `ProjectHoomans` dialogue families via CodeBuilder (`convo.change.apply`) with typed `roles`, `slots` (`weapon`, `threat`, `subject`, `location`, `item`), and discoverable `TopicRef`/`EventRef`/`ActivityRef`/`MemoryRef`/`DomainRef` hooks.
+- Reconciled all generated outputs and verified `hoomans_lua`, `hoomans_provider_python`, and `convo_audit` (`3/3` suites, `convoScopeOk=True`).
 
 ## S12C completed
 
