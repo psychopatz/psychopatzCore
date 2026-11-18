@@ -8,8 +8,8 @@
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (planning base 37753f2c600eb168ad3ca8cd2c7b707cabec8863)
-ProjectHoomans   fcbc787ad708dd38aff13511f07dcf48e3460558
+psychopatzCore   phase_commit: self (planning base ec49bd3ec9cafc251f360430c0858ed491ce3fcf)
+ProjectHoomans   86000e26cc26561a99894a2abb978b6946da3c94
 DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
 ~~~
 
@@ -17,12 +17,12 @@ Residual worktree fingerprints:
 
 ~~~text
 psychopatzCore   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
-ProjectHoomans   rows=31  sha256=d27faeb722246c602842d02438f0cebb6ac0d27771c449e857057d4155bb1742
+ProjectHoomans   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
 DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
 ~~~
 
 - Core is clean.
-- ProjectHoomans has preserved concurrent/unrelated NPCAuthoring, StartingCompanions, UniqueNPCEditor, translation, and related test work. Do not stage/reset/stash/discard it.
+- ProjectHoomans concurrent NPCAuthoring/StartingCompanions/UniqueNPCEditor work landed separately as `86000e26`; the worktree is now clean. Treat that commit as unrelated to S11 unless current tests show interaction.
 - DynamicTrading currently has two unstaged generated ConvoEngine fingerprint-only drifts in `Manifest.lua` and `Registry.lua`. Preserve them until ownership/reconcile evidence proves whether they belong to R5 or concurrent work.
 
 Current repair authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. The earlier `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` is historical R0-R4 context.

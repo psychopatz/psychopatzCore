@@ -19,8 +19,8 @@ This is a committed planning/handoff checkpoint only; it does **not** accept R5A
 ## Participant checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (planning base 37753f2c600eb168ad3ca8cd2c7b707cabec8863)
-ProjectHoomans   fcbc787ad708dd38aff13511f07dcf48e3460558
+psychopatzCore   phase_commit: self (planning base ec49bd3ec9cafc251f360430c0858ed491ce3fcf)
+ProjectHoomans   86000e26cc26561a99894a2abb978b6946da3c94
 DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
 ~~~
 
@@ -28,11 +28,11 @@ Residual fingerprints:
 
 ~~~text
 psychopatzCore   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
-ProjectHoomans   rows=31  sha256=d27faeb722246c602842d02438f0cebb6ac0d27771c449e857057d4155bb1742
+ProjectHoomans   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
 DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
 ~~~
 
-ProjectHoomans residual work is concurrent/unrelated editor/UI work and must be preserved. DynamicTrading has two unstaged generated ConvoEngine fingerprint drifts; treat them as uncertain/concurrent until source/reconcile evidence assigns ownership. Do not reset, stash, discard, or absorb either residual set.
+ProjectHoomans is clean after unrelated UI/authoring commit `86000e26`. DynamicTrading has two unstaged generated ConvoEngine fingerprint drifts; treat them as uncertain/concurrent until source/reconcile evidence assigns ownership. Do not reset, stash, discard, or absorb either residual set.
 
 ## Retained accepted work
 
