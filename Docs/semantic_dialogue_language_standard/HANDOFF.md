@@ -15,13 +15,15 @@ authoring_standard: Docs/semantic_dialogue_language_standard/DYNAMIC_COMPOSITION
 updated_at: 2026-11-19
 ~~~
 
-## Participant checkpoint
+## Planning audit participant vector
 
 ~~~text
 psychopatzCore   43a02e3dad695f65d251ff137765d83e8b00d912
 ProjectHoomans   4dce40499d62e9f54836a4b4c2df37f4b8b08656
 DynamicTrading   aecc3250068202cdf1701b2bd49e8892abfba87c
 ~~~
+
+The current Core documentation checkpoint is the commit containing this HANDOFF. Resolve that commit from Git on resume; the vector above is the audited pre-documentation baseline used to identify concurrent work.
 
 Planning-time residual fingerprints:
 

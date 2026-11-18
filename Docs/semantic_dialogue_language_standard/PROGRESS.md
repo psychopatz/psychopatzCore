@@ -6,10 +6,10 @@
 **Immediate Next Chunk:** S12R2A — make `INTENTIONALLY_RETAINED` verification member-complete and resolve/re-prove the identity and social-greeting groups.
 **Dataset rewrite gate:** broad S12R1 structural modernization is accepted/frozen; only evidence-driven R2A corrections to still-unproven retained groups are allowed.
 
-## Current checkpoint
+## Planning audit vector
 
 ~~~text
-psychopatzCore
+psychopatzCore pre-documentation audit baseline
 43a02e3dad695f65d251ff137765d83e8b00d912
 
 ProjectHoomans
@@ -18,6 +18,8 @@ ProjectHoomans
 DynamicTrading
 aecc3250068202cdf1701b2bd49e8892abfba87c
 ~~~
+
+The current Core documentation checkpoint is the commit containing this file; derive its exact SHA from Git rather than storing a self-invalidating predicted hash here.
 
 Current worktrees contain concurrent unrelated UI/editor work.
 
