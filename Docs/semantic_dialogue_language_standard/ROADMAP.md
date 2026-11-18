@@ -1,6 +1,6 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** IN_PROGRESS — S12R1 structural modernization is retained, but final closure is reopened under S12R2 for retention-proof correctness, complete PSDL/API retirement, committed generated-state integrity, and reproducible continuity evidence.
+**Parent status:** COMPLETE — S12 + S12R1 + S12R2 accepted and closed. Next future responsibility: Dialogue Director (not yet active).
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Developer completion boundary:** S12 + S12R1 + S12R2 accepted and closed: one ConvoEngine-v1 first-party authoring/compiler/API identity, every retained modernization distinction proven member-complete, generated outputs committed and reproducible from the exact participant vector, two-pass acceptance stable, and all continuity docs reconciled.
@@ -32,32 +32,25 @@ services. ConvoEngine does not replace those systems.
 
 ## S12 — ConvoEngine v1 Dynamic Dataset Modernization
 
-**Status:** REOPENED FOR FINAL CLOSURE UNDER S12R2. Parent goal:
+**Status:** COMPLETE — S12R1 structural modernization retained; S12R2 final closure integrity accepted. Parent goal:
 `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
-Retained structural implementation record:
+Historical retained structural implementation record:
 `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`.
-Current repair authority:
+Accepted final closure repair:
 `S12R2_FINAL_CLOSURE_INTEGRITY_REPAIR.md`.
 Normative authoring principle:
 `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`.
 
-The expensive S12R1 structural work is retained: the maintained catalog is
-470 families, major specialization/context clusters were actually collapsed,
-behavior/beat composition hooks are present, the first-party source schema is
-ConvoEngine v1 only, and fresh full semantic acceptance remains 9/9 twice.
-
-S12 is not yet closed because the post-R1 audit found four final-integrity
-classes that the previous closure proof did not establish:
+Completed S12R2 closure gates:
 
 ~~~text
-S12R2A  member-complete INTENTIONALLY_RETAINED proof
-S12R2B  finish PSDL/API retirement + expose a first-class fail-closed closure command
-S12R2C  reconcile and commit the exact generated whole-model state
-S12R2D  stable-vector two-pass acceptance + one-truth continuity rewrite
+S12R2A  member-complete INTENTIONALLY_RETAINED proof (COMPLETE)
+S12R2B  PSDL/API retirement + first-class fail-closed closure command (COMPLETE)
+S12R2C  reconciled and committed exact generated whole-model state (COMPLETE)
+S12R2D  stable-vector two-pass acceptance + one-truth continuity closure (COMPLETE)
 ~~~
 
-Do not reopen broad S12R1 dataset modernization. Only evidence-driven corrections
-to still-unproven retained groups are in scope before final closure.
+Immediate Next Chunk: future Dialogue Director goal (not active in this checkpoint).
 
 ## Phase matrix
 
