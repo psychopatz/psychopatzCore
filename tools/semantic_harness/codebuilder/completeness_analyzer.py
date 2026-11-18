@@ -776,6 +776,39 @@ def _analyze_behavior_family(
         )
     _check_roles_and_participant_set(fid, beh, diags)
 
+    req_caps = beh.get("requiredCapabilities")
+    if isinstance(req_caps, list):
+        for cap_idx, cap in enumerate(req_caps):
+            if not isinstance(cap, str) or not cap.strip():
+                diags.append(
+                    CompletenessDiagnostic(
+                        code="invalid_behavior_capability",
+                        severity="error",
+                        family_id=fid,
+                        path=f"{fid}.requiredCapabilities[{cap_idx}]",
+                        message="Behavior requiredCapabilities entry must be a non-empty capability string",
+                        repair_hint="Provide a valid capability identifier in requiredCapabilities.",
+                    )
+                )
+
+    if isinstance(outputs, Mapping):
+        for out_key in ("template", "realization", "contentRef", "family"):
+            out_ref = outputs.get(out_key)
+            if isinstance(out_ref, str) and "." in out_ref:
+                if out_ref in all_ids:
+                    outgoing.append(out_ref)
+                else:
+                    diags.append(
+                        CompletenessDiagnostic(
+                            code="unresolved_behavior_output_reference",
+                            severity="error",
+                            family_id=fid,
+                            path=f"{fid}.outputs.{out_key}",
+                            message=f"Behavior output reference {out_ref!r} does not exist in canonical catalog",
+                            repair_hint=f"Fix or remove outputs.{out_key}.",
+                        )
+                    )
+
     for ref_key, ref_val in refs.items():
         if isinstance(ref_val, str) and "." in ref_val and ref_val not in all_ids:
             diags.append(
@@ -1042,6 +1075,41 @@ def _analyze_realization_family(
                 repair_hint="Declare dialogueAct, strategy, or concept.",
             )
         )
+
+    for loc_key, loc_val in translations.items():
+        if loc_val is None or (isinstance(loc_val, (list, dict, str)) and not loc_val):
+            diags.append(
+                CompletenessDiagnostic(
+                    code="empty_realization_locale",
+                    severity="warning",
+                    family_id=fid,
+                    path=f"{fid}.translations.{loc_key}",
+                    message=f"Realization locale {loc_key!r} has empty translations",
+                    repair_hint=f"Populate translations.{loc_key} or remove the empty locale key.",
+                )
+            )
+
+    declared_slots = real.get("slots") if isinstance(real.get("slots"), Mapping) else {}
+    if declared_slots and translations:
+        import re as _re
+
+        for loc_key, loc_val in translations.items():
+            texts = loc_val if isinstance(loc_val, list) else ([loc_val] if isinstance(loc_val, str) else [])
+            for txt in texts:
+                if not isinstance(txt, str):
+                    continue
+                for slot_name in _re.findall(r"\{([A-Za-z0-9_]+)\}", txt):
+                    if slot_name not in declared_slots:
+                        diags.append(
+                            CompletenessDiagnostic(
+                                code="realization_undeclared_slot",
+                                severity="warning",
+                                family_id=fid,
+                                path=f"{fid}.translations.{loc_key}",
+                                message=f"Translation placeholder {{{slot_name}}} is not declared in realization slots",
+                                repair_hint=f"Declare {slot_name!r} in slots or fix the template placeholder.",
+                            )
+                        )
 
     for ref_key, ref_val in refs.items():
         if isinstance(ref_val, str) and "." in ref_val and ref_val not in all_ids:

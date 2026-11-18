@@ -178,6 +178,22 @@ def build_studio_editors(
         if family_id and hasattr(app, "status_var") and callable(getattr(app.status_var, "set", None)):
             app.status_var.set(f"Simulation workspace opened for {family_id}")
 
+    def _open_kind_editor(
+        kind: str,
+        family_id: str,
+        field_path: str | None = None,
+        _diag_code: str | None = None,
+    ) -> Any:
+        if kind in ("behavior", "beat"):
+            if hasattr(app, "main_tabs") and hasattr(app, "studio_tab"):
+                app.main_tabs.select(app.studio_tab)
+            if hasattr(app, "advanced_notebook") and hasattr(app, "interaction_modules_frame"):
+                app.advanced_notebook.select(app.interaction_modules_frame)
+            if kind == "behavior":
+                return app.interaction_modules.open_behavior(family_id, field_path)
+            return app.interaction_modules.open_beat(family_id, field_path)
+        return None
+
     app.convo_engine_authoring = ConvoEngineAuthoringPane(
         psdl_frame,
         app._tk,
@@ -187,6 +203,7 @@ def build_studio_editors(
         app.authoring_service,
         auto_refresh=not defer_convo_refresh,
         on_preview_in_simulation=_preview_in_simulation,
+        on_open_kind_editor=_open_kind_editor,
     )
     app.psdl_authoring = app.convo_engine_authoring
     if defer_convo_refresh:

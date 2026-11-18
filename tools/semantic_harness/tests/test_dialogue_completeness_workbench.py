@@ -522,6 +522,91 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         finally:
             service.close()
 
+    def test_r9r1h_non_dialogue_routing_roundtrip_safety_and_f7_health_depth(self) -> None:
+        import copy
+        from tools.semantic_harness.codebuilder.completeness_analyzer import analyze_portable_plan
+
+        # 1. F7 health checks for behavior capabilities/outputs and realization slots/locales
+        synth_plan = {
+            "schema": "psychopatz.psdl.portable-plan.v1",
+            "dialogues": {},
+            "behaviors": {
+                "beh.bad_cap": {
+                    "kind": "behavior",
+                    "id": "bad_cap",
+                    "stimuli": ["HUMAN_UTTERANCE"],
+                    "requiredCapabilities": [""],
+                    "outputs": {"realization": "realization.missing_ref"},
+                }
+            },
+            "beats": {},
+            "realizations": {
+                "real.bad_slot": {
+                    "kind": "realization",
+                    "id": "bad_slot",
+                    "dialogueAct": "greet",
+                    "slots": {"target": {"type": "string"}},
+                    "translations": {"EN": ["Hello {undeclaredSlot}"], "ES": []},
+                }
+            },
+        }
+        report = analyze_portable_plan(synth_plan)
+        beh_codes = set(report["families"]["beh.bad_cap"]["diagnosticCodes"])
+        self.assertIn("invalid_behavior_capability", beh_codes)
+        self.assertIn("unresolved_behavior_output_reference", beh_codes)
+        real_codes = set(report["families"]["real.bad_slot"]["diagnosticCodes"])
+        self.assertIn("empty_realization_locale", real_codes)
+        self.assertIn("realization_undeclared_slot", real_codes)
+
+        # 2. Live non-dialogue round-trip safety and kind-aware routing
+        service = SemanticLabAuthoringService()
+        try:
+            routed: list[tuple[str, str, str | None]] = []
+            pane = ConvoEngineAuthoringPane(
+                _FakeWidget(),
+                _FakeTk,
+                _FakeTtk,
+                _FakeWidget,
+                _FakeMessageBox(),
+                service,
+                auto_refresh=True,
+                on_open_kind_editor=lambda k, fid, fp, _dc: routed.append((k, fid, fp)),
+            )
+
+            beh_fid = next(i["canonicalID"] for i in pane._families if i["kind"] == "behavior")
+            beat_fid = next(i["canonicalID"] for i in pane._families if i["kind"] == "beat")
+            real_fid = next(i["canonicalID"] for i in pane._families if i["kind"] == "realization")
+
+            # Behavior & Beat: no-op round trip is identical and write_source refuses dialogue mutation
+            for fid, expected_kind, field_path in (
+                (beh_fid, "behavior", f"{beh_fid}.stimuli"),
+                (beat_fid, "beat", f"{beat_fid}.entry"),
+            ):
+                self.assertTrue(pane.select_family(fid))
+                loaded = copy.deepcopy(pane._document)
+                self.assertEqual(pane._form_document(), loaded)
+                w_res = pane.write_source()
+                self.assertFalse(w_res["ok"])
+                self.assertEqual(w_res["reason"], "non_dialogue_kind_route")
+                self.assertTrue(pane.open_family_from_completeness(fid, field_path))
+                self.assertIn((expected_kind, fid, field_path), routed)
+
+            # Realization: no-op round trip is identical, preview validates, and exact fields focus
+            self.assertTrue(pane.select_family(real_fid))
+            loaded_real = copy.deepcopy(pane._document)
+            self.assertEqual(pane._form_document(), loaded_real)
+            prev_real = pane.preview_record()
+            self.assertTrue(prev_real and prev_real["ok"], prev_real)
+            for sub, expected_target in (
+                ("translations", "realization.translations"),
+                ("dialogueAct", "realization.dialogueAct"),
+                ("strategy", "realization.strategy"),
+                ("concept", "realization.concept"),
+            ):
+                self.assertEqual(pane.focus_field(f"{real_fid}.{sub}"), expected_target)
+        finally:
+            service.close()
+
 
 if __name__ == "__main__":
     unittest.main()

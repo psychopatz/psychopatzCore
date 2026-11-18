@@ -169,7 +169,7 @@ class InteractionModulesPane(CatalogActionsMixin, DraftActionsMixin, BehaviorAct
         self._entry(editor, 0, "Situation ID", self.beat_id_var)
         self._entry(editor, 1, "Owner", self.owner_var)
         self._entry(editor, 2, "Group", self.group_var)
-        self._entry(
+        self.stimuli_entry = self._entry(
             editor, 3, "Stimuli (comma-separated)", self.stimuli_var
         )
         self._entry(editor, 4, "Base relevance", self.relevance_var)
@@ -177,6 +177,8 @@ class InteractionModulesPane(CatalogActionsMixin, DraftActionsMixin, BehaviorAct
         self._entry(editor, 6, "Cooldown turns", self.cooldown_var)
 
         predicates = ttk.Notebook(editor)
+        self.predicates_notebook = predicates
+        self.predicate_tab_frames: dict[str, Any] = {}
         predicates.grid(
             row=7, column=0, columnspan=2, sticky="nsew", padx=6, pady=6
         )
@@ -203,6 +205,7 @@ class InteractionModulesPane(CatalogActionsMixin, DraftActionsMixin, BehaviorAct
             raw.grid(row=1, column=0, sticky="nsew", pady=(4, 0))
             raw.bind("<KeyRelease>", lambda _e, n=name: self._refresh_predicate_tree(n))
             self.predicate_widgets[name] = (tree, raw)
+            self.predicate_tab_frames[name] = frame
             predicates.add(frame, text=name.capitalize())
 
         candidate_frame = ttk.LabelFrame(editor, text="Behavior candidates")
@@ -236,6 +239,7 @@ class InteractionModulesPane(CatalogActionsMixin, DraftActionsMixin, BehaviorAct
         details.rowconfigure(0, weight=1)
         details.columnconfigure(0, weight=1)
         tabs = ttk.Notebook(details)
+        self.details_tabs = tabs
         tabs.grid(row=0, column=0, sticky="nsew")
 
         raw_frame = ttk.Frame(tabs, padding=4)
@@ -295,6 +299,7 @@ class InteractionModulesPane(CatalogActionsMixin, DraftActionsMixin, BehaviorAct
             command=self.promote_behavior_canonical,
         )
         self.promote_behavior_button.pack(side="left", padx=(6, 0))
+        self.behavior_frame = behavior_frame
         tabs.add(behavior_frame, text="Behavior structure")
 
         preview_frame = ttk.Frame(tabs, padding=4)
@@ -308,10 +313,106 @@ class InteractionModulesPane(CatalogActionsMixin, DraftActionsMixin, BehaviorAct
 
         body.add(details, weight=2)
 
-    def _entry(self, parent: Any, row: int, label: str, variable: Any) -> None:
+    def _entry(self, parent: Any, row: int, label: str, variable: Any) -> Any:
         self._ttk.Label(parent, text=label).grid(
             row=row, column=0, sticky="w", padx=6, pady=2
         )
-        self._ttk.Entry(parent, textvariable=variable).grid(
-            row=row, column=1, sticky="ew", padx=(0, 6), pady=2
-        )
+        entry = self._ttk.Entry(parent, textvariable=variable)
+        entry.grid(row=row, column=1, sticky="ew", padx=(0, 6), pady=2)
+        return entry
+
+    def _focus_target_widget(self, widget: Any) -> None:
+        if widget is None:
+            return
+        if callable(getattr(widget, "focus_set", None)):
+            try:
+                widget.focus_set()
+            except Exception:
+                pass
+        try:
+            widget.configure(highlightthickness=2, highlightbackground="#d97706")
+        except Exception:
+            pass
+
+    def open_behavior(self, family_id: str, field_path: str | None = None) -> str | None:
+        """Select a behavior in Interaction Modules and focus the affected field."""
+        if callable(getattr(self, "refresh", None)) and not getattr(self, "behaviors", None):
+            try:
+                self.refresh()
+            except Exception:
+                pass
+        behaviors = list(getattr(self, "behaviors", None) or ())
+        target_idx: int | None = None
+        for idx, item in enumerate(behaviors):
+            bid = str(item.get("id") or "")
+            if bid == family_id or family_id.endswith(f".{bid}") or bid.endswith(f".{family_id}"):
+                target_idx = idx
+                break
+        if target_idx is not None:
+            try:
+                self.behavior_list.selection_clear(0, "end")
+            except Exception:
+                pass
+            self.behavior_list.selection_set(target_idx)
+            self._behavior_selected()
+        if callable(getattr(self.details_tabs, "select", None)) and hasattr(self, "behavior_frame"):
+            try:
+                self.details_tabs.select(self.behavior_frame)
+            except Exception:
+                pass
+        raw_field = str(field_path or "")
+        if "stimuli" in raw_field:
+            self._focus_target_widget(self.behavior_text)
+            self._highlighted_field = "behavior.stimuli"
+            return "behavior.stimuli"
+        if "outputs" in raw_field or "act" in raw_field or "references" in raw_field or "requiredCapabilities" in raw_field:
+            self._focus_target_widget(self.behavior_text)
+            self._highlighted_field = "behavior.outputs"
+            return "behavior.outputs"
+        self._focus_target_widget(self.behavior_text)
+        self._highlighted_field = "behavior"
+        return "behavior"
+
+    def open_beat(self, family_id: str, field_path: str | None = None) -> str | None:
+        """Select a beat in Interaction Modules and focus the affected field."""
+        if callable(getattr(self, "refresh", None)) and not getattr(self, "beats", None):
+            try:
+                self.refresh()
+            except Exception:
+                pass
+        beats = list(getattr(self, "beats", None) or ())
+        target_idx: int | None = None
+        for idx, item in enumerate(beats):
+            bid = str(item.get("id") or "")
+            if bid == family_id or family_id.endswith(f".{bid}") or bid.endswith(f".{family_id}"):
+                target_idx = idx
+                break
+        if target_idx is not None:
+            try:
+                self.beat_list.selection_clear(0, "end")
+            except Exception:
+                pass
+            self.beat_list.selection_set(target_idx)
+            self._beat_selected()
+        raw_field = str(field_path or "")
+        for pred_name in ("entry", "maintain", "exit"):
+            if f".{pred_name}" in raw_field or raw_field == pred_name:
+                if callable(getattr(self.predicates_notebook, "select", None)) and pred_name in self.predicate_tab_frames:
+                    try:
+                        self.predicates_notebook.select(self.predicate_tab_frames[pred_name])
+                    except Exception:
+                        pass
+                raw_widget = self.predicate_widgets[pred_name][1]
+                self._focus_target_widget(raw_widget)
+                self._highlighted_field = f"beat.{pred_name}"
+                return f"beat.{pred_name}"
+        if "candidates" in raw_field:
+            self._focus_target_widget(self.candidates_text)
+            self._highlighted_field = "beat.candidates"
+            return "beat.candidates"
+        if "stimuli" in raw_field:
+            self._focus_target_widget(self.stimuli_entry)
+            self._highlighted_field = "beat.stimuli"
+            return "beat.stimuli"
+        self._highlighted_field = "beat"
+        return "beat"

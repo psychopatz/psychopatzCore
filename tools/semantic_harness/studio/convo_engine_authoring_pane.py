@@ -90,6 +90,7 @@ class ConvoEngineAuthoringPane:
         *,
         auto_refresh: bool = True,
         on_preview_in_simulation: Callable[[str | None, dict[str, Any] | None], None] | None = None,
+        on_open_kind_editor: Callable[[str, str, str | None, str | None], Any] | None = None,
     ) -> None:
         self._tk = tk
         self._ttk = ttk
@@ -97,6 +98,7 @@ class ConvoEngineAuthoringPane:
         self._messagebox = messagebox
         self.service = service
         self._on_preview_in_simulation = on_preview_in_simulation
+        self._on_open_kind_editor = on_open_kind_editor
 
         self._field_descriptors = self._load_field_descriptors()
         self._s11_descriptors = self._load_s11_field_descriptors()
@@ -173,6 +175,15 @@ class ConvoEngineAuthoringPane:
         self._loaded_affordance_label = ""
         self._loaded_say_single = ""
         self._loaded_execute_action = ""
+
+        self._real_act_var = tk.StringVar()
+        self._real_strategy_var = tk.StringVar()
+        self._real_concept_var = tk.StringVar()
+        self._loaded_real_act = ""
+        self._loaded_real_strategy = ""
+        self._loaded_real_concept = ""
+        self._loaded_real_translations: Any = None
+        self._real_widgets: dict[str, Any] = {}
 
         self._build_toolbar()
         self._build_body()
@@ -408,6 +419,7 @@ class ConvoEngineAuthoringPane:
         # Single normal editing path for dialogue concepts
         normal = ttk.LabelFrame(structured, text="Conversation turn")
         normal.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        self._dialogue_normal_frame = normal
         normal.columnconfigure(1, weight=1)
         normal.columnconfigure(3, weight=1)
 
@@ -516,6 +528,45 @@ class ConvoEngineAuthoringPane:
             self._editors[name] = editor
             self._editor_boxes[name] = box
         self._set_visible(self._advanced_schema_frame, False)
+
+        # Kind-specific realization panel (shown only when kind == "realization")
+        real_panel = ttk.LabelFrame(structured, text="Realization authoring")
+        real_panel.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        real_panel.columnconfigure(1, weight=1)
+        real_panel.columnconfigure(3, weight=1)
+        self._real_widgets["realization.dialogueAct"] = self._entry(
+            real_panel, 0, 0, "Dialogue act", self._real_act_var
+        )
+        self._real_widgets["realization.strategy"] = self._entry(
+            real_panel, 0, 2, "Strategy", self._real_strategy_var
+        )
+        self._real_widgets["realization.concept"] = self._entry(
+            real_panel, 1, 0, "Concept", self._real_concept_var
+        )
+        ttk.Label(real_panel, text="Translations JSON").grid(row=2, column=0, sticky="nw", padx=4, pady=2)
+        self._real_translations_editor = self._ScrolledText(real_panel, height=6, wrap="none")
+        self._real_translations_editor.grid(row=2, column=1, columnspan=3, sticky="nsew", padx=(0, 5), pady=2)
+        self._real_widgets["realization.translations"] = self._real_translations_editor
+        self._realization_panel = real_panel
+        self._set_visible(self._realization_panel, False)
+
+        # Non-dialogue routing notice for behavior / beat (read-only here)
+        route_panel = ttk.LabelFrame(structured, text="Kind-specific editor required")
+        route_panel.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        route_panel.columnconfigure(0, weight=1)
+        self._non_dialogue_route_var = self._tk.StringVar(
+            value="Behavior and Beat families are authored in Interaction Modules (read-only here)."
+        )
+        ttk.Label(route_panel, textvariable=self._non_dialogue_route_var).grid(
+            row=0, column=0, sticky="w", padx=6, pady=4
+        )
+        ttk.Button(
+            route_panel,
+            text="Open in Interaction Modules",
+            command=self.open_in_kind_editor,
+        ).grid(row=0, column=1, padx=6, pady=4)
+        self._non_dialogue_route_panel = route_panel
+        self._set_visible(self._non_dialogue_route_panel, False)
 
     def _build_state_and_flow_tab(self, s11_controls: Any) -> None:
         ttk = self._ttk
@@ -866,6 +917,14 @@ class ConvoEngineAuthoringPane:
     ) -> str | None:
         """Map a diagnostic path/code to the exact canonical editor control name."""
         known_fields = (
+            "behavior.stimuli",
+            "behavior.outputs",
+            "beat.entry",
+            "beat.candidates",
+            "realization.translations",
+            "realization.dialogueAct",
+            "realization.strategy",
+            "realization.concept",
             "statePolicy",
             "inputPolicy",
             "repeatPolicy",
@@ -889,6 +948,20 @@ class ConvoEngineAuthoringPane:
         for name in known_fields:
             if f".{name}" in raw or raw == name or raw.startswith(f"{name}.") or raw.startswith(f"{name}["):
                 return name
+        non_dialogue_subfields = (
+            ("stimuli", "behavior.stimuli"),
+            ("outputs", "behavior.outputs"),
+            ("requiredCapabilities", "behavior.outputs"),
+            ("entry", "beat.entry"),
+            ("candidates", "beat.candidates"),
+            ("translations", "realization.translations"),
+            ("dialogueAct", "realization.dialogueAct"),
+            ("strategy", "realization.strategy"),
+            ("concept", "realization.concept"),
+        )
+        for sub, mapped in non_dialogue_subfields:
+            if f".{sub}" in raw or raw == sub or raw.startswith(f"{sub}."):
+                return mapped
         code_map = {
             "stale_poststate_risk": "statePolicy",
             "unhandled_state_outcome": "statePolicy",
@@ -903,8 +976,36 @@ class ConvoEngineAuthoringPane:
             "role_unbound": "roles",
             "role_cardinality_mismatch": "roles",
             "unbounded_group_reaction": "participantSet",
+            "missing_behavior_stimuli": "behavior.stimuli",
+            "missing_behavior_outputs": "behavior.outputs",
+            "invalid_behavior_capability": "behavior.outputs",
+            "unresolved_behavior_output_reference": "behavior.outputs",
+            "missing_beat_entry": "beat.entry",
+            "unresolved_beat_candidate": "beat.candidates",
+            "missing_en_realization": "realization.translations",
+            "empty_realization_locale": "realization.translations",
+            "realization_undeclared_slot": "realization.translations",
+            "missing_realization_binding": "realization.dialogueAct",
         }
         return code_map.get(str(diag_code or ""))
+
+    def open_in_kind_editor(
+        self,
+        field_path: str | None = None,
+        diag_code: str | None = None,
+    ) -> Any:
+        """Route the current family to its kind-specific editor surface."""
+        fid = self._current_family_id
+        if not fid:
+            return None
+        kind = str((self._document or {}).get("kind") or (self._current_entry or {}).get("kind") or "dialogue")
+        if callable(self._on_open_kind_editor):
+            return self._on_open_kind_editor(kind, fid, field_path, diag_code)
+        target_field = self.resolve_target_field(field_path, diag_code)
+        self._status_var.set(
+            f"{kind.capitalize()} {fid} routes to Interaction Modules ({target_field or kind})"
+        )
+        return target_field
 
     def focus_field(
         self,
@@ -930,7 +1031,8 @@ class ConvoEngineAuthoringPane:
             self._set_visible(self._advanced_schema_frame, True)
 
         widget = (
-            self._s11_scalar_widgets.get(field_name)
+            self._real_widgets.get(field_name)
+            or self._s11_scalar_widgets.get(field_name)
             or self._normal_widgets.get(field_name)
             or self._editors.get(field_name)
         )
@@ -955,9 +1057,18 @@ class ConvoEngineAuthoringPane:
         field_path: str | None = None,
         diag_code: str | None = None,
     ) -> bool:
-        """Select a canonical family in the authoring form and focus the affected field."""
+        """Select a canonical family and route/focus the kind-appropriate editor & field."""
         if not self.select_family_from_completeness(family_id):
             return False
+        kind = str((self._document or {}).get("kind") or (self._current_entry or {}).get("kind") or "dialogue")
+        if kind in ("behavior", "beat"):
+            if callable(self._on_open_kind_editor):
+                self._on_open_kind_editor(kind, family_id, field_path, diag_code)
+            target = self.resolve_target_field(field_path, diag_code)
+            if target:
+                self._highlighted_field = target
+            self._status_var.set(f"Routed {kind} {family_id} to Interaction Modules ({target or kind})")
+            return True
         self.focus_field(field_path, diag_code)
         return True
 
@@ -1032,7 +1143,7 @@ class ConvoEngineAuthoringPane:
         ns = doc.get("namespace") or ""
         fid = str(doc.get("id") or "")
         canonical_id = f"{ns}.{fid}" if ns else fid
-        kind = str(doc.get("kind") or "dialogue")
+        kind = str(doc.get("kind") or (self._current_entry or {}).get("kind") or "dialogue")
         owner = str(doc.get("owner") or (self._current_entry or {}).get("owner") or "")
         source_path = str((self._current_entry or {}).get("sourcePath") or "")
 
@@ -1129,10 +1240,74 @@ class ConvoEngineAuthoringPane:
         self._advanced_s11_visible = has_advanced_s11
         self._set_visible(self._advanced_s11_frame, has_advanced_s11)
 
+        # Kind-specific surface switching (non-dialogue safety)
+        is_dialogue = kind == "dialogue"
+        is_realization = kind == "realization"
+        is_beh_or_beat = kind in ("behavior", "beat")
+        self._set_visible(self._dialogue_normal_frame, is_dialogue)
+        self._set_visible(self._realization_panel, is_realization)
+        self._set_visible(self._non_dialogue_route_panel, is_beh_or_beat)
+        if is_beh_or_beat:
+            self._non_dialogue_route_var.set(
+                f"{kind.capitalize()} {canonical_id} is authored in Interaction Modules (read-only here)."
+            )
+        if is_realization:
+            act = str(doc.get("dialogueAct") or "")
+            strat = str(doc.get("strategy") or "")
+            conc = str(doc.get("concept") or "")
+            self._real_act_var.set(act)
+            self._real_strategy_var.set(strat)
+            self._real_concept_var.set(conc)
+            self._loaded_real_act = act
+            self._loaded_real_strategy = strat
+            self._loaded_real_concept = conc
+            trans = doc.get("translations")
+            self._loaded_real_translations = copy.deepcopy(trans)
+            self._real_translations_editor.delete("1.0", "end")
+            if trans is not None:
+                self._real_translations_editor.insert("1.0", self._pretty(trans))
+
     def _form_document(self) -> dict[str, Any]:
         if self._document is None:
             raise ValueError("Select or create a ConvoEngine family first")
         doc = copy.deepcopy(self._document)
+        kind = str(
+            doc.get("kind")
+            or (self._current_entry or {}).get("kind")
+            or self._kind_var.get().strip()
+            or "dialogue"
+        )
+        if kind in ("behavior", "beat"):
+            # Non-dialogue safety: never mutate behavior/beat via dialogue form
+            return doc
+        if kind == "realization":
+            act = self._real_act_var.get().strip()
+            if act != self._loaded_real_act:
+                if act:
+                    doc["dialogueAct"] = act
+                else:
+                    doc.pop("dialogueAct", None)
+            strat = self._real_strategy_var.get().strip()
+            if strat != self._loaded_real_strategy:
+                if strat:
+                    doc["strategy"] = strat
+                else:
+                    doc.pop("strategy", None)
+            conc = self._real_concept_var.get().strip()
+            if conc != self._loaded_real_concept:
+                if conc:
+                    doc["concept"] = conc
+                else:
+                    doc.pop("concept", None)
+            raw_trans = self._real_translations_editor.get("1.0", "end").strip()
+            parsed_trans = json.loads(raw_trans) if raw_trans else None
+            if parsed_trans != self._loaded_real_translations:
+                if parsed_trans is None:
+                    doc.pop("translations", None)
+                else:
+                    doc["translations"] = parsed_trans
+            return doc
+
         doc["schema"] = "psychopatz.convo-engine.v1"
         doc["kind"] = self._kind_var.get().strip() or "dialogue"
         ns = self._namespace_var.get().strip()
@@ -1319,6 +1494,41 @@ class ConvoEngineAuthoringPane:
     def preview_record(self) -> dict[str, Any] | None:
         try:
             doc = self._form_document()
+            kind = str(doc.get("kind") or "dialogue")
+            if kind in ("behavior", "beat"):
+                report = {
+                    "ok": False,
+                    "reason": "non_dialogue_kind_route",
+                    "kind": kind,
+                    "diagnostics": [
+                        {
+                            "severity": "info",
+                            "message": f"{kind.capitalize()} families are validated and edited in Interaction Modules.",
+                        }
+                    ],
+                }
+                self._set_report(report)
+                self._status_var.set(f"{kind.capitalize()} must be edited in Interaction Modules")
+                return report
+            if kind == "realization":
+                existing_path = (self._current_entry or {}).get("sourcePath")
+                report = self.service.dispatch_operation(
+                    "convo.change.preview",
+                    {
+                        "operation": "write" if existing_path else "create",
+                        "target": existing_path,
+                        "requestedOwner": doc.get("owner"),
+                        "document": doc,
+                        "allowLegacySchema": False,
+                    },
+                )
+                self._set_report(report)
+                self._status_var.set(
+                    "Validated canonical Realization record"
+                    if report.get("ok") is True
+                    else "Realization validation rejected"
+                )
+                return report
             report = self.service.dispatch_operation(
                 "convo.simulate",
                 {
@@ -1349,6 +1559,22 @@ class ConvoEngineAuthoringPane:
     def write_source(self) -> dict[str, Any]:
         if self._document is None:
             return {"ok": False, "writes": [], "reason": "no_family"}
+        cur_kind = str(
+            self._document.get("kind")
+            or (self._current_entry or {}).get("kind")
+            or self._kind_var.get().strip()
+            or "dialogue"
+        )
+        if cur_kind in ("behavior", "beat"):
+            res = {
+                "ok": False,
+                "writes": [],
+                "reason": "non_dialogue_kind_route",
+                "message": f"{cur_kind.capitalize()} families must be edited in Interaction Modules",
+            }
+            self._set_report(res)
+            self._status_var.set(res["message"])
+            return res
         report = self.preview_record()
         if not report or report.get("ok") is not True:
             return report or {"ok": False, "writes": []}
