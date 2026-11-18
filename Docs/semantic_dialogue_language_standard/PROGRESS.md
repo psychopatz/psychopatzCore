@@ -1,18 +1,23 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S12 ConvoEngine v1 Dynamic Dataset Modernization is active.
+**Status:** COMPLETE — S12 ConvoEngine v1 Dynamic Dataset Modernization closed (`S12A -> S12B -> S12C -> S12D -> S12E -> S12F`).
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12E — DynamicTrading / DTCommon dataset modernization.
-**Immediate Next Chunk:** S12E — modernize DTCommon-owned trading families with typed roles, slots, and composition hooks.
-**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true` (classified batches only; S12B inventory accepted).
+**Active phase:** S12F — complete.
+**Immediate Next Chunk:** None (developer-side S12 closure complete; ready for any future Dialogue Director consumer work).
+**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true` (S12 dataset modernization closed).
 
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   S12D docs commit: self (base 7db9e31)
-ProjectHoomans   S12D commit (just committed)
-DynamicTrading   f9c8e60f
+psychopatzCore   S12F closure commit: self (base 38aa131)
+ProjectHoomans   ebbf113d5acbaf505f2c157d9c0a24454ba212b7
+DynamicTrading   2b0c3cb5b2371aff1a5837361f44916fda59d081
 ~~~
+
+## S12E–S12F completed
+
+- **S12E:** Modernized all 11 `DTCommon` trading dialogue families via CodeBuilder (`convo.change.apply`) with typed `roles`, `slots` (`location`, `subject`, `item`), and discoverable `TopicRef`/`DomainRef` hooks; verified `dynamic_trading` (`89/89`) and `convo_audit` (`1/1`).
+- **S12F:** Verified `audit-integrity --check-determinism` (`587` families, `408` generated files, `0` diffs, `0` violations, `0` split-authority findings, `0` legacy-name violations), `modernization-inventory` (`587/587` classified, `0` unknown ownership), `reconcile --check` clean, and two consecutive 9-suite canonical acceptance runs (`9/9` suites, `cases=2145/2174`, `convoScopeOk=True` both times). Fixed `_advanced_s11_visible` progressive-disclosure default in `convo_engine_authoring_pane.py`.
 
 ## S12D completed
 

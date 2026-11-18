@@ -1243,9 +1243,7 @@ class ConvoEngineAuthoringPane:
             val = doc.get(name)
             self._s11_scalar_vars[name].set("" if val is None else str(val))
 
-        has_advanced_s11 = any(doc.get(name) for name in _S11_ADVANCED_NAMES)
-        self._advanced_s11_visible = has_advanced_s11
-        self._set_visible(self._advanced_s11_frame, has_advanced_s11)
+        self._set_visible(self._advanced_s11_frame, self._advanced_s11_visible)
 
         # Kind-specific surface switching (non-dialogue safety)
         is_dialogue = kind == "dialogue"
