@@ -157,12 +157,29 @@ def _resolve_acceptance_source(source: str, roots: Mapping[str, Path]) -> Path |
     return None
 
 
-def _extract_test_texts(
+def _parse_docstring_audit_claims(docstring: str | None) -> set[str]:
+    if not docstring:
+        return set()
+    claims: set[str] = set()
+    for line in docstring.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("auditClaims:"):
+            raw_val = stripped[len("auditClaims:"):].strip()
+            if raw_val.startswith("["):
+                parsed = json.loads(raw_val)
+                if isinstance(parsed, list):
+                    claims.update(str(item).strip() for item in parsed if str(item).strip())
+            else:
+                claims.update(part.strip() for part in raw_val.split(",") if part.strip())
+    return claims
+
+
+def _extract_test_claims(
     owner_kind: str, source_path: Path, test_ids: list[str]
-) -> tuple[dict[str, str], list[str]]:
-    """Return {test_id: searchable_text} and list of missing test_ids."""
+) -> tuple[dict[str, set[str]], list[str]]:
+    """Return {test_id: explicit_audit_claims} and list of missing test_ids."""
     raw = source_path.read_text(encoding="utf-8")
-    found: dict[str, str] = {}
+    found: dict[str, set[str]] = {}
     if owner_kind == "declarative_fixture":
         data = json.loads(raw)
         cases = {
@@ -176,26 +193,44 @@ def _extract_test_texts(
             if case is None:
                 missing.append(tid)
             else:
-                found[tid] = json.dumps(case, sort_keys=True).lower()
+                raw_claims = case.get("auditClaims")
+                if isinstance(raw_claims, list):
+                    found[tid] = {str(c).strip() for c in raw_claims if str(c).strip()}
+                else:
+                    found[tid] = set()
         return found, missing
     if owner_kind == "python_test":
         tree = ast.parse(raw)
-        methods: dict[str, str] = {}
+        methods: dict[str, set[str]] = {}
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef) and node.name.startswith("test_"):
-                segment = ast.get_source_segment(raw, node) or node.name
-                methods[node.name] = segment.lower()
+                methods[node.name] = _parse_docstring_audit_claims(ast.get_docstring(node))
         missing = [tid for tid in test_ids if tid not in methods]
         for tid in test_ids:
             if tid in methods:
                 found[tid] = methods[tid]
         return found, missing
     if owner_kind == "lua_test":
-        lowered = raw.lower()
+        marker_claims: dict[str, set[str]] = {}
+        for line in raw.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("-- @auditClaims "):
+                rest = stripped[len("-- @auditClaims "):].strip()
+                if ":" in rest:
+                    target_id, raw_val = rest.split(":", 1)
+                    target_id = target_id.strip()
+                    raw_val = raw_val.strip()
+                    claims_set = marker_claims.setdefault(target_id, set())
+                    if raw_val.startswith("["):
+                        parsed = json.loads(raw_val)
+                        if isinstance(parsed, list):
+                            claims_set.update(str(item).strip() for item in parsed if str(item).strip())
+                    else:
+                        claims_set.update(part.strip() for part in raw_val.split(",") if part.strip())
         missing = [tid for tid in test_ids if tid not in raw]
         for tid in test_ids:
             if tid in raw:
-                found[tid] = lowered
+                found[tid] = set(marker_claims.get(tid, set()))
         return found, missing
     return {}, list(test_ids)
 
@@ -264,7 +299,7 @@ def _validate_acceptance_ownership(
             )
         )
         return
-    found_texts, missing_ids = _extract_test_texts(owner_kind, source_path, test_ids)
+    found_claims, missing_ids = _extract_test_claims(owner_kind, source_path, test_ids)
     for missing_id in missing_ids:
         diagnostics.append(
             CompletenessDiagnostic(
@@ -299,24 +334,34 @@ def _validate_acceptance_ownership(
                     repair_hint="Cover all requiredClaims declared in S11_BRANCHING_AUDIT_INVENTORY.json.",
                 )
             )
-        keywords = [
-            str(kw).strip().lower()
-            for kw in (audit_entry.get("claimKeywords") or [])
-            if str(kw).strip()
-        ]
-        if keywords and found_texts:
-            combined = "\n".join(found_texts.values())
-            if not any(kw in combined for kw in keywords):
+        if not missing_ids:
+            owned_claims: set[str] = set()
+            for tid in test_ids:
+                owned_claims.update(found_claims.get(tid, set()))
+            if not owned_claims:
                 diagnostics.append(
                     CompletenessDiagnostic(
-                        code="acceptance_claim_mismatch",
+                        code="missing_owner_audit_claims",
                         severity="error",
                         family_id=str(fid or aid),
                         path=f"manifest.entries[{idx}].acceptance",
-                        message=f"Referenced tests {test_ids} in {source!r} do not claim any of {keywords} for {aid!r}",
-                        repair_hint="Bind the actual test/fixture that verifies this audit row.",
+                        message=f"Exact test owner(s) {test_ids} in {source!r} declare no explicit auditClaims for {aid!r}",
+                        repair_hint="Declare explicit auditClaims on the exact fixture case, Python test docstring, or Lua @auditClaims marker.",
                     )
                 )
+            else:
+                uncovered = sorted(needed_claims - owned_claims)
+                if uncovered:
+                    diagnostics.append(
+                        CompletenessDiagnostic(
+                            code="acceptance_claim_mismatch",
+                            severity="error",
+                            family_id=str(fid or aid),
+                            path=f"manifest.entries[{idx}].acceptance",
+                            message=f"Exact test owner(s) {test_ids} in {source!r} do not own required claims {uncovered} (owned={sorted(owned_claims)}) for {aid!r}",
+                            repair_hint="Declare the required auditClaims on the exact test/case that verifies them.",
+                        )
+                    )
 
 
 def _validate_constrained_manifest(

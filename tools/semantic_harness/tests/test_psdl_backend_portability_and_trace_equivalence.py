@@ -191,6 +191,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
                 )
 
     def test_executed_reference_vm_vs_lua_convo_probe_equivalence(self) -> None:
+        """auditClaims: ["backend_portability_and_repair_equivalence"]"""
         # 1. Exact profanity + beat.argument_escalation + behavior.retaliate_verbally
         vm = PortableReferenceVM(self.portable_plan)
         hostile_ctx = {

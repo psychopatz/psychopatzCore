@@ -321,7 +321,7 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
         self.assertFalse(rep_bad_tid["ok"])
         self.assertIn("missing_acceptance_test_id", {d["code"] for d in rep_bad_tid["diagnostics"]})
 
-        # 5. Owner exists and testId exists, but does not claim required behavior
+        # 5. Owner exists and testId exists with keyword in prose, but declares no auditClaims -> fails
         mismatch_manifest = deepcopy(base_manifest)
         for entry in mismatch_manifest["entries"]:
             if entry["auditId"] == "audit.root.disband":
@@ -331,14 +331,69 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
                     "testIds": ["test_live_coverage_generates_follow_and_stay_from_one_template"],
                     "requiredClaims": ["confirmation_modal_required", "no_unconfirmed_destructive_dispatch"],
                 }
-        rep_mismatch = analyze_portable_plan(
+        rep_no_claims = analyze_portable_plan(
             plan,
             constrained_manifest=mismatch_manifest,
             strict_manifest=True,
             audit_inventory=base_inventory,
         )
-        self.assertFalse(rep_mismatch["ok"])
-        self.assertIn("acceptance_claim_mismatch", {d["code"] for d in rep_mismatch["diagnostics"]})
+        self.assertFalse(rep_no_claims["ok"])
+        self.assertIn("missing_owner_audit_claims", {d["code"] for d in rep_no_claims["diagnostics"]})
+
+        # 6. Owner declares wrong claim while manifest repeats requiredClaims -> fails with acceptance_claim_mismatch
+        wrong_claim_manifest = deepcopy(base_manifest)
+        for entry in wrong_claim_manifest["entries"]:
+            if entry["auditId"] == "audit.root.disband":
+                entry["acceptance"] = {
+                    "ownerKind": "python_test",
+                    "source": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py",
+                    "testIds": ["test_all_dispatchable_registered_capabilities_use_existing_handlers"],
+                    "requiredClaims": ["confirmation_modal_required", "no_unconfirmed_destructive_dispatch"],
+                }
+        rep_wrong_claim = analyze_portable_plan(
+            plan,
+            constrained_manifest=wrong_claim_manifest,
+            strict_manifest=True,
+            audit_inventory=base_inventory,
+        )
+        self.assertFalse(rep_wrong_claim["ok"])
+        self.assertIn("acceptance_claim_mismatch", {d["code"] for d in rep_wrong_claim["diagnostics"]})
+
+        # 7. Lua file contains keyword & claim on OTHER testId, but selected testId lacks claim -> fails
+        import tempfile
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_root = Path(tmpdir)
+            lua_file = tmp_root / "lua_smoke.lua"
+            lua_file.write_text(
+                '-- @auditClaims other_test: ["settlement_ambient_admission_boundary"]\n'
+                '-- settlement keyword appears here\n'
+                'local function selected_test() return true end\n',
+                encoding="utf-8",
+            )
+            lua_manifest = deepcopy(base_manifest)
+            for entry in lua_manifest["entries"]:
+                if entry["auditId"] == "audit.root.settlement_admission":
+                    entry["acceptance"] = {
+                        "ownerKind": "lua_test",
+                        "source": "TmpRepo/lua_smoke.lua",
+                        "testIds": ["selected_test"],
+                        "requiredClaims": ["settlement_ambient_admission_boundary"],
+                    }
+            rep_lua_scope = analyze_portable_plan(
+                plan,
+                constrained_manifest=lua_manifest,
+                strict_manifest=True,
+                audit_inventory=base_inventory,
+                workspace_roots={
+                    "PsychopatzCore": core_root,
+                    "ProjectHoomans": core_root.parent / "ProjectHoomans",
+                    "DTCommon": core_root.parent / "DynamicTrading",
+                    "TmpRepo": tmp_root,
+                },
+            )
+            self.assertFalse(rep_lua_scope["ok"])
+            self.assertIn("missing_owner_audit_claims", {d["code"] for d in rep_lua_scope["diagnostics"]})
 
 
 if __name__ == "__main__":
