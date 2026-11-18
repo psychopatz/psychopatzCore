@@ -111,7 +111,7 @@
       "auditId": "audit.root.recruitment",
       "canonicalFamilyId": "social.recruitment.offer",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R3",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Recruitment transition (not_member -> actionable -> member -> already_member no-op + refresh).",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -120,7 +120,7 @@
       "auditId": "audit.root.relationship_proposal",
       "canonicalFamilyId": "social.relationship.proposal",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R3",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Relationship proposal transition (actionable -> accepted -> refresh -> repeat no-op).",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -136,7 +136,7 @@
       "auditId": "audit.root.hostile_ceasefire",
       "canonicalFamilyId": "social.parley.ceasefire",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R3",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Hostile ceasefire/parley typed policy and post-success fresh projection.",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -145,7 +145,7 @@
       "auditId": "audit.root.set_territory",
       "canonicalFamilyId": "social.territory.set",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R3",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Set-territory typed policy and fresh state projection.",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -168,7 +168,7 @@
       "auditId": "audit.offer.effectful_social",
       "canonicalFamilyId": "social.effectful.wellbeing_trust",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R3",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Effectful wellbeing/trust/affinity repeat semantics preventing reward farming.",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"

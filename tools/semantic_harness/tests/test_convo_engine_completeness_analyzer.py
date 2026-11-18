@@ -223,7 +223,7 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
         self.assertFalse(report_unmigrated["ok"])
         self.assertIn("missing_required_state_policy", {d["code"] for d in report_unmigrated["diagnostics"]})
 
-        # 3. Real 3-repo manifest passes for currently accepted entries, and fails under strict_manifest until R2/R3 complete
+        # 3. Real 3-repo manifest passes under both normal and strict_manifest=True
         core_root = Path(__file__).resolve().parents[3]
         model = compile_conversation_sources(
             core_root,
@@ -237,7 +237,7 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
         r0_report = analyze_portable_plan(model["portablePlan"], constrained_manifest=real_manifest, strict_manifest=False)
         self.assertTrue(r0_report["ok"], r0_report)
         strict_report = analyze_portable_plan(model["portablePlan"], constrained_manifest=real_manifest, strict_manifest=True)
-        self.assertFalse(strict_report["ok"])
+        self.assertTrue(strict_report["ok"], strict_report)
 
 
 if __name__ == "__main__":
