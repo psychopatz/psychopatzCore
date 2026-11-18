@@ -5,6 +5,18 @@ return {
         ["baseRelevance"] = 0.8,
         ["domain"] = "social",
         ["domainPath"] = "social/world_events",
+        ["domains"] = {
+            {
+                ["domain"] = "world_event",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
+        ["events"] = {
+            {
+                ["id"] = "world_event",
+                ["kind"] = "world_event",
+            },
+        },
         ["id"] = "behavior.world_event_warn",
         ["mode"] = "one_shot",
         ["modifiers"] = {

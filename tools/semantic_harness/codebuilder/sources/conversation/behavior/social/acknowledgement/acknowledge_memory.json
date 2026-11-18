@@ -33,5 +33,17 @@
   "stimuli": [
     "NPC_SEMANTIC_ACT"
   ],
-  "when": "stimulus.semantic.intent == \"SHARE_MEMORY\""
+  "when": "stimulus.semantic.intent == \"SHARE_MEMORY\"",
+  "memories": [
+    {
+      "id": "shared_memory",
+      "kind": "episodic"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "memory",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

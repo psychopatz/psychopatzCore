@@ -5,6 +5,12 @@ return {
         ["baseRelevance"] = 0.5,
         ["domain"] = "social",
         ["domainPath"] = "social/conflict",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.challenge",
         ["mode"] = "beat",
         ["modifiers"] = {
@@ -32,6 +38,12 @@ return {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
         },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "conflict",
+            },
+        },
         ["version"] = 1,
         ["when"] = {
             ["op"] = "in",
@@ -47,6 +59,12 @@ return {
         ["baseRelevance"] = 0.55,
         ["domain"] = "social",
         ["domainPath"] = "social/conflict",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.retaliate_verbally",
         ["mode"] = "beat",
         ["modifiers"] = {
@@ -83,6 +101,12 @@ return {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
         },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "conflict",
+            },
+        },
         ["version"] = 1,
         ["when"] = {
             ["op"] = "in",
@@ -99,6 +123,12 @@ return {
         ["baseRelevance"] = 0.65,
         ["domain"] = "social",
         ["domainPath"] = "social/conflict",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.warn",
         ["mode"] = "beat",
         ["modifiers"] = {
@@ -134,6 +164,12 @@ return {
         ["stimuli"] = {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
+        },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "conflict",
+            },
         },
         ["version"] = 1,
         ["when"] = {

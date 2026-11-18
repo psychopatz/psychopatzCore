@@ -16,5 +16,17 @@
     "op": "falsy",
     "path": "scene.ended"
   },
-  "maxTurns": 3
+  "maxTurns": 3,
+  "topics": [
+    {
+      "id": "first_contact",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

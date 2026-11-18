@@ -22,5 +22,8 @@
       "dialogueAct": "END_CONVERSATION"
     }
   },
-  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"] || stimulus.semantic.intent == \"APOLOGIZE\" || world.immediateDanger"
+  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"] || stimulus.semantic.intent == \"APOLOGIZE\" || world.immediateDanger",
+  "metadata": {
+    "compositionHooksNotApplicableReason": "Domain-agnostic conversation closing strategy"
+  }
 }

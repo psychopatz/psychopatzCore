@@ -18,5 +18,17 @@
   "stimuli": [
     "NPC_SEMANTIC_ACT"
   ],
-  "when": "stimulus.semantic.intent == \"SHARE_NEWS\""
+  "when": "stimulus.semantic.intent == \"SHARE_NEWS\"",
+  "topics": [
+    {
+      "id": "news",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

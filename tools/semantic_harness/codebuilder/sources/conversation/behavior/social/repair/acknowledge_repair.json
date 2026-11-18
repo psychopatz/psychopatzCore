@@ -18,5 +18,17 @@
     "HUMAN_UTTERANCE",
     "NPC_SEMANTIC_ACT"
   ],
-  "when": "pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"repair\""
+  "when": "pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"repair\"",
+  "topics": [
+    {
+      "id": "repair",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

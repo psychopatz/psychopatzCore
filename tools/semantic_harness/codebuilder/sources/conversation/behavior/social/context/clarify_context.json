@@ -18,5 +18,8 @@
     "HUMAN_UTTERANCE",
     "NPC_SEMANTIC_ACT"
   ],
-  "when": "pragmatic.contextualAdmission.status == \"unresolved\" || pragmatic.contextualAdmission.status == \"ambiguous\""
+  "when": "pragmatic.contextualAdmission.status == \"unresolved\" || pragmatic.contextualAdmission.status == \"ambiguous\"",
+  "metadata": {
+    "compositionHooksNotApplicableReason": "Domain-agnostic conversational context clarification strategy"
+  }
 }

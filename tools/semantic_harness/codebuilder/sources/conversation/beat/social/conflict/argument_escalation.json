@@ -14,5 +14,17 @@
   "exit": "stimulus.semantic.intent == \"APOLOGIZE\" || scene.ended || beat.turnsInBeat >= 6 || world.immediateDanger",
   "group": "beat_group.social_primary",
   "maintain": "history.hostilityCount > 0",
-  "maxTurns": 6
+  "maxTurns": 6,
+  "topics": [
+    {
+      "id": "conflict",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

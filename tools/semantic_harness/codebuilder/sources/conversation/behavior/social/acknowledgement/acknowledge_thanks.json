@@ -24,5 +24,8 @@
     "HUMAN_UTTERANCE",
     "NPC_SEMANTIC_ACT"
   ],
-  "when": "stimulus.semantic.intent == \"THANK\" && pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"gratitude\""
+  "when": "stimulus.semantic.intent == \"THANK\" && pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"gratitude\"",
+  "metadata": {
+    "compositionHooksNotApplicableReason": "Domain-agnostic gratitude acknowledgement strategy"
+  }
 }

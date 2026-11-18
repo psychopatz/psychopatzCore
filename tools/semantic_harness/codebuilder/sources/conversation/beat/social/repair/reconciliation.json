@@ -16,5 +16,17 @@
     "op": "falsy",
     "path": "scene.ended"
   },
-  "maxTurns": 2
+  "maxTurns": 2,
+  "topics": [
+    {
+      "id": "repair",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

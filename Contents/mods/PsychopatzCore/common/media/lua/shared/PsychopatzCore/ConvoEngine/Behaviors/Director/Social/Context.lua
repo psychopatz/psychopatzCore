@@ -5,7 +5,19 @@ return {
         ["baseRelevance"] = 0.45,
         ["domain"] = "social",
         ["domainPath"] = "social/context",
+        ["domains"] = {
+            {
+                ["domain"] = "memory",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.ask_memory_followup",
+        ["memories"] = {
+            {
+                ["id"] = "shared_memory",
+                ["kind"] = "episodic",
+            },
+        },
         ["mode"] = "one_shot",
         ["modifiers"] = {
             {
@@ -53,6 +65,9 @@ return {
         ["domain"] = "social",
         ["domainPath"] = "social/context",
         ["id"] = "behavior.clarify_context",
+        ["metadata"] = {
+            ["compositionHooksNotApplicableReason"] = "Domain-agnostic conversational context clarification strategy",
+        },
         ["mode"] = "one_shot",
         ["modifiers"] = {
         },

@@ -5,6 +5,12 @@ return {
         ["baseRelevance"] = 0.55,
         ["domain"] = "social",
         ["domainPath"] = "social/repair",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.acknowledge_repair",
         ["mode"] = "one_shot",
         ["modifiers"] = {
@@ -22,6 +28,12 @@ return {
         ["stimuli"] = {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
+        },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "repair",
+            },
         },
         ["version"] = 1,
         ["when"] = {
@@ -43,6 +55,12 @@ return {
         ["baseRelevance"] = 0.35,
         ["domain"] = "social",
         ["domainPath"] = "social/repair",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.deescalate",
         ["mode"] = "beat",
         ["modifiers"] = {
@@ -78,6 +96,12 @@ return {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
         },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "repair",
+            },
+        },
         ["version"] = 1,
         ["when"] = {
             ["any"] = {
@@ -103,6 +127,9 @@ return {
         ["domain"] = "social",
         ["domainPath"] = "social/repair",
         ["id"] = "behavior.end_conversation",
+        ["metadata"] = {
+            ["compositionHooksNotApplicableReason"] = "Domain-agnostic conversation closing strategy",
+        },
         ["mode"] = "beat",
         ["modifiers"] = {
             {
@@ -166,6 +193,12 @@ return {
         ["baseRelevance"] = 0.6,
         ["domain"] = "social",
         ["domainPath"] = "social/repair",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.reconcile",
         ["mode"] = "beat",
         ["modifiers"] = {
@@ -201,6 +234,12 @@ return {
         ["stimuli"] = {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
+        },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "repair",
+            },
         },
         ["version"] = 1,
         ["when"] = {

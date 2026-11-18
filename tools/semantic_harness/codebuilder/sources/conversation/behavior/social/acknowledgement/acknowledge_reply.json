@@ -18,5 +18,8 @@
     "HUMAN_UTTERANCE",
     "NPC_SEMANTIC_ACT"
   ],
-  "when": "pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"response\""
+  "when": "pragmatic.contextualAdmission.admitted && pragmatic.contextualAdmission.selected.relation == \"response\"",
+  "metadata": {
+    "compositionHooksNotApplicableReason": "Domain-agnostic conversational reply acknowledgement strategy"
+  }
 }

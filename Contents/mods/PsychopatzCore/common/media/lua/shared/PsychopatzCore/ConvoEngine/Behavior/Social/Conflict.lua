@@ -27,6 +27,12 @@ return {
         ["payload"] = {
             ["act"] = "CHALLENGE",
             ["baseRelevance"] = 0.5,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "beat",
             ["modifiers"] = {
                 {
@@ -51,6 +57,12 @@ return {
             ["stimuli"] = {
                 "HUMAN_UTTERANCE",
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "conflict",
+                },
             },
             ["version"] = 1,
         },
@@ -100,6 +112,12 @@ return {
         ["payload"] = {
             ["act"] = "RETALIATE_VERBALLY",
             ["baseRelevance"] = 0.55,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "beat",
             ["modifiers"] = {
                 {
@@ -133,6 +151,12 @@ return {
             ["stimuli"] = {
                 "HUMAN_UTTERANCE",
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "conflict",
+                },
             },
             ["version"] = 1,
         },
@@ -183,6 +207,12 @@ return {
         ["payload"] = {
             ["act"] = "WARN",
             ["baseRelevance"] = 0.65,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "beat",
             ["modifiers"] = {
                 {
@@ -216,6 +246,12 @@ return {
             ["stimuli"] = {
                 "HUMAN_UTTERANCE",
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "conflict",
+                },
             },
             ["version"] = 1,
         },

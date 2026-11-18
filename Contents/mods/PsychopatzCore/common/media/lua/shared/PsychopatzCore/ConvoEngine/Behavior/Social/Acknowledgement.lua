@@ -27,6 +27,18 @@ return {
         ["payload"] = {
             ["act"] = "ACKNOWLEDGE_MEMORY",
             ["baseRelevance"] = 0.5,
+            ["domains"] = {
+                {
+                    ["domain"] = "memory",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["memories"] = {
+                {
+                    ["id"] = "shared_memory",
+                    ["kind"] = "episodic",
+                },
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
                 {
@@ -111,6 +123,12 @@ return {
         ["payload"] = {
             ["act"] = "ACKNOWLEDGE_NEWS",
             ["baseRelevance"] = 0.55,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
             },
@@ -127,6 +145,12 @@ return {
             },
             ["stimuli"] = {
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "news",
+                },
             },
             ["version"] = 1,
         },
@@ -173,6 +197,9 @@ return {
         ["payload"] = {
             ["act"] = "ACKNOWLEDGE_REPLY",
             ["baseRelevance"] = 0.65,
+            ["metadata"] = {
+                ["compositionHooksNotApplicableReason"] = "Domain-agnostic conversational reply acknowledgement strategy",
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
             },
@@ -242,6 +269,9 @@ return {
         ["payload"] = {
             ["act"] = "ACKNOWLEDGE_THANKS",
             ["baseRelevance"] = 0.55,
+            ["metadata"] = {
+                ["compositionHooksNotApplicableReason"] = "Domain-agnostic gratitude acknowledgement strategy",
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
                 {

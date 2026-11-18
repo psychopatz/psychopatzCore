@@ -19,6 +19,12 @@ return {
         ["cooldownTurns"] = 4,
         ["domain"] = "social",
         ["domainPath"] = "social/repair",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["entry"] = {
             ["all"] = {
                 {
@@ -65,6 +71,12 @@ return {
         ["stimuli"] = {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
+        },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "repair",
+            },
         },
         ["version"] = 1,
     },

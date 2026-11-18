@@ -27,6 +27,18 @@ return {
         ["payload"] = {
             ["act"] = "ASK_MEMORY_FOLLOWUP",
             ["baseRelevance"] = 0.45,
+            ["domains"] = {
+                {
+                    ["domain"] = "memory",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["memories"] = {
+                {
+                    ["id"] = "shared_memory",
+                    ["kind"] = "episodic",
+                },
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
                 {
@@ -105,6 +117,9 @@ return {
         ["payload"] = {
             ["act"] = "ASK_CLARIFICATION",
             ["baseRelevance"] = 0.95,
+            ["metadata"] = {
+                ["compositionHooksNotApplicableReason"] = "Domain-agnostic conversational context clarification strategy",
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
             },

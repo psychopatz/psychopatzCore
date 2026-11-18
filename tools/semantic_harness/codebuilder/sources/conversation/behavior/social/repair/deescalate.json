@@ -22,5 +22,17 @@
       "dialogueAct": "DEESCALATE"
     }
   },
-  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"] || world.immediateDanger"
+  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"] || world.immediateDanger",
+  "topics": [
+    {
+      "id": "repair",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

@@ -23,5 +23,17 @@
   },
   "when": "world.immediateDanger",
   "baseRelevance": 0.8,
-  "modifiers": []
+  "modifiers": [],
+  "events": [
+    {
+      "id": "world_event",
+      "kind": "world_event"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "world_event",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

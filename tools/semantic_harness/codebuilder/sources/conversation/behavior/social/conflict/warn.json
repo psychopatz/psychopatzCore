@@ -22,5 +22,17 @@
       "dialogueAct": "BOUNDARY_WARNING"
     }
   },
-  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"]"
+  "when": "stimulus.semantic.speechAct in [\"INSULT\", \"HOSTILE_REMARK\", \"THREATEN\"]",
+  "topics": [
+    {
+      "id": "conflict",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

@@ -27,6 +27,12 @@ return {
         ["payload"] = {
             ["act"] = "ACKNOWLEDGE_REPAIR",
             ["baseRelevance"] = 0.55,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
             },
@@ -42,6 +48,12 @@ return {
             ["stimuli"] = {
                 "HUMAN_UTTERANCE",
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "repair",
+                },
             },
             ["version"] = 1,
         },
@@ -96,6 +108,12 @@ return {
         ["payload"] = {
             ["act"] = "DEESCALATE",
             ["baseRelevance"] = 0.35,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "beat",
             ["modifiers"] = {
                 {
@@ -128,6 +146,12 @@ return {
             ["stimuli"] = {
                 "HUMAN_UTTERANCE",
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "repair",
+                },
             },
             ["version"] = 1,
         },
@@ -186,6 +210,9 @@ return {
         ["payload"] = {
             ["act"] = "END_INTERACTION",
             ["baseRelevance"] = 0.2,
+            ["metadata"] = {
+                ["compositionHooksNotApplicableReason"] = "Domain-agnostic conversation closing strategy",
+            },
             ["mode"] = "beat",
             ["modifiers"] = {
                 {
@@ -281,6 +308,12 @@ return {
         ["payload"] = {
             ["act"] = "RECONCILE",
             ["baseRelevance"] = 0.6,
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["mode"] = "beat",
             ["modifiers"] = {
                 {
@@ -314,6 +347,12 @@ return {
             ["stimuli"] = {
                 "HUMAN_UTTERANCE",
                 "NPC_SEMANTIC_ACT",
+            },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "repair",
+                },
             },
             ["version"] = 1,
         },

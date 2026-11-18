@@ -95,7 +95,7 @@ class ConvoEngineModernizationInventoryTests(unittest.TestCase):
             for cls in rec["classification"]:
                 self.assertIn(cls, MODERNIZATION_CLASSES)
 
-    def test_closure_mode_fails_while_open_groups_or_legacy_readers_exist(self) -> None:
+    def test_closure_mode_passes_when_all_findings_resolved_or_justified(self) -> None:
         inv = build_modernization_inventory(
             CORE_ROOT,
             hoomans_repository=HOOMANS_ROOT,
@@ -103,14 +103,12 @@ class ConvoEngineModernizationInventoryTests(unittest.TestCase):
             closure=True,
         )
         summary = inv["summary"]
-        if (
-            summary["openActionableFamilyCount"] > 0
-            or summary["openActionableGroupCount"] > 0
-            or summary["missingCompositionHookCount"] > 0
-            or summary["legacySchemaReaderCount"] > 0
-        ):
-            self.assertFalse(inv["closureOk"])
-            self.assertFalse(inv["ok"])
+        self.assertTrue(inv["closureOk"], summary)
+        self.assertTrue(inv["ok"], summary)
+        self.assertEqual(summary["openActionableFamilyCount"], 0)
+        self.assertEqual(summary["openActionableGroupCount"], 0)
+        self.assertEqual(summary["missingCompositionHookCount"], 0)
+        self.assertEqual(summary["legacySchemaReaderCount"], 0)
 
     def test_intentional_retention_requires_machine_checkable_evidence_and_does_not_hide_open_findings(self) -> None:
         baseline = build_modernization_inventory(

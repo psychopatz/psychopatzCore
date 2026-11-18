@@ -662,6 +662,11 @@ def _director_record_projection(record: Mapping[str, Any]) -> dict[str, Any]:
     if record.get("when") is not None:
         payload["when"] = _copy(record["when"])
 
+    hook_fields = {}
+    for hk in ("topics", "events", "activities", "memories", "domains", "metadata"):
+        if hk in payload:
+            hook_fields[hk] = payload.pop(hk)
+
     if kind == "behavior":
         unsupported = set(payload) - {
             "id", "version", "owner", "act", "mode", "stimuli",
@@ -673,11 +678,13 @@ def _director_record_projection(record: Mapping[str, Any]) -> dict[str, Any]:
                 f"{record['id']} contains fields outside the Interaction Director behavior contract: "
                 + ", ".join(sorted(unsupported))
             )
-        return _validate_behavior_shard(
+        projected = _validate_behavior_shard(
             {"behaviors": [payload]},
             f"PSDL {record['id']}",
             default_owner=record["owner"],
         )["records"][0]
+        projected.update(hook_fields)
+        return projected
 
     unsupported = set(payload) - {
         "id", "version", "owner", "group", "baseRelevance", "entry",
@@ -689,11 +696,13 @@ def _director_record_projection(record: Mapping[str, Any]) -> dict[str, Any]:
             f"{record['id']} contains fields outside the Interaction Director beat contract: "
             + ", ".join(sorted(unsupported))
         )
-    return _validate_beat_shard(
+    projected = _validate_beat_shard(
         {"beats": [payload]},
         f"PSDL {record['id']}",
         default_owner=record["owner"],
     )["records"][0]
+    projected.update(hook_fields)
+    return projected
 
 
 def _normalize_record(

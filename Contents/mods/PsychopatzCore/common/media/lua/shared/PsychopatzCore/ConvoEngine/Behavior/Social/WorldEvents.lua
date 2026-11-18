@@ -27,6 +27,18 @@ return {
         ["payload"] = {
             ["act"] = "WARN_GROUP",
             ["baseRelevance"] = 0.8,
+            ["domains"] = {
+                {
+                    ["domain"] = "world_event",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["events"] = {
+                {
+                    ["id"] = "world_event",
+                    ["kind"] = "world_event",
+                },
+            },
             ["mode"] = "one_shot",
             ["modifiers"] = {
             },

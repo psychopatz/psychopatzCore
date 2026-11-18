@@ -5,7 +5,19 @@ return {
         ["baseRelevance"] = 0.5,
         ["domain"] = "social",
         ["domainPath"] = "social/acknowledgement",
+        ["domains"] = {
+            {
+                ["domain"] = "memory",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.acknowledge_memory",
+        ["memories"] = {
+            {
+                ["id"] = "shared_memory",
+                ["kind"] = "episodic",
+            },
+        },
         ["mode"] = "one_shot",
         ["modifiers"] = {
             {
@@ -58,6 +70,12 @@ return {
         ["baseRelevance"] = 0.55,
         ["domain"] = "social",
         ["domainPath"] = "social/acknowledgement",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["id"] = "behavior.acknowledge_news",
         ["mode"] = "one_shot",
         ["modifiers"] = {
@@ -77,6 +95,12 @@ return {
         ["stimuli"] = {
             "NPC_SEMANTIC_ACT",
         },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "news",
+            },
+        },
         ["version"] = 1,
         ["when"] = {
             ["op"] = "eq",
@@ -90,6 +114,9 @@ return {
         ["domain"] = "social",
         ["domainPath"] = "social/acknowledgement",
         ["id"] = "behavior.acknowledge_reply",
+        ["metadata"] = {
+            ["compositionHooksNotApplicableReason"] = "Domain-agnostic conversational reply acknowledgement strategy",
+        },
         ["mode"] = "one_shot",
         ["modifiers"] = {
         },
@@ -128,6 +155,9 @@ return {
         ["domain"] = "social",
         ["domainPath"] = "social/acknowledgement",
         ["id"] = "behavior.acknowledge_thanks",
+        ["metadata"] = {
+            ["compositionHooksNotApplicableReason"] = "Domain-agnostic gratitude acknowledgement strategy",
+        },
         ["mode"] = "one_shot",
         ["modifiers"] = {
             {

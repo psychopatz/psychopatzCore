@@ -23,6 +23,12 @@ return {
         ["cooldownTurns"] = 3,
         ["domain"] = "social",
         ["domainPath"] = "social/conflict",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["entry"] = {
             ["op"] = "in",
             ["path"] = "stimulus.semantic.speechAct",
@@ -66,6 +72,12 @@ return {
         ["stimuli"] = {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
+        },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "conflict",
+            },
         },
         ["version"] = 1,
     },

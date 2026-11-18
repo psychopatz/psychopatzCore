@@ -17,5 +17,17 @@
       "dialogueAct": "CHALLENGE"
     }
   },
-  "when": "stimulus.semantic.intent in [\"GREET\", \"GOSSIP\"]"
+  "when": "stimulus.semantic.intent in [\"GREET\", \"GOSSIP\"]",
+  "topics": [
+    {
+      "id": "conflict",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

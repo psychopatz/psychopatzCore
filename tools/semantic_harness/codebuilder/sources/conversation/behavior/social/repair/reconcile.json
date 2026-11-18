@@ -22,5 +22,17 @@
       "dialogueAct": "RECONCILE"
     }
   },
-  "when": "stimulus.semantic.intent == \"APOLOGIZE\" && pragmatic.contextualAdmission.admitted"
+  "when": "stimulus.semantic.intent == \"APOLOGIZE\" && pragmatic.contextualAdmission.admitted",
+  "topics": [
+    {
+      "id": "repair",
+      "domain": "social"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ]
 }

@@ -19,6 +19,12 @@ return {
         ["cooldownTurns"] = 2,
         ["domain"] = "social",
         ["domainPath"] = "social/first_contact",
+        ["domains"] = {
+            {
+                ["domain"] = "social",
+                ["owner"] = "PsychopatzCore",
+            },
+        },
         ["entry"] = {
             ["all"] = {
                 {
@@ -65,6 +71,12 @@ return {
         ["stimuli"] = {
             "HUMAN_UTTERANCE",
             "NPC_SEMANTIC_ACT",
+        },
+        ["topics"] = {
+            {
+                ["domain"] = "social",
+                ["id"] = "first_contact",
+            },
         },
         ["version"] = 1,
     },
