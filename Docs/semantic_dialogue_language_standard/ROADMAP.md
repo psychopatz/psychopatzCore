@@ -3,7 +3,7 @@
 **Parent status:** IN_PROGRESS — R8D and the R9 compiler/Workbench foundation are retained, but S11R9R1 authoring-readiness repair is mandatory before USER_ACCEPTANCE and before the broad dialogue/beat/behavior/realization rewrite.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** retained S11A-S11E + closed S11R8 + S11R9R1 ACCEPTED / CLOSED. Broad content rewrite remains blocked until R9R1E.
+**Developer completion boundary:** retained S11A-S11E + closed S11R8 + S11R9R1F-I corrective closure accepted. Broad content rewrite remains blocked until R9R1I.
 
 ## Objective and ownership
 
@@ -1063,7 +1063,7 @@ Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPA
 
 ### S11R9 — Dialogue Completeness Workbench and authoring readiness
 
-**Status:** ACCEPTED WITH R9R1 REPAIR — R9A-R9D code is retained and R9R1A-E usability, all-family health coverage, workflow wiring, and legacy-retirement repairs are accepted.
+**Status:** REOPENED UNDER R9R1 CORRECTIVE CLOSURE — R9A-R9D and the useful R9R1A/B/D implementation are retained; post-R9R1 audit requires R9R1F-I before authoring readiness and bulk rewrite.
 
 #### R9A — canonical authoring-report enrichment
 
@@ -1081,36 +1081,64 @@ Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPA
 
 **Status:** ACCEPTED. Added `test_dialogue_completeness_workbench.py` (3/3) and `test_dialogue_completeness_workbench_tk.py` (1/1 Xvfb), proved Workbench parity with `analyze_convo_completeness(strict_manifest=True)` (`520` families, `0` errors, `1` warning, `520` SCCs), and passed two consecutive canonical 9-suite `--jobs 4` runs (`2125/2154`, `convoScopeOk=True`) with identical participant status hashes.
 
-**Gate:** Restored by R9R1E acceptance. `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
+**Gate:** Historical R9R1E closure was reopened by the post-R9R1 authoring-readiness audit. BULK_DIALOGUE_REWRITE_ALLOWED=false until R9R1I.
 
 
 ### S11R9R1 — Workbench usability, full-family coverage and legacy retirement
 
-**Status:** ACCEPTED / CLOSED. Normative repair: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+**Status:** REOPENED / IN_PROGRESS. Normative repair: S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md.
 
-The post-R9 audit retained the canonical analyzer and authoring controls but found that the Workbench was closed as authoring-ready too early.
+R9R1A/B/D implementation is retained. R9R1C/E are reopened only where post-implementation audit and current UI evidence disproved authoring readiness.
 
-#### R9R1A — correctness + full-family authoring health
+#### Retained R9R1A/B/D
 
-Synchronize editor and Workbench family selection bidirectionally and extend the compiler-owned authoring-health inventory from 520 dialogue-only families to all 588 maintained families: 520 dialogue, 30 behavior, 3 beat, 35 realization. Use kind-appropriate checks rather than forcing dialogue closure semantics onto non-dialogue kinds.
+- one compiler-owned health inventory covers all 588 maintained families: 520 dialogue, 30 behavior, 3 beat, 35 realization;
+- Dialogue Completeness uses real RED/ORANGE/YELLOW/BLUE/PURPLE/GREEN Tk row tags, needs-attention default, human-first summaries and synchronized dialogue selection;
+- false legacy detection is fixed, the compatibility toggle is removed, obsolete panes are deleted, and useful current surfaces remain.
 
-#### R9R1B — problem-first visual UX
+#### R9R1F — compact primary family browser
 
-Replace concatenated Listbox rows with a structured sortable inventory; apply real semantic row tags/styles for RED/ORANGE/YELLOW/BLUE/PURPLE/GREEN plus text/icon labels; default to Needs attention and severity-first sorting; show human-first branch/health summaries before raw compiler details; add dedicated severity/owner/kind/namespace-domain/coverage filters.
+Replace the dense primary family-list presentation, not merely the Completeness table. The left ConvoEngine families browser must:
 
-#### R9R1C — complete authoring workflow
+- project canonical health color/status from the existing compiler report;
+- show compact canonical family IDs without repeating owner/kind on every row;
+- retain owner/kind as metadata/filter/selected-family context;
+- provide live quick filters/counters for All, Dialogues, Behaviors, Beats and Realizations;
+- make the 30 behaviors, 3 beats and 35 realizations immediately discoverable;
+- preserve one loop-safe current-family identity across browser, Workbench and navigation.
 
-Keep editor and Workbench selection synchronized; make Open affected field focus/highlight the exact canonical control; wire Run family tests; expose repairs only for applicable diagnostics; automatically rerun affected analysis after save/apply while preserving selection/filter state.
+No second UI health analyzer.
 
-#### R9R1D — legacy/redundant surface retirement
+#### R9R1G — truthful coverage and exact family verification
 
-Fix false legacy-dataset detection. Remove the legacy compatibility toggle and zero-record Dialogue Content surface after caller-zero; move useful current functionality out of Explore before deleting its legacy container; move/rename canonical Dataset Library; audit Workflow Composer and Interaction Composer for parity/caller-zero retirement. Do not delete Interaction Modules, Flow Editor, Block Contracts, Source / Impact, Review, Simulation, Quality Sweep, World & Mods or Log merely as cleanup.
+Repair manifest identity lookup to use the actual canonicalFamilyId schema and remove stale project-owned lookup keys.
 
-#### R9R1E — usability acceptance
+Coverage must distinguish exact-owner, broader-suite, uncovered and unknown states. Structural GREEN must not imply test-covered.
 
-Require fake-widget/unit and real Tk/Xvfb proof for 588-family coverage, bidirectional selection sync, real semantic colors, needs-attention default, exact-field navigation, family-test wiring, contextual repair controls, legacy caller-zero, moved-surface parity, and a real journey where the current `command.camp` warning is immediately visible without scrolling through healthy rows. Then rerun full acceptance, participant fingerprints, post-acceptance reconcile and diff checks.
+Run family tests must actually execute the narrowest registered Python test method(s), declarative fixture case(s), or Lua test owner and report what ran. Known-owned families must not return a false no-exact-runnable-test result.
 
-**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true`. S11R8 (`ACCEPTED / CLOSED`), S11R9 (`ACCEPTED WITH R9R1 REPAIR`), S11R9R1 (`ACCEPTED / CLOSED`), S11 (`COMPLETE_DEVELOPER_SIDE / ACCEPTED`).
+#### R9R1H — kind-aware authoring navigation and non-dialogue safety
+
+Keep unified family selection, but route each kind to its authoritative current authoring surface:
+
+~~~text
+dialogue     → Conversations
+behavior     → existing Interaction Modules behavior editor
+beat         → existing Interaction Modules beat editor
+realization  → audited current canonical realization editing surface
+~~~
+
+Extend exact-field navigation to behavior/beat/realization diagnostics. Do not duplicate editors.
+
+Opening/saving non-dialogue families must not inject dialogue-only participants, corrupt schema, or route through dialogue-only validation. Complete the remaining applicable behavior template/capability and realization slot/reference/orphan health checks.
+
+#### R9R1I — real usability acceptance and closure
+
+Real Tk/Xvfb acceptance must prove the primary family browser itself is compact, health-colored and kind-discoverable; Beats exposes all 3 beats immediately; known-owned family verification actually runs; non-dialogue diagnostics navigate to the correct editor/field; coverage filters are truthful; and non-dialogue round trips are mutation-safe.
+
+Then run focused suites, full canonical 9-suite acceptance twice from one exact participant vector, post-acceptance reconcile, diff checks, participant heads and residual fingerprints.
+
+**Gate:** BULK_DIALOGUE_REWRITE_ALLOWED=false until R9R1I. Only after all four corrective chunks pass may S11R9R1 return to ACCEPTED / CLOSED and the broad dialogue/behavior/beat/realization rewrite begin.
 
 ## Commit protocol
 

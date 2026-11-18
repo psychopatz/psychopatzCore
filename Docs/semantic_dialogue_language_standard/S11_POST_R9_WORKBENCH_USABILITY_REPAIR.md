@@ -1,373 +1,340 @@
 # S11 Post-R9 Workbench Usability, Full-Family Coverage and Legacy Retirement Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR PLAN
+**Status:** NORMATIVE ACTIVE REPAIR PLAN — POST-R9R1 AUDIT REOPEN
 **Audit date:** 2026-11-18
 **Parent goal:** S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 **Previous repair:** S11_POST_R8_AUTHORING_READINESS_REPAIR.md
 **Repair phase:** S11R9R1
 **Content rewrite gate:** BULK_DIALOGUE_REWRITE_ALLOWED=false
 
-## Why R9 is reopened
+## Current truth
 
-R8D is accepted and retained. The compiler-owned completeness report, S11 semantic controls, structural scaffolding, canonical-report parity, and acceptance side-effect guard are real.
+R8D and the useful R9/R9R1 implementation are retained. The semantic runtime, compiler-owned completeness report, 588-family inventory, real Tk health colors in the Dialogue Completeness Workbench, synchronized dialogue selection, contextual repair UI, and legacy-surface retirement are real.
 
-The post-R9 usability audit found that the authoring-readiness gate was closed too early. The Workbench is technically connected to the canonical analyzer, but it is not yet safe or efficient enough to drive the planned broad rewrite of dialogues, beats, behaviors, and realizations.
+The post-R9R1 audit nevertheless proved that authoring readiness was closed too early for the planned broad rewrite of dialogues, behaviors, beats, and realizations.
 
-Mandatory order:
-
-~~~text
-R9R1A  correctness + full-family coverage
-  ↓
-R9R1B  problem-first visual UX
-  ↓
-R9R1C  authoring workflow completion
-  ↓
-R9R1D  legacy surface retirement
-  ↓
-R9R1E  real usability acceptance
-  ↓
-BULK_DIALOGUE_REWRITE_ALLOWED=true
-~~~
-
-Do not reopen R8D, S11A foundation, or accepted state/outcome runtime migrations unless targeted regression evidence requires it.
-
-## Current audited checkpoint
+Current clean participant checkpoint before this planning-doc commit:
 
 ~~~text
-psychopatzCore   097ae97a425b6cecd88a7bdac5c36077e57510e0
-ProjectHoomans   77994e19dccc5a4d94579b480fd24f3db8e68979
+psychopatzCore   fba98ab4791bde95a12fb1fcb7fbeede88408d7a
+ProjectHoomans   a64c3bcb325f209c599a77689387135e918c2de1
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
-Residual snapshot, raw git status porcelain SHA-256:
+Residual snapshot at planning start:
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=34  sha256=731b8c509b74bde3c57948b83252ddc0b6b4293405c3d1333ad835c2d688c462
+ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-The 34 ProjectHoomans residuals are unrelated concurrent NPC-authoring/editor/StartingCompanion work. Preserve them exactly. Re-verify live HEAD/status before every cross-repository phase.
+Do not reopen R8D, S11A, the accepted state/outcome runtime migrations, or the completed legacy deletions unless targeted regression evidence requires it.
 
 ## Retained accepted work
 
-Retain unless a focused regression disproves it:
+- all 588 maintained families enter one compiler-owned health report: 520 dialogue, 30 behavior, 3 beat, 35 realization;
+- behavior/beat/realization have real kind-specific structural validators rather than dummy rows;
+- Dialogue Completeness is a real ttk.Treeview with RED / ORANGE / YELLOW / BLUE / PURPLE / GREEN Tk row tags and human-readable health summaries;
+- Needs attention is the Workbench default and command.camp is visibly surfaced as the current warning;
+- Workbench to dialogue editor selection synchronization works and exact dialogue/S11 field focusing works;
+- contextual repair controls disable on healthy families;
+- Show Legacy Compatibility Tools is removed;
+- dialogue_content_pane.py, workflow.py, and interaction_spec_pane.py are deleted after caller-zero;
+- Interaction Explorer and Canonical Data Sources remain as current capabilities;
+- focused unit/Tk tests and canonical 9-suite acceptance are green apart from the four reviewed unrelated Hoomans Lua baselines.
 
-- R8D hermetic promotion test and participant worktree side-effect guard;
-- two consecutive canonical 9-suite acceptance runs from one exact vector;
-- post-acceptance reconcile discipline;
-- canonical Dialogue Completeness Analyzer as the single semantic graph authority;
-- enriched graph/report fields from R9A;
-- S11 Semantic Controls driven by compiler-owned FieldDescriptors;
-- safe structural scaffold preview/apply through ConvoTransaction and CodeBuilder;
-- canonical-source navigation foundation;
-- existing unit and Tk/Xvfb infrastructure.
+## Reopened findings
 
-# Audit findings
+### F1 — the primary ConvoEngine family browser is still dense, repetitive and uncolored
 
-## A. Completeness currently covers dialogues only
-
-The maintained canonical source catalog contains:
+The left ConvoEngine families browser still renders rows like:
 
 ~~~text
-588 total
-520 dialogue
-30 behavior
-3 beat
-35 realization
+[ProjectHoomans] dialogue · social.greetings.firstmeet.sunset
+[ProjectHoomans] dialogue · social.greetings.firstmeet.twilight
+[ProjectHoomans] dialogue · social.territory.set
 ~~~
 
-The strict completeness report currently analyzes only 520 dialogue families. The 30 behavior, 3 beat, and 35 realization families are absent from Workbench health coverage.
+This wastes the narrow column on repeated owner/kind prefixes and does not project the canonical health colors where the user actually browses families.
 
-The planned rewrite explicitly includes these kinds, so authoring readiness is incomplete.
+The Workbench being color-coded is not sufficient. The primary family browser itself must visibly project health from the same compiler report.
 
-## B. Editor and Workbench family selection can disagree
+### F2 — behavior/beat/realization families are technically present but not discoverable enough
 
-The audited UI showed:
+The catalog contains all four kinds, but a flat family browser makes the 30 behaviors, 3 beats, and 35 realizations easy to miss among 520 dialogues.
+
+The primary browser needs explicit kind discovery without duplicating semantic truth.
+
+Required quick navigation at this checkpoint:
 
 ~~~text
-main editor: action.trade
-Workbench:   accept
+All 588
+Dialogues 520
+Behaviors 30
+Beats 3
+Realizations 35
 ~~~
 
-The editor selection path does not synchronize the Workbench selection. This is an authoring correctness hazard.
+Counts must come from the current catalog/report, not hardcoded constants.
 
-## C. Semantic colors are text labels, not visual prioritization
+### F3 — family test coverage truth is currently broken
 
-The report produces GREEN, BLUE, PURPLE, YELLOW, ORANGE, and RED semantic states, but the current Workbench renders a plain Listbox with text prefixes such as [GREEN].
-
-There is no real row coloring, severity tagging, or problem-first default. With 518 resolved dialogue families and only one warning, the warning is buried among healthy entries.
-
-## D. Human-facing authoring workflow is incomplete
-
-Current gaps:
-
-- Open affected field does not focus or highlight the exact offending control.
-- Run family tests exists in the Workbench class but is not wired by ConvoEngineAuthoringPane.
-- scaffold controls remain visible for healthy families with no diagnostic;
-- graph detail is primarily a raw compiler text dump rather than a human-first branch/closure summary;
-- fixture/test health is not a first-class batch column;
-- namespace/domain is not a dedicated filter;
-- default issue filter is all rather than needs-attention.
-
-## E. Legacy detection is incorrect
-
-SurfaceRegistry.has_active_legacy_datasets currently treats any existing listed source as legacy.
-
-Current active source inventory includes ConvoEngine, NLU patterns and WordNet, causing legacyDatasetsPresent=True even though list_dialogue_content returns 0 records.
-
-The visible Show Legacy Compatibility Tools control is therefore preserved by the wrong condition.
-
-# R9R1A — correctness and full-family authoring health
-
-## Shared family identity
-
-Create one explicit current-family selection contract for Conversations and Dialogue Completeness.
-
-Required:
-
-- main family selection synchronizes Workbench;
-- Workbench selection synchronizes main editor;
-- continuation navigation updates both;
-- filtering cannot silently switch the other view to an unrelated family;
-- synchronization is deterministic and recursion-safe;
-- regression reproduces the action.trade versus accept mismatch and proves it impossible.
-
-## Full maintained-family health model
-
-Extend the same compiler-owned authoring-health report to all 588 maintained families.
-
-Dialogue keeps the existing reachability, state/action outcome, continuation, repeat, pending/deferred, closure and fixture/parity checks.
-
-Behavior health must cover applicable canonical bindings/references, roles/cardinality, trigger/input ownership, action/result/continuation references, unresolved targets, bounded transition semantics where represented, and fixture ownership.
-
-Beat health must cover applicable role/cardinality binding, entry conditions, transition/continuation references, bounded progression, referenced behavior/dialogue families, and fixture ownership.
-
-Realization health must cover applicable referenced family, required slots, locale/template availability, unresolved template/response references, variant/reference coverage, and orphan records.
-
-Do not invent dialogue terminal semantics for non-dialogue kinds. Use one common health envelope plus kind-specific detail.
-
-The Workbench summary must explicitly show:
+Fresh audit evidence:
 
 ~~~text
-588 maintained
-520 dialogues
-30 behaviors
-3 beats
-35 realizations
+dialogue     fixtureCoverage=unknown   520
+behavior     fixtureCoverage=unknown    30
+beat         fixtureCoverage=unknown     3
+realization  fixtureCoverage=unknown    35
 ~~~
 
-with analyzed/healthy/warning/error counts per kind.
+Yet the current report shows missingCoverage=0 and the Missing Coverage filter returns no rows.
 
-# R9R1B — problem-first visual UX
+This is misleading for mass rewrite safety.
 
-Replace the concatenated Listbox with a sortable Treeview or equivalent structured table.
+The constrained manifest uses canonicalFamilyId, while run_family_tests() and one manifest-family aggregation path still look for obsolete/nonexistent familyId / canonicalFamilies fields.
 
-Recommended columns:
+Known manifest-owned families such as offer.question.identity, flow.needs.exchange, flow.greeting.exchange, and command.companion.camp currently return ran=False and No exact family-level runnable test is registered even though exact acceptance ownership is recorded.
 
-~~~text
-Health
-Family
-Owner
-Type
-Branches / Coverage
-Issues
-Closure / Health
-Tests
-~~~
+### F4 — Run family tests is wired visually but not functionally complete
 
-Use actual Tk row tags/styles for:
+After fixing family lookup, execution must be truthful:
 
-~~~text
-RED      broken / must fix
-ORANGE   warning / should fix
-YELLOW   valid bounded pending/deferred
-BLUE     valid continuation
-PURPLE   valid domain obligation
-GREEN    healthy / resolved
-~~~
+- Python ownership runs the narrowest registered test method(s), not an unrelated whole module by default;
+- declarative fixture ownership executes the registered fixture case(s) through the canonical fixture runner, not merely verifies that IDs exist;
+- Lua ownership executes the registered Lua test through the maintained Lua runner;
+- a genuinely unowned family may report no exact family-level runnable test, but this must be distinguishable from lookup failure;
+- UI and machine report must show what actually ran and the result.
 
-Color is supplemental: also show textual/icon state.
+Tests must positively exercise known-owned families. Do not retain a regression test whose expected success condition is the current false no-test-registered result.
 
-Default filter must be Needs attention, not All. Default sorting must place RED then ORANGE before healthy rows, with stable family ID inside each severity.
+### F5 — non-dialogue diagnostics cannot navigate to their real authoring controls
 
-Healthy families remain available through All.
+The Workbench can diagnose behavior.stimuli, behavior.outputs, beat.entry, beat.candidates, realization.translations, and realization.dialogueAct, but Open affected field currently resolves these to no editor target.
 
-Add quick summary counters for Needs fixing, Warnings, Pending review, Continuations and Healthy where practical.
+Dialogue/S11 navigation is accepted. Extend routing by kind; do not duplicate editors.
 
-The primary selected-family view must answer in human language whether every applicable path ends, progresses, or remains valid. Show a simple branch/health summary first. Put SCCs, node IDs, edge IDs, witness payloads and raw matrices under Technical details.
+### F6 — the primary Conversations form is unsafe as a generic editor for non-dialogue kinds
 
-Add dedicated filters for severity, owner, kind, namespace/domain, missing coverage, and changed/affected. Keep diagnostic-code filters under an advanced filter if needed.
+Fresh real-Tk round-trip evidence shows that loading a behavior, beat, or realization into ConvoEngineAuthoringPane._form_document() injects dialogue-shaped fields such as participants, changes schema representation, and normal Validate & trace rejects real production non-dialogue records.
 
-# R9R1C — complete the authoring workflow
+Therefore:
 
-Open affected field must navigate to and focus/highlight the exact canonical control derived from the diagnostic path, such as:
+- do not treat the dialogue form as a universal four-kind editor;
+- opening a non-dialogue family must not mutate it merely by loading/saving;
+- route each kind to its authoritative current authoring surface;
+- reuse existing Interaction Modules beat/behavior authoring instead of creating another behavior/beat editor;
+- audit the current realization editing path and promote/reuse the smallest current canonical surface that can safely edit realizations;
+- if a kind is read-only in a surface, state that clearly and provide the correct navigation action.
 
-~~~text
-reply.failed
-statePolicy
-postconditions
-repeatPolicy
-closure
-after
-roles
-participantSet
-~~~
+### F7 — non-dialogue GREEN currently means basic structural health, not full rewrite readiness
 
-Selecting only the correct tab is insufficient.
+Retain the useful existing checks, but close the remaining promised checks where applicable.
 
-Wire a real Run family tests action from the primary authoring pane/service. It must delegate to the narrowest maintained fixture/test owner available and show the result. If no exact runnable owner exists, state that clearly.
+Behavior health must additionally verify canonical output/template references and required capabilities where represented.
 
-Repairs must be contextual. For healthy families, disable or hide structural repair controls and show No structural repair needed.
+Realization health must additionally verify required slot/template compatibility, relevant variant/reference coverage, and orphan/reference ownership where the model exposes enough information.
 
-For an applicable diagnostic, show:
+Do not manufacture warnings for concepts that are not represented by the canonical model.
+
+## Corrective execution order
 
 ~~~text
-Problem
-Why it matters
-Suggested structural fix
-Preview
-Apply
-~~~
-
-Keep arbitrary scaffold-kind selection only under an advanced section.
-
-After canonical save or scaffold apply, automatically rerun affected-family analysis, retain current selection and filters, update the row immediately, and surface whether the defect is resolved.
-
-# R9R1D — legacy and redundant surface retirement
-
-Do not bulk-delete by name. Audit callers, current data ownership and parity first.
-
-Classify each candidate as:
-
-~~~text
-KEEP_CURRENT
-MOVE_OR_RENAME_CURRENT
-RETIRE_AFTER_PARITY
-DELETE_CALLER_ZERO
-~~~
-
-## Legacy toggle and Dialogue Content
-
-Fix legacy detection so canonical/pattern/WordNet sources do not count as legacy.
-
-If no supported legacy content datasets or verified external contract remain:
-
-- remove Show Legacy Compatibility Tools;
-- delete Dialogue Content (Legacy) after caller-zero;
-- delete toggle/state-persistence/test code owned only by that UI.
-
-No compatibility shim.
-
-## Explore legacy container
-
-Audit Explore (Legacy). Move useful current production functionality such as live Interaction Explorer to a current surface first. Then delete the legacy container after parity and caller-zero.
-
-## Dataset Library
-
-DatasetLibraryPane edits canonical JSON and is not inherently legacy. Move/rename it as Canonical Data Sources under Source / Impact or Developer Tools, then remove its legacy descriptor.
-
-## Workflow Composer
-
-It is described as a legacy multi-dataset batch generation trigger. Audit callers and replacements. If ConvoEngine, CodeBuilder and Interaction Modules cover its supported workflow, retire/delete it with caller-zero proof. No wrapper.
-
-## Interaction Composer
-
-Audit InteractionSpecPane against Interaction Modules plus Conversations. If fully superseded, retire it after parity and caller-zero. If a unique current capability remains, keep only that capability and rename it descriptively.
-
-## Explicit keep candidates
-
-Do not delete merely as cleanup:
-
-- Interaction Modules;
-- Flow Editor unless a separate caller/parity audit proves it obsolete;
-- Block Contracts;
-- Source / Impact;
-- Review;
-- Simulation;
-- Quality Sweep;
-- World & Mods;
-- Log.
-
-# R9R1E — usability acceptance
-
-Machine tests must prove:
-
-1. all 588 maintained families enter authoring-health inventory;
-2. kind counts are 520 dialogue, 30 behavior, 3 beat, 35 realization at this checkpoint;
-3. editor and Workbench selection synchronize both directions;
-4. severity sorting is deterministic;
-5. default filter is needs-attention;
-6. real semantic row tags/classes are assigned;
-7. exact-field navigation resolves diagnostic paths;
-8. family-test action is wired;
-9. healthy families have no active repair controls;
-10. diagnostic repairs are contextual;
-11. post-save/apply affected analysis preserves selection and filters;
-12. legacy detection does not classify canonical/pattern/WordNet sources as legacy;
-13. retired surfaces have caller-zero tests;
-14. moved current surfaces retain required capabilities.
-
-Add a real Tk/Xvfb journey that opens Studio and proves:
-
-~~~text
-Dialogue Completeness opens
-→ Needs attention is default
-→ command.camp warning is immediately visible
-→ warning row is visually ORANGE plus textual warning state
-→ selecting command.camp synchronizes the main editor
-→ selecting its diagnostic highlights the exact relevant semantic field
-→ contextual suggested repair appears
-→ a healthy family is GREEN and has no active repair controls
-~~~
-
-Also prove RED, YELLOW, BLUE and PURPLE with isolated/synthetic Tk fixtures.
-
-After focused R9R1 tests, run full Core Python, Tk/Xvfb, provider/real-worker coverage as required, canonical 9-suite acceptance twice, participant status fingerprint comparison, post-acceptance reconcile, and git diff --check.
-
-The current real command.camp stale_poststate_risk warning may be fixed if the canonical repair is clear and narrowly owned. Otherwise it must remain visibly surfaced; do not baseline it away.
-
-# Content rewrite gate
-
-BULK_DIALOGUE_REWRITE_ALLOWED=false throughout R9R1.
-
-Only set true after R9R1E when a human or agent can immediately see which maintained families need attention, understand why without reading raw compiler dumps, navigate to the exact canonical field, apply only context-appropriate structural repairs, run affected tests/analysis, and cover dialogue, behavior, beat and realization families from the same compiler-owned authoring-health model.
-
-# Final continuity state
-
-Only after R9R1E:
-
-~~~text
-S11R8       ACCEPTED / CLOSED
-S11R9       ACCEPTED WITH R9R1 REPAIR
-S11R9R1     ACCEPTED / CLOSED
-S11         COMPLETE_DEVELOPER_SIDE / ACCEPTED
-PROGRESS    USER_ACCEPTANCE
-HANDOFF     USER_ACCEPTANCE
+R9R1F  compact, health-colored, kind-discoverable primary family browser
+  ↓
+R9R1G  truthful coverage + exact family-test ownership/execution
+  ↓
+R9R1H  kind-aware authoring navigation + non-dialogue rewrite safety
+  ↓
+R9R1I  real usability acceptance + reproducible closure
+  ↓
 BULK_DIALOGUE_REWRITE_ALLOWED=true
 ~~~
 
-Until then:
+R9R1A/B/D implementation is retained. R9R1C/E are reopened only where the audit disproved their completion.
+
+# R9R1F — compact primary family browser
+
+## Goal
+
+Make the left ConvoEngine families browser the compact first place to skim health and find any maintained family.
+
+## Required presentation
+
+Replace the repeated concatenated row string with a structured or equivalently compact presentation.
+
+Default Family text should be the canonical family ID only, for example:
 
 ~~~text
-S11         IN_PROGRESS
-S11R9       REOPENED FOR AUTHORING READINESS
-S11R9R1     ACTIVE
-BULK_DIALOGUE_REWRITE_ALLOWED=false
+social.greetings.firstmeet.sunset
+social.territory.set
+beat.argument_escalation
+behavior.retaliate_verbally
+construction.social.acknowledge
+~~~
+
+Do not repeat [ProjectHoomans] dialogue · on every row.
+
+Owner and kind remain available as metadata/filter/context. Prefer a small dedicated Type column, tooltip, selected-family header, or filter state rather than long repeated prefixes.
+
+The selected-family header may continue to show full owner/kind/source context.
+
+## Health coloring
+
+Project the same compiler-owned health status used by Dialogue Completeness onto the primary family browser:
+
+~~~text
+RED      broken / must fix
+ORANGE   warning / risky
+YELLOW   bounded pending / review
+BLUE     continuation
+PURPLE   domain obligation
+GREEN    healthy
+~~~
+
+Do not compute a second UI-only health result.
+
+Color is supplemental. Preserve an accessible textual/icon status through tooltip, status line, compact Health column, or selected-family summary without bloating every family label.
+
+## Kind discoverability
+
+Add compact quick filters/tabs/chips/counters for All, Dialogues, Behaviors, Beats, and Realizations with live counts.
+
+The user must be able to reach beat.argument_escalation or a behavior/realization immediately without scrolling through hundreds of dialogue rows.
+
+Existing text search and owner/namespace filtering must continue to work with kind filters.
+
+## Selection contract
+
+The primary browser, Workbench, continuation navigation, and kind-aware editor routing share one current-family identity.
+
+Filtering must not silently change the logical current family. If the current family is hidden by a filter, retain it as current and present that state clearly.
+
+# R9R1G — truthful coverage and family verification
+
+## Coverage states
+
+Replace ambiguous unknown handling with explicit truthful states. At minimum distinguish:
+
+~~~text
+exact_owner        exact family acceptance owner is registered
+suite_covered      covered by a maintained broader suite but no exact owner
+uncovered          known to have no maintained coverage
+unknown            ownership could not be determined
+~~~
+
+Do not count unknown as missingCoverage=0 or silently classify it as healthy coverage.
+
+Health and coverage are separate dimensions: a structurally GREEN family may still have unknown or missing test coverage.
+
+The Workbench Tests column, primary family browser context, summary counters and Missing Coverage filter must agree.
+
+## Manifest ownership
+
+Use the actual constrained-manifest schema canonicalFamilyId consistently. Remove stale internal lookup keys rather than adding compatibility shims for project-owned code.
+
+Machine tests must fail if the service and analyzer disagree on manifest family identity.
+
+## Run family tests
+
+Implement exact execution for supported owner kinds and return a structured result containing familyId, coverageState, ownerKind, source, requestedTestIds, executedTestIds, ran, passed/failed, and output summary.
+
+No false-positive ok=true, ran=false for known-owned families.
+
+# R9R1H — kind-aware authoring navigation and rewrite safety
+
+## Routing
+
+The unified family browser/Workbench chooses the current family, but authoring routes to the authoritative editor for that kind.
+
+Required routing intent:
+
+~~~text
+dialogue     → Conversations / canonical dialogue editor
+behavior     → existing Interaction Modules behavior editor
+beat         → existing Interaction Modules beat editor
+realization  → audited current canonical realization editing surface
+~~~
+
+Do not create parallel semantic editors merely to satisfy navigation.
+
+If Interaction Modules is hidden behind Developer Tools and that makes normal behavior/beat rewrite impractical, promote/reuse that existing pane as a current first-class Studio authoring destination rather than cloning it.
+
+## Exact-field navigation
+
+Open affected field must route and focus/highlight kind-specific fields where the destination editor exposes them.
+
+At minimum prove behavior.stimuli, behavior.outputs, beat.entry, beat.candidates, realization.translations, and realization.dialogueAct/strategy/concept.
+
+Unsupported exact subfields must still open the correct family and surface a precise reason rather than silently doing nothing.
+
+## Non-dialogue round-trip safety
+
+Add tests proving that merely selecting/opening/saving a behavior, beat, or realization does not inject dialogue-only fields, rewrite its schema incorrectly, or delete preserved data.
+
+The dialogue editor must either refuse non-dialogue writes and route to the right editor, or become genuinely kind-aware without duplicating existing authoring logic.
+
+Prefer routing/reuse unless evidence shows a shared editor is simpler and safer.
+
+## Health depth
+
+Close the applicable F7 validator gaps before calling a non-dialogue family rewrite-ready.
+
+# R9R1I — usability acceptance and closure
+
+Add a real Tk/Xvfb journey that proves the primary family browser, not only the Completeness table:
+
+1. opens with compact family labels and no repeated owner/kind prefix;
+2. visibly color-codes real family rows from the canonical health report;
+3. exposes kind quick filters with live 520 / 30 / 3 / 35 checkpoint counts;
+4. selecting Beats immediately exposes all 3 beats;
+5. selecting Behaviors/Realizations exposes those families without dialogue scrolling;
+6. family selection synchronizes with Dialogue Completeness;
+7. selecting a dialogue warning still focuses the exact dialogue/S11 field;
+8. a synthetic/controlled broken behavior routes to the behavior editor and exact field;
+9. a broken beat routes to the beat editor and exact field;
+10. a broken realization routes to the realization authoring surface;
+11. known manifest-owned families actually execute their registered test/fixture/Lua owner;
+12. coverage unknown/uncovered is visible and Missing Coverage is truthful;
+13. non-dialogue open/save round trips are mutation-safe;
+14. contextual repair remains disabled on structurally healthy families;
+15. retired legacy panes/toggles remain caller-zero.
+
+Then run focused unit tests, real Tk/Xvfb, relevant provider/worker coverage, canonical 9-suite acceptance twice from one exact participant vector, post-acceptance CodeBuilder reconcile, git diff --check, exact participant HEADs and residual fingerprints.
+
+Do not launch native Project Zomboid without explicit authorization.
+
+# Content rewrite gate
+
+BULK_DIALOGUE_REWRITE_ALLOWED=false throughout R9R1F-I.
+
+Only restore it when a user or agent can:
+
+~~~text
+find any of the 588 maintained families quickly
+→ see its structural health in the primary browser
+→ see truthful test coverage independently of structural health
+→ open the correct kind-specific editor
+→ navigate to the actual failing field
+→ make a canonical edit without kind/schema corruption
+→ run the relevant family verification
+→ rerun affected health
+→ confirm the row/coverage state changed truthfully
 ~~~
 
 # Non-negotiable architecture rules
 
 Do not introduce:
 
-- a second UI-only completeness/health analyzer;
-- duplicated semantic truth in Tk;
-- compatibility shims for retired project-owned UI;
-- hidden legacy panes retained after caller-zero;
-- direct generated Lua edits;
+- a second UI-only health/completeness analyzer;
+- duplicated behavior/beat/realization editors;
+- compatibility shims for the stale manifest lookup keys;
+- project-owned legacy UI wrappers;
+- direct edits to generated Lua/registries/manifests/translations;
 - arbitrary scaffold actions on healthy families;
-- broad content rewrite during R9R1;
-- another GUI harness when existing Tk/Xvfb suffices.
+- broad dialogue/beat/behavior/realization rewrite before R9R1I;
+- a second GUI harness when existing Tk/Xvfb is sufficient.
 
 Preserve:
 
@@ -376,6 +343,8 @@ canonical compact source
 → canonical IR
 → Portable Dialogue Plan / canonical kind models
 → one compiler-owned authoring-health report
-→ acceptance + Workbench
+→ compact unified family navigation
+→ authoritative kind-specific authoring surface
 → CodeBuilder generation
+→ acceptance
 ~~~

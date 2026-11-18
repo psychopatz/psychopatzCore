@@ -1,30 +1,47 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** USER_ACCEPTANCE — S11R8 (`ACCEPTED / CLOSED`), S11R9 (`ACCEPTED WITH R9R1 REPAIR`), S11R9R1 (`ACCEPTED / CLOSED`), S11 (`COMPLETE_DEVELOPER_SIDE / ACCEPTED`).
+**Status:** IN_PROGRESS — S11R9R1 authoring-readiness corrective closure is active.
 **Branch:** existing main in all three repositories.
-**Active phase:** S11R9R1 — ACCEPTED / CLOSED.
-**Content rewrite gate:** BULK_DIALOGUE_REWRITE_ALLOWED=true.
+**Active phase:** S11R9R1F — compact primary family browser.
+**Content rewrite gate:** BULK_DIALOGUE_REWRITE_ALLOWED=false.
 
-## Current accepted checkpoint
+## Current checkpoint
 
 ~~~text
-psychopatzCore   self (code base b9f3119d7e5497a335892d31b9171014154aae82)
-ProjectHoomans   bca9f981ce051ab2885306c7ed4fce8249200e6f
+psychopatzCore   fba98ab4791bde95a12fb1fcb7fbeede88408d7a
+ProjectHoomans   a64c3bcb325f209c599a77689387135e918c2de1
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
-Residual snapshot, raw git status porcelain SHA-256:
+All three worktrees were clean at planning start.
+
+## Retained accepted implementation
+
+- 588-family compiler-owned health inventory exists: 520 dialogue, 30 behavior, 3 beat, 35 realization.
+- Dialogue Completeness has real Tk semantic colors, needs-attention default, human summaries, and selection synchronization.
+- Dialogue/S11 exact-field navigation and contextual repair behavior work.
+- Legacy compatibility toggle and three retired panes are deleted; useful current surfaces were retained/moved.
+- Focused R9R1 tests and canonical acceptance remain green apart from reviewed unrelated Lua baselines.
+
+## Reopened blockers
+
+1. The primary left ConvoEngine family browser still repeats owner/kind on every row and is not health-color-coded.
+2. Behaviors/beats/realizations are too hard to discover in one flat dialogue-heavy list.
+3. All 588 families currently report fixtureCoverage=unknown, while missingCoverage=0; coverage UI is misleading.
+4. run_family_tests() looks up stale manifest keys instead of canonicalFamilyId, so known-owned families falsely report no runnable owner.
+5. Non-dialogue diagnostics cannot navigate to behavior/beat/realization fields.
+6. The dialogue-shaped Conversations form is unsafe as a generic editor for non-dialogue records.
+7. Behavior/realization health still lacks some applicable reference/capability/slot/orphan checks promised by the authoring-readiness contract.
+
+## Remaining sequence
 
 ~~~text
-psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+R9R1F  compact health-colored kind-discoverable primary family browser
+R9R1G  truthful coverage and exact family-test execution
+R9R1H  kind-aware authoring routing + non-dialogue safety
+R9R1I  real usability acceptance + reproducible closure
 ~~~
 
-## Completed R9R1 phases (R9R1A → R9R1E)
+## Immediate Next Chunk
 
-- **R9R1A (`7c91517`):** Implemented bidirectional loop-safe current-family selection synchronization between `ConvoEngineAuthoringPane` and `DialogueCompletenessWorkbench`; extended `completeness_analyzer.py` and `SemanticLabAuthoringService.analyze_convo_completeness()` to cover all 588 maintained canonical families (`520` dialogue, `30` behavior, `3` beat, `35` realization) with per-kind accounting and `catalogMismatch` detection.
-- **R9R1B (`412f058`):** Replaced the Workbench Listbox with a sortable `ttk.Treeview`, configured real Tk row tags/styles (`RED`, `ORANGE`, `YELLOW`, `BLUE`, `PURPLE`, `GREEN`) alongside textual status labels, set `needs_attention` as default with deterministic severity-first sorting, exposed `command.camp` (`stale_poststate_risk`) immediately, added clickable summary counters, namespace/advanced filters, and human-readable health summaries with collapsible technical details.
-- **R9R1C (`f978d44`):** Implemented exact-field navigation (`focus_field` / `open_affected_field`), wired `Run family tests` through `SemanticLabAuthoringService.run_family_tests()`, made repair controls contextual (disabled with `No structural repair needed` on healthy families; Problem/Why/Suggested Fix + Preview/Apply on diagnostics), and wired automatic post-save/apply affected analysis preserving selection and filters.
-- **R9R1D (`1a9b8c0`):** Fixed `SurfaceRegistry.has_active_legacy_datasets()` so canonical/pattern/WordNet sources do not trigger legacy mode; removed `Show Legacy Compatibility Tools`; moved `InteractionExplorerPane` to Developer Tools and renamed `DatasetLibraryPane` tab to `Canonical Data Sources`; deleted `dialogue_content_pane.py`, `workflow.py`, and `interaction_spec_pane.py` after caller-zero.
-- **R9R1E (`a60013d`, `b9f3119`, `bca9f981`):** Added real Tk/Xvfb usability journey + all-color acceptance tests, updated ProjectHoomans surface consolidation and classification ledger tests, passed two consecutive canonical 9-suite `--jobs 4` runs (`9/9` suites, `2130/2159`, `convoScopeOk=True`), verified `reconcile --check` (`clean=true`, `410` desired, `0` missing/drifted/stale), and `git diff --check` clean across all three repos.
+**R9R1F only:** make the left ConvoEngine family browser compact and health-aware without creating a second analyzer. Remove repeated owner/kind prefixes from Family text, project canonical health colors there, add live kind quick filters/counters for All/Dialogues/Behaviors/Beats/Realizations, and preserve loop-safe shared family selection. Then validate with fake-widget and real Tk/Xvfb tests before advancing automatically to R9R1G.
