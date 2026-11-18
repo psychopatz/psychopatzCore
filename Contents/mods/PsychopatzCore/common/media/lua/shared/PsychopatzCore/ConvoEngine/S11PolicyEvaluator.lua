@@ -293,6 +293,58 @@ function S11PolicyEvaluator.ProjectConsequences(planEntry, replyOutcome)
     }
 end
 
+local function extractReplyFallback(sayNode, lang)
+    if type(sayNode) == "string" then
+        return sayNode
+    end
+    if type(sayNode) ~= "table" then
+        return nil
+    end
+    local realizations = sayNode.realizations
+    if type(realizations) == "table" then
+        local firstKey = (type(sayNode.keyOrder) == "table" and sayNode.keyOrder[1]) or "1"
+        local entry = realizations[firstKey] or realizations["1"]
+        local variants = type(entry) == "table" and entry.variants or nil
+        local firstVariant = type(variants) == "table" and variants[1] or nil
+        local textMap = type(firstVariant) == "table" and firstVariant.text or nil
+        if type(textMap) == "table" then
+            local preferred = textMap[lang or "EN"] or textMap["EN"]
+            if type(preferred) == "table" and type(preferred[1]) == "string" then
+                return preferred[1]
+            elseif type(preferred) == "string" then
+                return preferred
+            end
+        end
+    end
+    if type(sayNode[lang or "EN"]) == "string" then
+        return sayNode[lang or "EN"]
+    elseif type(sayNode["EN"]) == "string" then
+        return sayNode["EN"]
+    end
+    return nil
+end
+
+function S11PolicyEvaluator.ProjectReply(planEntry, replyOutcome, lang)
+    if type(planEntry) ~= "table" or type(replyOutcome) ~= "string" or replyOutcome == "" then
+        return nil
+    end
+    local payload = type(planEntry.payload) == "table" and planEntry.payload or planEntry
+    local replyMap = type(payload.reply) == "table" and payload.reply or nil
+    local branch = type(replyMap) == "table" and replyMap[replyOutcome] or nil
+    if type(branch) ~= "table" then
+        return nil
+    end
+    local meta = type(branch.metadata) == "table" and branch.metadata or nil
+    local templateID = (meta and type(meta.templateID) == "string" and meta.templateID ~= "" and meta.templateID)
+        or (type(branch.templateID) == "string" and branch.templateID ~= "" and branch.templateID)
+        or (tostring(planEntry.id or "semantic") .. "." .. replyOutcome)
+    return {
+        replyOutcome = replyOutcome,
+        templateID = templateID,
+        fallback = extractReplyFallback(branch.say, lang),
+    }
+end
+
 function S11PolicyEvaluator.EvaluateFamily(planEntry, context, roleBindings, participantSet, replyOutcome)
     local roleCheck = S11PolicyEvaluator.ValidateRoleBindings(
         type(planEntry) == "table" and planEntry.roles or nil,

@@ -341,3 +341,45 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
         self.assertEqual(compat_lineage["authoringSchema"], CONVO_ENGINE_SCHEMA)
         self.assertEqual(compat_lineage["canonicalSchema"], CONVO_ENGINE_SCHEMA)
         self.assertEqual(compat_lineage["sourceSchema"], CONVO_ENGINE_SCHEMA)
+
+    def test_r5c_generic_policy_reply_projection_has_no_hardcoded_recruitment_dispatch_mapping(self) -> None:
+        from pathlib import Path
+        import subprocess
+
+        core_root = Path(__file__).resolve().parents[3]
+        hoomans_root = core_root.parent / "ProjectHoomans"
+        for rel in (
+            "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/ConvoEngine/Dialogue/Input_Actions_Dispatch.lua",
+            "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/ConvoEngine/Dialogue/Input_Presentation_Responses_Actions.lua",
+        ):
+            src = (hoomans_root / rel).read_text(encoding="utf-8")
+            self.assertNotIn("recruitment.reject.", src, rel)
+            self.assertNotIn("already_member", src, rel)
+            self.assertNotIn("actor_blocked_or_hostile", src, rel)
+
+        lua_probe = """
+package.path = 'Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua;' .. package.path
+local E = require 'PsychopatzCore/ConvoEngine/S11PolicyEvaluator'
+local plan = {
+  id = 'custom.family',
+  payload = {
+    reply = {
+      custom_outcome = {
+        metadata = { templateID = 'custom.reply.key.1' },
+        say = { keyOrder = {'1'}, realizations = { ['1'] = { variants = { { text = { EN = {'Updated canonical text.'} } } } } } }
+      }
+    }
+  }
+}
+local r = E.ProjectReply(plan, 'custom_outcome')
+assert(r.templateID == 'custom.reply.key.1', tostring(r.templateID))
+assert(r.fallback == 'Updated canonical text.', tostring(r.fallback))
+"""
+        proc = subprocess.run(
+            ["lua", "-e", lua_probe],
+            cwd=str(core_root),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stderr or proc.stdout)
