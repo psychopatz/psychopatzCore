@@ -1,10 +1,12 @@
 # S11 Post-R5 Final Closure Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR PLAN
+**Status:** HISTORICAL R6 REPAIR PLAN — substantially landed; final two acceptance proofs and continuity cleanup moved to R7
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Previous repair:** `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`
+
+**Current repair authority:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Do not restart R6; retain accepted R6 work and execute R7.
 
 ## Purpose
 

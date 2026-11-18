@@ -1,11 +1,11 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** COMPLETE_DEVELOPER_SIDE — S11A–S11E and post-R5 final closure repair (`S11_POST_R5_FINAL_CLOSURE_REPAIR.md` R6A–R6D) are complete and verified (`HANDOFF.md`). Ready for user-owned native Project Zomboid acceptance.
+**Current status:** IN_PROGRESS — post-R6 audit retained S11A/R1-R6 and reopened only the final R7 atomic acceptance proofs plus continuity reconciliation. Execute `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` R7A→R7B before user-owned native Project Zomboid acceptance.
 
-**Status:** COMPLETE_DEVELOPER_SIDE — S11R6 exact acceptance claims, residual quest/task/settlement projection, generic policy-admission unification, and final continuity closure are verified.
+**Status:** IN_PROGRESS — S11R7 task pre→post affordance proof, settlement-admission post-success refresh/atomic claim ownership, and final continuity closure.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
-**Accepted baseline retained:** S0-S10 + S10R, accepted S11 foundation/migrations, and the useful R5 mechanisms remain accepted unless targeted R6 evidence disproves them.
+**Accepted baseline retained:** S0-S10 + S10R and accepted S11A/R1-R6 work remain accepted unless targeted R7 evidence disproves them.
 **Primary adopter:** ProjectHoomans.
 **Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
 **User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities.

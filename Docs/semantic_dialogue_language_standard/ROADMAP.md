@@ -1,6 +1,6 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** COMPLETE_DEVELOPER_SIDE — S0-S10R + G7-G9 + S11 (including S11R6) accepted on the developer side. Live native Project Zomboid SP/MP visual/feel acceptance remains user-owned.
+**Parent status:** IN_PROGRESS — S0-S10R + G7-G9 remain accepted; S11 is in final R7 acceptance-proof closure before user-owned native Project Zomboid SP/MP acceptance.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Developer completion boundary:** S11A-S11E. Do not return to user-owned native acceptance until the full S11 gate is closed. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
@@ -881,9 +881,9 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** IN_PROGRESS — post-R5 audit retained the successful S11A/R1/R2 and useful R5 work but reopened final acceptance-claim integrity, quest/task/settlement presentation closure, generic policy admission, and exact continuity closure. Current authority: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
+**Status:** IN_PROGRESS — post-R6 audit retained the successful S11A/R1-R6 work and reopened only task pre→post affordance proof, settlement-admission post-success conversation refresh/atomic claim ownership, and final continuity reconciliation. Current authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
-Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
+Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. Current repair authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 Normative design: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved post-G9 architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching/state audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
@@ -945,7 +945,7 @@ Before any production semantic-family migration, prove canonical model stability
 
 ### Historical S11 R0-R4 post-implementation repair order
 
-R0-R4 substantially landed and are retained as historical phase evidence. Do not restart this sequence. R5 also substantially landed; current remaining work is S11R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
+R0-R4 substantially landed and are retained as historical phase evidence. Do not restart this sequence. R5 and R6 also substantially landed; current remaining work is S11R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 Historical order:
 
@@ -967,17 +967,17 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** PARTIAL / R6 RESIDUAL ACCEPTANCE ONLY. Canonical recruitment, relationship proposal, ceasefire, territory, effectful-social, event-expiry, and disband acceptance are retained. Parameterized tasks still need suggestion/response-channel parity across active/terminal state; production quest conversation state still needs READY_TO_TURN_IN → REWARDED → repeat proof; settlement/ambient still needs active-conversation post-success refresh/retirement proof.
+**Status:** PARTIAL / R7 RESIDUAL ACCEPTANCE ONLY. Quest, recruitment/proposal, event-expiry, disband, command, and other constrained-domain acceptance are retained. Remaining S11D proof is limited to explicit task affordance presence before transition and settlement-admission post-success active-conversation refresh, with separate atomic settlement/ambient claim ownership.
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** NOT ACCEPTED / R6 FINAL CLOSURE. Fresh post-R5 reruns confirm Core 310 PASS / 2 skips, focused provider 24/24 PASS, clean reconcile, and clean integrity/determinism. Final S11E remains blocked by keyword-based claim ownership, incomplete production quest/task/settlement conversation projection, family-specific policy-admission branching in generic dispatch, and contradictory/stale final continuity documentation.
+**Status:** NOT ACCEPTED / R7 FINAL CLOSURE. Fresh post-R6 reruns confirm Core 310 PASS / 2 skips, focused provider 25/25 PASS, clean reconcile, clean integrity/determinism, and single-path policy admission. Final S11E remains blocked only by the two residual R7A acceptance proofs and contradictory final continuity documentation.
 
 ### S11R5 — post-R4 closure integrity repair
 
 **Status:** HISTORICAL / SUBSTANTIALLY LANDED. Retain the closed-set audit inventory, exact source/test-ID validation, event/disband acceptance, canonical `ProjectReply`, removed hard-coded recruitment reply mapping, and broad green R5 test evidence. Post-R5 audit opened the narrower R6 repair; do not restart R5.
 
-Historical plan: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current normative plan: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
+Historical plan: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 #### R5A — acceptance inventory + ownership integrity
 
@@ -999,9 +999,9 @@ Rerun focused R5 tests, full semantic-harness, canonical nine-suite acceptance, 
 
 ### S11R6 — post-R5 final closure repair
 
-**Status:** ACCEPTED (R6A–R6D verified and closed).
+**Status:** HISTORICAL / SUBSTANTIALLY ACCEPTED. R6A exact claim ownership, R6B quest/task/ambient improvements, and R6C single generic policy admission are retained. Post-R6 audit found two narrower acceptance-proof omissions and incomplete final documentation reconciliation; do not restart R6.
 
-Current normative plan: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
+Historical R6 plan: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. Current normative plan: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 #### R6A — explicit exact-test acceptance claim ownership
 
@@ -1020,6 +1020,22 @@ Evaluate canonical action policy exactly once for any action with a policy plan 
 Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance, quest/task/settlement R6 regressions, canonical nine-suite acceptance, recipe reconcile, integrity/determinism, caller-zero guards and `git diff --check`. Rewrite all current continuity docs to one state and record exact participant commits plus live residual path counts/SHA-256 fingerprints. No push/publication.
 
 **Gate:** S11R6 is accepted only when every required audit claim is explicitly owned by the exact test/case (no keyword inference), residual quest/task/settlement conversation projections are proven, canonical policy admission is single-path and family-agnostic, retained acceptance is reproducibly green, and ROADMAP/PROGRESS/HANDOFF/parent/audit/repair docs agree on one exact committed checkpoint.
+
+### S11R7 — final atomic acceptance-proof closure
+
+**Status:** ACTIVE.
+
+Current normative plan: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+
+#### R7A — task + settlement/ambient atomic acceptance proof
+
+Add `task_conversation_projection_lifecycle` and prove the public task affordance is present/actionable before dispatch and retired/projected after active/terminal transition. Replace broad `settlement_ambient_admission_boundary` with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims. Keep the existing ambient owner and add an exact settlement-admission conversation-level owner proving authoritative success → active-conversation refresh → stale affordance retirement → stale replay zero mutation.
+
+#### R7B — final reproducible acceptance + continuity closure
+
+Run focused R7 tests plus the full retained acceptance/generation/static/caller-zero matrix. If green, rewrite all current closure docs to one state, mark S11/S11D/S11E/R7 accepted, make R6/R5 repair docs historical, and record exact participant commits plus live residual fingerprints.
+
+**Gate:** R7 closes only when both task and settlement/ambient atomic claims are exactly owned and behaviorally proven, full retained acceptance is reproducibly green, and every continuity document agrees on one exact committed checkpoint.
 
 ## Commit protocol
 

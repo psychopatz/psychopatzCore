@@ -6,7 +6,7 @@
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Historical repair:** `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`
 
-**Current repair authority:** `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. Do not restart R5; retain accepted R5 mechanisms and execute R6.
+**Current repair authority:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Do not restart R5/R6; retain accepted work and execute R7.
 
 ## Purpose
 
