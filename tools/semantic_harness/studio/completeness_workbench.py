@@ -172,7 +172,7 @@ def filter_completeness_families(
             continue
         elif issue_filter == "healthy_only" and status != "GREEN":
             continue
-        elif issue_filter in ("missing_coverage", "missing_fixture_coverage") and row.get("fixtureCoverage") != "uncovered":
+        elif issue_filter in ("missing_coverage", "missing_fixture_coverage") and row.get("fixtureCoverage") not in ("uncovered", "unknown"):
             continue
         elif issue_filter == "recently_changed_affected" and fid not in affected_set:
             continue

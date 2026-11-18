@@ -1046,9 +1046,10 @@ class ConvoEngineAuthoringPane:
         health_row = self._family_health_by_id.get(canonical_id) or {}
         status = str(health_row.get("semanticStatus") or "GREEN")
         badge = _HEALTH_BADGES.get(status, status)
+        coverage = str(health_row.get("fixtureCoverage") or "unknown")
         self._header_title_var.set(canonical_id or "(draft)")
         self._header_meta_var.set(
-            f"{kind.capitalize()} · {owner or 'auto'} · {badge}"
+            f"{kind.capitalize()} · {owner or 'auto'} · {badge} · Tests: {coverage}"
             + (f" · {ns}" if ns else "")
         )
 

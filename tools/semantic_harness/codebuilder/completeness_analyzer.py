@@ -656,6 +656,18 @@ def _check_roles_and_participant_set(
             )
 
 
+def _resolve_fixture_coverage(
+    fid: str,
+    covered_set: set[str] | None,
+    manifest_families: set[str],
+) -> str:
+    if fid in manifest_families:
+        return "exact_owner"
+    if covered_set is not None:
+        return "suite_covered" if fid in covered_set else "uncovered"
+    return "unknown"
+
+
 def _common_non_dialogue_envelope(
     fid: str,
     rec: Mapping[str, Any],
@@ -687,12 +699,7 @@ def _common_non_dialogue_envelope(
         semantic_status = "ORANGE"
 
     handled_branches = max(0, reachable_branches - error_count)
-    if covered_set is not None:
-        fixture_coverage = "covered" if fid in covered_set else "uncovered"
-    elif fid in manifest_families:
-        fixture_coverage = "manifest_owned"
-    else:
-        fixture_coverage = "unknown"
+    fixture_coverage = _resolve_fixture_coverage(fid, covered_set, manifest_families)
 
     return {
         "familyId": fid,
@@ -1424,12 +1431,7 @@ def _build_family_graph_and_metrics(
         0,
         reachable_branches - sum(1 for d in family_diags if d.severity == "error"),
     )
-    if covered_set is not None:
-        fixture_coverage = "covered" if fid in covered_set else "uncovered"
-    elif fid in manifest_families:
-        fixture_coverage = "manifest_owned"
-    else:
-        fixture_coverage = "unknown"
+    fixture_coverage = _resolve_fixture_coverage(fid, covered_set, manifest_families)
 
     return {
         "familyId": fid,
@@ -1776,8 +1778,8 @@ def analyze_portable_plan(
     manifest_families: set[str] = set()
     if isinstance(constrained_manifest, Mapping):
         for entry in constrained_manifest.get("entries") or ():
-            if isinstance(entry, Mapping) and entry.get("familyId"):
-                manifest_families.add(str(entry["familyId"]))
+            if isinstance(entry, Mapping) and entry.get("canonicalFamilyId"):
+                manifest_families.add(str(entry["canonicalFamilyId"]))
 
     requested_families = {str(f) for f in family_ids} if family_ids is not None else None
     if requested_families is not None:
@@ -1964,7 +1966,7 @@ def analyze_portable_plan(
             ks["warning"] += 1
         else:
             ks["healthy"] += 1
-        if fmetrics.get("fixtureCoverage") == "uncovered":
+        if fmetrics.get("fixtureCoverage") in ("uncovered", "unknown"):
             ks["missingCoverage"] += 1
 
     if requested_families is not None:

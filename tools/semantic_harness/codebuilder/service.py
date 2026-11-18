@@ -2647,7 +2647,8 @@ class SemanticLabAuthoringService:
         return self.convo_catalog.list_summaries()
 
     def run_family_tests(self, family_id: str) -> dict[str, Any]:
-        """Run the narrowest registered test/fixture owner for ``family_id``."""
+        """Run the narrowest registered test/fixture/Lua owner for ``family_id``."""
+        import os
         import subprocess
         import sys
         from .completeness_analyzer import (
@@ -2657,20 +2658,34 @@ class SemanticLabAuthoringService:
 
         fid = str(family_id or "").strip()
         if not fid:
-            return {"ok": False, "ran": False, "familyId": fid, "message": "No family selected"}
+            return {
+                "ok": False,
+                "ran": False,
+                "familyId": fid,
+                "coverageState": "unknown",
+                "ownerKind": "none",
+                "source": "",
+                "requestedTestIds": [],
+                "executedTestIds": [],
+                "passed": 0,
+                "failed": 0,
+                "output": "",
+                "message": "No family selected",
+            }
 
         manifest = load_constrained_family_manifest()
+        hoomans_root = self.hoomans_repository or (self.core_repository.parent / "ProjectHoomans")
+        dt_root = self.dynamic_trading_repository or (self.core_repository.parent / "DynamicTrading")
         roots = {
             "PsychopatzCore": self.core_repository,
-            "ProjectHoomans": self.hoomans_repository or (self.core_repository.parent / "ProjectHoomans"),
-            "DTCommon": self.dynamic_trading_repository or (self.core_repository.parent / "DynamicTrading"),
+            "ProjectHoomans": hoomans_root,
+            "DTCommon": dt_root,
         }
         matched_entries: list[dict[str, Any]] = []
         for entry in manifest.get("entries") or ():
             if not isinstance(entry, dict):
                 continue
-            cfams = set(entry.get("canonicalFamilies") or ())
-            if fid == entry.get("familyId") or fid in cfams:
+            if fid == entry.get("canonicalFamilyId"):
                 matched_entries.append(entry)
 
         if not matched_entries:
@@ -2678,6 +2693,14 @@ class SemanticLabAuthoringService:
                 "ok": True,
                 "ran": False,
                 "familyId": fid,
+                "coverageState": "unknown",
+                "ownerKind": "none",
+                "source": "",
+                "requestedTestIds": [],
+                "executedTestIds": [],
+                "passed": 0,
+                "failed": 0,
+                "output": "",
                 "message": "No exact family-level runnable test is registered",
             }
 
@@ -2685,55 +2708,159 @@ class SemanticLabAuthoringService:
         acc = entry.get("acceptance") if isinstance(entry.get("acceptance"), dict) else {}
         owner_kind = str(acc.get("ownerKind") or "")
         source = str(acc.get("source") or "")
-        test_ids = list(acc.get("testIds") or ())
+        test_ids = [str(t) for t in (acc.get("testIds") or ()) if t]
         src_path = _resolve_acceptance_source(source, roots) if source else None
 
         if owner_kind == "python_test" and src_path is not None and src_path.exists():
-            cmd = [sys.executable, "-m", "unittest", str(src_path)]
+            py_env = os.environ.copy()
+            py_paths = [str(self.core_repository)]
+            for repo_root in roots.values():
+                if repo_root and str(repo_root) not in py_paths:
+                    py_paths.append(str(repo_root))
+            existing_pp = py_env.get("PYTHONPATH")
+            if existing_pp:
+                py_paths.append(existing_pp)
+            py_env["PYTHONPATH"] = os.pathsep.join(py_paths)
+            cmd = [sys.executable, "-m", "unittest", src_path.name]
+            for tid in test_ids:
+                cmd.extend(["-k", tid])
             proc = subprocess.run(
                 cmd,
-                cwd=str(self.core_repository),
+                cwd=str(src_path.parent),
+                env=py_env,
                 capture_output=True,
                 text=True,
-                timeout=30,
+                timeout=60,
             )
+            ok = proc.returncode == 0
             return {
-                "ok": proc.returncode == 0,
+                "ok": ok,
                 "ran": True,
                 "familyId": fid,
+                "coverageState": "exact_owner",
                 "ownerKind": owner_kind,
                 "source": source,
-                "testIds": test_ids,
+                "requestedTestIds": test_ids,
+                "executedTestIds": list(test_ids),
+                "passed": len(test_ids) if ok else 0,
+                "failed": 0 if ok else max(1, len(test_ids)),
                 "returncode": proc.returncode,
                 "output": (proc.stdout + "\n" + proc.stderr).strip(),
-                "message": f"Ran {owner_kind} {source} (rc={proc.returncode})",
+                "message": f"Ran {owner_kind} {source} ({len(test_ids)} target(s), rc={proc.returncode})",
             }
 
         if owner_kind == "declarative_fixture" and src_path is not None and src_path.exists():
-            data = json.loads(src_path.read_text(encoding="utf-8"))
-            cases = [
-                c.get("id")
-                for c in (data.get("cases") or ())
-                if isinstance(c, dict) and (not test_ids or c.get("id") in test_ids)
-            ]
+            from tools.semantic_harness.testing.executor import execute_cases
+            from tools.semantic_harness.testing.loader import load_cases_from_file
+
+            all_cases = load_cases_from_file(src_path)
+            selected = [c for c in all_cases if not test_ids or c.case_id in test_ids]
+            if not selected:
+                return {
+                    "ok": False,
+                    "ran": False,
+                    "familyId": fid,
+                    "coverageState": "exact_owner",
+                    "ownerKind": owner_kind,
+                    "source": source,
+                    "requestedTestIds": test_ids,
+                    "executedTestIds": [],
+                    "passed": 0,
+                    "failed": len(test_ids),
+                    "output": f"No matching fixture cases found in {src_path}",
+                    "message": f"Missing registered fixture case(s) in {source}",
+                }
+            results = execute_cases(selected)
+            executed_ids = [r.case_id for r in results]
+            passed = sum(1 for r in results if r.passed)
+            failed = sum(1 for r in results if not r.passed)
+            output_lines = [r.summary() for r in results]
             return {
-                "ok": bool(cases),
+                "ok": failed == 0 and passed > 0,
                 "ran": True,
                 "familyId": fid,
+                "coverageState": "exact_owner",
                 "ownerKind": owner_kind,
                 "source": source,
-                "testIds": test_ids,
-                "verifiedCaseIds": cases,
-                "message": f"Verified {len(cases)} declarative fixture case(s) in {source}",
+                "requestedTestIds": test_ids,
+                "executedTestIds": executed_ids,
+                "passed": passed,
+                "failed": failed,
+                "output": "\n".join(output_lines),
+                "message": f"Executed {len(results)} declarative fixture case(s) in {source} ({passed} passed, {failed} failed)",
+            }
+
+        if owner_kind == "lua_test" and src_path is not None and src_path.exists():
+            env = os.environ.copy()
+            env["PZ_TEST_CORE_REPOSITORY"] = str(self.core_repository)
+            hoomans_runner = hoomans_root / "tests/run_tests.py"
+            if source.startswith("ProjectHoomans/") and hoomans_runner.is_file():
+                cmd = [
+                    sys.executable,
+                    str(hoomans_runner),
+                    "--suite",
+                    "lua",
+                    "--jobs",
+                    "1",
+                    src_path.stem,
+                ]
+                proc = subprocess.run(
+                    cmd,
+                    cwd=str(hoomans_root),
+                    env=env,
+                    capture_output=True,
+                    text=True,
+                    timeout=60,
+                )
+                ok = proc.returncode == 0
+                return {
+                    "ok": ok,
+                    "ran": True,
+                    "familyId": fid,
+                    "coverageState": "exact_owner",
+                    "ownerKind": owner_kind,
+                    "source": source,
+                    "requestedTestIds": test_ids,
+                    "executedTestIds": [src_path.name],
+                    "passed": 1 if ok else 0,
+                    "failed": 0 if ok else 1,
+                    "returncode": proc.returncode,
+                    "output": (proc.stdout + "\n" + proc.stderr).strip(),
+                    "message": f"Executed {owner_kind} {src_path.name} (rc={proc.returncode})",
+                }
+            from tools.semantic_harness.testing.suite import run_lua_suite
+
+            results, report = run_lua_suite([src_path], root=src_path.parent, environment=env)
+            passed = sum(1 for r in results if r.returncode == 0)
+            failed = sum(1 for r in results if r.returncode != 0)
+            return {
+                "ok": failed == 0 and passed > 0,
+                "ran": True,
+                "familyId": fid,
+                "coverageState": "exact_owner",
+                "ownerKind": owner_kind,
+                "source": source,
+                "requestedTestIds": test_ids,
+                "executedTestIds": [src_path.name],
+                "passed": passed,
+                "failed": failed,
+                "output": str(report),
+                "message": f"Executed {owner_kind} {src_path.name} ({passed} passed, {failed} failed)",
             }
 
         return {
-            "ok": True,
+            "ok": False,
             "ran": False,
             "familyId": fid,
+            "coverageState": "exact_owner",
             "ownerKind": owner_kind or "unknown",
             "source": source,
-            "message": "No exact family-level runnable test is registered",
+            "requestedTestIds": test_ids,
+            "executedTestIds": [],
+            "passed": 0,
+            "failed": 0,
+            "output": "",
+            "message": f"Registered owner source missing or unsupported: {owner_kind} {source}",
         }
 
     def list_convo_engine_action_contracts(self) -> list[dict[str, Any]]:

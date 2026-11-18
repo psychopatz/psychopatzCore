@@ -451,6 +451,77 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
             self.assertEqual(wb._selected_family_id, first_fid)
             self.assertEqual(wb._issue_filter_var.get(), "all")
 
+    def test_truthful_coverage_states_and_exact_family_test_execution(self) -> None:
+        from tools.semantic_harness.codebuilder.completeness_analyzer import (
+            analyze_portable_plan,
+            load_constrained_family_manifest,
+        )
+
+        # 1. Coverage states distinguish exact_owner, suite_covered, uncovered, unknown
+        synth_plan = {
+            "schema": "psychopatz.psdl.portable-plan.v1",
+            "dialogues": {
+                "a.owned": {"kind": "dialogue", "id": "owned", "say": "Hi."},
+                "a.suite": {"kind": "dialogue", "id": "suite", "say": "Hi."},
+                "a.uncovered": {"kind": "dialogue", "id": "uncovered", "say": "Hi."},
+            }
+        }
+        manifest = {"entries": [{"canonicalFamilyId": "a.owned"}]}
+        report_with_cov = analyze_portable_plan(
+            synth_plan,
+            covered_family_ids={"a.suite"},
+            constrained_manifest=manifest,
+        )
+        self.assertEqual(report_with_cov["families"]["a.owned"]["fixtureCoverage"], "exact_owner")
+        self.assertEqual(report_with_cov["families"]["a.suite"]["fixtureCoverage"], "suite_covered")
+        self.assertEqual(report_with_cov["families"]["a.uncovered"]["fixtureCoverage"], "uncovered")
+        self.assertEqual(report_with_cov["summary"]["byKind"]["dialogue"]["missingCoverage"], 1)
+
+        report_no_cov = analyze_portable_plan(synth_plan, constrained_manifest=manifest)
+        self.assertEqual(report_no_cov["families"]["a.owned"]["fixtureCoverage"], "exact_owner")
+        self.assertEqual(report_no_cov["families"]["a.suite"]["fixtureCoverage"], "unknown")
+        self.assertEqual(report_no_cov["summary"]["byKind"]["dialogue"]["missingCoverage"], 2)
+
+        # Missing Coverage filter surfaces both uncovered and unknown
+        missing_rows = filter_completeness_families(report_no_cov, issue_filter="missing_coverage")
+        self.assertEqual({r["familyId"] for r in missing_rows}, {"a.suite", "a.uncovered"})
+
+        # 2. Live service + real manifest-owned families execute their registered owners
+        service = SemanticLabAuthoringService()
+        try:
+            live_report = service.analyze_convo_completeness(strict_manifest=False)
+            real_manifest = load_constrained_family_manifest()
+            manifest_ids = {
+                str(e["canonicalFamilyId"])
+                for e in (real_manifest.get("entries") or ())
+                if isinstance(e, dict) and e.get("canonicalFamilyId")
+            }
+            for fid in ("offer.question.identity", "flow.needs.exchange", "departure.confirmed", "command.companion.camp"):
+                self.assertIn(fid, manifest_ids)
+                self.assertEqual(live_report["families"][fid]["fixtureCoverage"], "exact_owner")
+
+            # Execute declarative_fixture, python_test, and lua_test owners
+            decl_res = service.run_family_tests("offer.question.identity")
+            self.assertTrue(decl_res["ok"], decl_res)
+            self.assertTrue(decl_res["ran"], decl_res)
+            self.assertEqual(decl_res["coverageState"], "exact_owner")
+            self.assertEqual(decl_res["ownerKind"], "declarative_fixture")
+            self.assertGreaterEqual(decl_res["passed"], 3)
+
+            py_res = service.run_family_tests("departure.confirmed")
+            self.assertTrue(py_res["ok"], py_res)
+            self.assertTrue(py_res["ran"], py_res)
+            self.assertEqual(py_res["ownerKind"], "python_test")
+            self.assertEqual(py_res["passed"], 2)
+
+            lua_res = service.run_family_tests("command.companion.camp")
+            self.assertTrue(lua_res["ok"], lua_res)
+            self.assertTrue(lua_res["ran"], lua_res)
+            self.assertEqual(lua_res["ownerKind"], "lua_test")
+            self.assertEqual(lua_res["passed"], 1)
+        finally:
+            service.close()
+
 
 if __name__ == "__main__":
     unittest.main()
