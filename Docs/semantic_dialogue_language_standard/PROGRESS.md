@@ -17,11 +17,11 @@ Residual snapshot at planning time (`git status --porcelain=v1 -uall` raw-byte S
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=28  sha256=09c577d781805f33dc361794fcf0e802d04ff34b49e8a391743f177152d08353
+ProjectHoomans   rows=29  sha256=24fc41eef99d6cd3649ab1b09e4bcc4a5aea0359330e3a2825254ea9e624b00f
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans now has 28 unrelated concurrent NPC-authoring/editor residuals across CharacterCreation, Identity/UniqueNPCDraft, NPCAuthoring, UniqueNPCEditor, and their tests/support. The residual fingerprint above is the authoritative planning snapshot.
+ProjectHoomans has 29 unrelated concurrent NPC-authoring/editor residuals at this dirty snapshot. That participant is actively changing outside R8; the fingerprint above is a resume baseline, not permission to reset if live status diverges.
 
 
 Do not reset, stash, stage, rewrite, or otherwise absorb these paths into R8.

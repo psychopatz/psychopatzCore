@@ -1,8 +1,8 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: CLEAN_CHECKPOINT_WITH_UNRELATED_DIRT
-checkpoint_mode: committed_handoff
+status: DIRTY_RESUMABLE
+checkpoint_mode: dirty_snapshot
 planning_doc_commit: self
 phase: S11R8 — Native-Parity and Acceptance-Reproducibility Repair
 chunk: R8A — native task-state projection parity
@@ -14,7 +14,7 @@ previous_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R6_CLOSUR
 updated_at: 2026-11-18
 ~~~
 
-This planning checkpoint does **not** accept R8A. It records the post-R7 audit findings and the current participant baton.
+This planning snapshot does **not** accept R8A. ProjectHoomans is under active unrelated concurrent editing, so the stored residual fingerprint is a resume baseline only. Re-verify live HEAD/status before any R8 edit; never reset/stash/discard a mismatch.
 
 ## Participant planning checkpoint
 
@@ -28,11 +28,11 @@ Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=28  sha256=09c577d781805f33dc361794fcf0e802d04ff34b49e8a391743f177152d08353
+ProjectHoomans   rows=29  sha256=24fc41eef99d6cd3649ab1b09e4bcc4a5aea0359330e3a2825254ea9e624b00f
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans has 28 unrelated concurrent NPC-authoring/editor residual paths at this snapshot; preserve them exactly unless they change independently by their owner.
+ProjectHoomans has 29 unrelated concurrent NPC-authoring/editor residual paths at this dirty snapshot. Preserve them; on resume, re-verify live status and treat divergence as concurrent work, never as permission to reset/stash/discard.
 
 ## Retained accepted evidence
 
