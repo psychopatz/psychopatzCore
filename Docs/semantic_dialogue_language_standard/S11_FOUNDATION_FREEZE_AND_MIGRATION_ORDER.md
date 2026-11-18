@@ -310,6 +310,8 @@ RETIRED
 
 A required `CANONICAL_STATEFUL` family that lacks canonical state/input/repeat/closure/effect metadata must fail acceptance. This manifest is acceptance metadata over canonical family IDs, not a second state or semantic registry.
 
-See `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
+Historical R0-R4 acceptance repair: `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
+
+Current post-R4 closure repair: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. The S11A foundation remains retained; R5 must not restart foundation or accepted Identity/Needs/Greeting migrations.
 
 This clarification does not authorize rebuilding the accepted A0-A8 substrate. It closes an acceptance blind spot and then resumes the original recipe-only, no-shim migration order.

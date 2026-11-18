@@ -98,10 +98,11 @@ S11 extends the accepted post-G9 ConvoEngine pipeline:
 - do not add compatibility shims, fallback readers, dual registries, dual writes, forwarding wrappers, or parallel old/new semantic paths for project-owned internal code; migrate callers and delete obsolete code after parity/caller-zero proof;
 - author migrated dialogue/semantic logic in canonical CodeBuilder source/recipes and use the shared authoring/migration service; run generation through `tools/semantic_harness/codebuilder/generation_recipe.json` and recipe-driven reconcile; generated Lua/registries/manifests/translations are downstream-only and must not be hand-edited;
 - for bulk dialogue migrations, read canonical compact source plus compiler/recipe evidence rather than repeatedly reading generated downstream copies.
-- treat `S11_BRANCHING_DIALOGUE_AUDIT.md` plus the compiler-visible constrained-family manifest as mandatory acceptance coverage; a stateful family may not escape Completeness merely because it never adopted `statePolicy`;
-- accepted constrained-family classifications are `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`, each with explicit acceptance ownership;
-- review family-specific semantic checks added to generic hand-written runtime kernels as architecture defects when the same policy belongs in canonical source/Portable Plan; a behavior test alone does not accept such a patch;
-- use `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` when resuming the current reopened S11 work.
+- treat `S11_BRANCHING_DIALOGUE_AUDIT.md` plus the compiler-visible constrained-family inventory/manifest as mandatory **closed-set** acceptance coverage; missing audit rows and extra unowned manifest rows fail acceptance;
+- accepted constrained-family classifications are `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`, each with machine-verifiable acceptance ownership;
+- an `acceptanceOwner` path/string alone is not evidence: the source and referenced test/fixture/case ID must exist and explicitly own the required audit claim;
+- review family-specific semantic checks or canonical reply mappings added to generic hand-written runtime kernels as architecture defects when the policy/reply already belongs in canonical source/Portable Plan; a behavior test alone does not accept such duplication;
+- use `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` when resuming the current reopened S11 work; `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` is historical R0-R4 context.
 
 Behavioral regressions belong primarily in provider-owned declarative fixtures under tools/providers/<provider>/fixtures/. Keep imperative tests for compiler/schema, Portable Plan/Reference VM, backend parity, ActionContract lifecycle, GUI/protocol/static/performance responsibilities.
 

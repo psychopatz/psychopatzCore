@@ -881,9 +881,9 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** REOPENED — post-implementation audit revoked the prior S11E completion claim. Preserve the useful S11A foundation; repair acceptance authority, finish S11B/S11C structurally, execute missing S11D, then rerun S11E.
+**Status:** IN_PROGRESS — post-R4 closure audit retained successful S11A/R1/R2 migrations but reopened acceptance integrity and remaining S11D task/quest/event/disband/settlement gaps. Current authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
 
-Normative repair plan: `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
+Historical R0-R4 repair: `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
 
 Normative design: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved post-G9 architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching/state audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
@@ -904,7 +904,7 @@ Do not make runtime Lua capability descriptors or Semantic Lab the primary S11 a
 
 ### S11A — foundation build and freeze before production migration
 
-**Status:** IMPLEMENTED / FOUNDATION RETAINED; A4/A8 acceptance guard REOPENED. The foundation code remains useful and focused tests pass, but Completeness must gain mandatory constrained-family coverage so an audited stateful family cannot stay outside canonical policy while the report remains green. Do not rebuild A0-A8 from scratch.
+**Status:** ACCEPTED / RETAIN. S11A0-A8 foundation is implemented and current focused verification remains green. R5 repairs acceptance inventory integrity around the foundation; do not rebuild A0-A8.
 
 Execution order is authoritative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`. Do not use foundation-doc local prose to reorder these subphases.
 
@@ -943,9 +943,11 @@ Before any production semantic-family migration, prove canonical model stability
 
 **Gate:** S11A0-S11A8 are accepted; no production migration occurred before the freeze; all generic contracts are stable and portable; generation is deterministic/no-op; performance/save-size baselines and budgets exist; no parallel semantic/effect/modifier/memory/optimization authority or legacy compatibility path remains.
 
-### S11 post-implementation repair order
+### Historical S11 R0-R4 post-implementation repair order
 
-Follow this exact repair sequence before claiming S11 complete:
+R0-R4 substantially landed and are retained as historical phase evidence. Do not restart this sequence. Current remaining work is S11R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
+
+Historical order:
 
 1. **R0 acceptance-authority repair** — derive a constrained-family acceptance manifest from `S11_BRANCHING_DIALOGUE_AUDIT.md`; require every maintained family to be `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`; fail required stateful families that lack canonical policy; add negative tests; diagnose the current retained Core Lua acceptance failure.
 2. **R1 finish S11B retirement** — canonical Identity parity, caller-zero, remove superseded `Flow_Identity.lua`; no shim.
@@ -965,11 +967,35 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** COMPLETE (R3 accepted). All remaining `CANONICAL_STATEFUL` families (`social_recruitment_offer.json`, `social_relationship_proposal.json`, `social_parley_ceasefire.json`, `social_territory_set.json`, `social_effectful_wellbeing_trust.json`) are canonically authored, reconciled, and accepted in `constrained_family_manifest.json` (`strict_manifest=True -> ok=True`); multi-turn transition-refresh + repeat no-op fixtures for recruitment and relationship proposal pass (`29/29` declarative interaction fixtures).
+**Status:** PARTIAL / REOPENED BY POST-R4 AUDIT. Canonical recruitment, relationship proposal, ceasefire, territory, and effectful-social migrations plus recruitment/proposal transition fixtures are retained. S11D remains open for parameterized task conversation-state parity, quest production lifecycle projection, event-expiry manifest ownership, disband confirmation/presentation ownership, and settlement/ambient post-transition projection.
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** COMPLETE (R4 accepted). Full Core Python (`308/308`), Core Lua (`36/36`), Hoomans Python (`146/146`, 5 skips), `real_provider_worker` (`331/331`, 9 skips), `tk_xvfb_gui` (`144/144`, 11 skips), `dynamic_trading` (`89/89`), `convo_audit` (`1/1`), `kahlua_static` (`3/3`), `reconcile.py --check` (`clean=true`, `desired=410`, `drifted=0`), and `audit-integrity --check-determinism` (`violationCount=0`, `diffs=[]`) are green (`convoScopeOk=True`). Only non-semantic UI layout smoke `pnc_starting_companion_ui_layout_smoke.lua` fails in `hoomans_lua` due to pre-existing unrelated NPCAuthoring/StartingCompanions worktree changes. Ready for user-owned native Project Zomboid acceptance.
+**Status:** NOT ACCEPTED / REOPENED. Prior R4 test/generation evidence remains useful, and fresh post-R4 reruns confirm Core 308 PASS / 2 skips plus clean reconcile/integrity. Final S11E is blocked by incomplete/mis-owned constrained-family acceptance, remaining S11D task/quest/event/disband/settlement coverage, family-specific recruitment reply duplication in generic dispatch, and incomplete final checkpoint documentation.
+
+### S11R5 — post-R4 closure integrity repair
+
+**Status:** ACTIVE.
+
+Current normative plan: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
+
+#### R5A — acceptance inventory + ownership integrity
+
+Make the constrained-family acceptance inventory closed-set/machine-complete against the maintained branching audit. Make acceptance ownership machine-verifiable rather than accepting any non-empty path. Add negative tests for omitted/extra audit rows, missing owner sources/IDs, owner-claim mismatch, and canonical-stateful policy omission.
+
+#### R5B — residual S11D lifecycle closure
+
+Close parameterized task state parity; quest offer→accept→active→ready→rewarded→repeat conversation projection; event response-window expiry ownership; disband destructive confirmation/presentation policy; and settlement admission/ambient visit post-transition refresh/retirement. Reuse existing authoritative services; do not create ConvoEngine shadow state.
+
+#### R5C — generic runtime policy/reply projection
+
+Remove family-specific recruitment/proposal canonical reply projection from generic `Input_Actions_Dispatch.lua`. Consume compiled `replyOutcome` and canonical reply/consequence projection generically. Domain-specific action execution may remain behind typed dispatch after canonical `dispatch` admission.
+
+#### R5D — reproducible final closure
+
+Rerun focused R5 tests, full semantic-harness, canonical nine-suite acceptance, strict closed-set Completeness, CodeBuilder reconcile, integrity/determinism, Kahlua/static and caller-zero guards. Reconcile all current docs by replacement rather than appending stale states. Final HANDOFF records exact participant commits plus SHA-256 residual-work fingerprints. No push/publication.
+
+**Gate:** S11R5 is accepted only when every maintained branching-audit row has machine-verifiable acceptance ownership, all residual state/lifecycle gaps are closed, generic runtime contains no duplicate family-specific canonical reply authority, retained acceptance is reproducibly green, and ROADMAP/PROGRESS/HANDOFF agree on one exact committed checkpoint.
 
 ## Commit protocol
 

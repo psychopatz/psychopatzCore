@@ -1,14 +1,14 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** REOPENED after post-implementation audit; prior S11E completion is revoked. Preserve the implemented S11A foundation, then follow `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` R0→R4 before returning to user acceptance.
+**Current status:** IN_PROGRESS — post-R4 closure audit reopened acceptance integrity. S11A, Identity, commands, Needs, Greeting, and accepted canonical R3 families are retained; execute `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` R5A→R5D before user acceptance.
 
-**Status:** ACTIVE — post-G9 architecture reconciled; implementation not yet started.
-**Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.  
-**Accepted baseline retained:** S0-S10 + S10R infrastructure and acceptance integrity remain accepted unless S11 evidence directly disproves a retained behavior.  
-**Primary adopter:** ProjectHoomans.  
-**Participant scope:** PsychopatzCore owns reusable semantic/state contracts and acceptance mechanisms; ProjectHoomans owns gameplay-specific state predicates, identity/relationship effects, conversation projection, and adopter replies; DynamicTrading participates only where the shared ConvoEngine contract or provider compatibility is affected.  
-**User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel all agree with the actual world/conversation state instead of exposing contradictory or already-resolved choices.
+**Status:** IN_PROGRESS — S11R5 acceptance-inventory integrity and residual S11D closure.
+**Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
+**Accepted baseline retained:** S0-S10 + S10R and accepted S11 foundation/migrations remain accepted unless targeted R5 evidence disproves them.
+**Primary adopter:** ProjectHoomans.
+**Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
+**User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities.
 
 **Mandatory branching audit:** `S11_BRANCHING_DIALOGUE_AUDIT.md` is a normative scope input for S11C/S11D. Every maintained family classified there as a confirmed defect or high-risk state branch must be repaired or explicitly classified, and every reference-good family must remain regression-protected.
 

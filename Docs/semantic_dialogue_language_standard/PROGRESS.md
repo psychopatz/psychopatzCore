@@ -1,92 +1,79 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** COMPLETE — S11A–S11E and R0–R4 repair sequence accepted (`convoScopeOk=True`, `reconcile --check` clean, `audit-integrity --check-determinism` 0 violations / 0 diffs).
+**Status:** IN_PROGRESS — post-R4 closure audit reopened S11 acceptance integrity; the useful S11A/R1/R2 foundation is retained.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11 complete — ready for user-owned native Project Zomboid acceptance.
-**Immediate Next Chunk:** None (S11 closed).
+**Active phase:** S11R5 — acceptance-inventory integrity + remaining S11D closure + generic runtime de-duplication.
+**Immediate Next Chunk:** R5A only — make the constrained-family inventory machine-complete against the branching audit and make acceptance ownership verifiable; then continue automatically through R5B-R5D.
 
-## Final S11E closure checkpoint
+## Current checkpoint
 
 ~~~text
-DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
+psychopatzCore   phase_commit: self (planning base 37753f2c600eb168ad3ca8cd2c7b707cabec8863)
 ProjectHoomans   fcbc787ad708dd38aff13511f07dcf48e3460558
-psychopatzCore   HEAD of this closure commit (prior R3 commit: 19677f677e3139a2b505baff12d63bc3ca381e8b)
+DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
 ~~~
 
-- **DynamicTrading** and **psychopatzCore** worktrees are clean.
-- **ProjectHoomans** retains only unrelated pre-existing dirty/untracked NPCAuthoring, StartingCompanions, and UniqueNPCEditor files (preserved untouched).
-
-## Verified closure evidence
-
-- `core_python`: **308/308 PASS** (`0` fail, `0` skip).
-- `core_lua`: **36/36 PASS**.
-- `hoomans_provider_python`: **146/146 PASS** (`5` allowed skips).
-- `real_provider_worker`: **331/331 PASS** (`9` allowed skips).
-- `tk_xvfb_gui`: **144/144 PASS** (`11` allowed skips).
-- `dynamic_trading`: **89/89 PASS**.
-- `convo_audit`: **1/1 PASS** (`588` family files, `407` deterministic files, `0` diffs, `0` violations).
-- `kahlua_static`: **3/3 PASS** (`0` Kahlua errors on touched Lua files).
-- `reconcile.py --check`: **clean=true**, `desired=410`, `missing=0`, `drifted=0`, `stale=0`, `ambiguous=0`.
-- `hoomans_lua`: **1035/1040 PASS** (`convoScopeOk=True`; `4` known unrelated baselines + `1` unrelated `pnc_starting_companion_ui_layout_smoke.lua` from preserved NPCAuthoring/StartingCompanions worktree changes).
-- Declarative S11 interaction fixtures (`state_aware_outcome_closure.json` including `recruitment_transition_refresh_and_repeat_noop` and `relationship_proposal_transition_refresh_and_repeat_noop`, plus `identity_pending_exchange_interruptions.json` and `context_repair_and_pronouns.json`): **PASS**.
-
-Normative repair plan:
-
-`Docs/semantic_dialogue_language_standard/S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`
-
-Authoritative foundation/migration order:
-
-`Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`
-
-## Verified truths to retain
-
-- S11A0-A8 produced real foundation code in the intended order; do not rebuild it from scratch.
-- Fresh focused S11 foundation tests: **23/23 PASS**.
-- ProjectHoomans `test_automatic_flow_generation.py`: **9/9 PASS**.
-- CodeBuilder recipe reconciliation: **clean**, `desired=407`, `missing=0`, `drifted=0`, `stale=0`, `ambiguous=0`.
-- ConvoEngine integrity/determinism: **PASS**, `577` family files, `0` legacy-name violations, `404` deterministic files, `0` diffs.
-- Canonical Identity source contains S11 state/input/repeat/postcondition/closure metadata.
-
-## Reopened defects
-
-- Completeness currently validates policy that exists but does not prove every constrained family from the branching audit adopted canonical policy. Only one current canonical dialogue source carries the new S11 policy metadata.
-- `Flow_Identity.lua` remains live through `FlowCatalog.lua`; S11B behavior is repaired but caller-zero/retirement is incomplete.
-- S11C command state admission was patched directly in `Input_Actions_Dispatch.lua`; Needs/Greeting were patched directly in `Flow_Needs.lua` / `Flow_Greeting.lua`. This violates recipe-only semantic migration.
-- `Flow_Needs.lua` and `Flow_Greeting.lua` remain live; superseded semantic ownership was not retired.
-- No implementation phase corresponding to the mandatory S11D full constrained-domain sweep was found before the S11E completion claim.
-- Recruitment and relationship-proposal P0 cases prove pre-satisfied no-op admission but do not prove actionable -> successful mutation -> same-conversation refresh -> repeat no-op.
-- Fresh full Core semantic-harness is **not green**: 307 tests ran with 1 failure and 2 skips. Current failure is `test_fast_subset_of_real_suites_executes_cleanly` because `tests/psychopatz_runtime_role_split_smoke.lua` crashes on a nil local. S11 causation is unproven, but retained acceptance is not reproducibly green.
-- Prior PROGRESS/HANDOFF completion claims contradicted ROADMAP and are revoked.
-
-## Mandatory repair sequence
+Residual worktree fingerprints:
 
 ~~~text
-R0  acceptance-authority repair
-    constrained-family manifest + analyzer/acceptance enforcement
-    diagnose current retained Core acceptance failure
-      ↓
-R1  finish S11B Identity retirement
-    canonical parity -> caller-zero -> delete superseded Flow_Identity
-      ↓
-R2  redo/finish S11C via canonical CodeBuilder recipes
-    commands + Needs + Greeting
-    remove family-specific semantic authority from hand-written runtime Lua
-    caller-zero -> delete superseded flows
-      ↓
-R3  execute actual S11D full constrained-domain sweep
-      ↓
-R4  rerun S11E reproducible closure
-    exact docs + participant vector + residual fingerprints
+psychopatzCore   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+ProjectHoomans   rows=31  sha256=d27faeb722246c602842d02438f0cebb6ac0d27771c449e857057d4155bb1742
+DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
 ~~~
 
-Do not return to USER_ACCEPTANCE until R0-R4 and the original S11 completion gate pass.
+- Core is clean.
+- ProjectHoomans has preserved concurrent/unrelated NPCAuthoring, StartingCompanions, UniqueNPCEditor, translation, and related test work. Do not stage/reset/stash/discard it.
+- DynamicTrading currently has two unstaged generated ConvoEngine fingerprint-only drifts in `Manifest.lua` and `Registry.lua`. Preserve them until ownership/reconcile evidence proves whether they belong to R5 or concurrent work.
+
+Current repair authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. The earlier `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` is historical R0-R4 context.
+
+## Accepted / retained implementation
+
+Do not rebuild or remigrate these merely because S11 closure is reopened:
+
+- S11A0-A8 compiler/runtime foundation remains accepted.
+- R1 Identity migration is accepted: superseded `Flow_Identity.lua` is deleted and absent from `FlowCatalog.lua`.
+- R2 command/Needs/Greeting migration is accepted: superseded `Flow_Needs.lua` and `Flow_Greeting.lua` are deleted; maintained companion command policies are canonical.
+- R3 canonical families for recruitment, relationship proposal, ceasefire, territory, and effectful wellbeing/trust exist.
+- Recruitment and relationship proposal have real multi-turn transition-refresh + repeat-no-op fixtures.
+- Fresh Core semantic-harness unit suite: **308 tests PASS, 2 skipped**.
+- Focused ProjectHoomans quest/event/automatic-flow tests rerun during audit: **17/17 PASS**.
+- CodeBuilder reconcile: **clean**, `desired=410`, `missing=0`, `drifted=0`, `stale=0`, `ambiguous=0`.
+- Integrity/determinism: **PASS**, `familyFilesChecked=588`, `legacyNameViolations=0`, deterministic `fileCount=407`, `diffs=[]`, `violationCount=0`.
+
+## Reopened acceptance defects
+
+1. `constrained_family_manifest.json` is manually enumerated; its `auditSource` is not consumed, so an audit row can be omitted while strict validation still passes.
+2. `acceptanceOwner` is only checked as a non-empty string; existence and behavioral ownership are not proven.
+3. Quest conversation lifecycle still permits two repeated `"Can you help me?"` offers to return `available` instead of proving real offer→accept→active→ready→rewarded→repeat projection.
+4. Parameterized-task tests prove generation/result routing, not the required conversation-state lifecycle.
+5. Event response-window expiry is required and tested, but absent from the manifest.
+6. Disband and settlement/ambient rows point at an owner file that does not test those behaviors; their intended policies still need explicit acceptance.
+7. `Input_Actions_Dispatch.lua` duplicates recruitment reply mapping already authored canonically through `replyOutcome`/reply branches.
+8. Previous final continuity docs were contradictory and omitted residual fingerprints.
+
+## Mandatory R5 sequence
+
+~~~text
+R5A  acceptance inventory + ownership integrity
+  ↓
+R5B  remaining S11D state/lifecycle closure
+     tasks + quests + event expiry + disband + settlement/ambient
+  ↓
+R5C  generic policy/reply projection de-duplication
+  ↓
+R5D  full reproducible acceptance + exact final documentation checkpoint
+~~~
+
+Do not return to user-owned native Project Zomboid acceptance until R5A-R5D pass.
 
 ## Hard rules
 
-- Canonical source/CodeBuilder recipe first; generated output is downstream-only.
-- No compatibility shims, fallback readers, dual registries/writes, or permanent old/new semantic paths for project-owned internal code.
-- Generic runtime kernels must not become family-specific semantic authorities.
-- Reference-good domains should be regression-protected, not rewritten unnecessarily.
-- Semantic correctness must require zero LLM calls.
-- Do not implement the future autonomous Dialogue Director during this repair.
-- Accepted multi-repo phases commit adopters first and Core last; never push/publish without explicit authorization.
+- Canonical CodeBuilder source/recipe first; generated output is downstream-only.
+- No compatibility shims, fallback readers, aliases, dual registries/writes, or parallel old/new semantic authority for project-owned internal code.
+- Do not re-migrate accepted Identity/Needs/Greeting/command families unless a targeted failing test proves a real defect.
+- The constrained-family inventory must be closed-set against its normative audit source; manual omission must fail.
+- An acceptance-owner string is not evidence; ownership must resolve to real test/fixture/case coverage.
+- Generic runtime may route/evaluate canonical policy but may not own family-specific admission or reply mappings already expressed canonically.
+- Semantic correctness must require zero LLM calls. Preserve ParticipantSet/roles/beat/topic/event/activity/memory foundations; do not implement the future Dialogue Director in R5.
+- Accepted multi-repo commits: changed adopters first, Core last. Exact paths only. Never push/publish without explicit authorization.

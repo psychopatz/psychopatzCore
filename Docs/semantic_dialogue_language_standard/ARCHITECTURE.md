@@ -99,9 +99,11 @@ Migrated project-owned semantic paths are replaced, not preserved through compat
 
 ### Mandatory constrained-family acceptance coverage
 
-Dialogue Completeness is not opt-in. A compiler-visible acceptance manifest derived from the maintained branching audit must classify every constrained family as `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`. A required canonical stateful family that lacks canonical policy must fail acceptance even if the families that did opt into `statePolicy` are individually clean.
+Dialogue Completeness is not opt-in. A compiler-visible acceptance manifest derived from the maintained branching audit must classify every constrained family as `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`. The audit inventory and manifest are a closed set: omission or extra unowned rows fail acceptance. A required canonical stateful family that lacks canonical policy must fail acceptance even if the families that did opt into `statePolicy` are individually clean.
 
-Generic runtime kernels may execute/adapt canonical decisions, but family-specific semantic admission rules must not be introduced there as a substitute for canonical source/Portable Plan ownership. Behavior tests do not make such a runtime-only policy authoritative.
+Acceptance ownership is machine-verifiable. A non-empty file/path string is not sufficient: the referenced fixture/test/case must exist and explicitly own the required audit claim. Deleted/stale owners or claim mismatches fail acceptance.
+
+Generic runtime kernels may execute/adapt canonical decisions, but family-specific semantic admission **or canonical reply mapping** must not be introduced there as a substitute for canonical source/Portable Plan ownership. If canonical policy yields `replyOutcome`, generic runtime projects the canonical reply/consequences; it must not recreate reason→template/text mappings per family. Behavior tests do not make such a runtime-only duplicate authority acceptable.
 
 ## Runtime namespace boundary
 

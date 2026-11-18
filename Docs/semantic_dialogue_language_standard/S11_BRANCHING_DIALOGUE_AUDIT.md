@@ -909,36 +909,42 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
 
-# Post-implementation closure audit — 2026-11-18
+# Post-R4 closure audit — 2026-11-18
 
-The prior S11E completion claim is revoked. This document is now also the input inventory for the compiler-visible constrained-family acceptance manifest required by `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
+R0-R4 repaired the original P0 defects substantially, but final S11 closure remains open because acceptance inventory/ownership can still produce false greens.
 
-Current audited state:
+This document remains the normative human-readable scope input. The acceptance/compiler layer must maintain a machine-readable closed-set inventory corresponding to every maintained row below; omission of a row must fail acceptance.
 
 | Surface | Current closure status |
 | --- | --- |
-| identity | behavior repaired, canonical source exists, legacy `Flow_Identity.lua` retirement incomplete |
-| companion commands | behavior patched, canonical recipe/state-policy migration incomplete; family-specific admission remains in hand-written dispatch Lua |
-| needs | behavior patched, canonical recipe migration/legacy-flow retirement incomplete |
-| greeting | behavior patched, canonical recipe migration/legacy-flow retirement incomplete |
-| recruitment | pre-satisfied no-op fixture exists; actionable→success→fresh projection→repeat no-op transition still required |
-| relationship proposal | pre-satisfied no-op fixture exists; actionable→success→fresh projection→repeat no-op transition still required |
-| disband | typed confirmation vs explicit presentation-only classification still required |
-| ceasefire | typed policy + fresh post-transition projection still required |
-| set territory | typed policy + fresh post-transition projection still required |
-| parameterized tasks | full state parity matrix still required |
-| quest operations | real offer/accept/status/turn-in lifecycle parity still required |
-| wellbeing/trust/affinity effects | explicit repeat policy + acceptance still required |
-| settlement admission / ambient visit | post-success fresh projection still required |
-| gift / event expiry / grounded gossip / departure / pragmatic repair | reference-good; preserve with explicit regression ownership |
+| identity | ACCEPTED — canonical; superseded `Flow_Identity.lua` retired |
+| companion commands | ACCEPTED — canonical maintained command policy |
+| needs | ACCEPTED — canonical; superseded `Flow_Needs.lua` retired |
+| greeting | ACCEPTED — canonical; superseded `Flow_Greeting.lua` retired |
+| recruitment | CANONICAL IMPLEMENTATION ACCEPTED; R5C removes duplicated runtime reply mapping from generic dispatch |
+| relationship proposal | CANONICAL IMPLEMENTATION ACCEPTED; R5C generalizes the same policy/reply projection seam |
+| ceasefire | CANONICAL IMPLEMENTATION ACCEPTED; retain typed/state regression |
+| set territory | CANONICAL IMPLEMENTATION ACCEPTED; retain typed/state regression |
+| wellbeing/trust/affinity effects | CANONICAL IMPLEMENTATION ACCEPTED; retain repeat-policy regression |
+| parameterized tasks | REOPENED — generated/result branches exist, but conversation-level available/active/completed/repeat parity is not proven |
+| quest operations | REOPENED — authoritative service lifecycle is good, but conversation worker still permits repeated-offer shortcut instead of proving production lifecycle projection |
+| disband | REOPENED ACCEPTANCE — intended presentation-only/confirmation policy is not owned by the currently named manifest test |
+| settlement admission / ambient visit | REOPENED ACCEPTANCE — authority/replay/expiry tests exist, but post-success conversation refresh/retirement and correct acceptance owner are not proven |
+| event response-window expiry | REOPENED ACCEPTANCE — real expiry test exists but current manifest omits this audit row |
+| gift | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
+| grounded gossip | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
+| departure | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
+| pragmatic repair | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
 
 Every maintained row must end as exactly one of:
 
-```text
+~~~text
 CANONICAL_STATEFUL
 EXPLICIT_PRESENTATION_ONLY
 REFERENCE_GOOD_REGRESSION
 RETIRED
-```
+~~~
 
-The Completeness/acceptance system must fail any required canonical stateful row that is absent from canonical policy. A zero-error report over only opted-in families is not sufficient S11 closure.
+The machine acceptance inventory must be **closed-set** against this maintained audit scope, and every non-retired classification must have machine-verifiable acceptance ownership. A non-empty owner path is not sufficient evidence.
+
+Current repair authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`
