@@ -19,7 +19,7 @@ from .conversation_compiler import CONVERSATION_MANIFEST_RELATIVE
 from .conversation_manifest import load_manifest as _load_manifest
 from .convo_engine_integrity_audit import discover_convo_engine_repositories
 from .generation_ownership import CORE_OWNER
-from .psdl_compiler import compile_convo_engine_document
+from .convo_engine_compiler import compile_convo_engine_document
 
 
 PLACEHOLDER_REGEX = re.compile(r"\{([a-zA-Z0-9_]+)\}")

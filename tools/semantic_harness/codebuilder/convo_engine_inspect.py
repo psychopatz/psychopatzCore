@@ -98,7 +98,7 @@ def _build_dependency_graph(records: Sequence[Mapping[str, Any]]) -> tuple[dict[
     return deps, consumers
 
 
-def inspect_psdl(
+def inspect_convo_engine(
     records: Sequence[Mapping[str, Any]],
     raw_sources: Mapping[str, Any],
     *,
@@ -136,7 +136,7 @@ def inspect_psdl(
     raise CompileError(f"Unsupported inspection mode {mode!r}; expected summary, source, ir, or impact")
 
 
-def locate_psdl(
+def locate_convo_engine(
     compiled_model: Mapping[str, Any],
     *,
     record_id: str,
@@ -219,4 +219,4 @@ def locate_psdl(
     }
 
 
-__all__ = ["inspect_psdl", "locate_psdl"]
+__all__ = ["inspect_convo_engine", "locate_convo_engine"]

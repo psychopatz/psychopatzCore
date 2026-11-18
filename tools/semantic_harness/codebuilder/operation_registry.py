@@ -233,23 +233,6 @@ class OperationRegistry:
         )
         self.register(
             OperationDescriptor(
-                id="convo.migrate_schema",
-                mode="command",
-                required_capability=None,
-                worker_requirement="none",
-                mutates_canonical=True,
-                mutates_runtime=False,
-                input_version="1",
-                output_version="1",
-                summary="Preview or apply owner-aware ConvoEngine v1 schema migration across canonical sources.",
-            ),
-            lambda payload: self.service.migrate_convo_engine_schema(
-                owner=payload.get("owner"),
-                write=bool(payload.get("write", False)),
-            ),
-        )
-        self.register(
-            OperationDescriptor(
                 id="convo.modernization_inventory",
                 mode="query",
                 required_capability=None,
@@ -316,7 +299,6 @@ class OperationRegistry:
             dict(doc),
             source_path=source_path,
             default_owner=payload.get("owner"),
-            allow_legacy_schema=bool(payload.get("allowLegacySchema", False)),
         )
 
     def _handle_simulate(self, payload: Mapping[str, Any]) -> dict[str, Any]:

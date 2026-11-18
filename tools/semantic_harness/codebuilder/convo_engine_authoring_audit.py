@@ -20,7 +20,6 @@ from typing import Any, Iterable, Mapping
 
 AUDIT_SCHEMA = "psychopatz.semantic.dialogue-authoring-audit.v1"
 GUARD_SCHEMA = "psychopatz.semantic.dialogue-authoring-guard.v1"
-PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
 CONVO_ENGINE_SCHEMA = "psychopatz.convo-engine.v1"
 
 # Authoring evidence must describe maintained source, not interpreter/build
@@ -528,7 +527,7 @@ def _looks_like_psdl_record(root: Path, relative: str) -> bool:
     if path.suffix.lower() != ".json" or not path.is_file():
         return any(part in {"psdl", "semantic_dialogue", "semantic-dialogue"} for part in Path(relative).parts)
     document = _read_json(path)
-    return isinstance(document, Mapping) and document.get("schema") in {PSDL_SCHEMA, CONVO_ENGINE_SCHEMA}
+    return isinstance(document, Mapping) and document.get("schema") == CONVO_ENGINE_SCHEMA
 
 
 def guard_changed_paths(

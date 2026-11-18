@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.semantic_harness.codebuilder.psdl_authoring_audit import (
+from tools.semantic_harness.codebuilder.convo_engine_authoring_audit import (
     guard_changed_paths,
 )
 
@@ -59,7 +59,7 @@ class PSDLAuthoringGuardTests(unittest.TestCase):
             psdl.parent.mkdir(parents=True)
             psdl.write_text(
                 json.dumps({
-                    "schema": "psychopatz.semantic.dialogue-language.v1",
+                    "schema": "psychopatz.convo-engine.v1",
                     "kind": "dialogue",
                     "id": "trade.open",
                     "owner": "DTCommon",
@@ -86,7 +86,7 @@ class PSDLAuthoringGuardTests(unittest.TestCase):
         self.assertIn("generated_output_or_translation_boundary", {item["reason"] for item in accepted})
 
     def test_inventory_ignores_interpreter_editor_and_cache_noise(self) -> None:
-        from tools.semantic_harness.codebuilder.psdl_authoring_audit import (
+        from tools.semantic_harness.codebuilder.convo_engine_authoring_audit import (
             _surface_files,
         )
 

@@ -28,9 +28,7 @@ CANONICAL_IR_SCHEMA = "psychopatz.semantic.dialogue-ir.v1"
 CANONICAL_IR_VERSION = 1
 CONVO_ENGINE_SCHEMA = "psychopatz.convo-engine.v1"
 CONVO_ENGINE_PACKAGE_SCHEMA = "psychopatz.convo-engine.package.v1"
-LEGACY_PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
-PSDL_SCHEMA = LEGACY_PSDL_SCHEMA
-SUPPORTED_SOURCE_SCHEMAS = frozenset({CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA})
+SUPPORTED_SOURCE_SCHEMAS = frozenset({CONVO_ENGINE_SCHEMA})
 MAX_PARTICIPANTS = 8
 MAX_SLOTS = 16
 MAX_REFERENCES = 16
@@ -239,9 +237,7 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
         raise CompileError("ConvoEngine source must be an object")
     source_schema = source.get("schema")
     if source_schema not in SUPPORTED_SOURCE_SCHEMAS:
-        raise CompileError(
-            f"source.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
-        )
+        raise CompileError(f"source.schema must be {CONVO_ENGINE_SCHEMA}")
     kind = source.get("kind")
     if kind not in {"dialogue", "behavior", "beat", "realization"}:
         raise CompileError(f"source.kind is unsupported: {kind!r}")
@@ -283,8 +279,6 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
     }
     if namespace is not None:
         lineage["localId"] = local_id
-    if source_schema == LEGACY_PSDL_SCHEMA:
-        lineage["migrationReadOnly"] = True
     if source_path is not None:
         lineage["sourcePath"] = source_path
     ir: dict[str, Any] = {
@@ -348,10 +342,8 @@ __all__ = [
     "CONVO_ENGINE_PACKAGE_SCHEMA",
     "CONVO_ENGINE_SCHEMA",
     "CONTEXT_ROOTS",
-    "LEGACY_PSDL_SCHEMA",
     "PARTICIPANT_KINDS",
     "PARTICIPANT_ROLES",
-    "PSDL_SCHEMA",
     "REFERENCE_TYPES",
     "SLOT_TYPES",
     "SUPPORTED_SOURCE_SCHEMAS",

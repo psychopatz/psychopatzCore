@@ -14,8 +14,8 @@ from .compiler_probes import (
     probe_backend_projection_inspect,
     probe_canonical_ir_inspect,
     probe_portable_plan_inspect,
-    probe_psdl_inspect,
-    probe_psdl_validate,
+    probe_convo_engine_inspect,
+    probe_convo_engine_validate,
     probe_source_lineage_locate,
 )
 
@@ -314,12 +314,12 @@ def _validate_response_selection(payload: dict[str, Any], _turn: dict[str, Any],
     }
 
 
-def _validate_psdl_validate(payload: dict[str, Any], _turn: dict[str, Any], action_id: str) -> dict[str, Any]:
+def _validate_convo_engine_validate(payload: dict[str, Any], _turn: dict[str, Any], action_id: str) -> dict[str, Any]:
     data = _ensure_payload_dict(payload, action_id)
     return {"recordID": _optional_str(data, "recordID", None, action_id)}
 
 
-def _validate_psdl_inspect(payload: dict[str, Any], _turn: dict[str, Any], action_id: str) -> dict[str, Any]:
+def _validate_convo_engine_inspect(payload: dict[str, Any], _turn: dict[str, Any], action_id: str) -> dict[str, Any]:
     data = _ensure_payload_dict(payload, action_id)
     mode = _optional_str(data, "mode", "summary", action_id) or "summary"
     if mode not in {"summary", "source", "ir", "impact"}:
@@ -658,22 +658,22 @@ def _build_registry() -> dict[str, OperationSpec]:
             runner=lambda w, _p, _t: _call_worker(w, "event_catalog", "event.catalog"),
             list_key="events",
         ),
-        # Compiler / PSDL probes
+        # Compiler / ConvoEngine probes
         OperationSpec(
-            action_id="compiler.psdl_validate",
+            action_id="compiler.convo_engine_validate",
             authority="compiler",
             mutating=False,
-            validator=lambda p, t: _validate_psdl_validate(p, t, "compiler.psdl_validate"),
-            runner=lambda ctx, p, _t: probe_psdl_validate(
+            validator=lambda p, t: _validate_convo_engine_validate(p, t, "compiler.convo_engine_validate"),
+            runner=lambda ctx, p, _t: probe_convo_engine_validate(
                 record_id=p["recordID"], **_compiler_kwargs(ctx)
             ),
         ),
         OperationSpec(
-            action_id="compiler.psdl_inspect",
+            action_id="compiler.convo_engine_inspect",
             authority="compiler",
             mutating=False,
-            validator=lambda p, t: _validate_psdl_inspect(p, t, "compiler.psdl_inspect"),
-            runner=lambda ctx, p, _t: probe_psdl_inspect(
+            validator=lambda p, t: _validate_convo_engine_inspect(p, t, "compiler.convo_engine_inspect"),
+            runner=lambda ctx, p, _t: probe_convo_engine_inspect(
                 record_id=p["recordID"], mode=p["mode"], **_compiler_kwargs(ctx)
             ),
         ),

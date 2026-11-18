@@ -61,7 +61,6 @@ from .conversation_source_audit import (
 from .semantic_dialogue_ir import (
     CANONICAL_IR_SCHEMA,
     CONVO_ENGINE_SCHEMA,
-    LEGACY_PSDL_SCHEMA,
     SUPPORTED_SOURCE_SCHEMAS,
     canonical_ir_fingerprint,
     canonicalize_dialogue,
@@ -112,15 +111,12 @@ from .reconcile import (
     reconcile_check,
     write_owner_receipt,
 )
-from .psdl_compiler import (
+from .convo_engine_compiler import (
     CONVO_ENGINE_COMPILED_SCHEMA,
     PSDL_COMPILED_SCHEMA,
     PSDL_KINDS,
-    PSDL_SCHEMA,
     compile_convo_engine_document,
     compile_convo_engine_sources,
-    compile_psdl_document,
-    compile_psdl_sources,
     render_convo_engine_runtime_plan,
     render_psdl_director_plan,
     render_psdl_semantic_pack_plan,
@@ -172,7 +168,6 @@ __all__ = [
     "OWNERSHIP_INVENTORY_SCHEMA",
     "build_ownership_inventory",
     "map_generated_convo_engine_module",
-    "LEGACY_PSDL_SCHEMA",
     "RUNTIME_TEXT_ROLES",
     "SUPPORTED_SOURCE_SCHEMAS",
     "TEXT_ROLE_BUTTON_LABEL",
@@ -196,9 +191,6 @@ __all__ = [
     "validate_semantic_reference",
     "PSDL_COMPILED_SCHEMA",
     "PSDL_KINDS",
-    "PSDL_SCHEMA",
-    "compile_psdl_document",
-    "compile_psdl_sources",
     "render_psdl_director_plan",
     "render_psdl_semantic_pack_plan",
     "render_psdl_ui_plan",

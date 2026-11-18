@@ -84,7 +84,6 @@ def register_workspace_and_convo_subparsers(parser: argparse.ArgumentParser) -> 
     p_val.add_argument("--input", type=Path, default=None)
     p_val.add_argument("--owner", default=None)
     p_val.add_argument("--strict", action="store_true")
-    p_val.add_argument("--allow-legacy", action="store_true")
 
     p_sim = convo_sub.add_parser("simulate", parents=[repo_parent], help="Simulate one family via production Lua ConvoProbe")
     p_sim.add_argument("target")
@@ -117,7 +116,6 @@ def register_workspace_and_convo_subparsers(parser: argparse.ArgumentParser) -> 
     p_chg.add_argument("--overwrite", action="store_true")
     p_chg.add_argument("--keep-source", action="store_true")
     p_chg.add_argument("--prune-source", action="store_true")
-    p_chg.add_argument("--allow-legacy", action="store_true")
 
     p_bld = convo_sub.add_parser("build", parents=[repo_parent], help="Preview or apply ConvoEngine build outputs")
     p_bld.add_argument("action", choices=("preview", "apply"))
@@ -174,10 +172,8 @@ def dispatch_convo_cli(args: argparse.Namespace, service: Any) -> dict[str, Any]
                     {"target": args.target, "depth": args.depth},
                 ))
             if subcmd == "validate":
-                allow_legacy = bool(args.allow_legacy and not args.strict)
                 payload: dict[str, Any] = {
                     "owner": args.owner,
-                    "allowLegacySchema": allow_legacy,
                 }
                 if args.input is not None:
                     input_path = args.input.expanduser().resolve()
@@ -226,7 +222,6 @@ def dispatch_convo_cli(args: argparse.Namespace, service: Any) -> dict[str, Any]
                     "overwrite": bool(args.overwrite),
                     "removeSource": not bool(args.keep_source),
                     "pruneSource": bool(args.prune_source),
-                    "allowLegacySchema": bool(args.allow_legacy),
                 }
                 return service.dispatch_operation(op_name, payload)
             if subcmd == "build":

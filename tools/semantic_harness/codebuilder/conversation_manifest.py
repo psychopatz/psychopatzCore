@@ -18,7 +18,7 @@ from .generation_ownership import (
     resolve_core_repository,
     resolve_hoomans_repository,
 )
-from .psdl_compact import (
+from .convo_engine_compact import (
     CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
     validate_package_descriptor,

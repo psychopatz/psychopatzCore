@@ -1524,7 +1524,6 @@ class ConvoEngineAuthoringPane:
                         "target": existing_path,
                         "requestedOwner": doc.get("owner"),
                         "document": doc,
-                        "allowLegacySchema": False,
                     },
                 )
                 self._set_report(report)
@@ -1596,7 +1595,6 @@ class ConvoEngineAuthoringPane:
             "expectedFingerprint": self._loaded_fingerprint if existing_path else None,
             "requestedOwner": doc.get("owner"),
             "document": doc,
-            "allowLegacySchema": False,
         }
         try:
             written = self.service.dispatch_operation("convo.change.apply", payload)

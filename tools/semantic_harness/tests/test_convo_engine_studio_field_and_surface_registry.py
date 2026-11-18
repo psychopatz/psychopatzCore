@@ -19,7 +19,7 @@ from tools.semantic_harness.codebuilder.convo_engine_fields import (
     known_field_names,
     list_field_descriptors,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import PSDL_RECORD_FIELDS
+from tools.semantic_harness.codebuilder.convo_engine_compiler import PSDL_RECORD_FIELDS
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.dataset_library import DatasetLibraryPane
 from tools.semantic_harness.studio.surface_registry import SurfaceRegistry

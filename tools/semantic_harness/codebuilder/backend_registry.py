@@ -121,7 +121,7 @@ def _pz_lua_backend_adapter(
     entry_by_record_id: Mapping[str, Mapping[str, Any]] | None = None,
     default_owner: Any = None,
 ) -> dict[str, Any]:
-    from .psdl_compiler import render_pz_backend_from_portable_plan
+    from .convo_engine_compiler import render_pz_backend_from_portable_plan
 
     result = render_pz_backend_from_portable_plan(
         portable_plan,

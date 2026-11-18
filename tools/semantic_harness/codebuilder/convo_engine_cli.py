@@ -61,14 +61,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_validate.add_argument("--input", required=True, type=Path)
     p_validate.add_argument("--owner", default=None)
     p_validate.add_argument("--strict", action="store_true")
-    p_validate.add_argument("--allow-legacy", action="store_true")
 
     p_preview = sub.add_parser("preview", help="Preview compiled IR and runtime plan")
     _add_repo_args(p_preview)
     p_preview.add_argument("--input", required=True, type=Path)
     p_preview.add_argument("--owner", default=None)
     p_preview.add_argument("--strict", action="store_true")
-    p_preview.add_argument("--allow-legacy", action="store_true")
 
     p_create = sub.add_parser("create", help="Create and validate a ConvoEngine family")
     _add_repo_args(p_create)
@@ -153,17 +151,9 @@ def build_parser() -> argparse.ArgumentParser:
     mode_grp.add_argument("--source", action="store_true", help="Targeted source document")
     mode_grp.add_argument("--ir", action="store_true", help="Expanded canonical IR")
 
-    p_impact = sub.add_parser("impact", help="Show direct dependencies and consumers of a PSDL record")
+    p_impact = sub.add_parser("impact", help="Show direct dependencies and consumers of a ConvoEngine record")
     _add_repo_args(p_impact)
-    p_impact.add_argument("record_id", help="Canonical PSDL record ID")
-
-    p_migrate_schema = sub.add_parser(
-        "migrate-schema",
-        help="Preview or apply ConvoEngine v1 schema migration across package/source files",
-    )
-    _add_repo_args(p_migrate_schema)
-    p_migrate_schema.add_argument("--owner", default=None)
-    p_migrate_schema.add_argument("--write", action="store_true")
+    p_impact.add_argument("record_id", help="Canonical ConvoEngine record ID")
 
     p_inv = sub.add_parser(
         "modernization-inventory",
@@ -188,7 +178,6 @@ def main(arguments: list[str] | None = None) -> int:
         if args.command in {"validate", "preview"}:
             input_path = args.input.expanduser().resolve()
             doc = load_json_document(input_path)
-            allow_legacy = bool(getattr(args, "allow_legacy", False) and not args.strict)
             if args.command == "validate":
                 result = svc.dispatch_operation(
                     "convo.validate",
@@ -196,7 +185,6 @@ def main(arguments: list[str] | None = None) -> int:
                         "document": doc,
                         "sourcePath": str(input_path),
                         "owner": args.owner,
-                        "allowLegacySchema": allow_legacy,
                     },
                 )
             else:
@@ -204,7 +192,6 @@ def main(arguments: list[str] | None = None) -> int:
                     doc,
                     source_path=input_path,
                     default_owner=args.owner,
-                    allow_legacy_schema=allow_legacy,
                 )
         elif args.command == "create":
             spec = _read_json_arg(args.spec)
@@ -282,7 +269,6 @@ def main(arguments: list[str] | None = None) -> int:
                     "document": doc,
                     "expectedFingerprint": args.expected_fingerprint,
                     "requestedOwner": args.owner,
-                    "allowLegacySchema": False,
                 },
             )
         elif args.command == "normalize":
@@ -294,11 +280,6 @@ def main(arguments: list[str] | None = None) -> int:
                 force_style_bundle=args.force_style_bundle,
                 write=args.write,
                 prune_sources=args.prune_sources,
-            )
-        elif args.command == "migrate-schema":
-            result = svc.dispatch_operation(
-                "convo.migrate_schema",
-                {"owner": args.owner, "write": bool(args.write)},
             )
         elif args.command == "modernization-inventory":
             result = svc.dispatch_operation("convo.modernization_inventory", {})
@@ -322,7 +303,7 @@ def main(arguments: list[str] | None = None) -> int:
             )
         elif args.command in {"get", "impact", "locate"}:
             from tools.semantic_harness.codebuilder.conversation_compiler import compile_conversation_sources
-            from tools.semantic_harness.codebuilder.psdl_inspect import inspect_psdl, locate_psdl
+            from tools.semantic_harness.codebuilder.convo_engine_inspect import inspect_convo_engine, locate_convo_engine
 
             pkg_repos = {
                 "PsychopatzCore": svc.core_repository,
@@ -337,7 +318,7 @@ def main(arguments: list[str] | None = None) -> int:
                 result = {
                     "ok": True,
                     "mode": "locate",
-                    "location": locate_psdl(
+                    "location": locate_convo_engine(
                         compiled,
                         record_id=args.record_id,
                         package_repositories=pkg_repos,
@@ -352,7 +333,7 @@ def main(arguments: list[str] | None = None) -> int:
                 result = {
                     "ok": True,
                     "mode": mode,
-                    "record": inspect_psdl(
+                    "record": inspect_convo_engine(
                         compiled.get("psdlRuntimePlans") or [],
                         compiled.get("_source_documents") or {},
                         record_id=args.record_id,

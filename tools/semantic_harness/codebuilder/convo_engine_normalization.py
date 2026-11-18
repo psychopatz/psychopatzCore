@@ -28,7 +28,7 @@ from .convo_engine_authoring import load_json_document, write_json_document
 from .convo_engine_exchange import resolve_family_identity
 from .conversation_model import fingerprint
 from .errors import CompileError
-from .psdl_compiler import CONVO_ENGINE_SCHEMA, compile_convo_engine_document
+from .convo_engine_compiler import CONVO_ENGINE_SCHEMA, compile_convo_engine_document
 
 
 _STYLE_SUFFIX_RE = re.compile(r"\.(neutral|warm|terse|guarded|friendly)$")
@@ -547,7 +547,6 @@ def normalize_documents(
         canonical,
         source_path=target_dest or Path("convo_engine_normalized.json"),
         default_owner=default_owner,
-        allow_legacy_schema=False,
         validate_cross_references=False,
     )
 
@@ -754,7 +753,6 @@ def fold_suggestion_pair_documents(
         canonical,
         source_path=resolved_dest,
         default_owner=default_owner,
-        allow_legacy_schema=False,
         validate_cross_references=False,
     )
     all_sources = [label_path, *utt_paths]
@@ -940,7 +938,6 @@ def fold_outcome_family_documents(
         canonical,
         source_path=resolved_dest,
         default_owner=default_owner,
-        allow_legacy_schema=False,
         validate_cross_references=False,
     )
     writes: list[str] = []
@@ -1073,7 +1070,6 @@ def shard_offers_to_families(
             family_doc,
             source_path=dest_file,
             default_owner=default_owner,
-            allow_legacy_schema=False,
             validate_cross_references=False,
         )
         if write:
@@ -1104,7 +1100,6 @@ def shard_offers_to_families(
             rec_doc,
             source_path=rec_dest,
             default_owner=default_owner,
-            allow_legacy_schema=False,
             validate_cross_references=False,
         )
         if write:

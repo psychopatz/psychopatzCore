@@ -40,7 +40,7 @@ from .generation_ownership import (
     generated_conversation_root,
     normalize_owner,
 )
-from .psdl_compiler import CONVO_ENGINE_SCHEMA
+from .convo_engine_compiler import CONVO_ENGINE_SCHEMA
 from .workspace_catalog import WorkspaceSnapshot
 
 
@@ -147,7 +147,6 @@ class ChangeSet:
     patch: Mapping[str, Any] | None = None
     remove_source: bool = True
     overwrite: bool = False
-    allow_legacy_schema: bool = False
     regenerate: bool | str = "auto"
 
     @classmethod
@@ -164,7 +163,6 @@ class ChangeSet:
             patch=payload.get("patch"),
             remove_source=bool(payload.get("removeSource", True)),
             overwrite=bool(payload.get("overwrite", False)),
-            allow_legacy_schema=bool(payload.get("allowLegacySchema", False)),
             regenerate=payload.get("regenerate", "auto"),
         )
 
@@ -422,11 +420,7 @@ class ConvoTransaction:
             if changeset.document is None:
                 raise CompileError("write operation requires a document")
             candidate_doc = copy.deepcopy(dict(changeset.document))
-            if (
-                not changeset.allow_legacy_schema
-                and isinstance(candidate_doc, dict)
-                and candidate_doc.get("schema") == CONVO_ENGINE_SCHEMA
-            ):
+            if isinstance(candidate_doc, dict) and candidate_doc.get("schema") == CONVO_ENGINE_SCHEMA:
                 candidate_doc = strip_stale_migration_metadata(candidate_doc)
             resolved_owner = self._resolve_owner(
                 changeset=changeset,
@@ -462,7 +456,7 @@ class ConvoTransaction:
                 changeset.dest_path,
                 repository=self.service.repository,
                 allowed_roots=allowed_roots,
-                check_forbidden_segments=not changeset.allow_legacy_schema,
+                check_forbidden_segments=True,
             )
         elif effective_op == "move":
             dest_path = catalog.default_source_path(
@@ -513,7 +507,6 @@ class ConvoTransaction:
             candidate_doc,
             source_path=dest_path,
             default_owner=resolved_owner,
-            allow_legacy_schema=changeset.allow_legacy_schema,
         )
         if report.get("ok") is not True:
             report["operation"] = effective_op
@@ -554,8 +547,7 @@ class ConvoTransaction:
 
         persisted = (
             strip_stale_migration_metadata(candidate_doc)
-            if not changeset.allow_legacy_schema
-            and isinstance(candidate_doc, dict)
+            if isinstance(candidate_doc, dict)
             and candidate_doc.get("schema") == CONVO_ENGINE_SCHEMA
             else copy.deepcopy(dict(candidate_doc))
         )

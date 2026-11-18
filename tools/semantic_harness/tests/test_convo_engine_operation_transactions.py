@@ -9,7 +9,7 @@ from pathlib import Path
 
 from tools.semantic_harness.codebuilder.convo_transaction import ChangeSet
 from tools.semantic_harness.codebuilder.errors import CompileError
-from tools.semantic_harness.codebuilder.psdl_compiler import CONVO_ENGINE_SCHEMA
+from tools.semantic_harness.codebuilder.convo_engine_compiler import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.convo_engine_authoring_pane import ConvoEngineAuthoringPane
 from tools.semantic_harness.tests.convo_engine_test_support import (
@@ -69,7 +69,6 @@ class ConvoEngineOperationTransactionTests(unittest.TestCase):
                 "convo.change.apply",
                 "convo.build.preview",
                 "convo.build.apply",
-                "convo.migrate_schema",
                 "convo.modernization_inventory",
                 "convo.audit",
             }

@@ -9,7 +9,6 @@ import unittest
 
 from tools.semantic_harness.codebuilder import (
     CONVO_ENGINE_SCHEMA,
-    LEGACY_PSDL_SCHEMA,
     TEXT_ROLE_BUTTON_LABEL,
     TEXT_ROLE_RESPONSE,
     TEXT_ROLE_SPOKEN_ACTION,
@@ -110,14 +109,14 @@ class ConvoEngineCompilerTests(unittest.TestCase):
         self.assertEqual(ir["namespace"], "social.identity")
         self.assertEqual(ir["lineage"]["sourceSchema"], CONVO_ENGINE_SCHEMA)
 
-    def test_legacy_schema_is_read_only_compatibility_only(self) -> None:
+    def test_legacy_schema_is_rejected(self) -> None:
         core_repo = Path(__file__).resolve().parents[3]
         service = SemanticLabAuthoringService(
             repository=core_repo,
             core_repository=core_repo,
         )
         legacy_doc = {
-            "schema": LEGACY_PSDL_SCHEMA,
+            "schema": "psychopatz.semantic.dialogue-language.v1",
             "kind": "dialogue",
             "id": "social.greeting.basic_read",
             "owner": "PsychopatzCore",
@@ -126,21 +125,12 @@ class ConvoEngineCompilerTests(unittest.TestCase):
         }
         with self.assertRaises(CompileError):
             service.preview_convo_engine_document(legacy_doc)
-        preview = service.preview_convo_engine_document(
-            legacy_doc,
-            allow_legacy_schema=True,
-        )
-        self.assertTrue(preview["ok"])
-        self.assertEqual(preview["diagnostics"][0]["code"], "legacy_schema_migration_only")
 
-        strict = service.validate_convo_engine_document(
-            legacy_doc,
-            allow_legacy_schema=False,
-        )
+        strict = service.validate_convo_engine_document(legacy_doc)
         self.assertFalse(strict["ok"])
 
         bad_hybrid = _load_fixture()
-        bad_hybrid["schema"] = LEGACY_PSDL_SCHEMA
+        bad_hybrid["schema"] = "psychopatz.semantic.dialogue-language.v1"
         with self.assertRaises(CompileError):
             compile_convo_engine_document(bad_hybrid)
 

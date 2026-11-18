@@ -103,7 +103,7 @@ from .generation_ownership import (
 )
 from .backend_registry import render_portable_plan_for_target
 from .portable_runtime import compile_portable_plan
-from .psdl_compiler import (
+from .convo_engine_compiler import (
     _validate_cross_references as _validate_convo_engine_cross_references,
     compile_convo_engine_document,
     render_psdl_director_plan,

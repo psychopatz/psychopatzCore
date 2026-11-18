@@ -191,8 +191,8 @@ class FixtureOperationRegistryTests(unittest.TestCase):
 
     def test_compiler_probes_are_registered_and_validated(self) -> None:
         for action_id in (
-            "compiler.psdl_validate",
-            "compiler.psdl_inspect",
+            "compiler.convo_engine_validate",
+            "compiler.convo_engine_inspect",
             "compiler.canonical_ir",
             "compiler.portable_plan",
             "compiler.backend_projection",
@@ -202,7 +202,7 @@ class FixtureOperationRegistryTests(unittest.TestCase):
             self.assertEqual(spec.authority, "compiler")
             self.assertFalse(spec.mutating)
         with self.assertRaises(OperationValidationError):
-            validate_operation_turn("compiler.psdl_inspect", {"recordID": "command.camp", "mode": "bad"}, {})
+            validate_operation_turn("compiler.convo_engine_inspect", {"recordID": "command.camp", "mode": "bad"}, {})
 
     def test_domain_filtering_and_batch_cancel_resume(self) -> None:
         import tempfile

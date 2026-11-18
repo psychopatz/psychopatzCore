@@ -10,7 +10,7 @@ from tools.semantic_harness.codebuilder.portable_runtime import (
     PortableReferenceVM,
     compile_portable_plan,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
+from tools.semantic_harness.codebuilder.convo_engine_compiler import compile_convo_engine_document
 from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.workspace_catalog import WorkspaceCatalog
 

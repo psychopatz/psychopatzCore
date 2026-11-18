@@ -28,15 +28,15 @@ from tools.semantic_harness.codebuilder.portable_runtime import (
     PORTABLE_PLAN_SCHEMA,
     PortableReferenceVM,
 )
-from tools.semantic_harness.codebuilder.psdl_compact import (
+from tools.semantic_harness.codebuilder.convo_engine_compact import (
     CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
 )
 from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
-from tools.semantic_harness.codebuilder.psdl_compiler import (
+from tools.semantic_harness.codebuilder.convo_engine_compiler import (
     render_pz_backend_from_portable_plan,
 )
-from tools.semantic_harness.codebuilder.psdl_inspect import inspect_psdl
+from tools.semantic_harness.codebuilder.convo_engine_inspect import inspect_convo_engine
 from tools.semantic_harness.codebuilder.reconcile import reconcile_apply, reconcile_check
 
 CORE_ROOT = Path(__file__).resolve().parents[3]
@@ -335,7 +335,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
 
         # 3. Progressive disclosure inspection works on compact PSDL
         from tools.semantic_harness.codebuilder.portable_runtime import portable_plan_records
-        summary = inspect_psdl(
+        summary = inspect_convo_engine(
             portable_plan_records(self.portable_plan),
             self.model.get("_source_documents") or {},
             record_id="behavior.retaliate_verbally",

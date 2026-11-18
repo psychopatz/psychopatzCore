@@ -19,12 +19,12 @@ from tools.semantic_harness.codebuilder.conversation_compiler import (
     render_conversation_runtime_plan,
 )
 from tools.semantic_harness.codebuilder.errors import CompileError
-from tools.semantic_harness.codebuilder.psdl_compact import (
+from tools.semantic_harness.codebuilder.convo_engine_compact import (
     CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
 )
 from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
-from tools.semantic_harness.codebuilder.psdl_inspect import locate_psdl
+from tools.semantic_harness.codebuilder.convo_engine_inspect import locate_convo_engine
 
 CORE_ROOT = Path(__file__).resolve().parents[3]
 HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
@@ -149,7 +149,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
         self.assertEqual(semantic_chunk_label(["command.camp", "command.follow"]), "CampToFollow")
 
     def test_navigation_locate(self) -> None:
-        loc_hoomans = locate_psdl(
+        loc_hoomans = locate_convo_engine(
             self.model,
             record_id="behavior.scene_horde_prompt",
             package_repositories=self.pkg_repos,
@@ -159,14 +159,14 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
         self.assertTrue(loc_hoomans["authoredSourcePath"].endswith("behavior/scene/horde/scene_horde_prompt.json"))
         self.assertTrue(loc_hoomans["generatedModules"])
 
-        loc_core = locate_psdl(
+        loc_core = locate_convo_engine(
             self.model,
             record_id="beat.argument_escalation",
             package_repositories=self.pkg_repos,
         )
         self.assertEqual(loc_core["package"], "PsychopatzCore")
 
-        loc_dt = locate_psdl(
+        loc_dt = locate_convo_engine(
             self.model,
             record_id="action.trade",
             package_repositories=self.pkg_repos,

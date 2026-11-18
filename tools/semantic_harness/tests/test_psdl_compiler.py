@@ -9,10 +9,10 @@ from tempfile import TemporaryDirectory
 
 from tools.semantic_harness.codebuilder import CompileError
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
-from tools.semantic_harness.codebuilder.psdl_compiler import (
+from tools.semantic_harness.codebuilder.convo_engine_compiler import (
     PSDL_COMPILED_SCHEMA,
-    compile_psdl_document,
-    compile_psdl_sources,
+    compile_convo_engine_document,
+    compile_convo_engine_sources,
     render_psdl_director_plan,
     render_psdl_semantic_pack_plan,
     render_psdl_ui_plan,
@@ -22,7 +22,7 @@ from tools.semantic_harness.codebuilder.psdl_compiler import (
 
 def _catalog() -> dict:
     return {
-        "schema": "psychopatz.semantic.dialogue-language.v1",
+        "schema": "psychopatz.convo-engine.v1",
         "records": [
             {
                 "kind": "behavior",
@@ -165,7 +165,7 @@ class PSDLCompilerTests(unittest.TestCase):
                 "convo.validate",
                 {
                     "document": {
-                        "schema": "psychopatz.semantic.dialogue-language.v1",
+                        "schema": "psychopatz.convo-engine.v1",
                         "records": [],
                     }
                 },
@@ -174,7 +174,7 @@ class PSDLCompilerTests(unittest.TestCase):
             self.assertTrue(invalid["effectFree"])
 
     def test_catalog_compiles_to_one_core_ir_and_runtime_plan(self) -> None:
-        compiled = compile_psdl_document(_catalog(), source_path="dialogue/social.json")
+        compiled = compile_convo_engine_document(_catalog(), source_path="dialogue/social.json")
         self.assertEqual(compiled["schema"], PSDL_COMPILED_SCHEMA)
         self.assertEqual(
             [record["id"] for record in compiled["records"]],
@@ -240,8 +240,8 @@ class PSDLCompilerTests(unittest.TestCase):
 
     def test_compilation_is_deterministic_and_source_path_is_lineage_only(self) -> None:
         source = _catalog()
-        left = compile_psdl_document(source, source_path="one.json")
-        right = compile_psdl_document(source, source_path="two.json")
+        left = compile_convo_engine_document(source, source_path="one.json")
+        right = compile_convo_engine_document(source, source_path="two.json")
         self.assertEqual(
             [record["id"] for record in left["records"]],
             [record["id"] for record in right["records"]],
@@ -250,7 +250,7 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertNotEqual(left["records"][0]["lineage"]["sourcePath"], right["records"][0]["lineage"]["sourcePath"])
         sources = {"b.json": source, "a.json": {"schema": source["schema"], "records": [copy.deepcopy(source["records"][-1])]}}
         with self.assertRaises(CompileError):
-            compile_psdl_sources(sources)
+            compile_convo_engine_sources(sources)
 
     def test_representative_social_beats_project_through_one_director_contract(self) -> None:
         source = _catalog()
@@ -284,7 +284,7 @@ class PSDLCompilerTests(unittest.TestCase):
                 },
             ]
         )
-        compiled = compile_psdl_document(source)
+        compiled = compile_convo_engine_document(source)
         director_plan = render_psdl_director_plan(compiled)
         self.assertEqual(
             [item["id"] for item in director_plan["beats"]],
@@ -299,9 +299,9 @@ class PSDLCompilerTests(unittest.TestCase):
         )
 
     def test_semantic_offers_project_to_existing_ui_suggestion_rows(self) -> None:
-        compiled = compile_psdl_document(
+        compiled = compile_convo_engine_document(
             {
-                "schema": "psychopatz.semantic.dialogue-language.v1",
+                "schema": "psychopatz.convo-engine.v1",
                 "kind": "dialogue",
                 "id": "trade.conversation.suggestions",
                 "owner": "DTCommon",
@@ -334,9 +334,9 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertEqual(rows[0]["extensions"]["hubID"], "trading")
 
     def test_recognition_projects_to_existing_semantic_pack_contract(self) -> None:
-        compiled = compile_psdl_document(
+        compiled = compile_convo_engine_document(
             {
-                "schema": "psychopatz.semantic.dialogue-language.v1",
+                "schema": "psychopatz.convo-engine.v1",
                 "kind": "dialogue",
                 "id": "trade.conversation.recognition",
                 "owner": "DTCommon",
@@ -402,26 +402,26 @@ class PSDLCompilerTests(unittest.TestCase):
             }
         ]
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
         invalid["records"][0]["response"]["text"] = {"EN": ["Hi {unknown}" ]}
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
         invalid["records"][0]["response"]["text"] = {"EN": ["Hi {speaker.name}"]}
         invalid["records"][0]["bindings"] = {"x": {"resolver": "inline.lua", "from": "java.actor"}}
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
     def test_old_identity_and_beat_wording_are_rejected(self) -> None:
         invalid = {
-            "schema": "psychopatz.semantic.dialogue-language.v1",
+            "schema": "psychopatz.convo-engine.v1",
             "records": [
                 {"kind": "dialogue", "id": "social.legacy.greeting", "owner": "ProjectHoomans"}
             ],
         }
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
         invalid["records"] = [
             {
@@ -433,33 +433,33 @@ class PSDLCompilerTests(unittest.TestCase):
             }
         ]
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
     def test_unknown_fields_and_cross_module_references_are_rejected(self) -> None:
         invalid = _catalog()
         invalid["records"][1]["candidates"][0]["behavior"] = "behavior.social.missing"
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
         invalid = {
-            "schema": "psychopatz.semantic.dialogue-language.v1",
+            "schema": "psychopatz.convo-engine.v1",
             "kind": "dialogue",
             "id": "social.unknown",
             "owner": "ProjectHoomans",
             "notAField": True,
         }
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
     def test_director_contract_fields_are_required(self) -> None:
         invalid = _catalog()
         invalid["records"][0].pop("stimuli")
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
         invalid = _catalog()
         invalid["records"][1].pop("maintain")
         with self.assertRaises(CompileError):
-            compile_psdl_document(invalid)
+            compile_convo_engine_document(invalid)
 
 
 if __name__ == "__main__":

@@ -17,7 +17,8 @@ from .generation_ownership import (
     generated_conversation_root,
     translation_root,
 )
-from .semantic_dialogue_ir import LEGACY_PSDL_SCHEMA
+
+LEGACY_PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
 
 
 CLASS_ACTIVE_IDENTITY_OR_OUTPUT = "active_convo_engine_identity_or_output"
@@ -109,18 +110,19 @@ _BOUNDED_CODEBUILDER_MODULES = frozenset({
     "tools/semantic_harness/codebuilder/conversation_manifest.py",
     "tools/semantic_harness/codebuilder/conversation_registry.py",
     "tools/semantic_harness/codebuilder/convo_engine_authoring.py",
+    "tools/semantic_harness/codebuilder/convo_engine_authoring_audit.py",
     "tools/semantic_harness/codebuilder/convo_engine_cli.py",
+    "tools/semantic_harness/codebuilder/convo_engine_compact.py",
+    "tools/semantic_harness/codebuilder/convo_engine_compiler.py",
+    "tools/semantic_harness/codebuilder/convo_engine_inspect.py",
+    "tools/semantic_harness/codebuilder/convo_engine_naming_audit.py",
+    "tools/semantic_harness/codebuilder/convo_engine_modernization_inventory.py",
     "tools/semantic_harness/codebuilder/convo_engine_normalization.py",
     "tools/semantic_harness/codebuilder/convo_engine_ownership_inventory.py",
-    "tools/semantic_harness/codebuilder/convo_engine_psdl_inventory.py",
     "tools/semantic_harness/codebuilder/convo_engine_integrity_audit.py",
     "tools/semantic_harness/codebuilder/generation_recipe.json",
     "tools/semantic_harness/codebuilder/generation_recipe.py",
     "tools/semantic_harness/codebuilder/portable_runtime.py",
-    "tools/semantic_harness/codebuilder/psdl_authoring_audit.py",
-    "tools/semantic_harness/codebuilder/psdl_compact.py",
-    "tools/semantic_harness/codebuilder/psdl_compiler.py",
-    "tools/semantic_harness/codebuilder/psdl_inspect.py",
     "tools/semantic_harness/codebuilder/reconcile.py",
     "tools/semantic_harness/codebuilder/semantic_dialogue_ir.py",
     "tools/semantic_harness/codebuilder/semantic_trace.py",

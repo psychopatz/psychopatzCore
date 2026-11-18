@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.semantic_harness.codebuilder.convo_engine_psdl_inventory import (
+from tools.semantic_harness.codebuilder.convo_engine_naming_audit import (
     CLASS_ACTIVE_IDENTITY_OR_OUTPUT,
     CLASS_BOUNDED_MIGRATION_OR_FIXTURE,
     CLASS_GENERIC_SEMANTIC,

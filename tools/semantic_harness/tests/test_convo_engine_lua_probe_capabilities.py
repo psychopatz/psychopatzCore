@@ -12,7 +12,7 @@ from tools.semantic_harness.codebuilder.convo_probe import (
     ConvoProbe,
     ConvoProbeUnavailableError,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import CONVO_ENGINE_SCHEMA
+from tools.semantic_harness.codebuilder.convo_engine_compiler import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.codebuilder.workspace_catalog import WorkspaceCatalog
 from tools.semantic_harness.tests.convo_engine_test_support import (

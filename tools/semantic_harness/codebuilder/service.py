@@ -76,9 +76,8 @@ from .convo_engine_studio_trace import (
     simulate_convo_engine_family as _simulate_convo_engine_family,
 )
 from .workspace_catalog import WorkspaceCatalog, WorkspaceSnapshot
-from .psdl_compiler import (
+from .convo_engine_compiler import (
     CONVO_ENGINE_SCHEMA,
-    LEGACY_PSDL_SCHEMA,
     SUPPORTED_SOURCE_SCHEMAS,
     compile_convo_engine_document as _compile_convo_engine_document,
     compile_convo_engine_sources as _compile_convo_engine_sources,
@@ -424,9 +423,8 @@ class SemanticLabAuthoringService:
         *,
         source_path: str | Path | None = None,
         default_owner: str | None = None,
-        allow_legacy_schema: bool = False,
     ) -> dict[str, Any]:
-        """Compile ConvoEngine (or explicit migration PSDL) through Core without writing output."""
+        """Compile ConvoEngine through Core without writing output."""
         resolved_owner = default_owner
         if resolved_owner is None and isinstance(document, dict) and document.get("owner") is None:
             resolved_owner = self._resolve_convo_engine_default_owner(source_path)
@@ -440,7 +438,6 @@ class SemanticLabAuthoringService:
             _compile_convo_engine_sources(
                 {**siblings, target_key: document},
                 default_owner=resolved_owner,
-                allow_legacy_schema=allow_legacy_schema,
             )
         pkg_doc = self._resolve_package_descriptor(source_path)
         if document.get("kind") == "beat":
@@ -448,7 +445,6 @@ class SemanticLabAuthoringService:
                 document,
                 source_path=source_path,
                 default_owner=resolved_owner,
-                allow_legacy_schema=allow_legacy_schema,
                 validate_cross_references=False,
                 package=pkg_doc,
             )
@@ -457,22 +453,8 @@ class SemanticLabAuthoringService:
                 document,
                 source_path=source_path,
                 default_owner=resolved_owner,
-                allow_legacy_schema=allow_legacy_schema,
                 package=pkg_doc,
             )
-        diagnostics: list[dict[str, str]] = []
-        if any(
-            (record.get("lineage") or {}).get("migrationReadOnly")
-            for record in compiled.get("records", [])
-        ):
-            diagnostics.append({
-                "severity": "warning",
-                "code": "legacy_schema_migration_only",
-                "message": (
-                    f"{LEGACY_PSDL_SCHEMA} is read-only migration compatibility; "
-                    f"author new sources with {CONVO_ENGINE_SCHEMA}"
-                ),
-            })
         return {
             "ok": True,
             "previewOnly": True,
@@ -481,7 +463,7 @@ class SemanticLabAuthoringService:
             "sourceSchema": compiled.get("sourceSchema"),
             "compiled": compiled,
             "runtimePlan": render_convo_engine_runtime_plan(compiled),
-            "diagnostics": diagnostics,
+            "diagnostics": [],
             "writes": [],
         }
 
@@ -491,7 +473,6 @@ class SemanticLabAuthoringService:
         *,
         source_path: str | Path | None = None,
         default_owner: str | None = None,
-        allow_legacy_schema: bool = False,
     ) -> dict[str, Any]:
         """Return bounded diagnostics for an effect-free ConvoEngine validation pass."""
         try:
@@ -499,7 +480,6 @@ class SemanticLabAuthoringService:
                 document,
                 source_path=source_path,
                 default_owner=default_owner,
-                allow_legacy_schema=allow_legacy_schema,
             )
         except (CompileError, OSError, TypeError, ValueError) as error:
             return {
@@ -515,13 +495,11 @@ class SemanticLabAuthoringService:
         sources: dict[str | Path, dict[str, Any]],
         *,
         default_owner: str | None = None,
-        allow_legacy_schema: bool = False,
     ) -> dict[str, Any]:
         """Compile multiple adopter-owned ConvoEngine sources through Core."""
         compiled = _compile_convo_engine_sources(
             sources,
             default_owner=default_owner,
-            allow_legacy_schema=allow_legacy_schema,
         )
         return {
             "ok": True,
@@ -578,7 +556,6 @@ class SemanticLabAuthoringService:
         *,
         expected_source_fingerprint: str | None = None,
         default_owner: str | None = None,
-        allow_legacy_schema: bool = False,
         regenerate: bool = False,
     ) -> dict[str, Any]:
         """Validate and write one canonical ConvoEngine source JSON file via ConvoTransaction."""
@@ -590,7 +567,6 @@ class SemanticLabAuthoringService:
                 expected_fingerprint=expected_source_fingerprint,
                 requested_owner=default_owner,
                 document=document,
-                allow_legacy_schema=allow_legacy_schema,
                 regenerate=regenerate,
             )
         )
@@ -1096,23 +1072,6 @@ class SemanticLabAuthoringService:
             hoomans_repository=self.hoomans_repository,
             dynamic_trading_repository=self.dynamic_trading_repository,
         )
-
-    def migrate_convo_engine_schema(
-        self,
-        *,
-        owner: str | None = None,
-        write: bool = False,
-    ) -> dict[str, Any]:
-        """Migrate ``psychopatz.psdl.v2`` / ``psychopatz.psdl.package.v2`` to ConvoEngine v1."""
-        from .convo_engine_authoring import migrate_convo_engine_schema as _migrate_schema
-
-        source_roots: dict[str, Path] = {}
-        for contribution in self.workspace_snapshot.source_contributions:
-            conv_root = Path(contribution.source_root)
-            if conv_root.name != "conversation" and (conv_root / "conversation").is_dir():
-                conv_root = conv_root / "conversation"
-            source_roots[str(contribution.owner)] = conv_root
-        return _migrate_schema(source_roots, owner=owner, write=write)
 
     def migrate_legacy_text_identity(
         self,

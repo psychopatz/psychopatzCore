@@ -43,7 +43,7 @@ class SemanticDialogueIRTests(unittest.TestCase):
 
     def test_actor_neutral_ir_is_stable_when_source_path_changes(self) -> None:
         source = {
-            "schema": "psychopatz.semantic.dialogue-language.v1",
+            "schema": "psychopatz.convo-engine.v1",
             "kind": "dialogue",
             "id": "social.ask_person_location",
             "owner": "ProjectHoomans",
@@ -84,7 +84,7 @@ class SemanticDialogueIRTests(unittest.TestCase):
     def test_invalid_type_and_predicate_operator_fail_closed(self) -> None:
         with self.assertRaises(CompileError):
             canonicalize_dialogue({
-                "schema": "psychopatz.semantic.dialogue-language.v1",
+                "schema": "psychopatz.convo-engine.v1",
                 "kind": "dialogue",
                 "id": "social.bad",
                 "owner": "DTCommon",
@@ -103,7 +103,7 @@ class SemanticDialogueIRTests(unittest.TestCase):
 
     def test_normalization_does_not_mutate_source(self) -> None:
         source = {
-            "schema": "psychopatz.semantic.dialogue-language.v1",
+            "schema": "psychopatz.convo-engine.v1",
             "kind": "dialogue",
             "id": "social.greeting.basic",
             "owner": "PsychopatzCore",

@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from tools.semantic_harness.codebuilder.psdl_compiler import CONVO_ENGINE_SCHEMA
+from tools.semantic_harness.codebuilder.convo_engine_compiler import CONVO_ENGINE_SCHEMA
 
 
 class _FakeVar:

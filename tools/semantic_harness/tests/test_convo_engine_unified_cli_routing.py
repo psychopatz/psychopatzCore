@@ -61,8 +61,6 @@ class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
             service.preview_convo_engine_document(legacy_doc)
         rejected = service.validate_convo_engine_document(legacy_doc)
         self.assertFalse(rejected["ok"])
-        allowed = service.validate_convo_engine_document(legacy_doc, allow_legacy_schema=True)
-        self.assertTrue(allowed["ok"])
 
     def test_main_cli_exposes_workspace_and_convo_operations(self) -> None:
         repo_flags = [
@@ -127,16 +125,6 @@ class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
             ])
             self.assertEqual(rc_default, 2)
             self.assertFalse(payload_default["ok"])
-
-            rc_optin, payload_optin = _run_harness_cli([
-                "convo", "validate",
-                "--repository", str(CORE_ROOT),
-                "--core-repository", str(CORE_ROOT),
-                "--input", str(legacy_file),
-                "--allow-legacy",
-            ])
-            self.assertEqual(rc_optin, 0)
-            self.assertTrue(payload_optin["ok"])
 
             # Create and preview-delete via main CLI convo change in an isolated workspace
             from tools.semantic_harness.tests.convo_engine_test_support import (

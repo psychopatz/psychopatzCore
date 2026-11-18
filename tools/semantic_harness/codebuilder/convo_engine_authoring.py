@@ -17,9 +17,8 @@ from typing import Any
 from .convo_engine_exchange import resolve_family_identity
 from .conversation_model import fingerprint
 from .errors import CompileError
-from .psdl_compiler import (
+from .convo_engine_compiler import (
     CONVO_ENGINE_SCHEMA,
-    LEGACY_PSDL_SCHEMA,
     compile_convo_engine_sources,
 )
 
@@ -276,7 +275,6 @@ def prepare_shard_documents(
     compiled = compile_convo_engine_sources(
         sources_for_compile,
         default_owner=resolved_default_owner,
-        allow_legacy_schema=False,
     )
     return prepared, consumed_ids, compiled
 
@@ -392,22 +390,9 @@ def prepare_bucket_migration(
 
         pre_norm_legacy = bool(raw_entry.get("preNormalizationLegacy"))
         if pre_norm_legacy:
-            if not any(_uses_numeric_wording_id(rec_id) for rec_id in raw_consumed):
-                raise CompileError(
-                    f"migration plan[{index}] sets preNormalizationLegacy without numeric wording IDs"
-                )
-            for rec in selected_records:
-                if rec.get("owner") is None and inherited_owner is not None:
-                    rec["owner"] = inherited_owner
-                rec.pop("schema", None)
-            doc: dict[str, Any] = {
-                "schema": LEGACY_PSDL_SCHEMA,
-                **({"owner": inherited_owner} if inherited_owner is not None else {}),
-                "records": selected_records,
-            }
-            legacy_sources[dest_path] = doc
-            prepared.append((dest_path, doc, list(raw_consumed)))
-            continue
+            raise CompileError(
+                f"migration plan[{index}] sets preNormalizationLegacy, which is retired; use {CONVO_ENGINE_SCHEMA}"
+            )
 
         if bool(raw_entry.get("preFoldStyleGroup")):
             canonical_records = [
@@ -457,23 +442,14 @@ def prepare_bucket_migration(
         compiled_canonical = compile_convo_engine_sources(
             canonical_sources,
             default_owner=resolved_default_owner,
-            allow_legacy_schema=False,
             validate_cross_references=False,
         )
         fingerprints.append(str(compiled_canonical["fingerprint"]))
-    if legacy_sources:
-        compiled_legacy = compile_convo_engine_sources(
-            legacy_sources,
-            default_owner=resolved_default_owner,
-            allow_legacy_schema=True,
-            validate_cross_references=False,
-        )
-        fingerprints.append(str(compiled_legacy["fingerprint"]))
 
     return prepared, consumed_ids, {
         "fingerprint": fingerprint({"parts": fingerprints}),
         "canonicalCount": len(canonical_sources),
-        "preNormalizationLegacyCount": len(legacy_sources),
+        "preNormalizationLegacyCount": 0,
     }
 
 
@@ -503,93 +479,3 @@ def source_fingerprint_mismatch(
             "writes": [],
         }
     return None
-
-
-def migrate_convo_engine_schema(
-    source_roots: Mapping[str, Path],
-    *,
-    owner: str | None = None,
-    write: bool = False,
-) -> dict[str, Any]:
-    """Deterministically migrate ``psychopatz.psdl.*`` source/package schemas to ConvoEngine v1."""
-    from .psdl_compact import validate_package_descriptor
-    from .psdl_compiler import compile_convo_engine_document
-    from .semantic_dialogue_ir import CONVO_ENGINE_PACKAGE_SCHEMA
-
-    planned_writes: list[dict[str, Any]] = []
-    pending_files: list[tuple[Path, dict[str, Any]]] = []
-
-    for pkg_owner, root in sorted(source_roots.items()):
-        if owner is not None and pkg_owner != owner:
-            continue
-        conv_root = Path(root).expanduser().resolve()
-        if not conv_root.is_dir():
-            continue
-
-        package_path = conv_root / "package.json"
-        pkg_doc: dict[str, Any] | None = None
-        if package_path.is_file():
-            raw_pkg = load_json_document(package_path)
-            if raw_pkg.get("schema") == "psychopatz.psdl.package.v2":
-                updated_pkg = copy.deepcopy(raw_pkg)
-                updated_pkg["schema"] = CONVO_ENGINE_PACKAGE_SCHEMA
-                pkg_doc = validate_package_descriptor(updated_pkg)
-                planned_writes.append({
-                    "owner": pkg_owner,
-                    "path": str(package_path),
-                    "kind": "package",
-                    "fromSchema": "psychopatz.psdl.package.v2",
-                    "toSchema": CONVO_ENGINE_PACKAGE_SCHEMA,
-                    "fingerprint": fingerprint(updated_pkg),
-                })
-                pending_files.append((package_path, updated_pkg))
-            else:
-                pkg_doc = validate_package_descriptor(raw_pkg)
-
-        for json_path in sorted(conv_root.rglob("*.json")):
-            if json_path.name in {"package.json", "manifest.json", "provenance.lock"}:
-                continue
-            if "translations" in json_path.relative_to(conv_root).parts:
-                continue
-            raw_doc = load_json_document(json_path)
-            if raw_doc.get("schema") != "psychopatz.psdl.v2":
-                continue
-            updated_doc = copy.deepcopy(raw_doc)
-            updated_doc["schema"] = CONVO_ENGINE_SCHEMA
-            compile_convo_engine_document(
-                updated_doc,
-                source_path=json_path,
-                default_owner=pkg_owner,
-                allow_legacy_schema=False,
-                validate_cross_references=False,
-                package=pkg_doc,
-            )
-            planned_writes.append({
-                "owner": pkg_owner,
-                "path": str(json_path),
-                "kind": "source",
-                "fromSchema": "psychopatz.psdl.v2",
-                "toSchema": CONVO_ENGINE_SCHEMA,
-                "fingerprint": fingerprint(updated_doc),
-            })
-            pending_files.append((json_path, updated_doc))
-
-    writes: list[str] = []
-    if write:
-        for path, payload in pending_files:
-            path.write_text(
-                json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-                encoding="utf-8",
-            )
-            writes.append(str(path))
-
-    return {
-        "ok": True,
-        "previewOnly": not write,
-        "effectFree": not write,
-        "owner": owner,
-        "plannedCount": len(planned_writes),
-        "migratedCount": len(writes),
-        "plannedWrites": planned_writes,
-        "writes": writes,
-    }

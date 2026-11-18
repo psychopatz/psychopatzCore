@@ -12,7 +12,7 @@ from tools.semantic_harness.codebuilder.portable_runtime import (
     compile_portable_plan,
     portable_plan_records,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
+from tools.semantic_harness.codebuilder.convo_engine_compiler import compile_convo_engine_document
 from tools.semantic_harness.codebuilder.semantic_dialogue_ir import (
     CONVO_ENGINE_SCHEMA,
     canonical_ir_fingerprint,

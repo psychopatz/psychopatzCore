@@ -29,11 +29,11 @@ from tools.semantic_harness.codebuilder.portable_runtime import (
     PortableReferenceVM,
     portable_plan_records,
 )
-from tools.semantic_harness.codebuilder.psdl_compact import (
+from tools.semantic_harness.codebuilder.convo_engine_compact import (
     CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
+from tools.semantic_harness.codebuilder.convo_engine_compiler import compile_convo_engine_document
 from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.semantic_trace import (
     SEMANTIC_TRACE_SCHEMA,

@@ -13,7 +13,7 @@ from tools.semantic_harness.codebuilder import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.conversation_registry import (
     render_conversation_registry,
 )
-from tools.semantic_harness.codebuilder.psdl_compiler import (
+from tools.semantic_harness.codebuilder.convo_engine_compiler import (
     compile_convo_engine_sources,
     render_convo_engine_runtime_plan,
     render_psdl_ui_plan,
@@ -129,7 +129,6 @@ class ConvoEngineNormalizationAndOutcomesTests(unittest.TestCase):
 
             compiled = compile_convo_engine_sources(
                 {dest: json.loads(dest.read_text(encoding="utf-8"))},
-                allow_legacy_schema=False,
             )
             plans = render_convo_engine_runtime_plan(compiled)
             registry_lua = render_conversation_registry(
@@ -215,7 +214,7 @@ class ConvoEngineNormalizationAndOutcomesTests(unittest.TestCase):
                 Path(s["destPath"]): s["document"]
                 for s in sharded["shards"]
             }
-            compiled = compile_convo_engine_sources(source_map, allow_legacy_schema=False)
+            compiled = compile_convo_engine_sources(source_map)
             plans = render_convo_engine_runtime_plan(compiled)
             ui_rows = render_psdl_ui_plan(compiled)
             ui_ids = [row["id"] for row in ui_rows]

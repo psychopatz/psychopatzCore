@@ -13,8 +13,8 @@ from typing import Any
 
 from ..codebuilder.conversation_compiler import compile_conversation_sources
 from ..codebuilder.portable_runtime import portable_plan_records
-from ..codebuilder.psdl_compiler import render_pz_backend_from_portable_plan
-from ..codebuilder.psdl_inspect import inspect_psdl, locate_psdl
+from ..codebuilder.convo_engine_compiler import render_pz_backend_from_portable_plan
+from ..codebuilder.convo_engine_inspect import inspect_convo_engine, locate_convo_engine
 from ..runtime.config import HarnessConfig
 
 _MODEL_CACHE_LOCK = threading.Lock()
@@ -74,7 +74,7 @@ def get_compiled_model(
     return model, repos
 
 
-def probe_psdl_validate(
+def probe_convo_engine_validate(
     *,
     record_id: str | None = None,
     core_repository: Path | None = None,
@@ -94,7 +94,7 @@ def probe_psdl_validate(
         "recordCount": len(records),
     }
     if record_id:
-        summary = inspect_psdl(
+        summary = inspect_convo_engine(
             records,
             model.get("_source_documents") or {},
             record_id=record_id,
@@ -104,7 +104,7 @@ def probe_psdl_validate(
     return result
 
 
-def probe_psdl_inspect(
+def probe_convo_engine_inspect(
     *,
     record_id: str,
     mode: str = "summary",
@@ -119,7 +119,7 @@ def probe_psdl_inspect(
     )
     portable_plan = model.get("portablePlan") or {}
     records = portable_plan_records(portable_plan)
-    inspected = inspect_psdl(
+    inspected = inspect_convo_engine(
         records,
         model.get("_source_documents") or {},
         record_id=record_id,
@@ -156,7 +156,7 @@ def probe_canonical_ir_inspect(
         if rec.get("id") == record_id:
             return dict(rec)
     portable_plan = model.get("portablePlan") or {}
-    return inspect_psdl(
+    return inspect_convo_engine(
         portable_plan_records(portable_plan),
         model.get("_source_documents") or {},
         record_id=record_id,
@@ -249,7 +249,7 @@ def probe_source_lineage_locate(
         repository=repository,
         config=config,
     )
-    return locate_psdl(
+    return locate_convo_engine(
         model,
         record_id=record_id,
         package_repositories=repos,
@@ -261,7 +261,7 @@ __all__ = [
     "probe_backend_projection_inspect",
     "probe_canonical_ir_inspect",
     "probe_portable_plan_inspect",
-    "probe_psdl_inspect",
-    "probe_psdl_validate",
+    "probe_convo_engine_inspect",
+    "probe_convo_engine_validate",
     "probe_source_lineage_locate",
 ]

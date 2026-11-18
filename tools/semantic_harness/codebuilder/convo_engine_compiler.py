@@ -41,14 +41,12 @@ from .portable_runtime import (
     PORTABLE_PLAN_SCHEMA,
     portable_plan_records,
 )
-from .psdl_compact import (
+from .convo_engine_compact import (
     expand_compact_psdl_document,
 )
 from .semantic_dialogue_ir import (
     CANONICAL_IR_SCHEMA,
     CONVO_ENGINE_SCHEMA,
-    LEGACY_PSDL_SCHEMA,
-    PSDL_SCHEMA,
     REFERENCE_TYPES,
     SLOT_TYPES,
     SUPPORTED_SOURCE_SCHEMAS,
@@ -459,7 +457,7 @@ def _normalize_module_payload(
     *,
     label: str,
     slots: Mapping[str, Any] | None = None,
-    source_schema: str = LEGACY_PSDL_SCHEMA,
+    source_schema: str = CONVO_ENGINE_SCHEMA,
     has_namespace: bool = False,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
@@ -703,8 +701,7 @@ def _normalize_record(
     *,
     source_path: str | None,
     default_owner: Any = None,
-    document_schema: str = LEGACY_PSDL_SCHEMA,
-    allow_legacy_schema: bool = True,
+    document_schema: str = CONVO_ENGINE_SCHEMA,
     allow_custom_owner: bool = False,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
@@ -721,13 +718,7 @@ def _normalize_record(
         record["schema"] = document_schema
     record_schema = record["schema"]
     if record_schema not in SUPPORTED_SOURCE_SCHEMAS:
-        raise CompileError(
-            f"ConvoEngine record.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
-        )
-    if not allow_legacy_schema and record_schema == LEGACY_PSDL_SCHEMA:
-        raise CompileError(
-            f"Legacy schema {LEGACY_PSDL_SCHEMA} is read-only migration compatibility; use {CONVO_ENGINE_SCHEMA}"
-        )
+        raise CompileError(f"ConvoEngine record.schema must be {CONVO_ENGINE_SCHEMA}")
     if "owner" not in record and default_owner is not None:
         record["owner"] = default_owner
     record_id, namespace, _local_id = resolve_family_identity(
@@ -772,7 +763,6 @@ def _normalize_record(
 def _record_values(
     document: Mapping[str, Any],
     *,
-    allow_legacy_schema: bool = True,
     package: Mapping[str, Any] | None = None,
     text_loader: Any = None,
 ) -> tuple[list[Mapping[str, Any]], Any, str]:
@@ -796,13 +786,7 @@ def _record_values(
         )
         return [expanded], None, str(schema or CONVO_ENGINE_SCHEMA)
     if schema not in SUPPORTED_SOURCE_SCHEMAS:
-        raise CompileError(
-            f"ConvoEngine document.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
-        )
-    if not allow_legacy_schema and schema == LEGACY_PSDL_SCHEMA:
-        raise CompileError(
-            f"Legacy schema {LEGACY_PSDL_SCHEMA} is read-only migration compatibility; use {CONVO_ENGINE_SCHEMA}"
-        )
+        raise CompileError(f"ConvoEngine document.schema must be {CONVO_ENGINE_SCHEMA}")
     if "records" in document:
         unsupported = set(document) - PSDL_DOCUMENT_FIELDS
         if unsupported:
@@ -882,13 +866,12 @@ def compile_convo_engine_document(
     *,
     source_path: str | Path | None = None,
     default_owner: Any = None,
-    allow_legacy_schema: bool = True,
     validate_cross_references: bool = True,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
     package: Mapping[str, Any] | None = None,
     text_loader: Any = None,
 ) -> dict[str, Any]:
-    """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
+    """Compile one ConvoEngine record or a bounded record catalog."""
     is_compact = (
         (document.get("schema") == CONVO_ENGINE_SCHEMA and not isinstance(document.get("records"), list))
         or "profile" in document
@@ -902,7 +885,6 @@ def compile_convo_engine_document(
             resolved_text_loader = _default_sidecar_loader(source_path)
     raw_records, doc_owner, doc_schema = _record_values(
         document,
-        allow_legacy_schema=allow_legacy_schema,
         package=package,
         text_loader=resolved_text_loader,
     )
@@ -918,7 +900,6 @@ def compile_convo_engine_document(
             ),
             default_owner=resolved_default_owner,
             document_schema=doc_schema,
-            allow_legacy_schema=allow_legacy_schema,
             allow_custom_owner=is_compact,
             action_contracts=action_contracts,
         )
@@ -944,28 +925,10 @@ def compile_convo_engine_document(
     return payload
 
 
-def compile_psdl_document(
-    document: Mapping[str, Any],
-    *,
-    source_path: str | Path | None = None,
-    default_owner: Any = None,
-    validate_cross_references: bool = True,
-) -> dict[str, Any]:
-    """Compatibility alias for ``compile_convo_engine_document``."""
-    return compile_convo_engine_document(
-        document,
-        source_path=source_path,
-        default_owner=default_owner,
-        allow_legacy_schema=True,
-        validate_cross_references=validate_cross_references,
-    )
-
-
 def compile_convo_engine_sources(
     sources: Mapping[str | Path, Mapping[str, Any]],
     *,
     default_owner: Any = None,
-    allow_legacy_schema: bool = True,
     validate_cross_references: bool = True,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
@@ -981,7 +944,6 @@ def compile_convo_engine_sources(
             sources[raw_path],
             source_path=path,
             default_owner=default_owner,
-            allow_legacy_schema=allow_legacy_schema,
             validate_cross_references=False,
             action_contracts=action_contracts,
         )
@@ -1006,13 +968,6 @@ def compile_convo_engine_sources(
     }
     output["fingerprint"] = fingerprint(output)
     return output
-
-
-def compile_psdl_sources(
-    sources: Mapping[str | Path, Mapping[str, Any]],
-) -> dict[str, Any]:
-    """Compatibility alias for ``compile_convo_engine_sources``."""
-    return compile_convo_engine_sources(sources, allow_legacy_schema=True)
 
 
 def _translation_segment(
@@ -1681,15 +1636,11 @@ def render_pz_backend_from_portable_plan(
 __all__ = [
     "CONVO_ENGINE_COMPILED_SCHEMA",
     "CONVO_ENGINE_SCHEMA",
-    "LEGACY_PSDL_SCHEMA",
     "PSDL_COMPILED_SCHEMA",
     "PSDL_KINDS",
-    "PSDL_SCHEMA",
     "SUPPORTED_SOURCE_SCHEMAS",
     "compile_convo_engine_document",
     "compile_convo_engine_sources",
-    "compile_psdl_document",
-    "compile_psdl_sources",
     "render_convo_engine_runtime_plan",
     "render_psdl_director_plan",
     "render_psdl_ui_plan",

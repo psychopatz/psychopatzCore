@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 
 from tools.semantic_harness.codebuilder import CompileError
-from tools.semantic_harness.codebuilder.psdl_compiler import (
+from tools.semantic_harness.codebuilder.convo_engine_compiler import (
     compile_convo_engine_document,
     render_convo_engine_runtime_plan,
 )

@@ -101,7 +101,7 @@ def _convo_engine_translation_asset(
         say = doc.get("say") if isinstance(doc.get("say"), dict) else {}
         variants = list(say.get("variants") or [])
         if any(not isinstance(v.get("text"), dict) for v in variants if isinstance(v, dict)) or "textSidecars" in doc:
-            from ..codebuilder.psdl_compiler import compile_convo_engine_document
+            from ..codebuilder.convo_engine_compiler import compile_convo_engine_document
             compiled = compile_convo_engine_document(
                 doc,
                 source_path=src_path,

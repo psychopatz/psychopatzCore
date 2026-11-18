@@ -93,7 +93,7 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
     def test_real_tk_usability_journey_and_all_semantic_color_classes(self) -> None:
         from tools.semantic_harness.codebuilder.completeness_analyzer import analyze_portable_plan
         from tools.semantic_harness.codebuilder.portable_runtime import compile_portable_plan
-        from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
+        from tools.semantic_harness.codebuilder.convo_engine_compiler import compile_convo_engine_document
         from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
         from tools.semantic_harness.studio.completeness_workbench import DialogueCompletenessWorkbench
 

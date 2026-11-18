@@ -16,7 +16,7 @@ from tools.semantic_harness.codebuilder.conversation_compiler import (
     compile_conversation_sources,
     render_conversation_runtime_plan,
 )
-from tools.semantic_harness.codebuilder.psdl_inspect import locate_psdl
+from tools.semantic_harness.codebuilder.convo_engine_inspect import locate_convo_engine
 from tools.semantic_harness.codebuilder.source_manifest import derive_subdir_domain_path
 
 CORE_ROOT = Path(__file__).resolve().parents[3]
@@ -134,7 +134,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
         self.assertEqual({m: s for m, s in shuffled_rendered}, base_map)
 
         # 4. Navigation exposes domain and domainPath
-        loc = locate_psdl(
+        loc = locate_convo_engine(
             self.model,
             record_id="behavior.retaliate_verbally",
             package_repositories=self.pkg_repos,

@@ -12,7 +12,7 @@ from .convo_engine_authoring import (
     _STALE_MIGRATION_METADATA_KEYS,
     _STALE_MIGRATION_TOP_KEYS,
 )
-from .convo_engine_psdl_inventory import scan_active_legacy_name_leakage
+from .convo_engine_naming_audit import scan_active_legacy_name_leakage
 from .conversation_compiler import compile_conversation_sources
 from .errors import CompileError
 from .generation_ownership import (
@@ -21,7 +21,7 @@ from .generation_ownership import (
     HOOMANS_OWNER,
     generated_conversation_root,
 )
-from .psdl_compiler import CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA
+from .convo_engine_compiler import CONVO_ENGINE_SCHEMA
 from .workspace_catalog import WorkspaceCatalog
 
 
@@ -91,7 +91,7 @@ def _check_source_file(
 
     schema = doc.get("schema")
     if schema != CONVO_ENGINE_SCHEMA:
-        code = "legacy_schema_present" if schema in {LEGACY_PSDL_SCHEMA, "psychopatz.psdl.v2"} else "unexpected_schema"
+        code = "legacy_schema_present" if schema in {"psychopatz.semantic.dialogue-language.v1", "psychopatz.psdl.v2"} else "unexpected_schema"
         violations.append({
             "code": code,
             "owner": owner,

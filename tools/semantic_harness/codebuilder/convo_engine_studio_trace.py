@@ -142,7 +142,6 @@ def simulate_convo_engine_family(
     validation = service.validate_convo_engine_document(
         document,
         source_path=source_path,
-        allow_legacy_schema=False,
     )
     if validation.get("ok") is not True:
         return {
