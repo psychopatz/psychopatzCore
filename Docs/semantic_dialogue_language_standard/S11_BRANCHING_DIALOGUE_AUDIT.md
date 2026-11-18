@@ -1,6 +1,6 @@
 # S11 Branching Dialogue and Stateful Outcome Audit
 
-**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — all 25 maintained rows are closed-set, classified, and explicitly owned by exact tests declaring atomic `auditClaims` (including `task_conversation_projection_lifecycle`, `settlement_admission_post_success_refresh`, and `ambient_visit_post_success_refresh`).
+**Status:** R8_NATIVE_PARITY_OPEN — all 25 maintained rows remain closed-set/classified with exact atomic claim ownership, but `audit.task.parameterized` requires an additional native/native-equivalent projection-parity proof because the current lifecycle owner depends on worker-only `taskStates`.
 **Audit date:** 2026-11-18
 **Normative goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Approved shared architecture:** `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
@@ -909,44 +909,34 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
 
-# Final S11R7 closure status — 2026-11-18
+# Post-R7 native-parity audit status — 2026-11-18
 
-R6 and R7 closed all remaining acceptance-integrity, runtime architecture, and atomic presentation-proof gaps. Exact owner-declared `auditClaims` replaced keyword inference, production quest lifecycle reaches READY_TO_TURN_IN → REWARDED → repeat, canonical action policy admission is single-path, parameterized task presentation lifecycle proves pre-transition presence and post-transition retirement, and settlement admission and ambient visit each have their own exact post-success conversation-refresh test owner.
+R7A's atomic claim split remains accepted: settlement admission and ambient visit each have exact post-success owners, and the task worker lifecycle test genuinely proves its worker path. The post-R7 audit found that the task test does **not** certify native runtime because production `Suggestions_Capabilities_Rows.lua` reads `context.taskStates` while no native `Contents/` conversation-context producer supplies that field; it is populated only by headless worker modules.
 
-| Surface | Final closure status |
+| Surface | Current status |
 | --- | --- |
 | identity | ACCEPTED — canonical; legacy flow retired |
-| companion commands | ACCEPTED — canonical maintained command policy |
+| companion commands | ACCEPTED |
 | needs | ACCEPTED — canonical; legacy flow retired |
 | greeting | ACCEPTED — canonical; legacy flow retired |
-| recruitment | ACCEPTED — canonical content/reply + single generic policy-admission seam |
-| relationship proposal | ACCEPTED — canonical content/reply + single generic policy-admission seam |
-| ceasefire | ACCEPTED |
-| set territory | ACCEPTED |
-| wellbeing/trust/affinity effects | ACCEPTED |
-| parameterized tasks | ACCEPTED — `task_generation_and_result_routing` + `task_conversation_projection_lifecycle` proven (`pnc:task.wait_at` visible before dispatch, retired after active/terminal transition, zero duplicate dispatch) |
+| recruitment / relationship proposal | ACCEPTED — canonical policy/reply + single generic admission seam |
+| ceasefire / territory / effectful social | ACCEPTED |
+| parameterized tasks | R8A PARTIAL — `task_generation_and_result_routing` and worker `task_conversation_projection_lifecycle` retained; native production projection parity missing |
 | quest operations | ACCEPTED — production offer→accept→active→READY_TO_TURN_IN→REWARDED→repeat |
-| disband | ACCEPTED — explicit confirmation/cancel/replay safety |
-| settlement admission | ACCEPTED — `settlement_admission_post_success_refresh` proven (`test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation`) |
-| ambient visit | ACCEPTED — `ambient_visit_post_success_refresh` proven (`test_ambient_visit_root_choice_refreshes_and_retires_after_start`) |
+| disband | ACCEPTED |
+| settlement admission | ACCEPTED — atomic post-success refresh owner retained |
+| ambient visit | ACCEPTED — atomic post-success refresh owner retained |
 | event response-window expiry | ACCEPTED |
-| gift | REFERENCE_GOOD_REGRESSION |
-| grounded gossip | REFERENCE_GOOD_REGRESSION |
-| departure | REFERENCE_GOOD_REGRESSION |
-| pragmatic repair | REFERENCE_GOOD_REGRESSION |
+| gift / gossip / departure / pragmatic repair | REFERENCE_GOOD_REGRESSION |
 
-Atomic acceptance claim ownership in `S11_BRANCHING_AUDIT_INVENTORY.json` and `constrained_family_manifest.json`:
+R8A must add one atomic required claim to `audit.task.parameterized`:
 
 ~~~text
-audit.task.parameterized
-  + task_generation_and_result_routing
-  + task_conversation_projection_lifecycle
-
-audit.root.settlement_admission
-  + settlement_admission_post_success_refresh
-  + ambient_visit_post_success_refresh
+task_native_projection_parity
 ~~~
 
-For any audit row that represents multiple independently observable surfaces, each surface has its own stable required claim and exact owner.
+That claim must be owned by an exact native/native-equivalent production-context regression. The existing worker-only lifecycle test must not own native parity by implication.
 
-Final closure record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` (ACCEPTED / CLOSED).
+The final S11 acceptance gate is additionally reopened by R8B because canonical Core acceptance is currently order/concurrency dependent: parallel tests mutate the live canonical source tree and serial Core acceptance reports unclassified Tk-display skips.
+
+Current repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.

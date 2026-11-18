@@ -1,25 +1,26 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: USER_ACCEPTANCE
+status: CLEAN_CHECKPOINT_WITH_UNRELATED_DIRT
 checkpoint_mode: committed_handoff
-phase_commit: self
-parent_core_commit: 387a15e8f07aa5e480bf07d17975de9c267d97d4
-phase: S11R7 — Final Atomic Acceptance Closure (ACCEPTED / CLOSED)
-chunk: USER_ACCEPTANCE — user-owned native Project Zomboid SP/MP acceptance
+planning_doc_commit: self
+phase: S11R8 — Native-Parity and Acceptance-Reproducibility Repair
+chunk: R8A — native task-state projection parity
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
-repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R6_CLOSURE_AUDIT_REPAIR.md
-previous_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R5_FINAL_CLOSURE_REPAIR.md
+repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md
+previous_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R6_CLOSURE_AUDIT_REPAIR.md
 updated_at: 2026-11-18
 ~~~
 
-## Final participant checkpoint
+This planning checkpoint does **not** accept R8A. It records the post-R7 audit findings and the current participant baton.
+
+## Participant planning checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (parent 387a15e8f07aa5e480bf07d17975de9c267d97d4)
-ProjectHoomans   9fdfc7b63354f6d29912ff90b0d98c5edffdeb8c (S11R7A commit ec0d61f85d077d81d58b5da855e7fab527427742)
+psychopatzCore   planning_doc_commit: self (base 1bc5e92b83890c913da5ef46f50be04c0c270831)
+ProjectHoomans   9fdfc7b63354f6d29912ff90b0d98c5edffdeb8c
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
@@ -27,38 +28,50 @@ Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+ProjectHoomans   rows=7   sha256=b11302923307a5444314d5d55a1ee8ca8e3cfe59cf9c4a2f8f06cce0c7a4e720
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-Unrelated ProjectHoomans NPC-authoring/UI work is now separately committed through `9fdfc7b6`, leaving all three participant worktrees clean (`rows=0`).
+ProjectHoomans residual paths are unrelated StartingCompanion/NPC-authoring work and must be preserved exactly unless changed independently by their owner.
 
-## Full acceptance evidence
+## Retained accepted evidence
 
-- **R7A atomic acceptance proofs (`ACCEPTED`):**
-  - `audit.task.parameterized` requires `task_generation_and_result_routing` and `task_conversation_projection_lifecycle`, explicitly owned by `test_parameterized_task_conversation_lifecycle_and_duplicate_suppression` (`test_automatic_flow_generation.py`, `10/10` PASS), proving `pnc:task.wait_at` is visible/actionable before request, admitted with 1 authoritative dispatch, retired after active transition with 0 dispatch on typed repeat, and remains retired across `completed`/`failed`/`rejected` states with 0 duplicate dispatch.
-  - `audit.root.settlement_admission` requires atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims (`settlement_ambient_admission_boundary` removed with no compatibility alias).
-  - `test_ambient_visit_root_choice_refreshes_and_retires_after_start` owns `ambient_visit_post_success_refresh`.
-  - `test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation` owns `settlement_admission_post_success_refresh` (`test_production_leave_group.py`, `7/7` PASS), proving active settlement visit exposes `conversation.root:menu:settlement_admission`, click executes `MobileSettlementVisitService.AdmitPlayer` through production authority, NPC/member/settlement state updates, active conversation refreshes/closes and retires `settlement_admission`, and stale frame replay yields zero dispatch and zero duplicate mutation.
-- **R7B focused retained regressions (`PASS`):**
-  - Core explicit `auditClaims` negative guards & backend portability (`test_convo_engine_completeness_analyzer`, `test_psdl_backend_portability_and_trace_equivalence`): `10/10` PASS.
-  - Provider task lifecycle, settlement/ambient refresh, disband confirmation/cancel/replay, production quest ready→rewarded→repeat, event expiry, declarative state-aware outcome closure fixtures, classification guard: `30/30` PASS.
-- **Canonical 9-suite acceptance (`9/9 PASS`, `convoScopeOk=True`):**
-  - `core_python`: `310/310` PASS (`0` failed, `0` skipped)
-  - `core_lua`: `36/36` PASS (`0` failed)
-  - `hoomans_lua`: `1048/1052` PASS (`4` signature-verified non-ConvoEngine baselines, `0` ConvoEngine failures)
-  - `hoomans_provider_python`: `146/151` PASS (`0` failed, `5` allowed skips)
-  - `real_provider_worker`: `336/345` PASS (`0` failed, `9` allowed skips)
-  - `tk_xvfb_gui`: `144/155` PASS (`0` failed, `11` allowed skips)
-  - `dynamic_trading`: `89/89` PASS (`0` failed)
-  - `convo_audit`: `1/1` PASS (`588` families, `407` isolated deterministic files, `0` violations)
-  - `kahlua_static`: `3/3` PASS (`0` errors)
-- **CodeBuilder & static verification (`PASS`):**
-  - `python3 tools/semantic_harness/codebuilder/reconcile.py --check`: `clean=true`, `desired=410`, `0` missing/drifted/stale/retired/ambiguous.
-  - `python3 -m tools.semantic_harness convo audit --check-determinism`: `ok=true`, `convoPlans=588`, `fileCount=407`, `violationCount=0`, `diffs=[]`.
-  - `Flow_Identity`, `Flow_Needs`, `Flow_Greeting` caller-zero: `0` callers across all three `Contents/` trees.
-  - `git diff --check`: clean across `psychopatzCore`, `ProjectHoomans`, and `DynamicTrading`.
+- R6 explicit exact `auditClaims` ownership remains accepted.
+- R7 settlement-admission and ambient-visit atomic claim split/tests remain accepted.
+- Quest READY_TO_TURN_IN → REWARDED → repeat remains accepted.
+- Single generic policy admission remains accepted.
+- Reconcile/integrity/determinism and legacy caller-zero remained green in the post-R7 audit.
+- Focused R7 task/settlement/quest/event tests pass; the task defect is native-context parity, not the worker assertion itself.
 
-## Next responsibility
+## Why USER_ACCEPTANCE was revoked
 
-User-owned native Project Zomboid SP/MP acceptance. Do not push, publish Workshop content, or launch native Project Zomboid without explicit user authorization.
+### Native task projection
+
+Production `Suggestions_Capabilities_Rows.lua` reads `context.taskStates`. The post-R7 audit found no native `Contents/` producer for that field; it is populated only by headless worker modules. Therefore `task_conversation_projection_lifecycle` is not sufficient proof of native runtime behavior.
+
+### Canonical acceptance reproducibility
+
+Fresh `python3 -m tools.semantic_harness.testing.acceptance --jobs 4` returns `8/9` because parallel Core tests observe temporary source files written into the live canonical source tree. Serial Core acceptance avoids that race but reports two unclassified Tk-display skips. R7B's "reproducibly green" gate is therefore not satisfied on current source.
+
+## Immediate Next Chunk — R8A
+
+1. Verify all participant HEADs/status and preserve the seven unrelated Hoomans residuals.
+2. Read `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+3. Trace the authoritative native semantic-task lifecycle: dispatch, pending request ownership, server/task authority, result receipt, and terminal state.
+4. Define/reuse one bounded task projection consumed by both native conversation context and worker.
+5. Remove the worker-only semantic dependency: production suggestion state must not require a field only `Conversation_Context_Builder` can provide.
+6. Add `task_native_projection_parity` to `audit.task.parameterized` and bind it to an exact native/native-equivalent test.
+7. Prove WAIT_AT visible before request → admitted → native projection refresh → hidden/retired active/terminal → duplicate zero-dispatch.
+8. Run focused native+worker task tests and explicit claim validation.
+9. Stage/commit only R8A-owned Hoomans paths, preserving unrelated dirt; update Core manifest/inventory/docs and commit Core last.
+10. Continue automatically to R8B.
+
+## R8B
+
+Make Core acceptance hermetic under parallel execution, move real-source mutation tests to isolated workspaces, resolve Tk test ownership deterministically, prove Core Python jobs=1/jobs=4 green, and run two consecutive canonical 9-suite `--jobs 4` passes from one exact vector.
+
+## R8C
+
+Run the full retained matrix from the exact final vector, reconcile docs to developer-complete only if green, record exact commits/residual fingerprints, then return to USER_ACCEPTANCE.
+
+No push, Workshop publication, or native Project Zomboid launch without explicit authorization.

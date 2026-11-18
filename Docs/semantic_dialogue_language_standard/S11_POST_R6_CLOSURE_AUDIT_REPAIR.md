@@ -1,9 +1,11 @@
 # S11 Post-R6 Closure Audit Repair
 
-**Status:** ACCEPTED / CLOSED — R7A and R7B completed; S11 is developer-side complete (`COMPLETE_DEVELOPER_SIDE`).
+**Status:** HISTORICAL / PARTIAL ACCEPTANCE — R7A atomic claims/tests are retained; R7B's final developer-complete closure was invalidated by the post-R7 native-parity and acceptance-reproducibility audit.
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Previous repair:** `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`
+
+**Current repair authority:** `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`. Do not restart R7; execute R8.
 
 ## Purpose
 
@@ -257,6 +259,6 @@ Dialogue semantic changes, if any are actually required, remain canonical source
 
 ## Completion invariant
 
-S11 is developer-side complete (`COMPLETE_DEVELOPER_SIDE` / `ACCEPTED`):
+R7's intended developer-side completion gate was:
 
 > the representative task public affordance (`pnc:task.wait_at`) is proven present before dispatch and correctly retired/projected after active/terminal state (`task_conversation_projection_lifecycle`); settlement admission (`settlement_admission_post_success_refresh`) and ambient visit (`ambient_visit_post_success_refresh`) each have their own exact post-success conversation-refresh claim owner; the full retained acceptance is reproducibly green (`9/9` canonical suites PASS); and every continuity document records one consistent committed checkpoint with current participant residual fingerprints. Next responsibility is user-owned native Project Zomboid SP/MP acceptance.

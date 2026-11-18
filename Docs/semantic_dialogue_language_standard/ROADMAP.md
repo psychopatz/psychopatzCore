@@ -1,9 +1,9 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** COMPLETE_DEVELOPER_SIDE — S0-S10R + G7-G9 and S11 (including S11A-S11E and R0-R7) are accepted. Next responsibility is user-owned native Project Zomboid SP/MP acceptance.
+**Parent status:** IN_PROGRESS — S0-S10R + G7-G9 and retained S11 work through R7A remain accepted; S11R8 must close native task-projection parity and canonical acceptance reproducibility before USER_ACCEPTANCE.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** S11A-S11E + S11R7 ACCEPTED / CLOSED. Next step is user-owned native Project Zomboid acceptance. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
+**Developer completion boundary:** S11A-S11E + S11R8 ACCEPTED / CLOSED. R8 is mandatory before user-owned native Project Zomboid acceptance. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
 
 ## Objective and ownership
 
@@ -881,7 +881,7 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — S11A-S11E and R0-R7 are accepted; all 25 constrained branching-audit rows have explicit exact-owner `auditClaims` coverage, task pre→post presentation lifecycle and split settlement/ambient post-success conversation refresh are proven, canonical policy admission is single-path and family-agnostic, and canonical 9-suite acceptance is reproducibly green.
+**Status:** IN_PROGRESS — retained S11A/R1-R7A work remains accepted, but post-R7 audit found that parameterized-task retirement relies on worker-only `taskStates` rather than a native production projection, and canonical 9-suite acceptance is not reproducibly green under current Core parallel/GUI accounting. Current authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
@@ -945,7 +945,7 @@ Before any production semantic-family migration, prove canonical model stability
 
 ### Historical S11 R0-R4 post-implementation repair order
 
-R0-R4 landed and are retained as historical phase evidence. R5, R6, and R7 also landed and are accepted/closed in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`, `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`, and `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+R0-R4 landed and are retained as historical phase evidence. R5 and R6 are retained as accepted historical repair phases; R7A atomic acceptance work is retained, while R7B's final closure claim was superseded by R8.
 
 Historical order:
 
@@ -967,11 +967,11 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** ACCEPTED. All 25 maintained branching-audit rows are closed-set and owned by exact tests with explicit `auditClaims`, including quest ready→rewarded→repeat, recruitment/proposal transition refresh and repeat no-op, event-expiry, disband confirmation safety, companion commands, parameterized task pre→post presentation lifecycle (`task_conversation_projection_lifecycle`), and atomic settlement-admission (`settlement_admission_post_success_refresh`) / ambient-visit (`ambient_visit_post_success_refresh`) post-success conversation refresh.
+**Status:** PARTIAL / R8 NATIVE-PARITY REPAIR. The 25-row closed-set inventory, exact-owner claims, quest/recruitment/proposal/event/disband/settlement/ambient acceptance remain retained. Parameterized-task worker lifecycle proof remains useful but cannot close S11D until an exact `task_native_projection_parity` owner proves the same retirement contract through native/native-equivalent production context.
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** ACCEPTED. Full retained acceptance passes reproducibly: canonical 9-suite acceptance `9/9 PASS` (`2113/2142` cases PASS, `25` allowed skips, `4` signature-verified non-ConvoEngine baselines, `convoScopeOk=True`), CodeBuilder `reconcile --check` clean (`desired=410`, `0` missing/drifted/stale/retired/ambiguous), ConvoEngine integrity/determinism clean (`588` families, `407` deterministic files, `0` violations), Kahlua static verification clean (`0` errors across all ConvoEngine trees), legacy `Flow_Identity`/`Flow_Needs`/`Flow_Greeting` caller-zero verified, and all continuity documents reconciled to one final checkpoint.
+**Status:** NOT ACCEPTED / R8 REPRODUCIBILITY REPAIR. Reconcile/integrity/Kahlua/caller-zero evidence is retained, but fresh canonical acceptance returns `8/9` because parallel Core tests mutate/observe the real canonical source tree concurrently; serial Core acceptance instead exposes two unclassified Tk-display skips. S11E remains open until R8B/R8C prove deterministic suite ownership and two consecutive 9/9 canonical runs from one exact vector.
 
 ### S11R5 — post-R4 closure integrity repair
 
@@ -993,7 +993,7 @@ Remove family-specific recruitment/proposal canonical reply projection from gene
 
 Rerun focused R5 tests, full semantic-harness, canonical nine-suite acceptance, strict closed-set Completeness, CodeBuilder reconcile, integrity/determinism, Kahlua/static and caller-zero guards. Reconcile all current docs by replacement rather than appending stale states. Final HANDOFF records exact participant commits plus SHA-256 residual-work fingerprints. No push/publication.
 
-**Gate:** SATISFIED (historical R5; superseded and completed through R6 and R7).
+**Gate:** SATISFIED for historical R5 scope; later final-closure authority is R8.
 
 ### S11R6 — post-R5 final closure repair
 
@@ -1019,9 +1019,9 @@ Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance
 
 ### S11R7 — final atomic acceptance-proof closure
 
-**Status:** ACCEPTED / CLOSED.
+**Status:** HISTORICAL / PARTIAL ACCEPTANCE. R7A atomic claim work and settlement/ambient behavior remain accepted. R7B's final developer-complete closure claim was invalidated by the post-R7 native-parity/reproducibility audit; do not restart R7.
 
-Closure record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 #### R7A — task + settlement/ambient atomic acceptance proof
 
@@ -1029,9 +1029,29 @@ Closure record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 #### R7B — final reproducible acceptance + continuity closure
 
-**Status:** ACCEPTED / CLOSED. Focused R7 regressions and full retained acceptance/generation/static/caller-zero gates passed (`9/9` canonical acceptance suites PASS; `reconcile --check` clean at `410` desired artifacts; `convo audit --check-determinism` clean at `588` families / `407` deterministic files / `0` violations). All closure and continuity documents are rewritten to one consistent developer-complete state, recording exact participant commits and live residual fingerprints.
+**Status:** SUPERSEDED / NOT FINAL ACCEPTANCE. The recorded focused tests and generation/static evidence remain historical evidence, but fresh post-R7 audit disproved the reproducibility/native-parity assumptions behind the final closure: worker-only task-state projection does not certify native runtime, and canonical Core acceptance is order/concurrency dependent.
 
-**Gate:** SATISFIED — both task and settlement/ambient atomic claims are exactly owned and behaviorally proven, full retained acceptance is reproducibly green, and every continuity document agrees on one exact committed checkpoint.
+**Gate:** SUPERSEDED BY R8 — R7A atomic claims are retained; final closure requires R8 native parity plus reproducible acceptance.
+
+### S11R8 — native-parity and acceptance-reproducibility repair
+
+**Status:** ACTIVE.
+
+Current normative plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+
+#### R8A — native task-state projection parity
+
+Replace the worker-only `Runtime.taskStates` dependency with one bounded authoritative task projection consumable by both native conversation context and the worker. Add exact `task_native_projection_parity` acceptance ownership and prove WAIT_AT pre→active/terminal retirement through the native/native-equivalent production context with duplicate zero-dispatch. Preserve unrelated Hoomans StartingCompanion/NPC-authoring dirt exactly.
+
+#### R8B — canonical acceptance isolation and deterministic accounting
+
+Move canonical-source mutation tests off the live workspace into isolated temporary repositories/workspaces. Resolve `test_gui_startup` ownership deterministically between Core Python and the existing Tk/Xvfb suite. Prove Core Python jobs=1 and jobs=4 green, then run two consecutive canonical 9-suite `--jobs 4` passes from one exact vector with unchanged residual status bytes.
+
+#### R8C — exact-vector full closure
+
+Run the full retained matrix from the exact final participant vector. Only when green, reconcile S11/S11D/S11E/R8 to accepted/closed, mark R7 as historical/superseded closure, record exact participant commits and residual fingerprints, and return to USER_ACCEPTANCE.
+
+**Gate:** R8 is satisfied only when native and worker suggestions consume the same bounded authoritative task projection, parallel acceptance is hermetic, GUI/accounting ownership is deterministic, two consecutive canonical 9-suite runs pass from one exact vector, and current continuity docs record that checkpoint.
 
 ## Commit protocol
 

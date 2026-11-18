@@ -103,6 +103,8 @@ Dialogue Completeness is not opt-in. A compiler-visible acceptance manifest deri
 
 Acceptance ownership is machine-verifiable. A non-empty file/path string is not sufficient: the referenced fixture/test/case must exist **and the exact owner must explicitly declare the stable audit claim IDs it owns**. Required claim IDs come from the branching-audit inventory; manifest repetition, test-name similarity, `claimKeywords`, substring checks, or whole-file source-text searches are not acceptance evidence. Deleted/stale owners, missing owner-declared claims, or claim mismatches fail acceptance. Audit claims are atomic by observable behavior: if one audit row spans multiple independently observable surfaces, each constituent surface needs its own stable required claim and exact owner unless one exact test genuinely exercises all constituents. A sibling surface cannot certify an untested sibling through a broad combined claim.
 
+Production-surface acceptance also requires **native projection parity**. A headless worker test may verify the worker transport/runtime path, but it cannot certify an in-game presentation/state claim when the worker injects a field or authority projection that native `Contents/` conversation construction does not produce. Native and worker contexts must consume the same bounded authoritative contract (or an explicitly parity-proven adapter); worker-only semantic truth is a harness defect, not acceptance evidence.
+
 Generic runtime kernels may execute/adapt canonical decisions, but family-specific semantic admission **or canonical reply mapping** must not be introduced there as a substitute for canonical source/Portable Plan ownership. Canonical action-policy admission has one generic seam before domain-specific mutation routing: family names may appear in the domain dispatcher, but not solely to decide whether `EvaluateStatePolicy` runs. If canonical policy yields `replyOutcome`, generic runtime projects the canonical reply/consequences; it must not recreate reason→template/text mappings per family. Behavior tests do not make such a runtime-only duplicate authority acceptable.
 
 ## Runtime namespace boundary
@@ -603,6 +605,8 @@ Behavioral simulation must call production Lua authorities through the worker
 when parity matters. A Python-only projection may be used for structural
 compiler preview, but it must be labeled effect-free/non-authoritative and may
 not silently substitute for runtime behavior.
+
+Acceptance tests must be hermetic under their supported parallel execution mode. Tests that mutate canonical source/compiler inputs must use isolated temporary repository/workspace roots rather than the live participant source tree, so concurrent reconcile/integrity checks cannot observe test-only files. GUI/display-dependent tests must have one explicit suite owner/accounting policy; pass/skip totals must not change semantically merely because Core acceptance runs serially versus in parallel.
 
 Canonical family CRUD must be service-owned and transactional: owner-routed,
 fingerprint-guarded, globally reference-validated, followed by CodeBuilder

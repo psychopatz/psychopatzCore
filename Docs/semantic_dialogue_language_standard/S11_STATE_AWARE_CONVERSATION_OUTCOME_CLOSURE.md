@@ -1,14 +1,14 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — S11A-S11E and R0-R7 are accepted; all 25 constrained branching-audit rows have explicit exact-owner `auditClaims` coverage, parameterized task pre→post presentation lifecycle and split settlement-admission / ambient-visit post-success conversation refresh are proven, canonical policy admission is single-path and family-agnostic, and canonical 9-suite acceptance is reproducibly green. Next responsibility is user-owned native Project Zomboid SP/MP acceptance.
+**Current status:** IN_PROGRESS — post-R7 audit retained S11A/R1-R7A but revoked USER_ACCEPTANCE because parameterized-task retirement is worker-only rather than native-parity proven and canonical acceptance is not reproducibly green. Execute `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md` R8A→R8C.
 
-**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED.
+**Status:** IN_PROGRESS — S11R8 native task projection parity + acceptance reproducibility.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
-**Accepted baseline retained:** S0-S10 + S10R + G7-G9 and S11A-S11E + R0-R7 are accepted.
+**Accepted baseline retained:** S0-S10 + S10R + G7-G9, S11A foundation/migrations, R5/R6 claim/policy/quest work, and R7A atomic settlement/ambient + worker task lifecycle proofs remain accepted unless targeted R8 evidence disproves them.
 **Primary adopter:** ProjectHoomans.
 **Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
-**User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities.
+**User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities; acceptance evidence must also exercise or prove parity with the real native context rather than worker-only state.
 
 **Mandatory branching audit:** `S11_BRANCHING_DIALOGUE_AUDIT.md` is a normative scope input for S11C/S11D. Every maintained family classified there as a confirmed defect or high-risk state branch must be repaired or explicitly classified, and every reference-good family must remain regression-protected.
 

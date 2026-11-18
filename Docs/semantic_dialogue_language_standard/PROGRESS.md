@@ -1,51 +1,93 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** COMPLETE_DEVELOPER_SIDE — S0-S10R + G7-G9 and S11 (including S11A-S11E and R0-R7) are accepted.
+**Status:** IN_PROGRESS — post-R7 audit invalidated only native task-projection parity and reproducible final acceptance.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** USER_ACCEPTANCE — developer-side ConvoEngine and S11 closure is complete.
-**Immediate Next Chunk:** User-owned native Project Zomboid SP/MP acceptance.
+**Active phase:** S11R8 — native-parity and acceptance-reproducibility repair.
+**Immediate Next Chunk:** R8A only — replace worker-only task-state presentation truth with one bounded native+worker task projection, add exact native-equivalent acceptance ownership, and preserve unrelated ProjectHoomans dirt; then continue automatically to R8B.
 
-## Final participant checkpoint
+## Current planning checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (parent 387a15e8f07aa5e480bf07d17975de9c267d97d4)
-ProjectHoomans   9fdfc7b63354f6d29912ff90b0d98c5edffdeb8c (S11R7A commit ec0d61f85d077d81d58b5da855e7fab527427742)
+psychopatzCore   planning_doc_commit: self (base 1bc5e92b83890c913da5ef46f50be04c0c270831)
+ProjectHoomans   9fdfc7b63354f6d29912ff90b0d98c5edffdeb8c
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
-Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
+Residual snapshot at planning time (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+ProjectHoomans   rows=7   sha256=b11302923307a5444314d5d55a1ee8ca8e3cfe59cf9c4a2f8f06cce0c7a4e720
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans concurrent NPC-authoring/UI work has landed separately through `9fdfc7b6` and all three participant worktrees are now completely clean.
+The seven ProjectHoomans residuals are unrelated StartingCompanion/NPC-authoring work:
 
-## Accepted S11R7 closure summary
+~~~text
+Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/CharacterCreation/PNC_StartingCompanionAuthoringAdapter.lua
+Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/CharacterCreation/PNC_StartingCompanionSession.lua
+Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Identity/PNC_NPCAuthoringComposer.lua
+Contents/mods/ProjectHoomans/42.20/media/lua/server/PNC/Companions/StartingCompanionService/PNC_StartingCompanionService_Identity.lua
+Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Core/Identity/PNC_NPCAuthoringResolver.lua
+Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Core/Identity/PNC_StartingCompanionCustomization.lua
+Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Core/Identity/PNC_StartingCompanionSanitizer.lua
+~~~
 
-- **R7A — Atomic acceptance-proof closure (`ACCEPTED`):**
-  - Added `task_conversation_projection_lifecycle` to `audit.task.parameterized` in `S11_BRANCHING_AUDIT_INVENTORY.json` and `constrained_family_manifest.json`, explicitly owned by `test_parameterized_task_conversation_lifecycle_and_duplicate_suppression` (`test_automatic_flow_generation.py`, `10/10` PASS), proving `pnc:task.wait_at` is present/actionable before dispatch, admitted with 1 authoritative dispatch, retired after active transition with 0 dispatch on typed repeat, and remains retired across `completed`/`failed`/`rejected` states with 0 duplicate dispatch.
-  - Replaced `settlement_ambient_admission_boundary` with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims across `S11_BRANCHING_AUDIT_INVENTORY.json`, `constrained_family_manifest.json`, and exact test `auditClaims` (no compatibility alias).
-  - Retained `test_ambient_visit_root_choice_refreshes_and_retires_after_start` as the exact owner of `ambient_visit_post_success_refresh`.
-  - Added `test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation` (`test_production_leave_group.py`, `7/7` PASS) as the exact owner of `settlement_admission_post_success_refresh`, proving active settlement visit exposes `conversation.root:menu:settlement_admission`, click executes `MobileSettlementVisitService.AdmitPlayer` through production authority, NPC/member/settlement state updates, active conversation refreshes/closes and retires `settlement_admission`, and stale frame replay causes zero dispatch and zero duplicate settlement mutation.
-- **R7B — Full reproducible acceptance + final continuity closure (`ACCEPTED / CLOSED`):**
-  - Focused retained regressions: `test_convo_engine_completeness_analyzer` + `test_psdl_backend_portability_and_trace_equivalence` (`10/10` PASS), `test_automatic_flow_generation` + `test_production_leave_group` + `test_quest_flow_binding` + `test_unified_authority_event_followup` + `test_fixture_provider` + `test_production_mutations` + `test_classification_guard` (`30/30` PASS).
-  - Canonical 9-suite acceptance (`python3 -m tools.semantic_harness.testing.acceptance --jobs 4`): **9/9 suites PASS** (`2113/2142` cases PASS, `25` allowed skips, `4` signature-verified non-ConvoEngine baselines, `convoScopeOk=True`):
-    - `core_python`: `310/310` PASS
-    - `core_lua`: `36/36` PASS
-    - `hoomans_lua`: `1048/1052` PASS (`4` signature-verified non-ConvoEngine baselines, `0` ConvoEngine failures)
-    - `hoomans_provider_python`: `146/151` PASS (`5` allowed skips)
-    - `real_provider_worker`: `336/345` PASS (`9` allowed skips)
-    - `tk_xvfb_gui`: `144/155` PASS (`11` allowed skips)
-    - `dynamic_trading`: `89/89` PASS
-    - `convo_audit`: `1/1` PASS (`588` families, `407` isolated deterministic files, `0` violations)
-    - `kahlua_static`: `3/3` PASS (`0` Kahlua errors)
-  - CodeBuilder `reconcile.py --check`: `clean=true`, `desired=410`, `0` missing/drifted/stale/retired/ambiguous.
-  - Legacy `Flow_Identity`, `Flow_Needs`, `Flow_Greeting` caller-zero: `0` callers across all three `Contents/` trees.
-  - `git diff --check`: clean across all three repositories.
+Do not reset, stash, stage, rewrite, or otherwise absorb these paths into R8.
 
-## Next responsibility
+Current repair authority:
 
-User-owned native Project Zomboid SP/MP acceptance. Do not push, publish Workshop content, or launch native Project Zomboid without explicit user authorization.
+`S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`
+
+`S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` is historical R7 context.
+
+## Retained accepted work
+
+Do not rebuild:
+
+- S11A0-A8;
+- Identity / Needs / Greeting / companion-command migrations;
+- exact explicit `auditClaims` validation;
+- production quest ready→rewarded→repeat;
+- settlement-admission and ambient-visit atomic post-success claims/tests;
+- event expiry and disband acceptance;
+- canonical ProjectReply;
+- single generic policy admission before domain routing;
+- CodeBuilder reconciliation/integrity foundation;
+- legacy Identity/Needs/Greeting caller-zero.
+
+## Post-R7 blockers
+
+### 1. Native task projection parity
+
+R7's task lifecycle test passes because the headless worker injects `Runtime.taskStates` into `Conversation_Context_Builder`. Native conversation construction does not produce `taskStates`, while production `Suggestions_Capabilities_Rows.lua` reads it. Therefore the new WAIT_AT retirement behavior is not proven to work in-game.
+
+### 2. Canonical acceptance is not reproducibly green
+
+Fresh canonical acceptance from the recorded vector returns `8/9` because parallel Core tests race on real canonical source mutation. `test_psdl_semantic_domain_decomposition` transiently writes `g9r_fixture_taunt.json` into the live source tree while `test_semantic_generation_ownership_and_cleanup` concurrently runs the canonical reconcile/check.
+
+Serial Core acceptance avoids that race but produces two unclassified `requires a Tk display` skips from `test_gui_startup`.
+
+## Mandatory R8 sequence
+
+~~~text
+R8A  native task-state projection parity
+  ↓
+R8B  acceptance isolation + deterministic GUI/accounting ownership
+  ↓
+R8C  exact-vector full acceptance + final continuity closure
+~~~
+
+## Hard rules
+
+- Keep R8 narrow; do not reopen retained R1-R7 behavior without targeted failure evidence.
+- Native and worker task presentation must consume one bounded authoritative task projection contract.
+- Worker `Runtime.taskStates` cannot remain the only producer for state used by production suggestion code.
+- Do not create shadow task state, fallback task readers, dual stores/writes, or compatibility aliases.
+- Parallel tests must not mutate live canonical source trees; use isolated temporary repositories/workspaces.
+- Do not solve the acceptance defect by forcing serial-only canonical acceptance or adding a new baseline.
+- Tk/GUI tests need one explicit deterministic suite ownership policy; do not create another GUI harness.
+- Two consecutive canonical 9-suite `--jobs 4` runs must pass from the same exact final vector.
+- Canonical CodeBuilder source/recipe discipline remains mandatory; generated output is downstream-only.
+- Preserve unrelated dirty work exactly.
+- Accepted multi-repo commits: changed adopter paths first, Core last; exact staging only; never push/publish without explicit authorization.

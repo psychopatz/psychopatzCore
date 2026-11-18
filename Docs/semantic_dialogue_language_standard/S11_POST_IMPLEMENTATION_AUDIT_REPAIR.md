@@ -5,7 +5,7 @@
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Authoritative ordering dependency:** `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`
 
-**Current repair authority:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Do not resume R0-R6 from this historical document; retain accepted work and execute R7.
+**Current repair authority:** `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`. Do not resume earlier repair phases; retain accepted work and execute R8.
 
 ## Why S11 is reopened
 

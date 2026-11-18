@@ -1,12 +1,12 @@
 # S11 Post-R5 Final Closure Repair
 
-**Status:** HISTORICAL / ACCEPTED — R6 landed and is retained; final two atomic acceptance proofs and continuity closure completed in R7 (`S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`).
+**Status:** HISTORICAL / ACCEPTED FOUNDATION — R6 landed and is retained; R7A atomic acceptance proofs remain accepted, but R7B final closure was superseded by R8 native-parity/reproducibility repair.
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Previous repair:** `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`
 
-**Closure record:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` (ACCEPTED / CLOSED). S11 is `COMPLETE_DEVELOPER_SIDE`.
+**Current repair authority:** `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`. The prior R7 closure record is historical; S11 is currently IN_PROGRESS under R8.
 
 ## Purpose
 

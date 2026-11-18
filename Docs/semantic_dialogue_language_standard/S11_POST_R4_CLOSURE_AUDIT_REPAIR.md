@@ -1,12 +1,12 @@
 # S11 Post-R4 Closure Audit Repair
 
-**Status:** HISTORICAL / ACCEPTED — R5 landed and is retained; subsequent R6 and R7 closures are accepted and closed (`S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`).
+**Status:** HISTORICAL / ACCEPTED FOUNDATION — R5 and R6 landed and are retained; R7A atomic acceptance work remains accepted, while final closure is currently owned by R8.
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Historical repair:** `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`
 
-**Closure record:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` (ACCEPTED / CLOSED). S11 is `COMPLETE_DEVELOPER_SIDE`.
+**Current repair authority:** `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`. The prior R7 closure record is historical; S11 is currently IN_PROGRESS under R8.
 
 ## Purpose
 
