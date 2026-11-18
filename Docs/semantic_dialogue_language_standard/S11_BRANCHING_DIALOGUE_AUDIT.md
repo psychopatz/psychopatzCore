@@ -908,3 +908,37 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - parity + caller-zero retirement proof for any superseded project-owned legacy implementation;
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
+
+# Post-implementation closure audit — 2026-11-18
+
+The prior S11E completion claim is revoked. This document is now also the input inventory for the compiler-visible constrained-family acceptance manifest required by `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
+
+Current audited state:
+
+| Surface | Current closure status |
+| --- | --- |
+| identity | behavior repaired, canonical source exists, legacy `Flow_Identity.lua` retirement incomplete |
+| companion commands | behavior patched, canonical recipe/state-policy migration incomplete; family-specific admission remains in hand-written dispatch Lua |
+| needs | behavior patched, canonical recipe migration/legacy-flow retirement incomplete |
+| greeting | behavior patched, canonical recipe migration/legacy-flow retirement incomplete |
+| recruitment | pre-satisfied no-op fixture exists; actionable→success→fresh projection→repeat no-op transition still required |
+| relationship proposal | pre-satisfied no-op fixture exists; actionable→success→fresh projection→repeat no-op transition still required |
+| disband | typed confirmation vs explicit presentation-only classification still required |
+| ceasefire | typed policy + fresh post-transition projection still required |
+| set territory | typed policy + fresh post-transition projection still required |
+| parameterized tasks | full state parity matrix still required |
+| quest operations | real offer/accept/status/turn-in lifecycle parity still required |
+| wellbeing/trust/affinity effects | explicit repeat policy + acceptance still required |
+| settlement admission / ambient visit | post-success fresh projection still required |
+| gift / event expiry / grounded gossip / departure / pragmatic repair | reference-good; preserve with explicit regression ownership |
+
+Every maintained row must end as exactly one of:
+
+```text
+CANONICAL_STATEFUL
+EXPLICIT_PRESENTATION_ONLY
+REFERENCE_GOOD_REGRESSION
+RETIRED
+```
+
+The Completeness/acceptance system must fail any required canonical stateful row that is absent from canonical policy. A zero-error report over only opted-in families is not sufficient S11 closure.

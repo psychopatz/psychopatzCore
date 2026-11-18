@@ -97,6 +97,12 @@ S11 foundation order is authoritative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_OR
 
 Migrated project-owned semantic paths are replaced, not preserved through compatibility shims. After canonical-source parity and caller-zero proof, obsolete internal definitions/wrappers/registries/fallbacks are deleted. Dialogue/semantic source changes must flow through the existing CodeBuilder canonical source + generation recipe + reconcile pipeline; generated Lua/registries/manifests/translations remain downstream-only.
 
+### Mandatory constrained-family acceptance coverage
+
+Dialogue Completeness is not opt-in. A compiler-visible acceptance manifest derived from the maintained branching audit must classify every constrained family as `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`. A required canonical stateful family that lacks canonical policy must fail acceptance even if the families that did opt into `statePolicy` are individually clean.
+
+Generic runtime kernels may execute/adapt canonical decisions, but family-specific semantic admission rules must not be introduced there as a substitute for canonical source/Portable Plan ownership. Behavior tests do not make such a runtime-only policy authoritative.
+
 ## Runtime namespace boundary
 
 ConvoEngine-owned runtime belongs under:

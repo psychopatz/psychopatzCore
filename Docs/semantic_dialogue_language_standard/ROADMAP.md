@@ -881,7 +881,9 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** ACTIVE — S11A preflight/regression freeze + portable state/outcome substrate.
+**Status:** REOPENED — post-implementation audit revoked the prior S11E completion claim. Preserve the useful S11A foundation; repair acceptance authority, finish S11B/S11C structurally, execute missing S11D, then rerun S11E.
+
+Normative repair plan: `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
 
 Normative design: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved post-G9 architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching/state audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
@@ -902,7 +904,7 @@ Do not make runtime Lua capability descriptors or Semantic Lab the primary S11 a
 
 ### S11A — foundation build and freeze before production migration
 
-**Status:** ACTIVE.
+**Status:** IMPLEMENTED / FOUNDATION RETAINED; A4/A8 acceptance guard REOPENED. The foundation code remains useful and focused tests pass, but Completeness must gain mandatory constrained-family coverage so an audited stateful family cannot stay outside canonical policy while the report remains green. Do not rebuild A0-A8 from scratch.
 
 Execution order is authoritative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md`. Do not use foundation-doc local prose to reorder these subphases.
 
@@ -941,9 +943,21 @@ Before any production semantic-family migration, prove canonical model stability
 
 **Gate:** S11A0-S11A8 are accepted; no production migration occurred before the freeze; all generic contracts are stable and portable; generation is deterministic/no-op; performance/save-size baselines and budgets exist; no parallel semantic/effect/modifier/memory/optimization authority or legacy compatibility path remains.
 
+### S11 post-implementation repair order
+
+Follow this exact repair sequence before claiming S11 complete:
+
+1. **R0 acceptance-authority repair** — derive a constrained-family acceptance manifest from `S11_BRANCHING_DIALOGUE_AUDIT.md`; require every maintained family to be `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`; fail required stateful families that lack canonical policy; add negative tests; diagnose the current retained Core Lua acceptance failure.
+2. **R1 finish S11B retirement** — canonical Identity parity, caller-zero, remove superseded `Flow_Identity.lua`; no shim.
+3. **R2 redo/finish S11C canonically** — recipe-author companion-command state policy, Needs and Greeting; remove family-specific semantic admission from generic dispatch Lua; caller-zero and delete superseded flows.
+4. **R3 execute S11D** — close every maintained branching-audit row, including transition-refresh and repeat-policy cases.
+5. **R4 rerun S11E** — canonical nine-suite acceptance, completeness over mandatory inventory, recipe reconcile/determinism, Kahlua/static guards, caller-zero retirement, exact docs/vector/fingerprints.
+
+Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains merely to make them look migrated; classify and regression-protect them explicitly.
+
 ### S11B — identity reference migration
 
-**Status:** PENDING S11A.
+**Status:** PARTIAL / REOPENED. Canonical Identity policy and behavioral repairs exist, but the superseded ProjectHoomans `Flow_Identity.lua` remains live via `FlowCatalog.lua`; caller-zero/retirement is not proven.
 
 Use Identity as the first production reference migration only after S11A8. Author the migrated semantic definition in canonical CodeBuilder source/recipes, regenerate downstream through the generation recipe, prove known/reminder state, first-contact/reconfirmation/repetition/correction/deception classification, first-introduction effect idempotence, stale post-turn projection and click/free-text parity, then prove obsolete project-owned Identity semantic paths have zero callers and delete them. Do not add compatibility wrappers or keep old/new identity authorities in parallel.
 
@@ -951,7 +965,7 @@ Use Identity as the first production reference migration only after S11A8. Autho
 
 ### S11C — companion commands + flow reference migrations
 
-**Status:** PENDING S11B.
+**Status:** NOT ACCEPTED / REOPENED. Focused behavior fixes exist, but command state admission was added directly to hand-written dispatch Lua and Needs/Greeting were patched in legacy flow definitions instead of recipe-authoring canonical policy and retiring superseded flows.
 
 Recipe-author the maintained companion command, Needs and Greeting migrations against the frozen S11 substrate. Normalize commands toward compact action/execute + ActionContract ownership using command.camp as reference; carry already-following/staying/returning/camp-active/busy/combat/hostile/dead/incapacitated policy canonically; repair Needs/Greeting bounded progress; regenerate downstream through CodeBuilder; prove parity and caller-zero; then delete obsolete project-owned hand-authored semantic definitions. Do not preserve them behind shims/fallbacks.
 
@@ -959,7 +973,7 @@ Recipe-author the maintained companion command, Needs and Greeting migrations ag
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** PENDING S11C.
+**Status:** NOT STARTED / MANDATORY. No implementation phase covering the required full constrained-domain sweep was found before the false S11E closure.
 
 Cover every maintained family in S11_BRANCHING_DIALOGUE_AUDIT.md, including recruitment, relationship proposal, destructive confirmation, authored effect repeat semantics, tasks/quests, knowledge/gossip, gifts/consent, events, settlement visits, territory/ceasefire and pragmatic social repair. Migrate through canonical CodeBuilder source/recipes, regenerate downstream, prove parity/caller-zero, and delete superseded project-owned legacy semantic implementations instead of leaving compatibility layers.
 
@@ -969,7 +983,7 @@ Use declarative fixtures as primary behavioral authority. Run compiler/schema/co
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** PENDING S11D.
+**Status:** NOT ACCEPTED. Prior closure is revoked. Fresh full Core semantic-harness rerun executed 307 tests with 1 failure and 2 skips; ROADMAP/PROGRESS/HANDOFF were also inconsistent and the required exact final checkpoint was not recorded.
 
 Rerun retained S10A label/speech gates, all S11 fixtures/tests, canonical nine-suite acceptance, CodeBuilder recipe reconciliation and deterministic/no-op generation, strict S10R unrelated-baseline policy, legacy caller-zero/retirement checks and git diff --check; fail closure if migrated internal legacy/shim/dual-path code remains; reconcile docs; commit changed adopters first and Core last; record exact participant vector/residual fingerprints; do not push/publish.
 

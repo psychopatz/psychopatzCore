@@ -1,5 +1,8 @@
 # S11 — State-Aware Conversation Outcome Closure
 
+
+**Current status:** REOPENED after post-implementation audit; prior S11E completion is revoked. Preserve the implemented S11A foundation, then follow `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` R0→R4 before returning to user acceptance.
+
 **Status:** ACTIVE — post-G9 architecture reconciled; implementation not yet started.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.  
 **Accepted baseline retained:** S0-S10 + S10R infrastructure and acceptance integrity remain accepted unless S11 evidence directly disproves a retained behavior.  

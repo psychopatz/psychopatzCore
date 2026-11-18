@@ -294,3 +294,22 @@ If their local implementation-order prose conflicts with this document/ROADMAP, 
 ## Completion invariant
 
 > S11 foundations are built once before production migration; production semantic families migrate only after the S11A8 freeze; migrated content is authored through canonical CodeBuilder source/recipes and regenerated downstream; obsolete project-owned legacy semantic paths are deleted after parity/caller-zero proof rather than preserved behind compatibility shims; and no accepted phase leaves dual semantic authorities or duplicate old/new implementations.
+
+## Post-implementation audit clarification
+
+A later audit found that the foundation implementation exists but the S11A4/A8 **acceptance authority was too permissive**: Completeness could validate policy that existed without proving that every constrained family required by `S11_BRANCHING_DIALOGUE_AUDIT.md` had entered canonical policy.
+
+Therefore the foundation freeze is retained, but before migration closure the compiler/acceptance system must also enforce a constrained-family manifest with explicit classifications:
+
+```text
+CANONICAL_STATEFUL
+EXPLICIT_PRESENTATION_ONLY
+REFERENCE_GOOD_REGRESSION
+RETIRED
+```
+
+A required `CANONICAL_STATEFUL` family that lacks canonical state/input/repeat/closure/effect metadata must fail acceptance. This manifest is acceptance metadata over canonical family IDs, not a second state or semantic registry.
+
+See `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
+
+This clarification does not authorize rebuilding the accepted A0-A8 substrate. It closes an acceptance blind spot and then resumes the original recipe-only, no-shim migration order.
