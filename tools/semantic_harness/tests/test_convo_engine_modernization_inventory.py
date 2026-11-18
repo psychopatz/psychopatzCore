@@ -224,6 +224,52 @@ class ConvoEngineModernizationInventoryTests(unittest.TestCase):
         self.assertFalse(ev_param["valid"])
         self.assertEqual(ev_param["distinctPredicates"], 3)
 
+    def test_cli_modernization_closure_gate_passes_and_fails_closed(self) -> None:
+        import io
+        import json
+        from contextlib import redirect_stdout
+        from tempfile import TemporaryDirectory
+        from tools.semantic_harness.codebuilder.convo_engine_cli import main as cli_main
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = cli_main([
+                "modernization-inventory",
+                "--repository", str(CORE_ROOT),
+                "--closure",
+                "--summary",
+            ])
+        self.assertEqual(rc, 0)
+        payload = json.loads(buf.getvalue())
+        self.assertTrue(payload["ok"])
+        self.assertTrue(payload["closureOk"])
+        self.assertEqual(payload["operation"], "convo.modernization_closure")
+
+        from unittest.mock import patch
+
+        with patch(
+            "tools.semantic_harness.codebuilder.convo_engine_modernization_inventory.build_modernization_inventory",
+            return_value={
+                "ok": False,
+                "closureOk": False,
+                "schema": MODERNIZATION_INVENTORY_SCHEMA,
+                "summary": {"openActionableGroupCount": 1},
+                "groups": [],
+            },
+        ):
+            fail_buf = io.StringIO()
+            with redirect_stdout(fail_buf):
+                rc_fail = cli_main([
+                    "modernization-inventory",
+                    "--repository", str(CORE_ROOT),
+                    "--closure",
+                    "--summary",
+                ])
+            self.assertEqual(rc_fail, 2)
+            fail_payload = json.loads(fail_buf.getvalue())
+            self.assertFalse(fail_payload["ok"], fail_payload)
+            self.assertFalse(fail_payload["closureOk"], fail_payload)
+
 
 if __name__ == "__main__":
     unittest.main()

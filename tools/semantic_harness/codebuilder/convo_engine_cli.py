@@ -103,19 +103,6 @@ def build_parser() -> argparse.ArgumentParser:
     p_shard.add_argument("--prune-source", action="store_true")
     p_shard.add_argument("--write", action="store_true")
 
-    p_migrate = sub.add_parser(
-        "migrate-bucket",
-        help="Accountably migrate a legacy PSDL bucket into coherent ConvoEngine family files",
-    )
-    _add_repo_args(p_migrate)
-    p_migrate.add_argument("--source", required=True, type=Path)
-    p_migrate.add_argument("--plan", required=True, help="JSON file or inline JSON list")
-    p_migrate.add_argument("--owner", default=None)
-    p_migrate.add_argument("--allow-partial", action="store_true")
-    p_migrate.add_argument("--overwrite", action="store_true")
-    p_migrate.add_argument("--prune-source", action="store_true")
-    p_migrate.add_argument("--write", action="store_true")
-
     p_write = sub.add_parser("write", help="Validate and write a canonical ConvoEngine JSON file")
     _add_repo_args(p_write)
     p_write.add_argument("--input", required=True, help="JSON file or inline JSON object")
@@ -143,9 +130,9 @@ def build_parser() -> argparse.ArgumentParser:
     _add_repo_args(p_audit)
     p_audit.add_argument("--check-determinism", action="store_true")
 
-    p_get = sub.add_parser("get", help="Progressive-disclosure PSDL record inspection")
+    p_get = sub.add_parser("get", help="Progressive-disclosure ConvoEngine record inspection")
     _add_repo_args(p_get)
-    p_get.add_argument("record_id", help="Canonical PSDL record ID")
+    p_get.add_argument("record_id", help="Canonical ConvoEngine record ID")
     mode_grp = p_get.add_mutually_exclusive_group()
     mode_grp.add_argument("--summary", action="store_true", help="Compact summary (default)")
     mode_grp.add_argument("--source", action="store_true", help="Targeted source document")
@@ -157,15 +144,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_inv = sub.add_parser(
         "modernization-inventory",
-        help="Generate the S12B machine-readable dataset modernization classification inventory",
+        help="Generate the ConvoEngine dataset modernization inventory and optional fail-closed closure gate",
     )
     _add_repo_args(p_inv)
     p_inv.add_argument("--summary", action="store_true", help="Print summary and groups only")
+    p_inv.add_argument("--closure", action="store_true", help="Enforce fail-closed modernization closure gate")
     p_inv.add_argument("--out", type=Path, default=None, help="Optional JSON output file")
 
-    p_locate = sub.add_parser("locate", help="Locate package, source path, capabilities, and generated modules for a PSDL ID")
+    p_locate = sub.add_parser("locate", help="Locate package, source path, capabilities, and generated modules for a ConvoEngine ID")
     _add_repo_args(p_locate)
-    p_locate.add_argument("record_id", help="Canonical PSDL record ID")
+    p_locate.add_argument("record_id", help="Canonical ConvoEngine record ID")
 
     return parser
 
@@ -247,17 +235,6 @@ def main(arguments: list[str] | None = None) -> int:
                 overwrite=args.overwrite,
                 prune_source=args.prune_source,
             )
-        elif args.command == "migrate-bucket":
-            plan = _read_json_arg(args.plan)
-            result = svc.migrate_convo_engine_bucket(
-                args.source,
-                plan,
-                default_owner=args.owner,
-                require_complete=not args.allow_partial,
-                write=args.write,
-                overwrite=args.overwrite,
-                prune_source=args.prune_source,
-            )
         elif args.command == "write":
             doc = _read_json_arg(args.input)
             result = svc.dispatch_operation(
@@ -282,7 +259,8 @@ def main(arguments: list[str] | None = None) -> int:
                 prune_sources=args.prune_sources,
             )
         elif args.command == "modernization-inventory":
-            result = svc.dispatch_operation("convo.modernization_inventory", {})
+            op_name = "convo.modernization_closure" if args.closure else "convo.modernization_inventory"
+            result = svc.dispatch_operation(op_name, {"closure": bool(args.closure)})
             if args.out is not None:
                 out_path = args.out.expanduser().resolve()
                 out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -290,6 +268,7 @@ def main(arguments: list[str] | None = None) -> int:
             if args.summary:
                 result = {
                     "ok": result.get("ok"),
+                    "closureOk": result.get("closureOk"),
                     "schema": result.get("schema"),
                     "summary": result.get("summary"),
                     "groupCount": len(result.get("groups") or ()),
@@ -334,7 +313,7 @@ def main(arguments: list[str] | None = None) -> int:
                     "ok": True,
                     "mode": mode,
                     "record": inspect_convo_engine(
-                        compiled.get("psdlRuntimePlans") or [],
+                        compiled.get("convoRuntimePlans") or [],
                         compiled.get("_source_documents") or {},
                         record_id=args.record_id,
                         mode=mode,

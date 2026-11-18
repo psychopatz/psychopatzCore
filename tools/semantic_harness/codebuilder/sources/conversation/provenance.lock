@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.provenance.v1",
+  "schema": "psychopatz.convo-engine.provenance.v1",
   "version": 1,
   "sourceProfiles": {
     "conversation.source.dtcommon.247519f6f9": {

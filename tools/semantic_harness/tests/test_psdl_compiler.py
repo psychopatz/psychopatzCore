@@ -10,13 +10,13 @@ from tempfile import TemporaryDirectory
 from tools.semantic_harness.codebuilder import CompileError
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.codebuilder.convo_engine_compiler import (
-    PSDL_COMPILED_SCHEMA,
+    CONVO_ENGINE_COMPILED_SCHEMA,
     compile_convo_engine_document,
     compile_convo_engine_sources,
-    render_psdl_director_plan,
-    render_psdl_semantic_pack_plan,
-    render_psdl_ui_plan,
-    render_psdl_runtime_plan,
+    render_convo_director_plan,
+    render_convo_semantic_pack_plan,
+    render_convo_ui_plan,
+    render_convo_runtime_plan,
 )
 
 
@@ -175,7 +175,7 @@ class PSDLCompilerTests(unittest.TestCase):
 
     def test_catalog_compiles_to_one_core_ir_and_runtime_plan(self) -> None:
         compiled = compile_convo_engine_document(_catalog(), source_path="dialogue/social.json")
-        self.assertEqual(compiled["schema"], PSDL_COMPILED_SCHEMA)
+        self.assertEqual(compiled["schema"], CONVO_ENGINE_COMPILED_SCHEMA)
         self.assertEqual(
             [record["id"] for record in compiled["records"]],
             [
@@ -189,7 +189,7 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertEqual(dialogue["when"]["all"][1]["op"], "gte")
         self.assertEqual(dialogue["payload"]["response"]["turns"][0]["offers"][0]["consumers"], ["participant"])
         self.assertEqual(dialogue["payload"]["bindings"]["direction"]["resolver"], "spatial.direction")
-        plans = render_psdl_runtime_plan(compiled)
+        plans = render_convo_runtime_plan(compiled)
         dialogue_plan = next(item for item in plans if item["id"] == "social.location.ask")
         self.assertEqual(dialogue_plan["owner"], "ProjectHoomans")
         self.assertTrue(dialogue_plan["module"].startswith("PNC/ConvoEngine/Dialogue/"))
@@ -198,7 +198,7 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["segments"][0]["kind"], "translation")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["offers"][0]["labelFallback"], "Ask for directions")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["offers"][0]["consumers"], ["participant"])
-        director_plan = render_psdl_director_plan(compiled)
+        director_plan = render_convo_director_plan(compiled)
         self.assertEqual([item["id"] for item in director_plan["behaviors"]], ["behavior.social.warn"])
         self.assertEqual([item["id"] for item in director_plan["beats"]], ["beat.social.argument"])
         self.assertEqual(director_plan["behaviors"][0]["outputs"]["speech"]["dialogueAct"], "BOUNDARY_WARNING")
@@ -285,7 +285,7 @@ class PSDLCompilerTests(unittest.TestCase):
             ]
         )
         compiled = compile_convo_engine_document(source)
-        director_plan = render_psdl_director_plan(compiled)
+        director_plan = render_convo_director_plan(compiled)
         self.assertEqual(
             [item["id"] for item in director_plan["beats"]],
             [
@@ -325,7 +325,7 @@ class PSDLCompilerTests(unittest.TestCase):
                 ],
             }
         )
-        rows = render_psdl_ui_plan(compiled)
+        rows = render_convo_ui_plan(compiled)
         self.assertEqual([row["id"] for row in rows], ["question.trader"])
         self.assertEqual(rows[0]["labelKey"], "UI_DT_Conversation_Suggestion_Trader_Label")
         self.assertEqual(rows[0]["utteranceFallback"], "Who are you?")
@@ -385,7 +385,7 @@ class PSDLCompilerTests(unittest.TestCase):
                 },
             }
         )
-        packs = render_psdl_semantic_pack_plan(compiled)
+        packs = render_convo_semantic_pack_plan(compiled)
         self.assertEqual([item["id"] for item in packs], ["pack.DT.trader_story"])
         self.assertEqual(packs[0]["concepts"][0]["aliases"], ["trade", "barter"])
         self.assertEqual(packs[0]["patterns"][0]["emit"]["intent"], "TRADE")

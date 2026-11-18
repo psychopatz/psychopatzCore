@@ -14,7 +14,7 @@ from typing import Any
 from .errors import CompileError
 
 
-TARGET_DESCRIPTOR_SCHEMA = "psychopatz.psdl.target.v1"
+TARGET_DESCRIPTOR_SCHEMA = "psychopatz.convo-engine.target.v1"
 
 
 def validate_target_descriptor(doc: Mapping[str, Any]) -> dict[str, Any]:
@@ -38,7 +38,7 @@ def validate_target_descriptor(doc: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def collect_required_capabilities(records: Sequence[Mapping[str, Any]]) -> dict[str, list[str]]:
-    """Map each required capability ID to the sorted list of PSDL record IDs requiring it."""
+    """Map each required capability ID to the sorted list of ConvoEngine record IDs requiring it."""
     by_cap: dict[str, set[str]] = {}
     for rec in records:
         rec_id = str(rec.get("id") or "")
@@ -57,7 +57,7 @@ def collect_required_capabilities(records: Sequence[Mapping[str, Any]]) -> dict[
 
 
 def collect_required_resolvers(records: Sequence[Mapping[str, Any]]) -> dict[str, list[str]]:
-    """Map each required resolver ID to the sorted list of PSDL record IDs referencing it."""
+    """Map each required resolver ID to the sorted list of ConvoEngine record IDs referencing it."""
     by_res: dict[str, set[str]] = {}
     for rec in records:
         rec_id = str(rec.get("id") or "")
@@ -74,7 +74,7 @@ def validate_target_capabilities(
     records: Sequence[Mapping[str, Any]],
     target_descriptor: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Fail closed when a target lacks capabilities or resolvers required by compiled PSDL."""
+    """Fail closed when a target lacks capabilities or resolvers required by compiled ConvoEngine."""
     target = validate_target_descriptor(target_descriptor)
     provided_caps = set(target.get("providedCapabilities") or [])
     provided_resolvers = set(target.get("providedResolvers") or [])

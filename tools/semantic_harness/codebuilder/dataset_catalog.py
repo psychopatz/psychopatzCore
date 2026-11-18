@@ -361,12 +361,12 @@ class SemanticDatasetCatalog:
             "manifest": model.get("manifest", {}),
             "convoEngine": {
                 "shards": len(model.get("shards", [])),
-                "plans": len(model.get("psdlRuntimePlans", [])),
+                "plans": len(model.get("convoRuntimePlans", [])),
                 "beats": len(model.get("beats", [])),
                 "behaviors": len(model.get("behaviors", [])),
                 "fingerprint": model.get("wholeModelFingerprint"),
             },
-            "plans": model.get("psdlRuntimePlans", []),
+            "plans": model.get("convoRuntimePlans", []),
             "beats": model.get("beats", []),
             "behaviors": model.get("behaviors", []),
             "patterns": dialogue.get("patterns", []),
@@ -593,7 +593,7 @@ class SemanticDatasetCatalog:
                 semantic = model.get("semantic") if isinstance(model.get("semantic"), dict) else {}
                 summary = {
                     "shards": len(model.get("shards", [])),
-                    "plans": len(model.get("psdlRuntimePlans", [])),
+                    "plans": len(model.get("convoRuntimePlans", [])),
                     "beats": len(model.get("beats", [])),
                     "behaviors": len(model.get("behaviors", [])),
                     "patterns": len(dialogue.get("patterns", [])),

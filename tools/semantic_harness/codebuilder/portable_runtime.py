@@ -23,7 +23,7 @@ from .semantic_contract import (
 )
 
 
-PORTABLE_PLAN_SCHEMA = "psychopatz.psdl.portable-plan.v1"
+PORTABLE_PLAN_SCHEMA = "psychopatz.convo-engine.portable-plan.v1"
 STANDARD_RUNTIME_VERSION = "1.0.0"
 
 _RECOGNITION_POLICIES = frozenset({"exact", "tolerant", "safe_recovered"})

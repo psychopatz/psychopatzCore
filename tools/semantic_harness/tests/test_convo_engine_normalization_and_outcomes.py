@@ -16,7 +16,7 @@ from tools.semantic_harness.codebuilder.conversation_registry import (
 from tools.semantic_harness.codebuilder.convo_engine_compiler import (
     compile_convo_engine_sources,
     render_convo_engine_runtime_plan,
-    render_psdl_ui_plan,
+    render_convo_ui_plan,
 )
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 
@@ -216,7 +216,7 @@ class ConvoEngineNormalizationAndOutcomesTests(unittest.TestCase):
             }
             compiled = compile_convo_engine_sources(source_map)
             plans = render_convo_engine_runtime_plan(compiled)
-            ui_rows = render_psdl_ui_plan(compiled)
+            ui_rows = render_convo_ui_plan(compiled)
             ui_ids = [row["id"] for row in ui_rows]
             self.assertEqual(ui_ids, ["question.wellbeing", "question.activity"])
             wellbeing_plan = next(p for p in plans if p["id"] == "offer.question.wellbeing")

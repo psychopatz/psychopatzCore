@@ -419,7 +419,7 @@ def build_modernization_inventory(
         "DTCommon": dt_root,
     }
     compiled = compile_conversation_sources(core_root, package_repositories=pkg_repos)
-    plans = list(compiled.get("psdlRuntimePlans") or ())
+    plans = list(compiled.get("convoRuntimePlans") or ())
     portable_plan = compiled.get("portablePlan") or {}
     completeness = analyze_portable_plan(
         portable_plan,

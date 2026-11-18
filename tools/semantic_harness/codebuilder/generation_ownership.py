@@ -179,10 +179,10 @@ def temporary_package_descriptors(
 
 
 def target_descriptor_for_owner(owner: Any) -> dict[str, Any]:
-    """Return a capability_abi-compatible psychopatz.psdl.target.v1 descriptor for an owner."""
+    """Return a capability_abi-compatible psychopatz.convo-engine.target.v1 descriptor for an owner."""
     desc = package_descriptor(owner)
     return {
-        "schema": "psychopatz.psdl.target.v1",
+        "schema": "psychopatz.convo-engine.target.v1",
         "target": desc.owner,
         "backend": desc.backend,
         "providedCapabilities": list(desc.capabilities),
@@ -196,7 +196,7 @@ def target_descriptor_for_owner(owner: Any) -> dict[str, Any]:
 
 
 def combined_target_descriptor(owners: Any) -> dict[str, Any]:
-    """Build a merged psychopatz.psdl.target.v1 descriptor across active package owners."""
+    """Build a merged psychopatz.convo-engine.target.v1 descriptor across active package owners."""
     caps: set[str] = set()
     resolvers: set[str] = set()
     backends: set[str] = set()
@@ -214,7 +214,7 @@ def combined_target_descriptor(owners: Any) -> dict[str, Any]:
         )
     backend = next(iter(backends)) if backends else "pz-lua"
     return {
-        "schema": "psychopatz.psdl.target.v1",
+        "schema": "psychopatz.convo-engine.target.v1",
         "target": "+".join(sorted(set(targets))) or "default",
         "backend": backend,
         "providedCapabilities": sorted(caps),

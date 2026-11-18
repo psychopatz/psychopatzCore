@@ -127,7 +127,7 @@ def probe_convo_engine_inspect(
     )
     if mode == "summary":
         runtime_rec = next(
-            (r for r in (model.get("psdlRuntimePlans") or []) if r.get("id") == record_id),
+            (r for r in (model.get("convoRuntimePlans") or []) if r.get("id") == record_id),
             None,
         )
         if isinstance(runtime_rec, Mapping):
@@ -152,7 +152,7 @@ def probe_canonical_ir_inspect(
         repository=repository,
         config=config,
     )
-    for rec in model.get("psdlRuntimePlans") or []:
+    for rec in model.get("convoRuntimePlans") or []:
         if rec.get("id") == record_id:
             return dict(rec)
     portable_plan = model.get("portablePlan") or {}

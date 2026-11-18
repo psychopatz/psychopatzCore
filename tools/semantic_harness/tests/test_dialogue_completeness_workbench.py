@@ -480,7 +480,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
 
         # 1. Coverage states distinguish exact_owner, suite_covered, uncovered, unknown
         synth_plan = {
-            "schema": "psychopatz.psdl.portable-plan.v1",
+            "schema": "psychopatz.convo-engine.portable-plan.v1",
             "dialogues": {
                 "a.owned": {"kind": "dialogue", "id": "owned", "say": "Hi."},
                 "a.suite": {"kind": "dialogue", "id": "suite", "say": "Hi."},
@@ -549,7 +549,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
 
         # 1. F7 health checks for behavior capabilities/outputs and realization slots/locales
         synth_plan = {
-            "schema": "psychopatz.psdl.portable-plan.v1",
+            "schema": "psychopatz.convo-engine.portable-plan.v1",
             "dialogues": {},
             "behaviors": {
                 "beh.bad_cap": {

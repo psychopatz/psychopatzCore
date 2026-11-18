@@ -241,9 +241,25 @@ class OperationRegistry:
                 mutates_runtime=False,
                 input_version="1",
                 output_version="psychopatz.convo-engine.modernization-inventory.v1",
-                summary="Build the S12B machine-readable dataset modernization classification inventory.",
+                summary="Build the ConvoEngine dataset modernization and optional closure inventory.",
             ),
-            lambda _payload: self.service.build_modernization_inventory(),
+            lambda payload: self.service.build_modernization_inventory(
+                closure=bool(payload.get("closure", False)),
+            ),
+        )
+        self.register(
+            OperationDescriptor(
+                id="convo.modernization_closure",
+                mode="query",
+                required_capability=None,
+                worker_requirement="none",
+                mutates_canonical=False,
+                mutates_runtime=False,
+                input_version="1",
+                output_version="psychopatz.convo-engine.modernization-inventory.v1",
+                summary="Run the fail-closed ConvoEngine dataset modernization closure gate.",
+            ),
+            lambda _payload: self.service.build_modernization_inventory(closure=True),
         )
         self.register(
             OperationDescriptor(

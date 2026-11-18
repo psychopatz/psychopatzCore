@@ -19,7 +19,7 @@ from tools.semantic_harness.codebuilder.convo_engine_fields import (
     known_field_names,
     list_field_descriptors,
 )
-from tools.semantic_harness.codebuilder.convo_engine_compiler import PSDL_RECORD_FIELDS
+from tools.semantic_harness.codebuilder.convo_engine_compiler import CONVO_ENGINE_RECORD_FIELDS
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.dataset_library import DatasetLibraryPane
 from tools.semantic_harness.studio.surface_registry import SurfaceRegistry
@@ -181,7 +181,7 @@ class _DummyMessagebox:
 class ConvoEngineStudioFieldAndSurfaceRegistryTests(unittest.TestCase):
     def test_field_descriptor_registry_covers_all_compiler_fields_and_unknown_round_trip(self) -> None:
         known = known_field_names()
-        self.assertTrue(PSDL_RECORD_FIELDS.issubset(known))
+        self.assertTrue(CONVO_ENGINE_RECORD_FIELDS.issubset(known))
         exchange_json = list_field_descriptors(category="exchange", editor_kind="json")
         names = [item["name"] for item in exchange_json]
         self.assertEqual(

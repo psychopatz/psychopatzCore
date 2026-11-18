@@ -68,7 +68,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
             manifest_path=core_pkg_path,
             package_repositories={"PsychopatzCore": CORE_ROOT},
         )
-        owners = {p["owner"] for p in core_only["psdlRuntimePlans"]}
+        owners = {p["owner"] for p in core_only["convoRuntimePlans"]}
         self.assertEqual(owners, {"PsychopatzCore"})
 
         # Missing/unknown imported package fails closed
@@ -98,7 +98,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
                 compile_conversation_sources(ws, manifest_path=pkg_dir / "package.json")
 
     def test_semantic_ownership_audit(self) -> None:
-        plans_by_id = {p["id"]: p for p in self.model["psdlRuntimePlans"]}
+        plans_by_id = {p["id"]: p for p in self.model["convoRuntimePlans"]}
         # Reusable Core social beats/behaviors stay in PsychopatzCore
         for core_id in (
             "beat.argument_escalation",

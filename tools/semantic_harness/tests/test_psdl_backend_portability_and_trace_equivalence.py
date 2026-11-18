@@ -61,7 +61,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
         )
         cls.portable_plan = cls.model["portablePlan"]
         cls.runtime_plans_by_id = {
-            p["id"]: p for p in cls.model["psdlRuntimePlans"]
+            p["id"]: p for p in cls.model["convoRuntimePlans"]
         }
         cls.snapshot = WorkspaceCatalog.discover(
             CORE_ROOT,
@@ -87,7 +87,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
             render_portable_plan_for_target(
                 self.portable_plan,
                 target_descriptor={
-                    "schema": "psychopatz.psdl.target.v1",
+                    "schema": "psychopatz.convo-engine.target.v1",
                     "target": "Broken",
                     "backend": "nonexistent-engine",
                 },

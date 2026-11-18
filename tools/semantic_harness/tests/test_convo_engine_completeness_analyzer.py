@@ -400,7 +400,7 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
 
     def test_all_kind_authoring_health_and_catalog_mismatch_detection(self) -> None:
         plan = {
-            "schema": "psychopatz.psdl.portable-plan.v1",
+            "schema": "psychopatz.convo-engine.portable-plan.v1",
             "dialogues": {
                 "dlg.ok": {"id": "dlg.ok", "kind": "dialogue", "after": {"end": True}},
             },

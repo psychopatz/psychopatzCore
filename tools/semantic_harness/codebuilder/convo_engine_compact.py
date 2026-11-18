@@ -22,7 +22,7 @@ from .semantic_dialogue_ir import (
 )
 
 
-PROVENANCE_LOCK_SCHEMA = "psychopatz.psdl.provenance.v1"
+PROVENANCE_LOCK_SCHEMA = "psychopatz.convo-engine.provenance.v1"
 
 _IDENT_OR_PATH_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_.]*")
 _NUMBER_RE = re.compile(r"-?(?:\d+\.\d+|\.\d+|\d+)")
@@ -337,7 +337,7 @@ def _expand_predicates_in_tree(node: Any, label: str) -> Any:
     return out
 
 
-def expand_compact_psdl_document(
+def expand_compact_convo_document(
     document: Mapping[str, Any],
     *,
     package: Mapping[str, Any] | None = None,
@@ -402,8 +402,8 @@ def expand_compact_psdl_document(
             doc["namespace"] = ns
 
     # Dialogue doesn't use top-level participants if omitted and kind != dialogue?
-    # Wait: behavior/beat do NOT allow `participants` in PSDL_RECORD_FIELDS?
-    # Let's check: PSDL_RECORD_FIELDS allows `participants` on all kinds, or keep it only for dialogue/realization
+    # Wait: behavior/beat do NOT allow `participants` in CONVO_ENGINE_RECORD_FIELDS?
+    # Let's check: CONVO_ENGINE_RECORD_FIELDS allows `participants` on all kinds, or keep it only for dialogue/realization
     if doc.get("kind") in ("behavior", "beat", "realization") and "participants" in doc and "participants" not in document:
         doc.pop("participants", None)
 
@@ -486,7 +486,7 @@ def expand_compact_psdl_document(
 __all__ = [
     "CONVO_ENGINE_PACKAGE_SCHEMA",
     "PROVENANCE_LOCK_SCHEMA",
-    "expand_compact_psdl_document",
+    "expand_compact_convo_document",
     "parse_predicate_expr",
     "split_manifest_and_provenance",
     "validate_package_descriptor",

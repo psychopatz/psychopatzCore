@@ -821,45 +821,6 @@ class SemanticLabAuthoringService:
             prune_source=prune_source,
         )
 
-    def migrate_convo_engine_bucket(
-        self,
-        source_or_doc: str | Path | dict[str, Any],
-        plan: list[dict[str, Any]],
-        *,
-        default_owner: str | None = None,
-        require_complete: bool = True,
-        write: bool = False,
-        overwrite: bool = False,
-        prune_source: bool = False,
-    ) -> dict[str, Any]:
-        """Accountably migrate a PSDL bucket into coherent ConvoEngine family files."""
-        allowed = self._convo_engine_allowed_roots()
-        src_path, source_doc = self._load_authorized_source(source_or_doc, allowed=allowed)
-        if prune_source and not require_complete:
-            raise CompileError("prune_source=True requires require_complete=True")
-        prepared, consumed_ids, summary = prepare_bucket_migration(
-            source_doc,
-            plan,
-            repository=self.repository,
-            allowed_roots=allowed,
-            default_owner=default_owner,
-            require_complete=require_complete,
-        )
-        return self._execute_shard_plan(
-            src_path=src_path,
-            source_doc=source_doc,
-            prepared=prepared,
-            consumed_ids=consumed_ids,
-            compiled_fingerprint=str(summary["fingerprint"]),
-            write=write,
-            overwrite=overwrite,
-            prune_source=prune_source,
-            extra_summary={
-                "canonicalCount": summary["canonicalCount"],
-                "preNormalizationLegacyCount": summary["preNormalizationLegacyCount"],
-            },
-        )
-
     def normalize_convo_engine_sources(
         self,
         sources: list[str | Path] | str | Path,
@@ -1063,14 +1024,15 @@ class SemanticLabAuthoringService:
             prune_source=prune_source,
         )
 
-    def build_modernization_inventory(self) -> dict[str, Any]:
-        """Build the S12B machine-readable modernization inventory across all repositories."""
+    def build_modernization_inventory(self, *, closure: bool = False) -> dict[str, Any]:
+        """Build the ConvoEngine dataset modernization and closure inventory across all repositories."""
         from .convo_engine_modernization_inventory import build_modernization_inventory
 
         return build_modernization_inventory(
             self.core_repository,
             hoomans_repository=self.hoomans_repository,
             dynamic_trading_repository=self.dynamic_trading_repository,
+            closure=closure,
         )
 
     def collapse_convo_engine_families(

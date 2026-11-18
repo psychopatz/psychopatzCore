@@ -8,7 +8,7 @@ from typing import Any
 from .convo_probe import ConvoProbe
 from .portable_runtime import PortableReferenceVM, evaluate_predicate
 
-SEMANTIC_TRACE_SCHEMA = "psychopatz.psdl.semantic-trace.v1"
+SEMANTIC_TRACE_SCHEMA = "psychopatz.convo-engine.semantic-trace.v1"
 
 
 def confidence_bucket(confidence: float | None) -> str | None:

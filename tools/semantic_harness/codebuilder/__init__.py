@@ -113,15 +113,15 @@ from .reconcile import (
 )
 from .convo_engine_compiler import (
     CONVO_ENGINE_COMPILED_SCHEMA,
-    PSDL_COMPILED_SCHEMA,
-    PSDL_KINDS,
+    CONVO_ENGINE_COMPILED_SCHEMA,
+    CONVO_ENGINE_KINDS,
     compile_convo_engine_document,
     compile_convo_engine_sources,
     render_convo_engine_runtime_plan,
-    render_psdl_director_plan,
-    render_psdl_semantic_pack_plan,
-    render_psdl_ui_plan,
-    render_psdl_runtime_plan,
+    render_convo_director_plan,
+    render_convo_semantic_pack_plan,
+    render_convo_ui_plan,
+    render_convo_runtime_plan,
 )
 
 __all__ = [
@@ -189,10 +189,10 @@ __all__ = [
     "validate_canonical_ir",
     "validate_context_path",
     "validate_semantic_reference",
-    "PSDL_COMPILED_SCHEMA",
-    "PSDL_KINDS",
-    "render_psdl_director_plan",
-    "render_psdl_semantic_pack_plan",
-    "render_psdl_ui_plan",
-    "render_psdl_runtime_plan",
+    "CONVO_ENGINE_COMPILED_SCHEMA",
+    "CONVO_ENGINE_KINDS",
+    "render_convo_director_plan",
+    "render_convo_semantic_pack_plan",
+    "render_convo_ui_plan",
+    "render_convo_runtime_plan",
 ]

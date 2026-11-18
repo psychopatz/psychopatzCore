@@ -30,7 +30,7 @@ from .semantic_definition_compiler import (
 from .semantic_pack_compiler import compile_semantic_pack_shard
 from .convo_engine_compiler import (
     compile_convo_engine_document,
-    render_psdl_semantic_pack_plan,
+    render_convo_semantic_pack_plan,
 )
 from .semantic_dialogue_ir import CONVO_ENGINE_SCHEMA, SUPPORTED_SOURCE_SCHEMAS
 from .translation_support import DEFAULT_LANGUAGE, normalize_language
@@ -340,7 +340,7 @@ def _conversation_record_ids(
             *record_ids,
             *[
                 str(item["id"])
-                for item in render_psdl_semantic_pack_plan(compiled)
+                for item in render_convo_semantic_pack_plan(compiled)
             ],
         ]
     fields = {

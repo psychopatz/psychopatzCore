@@ -106,13 +106,13 @@ from .portable_runtime import compile_portable_plan
 from .convo_engine_compiler import (
     _validate_cross_references as _validate_convo_engine_cross_references,
     compile_convo_engine_document,
-    render_psdl_director_plan,
-    render_psdl_flow_plan,
-    render_psdl_realization_plan,
-    render_psdl_response_pool_plan,
-    render_psdl_semantic_pack_plan,
-    render_psdl_runtime_plan,
-    render_psdl_ui_plan,
+    render_convo_director_plan,
+    render_convo_flow_plan,
+    render_convo_realization_plan,
+    render_convo_response_pool_plan,
+    render_convo_semantic_pack_plan,
+    render_convo_runtime_plan,
+    render_convo_ui_plan,
 )
 from .conversation_assembly import CONVO_ENGINE_SHARD_KINDS
 
@@ -660,7 +660,7 @@ def _compile_conversation_sources_uncached(
                         shard=entry,
                         path=path,
                     )
-                for row in render_psdl_realization_plan(compiled_psdl):
+                for row in render_convo_realization_plan(compiled_psdl):
                     row_id = row.get("id")
                     if row_id not in psdl_ids:
                         _add_global_id(
@@ -670,7 +670,7 @@ def _compile_conversation_sources_uncached(
                             shard=entry,
                             path=path,
                         )
-                for row in render_psdl_ui_plan(compiled_psdl):
+                for row in render_convo_ui_plan(compiled_psdl):
                     _add_global_id(
                         ui_locations,
                         row.get("id"),
@@ -678,7 +678,7 @@ def _compile_conversation_sources_uncached(
                         shard=entry,
                         path=path,
                     )
-                for pack in render_psdl_semantic_pack_plan(compiled_psdl):
+                for pack in render_convo_semantic_pack_plan(compiled_psdl):
                     _add_global_id(
                         locations,
                         pack.get("id"),
@@ -823,7 +823,7 @@ def _compile_conversation_sources_uncached(
         "beats": beats["records"],
         "realization": realization["records"],
         "packs": packs,
-        "psdlRuntimePlans": psdl_runtime_plans,
+        "convoRuntimePlans": psdl_runtime_plans,
         "ui": ui,
         "uiTexts": ui_texts,
     }
@@ -849,7 +849,7 @@ def _compile_conversation_sources_uncached(
         "beats": beats["records"],
         "realization": realization["records"],
         "packs": packs,
-        "psdlRuntimePlans": psdl_runtime_plans,
+        "convoRuntimePlans": psdl_runtime_plans,
         "portablePlan": portable_plan,
         "targetBackend": backend_projection.get("backend"),
         "portableArtifacts": backend_projection.get("portableArtifacts", {}),
@@ -889,7 +889,7 @@ def conversation_languages(model: dict[str, Any]) -> tuple[str, ...]:
         model.get("semantic", {}).get("translations", {}),
         {
             language: {}
-            for plan in model.get("psdlRuntimePlans", [])
+            for plan in model.get("convoRuntimePlans", [])
             for language in _psdl_plan_languages(plan)
         },
     )
@@ -1129,7 +1129,7 @@ def conversation_translation_catalogs(model: dict[str, Any]) -> dict[str, dict[s
             add(language, "Patterns", key, value)
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
             add(language, "Flows", key, value)
-    for plan in model.get("psdlRuntimePlans", []):
+    for plan in model.get("convoRuntimePlans", []):
         for language, domain, key, value in _psdl_plan_text_rows(plan):
             add(language, domain, key, value)
     for language in languages:
@@ -1279,7 +1279,7 @@ def conversation_translation_catalogs_by_owner(
                     if vals and isinstance(vals[0], str):
                         add(pool_owner, lang, "Text/convo/SemanticResponses", runtime_key, vals[0])
 
-    for plan in model.get("psdlRuntimePlans", []):
+    for plan in model.get("convoRuntimePlans", []):
         owner = normalize_owner(plan.get("owner"), default=default_owner)
         for language, domain, key, value in _psdl_plan_text_rows(plan):
             add(owner, language, domain, key, value)
@@ -1445,7 +1445,7 @@ def render_conversation_runtime_plan(
     psdl_modules: list[tuple[str, str]] = []
     psdl_reports: list[dict[str, Any]] = []
     psdl_groups: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
-    for plan in model.get("psdlRuntimePlans", []):
+    for plan in model.get("convoRuntimePlans", []):
         record_id = str(plan.get("id") or "")
         if not record_id:
             raise CompileError("PSDL runtime plan requires id")

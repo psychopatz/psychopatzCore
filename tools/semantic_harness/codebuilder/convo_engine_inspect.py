@@ -1,4 +1,4 @@
-"""G8E: Progressive-disclosure PSDL inspection (`get --summary/--source/--ir` and `impact`)."""
+"""Progressive-disclosure ConvoEngine inspection (`get --summary/--source/--ir`, `impact`, and `locate`)."""
 
 from __future__ import annotations
 
@@ -108,7 +108,7 @@ def inspect_convo_engine(
     """Return summary, source, canonical IR, or impact for *record_id*."""
     by_id = {str(rec.get("id") or ""): rec for rec in records}
     if record_id not in by_id:
-        raise CompileError(f"Unknown PSDL record ID: {record_id!r}")
+        raise CompileError(f"Unknown ConvoEngine record ID: {record_id!r}")
     rec = by_id[record_id]
     deps, consumers = _build_dependency_graph(records)
 
@@ -146,10 +146,10 @@ def locate_convo_engine(
     from .conversation_compiler import render_conversation_runtime_plan
     from .generation_ownership import package_descriptor
 
-    records = compiled_model.get("psdlRuntimePlans") or []
+    records = compiled_model.get("convoRuntimePlans") or []
     by_id = {str(rec.get("id") or ""): rec for rec in records}
     if record_id not in by_id:
-        raise CompileError(f"Unknown PSDL record ID: {record_id!r}")
+        raise CompileError(f"Unknown ConvoEngine record ID: {record_id!r}")
     rec = by_id[record_id]
     owner = str(rec.get("owner") or "")
     if not owner:

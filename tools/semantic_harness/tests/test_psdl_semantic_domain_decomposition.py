@@ -90,10 +90,10 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
         # 1. Adding a same-type variant under social/conflict changes only Conflict modules
         mutated = copy.deepcopy(self.model)
         extra_plan = copy.deepcopy(
-            next(p for p in mutated["psdlRuntimePlans"] if p["id"] == "behavior.retaliate_verbally")
+            next(p for p in mutated["convoRuntimePlans"] if p["id"] == "behavior.retaliate_verbally")
         )
         extra_plan["id"] = "behavior.taunt_verbally"
-        mutated["psdlRuntimePlans"].append(extra_plan)
+        mutated["convoRuntimePlans"].append(extra_plan)
         mutated_rendered, _ = render_conversation_runtime_plan(mutated)
         mutated_map = {mod: src for mod, src in mutated_rendered}
 
@@ -119,7 +119,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
             "path": "behavior/social/conflict/hoomans_callout.json",
             "owner": "ProjectHoomans",
         })
-        cross_model["psdlRuntimePlans"].append(cross_plan)
+        cross_model["convoRuntimePlans"].append(cross_plan)
         cross_rendered, _ = render_conversation_runtime_plan(cross_model)
         cross_mods = {mod for mod, _ in cross_rendered}
         self.assertIn("PsychopatzCore/ConvoEngine/Behavior/Social/Conflict", cross_mods)
@@ -129,7 +129,7 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
         # 3. Shuffled source order produces identical generated module names & content
         shuffled = copy.deepcopy(self.model)
         rng = random.Random(42)
-        rng.shuffle(shuffled["psdlRuntimePlans"])
+        rng.shuffle(shuffled["convoRuntimePlans"])
         shuffled_rendered, _ = render_conversation_runtime_plan(shuffled)
         self.assertEqual({m: s for m, s in shuffled_rendered}, base_map)
 

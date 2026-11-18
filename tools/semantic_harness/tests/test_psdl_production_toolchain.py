@@ -84,7 +84,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
 
         # Verify large localized family via textSidecars compiled into runtime plans
         knowledge_plan = next(
-            p for p in self.model["psdlRuntimePlans"] if p["id"] == "question.knowledge"
+            p for p in self.model["convoRuntimePlans"] if p["id"] == "question.knowledge"
         )
         known_variants = (
             knowledge_plan["payload"]["reply"]["known"]["say"]["realizations"]["1"]["variants"]
@@ -305,7 +305,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
     def test_cross_backend_trace_equivalence_and_inspect(self) -> None:
         # Compare Reference VM traces against PZ backend runtime plan projections from the same Portable Plan
         vm = PortableReferenceVM(self.portable_plan)
-        pz_by_id = {p["id"]: p for p in self.model["psdlRuntimePlans"]}
+        pz_by_id = {p["id"]: p for p in self.model["convoRuntimePlans"]}
         pz_beh_by_id = {b["id"]: b for b in self.model["behaviors"]}
         pz_beat_by_id = {b["id"]: b for b in self.model["beats"]}
 
@@ -350,7 +350,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         )
 
         # Real workspace has zero split-authority violations after CAMP collapse
-        self.assertEqual(audit_split_action_authority(self.model["psdlRuntimePlans"]), [])
+        self.assertEqual(audit_split_action_authority(self.model["convoRuntimePlans"]), [])
 
         # Synthetic split authority (policy-only + content-only for same action) is flagged
         split_plans = [

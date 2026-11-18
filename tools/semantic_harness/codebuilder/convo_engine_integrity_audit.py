@@ -446,7 +446,7 @@ def audit_convo_engine_workspace(
             "fingerprint": compiled.get("wholeModelFingerprint"),
             "patterns": len(compiled.get("dialogue", {}).get("patterns", [])),
             "uiDefinitions": len(compiled.get("ui", [])),
-            "convoPlans": len(compiled.get("psdlRuntimePlans", [])),
+            "convoPlans": len(compiled.get("convoRuntimePlans", [])),
         }
     except CompileError as error:
         violations.append({
@@ -480,7 +480,7 @@ def audit_convo_engine_workspace(
             })
 
     if compiled is not None:
-        split_violations = audit_split_action_authority(compiled.get("psdlRuntimePlans") or [])
+        split_violations = audit_split_action_authority(compiled.get("convoRuntimePlans") or [])
         stats["splitAuthorityViolations"] = len(split_violations)
         violations.extend(split_violations)
 
