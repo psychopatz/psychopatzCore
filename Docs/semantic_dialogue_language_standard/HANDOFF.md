@@ -5,7 +5,7 @@ status: IN_PROGRESS
 checkpoint_mode: committed_handoff
 phase_commit: self
 phase: S11R9R1 — Authoring Readiness Corrective Closure
-chunk: R9R1F1-F5 — primary Conversations authoring simplification
+chunk: R9R1I — reproducible two-run canonical acceptance closure (R9R1F-H complete)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md

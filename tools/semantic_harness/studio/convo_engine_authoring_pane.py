@@ -874,8 +874,15 @@ class ConvoEngineAuthoringPane:
                 pass
 
     def select_family(self, family_id: str) -> bool:
-        """Select a family in the primary browser by canonical ID."""
-        return self.select_family_from_completeness(family_id)
+        """Select a family in the primary browser by canonical ID and sync Workbench."""
+        ok = self.select_family_from_completeness(family_id)
+        if ok and hasattr(self, "completeness_workbench") and self._current_family_id:
+            self.completeness_workbench.select_family(
+                self._current_family_id,
+                ensure_loaded=False,
+                notify=False,
+            )
+        return ok
 
     def select_family_from_completeness(self, family_id: str) -> bool:
         """Synchronize main editor selection from Workbench without reentrant loops."""
