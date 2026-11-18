@@ -115,6 +115,4 @@ def set_controls(app: Any, enabled: bool) -> None:
     app.interaction_explorer.set_enabled(enabled and not app.busy)
     if hasattr(app, "source_explorer"):
         app.source_explorer.set_enabled(enabled and not app.busy)
-    app.interaction_composer.set_enabled(enabled and not app.busy)
-    app.workflow_pane.set_enabled(enabled and not app.busy)
     app._refresh_suggestion_controls(enabled and not app.busy)

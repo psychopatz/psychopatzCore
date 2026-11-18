@@ -14,10 +14,8 @@ def refresh_flow_catalog(app: Any) -> None:
 def flow_catalog_finished(app: Any, response: dict[str, Any]) -> None:
     app.flow_editor.set_catalog(response)
     app.interaction_explorer.set_catalog(response)
-    app.interaction_composer.set_production_catalog(response)
     app.block_registry.set_catalog(response)
     app._production_catalog = response
-    app.workflow_pane.set_production_catalog(response)
     app._append(
         "SYSTEM",
         f"Loaded {response.get('flowCount', 0)} normalized production flows.",

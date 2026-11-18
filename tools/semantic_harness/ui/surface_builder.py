@@ -38,14 +38,10 @@ def build_ui(app: Any) -> None:
     conversations_tab = ttk.Frame(studio_notebook, padding=8)
     source_impact_tab = ttk.Frame(studio_notebook, padding=8)
     review_tab = ttk.Frame(studio_notebook, padding=8)
-    explore_tab = ttk.Frame(studio_notebook, padding=8)
-    dialogue_content_tab = ttk.Frame(studio_notebook, padding=8)
     for panel in (
         conversations_tab,
         source_impact_tab,
         review_tab,
-        explore_tab,
-        dialogue_content_tab,
     ):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
@@ -58,32 +54,8 @@ def build_ui(app: Any) -> None:
     from ..studio.surface_registry import SurfaceRegistry
 
     app.surface_registry = SurfaceRegistry()
-    app.show_legacy_surfaces_var = app._tk.BooleanVar(value=False)
-
-    def _toggle_legacy_surfaces(show: bool | None = None) -> bool:
-        if show is not None:
-            app.show_legacy_surfaces_var.set(bool(show))
-        visible = bool(app.show_legacy_surfaces_var.get())
-        current_tabs = set(studio_notebook.tabs())
-        legacy_tabs = (
-            (explore_tab, "Explore (Legacy)"),
-            (dialogue_content_tab, "Dialogue Content (Legacy)"),
-        )
-        if visible:
-            for widget, title in legacy_tabs:
-                if str(widget) not in current_tabs:
-                    studio_notebook.add(widget, text=title)
-        else:
-            for widget, _title in legacy_tabs:
-                if str(widget) in current_tabs:
-                    studio_notebook.forget(widget)
-            if not studio_notebook.select():
-                studio_notebook.select(conversations_tab)
-        return visible
-
-    app.toggle_legacy_surfaces = _toggle_legacy_surfaces
     app.visible_studio_surfaces = lambda: app.surface_registry.list_surfaces(
-        include_legacy=bool(app.show_legacy_surfaces_var.get()),
+        include_legacy=False,
         dataset_sources=(
             app.authoring_service.list_dataset_sources()
             if hasattr(app, "authoring_service")
@@ -91,13 +63,6 @@ def build_ui(app: Any) -> None:
             else ()
         ),
     )
-    app.legacy_surfaces_toggle = ttk.Checkbutton(
-        studio_toolbar,
-        text="Show Legacy Compatibility Tools",
-        variable=app.show_legacy_surfaces_var,
-        command=_toggle_legacy_surfaces,
-    )
-    app.legacy_surfaces_toggle.grid(row=0, column=0, sticky="w")
     developer_tools_host = ttk.Frame(studio_tab, padding=(0, 6, 0, 0))
     developer_tools_host.grid(row=2, column=0, sticky="nsew")
     developer_tools_host.grid_remove()
@@ -157,7 +122,6 @@ def build_ui(app: Any) -> None:
     app.active_mods_tab = active_mods_tab
     build_quality_sweep_workbench(app, quality_sweep_tab)
     app.studio_tab = studio_tab
-    app.explore_tab = explore_tab
     app.review_tab = review_tab
     # Compatibility attribute: structural tools are hidden behind the
     # Developer Tools… launcher rather than exposed as a Studio peer.
@@ -200,8 +164,6 @@ def build_ui(app: Any) -> None:
     app._studio_editor_kwargs = {
         "conversations_tab": conversations_tab,
         "source_impact_tab": source_impact_tab,
-        "explore_tab": explore_tab,
-        "dialogue_content_tab": dialogue_content_tab,
         "review_tab": review_tab,
         "developer_tools_parent": developer_tools_host,
         "ttk": ttk,

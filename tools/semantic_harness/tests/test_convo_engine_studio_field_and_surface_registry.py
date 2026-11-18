@@ -22,7 +22,6 @@ from tools.semantic_harness.codebuilder.convo_engine_fields import (
 from tools.semantic_harness.codebuilder.psdl_compiler import PSDL_RECORD_FIELDS
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.dataset_library import DatasetLibraryPane
-from tools.semantic_harness.studio.dialogue_content_pane import DialogueContentPane
 from tools.semantic_harness.studio.surface_registry import SurfaceRegistry
 from tools.semantic_harness.ui.studio_surface_builder import build_studio_editors
 from tools.semantic_harness.ui.surface_builder import build_ui
@@ -224,36 +223,32 @@ class ConvoEngineStudioFieldAndSurfaceRegistryTests(unittest.TestCase):
             self.assertFalse(rejected["ok"])
             self.assertEqual(rejected["reason"], "source_not_editable")
 
-            dc_pane = DialogueContentPane(
-                _DummyWidget(),
-                _DummyTk(),
-                _DummyTtk(),
-                _DummyScrolledText,
-                _DummyMessagebox(),
-                service,
-            )
-            dc_pane.refresh()
-            self.assertEqual(dc_pane._items, [])
-            self.assertEqual(dc_pane._write_button._state, "disabled")
-            self.assertEqual(dc_pane._compile_button._state, "disabled")
-
-    def test_surface_registry_promotes_convo_engine_home_and_gates_legacy_tabs(self) -> None:
+    def test_surface_registry_promotes_convo_engine_home_and_retires_legacy_surfaces(self) -> None:
         registry = SurfaceRegistry()
         self.assertEqual(registry.primary_surface_ids(), ["conversations", "source_impact", "review"])
-        default_surfaces = {item["id"]: item["visible"] for item in registry.list_surfaces(include_legacy=False)}
-        self.assertTrue(default_surfaces["conversations"])
-        self.assertTrue(default_surfaces["source_impact"])
-        self.assertTrue(default_surfaces["review"])
-        self.assertFalse(default_surfaces["dialogue_content"])
-        self.assertFalse(default_surfaces["dataset_library"])
-        self.assertFalse(default_surfaces["explore"])
+        # Active canonical / pattern / WordNet sources must NOT trigger legacyDatasetsPresent
+        non_legacy_sources = [
+            {"id": "convo_engine", "exists": True, "kind": "convo_engine"},
+            {"id": "nlu_patterns", "exists": True, "kind": "nlu_patterns"},
+            {"id": "wordnet", "exists": True, "kind": "wordnet"},
+        ]
+        self.assertFalse(registry.has_active_legacy_datasets(non_legacy_sources))
+        surfaces = {item["id"]: item for item in registry.list_surfaces(dataset_sources=non_legacy_sources)}
+        self.assertTrue(surfaces["conversations"]["visible"])
+        self.assertTrue(surfaces["source_impact"]["visible"])
+        self.assertTrue(surfaces["review"]["visible"])
+        self.assertFalse(surfaces["conversations"]["legacyDatasetsPresent"])
+        self.assertIn("canonical_data_sources", surfaces)
+        self.assertIn("interaction_explorer", surfaces)
+        for retired_id in ("dialogue_content", "explore", "dataset_library", "interaction_specs", "workflow"):
+            self.assertNotIn(retired_id, surfaces)
 
-        legacy_surfaces = {item["id"]: item["visible"] for item in registry.list_surfaces(include_legacy=True)}
-        self.assertTrue(legacy_surfaces["dialogue_content"])
-        self.assertTrue(legacy_surfaces["dataset_library"])
-        self.assertTrue(legacy_surfaces["explore"])
+        dev_surfaces = {item["id"]: item["visible"] for item in registry.list_surfaces(include_developer=True)}
+        self.assertTrue(dev_surfaces["canonical_data_sources"])
+        self.assertTrue(dev_surfaces["interaction_explorer"])
+        self.assertTrue(dev_surfaces["semantic_blocks"])
 
-    def test_studio_surface_builder_shows_primary_tabs_first_and_toggles_legacy(self) -> None:
+    def test_studio_surface_builder_shows_primary_tabs_and_retires_legacy_toggle(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             service = SemanticLabAuthoringService(root)
@@ -271,6 +266,8 @@ class ConvoEngineStudioFieldAndSurfaceRegistryTests(unittest.TestCase):
             app.simulation_context_var = _DummyVar()
             app.active_speaker_var = _DummyVar()
             app.active_addressee_var = _DummyVar()
+            del app.legacy_surfaces_toggle
+            del app.toggle_legacy_surfaces
 
             with (
                 mock.patch("tools.semantic_harness.ui.surface_builder.build_quality_sweep_workbench"),
@@ -286,9 +283,7 @@ class ConvoEngineStudioFieldAndSurfaceRegistryTests(unittest.TestCase):
                 mock.patch("tools.semantic_harness.ui.studio_surface_builder.InteractionExplorerPane"),
                 mock.patch("tools.semantic_harness.ui.studio_surface_builder.InteractionModulesPane"),
                 mock.patch("tools.semantic_harness.ui.studio_surface_builder.FlowEditorPane"),
-                mock.patch("tools.semantic_harness.ui.studio_surface_builder.InteractionSpecPane"),
                 mock.patch("tools.semantic_harness.ui.studio_surface_builder.SemanticBlockRegistryPane"),
-                mock.patch("tools.semantic_harness.ui.studio_surface_builder.SemanticLabWorkflowPane"),
                 mock.patch("tools.semantic_harness.ui.studio_surface_builder.ConvoEngineAuthoringPane") as pane_cls,
             ):
                 build_ui(app)
@@ -297,19 +292,19 @@ class ConvoEngineStudioFieldAndSurfaceRegistryTests(unittest.TestCase):
             pane_cls.assert_called_once()
             tab_titles = [app.studio_notebook.tab(tab_id, "text") for tab_id in app.studio_notebook.tabs()]
             self.assertEqual(tab_titles, ["Conversations", "Source / Impact", "Review"])
+            self.assertFalse(hasattr(app, "legacy_surfaces_toggle"))
+            self.assertFalse(hasattr(app, "toggle_legacy_surfaces"))
+            adv_titles = [app.advanced_notebook.tab(tab_id, "text") for tab_id in app.advanced_notebook.tabs()]
+            self.assertIn("Interaction Explorer", adv_titles)
+            self.assertIn("Canonical Data Sources", adv_titles)
+            self.assertNotIn("Workflow composer", adv_titles)
+            self.assertNotIn("Interaction composer", adv_titles)
 
-            self.assertTrue(app.toggle_legacy_surfaces(True))
-            tab_titles_with_legacy = [
-                app.studio_notebook.tab(tab_id, "text") for tab_id in app.studio_notebook.tabs()
-            ]
-            self.assertIn("Explore (Legacy)", tab_titles_with_legacy)
-            self.assertIn("Dialogue Content (Legacy)", tab_titles_with_legacy)
-
-            self.assertFalse(app.toggle_legacy_surfaces(False))
-            tab_titles_restored = [
-                app.studio_notebook.tab(tab_id, "text") for tab_id in app.studio_notebook.tabs()
-            ]
-            self.assertEqual(tab_titles_restored, ["Conversations", "Source / Impact", "Review"])
+            # Caller-zero proof: retired pane modules no longer exist
+            studio_dir = Path(__file__).resolve().parents[1] / "studio"
+            self.assertFalse((studio_dir / "dialogue_content_pane.py").exists())
+            self.assertFalse((studio_dir / "workflow.py").exists())
+            self.assertFalse((studio_dir / "interaction_spec_pane.py").exists())
 
 
 if __name__ == "__main__":

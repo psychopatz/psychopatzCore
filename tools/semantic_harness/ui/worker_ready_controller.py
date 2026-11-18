@@ -131,10 +131,8 @@ def hydrate_worker_ready(app: Any) -> None:
     app.interaction_modules.set_catalog(beat_catalog)
     app._beat_catalog = beat_catalog
     app.interaction_explorer.set_catalog(flow_catalog)
-    app.interaction_composer.set_production_catalog(flow_catalog)
     app.block_registry.set_catalog(flow_catalog)
     app._production_catalog = flow_catalog
-    app.workflow_pane.set_production_catalog(flow_catalog)
 
     if app._initial_saved_pair_requested():
         app._startup_after = app.root.after_idle(app._load_initial_saved_pair)

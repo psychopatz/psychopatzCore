@@ -27,7 +27,6 @@ def generate_interaction_spec(app: Any, spec: dict[str, Any]) -> None:
         approved=True,
         production_catalog=app._production_catalog,
     )
-    app.interaction_composer.show_generation(report)
     app._set_text(app.inspector, pretty(report))
     app._set_text(app.trace, pretty(report))
     if report.get("ok") is not True:
@@ -57,7 +56,6 @@ def generate_workflow(
         production_catalog=app._production_catalog,
         interaction_spec=interaction_spec,
     )
-    app.workflow_pane.show_generation(report)
     app._set_text(app.inspector, pretty(report))
     app._set_text(app.trace, pretty(report))
     if report.get("ok") is not True:

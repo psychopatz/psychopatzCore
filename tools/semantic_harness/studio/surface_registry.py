@@ -43,39 +43,18 @@ STUDIO_SURFACES: tuple[SurfaceDescriptor, ...] = (
         summary="Reviewed proposals and explicit generation/validation summary.",
     ),
     SurfaceDescriptor(
-        id="dialogue_content",
-        title="Dialogue Content (Legacy)",
-        role="legacy_compatibility",
-        default_visible=False,
-        summary="Read-only/compatibility EN/TL view when legacy dataset shards exist.",
-    ),
-    SurfaceDescriptor(
-        id="explore",
-        title="Explore (Legacy)",
-        role="legacy_compatibility",
-        default_visible=False,
-        summary="Legacy Semantic Lab definition explorer.",
-    ),
-    SurfaceDescriptor(
-        id="dataset_library",
-        title="Dataset Library (Legacy)",
-        role="legacy_compatibility",
-        default_visible=False,
-        summary="Legacy dataset shard inspector (non-editable when shards are absent).",
-    ),
-    SurfaceDescriptor(
-        id="interaction_specs",
-        title="Interaction Specs (Developer)",
+        id="canonical_data_sources",
+        title="Canonical Data Sources",
         role="developer",
         default_visible=False,
-        summary="Developer compatibility surface for interaction spec templates.",
+        summary="Canonical JSON source inspector and editor (ConvoEngine, NLU patterns, WordNet).",
     ),
     SurfaceDescriptor(
-        id="workflow",
-        title="Workflow (Developer)",
+        id="interaction_explorer",
+        title="Interaction Explorer",
         role="developer",
         default_visible=False,
-        summary="Legacy multi-dataset batch generation trigger.",
+        summary="Live Interaction Explorer and flow navigator.",
     ),
     SurfaceDescriptor(
         id="semantic_blocks",
@@ -97,7 +76,14 @@ class SurfaceRegistry:
     def has_active_legacy_datasets(dataset_sources: Iterable[Mapping[str, Any]] | None) -> bool:
         if not dataset_sources:
             return False
-        return any(bool(item.get("exists")) for item in dataset_sources)
+        for item in dataset_sources:
+            if not item.get("exists"):
+                continue
+            if item.get("legacy") is True or item.get("kind") == "legacy_dialogue_content":
+                return True
+            if int(item.get("legacyRecords") or 0) > 0:
+                return True
+        return False
 
     def list_surfaces(
         self,
