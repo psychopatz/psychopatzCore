@@ -97,8 +97,13 @@ local function buildDescriptor(spec)
     safeCall(descriptor, "setFemale", spec and spec.isFemale == true)
     local _, humanVisual = safeCall(descriptor, "getHumanVisual")
     if humanVisual then
-        safeCall(humanVisual, "setSkinTextureName", appearance.skinTexture
-            or (spec and spec.isFemale and "FemaleBody01" or "MaleBody01"))
+        local female = spec and spec.isFemale == true
+        local skinTexture = appearance.skinTexture or (female and "FemaleBody01" or "MaleBody01")
+        local maleTone = string.match(tostring(skinTexture), "^(MaleBody0[1-5])a?$")
+        if not female and maleTone and type(appearance.chestHair) == "boolean" then
+            skinTexture = maleTone .. (appearance.chestHair and "a" or "")
+        end
+        safeCall(humanVisual, "setSkinTextureName", skinTexture)
         -- A chosen native texture must not inherit the temporary factory
         -- descriptor's random tint. Legacy/custom RGB remains explicit.
         local tone = tonumber(string.match(tostring(appearance.skinTexture or ""), "^FemaleBody0([1-5])$"))
@@ -108,6 +113,14 @@ local function buildDescriptor(spec)
         if appearance.hairModel then safeCall(humanVisual, "setHairModel", appearance.hairModel) end
         safeCall(humanVisual, "setBeardModel", spec and spec.isFemale and "" or (appearance.beardModel or ""))
         applyColor(humanVisual, appearance.hairColor)
+        if humanVisual.addBodyVisualFromItemType then
+            if appearance.hairStubble == true then
+                humanVisual:addBodyVisualFromItemType(female and "Base.F_Hair_Stubble" or "Base.M_Hair_Stubble")
+            end
+            if not female and appearance.beardStubble == true then
+                humanVisual:addBodyVisualFromItemType("Base.M_Beard_Stubble")
+            end
+        end
         safeCall(humanVisual, "removeBlood")
         safeCall(humanVisual, "removeDirt")
     end

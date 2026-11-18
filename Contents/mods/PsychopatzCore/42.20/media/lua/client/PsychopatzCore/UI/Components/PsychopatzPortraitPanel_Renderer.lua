@@ -5,16 +5,17 @@ function Window:prerender()
     local current = getTimeInMillis and getTimeInMillis() or 0
     self:applyModelVisibility(self.contentOpacity)
     if (tonumber(self.contentOpacity) or 1) <= 0.001 then return end
+    if self.cameraTransition then self:applyCameraOffsets(current) end
     self:refreshAnimationState(current)
     if self.modelView and self.speechPulseUntil
         and current < self.speechPulseUntil
     then
         local phase = (current - (self.speechPulseStartedAt or current)) / 90
-        local offset = (tonumber(self.yOffset) or -0.85) + math.sin(phase) * 0.025
+        local offset = (tonumber(self:getRenderedCamera(current).yOffset) or -0.85) + math.sin(phase) * 0.025
         self.modelView:setYOffset(offset)
     elseif self.modelView and self.speechPulseUntil then
         self.speechPulseUntil = nil
-        self.modelView:setYOffset(tonumber(self.yOffset) or -0.85)
+        self.modelView:setYOffset(tonumber(self:getRenderedCamera(current).yOffset) or -0.85)
     end
     ISPanel.prerender(self)
     if self.showBackground then

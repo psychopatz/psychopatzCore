@@ -2,6 +2,7 @@ local UI = PsychopatzCore.UI
 local Layout = UI.Layout
 local Descriptor = require
     "PsychopatzCore/UI/Components/PsychopatzPortraitPanel_Descriptor"
+local Equipment = require "PsychopatzCore/UI/Components/PsychopatzPortraitPanel_Equipment"
 local Window = PsychopatzPortraitPanel
 
 local function normalizeScreenVariant(value)
@@ -15,14 +16,21 @@ local function normalizeScreenVariant(value)
     return nil
 end
 
-function Window:applyCameraState()
+function Window:applyCameraOffsets(now)
+    local model = self.modelView
+    if not model or not model.javaObject then return end
+    local camera = self:getRenderedCamera(now or (getTimeInMillis and getTimeInMillis()) or 0)
+    model:setZoom(tonumber(camera.zoom) or 14)
+    model:setXOffset(tonumber(camera.xOffset) or 0)
+    model:setYOffset(tonumber(camera.yOffset) or -0.85)
+end
+
+function Window:applyCameraState(now)
     local model = self.modelView
     if not model or not model.javaObject then return end
     model:setDirection(self.direction or (IsoDirections and IsoDirections.S))
     model:setIsometric(self.isometric == true)
-    model:setZoom(tonumber(self.zoom) or 14)
-    model:setXOffset(tonumber(self.xOffset) or 0)
-    model:setYOffset(tonumber(self.yOffset) or -0.85)
+    self:applyCameraOffsets(now)
 end
 
 function Window:applyViewState()
@@ -155,8 +163,14 @@ function Window:setTarget(character, spec, force)
         descriptor = Descriptor.Build(spec)
         if descriptor then
             model:setCharacter(nil)
-            model:setSurvivorDesc(descriptor)
-            self.targetMode = "descriptor"
+            local previewBody = Equipment.Build(self, descriptor, spec)
+            if previewBody then
+                model:setCharacter(previewBody)
+                self.targetMode = "equipment_preview"
+            else
+                model:setSurvivorDesc(descriptor)
+                self.targetMode = "descriptor"
+            end
         elseif spec.outfit then
             model:setOutfitName(spec.outfit, spec.isFemale == true, false)
             self.targetMode = "outfit"

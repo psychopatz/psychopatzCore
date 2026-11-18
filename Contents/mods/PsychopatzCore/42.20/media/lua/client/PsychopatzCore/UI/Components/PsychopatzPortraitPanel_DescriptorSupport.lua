@@ -113,6 +113,8 @@ local function keyFor(spec)
         tostring(skinColor.r or ""), tostring(skinColor.g or ""),
         tostring(skinColor.b or ""), tostring(appearance.hairModel or ""),
         tostring(appearance.beardModel or ""), tostring(hairColor.r or ""),
+        tostring(appearance.hairStubble == true), tostring(appearance.beardStubble == true),
+        tostring(appearance.chestHair),
         tostring(hairColor.g or ""), tostring(hairColor.b or ""),
         spec and spec.faceOnly == true and spec.includeCurrentClothing ~= true
             and "" or stableArraySignature(appearance.outfitItems),

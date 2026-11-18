@@ -162,6 +162,7 @@ function visual:setHairColor(value) self.hairColor = value end
 function visual:setBeardColor(value) self.beardColor = value end
 function visual:removeBlood() end
 function visual:removeDirt() end
+function visual:addBodyVisualFromItemType(item) self.bodyVisuals[item] = true end
 
 local descriptor = {}
 function descriptor:setFemale(value) self.female = value end
@@ -373,7 +374,7 @@ assertEqual(uprightPanel.modelView.yOffset, -.85, 'head camera targets the face'
 uprightPanel.zoom = 12
 uprightPanel:applyViewState()
 assert(uprightPanel:setViewRegion('legs'))
-assertEqual(uprightPanel.modelView.yOffset, .45, 'leg framing targets the lower body')
+assertEqual(uprightPanel.modelView.yOffset, -.24, 'leg framing targets the lower body')
 assert(uprightPanel:setViewRegion('head'))
 assertEqual(uprightPanel.modelView.zoom, 12, 'each region remembers user zoom independently')
 assert(uprightPanel:setViewRegion('head', true))
@@ -395,6 +396,87 @@ assertEqual(PsychopatzCore.UI.GetPortraitDescriptorCacheSize(), cacheSize, 'chan
 local regionPanel = PsychopatzCore.UI.PortraitPanel:new(0, 0, 100, 200, { viewRegion = 'feet' })
 regionPanel:initialise(); regionPanel:createChildren()
 assertEqual(regionPanel:getViewRegion(), 'feet', 'constructor supports reusable named views')
-assertEqual(regionPanel.modelView.yOffset, .85, 'constructor applies the region when the native model is created')
+assertEqual(regionPanel.modelView.yOffset, -.06, 'constructor applies the region when the native model is created')
+
+local now = 1000
+uprightPanel.showBackground, uprightPanel.showBorder = false, false
+getTimeInMillis = function() return now end
+assert(uprightPanel:setViewRegion('body', true))
+assert(uprightPanel:setViewRegion('legs', false, true))
+assertEqual(uprightPanel.modelView.yOffset, -.5, 'animation begins at the engine full-body offset')
+assertEqual(uprightPanel.modelView.zoom, -3, 'zoom starts at the displayed body view')
+now = 1125
+uprightPanel:prerender()
+local midY = uprightPanel.modelView.yOffset
+assert(midY > -.5 and midY < -.24, 'prerender pans between body and legs')
+assertEqual(uprightPanel.modelView.zoom, 0, 'zoom eases along with pan')
+assert(uprightPanel:setViewRegion('left_arm', false, true))
+assertEqual(uprightPanel.modelView.yOffset, midY, 'retargeting starts at the displayed intermediate frame')
+now = 1250
+uprightPanel:prerender()
+assert(uprightPanel.modelView.xOffset > 0 and uprightPanel.modelView.xOffset < .15, 'lateral pan eases toward the arm')
+now = 1375
+uprightPanel:prerender()
+assertEqual(uprightPanel.modelView.xOffset, .15, 'pan finishes at the requested lateral offset')
+assertEqual(uprightPanel.cameraTransition, nil, 'completed transition stops updating the model')
+assert(uprightPanel:setViewRegion('body', true, true))
+now = 1625
+uprightPanel:prerender()
+assertEqual(uprightPanel.modelView.yOffset, 0, 'return to body restores the native offset sentinel')
+assertEqual(uprightPanel.modelView.zoom, -3, 'return to body restores the default zoom')
+
+visual.bodyVisuals = {}
+assert(uprightPanel:setTarget(nil, {
+    id = "stubble", isFemale = false, faceOnly = true,
+    appearance = { hairStubble = true, beardStubble = true },
+}))
+assertEqual(visual.bodyVisuals["Base.M_Hair_Stubble"], true, "male face includes vanilla scalp stubble")
+assertEqual(visual.bodyVisuals["Base.M_Beard_Stubble"], true, "male face includes vanilla beard stubble")
+visual.bodyVisuals = {}
+assert(uprightPanel:setTarget(nil, {
+    id = "stubble", isFemale = true, faceOnly = true,
+    appearance = { hairStubble = true, beardStubble = true },
+}))
+assertEqual(visual.bodyVisuals["Base.F_Hair_Stubble"], true, "female face uses female scalp stubble")
+assertEqual(visual.bodyVisuals["Base.M_Beard_Stubble"], nil, "female face skips beard stubble")
+
+assert(uprightPanel:setTarget(nil, {
+    id = "chest-hair", appearance = { skinTexture = "MaleBody04", chestHair = true },
+}))
+assertEqual(visual.skin, "MaleBody04a", "portrait applies chest hair to the selected skin tone")
+assert(uprightPanel:setTarget(nil, {
+    id = "chest-hair", appearance = { skinTexture = "MaleBody04", chestHair = false },
+}))
+assertEqual(visual.skin, "MaleBody04", "chest hair alters the descriptor cache key")
+
+local actors = 0
+local group = { getOrCreateLocation = function(self, slot)
+    return { setAttachmentName = function(_, bone) self[slot] = bone end }
+end }
+AttachedLocationGroup = { new = function() return group end }
+AttachedLocations = { getGroup = function() return {} end }
+AttachedItems = { new = function(locations)
+    return { group = locations, setItem = function(self, slot, item) self[slot] = item end }
+end }
+local fixtureBody = {
+    setFemale = function(self, value) self.female = value end,
+    getHumanVisual = function() return { copyFrom = function(_, from) assertEqual(from, visual) end } end,
+    getItemVisuals = function() return {} end,
+    setAttachedItems = function(self, items) self.attachments = items end,
+}
+IsoZombie = { new = function(cell) assertEqual(cell, nil); actors = actors + 1; return fixtureBody end }
+function worn:getItemVisuals() end
+local testWeapon = { type = "Base.Axe" }
+assert(uprightPanel:setTarget(nil, { key = "held", previewHandItems = { primary = testWeapon } }))
+assertEqual(uprightPanel.modelView.character, fixtureBody, "held preview binds the detached actor")
+assertEqual(fixtureBody.attachments.primary, testWeapon, "primary preview uses the captured native item")
+assertEqual(fixtureBody.attachments.group.primary, "Bip01_Prop1")
+assertEqual(fixtureBody.attachments.group.secondary, "Bip01_Prop2")
+assert(uprightPanel:setTarget(nil, { key = "stowed", previewStowedItems = { Back = testWeapon } }))
+assertEqual(fixtureBody.attachments.primary, nil, "stowed preview clears the hand")
+assertEqual(fixtureBody.attachments.Back, testWeapon)
+assertEqual(actors, 1, "switching equipment views reuses the detached actor")
+assert(uprightPanel:setTarget(nil, { key = "regular" }))
+assertEqual(uprightPanel.modelView.character, nil, "ordinary portrait returns to descriptor rendering")
 
 print("psychopatz_portrait_smoke: ok")
