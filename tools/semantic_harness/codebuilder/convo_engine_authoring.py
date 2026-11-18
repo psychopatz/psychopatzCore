@@ -18,7 +18,6 @@ from .convo_engine_exchange import resolve_family_identity
 from .conversation_model import fingerprint
 from .errors import CompileError
 from .psdl_compiler import (
-    COMPACT_PSDL_SCHEMA,
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
     compile_convo_engine_sources,
@@ -165,16 +164,16 @@ def apply_family_patch(
     if not isinstance(patch, Mapping) or not patch:
         raise CompileError("ConvoEngine patch must be a non-empty object")
     candidate = copy.deepcopy(dict(document))
-    if candidate.get("schema") not in {CONVO_ENGINE_SCHEMA, COMPACT_PSDL_SCHEMA}:
+    if candidate.get("schema") != CONVO_ENGINE_SCHEMA:
         raise CompileError(
-            f"Editing requires canonical schema {CONVO_ENGINE_SCHEMA} or {COMPACT_PSDL_SCHEMA}; migrate legacy sources first"
+            f"Editing requires canonical schema {CONVO_ENGINE_SCHEMA}; migrate legacy sources first"
         )
     if "records" in candidate:
         raise CompileError(
             "apply_family_patch operates on single-family documents; shard multi-record documents first"
         )
-    if "schema" in patch and patch["schema"] not in {CONVO_ENGINE_SCHEMA, COMPACT_PSDL_SCHEMA}:
-        raise CompileError(f"ConvoEngine edits cannot change schema away from {CONVO_ENGINE_SCHEMA}/{COMPACT_PSDL_SCHEMA}")
+    if "schema" in patch and patch["schema"] != CONVO_ENGINE_SCHEMA:
+        raise CompileError(f"ConvoEngine edits cannot change schema away from {CONVO_ENGINE_SCHEMA}")
     for key in ("id", "namespace", "kind"):
         if key in patch and patch[key] != candidate.get(key):
             raise CompileError(
@@ -504,3 +503,93 @@ def source_fingerprint_mismatch(
             "writes": [],
         }
     return None
+
+
+def migrate_convo_engine_schema(
+    source_roots: Mapping[str, Path],
+    *,
+    owner: str | None = None,
+    write: bool = False,
+) -> dict[str, Any]:
+    """Deterministically migrate ``psychopatz.psdl.*`` source/package schemas to ConvoEngine v1."""
+    from .psdl_compact import validate_package_descriptor
+    from .psdl_compiler import compile_convo_engine_document
+    from .semantic_dialogue_ir import CONVO_ENGINE_PACKAGE_SCHEMA
+
+    planned_writes: list[dict[str, Any]] = []
+    pending_files: list[tuple[Path, dict[str, Any]]] = []
+
+    for pkg_owner, root in sorted(source_roots.items()):
+        if owner is not None and pkg_owner != owner:
+            continue
+        conv_root = Path(root).expanduser().resolve()
+        if not conv_root.is_dir():
+            continue
+
+        package_path = conv_root / "package.json"
+        pkg_doc: dict[str, Any] | None = None
+        if package_path.is_file():
+            raw_pkg = load_json_document(package_path)
+            if raw_pkg.get("schema") == "psychopatz.psdl.package.v2":
+                updated_pkg = copy.deepcopy(raw_pkg)
+                updated_pkg["schema"] = CONVO_ENGINE_PACKAGE_SCHEMA
+                pkg_doc = validate_package_descriptor(updated_pkg)
+                planned_writes.append({
+                    "owner": pkg_owner,
+                    "path": str(package_path),
+                    "kind": "package",
+                    "fromSchema": "psychopatz.psdl.package.v2",
+                    "toSchema": CONVO_ENGINE_PACKAGE_SCHEMA,
+                    "fingerprint": fingerprint(updated_pkg),
+                })
+                pending_files.append((package_path, updated_pkg))
+            else:
+                pkg_doc = validate_package_descriptor(raw_pkg)
+
+        for json_path in sorted(conv_root.rglob("*.json")):
+            if json_path.name in {"package.json", "manifest.json", "provenance.lock"}:
+                continue
+            if "translations" in json_path.relative_to(conv_root).parts:
+                continue
+            raw_doc = load_json_document(json_path)
+            if raw_doc.get("schema") != "psychopatz.psdl.v2":
+                continue
+            updated_doc = copy.deepcopy(raw_doc)
+            updated_doc["schema"] = CONVO_ENGINE_SCHEMA
+            compile_convo_engine_document(
+                updated_doc,
+                source_path=json_path,
+                default_owner=pkg_owner,
+                allow_legacy_schema=False,
+                validate_cross_references=False,
+                package=pkg_doc,
+            )
+            planned_writes.append({
+                "owner": pkg_owner,
+                "path": str(json_path),
+                "kind": "source",
+                "fromSchema": "psychopatz.psdl.v2",
+                "toSchema": CONVO_ENGINE_SCHEMA,
+                "fingerprint": fingerprint(updated_doc),
+            })
+            pending_files.append((json_path, updated_doc))
+
+    writes: list[str] = []
+    if write:
+        for path, payload in pending_files:
+            path.write_text(
+                json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+            writes.append(str(path))
+
+    return {
+        "ok": True,
+        "previewOnly": not write,
+        "effectFree": not write,
+        "owner": owner,
+        "plannedCount": len(planned_writes),
+        "migratedCount": len(writes),
+        "plannedWrites": planned_writes,
+        "writes": writes,
+    }

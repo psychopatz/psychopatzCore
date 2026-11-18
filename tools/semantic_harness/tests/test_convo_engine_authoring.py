@@ -659,6 +659,75 @@ class ConvoEngineAuthoringTests(unittest.TestCase):
         self.assertEqual(pool["document"]["metadata"]["responsePoolID"], "question.identity")
         self.assertEqual(pool["document"]["say"]["variants"][0]["id"], "question.identity.01")
 
+    def test_migrate_convo_engine_schema_preview_and_owner_filter(self) -> None:
+        import tempfile
+        from tools.semantic_harness.codebuilder.convo_engine_authoring import (
+            migrate_convo_engine_schema,
+        )
+        from tools.semantic_harness.codebuilder.semantic_dialogue_ir import (
+            CONVO_ENGINE_PACKAGE_SCHEMA,
+            CONVO_ENGINE_SCHEMA,
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root_a = Path(tmp) / "core"
+            root_b = Path(tmp) / "hoomans"
+            (root_a / "dialogue/social").mkdir(parents=True)
+            (root_b / "dialogue/command").mkdir(parents=True)
+
+            (root_a / "package.json").write_text(
+                json.dumps({
+                    "schema": "psychopatz.psdl.package.v2",
+                    "version": 1,
+                    "package": "PsychopatzCore",
+                    "defaultOwner": "PsychopatzCore",
+                    "registryOwner": "PsychopatzCore",
+                    "defaults": {"participants": {"speaker": ["participant"], "addressee": ["participant"]}},
+                    "profiles": {},
+                }),
+                encoding="utf-8",
+            )
+            (root_a / "dialogue/social/greet.json").write_text(
+                json.dumps({
+                    "schema": "psychopatz.psdl.v2",
+                    "id": "social.greet",
+                    "say": "Hello.",
+                }),
+                encoding="utf-8",
+            )
+            (root_b / "dialogue/command/stay.json").write_text(
+                json.dumps({
+                    "schema": "psychopatz.psdl.v2",
+                    "id": "command.stay",
+                    "say": "Stay here.",
+                }),
+                encoding="utf-8",
+            )
+
+            roots = {"PsychopatzCore": root_a, "ProjectHoomans": root_b}
+            preview = migrate_convo_engine_schema(roots, owner="PsychopatzCore", write=False)
+            self.assertTrue(preview["ok"])
+            self.assertTrue(preview["previewOnly"])
+            self.assertEqual(preview["plannedCount"], 2)
+            self.assertEqual(preview["migratedCount"], 0)
+
+            applied = migrate_convo_engine_schema(roots, owner="PsychopatzCore", write=True)
+            self.assertTrue(applied["ok"])
+            self.assertFalse(applied["previewOnly"])
+            self.assertEqual(applied["migratedCount"], 2)
+            self.assertEqual(
+                json.loads((root_a / "package.json").read_text(encoding="utf-8"))["schema"],
+                CONVO_ENGINE_PACKAGE_SCHEMA,
+            )
+            self.assertEqual(
+                json.loads((root_a / "dialogue/social/greet.json").read_text(encoding="utf-8"))["schema"],
+                CONVO_ENGINE_SCHEMA,
+            )
+            self.assertEqual(
+                json.loads((root_b / "dialogue/command/stay.json").read_text(encoding="utf-8"))["schema"],
+                "psychopatz.psdl.v2",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

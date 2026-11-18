@@ -29,10 +29,10 @@ from tools.semantic_harness.codebuilder.portable_runtime import (
     PortableReferenceVM,
 )
 from tools.semantic_harness.codebuilder.psdl_compact import (
-    COMPACT_PSDL_SCHEMA,
-    PACKAGE_DESCRIPTOR_SCHEMA,
+    CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
 )
+from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.psdl_compiler import (
     render_pz_backend_from_portable_plan,
 )
@@ -62,11 +62,10 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         conv_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation"
         pkg = json.loads((conv_root / "package.json").read_text(encoding="utf-8"))
         prov = json.loads((conv_root / "provenance.lock").read_text(encoding="utf-8"))
-        self.assertEqual(pkg["schema"], PACKAGE_DESCRIPTOR_SCHEMA)
+        self.assertEqual(pkg["schema"], CONVO_ENGINE_PACKAGE_SCHEMA)
         self.assertEqual(prov["schema"], PROVENANCE_LOCK_SCHEMA)
 
         v1_count = 0
-        v2_count = 0
         for root in (
             conv_root,
             HOOMANS_ROOT / "tools/providers/pnc/codebuilder/sources/conversation",
@@ -76,14 +75,12 @@ class PsdlProductionToolchainTests(unittest.TestCase):
                 if "translations" in p.relative_to(root).parts:
                     continue
                 d = json.loads(p.read_text(encoding="utf-8"))
-                if d.get("schema") == "psychopatz.convo-engine.v1":
+                self.assertNotEqual(d.get("schema"), "psychopatz.psdl.v2", str(p))
+                self.assertNotEqual(d.get("schema"), "psychopatz.psdl.package.v2", str(p))
+                if d.get("schema") == CONVO_ENGINE_SCHEMA:
                     v1_count += 1
-                elif d.get("schema") == COMPACT_PSDL_SCHEMA:
-                    v2_count += 1
 
-        # 11 canonical S11 state-aware psychopatz.convo-engine.v1 definitions (6 in R2 + 5 in R3).
-        self.assertEqual(v1_count, 11)
-        self.assertGreaterEqual(v2_count, 577)
+        self.assertGreaterEqual(v1_count, 587)
 
         # Verify large localized family via textSidecars compiled into runtime plans
         knowledge_plan = next(
@@ -213,7 +210,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
             (src_root / "package.json").write_text(
                 json.dumps(
                     {
-                        "schema": PACKAGE_DESCRIPTOR_SCHEMA,
+                        "schema": CONVO_ENGINE_PACKAGE_SCHEMA,
                         "version": 1,
                         "package": "SyntheticSurvivalMod",
                         "defaultOwner": "SyntheticSurvivalMod",
@@ -251,7 +248,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
             (src_root / "dialogue/survival/fire_check.json").write_text(
                 json.dumps(
                     {
-                        "schema": COMPACT_PSDL_SCHEMA,
+                        "schema": CONVO_ENGINE_SCHEMA,
                         "id": "survival.fire_check",
                         "metadata": {"category": "synthetic:survival", "responseAct": "REPLY"},
                         "say": {
@@ -346,3 +343,61 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         )
         self.assertEqual(summary["id"], "behavior.retaliate_verbally")
         self.assertEqual(summary["kind"], "behavior")
+
+    def test_split_action_authority_audit(self) -> None:
+        from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
+            audit_split_action_authority,
+        )
+
+        # Real workspace has zero split-authority violations after CAMP collapse
+        self.assertEqual(audit_split_action_authority(self.model["psdlRuntimePlans"]), [])
+
+        # Synthetic split authority (policy-only + content-only for same action) is flagged
+        split_plans = [
+            {
+                "id": "command.camp",
+                "owner": "ProjectHoomans",
+                "payload": {
+                    "affordance": {"metadata": {"action": "CAMP"}},
+                    "execute": {"use": "pnc.companion.camp"},
+                    "reply": {"queued": {"say": {"EN": ["On it."]}}},
+                },
+            },
+            {
+                "id": "command.companion.camp",
+                "owner": "ProjectHoomans",
+                "payload": {
+                    "invoke": {"intent": "COMMAND", "action": "CAMP"},
+                    "statePolicy": [{"id": "ready", "outcome": "actionable", "admission": "dispatch"}],
+                },
+            },
+        ]
+        findings = audit_split_action_authority(split_plans)
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0]["code"], "LEGACY_SPLIT_AUTHORITY")
+        self.assertEqual(findings[0]["action"], "CAMP")
+
+        # Distinct context-gated families are not falsely flagged
+        legit_plans = [
+            {
+                "id": "command.camp.indoor",
+                "owner": "ProjectHoomans",
+                "when": {"path": "scene.indoors", "op": "==", "value": True},
+                "payload": {
+                    "invoke": {"intent": "COMMAND", "action": "CAMP"},
+                    "execute": {"use": "pnc.companion.camp"},
+                    "statePolicy": [{"id": "ready", "outcome": "actionable", "admission": "dispatch"}],
+                },
+            },
+            {
+                "id": "command.camp.outdoor",
+                "owner": "ProjectHoomans",
+                "when": {"path": "scene.indoors", "op": "==", "value": False},
+                "payload": {
+                    "invoke": {"intent": "COMMAND", "action": "CAMP"},
+                    "execute": {"use": "pnc.companion.camp"},
+                    "statePolicy": [{"id": "ready", "outcome": "actionable", "admission": "dispatch"}],
+                },
+            },
+        ]
+        self.assertEqual(audit_split_action_authority(legit_plans), [])

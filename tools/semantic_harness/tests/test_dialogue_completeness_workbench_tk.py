@@ -57,7 +57,7 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                 root.update_idletasks()
                 report = pane.completeness_workbench.ensure_loaded()
                 self.assertGreater(report["summary"]["families"], 0)
-                self.assertIn("maintained", pane.completeness_workbench._summary_var.get())
+                self.assertIn("Package health:", pane.completeness_workbench._summary_var.get())
                 self.assertIn("Dialogues", pane.completeness_workbench._summary_var.get())
 
                 # Verify S11 Semantic Controls round-trip into canonical document
@@ -115,28 +115,29 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
             wb = pane.completeness_workbench
             wb.ensure_loaded()
 
-            # 1. Needs attention is default and command.camp is immediately visible & ORANGE
+            # 1. Needs attention is default and clean after CAMP single-family collapse; Package health scope is explicit
             self.assertEqual(wb._issue_filter_var.get(), "needs_attention")
-            children = wb._family_tree.get_children()
-            self.assertIn("command.camp", children)
-            camp_item = wb._family_tree.item("command.camp")
-            self.assertIn("ORANGE", camp_item["tags"])
-            self.assertIn("Warning / Risky", camp_item["values"][0])
+            self.assertEqual(wb._family_tree.get_children(), ())
+            self.assertIn("Package health:", wb._summary_var.get())
 
-            # 2. Selecting command.camp in Workbench synchronizes main Conversations editor
-            wb._family_tree.selection_set("command.camp")
-            wb._on_family_select()
+            # 2. Selecting command.camp while needs_attention is active reports explicit filter scope + GREEN health
+            wb._issue_filter_var.set("all")
+            wb._apply_filters()
+            root.update_idletasks()
+            camp_item = wb._family_tree.item("command.camp")
+            self.assertIn("GREEN", camp_item["tags"])
+            self.assertIn("Healthy", camp_item["values"][0])
+            wb._issue_filter_var.set("needs_attention")
+            wb._apply_filters()
+            wb.select_family("command.camp", ensure_loaded=False)
             root.update_idletasks()
             self.assertEqual(pane._current_family_id, "command.camp")
             self.assertEqual(pane._current_entry["canonicalID"], "command.camp")
-
-            # 3. Diagnostic contextual repair is displayed and Open affected field focuses exact control
-            self.assertIn("Suggested structural fix", wb._repair_status_var.get())
-            self.assertEqual(str(wb._preview_btn.cget("state")), "normal")
-            self.assertEqual(str(wb._apply_btn.cget("state")), "normal")
-            wb.open_affected_field()
-            root.update_idletasks()
-            self.assertEqual(pane._highlighted_field, "statePolicy")
+            health_text = wb._graph_text.get("1.0", "end")
+            self.assertIn("Selected family: command.camp", health_text)
+            self.assertIn("Tests:", health_text)
+            self.assertIn("Current filter scope: needs_attention", health_text)
+            self.assertIn("Selected family is outside current needs_attention filter.", health_text)
 
             # 4. Healthy family is GREEN and has no active repair controls
             wb._issue_filter_var.set("all")
@@ -250,12 +251,12 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                 first_row = pane._family_tree.item(all_children[0])
                 self.assertEqual(first_row["values"][1], all_children[0])
                 self.assertNotIn("[ProjectHoomans]", str(first_row["values"][1]))
-                self.assertIn("ORANGE", pane._family_tree.item("command.camp")["tags"])
+                self.assertIn("GREEN", pane._family_tree.item("command.camp")["tags"])
                 for color in ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN"):
                     self.assertTrue(bool(pane._family_tree.tag_configure(color, "background")))
 
                 # 2. Kind filters expose live counts and immediately surface Beats/Behaviors/Realizations
-                self.assertIn("520", pane._kind_filter_vars["dialogue"].get())
+                self.assertIn("519", pane._kind_filter_vars["dialogue"].get())
                 self.assertIn("30", pane._kind_filter_vars["behavior"].get())
                 self.assertIn("3", pane._kind_filter_vars["beat"].get())
                 self.assertIn("35", pane._kind_filter_vars["realization"].get())
@@ -359,9 +360,9 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                 wb.ensure_loaded()
                 root.update_idletasks()
 
-                # 1. Select command.camp -> ORANGE in both primary browser and Workbench
+                # 1. Select command.camp -> GREEN in both primary browser and Workbench
                 self.assertTrue(pane.select_family("command.camp"))
-                self.assertIn("ORANGE", pane._family_tree.item("command.camp")["tags"])
+                self.assertIn("GREEN", pane._family_tree.item("command.camp")["tags"])
                 self.assertEqual(wb._selected_family_id, "command.camp")
 
                 # 2. Healthy family -> GREEN, no active structural repair

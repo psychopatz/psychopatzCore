@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.package.v2",
+  "schema": "psychopatz.convo-engine.package.v1",
   "version": 1,
   "package": "PsychopatzCore",
   "defaultOwner": "PsychopatzCore",

@@ -2,17 +2,26 @@
 
 **Status:** IN_PROGRESS — S12 ConvoEngine v1 Dynamic Dataset Modernization is active.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12A — ConvoEngine v1 standard freeze and single-authority cleanup.
-**Immediate Next Chunk:** S12A1 — unify compact/package authoring onto the one ConvoEngine v1 schema contract before any broad dataset rewrite.
+**Active phase:** S12B — machine-readable dataset modernization inventory and classification.
+**Immediate Next Chunk:** S12B — build and verify the machine-readable classification inventory across all maintained families before any broad dataset rewrite.
 **Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until S12B classification inventory is accepted.
 
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   planning_doc_commit: self (base 37f13c1fa526ce214ca79851328f1a317cff982a)
-ProjectHoomans   b5e538fbfe4213c4e45e6e966983ff814f9c71b4
-DynamicTrading   0fcf35196452db0675788167df205aec09748caa
+psychopatzCore   S12A commit: self (base d40384c3d1ac7b074d34ce45a0a8b602cc1dd45e)
+ProjectHoomans   5039b405
+DynamicTrading   f9c8e60f
 ~~~
+
+## S12A completed
+
+- Unified first-party family/source schema onto `psychopatz.convo-engine.v1` and package schema onto `psychopatz.convo-engine.package.v1` via Core CodeBuilder `convo.migrate_schema` / `migrate-schema` across all 3 repositories (`580` files migrated, `0` remaining `psychopatz.psdl.v2` / `psychopatz.psdl.package.v2` sources).
+- Removed `COMPACT_PSDL_SCHEMA` / `PACKAGE_DESCRIPTOR_SCHEMA` aliases from compiler/authoring/integrity-audit paths while preserving compact authoring, profiles, defaults, and sidecars under ConvoEngine v1.
+- Collapsed CAMP split authority into `command.camp`, retargeted `constrained_family_manifest.json`, and deleted `command.companion.camp` after caller-zero proof.
+- Added `audit_split_action_authority` (`LEGACY_SPLIT_AUTHORITY` detection) to `convo_engine_integrity_audit.py` (0 violations across all 587 maintained families).
+- Clarified Semantic Lab health scopes (`Package health:`, `Selected family:`, `Tests:`, `Current filter scope:`, and outside-filter notice) in `completeness_workbench.py`.
+- Two consecutive canonical acceptance runs passed `9/9` suites (`cases=2144/2173`, `convoScopeOk=True`).
 
 Residual snapshot at goal creation:
 

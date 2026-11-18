@@ -15,11 +15,13 @@ from pathlib import Path
 from typing import Any
 
 from .errors import CompileError
-from .semantic_dialogue_ir import CONVO_ENGINE_SCHEMA, validate_context_path
+from .semantic_dialogue_ir import (
+    CONVO_ENGINE_PACKAGE_SCHEMA,
+    CONVO_ENGINE_SCHEMA,
+    validate_context_path,
+)
 
 
-COMPACT_PSDL_SCHEMA = "psychopatz.psdl.v2"
-PACKAGE_DESCRIPTOR_SCHEMA = "psychopatz.psdl.package.v2"
 PROVENANCE_LOCK_SCHEMA = "psychopatz.psdl.provenance.v1"
 
 _IDENT_OR_PATH_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_.]*")
@@ -228,9 +230,9 @@ def validate_package_descriptor(doc: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(doc, Mapping):
         raise CompileError("Package descriptor must be a JSON object")
     schema = doc.get("schema")
-    if schema != PACKAGE_DESCRIPTOR_SCHEMA:
+    if schema != CONVO_ENGINE_PACKAGE_SCHEMA:
         raise CompileError(
-            f"Invalid package descriptor schema {schema!r}; expected {PACKAGE_DESCRIPTOR_SCHEMA!r}"
+            f"Invalid package descriptor schema {schema!r}; expected {CONVO_ENGINE_PACKAGE_SCHEMA!r}"
         )
     if "extends" in doc or "inherits" in doc:
         raise CompileError("Package descriptors must not use inheritance chains (extends/inherits)")
@@ -255,7 +257,7 @@ def split_manifest_and_provenance(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Split a legacy manifest into a compact package descriptor + provenance lock."""
     pkg: dict[str, Any] = {
-        "schema": PACKAGE_DESCRIPTOR_SCHEMA,
+        "schema": CONVO_ENGINE_PACKAGE_SCHEMA,
         "version": manifest_doc.get("version", 1),
         "package": manifest_doc.get("registryOwner") or manifest_doc.get("defaultOwner") or "PsychopatzCore",
         "defaultOwner": manifest_doc.get("defaultOwner") or "PsychopatzCore",
@@ -351,11 +353,14 @@ def expand_compact_psdl_document(
         raise CompileError("PSDL document must be an object")
 
     schema = document.get("schema")
-    is_compact = schema == COMPACT_PSDL_SCHEMA or "profile" in document or "textSidecars" in document
-    if not is_compact and schema is not None and schema != COMPACT_PSDL_SCHEMA:
-        # Still allow compact predicate / candidate sugar if present, otherwise return copy
-        if isinstance(document.get("records"), list):
-            return copy.deepcopy(dict(document))
+    has_compact_sugar = (
+        "profile" in document
+        or "textSidecars" in document
+        or "kind" not in document
+        or isinstance(document.get("candidates"), Mapping)
+    )
+    if isinstance(document.get("records"), list) and not has_compact_sugar:
+        return copy.deepcopy(dict(document))
 
     pkg = validate_package_descriptor(package) if package is not None else {}
     pkg_defaults = dict(pkg.get("defaults") or {})
@@ -472,15 +477,14 @@ def expand_compact_psdl_document(
                 merged_tr[lang] = sc["translations"]
             doc["translations"] = merged_tr
 
-    doc = _expand_predicates_in_tree(doc, str(doc.get("id") or "psdl"))
-    doc["_authoringSchema"] = str(schema or COMPACT_PSDL_SCHEMA)
+    doc = _expand_predicates_in_tree(doc, str(doc.get("id") or "convo"))
+    doc["_authoringSchema"] = str(schema or CONVO_ENGINE_SCHEMA)
     doc["schema"] = CONVO_ENGINE_SCHEMA
     return doc
 
 
 __all__ = [
-    "COMPACT_PSDL_SCHEMA",
-    "PACKAGE_DESCRIPTOR_SCHEMA",
+    "CONVO_ENGINE_PACKAGE_SCHEMA",
     "PROVENANCE_LOCK_SCHEMA",
     "expand_compact_psdl_document",
     "parse_predicate_expr",

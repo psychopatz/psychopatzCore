@@ -5,7 +5,7 @@ status: IN_PROGRESS
 checkpoint_mode: committed_handoff
 phase_commit: self
 phase: S12 — ConvoEngine v1 Dynamic Dataset Modernization
-chunk: S12A1 — one ConvoEngine v1 source/package schema
+chunk: S12B — machine-readable dataset modernization inventory
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md
@@ -17,9 +17,9 @@ updated_at: 2026-11-19
 ## Participant checkpoint
 
 ~~~text
-psychopatzCore   planning_doc_commit: self (base 37f13c1fa526ce214ca79851328f1a317cff982a)
-ProjectHoomans   b5e538fbfe4213c4e45e6e966983ff814f9c71b4
-DynamicTrading   0fcf35196452db0675788167df205aec09748caa
+psychopatzCore   S12A commit: self (base d40384c3d1ac7b074d34ce45a0a8b602cc1dd45e)
+ProjectHoomans   5039b405
+DynamicTrading   f9c8e60f
 ~~~
 
 All three worktrees were clean at goal creation.
@@ -53,17 +53,12 @@ DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934
 - Wording-only differences belong in realization.
 - Broad source modernization begins only after S12B classifies every maintained family.
 
-## Immediate Next Chunk — S12A1
+## Immediate Next Chunk — S12B
 
-1. Reverify all participant HEAD/status.
-2. Read the two S12 normative documents.
-3. Audit every compiler/service/package/source dependency on `COMPACT_PSDL_SCHEMA` and `PACKAGE_DESCRIPTOR_SCHEMA`.
-4. Design one direct pre-release migration to ConvoEngine v1 that preserves compact profiles/defaults/sidecars without a compatibility shim.
-5. Implement/migrate through CodeBuilder tooling, not raw mass source writes.
-6. Prove all first-party family/package sources use the v1 ConvoEngine schemas.
-7. Remove obsolete PSDL schema read/alias paths after caller/source zero.
-8. Continue automatically through S12A2 CAMP single-family authority, S12A3 duplicate-authority audit and S12A4 health-scope clarity.
-9. Close S12A with full focused + canonical acceptance before starting S12B.
+1. Build machine-readable dataset modernization inventory (`convo_engine_modernization_inventory.py`) through Core tooling.
+2. Classify all 587 maintained families with roles, slots, typed ref hooks, state/mutation/execute/repeat/closure/coverage metadata, and duplicate/specialization groups.
+3. Verify S12B gate (`catalog count == inventory count`, zero unknown ownership, zero unclassified families).
+4. Continue automatically to S12C-E classified batch modernization and S12F closure.
 
 Do not begin S12C-E broad dataset rewriting during S12A.
 

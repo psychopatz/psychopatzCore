@@ -106,7 +106,7 @@
     },
     {
       "auditId": "audit.command.camp",
-      "canonicalFamilyId": "command.companion.camp",
+      "canonicalFamilyId": "command.camp",
       "classification": "CANONICAL_STATEFUL",
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],

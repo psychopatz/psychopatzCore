@@ -69,6 +69,7 @@ class ConvoEngineOperationTransactionTests(unittest.TestCase):
                 "convo.change.apply",
                 "convo.build.preview",
                 "convo.build.apply",
+                "convo.migrate_schema",
                 "convo.audit",
             }
             self.assertEqual(ids, expected)

@@ -157,6 +157,14 @@ def build_parser() -> argparse.ArgumentParser:
     _add_repo_args(p_impact)
     p_impact.add_argument("record_id", help="Canonical PSDL record ID")
 
+    p_migrate_schema = sub.add_parser(
+        "migrate-schema",
+        help="Preview or apply ConvoEngine v1 schema migration across package/source files",
+    )
+    _add_repo_args(p_migrate_schema)
+    p_migrate_schema.add_argument("--owner", default=None)
+    p_migrate_schema.add_argument("--write", action="store_true")
+
     p_locate = sub.add_parser("locate", help="Locate package, source path, capabilities, and generated modules for a PSDL ID")
     _add_repo_args(p_locate)
     p_locate.add_argument("record_id", help="Canonical PSDL record ID")
@@ -278,6 +286,11 @@ def main(arguments: list[str] | None = None) -> int:
                 force_style_bundle=args.force_style_bundle,
                 write=args.write,
                 prune_sources=args.prune_sources,
+            )
+        elif args.command == "migrate-schema":
+            result = svc.dispatch_operation(
+                "convo.migrate_schema",
+                {"owner": args.owner, "write": bool(args.write)},
             )
         elif args.command == "audit-integrity":
             result = svc.dispatch_operation(

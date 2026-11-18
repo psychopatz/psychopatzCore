@@ -30,8 +30,7 @@ from tools.semantic_harness.codebuilder.portable_runtime import (
     portable_plan_records,
 )
 from tools.semantic_harness.codebuilder.psdl_compact import (
-    COMPACT_PSDL_SCHEMA,
-    PACKAGE_DESCRIPTOR_SCHEMA,
+    CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
 )
 from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
@@ -118,7 +117,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
             (src_root / "package.json").write_text(
                 json.dumps(
                     {
-                        "schema": PACKAGE_DESCRIPTOR_SCHEMA,
+                        "schema": CONVO_ENGINE_PACKAGE_SCHEMA,
                         "version": 1,
                         "package": "PortableDemo",
                         "defaultOwner": "PortableDemo",
@@ -156,7 +155,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
             (src_root / "dialogue/demo/hello.json").write_text(
                 json.dumps(
                     {
-                        "schema": COMPACT_PSDL_SCHEMA,
+                        "schema": CONVO_ENGINE_SCHEMA,
                         "id": "demo.hello",
                         "metadata": {"category": "demo:greeting", "responseAct": "GREET"},
                         "say": {"variants": [{"id": "neutral", "text": {"EN": ["Hello."]}}]},
@@ -320,9 +319,9 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
         ):
             rec = records_by_id[rec_id]
             lineage = rec["lineage"]
-            self.assertEqual(lineage["authoringSchema"], COMPACT_PSDL_SCHEMA)
+            self.assertEqual(lineage["authoringSchema"], CONVO_ENGINE_SCHEMA)
             self.assertEqual(lineage["canonicalSchema"], CONVO_ENGINE_SCHEMA)
-            self.assertEqual(lineage["sourceSchema"], COMPACT_PSDL_SCHEMA)
+            self.assertEqual(lineage["sourceSchema"], CONVO_ENGINE_SCHEMA)
             self.assertTrue(str(lineage.get("sourcePath") or "").endswith(".json"))
 
         # Compatibility verbose psychopatz.convo-engine.v1 input still reports truthful authored schema

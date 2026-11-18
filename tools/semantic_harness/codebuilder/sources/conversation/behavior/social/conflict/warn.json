@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.v2",
+  "schema": "psychopatz.convo-engine.v1",
   "profile": "social_behavior",
   "id": "behavior.warn",
   "act": "WARN",

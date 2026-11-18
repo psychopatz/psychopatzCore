@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.v2",
+  "schema": "psychopatz.convo-engine.v1",
   "id": "offer.question.wellbeing",
   "metadata": {
     "textNamespace": "UI_PNC_Conversation_Suggestion",

@@ -42,7 +42,6 @@ from .portable_runtime import (
     portable_plan_records,
 )
 from .psdl_compact import (
-    COMPACT_PSDL_SCHEMA,
     expand_compact_psdl_document,
 )
 from .semantic_dialogue_ir import (
@@ -780,15 +779,22 @@ def _record_values(
     if not isinstance(document, Mapping):
         raise CompileError("ConvoEngine document must be an object")
     schema = document.get("schema")
-    if schema == COMPACT_PSDL_SCHEMA or (
-        schema is None and package is not None
-    ) or "profile" in document or "textSidecars" in document:
+    has_compact_sugar = (
+        "profile" in document
+        or "textSidecars" in document
+        or (schema is None and package is not None)
+        or (
+            schema == CONVO_ENGINE_SCHEMA
+            and not isinstance(document.get("records"), list)
+        )
+    )
+    if has_compact_sugar:
         expanded = expand_compact_psdl_document(
             document,
             package=package,
             text_loader=text_loader,
         )
-        return [expanded], None, str(schema or COMPACT_PSDL_SCHEMA)
+        return [expanded], None, str(schema or CONVO_ENGINE_SCHEMA)
     if schema not in SUPPORTED_SOURCE_SCHEMAS:
         raise CompileError(
             f"ConvoEngine document.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
@@ -884,7 +890,7 @@ def compile_convo_engine_document(
 ) -> dict[str, Any]:
     """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
     is_compact = (
-        document.get("schema") == COMPACT_PSDL_SCHEMA
+        (document.get("schema") == CONVO_ENGINE_SCHEMA and not isinstance(document.get("records"), list))
         or "profile" in document
         or "textSidecars" in document
         or package is not None

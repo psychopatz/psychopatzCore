@@ -233,6 +233,23 @@ class OperationRegistry:
         )
         self.register(
             OperationDescriptor(
+                id="convo.migrate_schema",
+                mode="command",
+                required_capability=None,
+                worker_requirement="none",
+                mutates_canonical=True,
+                mutates_runtime=False,
+                input_version="1",
+                output_version="1",
+                summary="Preview or apply owner-aware ConvoEngine v1 schema migration across canonical sources.",
+            ),
+            lambda payload: self.service.migrate_convo_engine_schema(
+                owner=payload.get("owner"),
+                write=bool(payload.get("write", False)),
+            ),
+        )
+        self.register(
+            OperationDescriptor(
                 id="convo.audit",
                 mode="query",
                 required_capability=None,

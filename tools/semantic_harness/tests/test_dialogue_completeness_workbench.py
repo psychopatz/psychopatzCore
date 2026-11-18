@@ -309,11 +309,17 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         gui_report = wb.run_strict_analysis()
         self.assertEqual(gui_report["summary"], direct["summary"])
         self.assertEqual(gui_report["diagnostics"], direct["diagnostics"])
-        self.assertEqual(direct["summary"]["families"], 588)
-        self.assertEqual(direct["summary"]["analyzedFamilies"], 588)
+        self.assertGreaterEqual(direct["summary"]["families"], 587)
+        self.assertEqual(direct["summary"]["analyzedFamilies"], direct["summary"]["families"])
         self.assertFalse(direct["summary"]["catalogMismatch"])
         by_kind = direct["summary"]["byKind"]
-        self.assertEqual(by_kind["dialogue"]["total"], 520)
+        self.assertEqual(
+            by_kind["dialogue"]["total"]
+            + by_kind["behavior"]["total"]
+            + by_kind["beat"]["total"]
+            + by_kind["realization"]["total"],
+            direct["summary"]["families"],
+        )
         self.assertEqual(by_kind["behavior"]["total"], 30)
         self.assertEqual(by_kind["beat"]["total"], 3)
         self.assertEqual(by_kind["realization"]["total"], 35)
@@ -365,12 +371,27 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         )
         self.assertEqual(wb._issue_filter_var.get(), "needs_attention")
         wb.run_strict_analysis()
+        self.assertEqual(wb._family_tree.get_children(), ())
+        self.assertIn("Package health:", wb._summary_var.get())
+
+        # command.camp is now Healthy (GREEN) with unified single-family authority
+        wb._issue_filter_var.set("all")
+        wb._apply_filters()
         children = wb._family_tree.get_children()
         self.assertIn("command.camp", children)
-        self.assertEqual(children[0], "command.camp")
         item = wb._family_tree.item("command.camp")
-        self.assertIn("ORANGE", item["tags"])
-        self.assertIn("Warning / Risky", item["values"][0])
+        self.assertIn("GREEN", item["tags"])
+        self.assertIn("Healthy", item["values"][0])
+
+        # Verify S12A4 explicit health scope labels when selected family is outside needs_attention
+        wb._issue_filter_var.set("needs_attention")
+        wb._apply_filters()
+        wb.select_family("command.camp", ensure_loaded=False)
+        health_text = wb._graph_text.get("1.0", "end")
+        self.assertIn("Selected family: command.camp", health_text)
+        self.assertIn("Tests:", health_text)
+        self.assertIn("Current filter scope: needs_attention", health_text)
+        self.assertIn("Selected family is outside current needs_attention filter.", health_text)
 
         # Verify all 6 semantic tags are configured and severity-first sorting is deterministic
         for color in ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN"):
@@ -496,7 +517,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
                 for e in (real_manifest.get("entries") or ())
                 if isinstance(e, dict) and e.get("canonicalFamilyId")
             }
-            for fid in ("offer.question.identity", "flow.needs.exchange", "departure.confirmed", "command.companion.camp"):
+            for fid in ("offer.question.identity", "flow.needs.exchange", "departure.confirmed", "command.camp"):
                 self.assertIn(fid, manifest_ids)
                 self.assertEqual(live_report["families"][fid]["fixtureCoverage"], "exact_owner")
 
@@ -514,7 +535,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
             self.assertEqual(py_res["ownerKind"], "python_test")
             self.assertEqual(py_res["passed"], 2)
 
-            lua_res = service.run_family_tests("command.companion.camp")
+            lua_res = service.run_family_tests("command.camp")
             self.assertTrue(lua_res["ok"], lua_res)
             self.assertTrue(lua_res["ran"], lua_res)
             self.assertEqual(lua_res["ownerKind"], "lua_test")

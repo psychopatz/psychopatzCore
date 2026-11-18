@@ -241,12 +241,32 @@ def _clean_generated_tree(root: Path, *, generated_only: bool = False) -> None:
     root.mkdir(parents=True, exist_ok=True)
 
 
+def _write_text_safe(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        path.write_text(text, encoding="utf-8", newline="\n")
+    except PermissionError:
+        import os
+        import tempfile
+
+        fd, tmp_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=str(path.parent))
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+                handle.write(text)
+            os.replace(tmp_name, path)
+        except Exception:
+            try:
+                os.unlink(tmp_name)
+            except OSError:
+                pass
+            raise
+
+
 def _write_modules(shared_root: Path, rendered: list[tuple[str, str]]) -> list[Path]:
     paths: list[Path] = []
     for module, source in rendered:
         path = shared_root / (module + ".lua")
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(source, encoding="utf-8", newline="\n")
+        _write_text_safe(path, source)
         paths.append(path)
     return paths
 
@@ -267,8 +287,7 @@ def _write_routed_modules(
             dynamic_trading_repository=dynamic_trading_repository,
             runtime_root=project_repository,
         )
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(source, encoding="utf-8", newline="\n")
+        _write_text_safe(path, source)
         paths.append(path)
     return paths
 

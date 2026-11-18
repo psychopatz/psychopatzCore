@@ -19,7 +19,7 @@ from .generation_ownership import (
     resolve_hoomans_repository,
 )
 from .psdl_compact import (
-    PACKAGE_DESCRIPTOR_SCHEMA,
+    CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
     validate_package_descriptor,
 )
@@ -225,7 +225,7 @@ def load_manifest(
         manifest.setdefault("shards", [])
     else:
         manifest = read_json(manifest_path, "Conversation manifest")
-        if manifest.get("schema") not in {CONVERSATION_MANIFEST_SCHEMA, PACKAGE_DESCRIPTOR_SCHEMA}:
+        if manifest.get("schema") not in {CONVERSATION_MANIFEST_SCHEMA, CONVO_ENGINE_PACKAGE_SCHEMA}:
             raise CompileError(
                 f"Conversation manifest requires schema {CONVERSATION_MANIFEST_SCHEMA}"
             )

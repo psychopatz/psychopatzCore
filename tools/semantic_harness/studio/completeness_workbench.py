@@ -567,9 +567,9 @@ class DialogueCompletenessWorkbench:
         bt_total = (by_kind.get("beat") or {}).get("total", 0)
         r_total = (by_kind.get("realization") or {}).get("total", 0)
         self._summary_var.set(
-            f"{summary.get('families', 0)} maintained "
-            f"({d_total} Dialogues, {b_total} Behaviors, {bt_total} Beats, {r_total} Realizations) | "
-            f"errors={summary.get('errors', 0)} | warnings={summary.get('warnings', 0)}"
+            f"Package health: {summary.get('families', 0)} families · "
+            f"{summary.get('errors', 0)} error(s) · {summary.get('warnings', 0)} warning(s) "
+            f"({d_total} Dialogues, {b_total} Behaviors, {bt_total} Beats, {r_total} Realizations)"
         )
         all_families = (self._report.get("families") or {}).values()
         needs_fixing = sum(1 for r in all_families if int(r.get("errorCount", 0)) > 0)
@@ -722,6 +722,9 @@ class DialogueCompletenessWorkbench:
     def _format_human_health_summary(
         row: dict[str, Any],
         family_diags: list[dict[str, Any]],
+        *,
+        issue_filter: str = "all",
+        in_filtered: bool = True,
     ) -> str:
         fid = str(row.get("familyId") or "")
         kind = str(row.get("kind") or "dialogue")
@@ -730,10 +733,18 @@ class DialogueCompletenessWorkbench:
         handled = int(row.get("handledBranches", 0))
         reachable = int(row.get("reachableBranches", 1))
         repeat_pol = str(row.get("repeatPolicy") or "unspecified")
+        coverage = str(row.get("fixtureCoverage") or "unknown")
         deps = row.get("dependencies") or ()
         detail = row.get("kindDetail") or {}
 
-        lines: list[str] = []
+        lines: list[str] = [
+            f"Selected family: {fid} — {status_label}",
+            f"Tests: {coverage}",
+            f"Current filter scope: {issue_filter}",
+        ]
+        if not in_filtered:
+            lines.append(f"Selected family is outside current {issue_filter} filter.")
+        lines.append("")
         if family_diags:
             lines.append(f"Needs attention — {fid} [{status_label}]")
             lines.append("")
@@ -790,9 +801,16 @@ class DialogueCompletenessWorkbench:
             d for d in (self._report.get("diagnostics") or ())
             if d.get("familyId") == fid
         ]
+        issue_filter = str(self._issue_filter_var.get() or "all")
+        in_filtered = any(r.get("familyId") == fid for r in self._filtered_rows)
         self._set_text(
             self._graph_text,
-            self._format_human_health_summary(row, self._family_diagnostics),
+            self._format_human_health_summary(
+                row,
+                self._family_diagnostics,
+                issue_filter=issue_filter,
+                in_filtered=in_filtered,
+            ),
         )
 
         graph = row.get("graph") or {}

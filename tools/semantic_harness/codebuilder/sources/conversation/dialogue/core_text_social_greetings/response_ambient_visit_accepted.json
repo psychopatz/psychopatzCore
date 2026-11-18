@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.v2",
+  "schema": "psychopatz.convo-engine.v1",
   "id": "response.ambient_visit.accepted",
   "metadata": {
     "textKey": "response.ambient_visit.accepted.1",

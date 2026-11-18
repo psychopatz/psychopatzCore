@@ -90,13 +90,13 @@ def _check_source_file(
         return
 
     schema = doc.get("schema")
-    if schema not in {CONVO_ENGINE_SCHEMA, "psychopatz.psdl.v2"}:
-        code = "legacy_schema_present" if schema == LEGACY_PSDL_SCHEMA else "unexpected_schema"
+    if schema != CONVO_ENGINE_SCHEMA:
+        code = "legacy_schema_present" if schema in {LEGACY_PSDL_SCHEMA, "psychopatz.psdl.v2"} else "unexpected_schema"
         violations.append({
             "code": code,
             "owner": owner,
             "path": str(file_path),
-            "message": f"{rel} uses schema {schema!r}, expected {CONVO_ENGINE_SCHEMA!r} or 'psychopatz.psdl.v2'",
+            "message": f"{rel} uses schema {schema!r}, expected {CONVO_ENGINE_SCHEMA!r}",
         })
 
     if "records" in doc:
@@ -226,6 +226,78 @@ def discover_convo_engine_repositories(
         HOOMANS_OWNER: snapshot.repository_for(HOOMANS_OWNER),
         DT_COMMON_OWNER: snapshot.repository_for(DT_COMMON_OWNER),
     }
+
+
+def audit_split_action_authority(runtime_plans: list[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """Detect ``LEGACY_SPLIT_AUTHORITY`` where one mutating semantic action is split across families."""
+    by_action: dict[str, list[dict[str, Any]]] = {}
+    by_execute: dict[str, list[dict[str, Any]]] = {}
+    for plan in runtime_plans:
+        fid = str(plan.get("id") or "")
+        owner = str(plan.get("owner") or CORE_OWNER)
+        payload = plan.get("payload") if isinstance(plan.get("payload"), Mapping) else {}
+        invoke = payload.get("invoke") if isinstance(payload.get("invoke"), Mapping) else {}
+        invoke_action = str(invoke.get("action") or "").strip().upper()
+        aff = payload.get("affordance") if isinstance(payload.get("affordance"), Mapping) else {}
+        aff_meta = aff.get("metadata") if isinstance(aff.get("metadata"), Mapping) else {}
+        aff_action = str(aff_meta.get("action") or "").strip().upper()
+        exec_val = payload.get("execute")
+        exec_id = (
+            str(exec_val.get("use") or "").strip()
+            if isinstance(exec_val, Mapping)
+            else str(exec_val or "").strip()
+        )
+        info = {
+            "id": fid,
+            "owner": owner,
+            "path": str(((plan.get("lineage") or {}).get("sourcePath")) or fid),
+            "invokeAction": invoke_action,
+            "affordanceAction": aff_action,
+            "execute": exec_id,
+            "hasStatePolicy": bool(payload.get("statePolicy")),
+            "hasReply": bool(payload.get("reply")),
+            "hasAffordance": bool(aff),
+            "hasWhen": plan.get("when") is not None or payload.get("when") is not None,
+        }
+        for act in {a for a in (invoke_action, aff_action) if a}:
+            by_action.setdefault(act, []).append(info)
+        if exec_id:
+            by_execute.setdefault(exec_id, []).append(info)
+
+    violations: list[dict[str, Any]] = []
+    seen_pairs: set[tuple[str, tuple[str, ...]]] = set()
+
+    def _check_group(group_key: str, kind: str, items: list[dict[str, Any]]) -> None:
+        if len(items) < 2:
+            return
+        policy_only = [i for i in items if i["hasStatePolicy"] and not i["execute"] and not i["hasReply"]]
+        content_only = [i for i in items if (i["execute"] or i["hasReply"] or i["hasAffordance"]) and not i["hasStatePolicy"]]
+        has_split = bool(policy_only and content_only)
+        mutating_unconditional = [i for i in items if i["execute"] and not i["hasWhen"]]
+        if not has_split and len(mutating_unconditional) < 2:
+            return
+        family_ids = tuple(sorted(i["id"] for i in items))
+        dedupe_key = (f"{kind}:{group_key}", family_ids)
+        if dedupe_key in seen_pairs:
+            return
+        seen_pairs.add(dedupe_key)
+        violations.append({
+            "code": "LEGACY_SPLIT_AUTHORITY",
+            "owner": items[0]["owner"],
+            "path": items[0]["path"],
+            "action": group_key,
+            "families": list(family_ids),
+            "message": (
+                f"{kind} {group_key!r} is split across multiple families: "
+                + ", ".join(family_ids)
+            ),
+        })
+
+    for action_name, items in sorted(by_action.items()):
+        _check_group(action_name, "action", items)
+    for exec_name, items in sorted(by_execute.items()):
+        _check_group(exec_name, "execute", items)
+    return violations
 
 
 def audit_convo_engine_workspace(
@@ -406,6 +478,11 @@ def audit_convo_engine_workspace(
                 "path": key,
                 "message": f"Two-pass build output differed for {key}",
             })
+
+    if compiled is not None:
+        split_violations = audit_split_action_authority(compiled.get("psdlRuntimePlans") or [])
+        stats["splitAuthorityViolations"] = len(split_violations)
+        violations.extend(split_violations)
 
     leakage = scan_active_legacy_name_leakage(
         core_repository=core_root,

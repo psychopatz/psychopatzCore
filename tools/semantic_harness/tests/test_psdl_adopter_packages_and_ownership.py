@@ -20,10 +20,10 @@ from tools.semantic_harness.codebuilder.conversation_compiler import (
 )
 from tools.semantic_harness.codebuilder.errors import CompileError
 from tools.semantic_harness.codebuilder.psdl_compact import (
-    COMPACT_PSDL_SCHEMA,
-    PACKAGE_DESCRIPTOR_SCHEMA,
+    CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
 )
+from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
 from tools.semantic_harness.codebuilder.psdl_inspect import locate_psdl
 
 CORE_ROOT = Path(__file__).resolve().parents[3]
@@ -79,7 +79,7 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
             (pkg_dir / "package.json").write_text(
                 json.dumps(
                     {
-                        "schema": PACKAGE_DESCRIPTOR_SCHEMA,
+                        "schema": CONVO_ENGINE_PACKAGE_SCHEMA,
                         "version": 1,
                         "package": "ProjectHoomans",
                         "defaultOwner": "ProjectHoomans",

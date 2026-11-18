@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.v2",
+  "schema": "psychopatz.convo-engine.v1",
   "id": "behavior.acknowledge_memory",
   "act": "ACKNOWLEDGE_MEMORY",
   "baseRelevance": 0.5,

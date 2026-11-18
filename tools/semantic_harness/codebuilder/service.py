@@ -1064,6 +1064,23 @@ class SemanticLabAuthoringService:
             prune_source=prune_source,
         )
 
+    def migrate_convo_engine_schema(
+        self,
+        *,
+        owner: str | None = None,
+        write: bool = False,
+    ) -> dict[str, Any]:
+        """Migrate ``psychopatz.psdl.v2`` / ``psychopatz.psdl.package.v2`` to ConvoEngine v1."""
+        from .convo_engine_authoring import migrate_convo_engine_schema as _migrate_schema
+
+        source_roots: dict[str, Path] = {}
+        for contribution in self.workspace_snapshot.source_contributions:
+            conv_root = Path(contribution.source_root)
+            if conv_root.name != "conversation" and (conv_root / "conversation").is_dir():
+                conv_root = conv_root / "conversation"
+            source_roots[str(contribution.owner)] = conv_root
+        return _migrate_schema(source_roots, owner=owner, write=write)
+
     def migrate_legacy_text_identity(
         self,
         *,

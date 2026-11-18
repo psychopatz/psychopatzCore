@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.v2",
+  "schema": "psychopatz.convo-engine.v1",
   "id": "question.activity.dataset.keep_moving",
   "metadata": {
     "category": "psychopatzcore:knowledge",

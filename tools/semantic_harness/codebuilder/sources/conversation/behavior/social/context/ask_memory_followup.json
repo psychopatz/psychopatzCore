@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.psdl.v2",
+  "schema": "psychopatz.convo-engine.v1",
   "id": "behavior.ask_memory_followup",
   "act": "ASK_MEMORY_FOLLOWUP",
   "baseRelevance": 0.45,

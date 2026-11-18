@@ -854,7 +854,23 @@ def reconcile_apply(
                 if existing_text == content_to_write:
                     continue
             abs_path.parent.mkdir(parents=True, exist_ok=True)
-            abs_path.write_text(content_to_write, encoding="utf-8", newline="\n")
+            try:
+                abs_path.write_text(content_to_write, encoding="utf-8", newline="\n")
+            except PermissionError:
+                import os
+                import tempfile
+
+                fd, tmp_name = tempfile.mkstemp(prefix=f".{abs_path.name}.", dir=str(abs_path.parent))
+                try:
+                    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+                        handle.write(content_to_write)
+                    os.replace(tmp_name, abs_path)
+                except Exception:
+                    try:
+                        os.unlink(tmp_name)
+                    except OSError:
+                        pass
+                    raise
             written_files.append(f"{owner}:{row.path}")
 
         write_owner_receipt(resolved_receipt_root, owner, ledger)

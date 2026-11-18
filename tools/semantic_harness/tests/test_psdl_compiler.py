@@ -233,7 +233,7 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertEqual(loaded["kind"], "dialogue")
         self.assertEqual(loaded["canonicalID"], "action.trade")
         document = loaded["document"]
-        self.assertEqual(document["schema"], "psychopatz.psdl.v2")
+        self.assertEqual(document["schema"], "psychopatz.convo-engine.v1")
         self.assertEqual(document["id"], "action.trade")
         self.assertIn("affordance", document)
         self.assertIn("say", document)
