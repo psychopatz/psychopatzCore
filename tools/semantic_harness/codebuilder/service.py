@@ -1073,6 +1073,36 @@ class SemanticLabAuthoringService:
             dynamic_trading_repository=self.dynamic_trading_repository,
         )
 
+    def collapse_convo_engine_families(
+        self,
+        source_paths: list[str | Path],
+        dest_path: str | Path,
+        *,
+        target_id: str,
+        default_owner: str | None = None,
+        extra_slots: dict[str, Any] | None = None,
+        extra_roles: dict[str, Any] | None = None,
+        variant_ids: dict[str, str] | None = None,
+        drop_when: bool = False,
+        write: bool = False,
+        prune_sources: bool = False,
+    ) -> dict[str, Any]:
+        """Collapse redundant ConvoEngine families into one parameterized family."""
+        from .convo_engine_authoring import collapse_convo_engine_families as _collapse
+
+        return _collapse(
+            [Path(p) for p in source_paths],
+            Path(dest_path),
+            target_id=target_id,
+            default_owner=default_owner,
+            extra_slots=extra_slots,
+            extra_roles=extra_roles,
+            variant_ids=variant_ids,
+            drop_when=drop_when,
+            write=write,
+            prune_sources=prune_sources,
+        )
+
     def migrate_legacy_text_identity(
         self,
         *,

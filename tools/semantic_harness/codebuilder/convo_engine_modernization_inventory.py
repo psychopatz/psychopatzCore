@@ -438,7 +438,10 @@ def build_modernization_inventory(
         class_reason = ""
 
         if kind == "dialogue":
-            if part_set & _COUNT_TOKENS:
+            count_hits = part_set & _COUNT_TOKENS
+            if "group" in count_hits and fid.startswith("ui.suggestion.group."):
+                count_hits = count_hits - {"group"}
+            if count_hits:
                 classes.append("REDUNDANT_SPECIALIZATION")
                 dup_group = f"participant_count:{owner}:{broad2}"
                 class_reason = "participant_count_token_in_id"

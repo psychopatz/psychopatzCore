@@ -467,6 +467,222 @@ def source_fingerprint_mismatch(
 ) -> dict[str, Any] | None:
     if not expected_source_fingerprint or not target.is_file():
         return None
+
+
+def collapse_convo_engine_families(
+    source_paths: list[Path],
+    dest_path: Path,
+    *,
+    target_id: str,
+    default_owner: str | None = None,
+    extra_slots: Mapping[str, Any] | None = None,
+    extra_roles: Mapping[str, Any] | None = None,
+    variant_ids: Mapping[str, str] | None = None,
+    drop_when: bool = False,
+    write: bool = False,
+    prune_sources: bool = False,
+) -> dict[str, Any]:
+    """Deterministically collapse redundant contextual/variant ConvoEngine families into one family."""
+    from .convo_engine_compiler import compile_convo_engine_document
+
+    resolved_sources = [Path(p).expanduser().resolve() for p in source_paths]
+    if not resolved_sources:
+        raise CompileError("collapse_convo_engine_families requires at least one source path")
+    resolved_dest = Path(dest_path).expanduser().resolve()
+
+    loaded_docs = [(p, load_json_document(p)) for p in resolved_sources]
+    first_doc = loaded_docs[0][1]
+    owner = str(first_doc.get("owner") or default_owner or "").strip()
+    if not owner:
+        raise CompileError("collapse_convo_engine_families could not resolve owner")
+
+    merged_roles: dict[str, Any] = {}
+    merged_slots: dict[str, Any] = {}
+    merged_domains: list[dict[str, Any]] = []
+    merged_topics: list[dict[str, Any]] = []
+    merged_events: list[dict[str, Any]] = []
+    merged_activities: list[dict[str, Any]] = []
+    merged_memories: list[dict[str, Any]] = []
+    seen_domains: set[str] = set()
+    seen_topics: set[str] = set()
+    seen_events: set[str] = set()
+    seen_activities: set[str] = set()
+    seen_memories: set[str] = set()
+
+    merged_variants: list[dict[str, Any]] = []
+    merged_text_rows: list[dict[str, Any]] = []
+    seen_text_keys: set[str] = set()
+
+    def _add_unique(dst: list[dict[str, Any]], seen: set[str], items: Any, key_field: str) -> None:
+        if not isinstance(items, list):
+            return
+        for item in items:
+            if isinstance(item, Mapping):
+                k = str(item.get(key_field) or json.dumps(item, sort_keys=True))
+                if k not in seen:
+                    seen.add(k)
+                    dst.append(copy.deepcopy(dict(item)))
+
+    for src_path, doc in loaded_docs:
+        src_id = str(doc.get("id") or "")
+        sidecar_texts: dict[str, dict[str, Any]] = {}
+        if isinstance(doc.get("textSidecars"), Mapping):
+            for lang, rel_sidecar in doc["textSidecars"].items():
+                sc_path = (src_path.parent / str(rel_sidecar)).resolve()
+                if sc_path.is_file():
+                    sidecar_texts[str(lang)] = load_json_document(sc_path)
+        if variant_ids and src_id in variant_ids:
+            var_id = str(variant_ids[src_id])
+        elif src_id.startswith(f"{target_id}."):
+            var_id = src_id[len(target_id) + 1:]
+        elif src_id == target_id:
+            var_id = "default"
+        else:
+            var_id = src_id.split(".")[-1] if "." in src_id else src_id
+
+        if isinstance(doc.get("roles"), Mapping):
+            for k, v in doc["roles"].items():
+                merged_roles.setdefault(str(k), copy.deepcopy(v))
+        if isinstance(doc.get("slots"), Mapping):
+            for k, v in doc["slots"].items():
+                merged_slots.setdefault(str(k), copy.deepcopy(v))
+        _add_unique(merged_domains, seen_domains, doc.get("domains"), "domain")
+        _add_unique(merged_topics, seen_topics, doc.get("topics"), "id")
+        _add_unique(merged_events, seen_events, doc.get("events"), "id")
+        _add_unique(merged_activities, seen_activities, doc.get("activities"), "id")
+        _add_unique(merged_memories, seen_memories, doc.get("memories"), "id")
+
+        meta = doc.get("metadata") if isinstance(doc.get("metadata"), Mapping) else {}
+        if isinstance(meta.get("textRows"), list):
+            for row in meta["textRows"]:
+                if isinstance(row, Mapping):
+                    tk = str(row.get("key") or "")
+                    if tk and tk not in seen_text_keys:
+                        seen_text_keys.add(tk)
+                        merged_text_rows.append(copy.deepcopy(dict(row)))
+        elif isinstance(meta.get("textKey"), str) and meta["textKey"].strip():
+            tk = meta["textKey"].strip()
+            if tk not in seen_text_keys:
+                say_node = doc.get("say") if isinstance(doc.get("say"), Mapping) else {}
+                variants = say_node.get("variants") if isinstance(say_node.get("variants"), list) else []
+                first_text = variants[0].get("text") if variants and isinstance(variants[0], Mapping) else {}
+                if isinstance(first_text, Mapping):
+                    row_text: dict[str, Any] = {}
+                    for lang, val in first_text.items():
+                        row_text[str(lang)] = val[0] if isinstance(val, list) and val else val
+                    seen_text_keys.add(tk)
+                    merged_text_rows.append({"key": tk, "text": row_text})
+
+        say_node = doc.get("say")
+        if isinstance(say_node, Mapping) and isinstance(say_node.get("variants"), list):
+            for idx, v in enumerate(say_node["variants"]):
+                if not isinstance(v, Mapping):
+                    continue
+                vc = copy.deepcopy(dict(v))
+                orig_vid = str(vc.get("id") or "neutral")
+                if "text" not in vc and sidecar_texts:
+                    inlined_text: dict[str, Any] = {}
+                    for lang, sc_map in sidecar_texts.items():
+                        val = sc_map.get(orig_vid)
+                        if val is None and isinstance(sc_map.get("variants"), Mapping):
+                            val = sc_map["variants"].get(orig_vid)
+                        if val is None and isinstance(sc_map.get("say"), Mapping):
+                            val = sc_map["say"].get(orig_vid)
+                        if val is not None:
+                            inlined_text[lang] = val if isinstance(val, list) else [val]
+                    if inlined_text:
+                        vc["text"] = inlined_text
+                if orig_vid in {"neutral", "default"}:
+                    vc["id"] = var_id
+                else:
+                    vc["id"] = f"{var_id}.{orig_vid}" if len(say_node["variants"]) > 1 else var_id
+                merged_variants.append(vc)
+        elif isinstance(say_node, Mapping):
+            # Multi-key say (e.g. "1": {"variants": [...]})
+            for rkey in sorted(say_node.keys()):
+                rnode = say_node[rkey]
+                if isinstance(rnode, Mapping) and isinstance(rnode.get("variants"), list):
+                    for v in rnode["variants"]:
+                        if isinstance(v, Mapping):
+                            vc = copy.deepcopy(dict(v))
+                            vc["id"] = f"{var_id}.say.{rkey}" if len(say_node) > 1 else var_id
+                            merged_variants.append(vc)
+
+    if extra_roles:
+        for k, v in extra_roles.items():
+            merged_roles[str(k)] = copy.deepcopy(v)
+    if extra_slots:
+        for k, v in extra_slots.items():
+            merged_slots[str(k)] = copy.deepcopy(v)
+
+    base_meta = copy.deepcopy(dict(first_doc.get("metadata") or {}))
+    base_meta.pop("textKey", None)
+    if merged_text_rows:
+        base_meta["textRows"] = merged_text_rows
+
+    collapsed: dict[str, Any] = {
+        "schema": CONVO_ENGINE_SCHEMA,
+        "id": target_id,
+        "owner": owner,
+    }
+    if not drop_when and first_doc.get("when") is not None:
+        collapsed["when"] = copy.deepcopy(first_doc["when"])
+    if base_meta:
+        collapsed["metadata"] = base_meta
+    if merged_variants:
+        collapsed["say"] = {"variants": merged_variants}
+    elif "say" in first_doc:
+        collapsed["say"] = copy.deepcopy(first_doc["say"])
+    if merged_roles:
+        collapsed["roles"] = merged_roles
+    if merged_slots:
+        collapsed["slots"] = merged_slots
+    if merged_domains:
+        collapsed["domains"] = merged_domains
+    if merged_topics:
+        collapsed["topics"] = merged_topics
+    if merged_events:
+        collapsed["events"] = merged_events
+    if merged_activities:
+        collapsed["activities"] = merged_activities
+    if merged_memories:
+        collapsed["memories"] = merged_memories
+
+    compile_convo_engine_document(
+        collapsed,
+        source_path=resolved_dest,
+        default_owner=owner,
+        validate_cross_references=False,
+    )
+
+    writes: list[str] = []
+    removed: list[str] = []
+    if write:
+        resolved_dest.parent.mkdir(parents=True, exist_ok=True)
+        resolved_dest.write_text(
+            json.dumps(collapsed, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        writes.append(str(resolved_dest))
+        if prune_sources:
+            for sp in resolved_sources:
+                if sp != resolved_dest and sp.is_file():
+                    sp.unlink()
+                    removed.append(str(sp))
+
+    return {
+        "ok": True,
+        "previewOnly": not write,
+        "effectFree": not write,
+        "targetId": target_id,
+        "destPath": str(resolved_dest),
+        "sourceCount": len(resolved_sources),
+        "variantCount": len(merged_variants),
+        "textRowCount": len(merged_text_rows),
+        "writes": writes,
+        "removedSources": removed,
+        "document": collapsed,
+    }
     current = load_json_document(target)
     actual = fingerprint(current)
     if actual != expected_source_fingerprint:
@@ -479,3 +695,219 @@ def source_fingerprint_mismatch(
             "writes": [],
         }
     return None
+
+
+def collapse_convo_engine_families(
+    source_paths: list[Path],
+    dest_path: Path,
+    *,
+    target_id: str,
+    default_owner: str | None = None,
+    extra_slots: Mapping[str, Any] | None = None,
+    extra_roles: Mapping[str, Any] | None = None,
+    variant_ids: Mapping[str, str] | None = None,
+    drop_when: bool = False,
+    write: bool = False,
+    prune_sources: bool = False,
+) -> dict[str, Any]:
+    """Deterministically collapse redundant contextual/variant ConvoEngine families into one family."""
+    from .convo_engine_compiler import compile_convo_engine_document
+
+    resolved_sources = [Path(p).expanduser().resolve() for p in source_paths]
+    if not resolved_sources:
+        raise CompileError("collapse_convo_engine_families requires at least one source path")
+    resolved_dest = Path(dest_path).expanduser().resolve()
+
+    loaded_docs = [(p, load_json_document(p)) for p in resolved_sources]
+    first_doc = loaded_docs[0][1]
+    owner = str(first_doc.get("owner") or default_owner or "").strip()
+    if not owner:
+        raise CompileError("collapse_convo_engine_families could not resolve owner")
+
+    merged_roles: dict[str, Any] = {}
+    merged_slots: dict[str, Any] = {}
+    merged_domains: list[dict[str, Any]] = []
+    merged_topics: list[dict[str, Any]] = []
+    merged_events: list[dict[str, Any]] = []
+    merged_activities: list[dict[str, Any]] = []
+    merged_memories: list[dict[str, Any]] = []
+    seen_domains: set[str] = set()
+    seen_topics: set[str] = set()
+    seen_events: set[str] = set()
+    seen_activities: set[str] = set()
+    seen_memories: set[str] = set()
+
+    merged_variants: list[dict[str, Any]] = []
+    merged_text_rows: list[dict[str, Any]] = []
+    seen_text_keys: set[str] = set()
+
+    def _add_unique(dst: list[dict[str, Any]], seen: set[str], items: Any, key_field: str) -> None:
+        if not isinstance(items, list):
+            return
+        for item in items:
+            if isinstance(item, Mapping):
+                k = str(item.get(key_field) or json.dumps(item, sort_keys=True))
+                if k not in seen:
+                    seen.add(k)
+                    dst.append(copy.deepcopy(dict(item)))
+
+    for src_path, doc in loaded_docs:
+        src_id = str(doc.get("id") or "")
+        sidecar_texts: dict[str, dict[str, Any]] = {}
+        if isinstance(doc.get("textSidecars"), Mapping):
+            for lang, rel_sidecar in doc["textSidecars"].items():
+                sc_path = (src_path.parent / str(rel_sidecar)).resolve()
+                if sc_path.is_file():
+                    sidecar_texts[str(lang)] = load_json_document(sc_path)
+        if variant_ids and src_id in variant_ids:
+            var_id = str(variant_ids[src_id])
+        elif src_id.startswith(f"{target_id}."):
+            var_id = src_id[len(target_id) + 1:]
+        elif src_id == target_id:
+            var_id = "default"
+        else:
+            var_id = src_id.split(".")[-1] if "." in src_id else src_id
+
+        if isinstance(doc.get("roles"), Mapping):
+            for k, v in doc["roles"].items():
+                merged_roles.setdefault(str(k), copy.deepcopy(v))
+        if isinstance(doc.get("slots"), Mapping):
+            for k, v in doc["slots"].items():
+                merged_slots.setdefault(str(k), copy.deepcopy(v))
+        _add_unique(merged_domains, seen_domains, doc.get("domains"), "domain")
+        _add_unique(merged_topics, seen_topics, doc.get("topics"), "id")
+        _add_unique(merged_events, seen_events, doc.get("events"), "id")
+        _add_unique(merged_activities, seen_activities, doc.get("activities"), "id")
+        _add_unique(merged_memories, seen_memories, doc.get("memories"), "id")
+
+        meta = doc.get("metadata") if isinstance(doc.get("metadata"), Mapping) else {}
+        if isinstance(meta.get("textRows"), list):
+            for row in meta["textRows"]:
+                if isinstance(row, Mapping):
+                    tk = str(row.get("key") or "")
+                    if tk and tk not in seen_text_keys:
+                        seen_text_keys.add(tk)
+                        merged_text_rows.append(copy.deepcopy(dict(row)))
+        elif isinstance(meta.get("textKey"), str) and meta["textKey"].strip():
+            tk = meta["textKey"].strip()
+            if tk not in seen_text_keys:
+                say_node = doc.get("say") if isinstance(doc.get("say"), Mapping) else {}
+                variants = say_node.get("variants") if isinstance(say_node.get("variants"), list) else []
+                first_text = variants[0].get("text") if variants and isinstance(variants[0], Mapping) else {}
+                if isinstance(first_text, Mapping):
+                    row_text: dict[str, Any] = {}
+                    for lang, val in first_text.items():
+                        row_text[str(lang)] = val[0] if isinstance(val, list) and val else val
+                    seen_text_keys.add(tk)
+                    merged_text_rows.append({"key": tk, "text": row_text})
+
+        say_node = doc.get("say")
+        if isinstance(say_node, Mapping) and isinstance(say_node.get("variants"), list):
+            for idx, v in enumerate(say_node["variants"]):
+                if not isinstance(v, Mapping):
+                    continue
+                vc = copy.deepcopy(dict(v))
+                orig_vid = str(vc.get("id") or "neutral")
+                if "text" not in vc and sidecar_texts:
+                    inlined_text: dict[str, Any] = {}
+                    for lang, sc_map in sidecar_texts.items():
+                        val = sc_map.get(orig_vid)
+                        if val is None and isinstance(sc_map.get("variants"), Mapping):
+                            val = sc_map["variants"].get(orig_vid)
+                        if val is None and isinstance(sc_map.get("say"), Mapping):
+                            val = sc_map["say"].get(orig_vid)
+                        if val is not None:
+                            inlined_text[lang] = val if isinstance(val, list) else [val]
+                    if inlined_text:
+                        vc["text"] = inlined_text
+                if orig_vid in {"neutral", "default"}:
+                    vc["id"] = var_id
+                else:
+                    vc["id"] = f"{var_id}.{orig_vid}" if len(say_node["variants"]) > 1 else var_id
+                merged_variants.append(vc)
+        elif isinstance(say_node, Mapping):
+            # Multi-key say (e.g. "1": {"variants": [...]})
+            for rkey in sorted(say_node.keys()):
+                rnode = say_node[rkey]
+                if isinstance(rnode, Mapping) and isinstance(rnode.get("variants"), list):
+                    for v in rnode["variants"]:
+                        if isinstance(v, Mapping):
+                            vc = copy.deepcopy(dict(v))
+                            vc["id"] = f"{var_id}.say.{rkey}" if len(say_node) > 1 else var_id
+                            merged_variants.append(vc)
+
+    if extra_roles:
+        for k, v in extra_roles.items():
+            merged_roles[str(k)] = copy.deepcopy(v)
+    if extra_slots:
+        for k, v in extra_slots.items():
+            merged_slots[str(k)] = copy.deepcopy(v)
+
+    base_meta = copy.deepcopy(dict(first_doc.get("metadata") or {}))
+    base_meta.pop("textKey", None)
+    if merged_text_rows:
+        base_meta["textRows"] = merged_text_rows
+
+    collapsed: dict[str, Any] = {
+        "schema": CONVO_ENGINE_SCHEMA,
+        "id": target_id,
+        "owner": owner,
+    }
+    if not drop_when and first_doc.get("when") is not None:
+        collapsed["when"] = copy.deepcopy(first_doc["when"])
+    if base_meta:
+        collapsed["metadata"] = base_meta
+    if merged_variants:
+        collapsed["say"] = {"variants": merged_variants}
+    elif "say" in first_doc:
+        collapsed["say"] = copy.deepcopy(first_doc["say"])
+    if merged_roles:
+        collapsed["roles"] = merged_roles
+    if merged_slots:
+        collapsed["slots"] = merged_slots
+    if merged_domains:
+        collapsed["domains"] = merged_domains
+    if merged_topics:
+        collapsed["topics"] = merged_topics
+    if merged_events:
+        collapsed["events"] = merged_events
+    if merged_activities:
+        collapsed["activities"] = merged_activities
+    if merged_memories:
+        collapsed["memories"] = merged_memories
+
+    compile_convo_engine_document(
+        collapsed,
+        source_path=resolved_dest,
+        default_owner=owner,
+        validate_cross_references=False,
+    )
+
+    writes: list[str] = []
+    removed: list[str] = []
+    if write:
+        resolved_dest.parent.mkdir(parents=True, exist_ok=True)
+        resolved_dest.write_text(
+            json.dumps(collapsed, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        writes.append(str(resolved_dest))
+        if prune_sources:
+            for sp in resolved_sources:
+                if sp != resolved_dest and sp.is_file():
+                    sp.unlink()
+                    removed.append(str(sp))
+
+    return {
+        "ok": True,
+        "previewOnly": not write,
+        "effectFree": not write,
+        "targetId": target_id,
+        "destPath": str(resolved_dest),
+        "sourceCount": len(resolved_sources),
+        "variantCount": len(merged_variants),
+        "textRowCount": len(merged_text_rows),
+        "writes": writes,
+        "removedSources": removed,
+        "document": collapsed,
+    }
