@@ -244,7 +244,8 @@ def _verify_retention_claim(
     if not reason:
         return False, {"valid": False, "reason": "empty_semantic_reason", "evidenceCode": code}
 
-    if len(member_records) < 2:
+    member_count = len(member_records)
+    if member_count < 2:
         return False, {"valid": False, "reason": "single_member_cannot_claim_group_retention", "evidenceCode": code}
 
     if code == "DISTINCT_GAMEPLAY_STATE_CONTRACT":
@@ -253,51 +254,121 @@ def _verify_retention_claim(
                 r.get("executeContract"),
                 repr((p.get("payload") or {}).get("statePolicy")),
                 repr((p.get("payload") or {}).get("postconditions")),
+                repr(((p.get("payload") or {}).get("invoke") or {}).get("action")),
             )
             for r, p in zip(member_records, member_plans)
         }
-        ok = len(contracts) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctContracts": len(contracts)}
+        ok = len(contracts) == member_count
+        return ok, {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason,
+            "memberCount": member_count,
+            "distinctContracts": len(contracts),
+        }
 
     if code == "DISTINCT_SEMANTIC_ACT_OR_INTENT":
         acts = {
             (r.get("semanticAct"), r.get("semanticIntent"), r.get("semanticSubject"))
             for r in member_records
         }
-        ok = len(acts) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctActs": len(acts)}
+        ok = len(acts) == member_count
+        return ok, {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason,
+            "memberCount": member_count,
+            "distinctActs": len(acts),
+        }
 
     if code == "INCOMPATIBLE_ROLE_CARDINALITY":
         roles = {
             (tuple(r.get("currentRoles") or ()), repr((p.get("payload") or {}).get("participants")))
             for r, p in zip(member_records, member_plans)
         }
-        ok = len(roles) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctRoleContracts": len(roles)}
+        ok = len(roles) == member_count
+        return ok, {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason,
+            "memberCount": member_count,
+            "distinctRoleContracts": len(roles),
+        }
 
     if code == "DISTINCT_DOMAIN_AUTHORITY":
         auths = {
             (r.get("executeContract"), tuple(r.get("domainRefHooks") or ()), repr((p.get("payload") or {}).get("action")))
             for r, p in zip(member_records, member_plans)
         }
-        ok = len(auths) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctAuthorities": len(auths)}
+        ok = len(auths) == member_count
+        return ok, {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason,
+            "memberCount": member_count,
+            "distinctAuthorities": len(auths),
+        }
 
     if code == "INCOMPATIBLE_ADMISSION_REPEAT_CLOSURE":
         policies = {
             (r.get("repeatPolicy"), r.get("closurePolicy"), repr((p.get("payload") or {}).get("inputPolicy")))
             for r, p in zip(member_records, member_plans)
         }
-        ok = len(policies) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctPolicies": len(policies)}
+        ok = len(policies) == member_count
+        return ok, {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason,
+            "memberCount": member_count,
+            "distinctPolicies": len(policies),
+        }
 
     if code == "NON_PARAMETERIZABLE_PREDICATES":
-        preds = {
-            repr(p.get("when") if p.get("when") is not None else (p.get("payload") or {}).get("when"))
-            for p in member_plans
+        pred_contracts = set()
+        runtime_block_ids = set()
+        text_targets = set()
+        auth_contracts = set()
+        for r, p in zip(member_records, member_plans):
+            payload = p.get("payload") if isinstance(p.get("payload"), Mapping) else {}
+            meta = payload.get("metadata") if isinstance(payload.get("metadata"), Mapping) else {}
+            resp = payload.get("response") if isinstance(payload.get("response"), Mapping) else {}
+            when_val = p.get("when") if p.get("when") is not None else payload.get("when")
+            resp_act = resp.get("act")
+            offers_repr = repr(resp.get("turns")) if resp else None
+            pred_contracts.add((repr(when_val), resp_act, offers_repr, r.get("executeContract")))
+            rb_id = str(meta.get("runtimeBlockID") or "").strip()
+            if rb_id:
+                runtime_block_ids.add(rb_id)
+            tt = str(meta.get("textTarget") or "").strip()
+            if tt:
+                text_targets.add(tt)
+            auth_contracts.add((
+                r.get("executeContract"),
+                resp_act,
+                offers_repr,
+                repr(payload.get("statePolicy")),
+            ))
+
+        blocker = str(claim.get("nonParameterizableBy") or "").strip()
+        blocker_ok = False
+        if blocker == "runtimeBlockID":
+            blocker_ok = len(runtime_block_ids) == member_count and (
+                len(text_targets) == member_count or len(auth_contracts) > 1
+            )
+        elif blocker == "incompatibleAuthorityOrResponse":
+            blocker_ok = len(auth_contracts) == member_count
+
+        ok = (len(pred_contracts) == member_count) and blocker_ok
+        result: dict[str, Any] = {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason if ok else "predicates_safely_parameterizable_without_structural_blocker",
+            "memberCount": member_count,
+            "distinctPredicates": len(pred_contracts),
+            "nonParameterizableBy": blocker or None,
+            "distinctRuntimeBlockIDs": len(runtime_block_ids),
         }
-        ok = len(preds) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctPredicates": len(preds)}
+        return ok, result
 
     if code == "SELECTION_SEMANTICS_LOSS":
         shapes = {
@@ -310,8 +381,14 @@ def _verify_retention_claim(
             )
             for p in member_plans
         }
-        ok = len(shapes) > 1
-        return ok, {"valid": ok, "evidenceCode": code, "reason": reason, "distinctSelectionShapes": len(shapes)}
+        ok = len(shapes) == member_count
+        return ok, {
+            "valid": ok,
+            "evidenceCode": code,
+            "reason": reason,
+            "memberCount": member_count,
+            "distinctSelectionShapes": len(shapes),
+        }
 
     return False, {"valid": False, "reason": "unhandled_evidence_code", "evidenceCode": code}
 
@@ -538,7 +615,7 @@ def build_modernization_inventory(
             "classification": classes,
             "classificationConfidence": class_confidence,
             "classificationReason": class_reason,
-            "semanticAct": invoke.get("act") or on_node.get("speechAct") or meta.get("responseAct"),
+            "semanticAct": invoke.get("speechAct") or invoke.get("act") or on_node.get("speechAct") or meta.get("responseAct"),
             "semanticIntent": invoke.get("intent") or on_node.get("intent"),
             "semanticSubject": invoke.get("subject") or on_node.get("subject"),
             "currentRoles": current_roles,

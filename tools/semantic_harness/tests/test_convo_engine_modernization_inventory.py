@@ -11,6 +11,7 @@ from tools.semantic_harness.codebuilder.convo_engine_modernization_inventory imp
     HOOK_STATES,
     MODERNIZATION_CLASSES,
     MODERNIZATION_INVENTORY_SCHEMA,
+    _verify_retention_claim,
     build_modernization_inventory,
 )
 
@@ -160,6 +161,68 @@ class ConvoEngineModernizationInventoryTests(unittest.TestCase):
             self.assertGreater(inv_retained["summary"]["intentionallyRetainedCount"], 0)
             if inv_retained["summary"]["openActionableGroupCount"] > 0:
                 self.assertFalse(inv_retained["closureOk"])
+
+    def test_retention_proof_is_member_complete_and_rejects_parameterizable_predicates(self) -> None:
+        # 1. 3-member group with only 2 semantic tuples must fail DISTINCT_SEMANTIC_ACT_OR_INTENT
+        partial_recs = [
+            {"semanticAct": None, "semanticIntent": "INFORM", "semanticSubject": "IDENTITY"},
+            {"semanticAct": None, "semanticIntent": "INFORM", "semanticSubject": "IDENTITY"},
+            {"semanticAct": None, "semanticIntent": "REFUSE", "semanticSubject": "IDENTITY"},
+        ]
+        partial_plans = [{"payload": {}}, {"payload": {}}, {"payload": {}}]
+        ok_partial, ev_partial = _verify_retention_claim(
+            {
+                "evidenceCode": "DISTINCT_SEMANTIC_ACT_OR_INTENT",
+                "reason": "Two tuples claimed for three members.",
+            },
+            partial_recs,
+            partial_plans,
+        )
+        self.assertFalse(ok_partial)
+        self.assertFalse(ev_partial["valid"])
+        self.assertEqual(ev_partial["distinctActs"], 2)
+        self.assertEqual(ev_partial["memberCount"], 3)
+
+        # 2. 3-member group with 3 mechanically proven distinctions passes
+        complete_recs = [
+            {"semanticAct": "DISCLOSE_IDENTITY", "semanticIntent": "INFORM", "semanticSubject": "IDENTITY"},
+            {"semanticAct": "DECEIVE_IDENTITY", "semanticIntent": "INFORM", "semanticSubject": "IDENTITY"},
+            {"semanticAct": "REFUSE_IDENTITY", "semanticIntent": "REFUSE", "semanticSubject": "IDENTITY"},
+        ]
+        ok_complete, ev_complete = _verify_retention_claim(
+            {
+                "evidenceCode": "DISTINCT_SEMANTIC_ACT_OR_INTENT",
+                "reason": "All three members own distinct canonical speechAct/intent/subject tuples.",
+            },
+            complete_recs,
+            partial_plans,
+        )
+        self.assertTrue(ok_complete)
+        self.assertTrue(ev_complete["valid"])
+        self.assertEqual(ev_complete["distinctActs"], 3)
+
+        # 3. Different predicates that are safely parameterizable (no structural blocker) must fail
+        param_recs = [
+            {"executeContract": None},
+            {"executeContract": None},
+            {"executeContract": None},
+        ]
+        param_plans = [
+            {"when": {"path": "world.time.hour", "op": "lt", "value": 12}, "payload": {"metadata": {}}},
+            {"when": {"path": "world.time.hour", "op": "gte", "value": 12}, "payload": {"metadata": {}}},
+            {"when": {"path": "relationship.speakerToAddressee.state", "op": "eq", "value": "Friend"}, "payload": {"metadata": {}}},
+        ]
+        ok_param, ev_param = _verify_retention_claim(
+            {
+                "evidenceCode": "NON_PARAMETERIZABLE_PREDICATES",
+                "reason": "Three different when predicates without structural blocker.",
+            },
+            param_recs,
+            param_plans,
+        )
+        self.assertFalse(ok_param)
+        self.assertFalse(ev_param["valid"])
+        self.assertEqual(ev_param["distinctPredicates"], 3)
 
 
 if __name__ == "__main__":
