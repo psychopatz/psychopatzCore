@@ -292,6 +292,11 @@ _HOOMANS_NON_CONVO_PREFIXES: tuple[tuple[str, str, str], ...] = (
         "Shared runtime helpers for item task execution.",
     ),
     (
+        "PNC_SemanticTaskProjection",
+        "domain_action_and_task",
+        "Bounded read-only task-state projection shared by native conversation context and worker.",
+    ),
+    (
         "PNC_SemanticTaskRequest",
         "domain_action_and_task",
         "Validation/dispatch contract for NPC task execution requests.",

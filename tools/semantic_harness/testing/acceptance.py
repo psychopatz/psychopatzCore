@@ -72,6 +72,9 @@ _ERROR_COUNT_RE = re.compile(r"errors=(\d+)")
 _GUI_IMPORT_RE = re.compile(
     r"\bSemanticHarnessApp\b|\bimport\s+tkinter\b|\bfrom\s+tkinter\b"
 )
+_CORE_GUI_IMPORT_RE = re.compile(
+    r"\bimport\s+tkinter\b|\bfrom\s+tkinter\b"
+)
 _WORKER_IMPORT_RE = re.compile(
     r"\bLuaSemanticWorker\b|\bWarmWorkerTestMixin\b"
 )
@@ -142,6 +145,26 @@ def classify_pnc_provider_modules(
     return {
         "hoomans_provider_python": tuple(unit),
         "real_provider_worker": tuple(worker),
+        "tk_xvfb_gui": tuple(gui),
+    }
+
+
+def classify_core_python_modules(
+    tests_root: Path,
+    prefix: str = "tools.semantic_harness.tests",
+) -> dict[str, tuple[str, ...]]:
+    """Partition Core Python tests into headless unit and Tk/Xvfb GUI suites."""
+    gui: list[str] = []
+    unit: list[str] = []
+    for path in sorted(tests_root.glob("test_*.py")):
+        module = f"{prefix}.{path.stem}"
+        source = path.read_text(encoding="utf-8", errors="replace")
+        if _CORE_GUI_IMPORT_RE.search(source):
+            gui.append(module)
+        else:
+            unit.append(module)
+    return {
+        "core_python": tuple(unit),
         "tk_xvfb_gui": tuple(gui),
     }
 
@@ -319,17 +342,101 @@ def run_core_python_suite(
     timeout: float = 300.0,
     environment: dict[str, str],
 ) -> dict[str, Any]:
-    """Run Core Python Semantic Harness tests."""
+    """Run headless Core Python Semantic Harness tests."""
     core = repos["core"]
+    tests_root = core / "tools/semantic_harness/tests"
+    buckets = classify_core_python_modules(tests_root)
     return _run_python_suite(
         "core_python",
         root=core,
-        tests_root=core / "tools/semantic_harness/tests",
+        tests_root=tests_root,
         module_prefix="tools.semantic_harness.tests",
+        modules=buckets["core_python"],
         environment=environment,
         jobs=jobs,
         timeout=timeout,
-        headless=False,
+        headless=True,
+    )
+
+
+def run_tk_xvfb_gui_suite(
+    repos: dict[str, Path],
+    *,
+    pnc_modules: Sequence[str],
+    core_modules: Sequence[str],
+    pnc_environment: dict[str, str],
+    core_environment: dict[str, str],
+    jobs: int = 2,
+    timeout: float = 300.0,
+) -> dict[str, Any]:
+    """Run all Tk/Xvfb GUI tests (ProjectHoomans + Core) under one suite."""
+    parts: list[dict[str, Any]] = []
+    if pnc_modules:
+        parts.append(
+            _run_python_suite(
+                "tk_xvfb_gui",
+                root=repos["hoomans"],
+                tests_root=repos["hoomans"] / "tools/providers/pnc/tests",
+                module_prefix="tools.providers.pnc.tests",
+                modules=pnc_modules,
+                environment=pnc_environment,
+                jobs=max(1, min(int(jobs), 2)),
+                timeout=timeout,
+            )
+        )
+    if core_modules:
+        parts.append(
+            _run_python_suite(
+                "tk_xvfb_gui",
+                root=repos["core"],
+                tests_root=repos["core"] / "tools/semantic_harness/tests",
+                module_prefix="tools.semantic_harness.tests",
+                modules=core_modules,
+                environment=core_environment,
+                jobs=max(1, min(int(jobs), 2)),
+                timeout=timeout,
+            )
+        )
+    if not parts:
+        return _suite_record(
+            "tk_xvfb_gui",
+            ok=True,
+            total=0,
+            passed=0,
+            failed=0,
+            skipped=0,
+            allowed_skips=0,
+            duration=0.0,
+        )
+    return _suite_record(
+        "tk_xvfb_gui",
+        ok=all(item["ok"] for item in parts),
+        total=sum(int(item["total"]) for item in parts),
+        passed=sum(int(item["passed"]) for item in parts),
+        failed=sum(int(item["failed"]) for item in parts),
+        skipped=sum(int(item["skipped"]) for item in parts),
+        allowed_skips=sum(int(item["allowedSkips"]) for item in parts),
+        duration=sum(float(item["duration"]) for item in parts),
+        failures=[f for item in parts for f in item.get("failures", [])],
+        skips=[s for item in parts for s in item.get("skips", [])],
+        details={
+            "modulesTotal": sum(
+                int((item.get("details") or {}).get("modulesTotal", 0))
+                for item in parts
+            ),
+            "modulesPassed": sum(
+                int((item.get("details") or {}).get("modulesPassed", 0))
+                for item in parts
+            ),
+            "modulesFailed": sum(
+                int((item.get("details") or {}).get("modulesFailed", 0))
+                for item in parts
+            ),
+            "modulesSkipped": sum(
+                int((item.get("details") or {}).get("modulesSkipped", 0))
+                for item in parts
+            ),
+        },
     )
 
 
@@ -821,6 +928,9 @@ def run_acceptance_suites(
 
     pnc_root = repos["hoomans"] / "tools/providers/pnc/tests"
     pnc_buckets = classify_pnc_provider_modules(pnc_root)
+    core_buckets = classify_core_python_modules(
+        repos["core"] / "tools/semantic_harness/tests"
+    )
 
     runners: dict[str, Callable[[], dict[str, Any]]] = {
         "core_python": lambda: run_core_python_suite(
@@ -852,14 +962,13 @@ def run_acceptance_suites(
             jobs=jobs,
             timeout=timeout,
         ),
-        "tk_xvfb_gui": lambda: _run_python_suite(
-            "tk_xvfb_gui",
-            root=repos["hoomans"],
-            tests_root=pnc_root,
-            module_prefix="tools.providers.pnc.tests",
-            modules=pnc_buckets["tk_xvfb_gui"],
-            environment=pnc_env,
-            jobs=max(1, min(int(jobs), 2)),
+        "tk_xvfb_gui": lambda: run_tk_xvfb_gui_suite(
+            repos,
+            pnc_modules=pnc_buckets["tk_xvfb_gui"],
+            core_modules=core_buckets["tk_xvfb_gui"],
+            pnc_environment=pnc_env,
+            core_environment=core_env,
+            jobs=jobs,
             timeout=timeout,
         ),
         "dynamic_trading": lambda: run_dynamic_trading_suite(repos, jobs=jobs),
@@ -932,9 +1041,7 @@ def write_acceptance_report(report: dict[str, Any], path: Path) -> None:
 
 
 def ensure_xvfb_for_suites(selected: Sequence[str]) -> None:
-    needs_display = any(
-        suite in {"core_python", "tk_xvfb_gui"} for suite in selected
-    )
+    needs_display = any(suite == "tk_xvfb_gui" for suite in selected)
     if (
         needs_display
         and not os.environ.get("DISPLAY")

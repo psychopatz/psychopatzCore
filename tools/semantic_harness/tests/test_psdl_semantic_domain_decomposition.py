@@ -6,6 +6,8 @@ from __future__ import annotations
 import copy
 import json
 import random
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -143,25 +145,31 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
 
     def test_real_source_variant_and_new_subdomain_are_local(self) -> None:
         base_map = {mod: src for mod, src in self.rendered}
-        behavior_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/behavior/social"
-        conflict_dir = behavior_root / "conflict"
-        fixture_variant = conflict_dir / "g9r_fixture_taunt.json"
-        smalltalk_dir = behavior_root / "smalltalk_g9r_fixture"
-        smalltalk_file = smalltalk_dir / "g9r_fixture_smalltalk.json"
+        with tempfile.TemporaryDirectory() as tmpdir:
+            temp_core = Path(tmpdir) / "psychopatzCore"
+            src_codebuilder = CORE_ROOT / "tools/semantic_harness/codebuilder"
+            dst_codebuilder = temp_core / "tools/semantic_harness/codebuilder"
+            shutil.copytree(src_codebuilder / "sources", dst_codebuilder / "sources")
+            pkg_repos = {**self.pkg_repos, "PsychopatzCore": temp_core}
 
-        def compile_map() -> dict[str, str]:
-            model = compile_conversation_sources(
-                CORE_ROOT,
-                package_repositories=self.pkg_repos,
-            )
-            rendered, _ = render_conversation_runtime_plan(model)
-            return {mod: src for mod, src in rendered}
+            behavior_root = dst_codebuilder / "sources/conversation/behavior/social"
+            conflict_dir = behavior_root / "conflict"
+            fixture_variant = conflict_dir / "g9r_fixture_taunt.json"
+            smalltalk_dir = behavior_root / "smalltalk_g9r_fixture"
+            smalltalk_file = smalltalk_dir / "g9r_fixture_smalltalk.json"
 
-        fixture = json.loads((conflict_dir / "warn.json").read_text(encoding="utf-8"))
-        fixture["id"] = "behavior.g9r_fixture_taunt"
-        fixture["act"] = "G9R_FIXTURE_TAUNT"
+            def compile_map() -> dict[str, str]:
+                model = compile_conversation_sources(
+                    temp_core,
+                    package_repositories=pkg_repos,
+                )
+                rendered, _ = render_conversation_runtime_plan(model)
+                return {mod: src for mod, src in rendered}
 
-        try:
+            fixture = json.loads((conflict_dir / "warn.json").read_text(encoding="utf-8"))
+            fixture["id"] = "behavior.g9r_fixture_taunt"
+            fixture["act"] = "G9R_FIXTURE_TAUNT"
+
             fixture_variant.write_text(json.dumps(fixture, indent=2) + "\n", encoding="utf-8")
             variant_map = compile_map()
 
@@ -208,10 +216,3 @@ class PsdlSemanticDomainDecompositionTests(unittest.TestCase):
                 "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair",
             ):
                 self.assertEqual(subdomain_map[stable_mod], base_map[stable_mod])
-        finally:
-            fixture_variant.unlink(missing_ok=True)
-            smalltalk_file.unlink(missing_ok=True)
-            try:
-                smalltalk_dir.rmdir()
-            except OSError:
-                pass

@@ -373,5 +373,47 @@ class DeclarativeFixtureProgressCliTests(unittest.TestCase):
             self.assertIn("PASS [compact_cli_suite] beats.two", verbose_out)
 
 
+class CoreSuiteOwnershipAndAccountingTests(unittest.TestCase):
+    def test_core_gui_startup_is_owned_by_tk_xvfb_gui_suite(self) -> None:
+        from tools.semantic_harness.testing.acceptance import classify_core_python_modules
+
+        core_tests_root = Path(__file__).resolve().parent
+        buckets = classify_core_python_modules(core_tests_root)
+        self.assertIn("tools.semantic_harness.tests.test_gui_startup", buckets["tk_xvfb_gui"])
+        self.assertNotIn("tools.semantic_harness.tests.test_gui_startup", buckets["core_python"])
+        self.assertIn("tools.semantic_harness.tests.test_compact_test_runners", buckets["core_python"])
+        self.assertIn("tools.semantic_harness.tests.test_gui_shell", buckets["core_python"])
+
+    def test_parallel_and_serial_runner_accounting_are_identical(self) -> None:
+        from tools.semantic_harness.testing.python_runner import PythonAcceptanceRunner
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            tests_dir = root / "pkg"
+            tests_dir.mkdir()
+            (tests_dir / "__init__.py").write_text("", encoding="utf-8")
+            for idx in range(3):
+                (tests_dir / f"test_mod_{idx}.py").write_text(
+                    "import unittest\n"
+                    "class T(unittest.TestCase):\n"
+                    "    def test_ok(self):\n"
+                    "        self.assertTrue(True)\n",
+                    encoding="utf-8",
+                )
+            serial = PythonAcceptanceRunner(
+                root, tests_root=tests_dir, module_prefix="pkg", jobs=1, headless=True
+            ).run()
+            parallel = PythonAcceptanceRunner(
+                root, tests_root=tests_dir, module_prefix="pkg", jobs=3, headless=True
+            ).run()
+            self.assertTrue(serial["ok"])
+            self.assertTrue(parallel["ok"])
+            self.assertEqual(serial["summary"], parallel["summary"])
+            self.assertEqual(
+                [m["module"] for m in serial["modules"]],
+                [m["module"] for m in parallel["modules"]],
+            )
+
+
 if __name__ == "__main__":
     unittest.main()
