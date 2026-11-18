@@ -967,11 +967,11 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** PARTIAL / R7 RESIDUAL ACCEPTANCE ONLY. Quest, recruitment/proposal, event-expiry, disband, command, and other constrained-domain acceptance are retained. Remaining S11D proof is limited to explicit task affordance presence before transition and settlement-admission post-success active-conversation refresh, with separate atomic settlement/ambient claim ownership.
+**Status:** COMPLETE (R7A accepted). Quest, recruitment/proposal, event-expiry, disband, command, parameterized task presentation lifecycle (`task_conversation_projection_lifecycle`), and atomic settlement-admission (`settlement_admission_post_success_refresh`) / ambient-visit (`ambient_visit_post_success_refresh`) conversation refresh are all proven and owned by exact tests.
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** NOT ACCEPTED / R7 FINAL CLOSURE. Fresh post-R6 reruns confirm Core 310 PASS / 2 skips, focused provider 25/25 PASS, clean reconcile, clean integrity/determinism, and single-path policy admission. Final S11E remains blocked only by the two residual R7A acceptance proofs and contradictory final continuity documentation.
+**Status:** IN_PROGRESS / R7B FINAL CLOSURE. R7A closed the two residual behavioral acceptance proofs (`task_conversation_projection_lifecycle` and `settlement_admission_post_success_refresh` + `ambient_visit_post_success_refresh` split). R7B now runs the full retained acceptance matrix and final continuity reconciliation.
 
 ### S11R5 — post-R4 closure integrity repair
 
@@ -1023,17 +1023,17 @@ Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance
 
 ### S11R7 — final atomic acceptance-proof closure
 
-**Status:** ACTIVE.
+**Status:** IN_PROGRESS (R7A ACCEPTED; R7B ACTIVE).
 
 Current normative plan: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 #### R7A — task + settlement/ambient atomic acceptance proof
 
-Add `task_conversation_projection_lifecycle` and prove the public task affordance is present/actionable before dispatch and retired/projected after active/terminal transition. Replace broad `settlement_ambient_admission_boundary` with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims. Keep the existing ambient owner and add an exact settlement-admission conversation-level owner proving authoritative success → active-conversation refresh → stale affordance retirement → stale replay zero mutation.
+**Status:** COMPLETE / ACCEPTED. Added `task_conversation_projection_lifecycle` and proved the public `pnc:task.wait_at` affordance is present/actionable before dispatch and retired/projected after active/terminal transition (`test_parameterized_task_conversation_lifecycle_and_duplicate_suppression`). Replaced broad `settlement_ambient_admission_boundary` with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims. Kept the ambient owner (`test_ambient_visit_root_choice_refreshes_and_retires_after_start`) and added an exact settlement-admission conversation-level owner (`test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation`) proving authoritative success → active-conversation refresh → stale affordance retirement → stale replay zero mutation.
 
 #### R7B — final reproducible acceptance + continuity closure
 
-Run focused R7 tests plus the full retained acceptance/generation/static/caller-zero matrix. If green, rewrite all current closure docs to one state, mark S11/S11D/S11E/R7 accepted, make R6/R5 repair docs historical, and record exact participant commits plus live residual fingerprints.
+**Status:** ACTIVE. Run focused R7 tests plus the full retained acceptance/generation/static/caller-zero matrix. If green, rewrite all current closure docs to one state, mark S11/S11D/S11E/R7 accepted, make R6/R5 repair docs historical, and record exact participant commits plus live residual fingerprints.
 
 **Gate:** R7 closes only when both task and settlement/ambient atomic claims are exactly owned and behaviorally proven, full retained acceptance is reproducibly green, and every continuity document agrees on one exact committed checkpoint.
 

@@ -93,7 +93,8 @@
       "section": "B. Generated semantic workflows",
       "title": "Parameterized task conversation lifecycle",
       "requiredClaims": [
-        "task_generation_and_result_routing"
+        "task_generation_and_result_routing",
+        "task_conversation_projection_lifecycle"
       ]
     },
     {
@@ -160,7 +161,8 @@
       "section": "C. Native/root conversation branches",
       "title": "Settlement admission and ambient visit transition/refresh",
       "requiredClaims": [
-        "settlement_ambient_admission_boundary"
+        "settlement_admission_post_success_refresh",
+        "ambient_visit_post_success_refresh"
       ]
     },
     {

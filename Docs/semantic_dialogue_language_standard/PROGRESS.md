@@ -1,79 +1,42 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — post-R6 audit reopened only two acceptance-proof gaps plus final continuity reconciliation.
+**Status:** IN_PROGRESS — R7A atomic acceptance-proof closure is accepted; executing R7B full reproducible acceptance and final continuity closure.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S11R7 — final atomic acceptance-proof closure.
-**Immediate Next Chunk:** R7A only — prove task pre→post public affordance lifecycle and settlement-admission post-success conversation refresh, with atomic settlement/ambient claim ownership; then continue automatically to R7B.
+**Immediate Next Chunk:** R7B only — run focused retained regressions and full acceptance gates, rewrite all closure/continuity documents to one final consistent checkpoint, and record final participant commits and residual fingerprints.
 
-## Current planning checkpoint
+## Current R7A checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (planning base 8a5ba7aec2e5fecad449c3b5abf28648d0e6a148)
-ProjectHoomans   f749d7efd8fb64e59d2a2e0c1013ed5bbe0380cd
+psychopatzCore   phase_commit: self (parent f2fd68542bf77f93ceb4f649cab484e98ad3140a)
+ProjectHoomans   ec0d61f85d077d81d58b5da855e7fab527427742
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
-Residual snapshot at planning time (`git status --porcelain=v1 -uall` raw-byte SHA-256):
+Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
-psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+psychopatzCore   rows=0    sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+ProjectHoomans   rows=40   sha256=80332df13f94402e85f808560350bd638aaa9d44c042ad3cd0fd875cb40552de
+DynamicTrading   rows=0    sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans concurrent NPC-authoring/UI work has landed separately through `f749d7ef` and the worktree is now clean. Treat those commits as unrelated to S11 unless a current test proves interaction.
+ProjectHoomans concurrent NPC-authoring/UI work remains preserved in its dirty working tree (40 unrelated rows) and is not touched by S11R7.
 
 Current repair authority:
 
 `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`
 
-`S11_POST_R5_FINAL_CLOSURE_REPAIR.md` is historical R6 context.
+## Accepted R7A evidence
 
-## Retained accepted work
+- `task_conversation_projection_lifecycle` added to `audit.task.parameterized` in `S11_BRANCHING_AUDIT_INVENTORY.json` and `constrained_family_manifest.json`, explicitly owned by `test_parameterized_task_conversation_lifecycle_and_duplicate_suppression` (`test_automatic_flow_generation.py`, 10/10 PASS), proving `pnc:task.wait_at` is visible/actionable before dispatch, retired after active transition with zero duplicate dispatch on typed repeat, and remains retired across `completed`/`failed`/`rejected` states.
+- `settlement_ambient_admission_boundary` replaced with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims (no compatibility alias).
+- `test_ambient_visit_root_choice_refreshes_and_retires_after_start` owns `ambient_visit_post_success_refresh`.
+- `test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation` owns `settlement_admission_post_success_refresh` (`test_production_leave_group.py`, 7/7 PASS), proving active settlement visit exposes `conversation.root:menu:settlement_admission`, click executes `MobileSettlementVisitService.AdmitPlayer` through production authority, NPC/member/settlement state updates, active conversation refreshes/closes and retires `settlement_admission`, and stale frame replay yields zero dispatch and zero duplicate mutation.
+- `test_convo_engine_completeness_analyzer.py` (6/6 PASS) and `test_classification_guard.py` (2/2 PASS) green.
 
-Do not rebuild:
+## Immediate Next Chunk — R7B
 
-- S11A0-A8;
-- Identity / Needs / Greeting / maintained companion-command migrations;
-- explicit exact-test `auditClaims` enforcement;
-- production quest ready→rewarded→repeat lifecycle;
-- event expiry and disband acceptance;
-- canonical ProjectReply;
-- single family-agnostic policy admission before domain routing;
-- current CodeBuilder/integrity/caller-zero foundation.
-
-Fresh post-R6 audit evidence retained:
-
-- Core semantic-harness: **310 PASS, 2 skipped**;
-- focused task/quest/disband/event provider suite: **25/25 PASS**;
-- reconcile: **clean**, `desired=410`, zero missing/drifted/stale/ambiguous;
-- integrity/determinism: **PASS**, `588` families, `407` deterministic files, `0` violations/diffs;
-- `git diff --check` clean in all three repositories.
-
-## Remaining defects
-
-1. Task acceptance asserts retirement after transition but does not assert that `pnc:task.wait_at` was actually present/actionable before dispatch.
-2. `audit.root.settlement_admission` uses one broad `settlement_ambient_admission_boundary` claim whose exact R6 owner exercises ambient visit only; settlement-admission post-success conversation refresh/retirement is not proven.
-3. Continuity docs still disagree: top-level/parent/PROGRESS/HANDOFF claim completion while ROADMAP S11/S11D/S11E and the R6 repair plan remain active/partial/not accepted.
-
-## Mandatory R7 sequence
-
-~~~text
-R7A  atomic task + settlement/ambient acceptance-proof closure
-  ↓
-R7B  full retained acceptance + exact final documentation checkpoint
-~~~
-
-No new architecture migration phase is allowed.
-
-## Hard rules
-
-- Keep R7 narrow; do not reopen accepted R1-R6 work without targeted failure evidence.
-- Replace the broad combined settlement/ambient claim with atomic settlement and ambient post-success claims; no legacy claim alias.
-- Exact test/case owners must declare the atomic audit claims they prove.
-- Existing task and settlement services remain authoritative state; no semantic shadow state.
-- Preserve the single generic policy-admission seam.
-- Canonical CodeBuilder source/recipe first if semantic source changes are genuinely required; generated output remains downstream-only.
-- No compatibility shims, fallback readers, aliases, dual registries/writes, or parallel old/new semantic paths.
-- Preserve zero-LLM semantic correctness and N-participant foundations.
-- Accepted multi-repo commits: changed adopters first, Core last; exact staging only; never push/publish without explicit authorization.
+1. Run focused retained regressions (task presentation lifecycle, settlement-admission refresh, ambient-visit refresh, production quest ready→rewarded→repeat, event expiry, disband confirmation/cancel/replay, recruitment/proposal canonical policy + reply projection, explicit `auditClaims` negative guards).
+2. Run full retained acceptance gates (Core semantic-harness suite, ProjectHoomans provider suite, real `LuaSemanticWorker` paths, typed/free-text acceptance, response-channel/click acceptance, canonical nine-suite acceptance, CodeBuilder `reconcile --check`, ConvoEngine integrity/determinism, Kahlua/static verification, `Flow_Identity` / `Flow_Needs` / `Flow_Greeting` caller-zero, `git diff --check`).
+3. Rewrite all 8 continuity/closure documents to one final consistent `COMPLETE_DEVELOPER_SIDE` / `ACCEPTED` state and record exact post-commit participant checkpoint in `HANDOFF.md`.

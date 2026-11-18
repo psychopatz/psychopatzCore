@@ -157,7 +157,10 @@
           "test_parameterized_task_result_branches_and_gate_are_truthful",
           "test_parameterized_task_conversation_lifecycle_and_duplicate_suppression"
         ],
-        "requiredClaims": ["task_generation_and_result_routing"]
+        "requiredClaims": [
+          "task_generation_and_result_routing",
+          "task_conversation_projection_lifecycle"
+        ]
       }
     },
     {
@@ -273,8 +276,14 @@
       "acceptance": {
         "ownerKind": "python_test",
         "source": "ProjectHoomans/tools/providers/pnc/tests/test_production_leave_group.py",
-        "testIds": ["test_ambient_visit_root_choice_refreshes_and_retires_after_start"],
-        "requiredClaims": ["settlement_ambient_admission_boundary"]
+        "testIds": [
+          "test_ambient_visit_root_choice_refreshes_and_retires_after_start",
+          "test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation"
+        ],
+        "requiredClaims": [
+          "settlement_admission_post_success_refresh",
+          "ambient_visit_post_success_refresh"
+        ]
       }
     },
     {

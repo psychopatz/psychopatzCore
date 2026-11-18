@@ -366,7 +366,7 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
             tmp_root = Path(tmpdir)
             lua_file = tmp_root / "lua_smoke.lua"
             lua_file.write_text(
-                '-- @auditClaims other_test: ["settlement_ambient_admission_boundary"]\n'
+                '-- @auditClaims other_test: ["settlement_admission_post_success_refresh", "ambient_visit_post_success_refresh"]\n'
                 '-- settlement keyword appears here\n'
                 'local function selected_test() return true end\n',
                 encoding="utf-8",
@@ -378,7 +378,10 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
                         "ownerKind": "lua_test",
                         "source": "TmpRepo/lua_smoke.lua",
                         "testIds": ["selected_test"],
-                        "requiredClaims": ["settlement_ambient_admission_boundary"],
+                        "requiredClaims": [
+                            "settlement_admission_post_success_refresh",
+                            "ambient_visit_post_success_refresh",
+                        ],
                     }
             rep_lua_scope = analyze_portable_plan(
                 plan,
