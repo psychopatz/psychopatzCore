@@ -96,7 +96,12 @@ def _convo_engine_translation_asset(
             part for part in (doc.get("namespace"), doc.get("id"))
             if isinstance(part, str) and part
         )
-        if doc_family != family_id:
+        if doc_family == family_id:
+            target_variants = {style}
+        elif family_id.startswith(doc_family + "."):
+            sub_prefix = family_id[len(doc_family) + 1:]
+            target_variants = {sub_prefix} if style == "neutral" else {f"{sub_prefix}.{style}"}
+        else:
             continue
         say = doc.get("say") if isinstance(doc.get("say"), dict) else {}
         variants = list(say.get("variants") or [])
@@ -118,7 +123,7 @@ def _convo_engine_translation_asset(
                     or variants
                 )
         for variant in variants:
-            if not isinstance(variant, dict) or variant.get("id") != style:
+            if not isinstance(variant, dict) or variant.get("id") not in target_variants:
                 continue
             text_map = variant.get("text") if isinstance(variant.get("text"), dict) else {}
             lines = text_map.get(language)

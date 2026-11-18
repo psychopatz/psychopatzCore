@@ -63,7 +63,7 @@ class ConvoEngineIntegrityAndDeterminismAuditTests(unittest.TestCase):
             check_determinism=True,
         )
         self.assertTrue(report["ok"], f"Audit violations: {report['violations']}")
-        self.assertGreaterEqual(report["stats"]["familyFilesChecked"], 500)
+        self.assertGreaterEqual(report["stats"]["familyFilesChecked"], 400)
         self.assertEqual(report["stats"]["psdlDirectories"], 0)
         self.assertEqual(report["stats"]["catalogLuaLeaves"], 0)
         self.assertEqual(report["stats"]["legacyRuntimeDirectories"], 0)

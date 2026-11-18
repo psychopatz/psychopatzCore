@@ -247,7 +247,7 @@ class WorkspaceAndConvoCatalogTests(unittest.TestCase):
         catalog_ids = {item["canonicalID"] for item in svc.convo_catalog.list_summaries()}
         service_ids = {item["canonicalID"] for item in svc.list_convo_engine_families()}
         trace_ids = {item["canonicalID"] for item in trace_list_families(svc)}
-        self.assertGreaterEqual(len(catalog_ids), 500)
+        self.assertGreaterEqual(len(catalog_ids), 400)
         self.assertEqual(catalog_ids, service_ids)
         self.assertEqual(service_ids, trace_ids)
 

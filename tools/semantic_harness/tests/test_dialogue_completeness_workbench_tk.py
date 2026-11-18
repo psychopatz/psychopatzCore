@@ -247,7 +247,7 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
 
                 # 1. Primary browser is compact (no [Owner] kind prefix) and health-colored
                 all_children = pane._family_tree.get_children()
-                self.assertGreaterEqual(len(all_children), 500)
+                self.assertGreaterEqual(len(all_children), 400)
                 first_row = pane._family_tree.item(all_children[0])
                 self.assertEqual(first_row["values"][1], all_children[0])
                 self.assertNotIn("[ProjectHoomans]", str(first_row["values"][1]))

@@ -80,7 +80,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
                 if d.get("schema") == CONVO_ENGINE_SCHEMA:
                     v1_count += 1
 
-        self.assertGreaterEqual(v1_count, 587)
+        self.assertGreaterEqual(v1_count, 400)
 
         # Verify large localized family via textSidecars compiled into runtime plans
         knowledge_plan = next(

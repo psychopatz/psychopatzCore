@@ -106,14 +106,23 @@ def _matches_convo_engine_lineage(
         return None
     records = (preview.get("compiled") or {}).get("records") or []
     template_id = str(loaded_variant.get("templateID") or row["canonicalID"])
-    record = next((item for item in records if item.get("id") == template_id), None)
+    canonical_id = str(row["canonicalID"])
+    record = next(
+        (
+            item for item in records
+            if item.get("id") == template_id
+            or (item.get("id") == canonical_id and template_id.startswith(canonical_id + "."))
+        ),
+        None,
+    )
     if not isinstance(record, dict):
         return None
     fallback = loaded_variant.get("fallback")
     en_lines = _convo_engine_english_lines(record)
     if isinstance(fallback, str) and fallback and en_lines and fallback not in en_lines:
         return None
-    if not _convo_engine_generated_matches(service, row, template_id):
+    match_token = canonical_id if template_id.startswith(canonical_id + ".") else template_id
+    if not _convo_engine_generated_matches(service, row, match_token):
         return None
     try:
         rel_path = str(source_path.relative_to(service.repository))
@@ -252,6 +261,8 @@ def inspect_codebuilder_lineage(
             continue
         template_id = str(loaded_variant.get("templateID") or "")
         row = convo_by_id.get(template_id)
+        if row is None and "." in template_id:
+            row = convo_by_id.get(template_id.rsplit(".", 1)[0])
         if row is None:
             continue
         convo_match = _matches_convo_engine_lineage(service, row, loaded_variant)

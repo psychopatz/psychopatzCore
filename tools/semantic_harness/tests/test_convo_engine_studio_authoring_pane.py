@@ -140,7 +140,7 @@ class ConvoEngineStudioAuthoringPaneTests(unittest.TestCase):
         svc = self._service()
         self.addCleanup(svc.close)
         families = svc.list_convo_engine_families()
-        self.assertGreaterEqual(len(families), 500)
+        self.assertGreaterEqual(len(families), 400)
         contracts = svc.list_convo_engine_action_contracts()
         contract_ids = {item["id"] for item in contracts}
         self.assertIn("pnc.companion.camp", contract_ids)

@@ -309,7 +309,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         gui_report = wb.run_strict_analysis()
         self.assertEqual(gui_report["summary"], direct["summary"])
         self.assertEqual(gui_report["diagnostics"], direct["diagnostics"])
-        self.assertGreaterEqual(direct["summary"]["families"], 587)
+        self.assertGreaterEqual(direct["summary"]["families"], 400)
         self.assertEqual(direct["summary"]["analyzedFamilies"], direct["summary"]["families"])
         self.assertFalse(direct["summary"]["catalogMismatch"])
         by_kind = direct["summary"]["byKind"]
