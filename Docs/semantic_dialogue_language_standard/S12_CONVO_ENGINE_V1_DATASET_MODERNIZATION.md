@@ -1,12 +1,42 @@
 # S12 — ConvoEngine v1 Dynamic Dataset Modernization
 
-**Status:** REOPENED UNDER S12R1 — useful S12 foundation retained; structural modernization/legacy-reader closure incomplete
+**Status:** REOPENED UNDER S12R2 — S12R1 structural modernization retained; final closure integrity incomplete
 **Date:** 2026-11-19
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** ProjectHoomans, DynamicTrading/DTCommon
 **Core authoring standard:** `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`
-**Current repair authority:** `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`
-**Content rewrite gate:** classified structural repair is allowed; parent S12 cannot return to COMPLETE until S12R1D passes.
+**Current repair authority:** `S12R2_FINAL_CLOSURE_INTEGRITY_REPAIR.md`
+**Retained structural implementation record:** `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`
+**Content rewrite gate:** broad structural modernization is accepted/frozen; only evidence-driven S12R2A corrections to unproven retained groups are allowed. Parent S12 cannot return to COMPLETE until S12R2D passes.
+
+## Post-S12R1 closure audit
+
+S12R1 materially completed the structural modernization that the first S12
+closure had missed. Retain the 470-family modernized dataset, the large family
+collapses, ConvoEngine-v1-only source schema, and behavior/beat hook work.
+
+The post-R1 audit nevertheless invalidated the final closure claim because:
+
+- the current retention verifier can approve an N-member group when only some
+  members are semantically distinct;
+- `ui.suggestion.identity.real` and `ui.suggestion.identity.lie` currently share
+  `INFORM + IDENTITY` while the human retention reason claims an unmodeled
+  truthful/deceptive distinction;
+- `NON_PARAMETERIZABLE_PREDICATES` proves differing predicates, not actual
+  non-parameterizability, so the social-greeting retention needs stronger proof
+  or a bounded-context modernization;
+- current first-party ConvoEngine APIs/help/contracts still expose active PSDL
+  names after the pre-release direct-migration decision;
+- the strongest closure mode is not exposed as a canonical fail-closed
+  operator-facing command;
+- current desired generated whole-model fingerprints remain uncommitted in Core
+  and DTCommon;
+- prior closure docs recorded stale reconcile/vector evidence and contradictory
+  statuses.
+
+Normative final repair:
+
+`S12R2_FINAL_CLOSURE_INTEGRITY_REPAIR.md`
 
 ## Objective
 
@@ -114,7 +144,7 @@ preserve_and_expose_director_hooks_and_roles
 The previous S12F acceptance did not require those recommendations to disappear
 or to receive a machine-checkable semantic justification.
 
-The parent goal therefore continues through S12R1.
+The first reopening was implemented through S12R1. Its structural work is retained; current final-closure authority is S12R2.
 
 Normative repair:
 

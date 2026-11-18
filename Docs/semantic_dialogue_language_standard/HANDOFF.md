@@ -1,15 +1,16 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: COMPLETE
-checkpoint_mode: committed_handoff
-phase_commit: self
-phase: S12R1 — Structural Dataset Modernization Closure Repair
-chunk: S12R1D — reproducible final closure
+status: DIRTY_RESUMABLE
+checkpoint_mode: dirty_snapshot
+phase_commit: none
+phase: S12R2 — Final Closure Integrity Repair
+chunk: S12R2A — member-complete retention proof
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
-goal_doc: Docs/semantic_dialogue_language_standard/S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md
+goal_doc: Docs/semantic_dialogue_language_standard/S12R2_FINAL_CLOSURE_INTEGRITY_REPAIR.md
 parent_goal: Docs/semantic_dialogue_language_standard/S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md
+retained_goal: Docs/semantic_dialogue_language_standard/S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md
 authoring_standard: Docs/semantic_dialogue_language_standard/DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md
 updated_at: 2026-11-19
 ~~~
@@ -17,28 +18,73 @@ updated_at: 2026-11-19
 ## Participant checkpoint
 
 ~~~text
-psychopatzCore   94539bcd22159667b6bb4eba53b38014da2ab47a (pre-doc-commit HEAD)
-ProjectHoomans   2f33f6c9691a771e9422ffa3823a565fc392c747
+psychopatzCore   43a02e3dad695f65d251ff137765d83e8b00d912
+ProjectHoomans   4dce40499d62e9f54836a4b4c2df37f4b8b08656
 DynamicTrading   aecc3250068202cdf1701b2bd49e8892abfba87c
 ~~~
 
-Residual-work fingerprints (unrelated concurrent UI/portrait work preserved untouched):
+Planning-time residual fingerprints:
 
 ~~~text
-psychopatzCore   rows=1   sha256=fa763e596f66c239575923a567081f201fa532eb5b2e593cb0dedc17213e5bd0
-ProjectHoomans   rows=25  sha256=6d50ee315248991e1ce127fadb8d407de4caebcbc732699ba1f73a1dee347b66
+psychopatzCore   rows=8   sha256=acc8d627aa8a52635af59c0aabe217c1314162dd87f3933cd21eb4f1307985d6
+ProjectHoomans   rows=6   sha256=775bc6567f904a09a6c699fe0028aeb1e2be7bb0491770ab6b482cf1fdebc36e
 DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
 ~~~
 
-## Closure truth
+Concurrent portrait/editor/radio work is unrelated and must be preserved exactly.
 
-- `psychopatz.convo-engine.v1` and `psychopatz.convo-engine.package.v1` are the sole first-party authoring/compiler schemas (`legacySchemaReaderCount = 0`).
-- PSDL-named active modules were directly renamed (`convo_engine_compiler.py`, `convo_engine_compact.py`, `convo_engine_inspect.py`, `convo_engine_authoring_audit.py`, `convo_engine_naming_audit.py`) with zero compatibility shims or aliases.
-- Dataset modernized from 587 to 470 maintained families via CodeBuilder `collapse_convo_engine_families` and slot/hook updates; `openActionableFamilyCount = 0`, `openActionableGroupCount = 0`, `legacySplitAuthorityCount = 0`, `missingCompositionHookCount = 0`.
-- All 33 behaviors and beats are composition-ready (`HOOK_REQUIRED_PRESENT` or `HOOK_NOT_APPLICABLE_JUSTIFIED`).
-- `reconcile --check` is clean (`357 desired`, `0 missing/drifted/stale/retired_present/ambiguous`).
-- Two consecutive 9-suite acceptance runs passed all 2,150 executed tests (4 known unrelated ProjectHoomans Lua baseline failures, 25 allowed skips, 0 unclassified skips).
+Three current dirty generated files are S12-owned, not unrelated:
 
-## Immediate Next Chunk
+~~~text
+Contents/mods/PsychopatzCore/common/media/lua/shared/
+PsychopatzCore/ConvoEngine/FoundationRegistry.lua
 
-None under S12/S12R1. The dataset is ready for a future Dialogue Director goal.
+Contents/mods/DTCommon/common/media/lua/shared/DTCommon/ConvoEngine/Manifest.lua
+Contents/mods/DTCommon/common/media/lua/shared/DTCommon/ConvoEngine/Registry.lua
+~~~
+
+They currently carry the desired whole-model fingerprint
+`bfcc2d3b251785f9ef35f347cf93754103b33c119fd45de0090b64a53a280fb7`
+and must be reconciled/committed during S12R2C rather than discarded.
+
+## Retained implementation truth
+
+The expensive S12R1 structural work is accepted as the starting point:
+
+~~~text
+587 → 470 maintained families
+large specialization/context clusters collapsed
+behavior/beat hooks added
+source schema = psychopatz.convo-engine.v1 only
+open actionable family/group = 0 under current verifier
+split authority = 0
+missing composition hooks = 0
+focused audit tests = 26/26 PASS
+two current full acceptance runs = 9/9, convoScopeOk=true
+~~~
+
+Do not redo broad S12R1 modernization.
+
+## Immediate Next Chunk — S12R2A
+
+Strengthen intentional-retention proof so an N-member group cannot be accepted
+from only partial distinctness.
+
+Audit and resolve/re-prove at minimum:
+
+~~~text
+domain_cluster:ProjectHoomans:ui.suggestion.identity
+context_variant:ProjectHoomans:social.greetings
+~~~
+
+`real` and `lie` currently share `INFORM + IDENTITY`; truthful/deceptive meaning
+must be represented and verified semantically or the overlap must be
+collapsed/parameterized.
+
+The social-greeting verifier must prove actual non-parameterizability rather
+than only distinct predicates.
+
+Then continue automatically through S12R2B, S12R2C and S12R2D.
+
+Do not push, publish Workshop content, reset/stash unrelated work, or launch
+native Project Zomboid.

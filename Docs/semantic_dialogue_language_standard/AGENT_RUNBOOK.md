@@ -103,7 +103,7 @@ S11 extends the accepted post-G9 ConvoEngine pipeline:
 - an `acceptanceOwner` path/string alone is not evidence: the exact referenced test/fixture/case must explicitly declare its stable audit claim IDs; manifest repetition, `claimKeywords`, substring matching, test-name similarity, or whole-file source-text scans are not semantic ownership proof; keep claims atomic by observable surface so one sibling behavior cannot certify another untested sibling;
 - production/native presentation claims require native or native-equivalent context parity: a worker-only field or worker-only authority projection cannot certify an in-game behavior unless the native `Contents/` path produces the same bounded contract;
 - canonical acceptance must remain hermetic under supported parallel execution: tests that mutate canonical source use isolated temp roots, and GUI/display-dependent tests have one explicit deterministic suite owner rather than order-dependent skips;
-- for the reopened S12 goal, follow `PROGRESS.md` / `HANDOFF.md` and `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`: classified structural repair is allowed, but every actionable inventory finding must become RESOLVED or INTENTIONALLY_RETAINED with machine-checkable justification before final closure; blind prose replacement remains forbidden;
+- for the reopened S12 final-closure goal, follow `PROGRESS.md` / `HANDOFF.md` and `S12R2_FINAL_CLOSURE_INTEGRITY_REPAIR.md`: retain the S12R1 470-family structural modernization, require member-complete machine-checkable proof for every intentionally retained group, finish project-owned PSDL/API retirement, and require committed/reproducible generated state before closure; broad dataset rewriting remains forbidden;
 - Semantic Lab completeness UI must consume the canonical `analyze_convo_completeness()` report; do not reimplement termination/cycle/outcome/closure reasoning in Tk;
 - completeness diagnostics and scaffolds must navigate/write canonical compact source through existing services; generated Lua/registry/manifest/translation remains downstream-only;
 - authoring-health UI must cover every maintained canonical family kind that is in rewrite scope; kind-specific health checks may differ, but source-catalog inventory and Workbench inventory must not silently diverge;
@@ -141,7 +141,7 @@ For every family:
 - never require an LLM for semantic correctness;
 - use CodeBuilder authoring/migration APIs for dataset changes and delete superseded source after parity/caller-zero.
 
-Do not start broad S12C-E dataset rewriting before S12A ConvoEngine-v1/single-authority cleanup and S12B machine-readable classification inventory are accepted.
+Historical S12C-E broad rewriting is complete under S12R1. During S12R2 do not reopen it: edit dataset structure only when stronger closure evidence proves an `INTENTIONALLY_RETAINED` group is not actually justified.
 
 ## ConvoEngine / CodeBuilder authoring discipline
 

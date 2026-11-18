@@ -1,11 +1,33 @@
 # S12R1 — Structural Dataset Modernization Closure Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR
+**Status:** IMPLEMENTED / RETAINED — structural modernization accepted; final closure claim superseded by S12R2
 **Date:** 2026-11-19
 **Parent goal:** `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** ProjectHoomans, DynamicTrading/DTCommon
 **Authoring standard:** `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`
+
+## Post-R1 audit disposition
+
+S12R1's expensive implementation work is retained. The post-R1 audit verified
+real structural collapse from 587 to 470 maintained families, composition-hook
+work, v1-only first-party source-schema enforcement, and green functional
+acceptance.
+
+Only the **final closure claim** is superseded.
+
+Do not rerun the broad R1C dataset modernization. Current final-closure authority
+is:
+
+`S12R2_FINAL_CLOSURE_INTEGRITY_REPAIR.md`
+
+S12R2 owns:
+
+- member-complete retention proof;
+- the remaining PSDL/API identity retirement;
+- first-class closure-command exposure;
+- committed generated whole-model integrity;
+- stable-vector two-pass acceptance and final documentation reconciliation.
 
 ## Why S12 was reopened
 
