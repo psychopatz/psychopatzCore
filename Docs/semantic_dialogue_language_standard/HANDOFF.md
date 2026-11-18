@@ -1,26 +1,24 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: DIRTY_RESUMABLE
+status: USER_ACCEPTANCE
 checkpoint_mode: dirty_snapshot
-planning_doc_commit: self
-phase: S11R8 — Native-Parity and Acceptance-Reproducibility Repair
-chunk: R8A — native task-state projection parity
+phase_commit: self
+phase: S11 — State-Aware Conversation Outcome Closure (S11R8 ACCEPTED / CLOSED)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md
-previous_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R6_CLOSURE_AUDIT_REPAIR.md
 updated_at: 2026-11-18
 ~~~
 
-This planning snapshot does **not** accept R8A. ProjectHoomans is under active unrelated concurrent editing, so the stored residual fingerprint is a resume baseline only. Re-verify live HEAD/status before any R8 edit; never reset/stash/discard a mismatch.
+All developer-side S11 and S11R8 gates are green. The next step is user-owned native Project Zomboid SP/MP acceptance (`USER_ACCEPTANCE`).
 
-## Participant planning checkpoint
+## Final participant checkpoint
 
 ~~~text
-psychopatzCore   planning_doc_commit: self (base 1bc5e92b83890c913da5ef46f50be04c0c270831)
-ProjectHoomans   9fdfc7b63354f6d29912ff90b0d98c5edffdeb8c
+psychopatzCore   phase_commit: self (base 4aefefbbb643442f2e7811e722aab921f0ee6266)
+ProjectHoomans   dadfa01b88f957dbdeac68ce0b688130d3b175d7
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
@@ -28,50 +26,34 @@ Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=29  sha256=24fc41eef99d6cd3649ab1b09e4bcc4a5aea0359330e3a2825254ea9e624b00f
+ProjectHoomans   rows=34  sha256=731b8c509b74bde3c57948b83252ddc0b6b4293405c3d1333ad835c2d688c462
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans has 29 unrelated concurrent NPC-authoring/editor residual paths at this dirty snapshot. Preserve them; on resume, re-verify live status and treat divergence as concurrent work, never as permission to reset/stash/discard.
+ProjectHoomans retains 34 unrelated concurrent NPC-authoring/editor/StartingCompanion residual paths, preserved untouched.
 
-## Retained accepted evidence
+## R8 acceptance evidence
 
-- R6 explicit exact `auditClaims` ownership remains accepted.
-- R7 settlement-admission and ambient-visit atomic claim split/tests remain accepted.
-- Quest READY_TO_TURN_IN → REWARDED → repeat remains accepted.
-- Single generic policy admission remains accepted.
-- Reconcile/integrity/determinism and legacy caller-zero remained green in the post-R7 audit.
-- Focused R7 task/settlement/quest/event tests pass; the task defect is native-context parity, not the worker assertion itself.
+- **R8A native task projection parity:**
+  - `ProjectHoomans`: `lua tests/pnc_native_task_projection_parity_smoke.lua`, `lua tests/pnc_semantic_task_dispatch_smoke.lua`, `lua tests/pnc_semantic_task_result_smoke.lua` PASS.
+  - `ProjectHoomans`: `test_automatic_flow_generation.py` `11/11` PASS (including `test_native_task_projection_parity_lifecycle_and_duplicate_suppression` owning `task_native_projection_parity` and worker parity guard).
+  - `psychopatzCore`: `test_convo_engine_completeness_analyzer.py` `6/6` PASS; `test_convo_engine_ownership_inventory.py` `3/3` PASS.
+- **R8B acceptance isolation & deterministic accounting:**
+  - `core_python --jobs 1`: `307/307` PASS, `0` failed, `0` skipped (`69/69` modules).
+  - `core_python --jobs 4`: `307/307` PASS, `0` failed, `0` skipped (`69/69` modules).
+- **R8C consecutive canonical 9-suite `--jobs 4` runs (2/2 PASS, `convoScopeOk=true`):**
+  - `core_python`: `307/307` PASS (`0` skips)
+  - `core_lua`: `36/36` PASS
+  - `hoomans_lua`: `1052/1056` PASS (`186/186` `convoSemanticPassed`, `4` reviewed `known_unrelated_baseline`)
+  - `hoomans_provider_python`: `146/151` PASS (`5` allowed `real_local_save_unavailable` skips)
+  - `real_provider_worker`: PASS (`3` allowed `real_local_save_unavailable` skips)
+  - `tk_xvfb_gui`: `149/160` PASS (`11` allowed `real_local_save_unavailable` skips; includes Core `test_gui_startup`)
+  - `dynamic_trading`: `89/89` PASS
+  - `convo_audit`: `1/1` PASS (`588` family files, `407` determinism-checked files, `0` violations)
+  - `kahlua_static`: `3/3` PASS (`433` Lua files across Core/Hoomans/DynamicTrading)
+- **Integrity & caller-zero:**
+  - `reconcile.py --check`: `clean=true`, `desired=410`, `missing=0`, `drifted=0`, `stale=0`.
+  - `Flow_Identity` / `Flow_Needs` / `Flow_Greeting`: `CALLER_ZERO_OK`.
+  - `git diff --check`: clean in all three repositories.
 
-## Why USER_ACCEPTANCE was revoked
-
-### Native task projection
-
-Production `Suggestions_Capabilities_Rows.lua` reads `context.taskStates`. The post-R7 audit found no native `Contents/` producer for that field; it is populated only by headless worker modules. Therefore `task_conversation_projection_lifecycle` is not sufficient proof of native runtime behavior.
-
-### Canonical acceptance reproducibility
-
-Fresh `python3 -m tools.semantic_harness.testing.acceptance --jobs 4` returns `8/9` because parallel Core tests observe temporary source files written into the live canonical source tree. Serial Core acceptance avoids that race but reports two unclassified Tk-display skips. R7B's "reproducibly green" gate is therefore not satisfied on current source.
-
-## Immediate Next Chunk — R8A
-
-1. Verify all participant HEADs/status and preserve the unrelated Hoomans residuals.
-2. Read `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
-3. Trace the authoritative native semantic-task lifecycle: dispatch, pending request ownership, server/task authority, result receipt, and terminal state.
-4. Define/reuse one bounded task projection consumed by both native conversation context and worker.
-5. Remove the worker-only semantic dependency: production suggestion state must not require a field only `Conversation_Context_Builder` can provide.
-6. Add `task_native_projection_parity` to `audit.task.parameterized` and bind it to an exact native/native-equivalent test.
-7. Prove WAIT_AT visible before request → admitted → native projection refresh → hidden/retired active/terminal → duplicate zero-dispatch.
-8. Run focused native+worker task tests and explicit claim validation.
-9. Stage/commit only R8A-owned Hoomans paths, preserving unrelated dirt; update Core manifest/inventory/docs and commit Core last.
-10. Continue automatically to R8B.
-
-## R8B
-
-Make Core acceptance hermetic under parallel execution, move real-source mutation tests to isolated workspaces, resolve Tk test ownership deterministically, prove Core Python jobs=1/jobs=4 green, and run two consecutive canonical 9-suite `--jobs 4` passes from one exact vector.
-
-## R8C
-
-Run the full retained matrix from the exact final vector, reconcile docs to developer-complete only if green, record exact commits/residual fingerprints, then return to USER_ACCEPTANCE.
-
-No push, Workshop publication, or native Project Zomboid launch without explicit authorization.
+No push, Workshop publication, or native Project Zomboid launch was performed.

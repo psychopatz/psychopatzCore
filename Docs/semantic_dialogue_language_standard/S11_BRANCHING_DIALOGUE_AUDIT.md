@@ -1,6 +1,6 @@
 # S11 Branching Dialogue and Stateful Outcome Audit
 
-**Status:** R8_NATIVE_PARITY_OPEN — all 25 maintained rows remain closed-set/classified with exact atomic claim ownership, but `audit.task.parameterized` requires an additional native/native-equivalent projection-parity proof because the current lifecycle owner depends on worker-only `taskStates`.
+**Status:** ACCEPTED / CLOSED (R8) — all 25 maintained rows remain closed-set/classified with exact atomic claim ownership, including `task_native_projection_parity` on `audit.task.parameterized`.
 **Audit date:** 2026-11-18
 **Normative goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Approved shared architecture:** `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
@@ -909,9 +909,9 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
 
-# Post-R7 native-parity audit status — 2026-11-18
+# R8 native-parity audit status — 2026-11-18
 
-R7A's atomic claim split remains accepted: settlement admission and ambient visit each have exact post-success owners, and the task worker lifecycle test genuinely proves its worker path. The post-R7 audit found that the task test does **not** certify native runtime because production `Suggestions_Capabilities_Rows.lua` reads `context.taskStates` while no native `Contents/` conversation-context producer supplies that field; it is populated only by headless worker modules.
+R7A's atomic claim split remains accepted: settlement admission and ambient visit each have exact post-success owners, and the task worker lifecycle test genuinely proves its worker path. R8A resolved the native-parity gap by replacing worker-only `taskStates` with the shared `taskProjection` contract (`PNC_SemanticTaskProjection.lua`) produced natively in `PNC_ConversationComposer_Context.lua` and `Input_ContextProjection.lua`, updated by `Input_Tasks.lua` and `Input_TaskDispatch.lua`, and verified by `test_native_task_projection_parity_lifecycle_and_duplicate_suppression` (`task_native_projection_parity`). R8B resolved canonical acceptance isolation and deterministic Tk/GUI suite ownership.
 
 | Surface | Current status |
 | --- | --- |
@@ -921,7 +921,7 @@ R7A's atomic claim split remains accepted: settlement admission and ambient visi
 | greeting | ACCEPTED — canonical; legacy flow retired |
 | recruitment / relationship proposal | ACCEPTED — canonical policy/reply + single generic admission seam |
 | ceasefire / territory / effectful social | ACCEPTED |
-| parameterized tasks | R8A PARTIAL — `task_generation_and_result_routing` and worker `task_conversation_projection_lifecycle` retained; native production projection parity missing |
+| parameterized tasks | ACCEPTED — `task_generation_and_result_routing`, `task_conversation_projection_lifecycle`, and `task_native_projection_parity` |
 | quest operations | ACCEPTED — production offer→accept→active→READY_TO_TURN_IN→REWARDED→repeat |
 | disband | ACCEPTED |
 | settlement admission | ACCEPTED — atomic post-success refresh owner retained |
@@ -929,14 +929,4 @@ R7A's atomic claim split remains accepted: settlement admission and ambient visi
 | event response-window expiry | ACCEPTED |
 | gift / gossip / departure / pragmatic repair | REFERENCE_GOOD_REGRESSION |
 
-R8A must add one atomic required claim to `audit.task.parameterized`:
-
-~~~text
-task_native_projection_parity
-~~~
-
-That claim must be owned by an exact native/native-equivalent production-context regression. The existing worker-only lifecycle test must not own native parity by implication.
-
-The final S11 acceptance gate is additionally reopened by R8B because canonical Core acceptance is currently order/concurrency dependent: parallel tests mutate the live canonical source tree and serial Core acceptance reports unclassified Tk-display skips.
-
-Current repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+Completed repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.

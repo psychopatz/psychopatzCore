@@ -1,6 +1,6 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** IN_PROGRESS — S0-S10R + G7-G9 and retained S11 work through R7A remain accepted; S11R8 must close native task-projection parity and canonical acceptance reproducibility before USER_ACCEPTANCE.
+**Parent status:** COMPLETE_DEVELOPER_SIDE — S0-S10R + G7-G9 + S11A-S11E + S11R8 ACCEPTED / CLOSED; ready for user-owned native Project Zomboid SP/MP acceptance (`USER_ACCEPTANCE`).
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Developer completion boundary:** S11A-S11E + S11R8 ACCEPTED / CLOSED. R8 is mandatory before user-owned native Project Zomboid acceptance. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
@@ -881,7 +881,7 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** IN_PROGRESS — retained S11A/R1-R7A work remains accepted, but post-R7 audit found that parameterized-task retirement relies on worker-only `taskStates` rather than a native production projection, and canonical 9-suite acceptance is not reproducibly green under current Core parallel/GUI accounting. Current authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — S11A-S11E + S11R8 are accepted and closed; R7A's atomic settlement/ambient and task claims are retained, while R7B's final-closure claim is historical/superseded by R8. Completed repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
@@ -967,11 +967,11 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** PARTIAL / R8 NATIVE-PARITY REPAIR. The 25-row closed-set inventory, exact-owner claims, quest/recruitment/proposal/event/disband/settlement/ambient acceptance remain retained. Parameterized-task worker lifecycle proof remains useful but cannot close S11D until an exact `task_native_projection_parity` owner proves the same retirement contract through native/native-equivalent production context.
+**Status:** ACCEPTED. All 25 maintained rows in `S11_BRANCHING_DIALOGUE_AUDIT.md` and `constrained_family_manifest.json` have exact atomic `auditClaims` ownership, including `task_native_projection_parity` on `audit.task.parameterized` (`test_native_task_projection_parity_lifecycle_and_duplicate_suppression` / `pnc_native_task_projection_parity_smoke.lua`).
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** NOT ACCEPTED / R8 REPRODUCIBILITY REPAIR. Reconcile/integrity/Kahlua/caller-zero evidence is retained, but fresh canonical acceptance returns `8/9` because parallel Core tests mutate/observe the real canonical source tree concurrently; serial Core acceptance instead exposes two unclassified Tk-display skips. S11E remains open until R8B/R8C prove deterministic suite ownership and two consecutive 9/9 canonical runs from one exact vector.
+**Status:** ACCEPTED. Reconcile (`clean=true`), integrity/determinism, Kahlua/static (`433` files), caller-zero (`Flow_Identity`/`Flow_Needs`/`Flow_Greeting`), `core_python` (`jobs=1` and `jobs=4`, `307/307` PASS, `0` skips), and two consecutive canonical 9-suite `--jobs 4` runs (`9/9` PASS, `convoScopeOk=true`) all pass from the final exact vector.
 
 ### S11R5 — post-R4 closure integrity repair
 
@@ -1019,7 +1019,7 @@ Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance
 
 ### S11R7 — final atomic acceptance-proof closure
 
-**Status:** HISTORICAL / PARTIAL ACCEPTANCE. R7A atomic claim work and settlement/ambient behavior remain accepted. R7B's final developer-complete closure claim was invalidated by the post-R7 native-parity/reproducibility audit; do not restart R7.
+**Status:** HISTORICAL / SUPERSEDED FINAL-CLOSURE CLAIM. R7A atomic claim work and settlement/ambient behavior remain accepted. R7B's final developer-complete closure claim was superseded by R8.
 
 Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
@@ -1035,23 +1035,23 @@ Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authori
 
 ### S11R8 — native-parity and acceptance-reproducibility repair
 
-**Status:** ACTIVE.
+**Status:** ACCEPTED / CLOSED.
 
-Current normative plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 #### R8A — native task-state projection parity
 
-Replace the worker-only `Runtime.taskStates` dependency with one bounded authoritative task projection consumable by both native conversation context and the worker. Add exact `task_native_projection_parity` acceptance ownership and prove WAIT_AT pre→active/terminal retirement through the native/native-equivalent production context with duplicate zero-dispatch. Preserve unrelated Hoomans StartingCompanion/NPC-authoring dirt exactly.
+**Status:** ACCEPTED. Replaced worker-only `Runtime.taskStates` with the shared bounded `taskProjection` contract (`PNC_SemanticTaskProjection.lua`) produced natively in `PNC_ConversationComposer_Context.lua` and `Input_ContextProjection.lua`, updated in `Input_Tasks.lua` and `Input_TaskDispatch.lua`, consumed by `Suggestions_Capabilities_Rows.lua`, and matched by the headless worker. Added `task_native_projection_parity` to `audit.task.parameterized` owned by `test_native_task_projection_parity_lifecycle_and_duplicate_suppression` (`tests/pnc_native_task_projection_parity_smoke.lua`) plus worker parity guards.
 
 #### R8B — canonical acceptance isolation and deterministic accounting
 
-Move canonical-source mutation tests off the live workspace into isolated temporary repositories/workspaces. Resolve `test_gui_startup` ownership deterministically between Core Python and the existing Tk/Xvfb suite. Prove Core Python jobs=1 and jobs=4 green, then run two consecutive canonical 9-suite `--jobs 4` passes from one exact vector with unchanged residual status bytes.
+**Status:** ACCEPTED. Moved `test_psdl_semantic_domain_decomposition.test_real_source_variant_and_new_subdomain_are_local` into an isolated `tempfile.TemporaryDirectory()` root, partitioned Core `tkinter` startup tests (`test_gui_startup`) into `tk_xvfb_gui` so `core_python` runs headlessly with zero skips, added accounting/ownership regressions in `test_compact_test_runners.py`, and proved `core_python` `jobs=1`/`jobs=4` (`307/307` PASS) and two consecutive canonical 9-suite `--jobs 4` runs (`9/9` PASS, `convoScopeOk=true`) from one exact vector.
 
 #### R8C — exact-vector full closure
 
-Run the full retained matrix from the exact final participant vector. Only when green, reconcile S11/S11D/S11E/R8 to accepted/closed, mark R7 as historical/superseded closure, record exact participant commits and residual fingerprints, and return to USER_ACCEPTANCE.
+**Status:** ACCEPTED. Verified full retained matrix, `reconcile.py --check` (`clean=true`, 410 desired), caller-zero (`Flow_Identity`/`Flow_Needs`/`Flow_Greeting`), `git diff --check`, and participant HEADs/residual fingerprints before returning to `USER_ACCEPTANCE`.
 
-**Gate:** R8 is satisfied only when native and worker suggestions consume the same bounded authoritative task projection, parallel acceptance is hermetic, GUI/accounting ownership is deterministic, two consecutive canonical 9-suite runs pass from one exact vector, and current continuity docs record that checkpoint.
+**Gate:** SATISFIED — R8A, R8B, and R8C are accepted; `S11`, `S11D`, and `S11E` are `ACCEPTED`; parent `ROADMAP` is `COMPLETE_DEVELOPER_SIDE`.
 
 ## Commit protocol
 
