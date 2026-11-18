@@ -100,9 +100,9 @@ S11 extends the accepted post-G9 ConvoEngine pipeline:
 - for bulk dialogue migrations, read canonical compact source plus compiler/recipe evidence rather than repeatedly reading generated downstream copies.
 - treat `S11_BRANCHING_DIALOGUE_AUDIT.md` plus the compiler-visible constrained-family inventory/manifest as mandatory **closed-set** acceptance coverage; missing audit rows and extra unowned manifest rows fail acceptance;
 - accepted constrained-family classifications are `CANONICAL_STATEFUL`, `EXPLICIT_PRESENTATION_ONLY`, `REFERENCE_GOOD_REGRESSION`, or `RETIRED`, each with machine-verifiable acceptance ownership;
-- an `acceptanceOwner` path/string alone is not evidence: the source and referenced test/fixture/case ID must exist and explicitly own the required audit claim;
-- review family-specific semantic checks or canonical reply mappings added to generic hand-written runtime kernels as architecture defects when the policy/reply already belongs in canonical source/Portable Plan; a behavior test alone does not accept such duplication;
-- use `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` when resuming the current reopened S11 work; `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` is historical R0-R4 context.
+- an `acceptanceOwner` path/string alone is not evidence: the exact referenced test/fixture/case must explicitly declare its stable audit claim IDs; manifest repetition, `claimKeywords`, substring matching, test-name similarity, or whole-file source-text scans are not semantic ownership proof;
+- review family-specific semantic checks or canonical reply mappings added to generic hand-written runtime kernels as architecture defects when the policy/reply already belongs in canonical source/Portable Plan; canonical action-policy admission must use one generic path before domain-specific mutation routing;
+- use `S11_POST_R5_FINAL_CLOSURE_REPAIR.md` when resuming current S11 work; `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` is historical R5 context and `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md` is historical R0-R4 context.
 
 Behavioral regressions belong primarily in provider-owned declarative fixtures under tools/providers/<provider>/fixtures/. Keep imperative tests for compiler/schema, Portable Plan/Reference VM, backend parity, ActionContract lifecycle, GUI/protocol/static/performance responsibilities.
 

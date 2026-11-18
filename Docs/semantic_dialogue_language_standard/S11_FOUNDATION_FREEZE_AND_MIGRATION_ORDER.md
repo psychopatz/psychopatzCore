@@ -312,6 +312,6 @@ A required `CANONICAL_STATEFUL` family that lacks canonical state/input/repeat/c
 
 Historical R0-R4 acceptance repair: `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`.
 
-Current post-R4 closure repair: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. The S11A foundation remains retained; R5 must not restart foundation or accepted Identity/Needs/Greeting migrations.
+Historical R5 repair: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current final closure repair: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. The S11A foundation remains retained; R6 must not restart foundation or accepted Identity/Needs/Greeting migrations.
 
 This clarification does not authorize rebuilding the accepted A0-A8 substrate. It closes an acceptance blind spot and then resumes the original recipe-only, no-shim migration order.

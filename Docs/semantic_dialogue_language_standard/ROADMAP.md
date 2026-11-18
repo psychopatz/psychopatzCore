@@ -881,9 +881,9 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** IN_PROGRESS — post-R4 closure audit retained successful S11A/R1/R2 migrations but reopened acceptance integrity and remaining S11D task/quest/event/disband/settlement gaps. Current authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
+**Status:** IN_PROGRESS — post-R5 audit retained the successful S11A/R1/R2 and useful R5 work but reopened final acceptance-claim integrity, quest/task/settlement presentation closure, generic policy admission, and exact continuity closure. Current authority: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
 
-Historical R0-R4 repair: `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
+Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
 
 Normative design: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved post-G9 architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching/state audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
@@ -945,7 +945,7 @@ Before any production semantic-family migration, prove canonical model stability
 
 ### Historical S11 R0-R4 post-implementation repair order
 
-R0-R4 substantially landed and are retained as historical phase evidence. Do not restart this sequence. Current remaining work is S11R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
+R0-R4 substantially landed and are retained as historical phase evidence. Do not restart this sequence. R5 also substantially landed; current remaining work is S11R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
 
 Historical order:
 
@@ -967,17 +967,17 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** PARTIAL / REOPENED BY POST-R4 AUDIT. Canonical recruitment, relationship proposal, ceasefire, territory, and effectful-social migrations plus recruitment/proposal transition fixtures are retained. S11D remains open for parameterized task conversation-state parity, quest production lifecycle projection, event-expiry manifest ownership, disband confirmation/presentation ownership, and settlement/ambient post-transition projection.
+**Status:** PARTIAL / R6 RESIDUAL ACCEPTANCE ONLY. Canonical recruitment, relationship proposal, ceasefire, territory, effectful-social, event-expiry, and disband acceptance are retained. Parameterized tasks still need suggestion/response-channel parity across active/terminal state; production quest conversation state still needs READY_TO_TURN_IN → REWARDED → repeat proof; settlement/ambient still needs active-conversation post-success refresh/retirement proof.
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** NOT ACCEPTED / REOPENED. Prior R4 test/generation evidence remains useful, and fresh post-R4 reruns confirm Core 308 PASS / 2 skips plus clean reconcile/integrity. Final S11E is blocked by incomplete/mis-owned constrained-family acceptance, remaining S11D task/quest/event/disband/settlement coverage, family-specific recruitment reply duplication in generic dispatch, and incomplete final checkpoint documentation.
+**Status:** NOT ACCEPTED / R6 FINAL CLOSURE. Fresh post-R5 reruns confirm Core 310 PASS / 2 skips, focused provider 24/24 PASS, clean reconcile, and clean integrity/determinism. Final S11E remains blocked by keyword-based claim ownership, incomplete production quest/task/settlement conversation projection, family-specific policy-admission branching in generic dispatch, and contradictory/stale final continuity documentation.
 
 ### S11R5 — post-R4 closure integrity repair
 
-**Status:** ACTIVE.
+**Status:** HISTORICAL / SUBSTANTIALLY LANDED. Retain the closed-set audit inventory, exact source/test-ID validation, event/disband acceptance, canonical `ProjectReply`, removed hard-coded recruitment reply mapping, and broad green R5 test evidence. Post-R5 audit opened the narrower R6 repair; do not restart R5.
 
-Current normative plan: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
+Historical plan: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current normative plan: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
 
 #### R5A — acceptance inventory + ownership integrity
 
@@ -996,6 +996,30 @@ Remove family-specific recruitment/proposal canonical reply projection from gene
 Rerun focused R5 tests, full semantic-harness, canonical nine-suite acceptance, strict closed-set Completeness, CodeBuilder reconcile, integrity/determinism, Kahlua/static and caller-zero guards. Reconcile all current docs by replacement rather than appending stale states. Final HANDOFF records exact participant commits plus SHA-256 residual-work fingerprints. No push/publication.
 
 **Gate:** S11R5 is accepted only when every maintained branching-audit row has machine-verifiable acceptance ownership, all residual state/lifecycle gaps are closed, generic runtime contains no duplicate family-specific canonical reply authority, retained acceptance is reproducibly green, and ROADMAP/PROGRESS/HANDOFF agree on one exact committed checkpoint.
+
+### S11R6 — post-R5 final closure repair
+
+**Status:** ACTIVE.
+
+Current normative plan: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
+
+#### R6A — explicit exact-test acceptance claim ownership
+
+Retain the closed-set 25-row audit inventory and exact source/test-ID lookup. Replace semantic `claimKeywords`/source-text inference with stable audit claim IDs explicitly declared by the exact owning fixture case / Python test method / Lua smoke test. Manifest repetition and keyword presence are not evidence. Add negative guards for missing/wrong claims, keyword-only false positives, Lua whole-file false positives, and stale renamed owners.
+
+#### R6B — residual lifecycle/presentation acceptance
+
+Complete the same production QuestService-backed conversation lifecycle through READY_TO_TURN_IN → REWARDED → repeat idempotence; prove representative parameterized-task suggestion/response-channel parity across active/terminal state; and prove settlement/ambient public conversation affordances refresh/retire after authoritative success. Reuse existing authorities; do not create ConvoEngine shadow state.
+
+#### R6C — single generic canonical policy-admission seam
+
+Evaluate canonical action policy exactly once for any action with a policy plan before domain-specific action routing. Domain-specific mutation routing may still name recruitment/proposal, but generic dispatch must not name a family solely to decide whether canonical policy runs. Preserve generic `ProjectReply` projection and target-hint requirements.
+
+#### R6D — reproducible final closure
+
+Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance, quest/task/settlement R6 regressions, canonical nine-suite acceptance, recipe reconcile, integrity/determinism, caller-zero guards and `git diff --check`. Rewrite all current continuity docs to one state and record exact participant commits plus live residual path counts/SHA-256 fingerprints. No push/publication.
+
+**Gate:** S11R6 is accepted only when every required audit claim is explicitly owned by the exact test/case (no keyword inference), residual quest/task/settlement conversation projections are proven, canonical policy admission is single-path and family-agnostic, retained acceptance is reproducibly green, and ROADMAP/PROGRESS/HANDOFF/parent/audit/repair docs agree on one exact committed checkpoint.
 
 ## Commit protocol
 

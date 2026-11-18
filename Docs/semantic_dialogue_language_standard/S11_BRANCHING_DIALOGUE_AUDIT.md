@@ -909,34 +909,36 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
 
-# Post-R4 closure audit — 2026-11-18
+# Post-R5 closure audit — 2026-11-18
 
-R0-R4 repaired the original P0 defects substantially, but final S11 closure remains open because acceptance inventory/ownership can still produce false greens.
+R5 substantially closed the earlier structural gaps: the 25-row audit inventory is closed-set, exact owner source/test IDs are resolved, event expiry and disband are covered, and canonical reply projection replaced hard-coded recruitment reply mapping.
 
-This document remains the normative human-readable scope input. The acceptance/compiler layer must maintain a machine-readable closed-set inventory corresponding to every maintained row below; omission of a row must fail acceptance.
+Final S11 closure remains open for the narrower R6 requirements.
+
+The machine acceptance layer must now prove **explicit stable claim ownership by the exact test/case**. Inventory-required claim IDs are authoritative; manifest repetition, `claimKeywords`, test-name similarity, substring matching, or whole-file source-text search are not acceptance evidence.
 
 | Surface | Current closure status |
 | --- | --- |
-| identity | ACCEPTED — canonical; superseded `Flow_Identity.lua` retired |
+| identity | ACCEPTED — canonical; legacy flow retired |
 | companion commands | ACCEPTED — canonical maintained command policy |
-| needs | ACCEPTED — canonical; superseded `Flow_Needs.lua` retired |
-| greeting | ACCEPTED — canonical; superseded `Flow_Greeting.lua` retired |
-| recruitment | CANONICAL IMPLEMENTATION ACCEPTED; R5C removes duplicated runtime reply mapping from generic dispatch |
-| relationship proposal | CANONICAL IMPLEMENTATION ACCEPTED; R5C generalizes the same policy/reply projection seam |
-| ceasefire | CANONICAL IMPLEMENTATION ACCEPTED; retain typed/state regression |
-| set territory | CANONICAL IMPLEMENTATION ACCEPTED; retain typed/state regression |
-| wellbeing/trust/affinity effects | CANONICAL IMPLEMENTATION ACCEPTED; retain repeat-policy regression |
-| parameterized tasks | REOPENED — generated/result branches exist, but conversation-level available/active/completed/repeat parity is not proven |
-| quest operations | REOPENED — authoritative service lifecycle is good, but conversation worker still permits repeated-offer shortcut instead of proving production lifecycle projection |
-| disband | REOPENED ACCEPTANCE — intended presentation-only/confirmation policy is not owned by the currently named manifest test |
-| settlement admission / ambient visit | REOPENED ACCEPTANCE — authority/replay/expiry tests exist, but post-success conversation refresh/retirement and correct acceptance owner are not proven |
-| event response-window expiry | REOPENED ACCEPTANCE — real expiry test exists but current manifest omits this audit row |
-| gift | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
-| grounded gossip | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
-| departure | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
-| pragmatic repair | REFERENCE_GOOD_REGRESSION — retain explicit real owner |
+| needs | ACCEPTED — canonical; legacy flow retired |
+| greeting | ACCEPTED — canonical; legacy flow retired |
+| recruitment | CANONICAL CONTENT/REPLY ACCEPTED; R6C still removes family-specific policy-admission selection from generic dispatch |
+| relationship proposal | CANONICAL CONTENT/REPLY ACCEPTED; R6C same generic-admission cleanup |
+| ceasefire | ACCEPTED — retain typed/state regression |
+| set territory | ACCEPTED — retain typed/state regression |
+| wellbeing/trust/affinity effects | ACCEPTED — retain repeat-policy regression |
+| parameterized tasks | R6B PARTIAL — duplicate/terminal zero-dispatch works; suggestion/response-channel parity after active/terminal transition still unproven |
+| quest operations | R6B PARTIAL — production authority proves offer→accept→active/repeat-active and premature turn-in; READY_TO_TURN_IN→REWARDED→repeat still unproven in the same production conversation path |
+| disband | ACCEPTED — explicit presentation-only confirmation/cancel/replay safety retained |
+| settlement admission / ambient visit | R6B PARTIAL — service/authority/replay/expiry strong; active-conversation post-success affordance refresh/retirement still unproven |
+| event response-window expiry | ACCEPTED — real expiry regression retained |
+| gift | REFERENCE_GOOD_REGRESSION — retain explicit owner |
+| grounded gossip | REFERENCE_GOOD_REGRESSION — retain explicit owner |
+| departure | REFERENCE_GOOD_REGRESSION — retain explicit owner |
+| pragmatic repair | REFERENCE_GOOD_REGRESSION — retain explicit owner |
 
-Every maintained row must end as exactly one of:
+Every maintained row remains exactly one of:
 
 ~~~text
 CANONICAL_STATEFUL
@@ -945,6 +947,6 @@ REFERENCE_GOOD_REGRESSION
 RETIRED
 ~~~
 
-The machine acceptance inventory must be **closed-set** against this maintained audit scope, and every non-retired classification must have machine-verifiable acceptance ownership. A non-empty owner path is not sufficient evidence.
+R6A strengthens how that classification is proven: each inventory `requiredClaims` entry must resolve to explicit `auditClaims` owned by the exact selected fixture/test/smoke. Closed-set membership plus an existing test name is not enough.
 
-Current repair authority: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`
+Current repair authority: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`

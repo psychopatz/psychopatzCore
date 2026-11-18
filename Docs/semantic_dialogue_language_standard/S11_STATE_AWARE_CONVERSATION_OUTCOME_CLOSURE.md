@@ -1,11 +1,11 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** IN_PROGRESS — post-R4 closure audit reopened acceptance integrity. S11A, Identity, commands, Needs, Greeting, and accepted canonical R3 families are retained; execute `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` R5A→R5D before user acceptance.
+**Current status:** IN_PROGRESS — post-R5 audit reopened only the final closure gaps. Retain S11A, Identity, commands, Needs, Greeting, closed-set R5 audit inventory, event/disband acceptance, and canonical `ProjectReply`; execute `S11_POST_R5_FINAL_CLOSURE_REPAIR.md` R6A→R6D before user acceptance.
 
-**Status:** IN_PROGRESS — S11R5 acceptance-inventory integrity and residual S11D closure.
+**Status:** IN_PROGRESS — S11R6 exact acceptance claims, residual quest/task/settlement projection, generic policy-admission unification, and final continuity closure.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
-**Accepted baseline retained:** S0-S10 + S10R and accepted S11 foundation/migrations remain accepted unless targeted R5 evidence disproves them.
+**Accepted baseline retained:** S0-S10 + S10R, accepted S11 foundation/migrations, and the useful R5 mechanisms remain accepted unless targeted R6 evidence disproves them.
 **Primary adopter:** ProjectHoomans.
 **Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
 **User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities.

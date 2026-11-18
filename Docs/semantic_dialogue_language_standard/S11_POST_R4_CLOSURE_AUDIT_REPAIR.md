@@ -1,10 +1,12 @@
 # S11 Post-R4 Closure Audit Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR PLAN
+**Status:** HISTORICAL R5 REPAIR PLAN — substantially landed; final closure reopened by post-R5 audit
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Historical repair:** `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`
+
+**Current repair authority:** `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. Do not restart R5; retain accepted R5 mechanisms and execute R6.
 
 ## Purpose
 
