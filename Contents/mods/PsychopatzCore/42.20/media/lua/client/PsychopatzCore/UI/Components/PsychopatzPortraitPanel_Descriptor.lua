@@ -99,7 +99,12 @@ local function buildDescriptor(spec)
     if humanVisual then
         safeCall(humanVisual, "setSkinTextureName", appearance.skinTexture
             or (spec and spec.isFemale and "FemaleBody01" or "MaleBody01"))
-        applySkinColor(humanVisual, appearance.skinColor)
+        -- A chosen native texture must not inherit the temporary factory
+        -- descriptor's random tint. Legacy/custom RGB remains explicit.
+        local tone = tonumber(string.match(tostring(appearance.skinTexture or ""), "^FemaleBody0([1-5])$"))
+            or tonumber(string.match(tostring(appearance.skinTexture or ""), "^MaleBody0([1-5])$"))
+        if tone and humanVisual.setSkinTextureIndex then humanVisual:setSkinTextureIndex(tone - 1) end
+        applySkinColor(humanVisual, appearance.skinColor or { r = 1, g = 1, b = 1 })
         if appearance.hairModel then safeCall(humanVisual, "setHairModel", appearance.hairModel) end
         safeCall(humanVisual, "setBeardModel", spec and spec.isFemale and "" or (appearance.beardModel or ""))
         applyColor(humanVisual, appearance.hairColor)

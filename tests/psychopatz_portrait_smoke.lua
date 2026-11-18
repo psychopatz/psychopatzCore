@@ -154,6 +154,8 @@ end
 
 local visual = {}
 function visual:setSkinTextureName(value) self.skin = value end
+function visual:setSkinTextureIndex(value) self.skinIndex = value end
+function visual:setSkinColor(value) self.skinColor = value end
 function visual:setHairModel(value) self.hair = value end
 function visual:setBeardModel(value) self.beard = value end
 function visual:setHairColor(value) self.hairColor = value end
@@ -203,6 +205,12 @@ assertEqual(lastModel.descriptor, descriptor, "descriptor applied")
 assertEqual(descriptor.female, true, "descriptor gender")
 assertEqual(visual.hair, "Long", "descriptor hair")
 assertEqual(worn.values.Jacket.fullType, "Base.Jacket", "equipment clothing applied")
+visual.skinColor = { r = .2, g = .1, b = .1 }
+assert(panel:setTarget(nil, { id = "native_tone", appearance = { skinTexture = "FemaleBody02" }, isFemale = true }), "native tone target failed")
+assertEqual(visual.skinIndex, 1, "native skin index follows the selected tone")
+assertEqual(visual.skinColor.r, 1, "native tone removes random factory tint")
+assert(panel:setTarget(nil, { id = "legacy_tint", appearance = { skinTexture = "FemaleBody02", skinColor = { r = .4, g = .3, b = .2 } }, isFemale = true }), "custom tint target failed")
+assertEqual(visual.skinColor.r, .4, "explicit inherited/custom tint remains respected")
 
 assert(panel:setTarget(nil, {
     id = "npc_native_slot_migration",
