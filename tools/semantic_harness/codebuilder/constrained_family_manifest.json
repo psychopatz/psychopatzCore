@@ -271,9 +271,9 @@
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Settlement admission and ambient visit responses backed by settlement authority.",
       "acceptance": {
-        "ownerKind": "lua_test",
-        "source": "ProjectHoomans/tests/pnc_mobile_settlement_admission_smoke.lua",
-        "testIds": ["settlement"],
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_production_leave_group.py",
+        "testIds": ["test_ambient_visit_root_choice_refreshes_and_retires_after_start"],
         "requiredClaims": ["settlement_ambient_admission_boundary"]
       }
     },
