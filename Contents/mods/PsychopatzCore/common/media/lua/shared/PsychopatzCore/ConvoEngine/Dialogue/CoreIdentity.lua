@@ -131,6 +131,11 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["closure"] = {
+                ["closureClass"] = "resolved_episode",
+                ["episodeId"] = "identity_exchange",
+            },
+            ["inputPolicy"] = "typed_parity",
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.identity",
@@ -151,6 +156,10 @@ return {
                     ["topic"] = "identity",
                 },
             },
+            ["postconditions"] = {
+                "addressee.identity_known_to_speaker",
+            },
+            ["repeatPolicy"] = "state_retired",
             ["say"] = {
                 ["keyOrder"] = {
                     "1",
@@ -176,6 +185,25 @@ return {
                     },
                 },
                 ["textRole"] = "spoken_action",
+            },
+            ["statePolicy"] = {
+                {
+                    ["admission"] = "no_op",
+                    ["id"] = "already_known",
+                    ["outcome"] = "already_satisfied",
+                    ["reason"] = "identity_already_known",
+                    ["when"] = {
+                        ["op"] = "eq",
+                        ["path"] = "addressee.identityState",
+                        ["value"] = "known",
+                    },
+                },
+                {
+                    ["admission"] = "dispatch",
+                    ["id"] = "first_contact_question",
+                    ["outcome"] = "actionable",
+                    ["reason"] = "identity_unknown",
+                },
             },
         },
         ["references"] = {

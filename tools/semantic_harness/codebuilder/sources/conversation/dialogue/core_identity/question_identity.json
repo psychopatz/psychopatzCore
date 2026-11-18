@@ -36,5 +36,33 @@
   "say": {
     "EN": "Who are you?",
     "TL": "Sino ka?"
-  }
+  },
+  "inputPolicy": "typed_parity",
+  "repeatPolicy": "state_retired",
+  "postconditions": [
+    "addressee.identity_known_to_speaker"
+  ],
+  "closure": {
+    "closureClass": "resolved_episode",
+    "episodeId": "identity_exchange"
+  },
+  "statePolicy": [
+    {
+      "id": "already_known",
+      "when": {
+        "path": "addressee.identityState",
+        "op": "==",
+        "value": "known"
+      },
+      "outcome": "already_satisfied",
+      "reason": "identity_already_known",
+      "admission": "no_op"
+    },
+    {
+      "id": "first_contact_question",
+      "outcome": "actionable",
+      "reason": "identity_unknown",
+      "admission": "dispatch"
+    }
+  ]
 }

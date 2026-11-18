@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11A8 Foundation Freeze Gate ACCEPTED (`MIGRATION_ALLOWED = true`); advancing to S11B Identity reference migration.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A8 accepted (foundation frozen); S11B-S11E production migration & closure active.
+**Status:** IN_PROGRESS — S11B accepted (Identity reference migration & Identity P0 regressions fixed); advancing to S11C companion commands, Needs, and Greeting migrations.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A8 + S11B accepted; S11C-S11E remaining.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11B — Identity reference migration onto the frozen S11 substrate.
-**Immediate Next Chunk:** S11B — migrate Identity onto canonical CodeBuilder source/recipes (`statePolicy`, `inputPolicy`, `repeatPolicy`, `postconditions`, `closure`), prove all Identity P0 regressions fixed + first-contact preserved, prove old Identity semantic callers = 0, and delete obsolete Identity semantic code.
+**Active phase:** S11C — companion commands (`FOLLOW`/`STAY`/`GO HOME`/`CAMP`) + Needs + Greeting migrations.
+**Immediate Next Chunk:** S11C — migrate companion command state-aware dispatch (`already_satisfied` / `blocked` zero dispatch), Needs `proposal_pending` closure/progress, and Greeting hostile/friendly coherence.
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 
