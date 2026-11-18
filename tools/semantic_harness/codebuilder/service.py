@@ -1224,14 +1224,24 @@ class SemanticLabAuthoringService:
             if isinstance(shard, dict) and shard.get("path") and shard.get("sourcePath")
         }
         source_paths: dict[str, str] = {}
-        for fid, dlg in (portable_plan.get("dialogues") or {}).items():
-            if isinstance(dlg, dict):
-                lineage = dlg.get("lineage") or {}
-                rel = lineage.get("sourcePath") if isinstance(lineage, dict) else None
-                if isinstance(rel, str) and rel in shard_paths:
-                    source_paths[str(fid)] = shard_paths[rel]
-                elif isinstance(rel, str):
-                    source_paths[str(fid)] = str(self._content_source_path(rel, model=model))
+        for section_key in ("dialogues", "behaviors", "beats", "realizations"):
+            for fid, rec in (portable_plan.get(section_key) or {}).items():
+                if isinstance(rec, dict):
+                    lineage = rec.get("lineage") or {}
+                    rel = lineage.get("sourcePath") if isinstance(lineage, dict) else None
+                    if isinstance(rel, str) and rel in shard_paths:
+                        source_paths[str(fid)] = shard_paths[rel]
+                    elif isinstance(rel, str):
+                        source_paths[str(fid)] = str(self._content_source_path(rel, model=model))
+        catalog_family_ids: set[str] | None = None
+        try:
+            catalog_family_ids = {
+                str(item.get("canonicalID") or item.get("id"))
+                for item in self.list_convo_engine_families()
+                if isinstance(item, dict) and (item.get("canonicalID") or item.get("id"))
+            }
+        except Exception:
+            catalog_family_ids = None
         contracts: dict[str, dict[str, Any]] = {}
         try:
             for item in self.list_registered_action_contracts():
@@ -1247,6 +1257,7 @@ class SemanticLabAuthoringService:
             strict_manifest=strict_manifest,
             source_paths=source_paths,
             family_ids=family_ids,
+            catalog_family_ids=catalog_family_ids,
         )
 
     def _find_convo_engine_family_entry(self, family_id: str) -> dict[str, Any]:

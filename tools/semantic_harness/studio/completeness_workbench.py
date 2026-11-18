@@ -98,6 +98,7 @@ class DialogueCompletenessWorkbench:
         service: Any,
         *,
         on_open_family: Callable[[str, str | None], None] | None = None,
+        on_select_family: Callable[[str], None] | None = None,
         on_run_family_tests: Callable[[str], None] | None = None,
         auto_analyze: bool = False,
     ) -> None:
@@ -107,7 +108,9 @@ class DialogueCompletenessWorkbench:
         self._messagebox = messagebox
         self.service = service
         self._on_open_family = on_open_family
+        self._on_select_family = on_select_family
         self._on_run_family_tests = on_run_family_tests
+        self._syncing_selection = False
 
         self.frame = ttk.Frame(parent, padding=4)
         self.frame.grid(row=0, column=0, sticky="nsew")
@@ -329,11 +332,16 @@ class DialogueCompletenessWorkbench:
     def _update_summary_banner(self) -> None:
         summary = self._report.get("summary") or {}
         health = summary.get("byClosureHealth") or {}
+        by_kind = summary.get("byKind") or {}
+        d_total = (by_kind.get("dialogue") or {}).get("total", 0)
+        b_total = (by_kind.get("behavior") or {}).get("total", 0)
+        bt_total = (by_kind.get("beat") or {}).get("total", 0)
+        r_total = (by_kind.get("realization") or {}).get("total", 0)
         self._summary_var.set(
-            f"families={summary.get('families', 0)} | "
+            f"{summary.get('families', 0)} maintained "
+            f"({d_total} Dialogues, {b_total} Behaviors, {bt_total} Beats, {r_total} Realizations) | "
             f"errors={summary.get('errors', 0)} | "
             f"warnings={summary.get('warnings', 0)} | "
-            f"sccs={summary.get('sccs', 0)} | "
             f"resolved={health.get('resolved_terminal', 0)} "
             f"cont={health.get('continuation', 0)} "
             f"pending={health.get('bounded_pending', 0)} "
@@ -358,7 +366,7 @@ class DialogueCompletenessWorkbench:
         )
         self._filtered_rows = rows
         self._family_list.delete(0, "end")
-        selected_idx = 0 if rows else None
+        selected_idx: int | None = None
         for idx, row in enumerate(rows):
             fid = str(row["familyId"])
             mark = " *affected" if fid in self._affected_ids else ""
@@ -372,23 +380,73 @@ class DialogueCompletenessWorkbench:
             self._family_list.insert("end", label)
             if fid == self._selected_family_id:
                 selected_idx = idx
+        all_families = self._report.get("families") or {}
         if selected_idx is not None and rows:
-            self._family_list.selection_set(selected_idx)
-            self._on_family_select()
+            self._set_listbox_selection(selected_idx)
+            self._render_family_graph(rows[selected_idx])
+        elif self._selected_family_id and self._selected_family_id in all_families:
+            self._render_family_graph(all_families[self._selected_family_id])
+        elif self._selected_family_id is None and rows:
+            self._set_listbox_selection(0)
+            self._selected_family_id = str(rows[0]["familyId"])
+            self._render_family_graph(rows[0])
         else:
-            self._selected_family_id = None
             self._render_family_graph(None)
 
-    def select_family(self, family_id: str) -> bool:
-        self.ensure_loaded()
+    def _set_listbox_selection(self, idx: int) -> None:
+        try:
+            self._family_list.selection_clear(0, "end")
+        except Exception:
+            pass
+        self._family_list.selection_set(idx)
+        try:
+            self._family_list.see(idx)
+        except Exception:
+            pass
+
+    def select_family(
+        self,
+        family_id: str,
+        *,
+        ensure_loaded: bool = True,
+        notify: bool = True,
+    ) -> bool:
+        self._selected_family_id = str(family_id) if family_id else None
+        if ensure_loaded:
+            self.ensure_loaded()
+        if not self._report:
+            return False
+        all_families = self._report.get("families") or {}
+        found_row = all_families.get(family_id)
         for idx, row in enumerate(self._filtered_rows):
             if row.get("familyId") == family_id:
-                self._family_list.selection_set(idx)
-                self._on_family_select()
+                self._set_listbox_selection(idx)
+                self._render_family_graph(row)
+                if notify and self._on_select_family is not None and not self._syncing_selection:
+                    self._syncing_selection = True
+                    try:
+                        self._on_select_family(family_id)
+                    finally:
+                        self._syncing_selection = False
                 return True
+        if found_row is not None:
+            try:
+                self._family_list.selection_clear(0, "end")
+            except Exception:
+                pass
+            self._render_family_graph(found_row)
+            if notify and self._on_select_family is not None and not self._syncing_selection:
+                self._syncing_selection = True
+                try:
+                    self._on_select_family(family_id)
+                finally:
+                    self._syncing_selection = False
+            return True
         return False
 
     def _on_family_select(self) -> None:
+        if self._syncing_selection:
+            return
         sel = self._family_list.curselection()
         if not sel:
             return
@@ -396,8 +454,15 @@ class DialogueCompletenessWorkbench:
         if idx < 0 or idx >= len(self._filtered_rows):
             return
         row = self._filtered_rows[idx]
-        self._selected_family_id = str(row["familyId"])
+        fid = str(row["familyId"])
+        self._selected_family_id = fid
         self._render_family_graph(row)
+        if self._on_select_family is not None:
+            self._syncing_selection = True
+            try:
+                self._on_select_family(fid)
+            finally:
+                self._syncing_selection = False
 
     def _render_family_graph(self, row: dict[str, Any] | None) -> None:
         if row is None:

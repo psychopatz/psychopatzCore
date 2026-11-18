@@ -306,6 +306,52 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         gui_report = wb.run_strict_analysis()
         self.assertEqual(gui_report["summary"], direct["summary"])
         self.assertEqual(gui_report["diagnostics"], direct["diagnostics"])
+        self.assertEqual(direct["summary"]["families"], 588)
+        self.assertEqual(direct["summary"]["analyzedFamilies"], 588)
+        self.assertFalse(direct["summary"]["catalogMismatch"])
+        by_kind = direct["summary"]["byKind"]
+        self.assertEqual(by_kind["dialogue"]["total"], 520)
+        self.assertEqual(by_kind["behavior"]["total"], 30)
+        self.assertEqual(by_kind["beat"]["total"], 3)
+        self.assertEqual(by_kind["realization"]["total"], 35)
+
+    def test_selection_synchronization_prevents_action_trade_vs_accept_mismatch(self) -> None:
+        service = SemanticLabAuthoringService()
+        pane = ConvoEngineAuthoringPane(
+            _FakeWidget(),
+            _FakeTk,
+            _FakeTtk,
+            _FakeWidget,
+            _FakeMessageBox(),
+            service,
+            auto_refresh=True,
+        )
+        # 1. Select action.trade in main editor -> Workbench must synchronize to action.trade
+        trade_idx = next(
+            i for i, e in enumerate(pane._filtered_families) if e.get("canonicalID") == "action.trade"
+        )
+        pane._family_list.selection_set(trade_idx)
+        pane._family_selected()
+        self.assertEqual(pane._current_family_id, "action.trade")
+        pane.completeness_workbench.ensure_loaded()
+        self.assertEqual(pane.completeness_workbench._selected_family_id, "action.trade")
+
+        # 2. Select accept in Workbench -> main editor must synchronize to accept
+        self.assertTrue(pane.completeness_workbench.select_family("accept", notify=True))
+        self.assertEqual(pane._current_family_id, "accept")
+        self.assertEqual(pane._current_entry["canonicalID"], "accept")
+
+        # 3. Filtering Workbench to something else must not silently overwrite main editor selection
+        pane.completeness_workbench._search_var.set("command.camp")
+        pane.completeness_workbench._apply_filters()
+        self.assertEqual(pane.completeness_workbench._selected_family_id, "accept")
+        self.assertEqual(pane._current_family_id, "accept")
+
+        # 4. Filtering main editor to something else must not silently overwrite Workbench selection
+        pane._filter_var.set("command.camp")
+        pane._apply_filter()
+        self.assertEqual(pane._current_family_id, "accept")
+        self.assertEqual(pane.completeness_workbench._selected_family_id, "accept")
 
 
 if __name__ == "__main__":

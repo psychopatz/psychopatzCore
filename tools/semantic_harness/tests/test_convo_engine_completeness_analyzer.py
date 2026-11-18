@@ -398,6 +398,64 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
             self.assertFalse(rep_lua_scope["ok"])
             self.assertIn("missing_owner_audit_claims", {d["code"] for d in rep_lua_scope["diagnostics"]})
 
+    def test_all_kind_authoring_health_and_catalog_mismatch_detection(self) -> None:
+        plan = {
+            "schema": "psychopatz.psdl.portable-plan.v1",
+            "dialogues": {
+                "dlg.ok": {"id": "dlg.ok", "kind": "dialogue", "after": {"end": True}},
+            },
+            "behaviors": {
+                "behavior.ok": {
+                    "id": "behavior.ok",
+                    "kind": "behavior",
+                    "stimuli": ["HUMAN_UTTERANCE"],
+                    "outputs": {"speech": {"dialogueAct": "GREET"}},
+                },
+                "behavior.bad": {
+                    "id": "behavior.bad",
+                    "kind": "behavior",
+                    "stimuli": [],
+                    "outputs": {},
+                },
+            },
+            "beats": {
+                "beat.bad": {
+                    "id": "beat.bad",
+                    "kind": "beat",
+                    "candidates": [{"behavior": "behavior.missing"}],
+                },
+            },
+            "realizations": {
+                "real.bad": {
+                    "id": "real.bad",
+                    "kind": "realization",
+                    "translations": {},
+                },
+            },
+        }
+        report = analyze_portable_plan(
+            plan,
+            catalog_family_ids={"dlg.ok", "behavior.ok", "behavior.bad", "beat.bad", "real.bad", "catalog.only"},
+        )
+        self.assertFalse(report["ok"])
+        self.assertTrue(report["summary"]["catalogMismatch"])
+        self.assertEqual(report["summary"]["families"], 5)
+        self.assertEqual(report["summary"]["byKind"]["dialogue"]["total"], 1)
+        self.assertEqual(report["summary"]["byKind"]["behavior"]["total"], 2)
+        self.assertEqual(report["summary"]["byKind"]["beat"]["total"], 1)
+        self.assertEqual(report["summary"]["byKind"]["realization"]["total"], 1)
+        codes = {d["code"] for d in report["diagnostics"]}
+        self.assertIn("missing_behavior_stimuli", codes)
+        self.assertIn("missing_behavior_outputs", codes)
+        self.assertIn("missing_beat_entry", codes)
+        self.assertIn("unresolved_beat_candidate", codes)
+        self.assertIn("missing_en_realization", codes)
+        self.assertIn("catalog_report_mismatch", codes)
+        self.assertEqual(report["families"]["behavior.ok"]["semanticStatus"], "GREEN")
+        self.assertEqual(report["families"]["behavior.bad"]["semanticStatus"], "RED")
+        self.assertEqual(report["families"]["beat.bad"]["semanticStatus"], "RED")
+        self.assertEqual(report["families"]["real.bad"]["semanticStatus"], "RED")
+
 
 if __name__ == "__main__":
     unittest.main()

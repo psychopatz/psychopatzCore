@@ -593,6 +593,515 @@ _DIAGNOSTIC_OWNERSHIP_MAP: dict[str, tuple[str, tuple[str, ...]]] = {
 }
 
 
+def _check_roles_and_participant_set(
+    fid: str,
+    rec: Mapping[str, Any],
+    diagnostics: list[CompletenessDiagnostic],
+) -> None:
+    """Validate semantic roles and participantSet cardinality bounds on any family."""
+    roles = rec.get("roles") or {}
+    pset = rec.get("participantSet")
+    multi_roles: set[str] = set()
+    for rname, rspec in roles.items():
+        if rname in FORBIDDEN_POSITIONAL_ROLES:
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="role_unbound",
+                    severity="error",
+                    family_id=fid,
+                    path=f"{fid}.roles.{rname}",
+                    message=f"Forbidden positional role {rname!r}",
+                    repair_hint="Use semantic roles (speaker, addressee, actor, target, mediator, etc.).",
+                )
+            )
+        card = (rspec or {}).get("cardinality", "ONE")
+        if card not in ROLE_CARDINALITIES:
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="role_cardinality_mismatch",
+                    severity="error",
+                    family_id=fid,
+                    path=f"{fid}.roles.{rname}.cardinality",
+                    message=f"Unsupported role cardinality {card!r}",
+                    repair_hint=f"Use one of {sorted(ROLE_CARDINALITIES)}.",
+                )
+            )
+        if card in MULTI_CARDINALITIES:
+            multi_roles.add(rname)
+            if card in ("ONE_OR_MORE", "ZERO_OR_MORE") and not (
+                isinstance(pset, Mapping) and pset.get("maxSize")
+            ):
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="unbounded_group_reaction",
+                        severity="error",
+                        family_id=fid,
+                        path=f"{fid}.roles.{rname}",
+                        message=f"Unbounded multi-entity role {rname!r} ({card}) lacks participantSet.maxSize",
+                        repair_hint="Use BOUNDED_MANY with min/max or set participantSet.maxSize.",
+                    )
+                )
+    for idx, eff in enumerate(rec.get("effects") or []):
+        trole = (eff or {}).get("targetRole")
+        if trole in multi_roles and not (eff.get("params") or {}).get("scope"):
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="ambiguous_group_effect",
+                    severity="error",
+                    family_id=fid,
+                    path=f"{fid}.effects[{idx}]",
+                    message=f"Effect targets multi-entity role {trole!r} without params.scope",
+                    repair_hint="Set params.scope (e.g. 'all' or 'first') on group-targeted effects.",
+                )
+            )
+
+
+def _common_non_dialogue_envelope(
+    fid: str,
+    rec: Mapping[str, Any],
+    *,
+    kind: str,
+    family_diags: Sequence[CompletenessDiagnostic],
+    covered_set: set[str] | None,
+    manifest_families: set[str],
+    source_path: str | None,
+    reachable_branches: int,
+    outgoing: Sequence[str],
+    incoming: Sequence[str],
+    nodes: list[dict[str, Any]],
+    graph_edges: list[dict[str, Any]],
+    closure_health: str,
+    semantic_status: str,
+    closure_class: str,
+    kind_detail: dict[str, Any],
+) -> dict[str, Any]:
+    lineage = rec.get("lineage") if isinstance(rec.get("lineage"), Mapping) else {}
+    error_count = sum(1 for d in family_diags if d.severity == "error")
+    warning_count = sum(1 for d in family_diags if d.severity == "warning")
+    info_count = sum(1 for d in family_diags if d.severity == "info")
+    if error_count > 0:
+        closure_health = "invalid"
+        semantic_status = "RED"
+    elif warning_count > 0:
+        closure_health = "warning"
+        semantic_status = "ORANGE"
+
+    handled_branches = max(0, reachable_branches - error_count)
+    if covered_set is not None:
+        fixture_coverage = "covered" if fid in covered_set else "uncovered"
+    elif fid in manifest_families:
+        fixture_coverage = "manifest_owned"
+    else:
+        fixture_coverage = "unknown"
+
+    return {
+        "familyId": fid,
+        "owner": str(rec.get("owner") or "PsychopatzCore"),
+        "kind": kind,
+        "namespace": str(rec.get("namespace") or (fid.rsplit(".", 1)[0] if "." in fid else "")),
+        "localId": str(lineage.get("localId") or fid.rsplit(".", 1)[-1]),
+        "sourceShard": lineage.get("sourcePath"),
+        "sourcePath": source_path,
+        "reachableBranches": reachable_branches,
+        "handledBranches": handled_branches,
+        "closureClass": closure_class,
+        "closureHealth": closure_health,
+        "semanticStatus": semantic_status,
+        "errorCount": error_count,
+        "warningCount": warning_count,
+        "infoCount": info_count,
+        "diagnosticCodes": sorted({d.code for d in family_diags}),
+        "fixtureCoverage": fixture_coverage,
+        "typedClickParity": "not_applicable",
+        "repeatPolicy": str(rec.get("repeatPolicy") or ("cooldown" if rec.get("cooldownTurns") else "not_applicable")),
+        "hasStatePolicy": bool(rec.get("when") or rec.get("entry")),
+        "hasPostconditions": False,
+        "hasClosure": True,
+        "stateOutcomeMatrix": [],
+        "actionOutcomeMatrix": [],
+        "sccMembers": [fid],
+        "dependencies": sorted(set(outgoing)),
+        "dependents": sorted(set(incoming)),
+        "affectedClosure": sorted(set(outgoing) | set(incoming) | {fid}),
+        "kindDetail": kind_detail,
+        "graph": {"nodes": nodes, "edges": graph_edges},
+    }
+
+
+def _analyze_behavior_family(
+    fid: str,
+    beh: Mapping[str, Any],
+    *,
+    all_ids: set[str],
+    covered_set: set[str] | None,
+    manifest_families: set[str],
+    source_path: str | None,
+) -> tuple[dict[str, Any], list[CompletenessDiagnostic], list[str]]:
+    diags: list[CompletenessDiagnostic] = []
+    stimuli = list(beh.get("stimuli") or ())
+    outputs = beh.get("outputs") if isinstance(beh.get("outputs"), Mapping) else {}
+    act = beh.get("act")
+    cont = beh.get("continuation") if isinstance(beh.get("continuation"), Mapping) else {}
+    refs = beh.get("references") if isinstance(beh.get("references"), Mapping) else {}
+    outgoing: list[str] = []
+
+    if not stimuli:
+        diags.append(
+            CompletenessDiagnostic(
+                code="missing_behavior_stimuli",
+                severity="error",
+                family_id=fid,
+                path=f"{fid}.stimuli",
+                message="Behavior declares no trigger stimuli",
+                repair_hint="Add at least one stimulus (e.g. HUMAN_UTTERANCE or NPC_SEMANTIC_ACT) to stimuli.",
+            )
+        )
+    if not outputs and not act:
+        diags.append(
+            CompletenessDiagnostic(
+                code="missing_behavior_outputs",
+                severity="error",
+                family_id=fid,
+                path=f"{fid}.outputs",
+                message="Behavior declares neither outputs nor semantic act",
+                repair_hint="Add outputs (speech/emote/flavor) or an act identifier.",
+            )
+        )
+    _check_roles_and_participant_set(fid, beh, diags)
+
+    for ref_key, ref_val in refs.items():
+        if isinstance(ref_val, str) and "." in ref_val and ref_val not in all_ids:
+            diags.append(
+                CompletenessDiagnostic(
+                    code="unresolved_family_reference",
+                    severity="error",
+                    family_id=fid,
+                    path=f"{fid}.references.{ref_key}",
+                    message=f"Behavior reference {ref_val!r} does not exist in canonical catalog",
+                    repair_hint=f"Fix or remove references.{ref_key}.",
+                )
+            )
+        elif isinstance(ref_val, str) and ref_val in all_ids:
+            outgoing.append(ref_val)
+
+    cont_mode = str(cont.get("mode") or "terminate")
+    if cont_mode == "emit" and not (cont.get("intent") or cont.get("speechAct")):
+        diags.append(
+            CompletenessDiagnostic(
+                code="incomplete_behavior_continuation",
+                severity="warning",
+                family_id=fid,
+                path=f"{fid}.continuation",
+                message="Behavior emit continuation has no intent or speechAct",
+                repair_hint="Set continuation.intent or continuation.speechAct.",
+            )
+        )
+
+    if covered_set is not None and fid not in covered_set:
+        diags.append(
+            CompletenessDiagnostic(
+                code="uncovered_fixture",
+                severity="info",
+                family_id=fid,
+                path=fid,
+                message=f"Behavior family {fid!r} has no recorded declarative fixture coverage",
+                repair_hint="Add a provider-owned declarative fixture case exercising this behavior.",
+            )
+        )
+
+    is_emit = cont_mode == "emit"
+    nodes = [
+        {
+            "id": f"{fid}:trigger",
+            "kind": "behavior_trigger",
+            "label": f"stimuli: {', '.join(str(s) for s in stimuli) or '(none)'}",
+            "status": "invalid" if not stimuli else "valid",
+            "colorClass": "RED" if not stimuli else "GREEN",
+            "path": f"{fid}.stimuli",
+        },
+        {
+            "id": f"{fid}:outputs",
+            "kind": "behavior_outputs",
+            "label": f"act={act or '(none)'} outputs={sorted(outputs.keys())}",
+            "status": "invalid" if (not outputs and not act) else "valid",
+            "colorClass": "RED" if (not outputs and not act) else ("BLUE" if is_emit else "GREEN"),
+            "path": f"{fid}.outputs",
+        },
+    ]
+    graph_edges = [
+        {
+            "id": f"{fid}:trigger->outputs",
+            "from": f"{fid}:trigger",
+            "to": f"{fid}:outputs",
+            "label": str(beh.get("mode") or "one_shot"),
+            "status": "valid",
+            "colorClass": "BLUE" if is_emit else "GREEN",
+            "path": f"{fid}.outputs",
+        }
+    ]
+    metrics = _common_non_dialogue_envelope(
+        fid,
+        beh,
+        kind="behavior",
+        family_diags=diags,
+        covered_set=covered_set,
+        manifest_families=manifest_families,
+        source_path=source_path,
+        reachable_branches=max(1, len(outputs) + len(beh.get("modifiers") or ())),
+        outgoing=outgoing,
+        incoming=(),
+        nodes=nodes,
+        graph_edges=graph_edges,
+        closure_health="continuation" if is_emit else "resolved_terminal",
+        semantic_status="BLUE" if is_emit else "GREEN",
+        closure_class="behavior_emit" if is_emit else "behavior_terminal",
+        kind_detail={
+            "act": act,
+            "mode": beh.get("mode"),
+            "stimuli": stimuli,
+            "outputChannels": sorted(outputs.keys()),
+            "continuationMode": cont_mode,
+        },
+    )
+    return metrics, diags, outgoing
+
+
+def _analyze_beat_family(
+    fid: str,
+    beat: Mapping[str, Any],
+    *,
+    behaviors: Mapping[str, Mapping[str, Any]],
+    dialogues: Mapping[str, Mapping[str, Any]],
+    covered_set: set[str] | None,
+    manifest_families: set[str],
+    source_path: str | None,
+) -> tuple[dict[str, Any], list[CompletenessDiagnostic], list[str]]:
+    diags: list[CompletenessDiagnostic] = []
+    candidates = list(beat.get("candidates") or ())
+    entry = beat.get("entry")
+    exit_cond = beat.get("exit")
+    max_turns = beat.get("maxTurns")
+    outgoing: list[str] = []
+
+    if not entry:
+        diags.append(
+            CompletenessDiagnostic(
+                code="missing_beat_entry",
+                severity="error",
+                family_id=fid,
+                path=f"{fid}.entry",
+                message="Beat declares no entry condition",
+                repair_hint="Declare an entry predicate for beat activation.",
+            )
+        )
+    if not exit_cond and not max_turns:
+        diags.append(
+            CompletenessDiagnostic(
+                code="unbounded_beat_progression",
+                severity="warning",
+                family_id=fid,
+                path=f"{fid}.exit",
+                message="Beat has neither exit condition nor maxTurns bound",
+                repair_hint="Add an exit predicate or maxTurns to guarantee bounded progression.",
+            )
+        )
+    _check_roles_and_participant_set(fid, beat, diags)
+
+    for idx, cand in enumerate(candidates):
+        if not isinstance(cand, Mapping):
+            continue
+        target = cand.get("behavior") or cand.get("family")
+        if isinstance(target, str):
+            if target in behaviors or target in dialogues:
+                outgoing.append(target)
+            else:
+                diags.append(
+                    CompletenessDiagnostic(
+                        code="unresolved_beat_candidate",
+                        severity="error",
+                        family_id=fid,
+                        path=f"{fid}.candidates[{idx}].behavior",
+                        message=f"Beat candidate {target!r} does not exist in canonical behaviors/dialogues",
+                        repair_hint=f"Reference a valid behavior or dialogue ID in candidates[{idx}].",
+                    )
+                )
+
+    if covered_set is not None and fid not in covered_set:
+        diags.append(
+            CompletenessDiagnostic(
+                code="uncovered_fixture",
+                severity="info",
+                family_id=fid,
+                path=fid,
+                message=f"Beat family {fid!r} has no recorded declarative fixture coverage",
+                repair_hint="Add a provider-owned declarative fixture case exercising this beat.",
+            )
+        )
+
+    nodes = [
+        {
+            "id": f"{fid}:entry",
+            "kind": "beat_entry",
+            "label": f"entry ({'bounded' if (exit_cond or max_turns) else 'unbounded'})",
+            "status": "invalid" if not entry else "valid",
+            "colorClass": "RED" if not entry else "GREEN",
+            "path": f"{fid}.entry",
+        },
+        {
+            "id": f"{fid}:candidates",
+            "kind": "beat_candidates",
+            "label": f"candidates={len(candidates)} maxTurns={max_turns}",
+            "status": "valid",
+            "colorClass": "GREEN",
+            "path": f"{fid}.candidates",
+        },
+    ]
+    graph_edges = [
+        {
+            "id": f"{fid}:entry->candidates",
+            "from": f"{fid}:entry",
+            "to": f"{fid}:candidates",
+            "label": "arbitrate",
+            "status": "valid",
+            "colorClass": "GREEN",
+            "path": f"{fid}.candidates",
+        }
+    ]
+    metrics = _common_non_dialogue_envelope(
+        fid,
+        beat,
+        kind="beat",
+        family_diags=diags,
+        covered_set=covered_set,
+        manifest_families=manifest_families,
+        source_path=source_path,
+        reachable_branches=max(1, len(candidates)),
+        outgoing=outgoing,
+        incoming=(),
+        nodes=nodes,
+        graph_edges=graph_edges,
+        closure_health="resolved_terminal",
+        semantic_status="GREEN",
+        closure_class="bounded_beat" if (exit_cond or max_turns) else "unbounded_beat",
+        kind_detail={
+            "candidateCount": len(candidates),
+            "candidates": [c.get("behavior") for c in candidates if isinstance(c, Mapping)],
+            "maxTurns": max_turns,
+            "cooldownTurns": beat.get("cooldownTurns"),
+            "hasEntry": bool(entry),
+            "hasMaintain": bool(beat.get("maintain")),
+            "hasExit": bool(exit_cond),
+        },
+    )
+    return metrics, diags, outgoing
+
+
+def _analyze_realization_family(
+    fid: str,
+    real: Mapping[str, Any],
+    *,
+    all_ids: set[str],
+    covered_set: set[str] | None,
+    manifest_families: set[str],
+    source_path: str | None,
+) -> tuple[dict[str, Any], list[CompletenessDiagnostic], list[str]]:
+    diags: list[CompletenessDiagnostic] = []
+    translations = real.get("translations") if isinstance(real.get("translations"), Mapping) else {}
+    forms = real.get("forms") if isinstance(real.get("forms"), Mapping) else {}
+    refs = real.get("references") if isinstance(real.get("references"), Mapping) else {}
+    outgoing: list[str] = []
+
+    has_en = bool(translations.get("EN"))
+    has_forms = bool(forms)
+    if not has_en and not has_forms:
+        diags.append(
+            CompletenessDiagnostic(
+                code="missing_en_realization",
+                severity="error",
+                family_id=fid,
+                path=f"{fid}.translations.EN",
+                message="Realization has no EN translation entries or forms",
+                repair_hint="Provide at least one EN translation template or form.",
+            )
+        )
+    if not (real.get("dialogueAct") or real.get("strategy") or real.get("concept")):
+        diags.append(
+            CompletenessDiagnostic(
+                code="missing_realization_binding",
+                severity="warning",
+                family_id=fid,
+                path=f"{fid}.dialogueAct",
+                message="Realization has no dialogueAct, strategy, or concept binding",
+                repair_hint="Declare dialogueAct, strategy, or concept.",
+            )
+        )
+
+    for ref_key, ref_val in refs.items():
+        if isinstance(ref_val, str) and "." in ref_val and ref_val not in all_ids:
+            diags.append(
+                CompletenessDiagnostic(
+                    code="unresolved_realization_reference",
+                    severity="error",
+                    family_id=fid,
+                    path=f"{fid}.references.{ref_key}",
+                    message=f"Realization reference {ref_val!r} does not exist in canonical catalog",
+                    repair_hint=f"Fix or remove references.{ref_key}.",
+                )
+            )
+        elif isinstance(ref_val, str) and ref_val in all_ids:
+            outgoing.append(ref_val)
+
+    if covered_set is not None and fid not in covered_set:
+        diags.append(
+            CompletenessDiagnostic(
+                code="uncovered_fixture",
+                severity="info",
+                family_id=fid,
+                path=fid,
+                message=f"Realization family {fid!r} has no recorded declarative fixture coverage",
+                repair_hint="Add a provider-owned declarative fixture case exercising this realization.",
+            )
+        )
+
+    locales = sorted(str(k) for k in translations.keys())
+    nodes = [
+        {
+            "id": f"{fid}:template",
+            "kind": "realization_template",
+            "label": f"act={real.get('dialogueAct') or real.get('concept') or '(none)'} locales={locales}",
+            "status": "invalid" if (not has_en and not has_forms) else "valid",
+            "colorClass": "RED" if (not has_en and not has_forms) else "GREEN",
+            "path": f"{fid}.translations",
+        }
+    ]
+    metrics = _common_non_dialogue_envelope(
+        fid,
+        real,
+        kind="realization",
+        family_diags=diags,
+        covered_set=covered_set,
+        manifest_families=manifest_families,
+        source_path=source_path,
+        reachable_branches=max(1, len(locales) + len(forms)),
+        outgoing=outgoing,
+        incoming=(),
+        nodes=nodes,
+        graph_edges=[],
+        closure_health="resolved_terminal",
+        semantic_status="GREEN",
+        closure_class="realization_template",
+        kind_detail={
+            "type": real.get("type"),
+            "dialogueAct": real.get("dialogueAct"),
+            "strategy": real.get("strategy"),
+            "concept": real.get("concept"),
+            "locales": locales,
+            "formCount": len(forms),
+        },
+    )
+    return metrics, diags, outgoing
+
+
 def _family_source_path(
     fid: str,
     dlg: Mapping[str, Any],
@@ -966,12 +1475,22 @@ def analyze_portable_plan(
     workspace_roots: Mapping[str, Path] | None = None,
     source_paths: Mapping[str, str] | None = None,
     family_ids: Iterable[str] | None = None,
+    catalog_family_ids: Iterable[str] | None = None,
 ) -> dict[str, Any]:
     """Analyze a Portable Dialogue Plan and return a machine-readable completeness report."""
     if not isinstance(plan, Mapping) or plan.get("schema") != PORTABLE_PLAN_SCHEMA:
         raise ValueError(f"Expected Portable Dialogue Plan ({PORTABLE_PLAN_SCHEMA})")
 
     dialogues: Mapping[str, Mapping[str, Any]] = plan.get("dialogues") or {}
+    behaviors: Mapping[str, Mapping[str, Any]] = plan.get("behaviors") or {}
+    beats: Mapping[str, Mapping[str, Any]] = plan.get("beats") or {}
+    realizations: Mapping[str, Mapping[str, Any]] = plan.get("realizations") or {}
+    all_records: dict[str, Mapping[str, Any]] = {}
+    all_records.update(dialogues)
+    all_records.update(behaviors)
+    all_records.update(beats)
+    all_records.update(realizations)
+    all_ids = set(all_records.keys())
     covered_set = set(covered_family_ids) if covered_family_ids is not None else None
     diagnostics: list[CompletenessDiagnostic] = []
     edges: dict[str, list[str]] = {}
@@ -1264,21 +1783,99 @@ def analyze_portable_plan(
     if requested_families is not None:
         affected_set: set[str] = set()
         for seed in requested_families:
-            if seed in dialogues:
+            if seed in all_records:
                 affected_set.add(seed)
                 affected_set.update(edges.get(seed, ()))
                 affected_set.update(reverse_edges.get(seed, ()))
                 affected_set.update(scc_by_family.get(seed, ()))
     else:
-        affected_set = set(dialogues.keys())
+        affected_set = set(all_records.keys())
+
+    non_dialogue_metrics: dict[str, dict[str, Any]] = {}
+    non_dialogue_edges: dict[str, list[str]] = {}
+    for fid in sorted(behaviors):
+        m, dlist, out_list = _analyze_behavior_family(
+            fid,
+            behaviors[fid],
+            all_ids=all_ids,
+            covered_set=covered_set,
+            manifest_families=manifest_families,
+            source_path=_family_source_path(fid, behaviors[fid], source_paths),
+        )
+        non_dialogue_metrics[fid] = m
+        diagnostics.extend(dlist)
+        if out_list:
+            non_dialogue_edges[fid] = out_list
+    for fid in sorted(beats):
+        m, dlist, out_list = _analyze_beat_family(
+            fid,
+            beats[fid],
+            behaviors=behaviors,
+            dialogues=dialogues,
+            covered_set=covered_set,
+            manifest_families=manifest_families,
+            source_path=_family_source_path(fid, beats[fid], source_paths),
+        )
+        non_dialogue_metrics[fid] = m
+        diagnostics.extend(dlist)
+        if out_list:
+            non_dialogue_edges[fid] = out_list
+    for fid in sorted(realizations):
+        m, dlist, out_list = _analyze_realization_family(
+            fid,
+            realizations[fid],
+            all_ids=all_ids,
+            covered_set=covered_set,
+            manifest_families=manifest_families,
+            source_path=_family_source_path(fid, realizations[fid], source_paths),
+        )
+        non_dialogue_metrics[fid] = m
+        diagnostics.extend(dlist)
+        if out_list:
+            non_dialogue_edges[fid] = out_list
+
+    for src_fid, targets in non_dialogue_edges.items():
+        edges[src_fid] = targets
+        for tgt in targets:
+            reverse_edges.setdefault(tgt, []).append(src_fid)
+
+    catalog_mismatch = False
+    if catalog_family_ids is not None and requested_families is None:
+        catalog_set = {str(x) for x in catalog_family_ids if x}
+        missing_in_plan = sorted(catalog_set - all_ids)
+        extra_in_plan = sorted(all_ids - catalog_set)
+        if missing_in_plan or extra_in_plan:
+            catalog_mismatch = True
+            for fid in missing_in_plan:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="catalog_report_mismatch",
+                        severity="error",
+                        family_id=fid,
+                        path=fid,
+                        message=f"Maintained catalog family {fid!r} is missing from authoring-health report",
+                        repair_hint="Ensure compiler/PortablePlan includes all maintained canonical families.",
+                    )
+                )
+            for fid in extra_in_plan:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="catalog_report_mismatch",
+                        severity="error",
+                        family_id=fid,
+                        path=fid,
+                        message=f"Analyzed family {fid!r} is absent from maintained source catalog",
+                        repair_hint="Reconcile canonical catalog and PortablePlan.",
+                    )
+                )
 
     enriched_diagnostics: list[CompletenessDiagnostic] = []
     diags_by_family: dict[str, list[CompletenessDiagnostic]] = {}
     for diag in diagnostics:
         fid = diag.family_id
-        dlg = dialogues.get(fid)
+        dlg = all_records.get(fid)
         src_path = _family_source_path(fid, dlg, source_paths) if isinstance(dlg, Mapping) else None
-        scc_members = tuple(scc_by_family.get(fid, (fid,) if fid in dialogues else ()))
+        scc_members = tuple(scc_by_family.get(fid, (fid,) if fid in all_records else ()))
         closure_obj = dlg.get("closure") if isinstance(dlg, Mapping) and isinstance(dlg.get("closure"), Mapping) else {}
         closure_cls = str(closure_obj.get("closureClass") or "none") if isinstance(dlg, Mapping) else None
         ownership, suggested_closures = _DIAGNOSTIC_OWNERSHIP_MAP.get(diag.code, ("semantic_structure", ()))
@@ -1323,27 +1920,56 @@ def analyze_portable_plan(
         "warning": 0,
         "invalid": 0,
     }
+    by_kind: dict[str, dict[str, int]] = {
+        k: {"total": 0, "analyzed": 0, "healthy": 0, "warning": 0, "error": 0, "missingCoverage": 0}
+        for k in ("dialogue", "behavior", "beat", "realization")
+    }
+    by_kind["dialogue"]["total"] = len(dialogues)
+    by_kind["behavior"]["total"] = len(behaviors)
+    by_kind["beat"]["total"] = len(beats)
+    by_kind["realization"]["total"] = len(realizations)
+
     for fid in sorted(affected_set):
-        dlg = dialogues[fid]
-        fmetrics = _build_family_graph_and_metrics(
-            fid,
-            dlg,
-            dialogues=dialogues,
-            action_contracts=action_contracts,
-            family_diags=diags_by_family.get(fid, ()),
-            scc_members=scc_by_family.get(fid, [fid]),
-            outgoing=edges.get(fid, ()),
-            incoming=reverse_edges.get(fid, ()),
-            covered_set=covered_set,
-            manifest_families=manifest_families,
-            source_path=_family_source_path(fid, dlg, source_paths),
-        )
+        if fid in dialogues:
+            dlg = dialogues[fid]
+            fmetrics = _build_family_graph_and_metrics(
+                fid,
+                dlg,
+                dialogues=dialogues,
+                action_contracts=action_contracts,
+                family_diags=diags_by_family.get(fid, ()),
+                scc_members=scc_by_family.get(fid, [fid]),
+                outgoing=edges.get(fid, ()),
+                incoming=reverse_edges.get(fid, ()),
+                covered_set=covered_set,
+                manifest_families=manifest_families,
+                source_path=_family_source_path(fid, dlg, source_paths),
+            )
+        elif fid in non_dialogue_metrics:
+            fmetrics = dict(non_dialogue_metrics[fid])
+            fmetrics["dependents"] = sorted(set(reverse_edges.get(fid, ())))
+            fmetrics["affectedClosure"] = sorted(
+                set(fmetrics.get("dependencies") or ()) | set(fmetrics["dependents"]) | {fid}
+            )
+        else:
+            continue
         families_report[fid] = fmetrics
         health_counts[fmetrics["closureHealth"]] = health_counts.get(fmetrics["closureHealth"], 0) + 1
+        k = str(fmetrics.get("kind") or "dialogue")
+        ks = by_kind.setdefault(k, {"total": 0, "analyzed": 0, "healthy": 0, "warning": 0, "error": 0, "missingCoverage": 0})
+        ks["analyzed"] += 1
+        if int(fmetrics.get("errorCount", 0)) > 0:
+            ks["error"] += 1
+        elif int(fmetrics.get("warningCount", 0)) > 0:
+            ks["warning"] += 1
+        else:
+            ks["healthy"] += 1
+        if fmetrics.get("fixtureCoverage") == "uncovered":
+            ks["missingCoverage"] += 1
 
     if requested_families is not None:
         visible_diagnostics = [
-            d for d in enriched_diagnostics if d.family_id in affected_set or d.family_id not in dialogues
+            d for d in enriched_diagnostics if d.family_id in affected_set or d.family_id not in all_records
         ]
     else:
         visible_diagnostics = enriched_diagnostics
@@ -1353,14 +1979,16 @@ def analyze_portable_plan(
     infos = [d for d in visible_diagnostics if d.severity == "info"]
     return {
         "schema": COMPLETENESS_REPORT_SCHEMA,
-        "ok": len(errors) == 0,
+        "ok": len(errors) == 0 and not catalog_mismatch,
         "summary": {
-            "families": len(dialogues),
+            "families": len(all_records),
             "analyzedFamilies": len(families_report),
             "errors": len(errors),
             "warnings": len(warnings),
             "info": len(infos),
             "sccs": len(sccs),
+            "catalogMismatch": catalog_mismatch,
+            "byKind": by_kind,
             "byClosureHealth": health_counts,
         },
         "affectedFamilyIds": sorted(affected_set),

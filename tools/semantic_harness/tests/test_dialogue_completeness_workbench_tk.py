@@ -56,7 +56,8 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                 root.update_idletasks()
                 report = pane.completeness_workbench.ensure_loaded()
                 self.assertGreater(report["summary"]["families"], 0)
-                self.assertIn("families=", pane.completeness_workbench._summary_var.get())
+                self.assertIn("maintained", pane.completeness_workbench._summary_var.get())
+                self.assertIn("Dialogues", pane.completeness_workbench._summary_var.get())
 
                 # Verify S11 Semantic Controls round-trip into canonical document
                 pane._s11_scalar_vars["inputPolicy"].set("typed_parity")

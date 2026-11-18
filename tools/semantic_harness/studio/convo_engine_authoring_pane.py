@@ -81,6 +81,8 @@ class ConvoEngineAuthoringPane:
 
         self._families: list[dict[str, Any]] = []
         self._filtered_families: list[dict[str, Any]] = []
+        self._current_family_id: str | None = None
+        self._syncing_selection: bool = False
         self._current_entry: dict[str, Any] | None = None
         self._document: dict[str, Any] | None = None
         self._loaded_fingerprint: str | None = None
@@ -306,6 +308,7 @@ class ConvoEngineAuthoringPane:
             self._messagebox,
             self.service,
             on_open_family=self.open_family_from_completeness,
+            on_select_family=self.select_family_from_completeness,
             auto_analyze=False,
         )
         if callable(getattr(notebook, "bind", None)) and callable(getattr(notebook, "select", None)):
@@ -460,16 +463,66 @@ class ConvoEngineAuthoringPane:
             or needle in str(item.get("kind", "")).lower()
             or needle in str(item.get("path", "")).lower()
         ]
-        for item in self._filtered_families:
+        selected_idx: int | None = None
+        for idx, item in enumerate(self._filtered_families):
             self._family_list.insert(
                 "end",
                 f"[{item['owner']}] {item['kind']} · {item['canonicalID']}",
             )
-        if self._filtered_families:
-            self._family_list.selection_set(0)
+            if self._current_family_id and (
+                item.get("canonicalID") == self._current_family_id
+                or item.get("id") == self._current_family_id
+            ):
+                selected_idx = idx
+        if selected_idx is not None:
+            self._set_family_listbox_selection(selected_idx)
             self._family_selected()
-        else:
+        elif self._current_family_id is None and self._filtered_families:
+            self._set_family_listbox_selection(0)
+            self._family_selected()
+        elif not self._filtered_families:
             self._status_var.set("No ConvoEngine families match filter")
+
+    def _set_family_listbox_selection(self, idx: int) -> None:
+        try:
+            self._family_list.selection_clear(0, "end")
+        except Exception:
+            pass
+        self._family_list.selection_set(idx)
+        try:
+            self._family_list.see(idx)
+        except Exception:
+            pass
+
+    def select_family_from_completeness(self, family_id: str) -> bool:
+        """Synchronize main editor selection from Workbench without reentrant loops."""
+        if not family_id:
+            return False
+        self.ensure_refreshed()
+        if self._current_family_id == family_id and any(
+            e.get("canonicalID") == family_id or e.get("id") == family_id
+            for e in self._filtered_families
+        ):
+            return True
+        if self._syncing_selection:
+            return False
+        self._syncing_selection = True
+        try:
+            if self._filter_var.get() and not any(
+                e.get("canonicalID") == family_id or e.get("id") == family_id
+                for e in self._filtered_families
+            ):
+                self._current_family_id = family_id
+                self._filter_var.set("")
+                self._apply_filter()
+            for idx, entry in enumerate(self._filtered_families):
+                if entry.get("canonicalID") == family_id or entry.get("id") == family_id:
+                    self._set_family_listbox_selection(idx)
+                    self._family_selected()
+                    return True
+            return False
+        finally:
+            self._syncing_selection = False
 
     def open_family_from_completeness(
         self,
@@ -477,24 +530,17 @@ class ConvoEngineAuthoringPane:
         field_path: str | None = None,
     ) -> bool:
         """Select a canonical family in the authoring form from a completeness diagnostic."""
-        self.ensure_refreshed()
-        if self._filter_var.get():
-            self._filter_var.set("")
-            self._apply_filter()
-        for idx, entry in enumerate(self._filtered_families):
-            if entry.get("canonicalID") == family_id or entry.get("id") == family_id:
-                self._family_list.selection_set(idx)
-                self._family_selected()
-                target_tab = self._structured_tab
-                if field_path:
-                    for name in _S11_CONTROL_NAMES:
-                        if f".{name}" in field_path or field_path.endswith(name):
-                            target_tab = self._s11_controls_tab
-                            break
-                if callable(getattr(self._right_notebook, "select", None)):
-                    self._right_notebook.select(target_tab)
-                return True
-        return False
+        if not self.select_family_from_completeness(family_id):
+            return False
+        target_tab = self._structured_tab
+        if field_path:
+            for name in _S11_CONTROL_NAMES:
+                if f".{name}" in field_path or field_path.endswith(name):
+                    target_tab = self._s11_controls_tab
+                    break
+        if callable(getattr(self._right_notebook, "select", None)):
+            self._right_notebook.select(target_tab)
+        return True
 
     def _family_selected(self) -> None:
         selection = self._family_list.curselection()
@@ -521,12 +567,24 @@ class ConvoEngineAuthoringPane:
                 return
             loaded_fp = entry.get("sourceFingerprint")
         self._current_entry = entry
+        self._current_family_id = str(entry.get("canonicalID") or entry.get("id") or "")
         self._document = document
         self._loaded_fingerprint = loaded_fp
         self._load_family_form(document)
         self._status_var.set(
             f"{entry['owner']} · {entry['canonicalID']} ({entry['path']})"
         )
+        if hasattr(self, "completeness_workbench") and self._current_family_id:
+            if not self._syncing_selection:
+                self._syncing_selection = True
+                try:
+                    self.completeness_workbench.select_family(
+                        self._current_family_id,
+                        ensure_loaded=False,
+                        notify=False,
+                    )
+                finally:
+                    self._syncing_selection = False
 
     def _load_family_form(self, doc: dict[str, Any]) -> None:
         ns = doc.get("namespace") or ""
