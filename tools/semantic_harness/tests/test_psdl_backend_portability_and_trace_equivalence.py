@@ -357,6 +357,18 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
             self.assertNotIn("recruitment.reject.", src, rel)
             self.assertNotIn("already_member", src, rel)
             self.assertNotIn("actor_blocked_or_hostile", src, rel)
+            if rel.endswith("Input_Actions_Dispatch.lua"):
+                self.assertEqual(src.count("evaluateCanonicalPolicyBlock("), 2, rel)
+                hint_pos = src.index("AttachWorldTargetHint(")
+                call_pos = src.rindex("evaluateCanonicalPolicyBlock(")
+                self.assertLess(hint_pos, call_pos, rel)
+                for route in (
+                    "DispatchRelationshipProposal(",
+                    "DispatchRecruitment(",
+                    "DispatchQuestAction(",
+                    "CommandAdapter.Dispatch(",
+                ):
+                    self.assertLess(call_pos, src.index(route), route)
 
         lua_probe = """
 package.path = 'Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua;' .. package.path
