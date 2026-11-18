@@ -1,9 +1,9 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** IN_PROGRESS — retained S11A/R1-R8A work is accepted, but R8D acceptance side-effect isolation and R9 Dialogue Completeness Workbench authoring readiness are mandatory before USER_ACCEPTANCE.
+**Parent status:** IN_PROGRESS — R8D and the R9 compiler/Workbench foundation are retained, but S11R9R1 authoring-readiness repair is mandatory before USER_ACCEPTANCE and before the broad dialogue/beat/behavior/realization rewrite.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** S11A-S11E + S11R8D + S11R9 ACCEPTED / CLOSED. Broad dialogue/beat rewrite remains blocked until R9D.
+**Developer completion boundary:** retained S11A-S11E + closed S11R8 + S11R9R1 ACCEPTED / CLOSED. Broad content rewrite remains blocked until R9R1E.
 
 ## Objective and ownership
 
@@ -881,7 +881,7 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — R8D and R9A-R9D are accepted and closed; `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
+**Status:** IN_PROGRESS — R8D remains accepted; R9A-R9D implementation is retained but authoring readiness is reopened under R9R1. `BULK_DIALOGUE_REWRITE_ALLOWED=false`.
 
 Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
@@ -1023,7 +1023,7 @@ Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance
 
 **Status:** HISTORICAL / SUPERSEDED FINAL-CLOSURE CLAIM. R7A atomic claim work and settlement/ambient behavior remain accepted. R7B's final developer-complete closure claim was superseded by R8.
 
-Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
+Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
 
 #### R7A — task + settlement/ambient atomic acceptance proof
 
@@ -1053,17 +1053,17 @@ Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 **Status:** NOT ACCEPTED — two 9/9 canonical runs were reproducible by result but `real_provider_worker` dirtied live DynamicTrading Manifest/Registry output. Superseded by R8D closure-integrity repair.
 
-**Gate:** NOT SATISFIED — R8D must prove effect-free participant status and post-acceptance reconcile before R8 may close.
+**Gate:** SATISFIED BY R8D — effect-free participant status and post-acceptance reconcile were subsequently proven; R8 remains closed.
 
 #### R8D — acceptance side-effect isolation and exact-vector closure
 
 **Status:** ACCEPTED. Isolated `test_promotion_writes_only_canonical_source_then_regenerates` across Core/ProjectHoomans/DynamicTrading temp roots, added participant worktree side-effect guard in `acceptance.py`, proved two consecutive canonical 9-suite `--jobs 4` runs are 9/9 (`convoScopeOk=True`) with identical participant status hashes before/after, and verified post-acceptance `reconcile.py --check` (`clean=true`).
 
-Current authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
+Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`. Current authoring-readiness repair authority: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
 
 ### S11R9 — Dialogue Completeness Workbench and authoring readiness
 
-**Status:** ACCEPTED / CLOSED — `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
+**Status:** REOPENED FOR AUTHORING READINESS — R9A-R9D code is retained, but R9R1 must close usability, all-family health coverage, workflow wiring, and legacy-retirement gaps before bulk rewriting.
 
 #### R9A — canonical authoring-report enrichment
 
@@ -1081,8 +1081,36 @@ Current authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
 
 **Status:** ACCEPTED. Added `test_dialogue_completeness_workbench.py` (3/3) and `test_dialogue_completeness_workbench_tk.py` (1/1 Xvfb), proved Workbench parity with `analyze_convo_completeness(strict_manifest=True)` (`520` families, `0` errors, `1` warning, `520` SCCs), and passed two consecutive canonical 9-suite `--jobs 4` runs (`2125/2154`, `convoScopeOk=True`) with identical participant status hashes.
 
-**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
+**Gate:** REVOKED by post-R9 usability audit. `BULK_DIALOGUE_REWRITE_ALLOWED=false` until R9R1E.
 
+
+### S11R9R1 — Workbench usability, full-family coverage and legacy retirement
+
+**Status:** ACTIVE. Normative repair: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+
+The post-R9 audit retained the canonical analyzer and authoring controls but found that the Workbench was closed as authoring-ready too early.
+
+#### R9R1A — correctness + full-family authoring health
+
+Synchronize editor and Workbench family selection bidirectionally and extend the compiler-owned authoring-health inventory from 520 dialogue-only families to all 588 maintained families: 520 dialogue, 30 behavior, 3 beat, 35 realization. Use kind-appropriate checks rather than forcing dialogue closure semantics onto non-dialogue kinds.
+
+#### R9R1B — problem-first visual UX
+
+Replace concatenated Listbox rows with a structured sortable inventory; apply real semantic row tags/styles for RED/ORANGE/YELLOW/BLUE/PURPLE/GREEN plus text/icon labels; default to Needs attention and severity-first sorting; show human-first branch/health summaries before raw compiler details; add dedicated severity/owner/kind/namespace-domain/coverage filters.
+
+#### R9R1C — complete authoring workflow
+
+Keep editor and Workbench selection synchronized; make Open affected field focus/highlight the exact canonical control; wire Run family tests; expose repairs only for applicable diagnostics; automatically rerun affected analysis after save/apply while preserving selection/filter state.
+
+#### R9R1D — legacy/redundant surface retirement
+
+Fix false legacy-dataset detection. Remove the legacy compatibility toggle and zero-record Dialogue Content surface after caller-zero; move useful current functionality out of Explore before deleting its legacy container; move/rename canonical Dataset Library; audit Workflow Composer and Interaction Composer for parity/caller-zero retirement. Do not delete Interaction Modules, Flow Editor, Block Contracts, Source / Impact, Review, Simulation, Quality Sweep, World & Mods or Log merely as cleanup.
+
+#### R9R1E — usability acceptance
+
+Require fake-widget/unit and real Tk/Xvfb proof for 588-family coverage, bidirectional selection sync, real semantic colors, needs-attention default, exact-field navigation, family-test wiring, contextual repair controls, legacy caller-zero, moved-surface parity, and a real journey where the current `command.camp` warning is immediately visible without scrolling through healthy rows. Then rerun full acceptance, participant fingerprints, post-acceptance reconcile and diff checks.
+
+**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until R9R1E is accepted.
 
 ## Commit protocol
 

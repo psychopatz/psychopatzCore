@@ -103,12 +103,16 @@ S11 extends the accepted post-G9 ConvoEngine pipeline:
 - an `acceptanceOwner` path/string alone is not evidence: the exact referenced test/fixture/case must explicitly declare its stable audit claim IDs; manifest repetition, `claimKeywords`, substring matching, test-name similarity, or whole-file source-text scans are not semantic ownership proof; keep claims atomic by observable surface so one sibling behavior cannot certify another untested sibling;
 - production/native presentation claims require native or native-equivalent context parity: a worker-only field or worker-only authority projection cannot certify an in-game behavior unless the native `Contents/` path produces the same bounded contract;
 - canonical acceptance must remain hermetic under supported parallel execution: tests that mutate canonical source use isolated temp roots, and GUI/display-dependent tests have one explicit deterministic suite owner rather than order-dependent skips;
-- before any broad dialogue/beat/behavior/realization rewrite, verify `BULK_DIALOGUE_REWRITE_ALLOWED=true` in current S11 continuity docs; until R9D, only R8D/R9 infrastructure and narrowly required fixtures may change;
+- before any broad dialogue/beat/behavior/realization rewrite, verify `BULK_DIALOGUE_REWRITE_ALLOWED=true` in current S11 continuity docs; until R9R1E, only R9R1 infrastructure and narrowly required fixtures may change;
 - Semantic Lab completeness UI must consume the canonical `analyze_convo_completeness()` report; do not reimplement termination/cycle/outcome/closure reasoning in Tk;
 - completeness diagnostics and scaffolds must navigate/write canonical compact source through existing services; generated Lua/registry/manifest/translation remains downstream-only;
+- authoring-health UI must cover every maintained canonical family kind that is in rewrite scope; kind-specific health checks may differ, but source-catalog inventory and Workbench inventory must not silently diverge;
+- Workbench and primary Conversations editor must share one synchronized current-family identity; a health report for a different family than the visible editor is an acceptance failure;
+- problem-first authoring is the default: real Tk semantic tags/styles plus textual health labels, severity-first sorting, and contextual repairs only when a diagnostic applies;
+- retire project-owned legacy UI after parity and caller-zero rather than preserving hidden compatibility panes or shims; preserve useful current capabilities by moving/renaming them before deleting obsolete containers;
 
 - review family-specific semantic checks or canonical reply mappings added to generic hand-written runtime kernels as architecture defects when the policy/reply already belongs in canonical source/Portable Plan; canonical action-policy admission must use one generic path before domain-specific mutation routing;
-- use `S11_POST_R8_AUTHORING_READINESS_REPAIR.md` when resuming current S11 work; `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` is historical R7 context, `S11_POST_R5_FINAL_CLOSURE_REPAIR.md` is historical R6 context, and earlier repair docs are historical.
+- use `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md` when resuming current S11 work; `S11_POST_R8_AUTHORING_READINESS_REPAIR.md` is the retained R8D/R9 implementation plan; `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` is historical R7 context, `S11_POST_R5_FINAL_CLOSURE_REPAIR.md` is historical R6 context, and earlier repair docs are historical.
 
 Behavioral regressions belong primarily in provider-owned declarative fixtures under tools/providers/<provider>/fixtures/. Keep imperative tests for compiler/schema, Portable Plan/Reference VM, backend parity, ActionContract lifecycle, GUI/protocol/static/performance responsibilities.
 

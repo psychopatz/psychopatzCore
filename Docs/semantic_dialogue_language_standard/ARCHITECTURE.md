@@ -674,3 +674,11 @@ The tool displays the production chain; it does not implement a duplicate evalua
 The Dialogue Completeness Analyzer is the single graph/reachability/closure authority for compiler acceptance, CodeBuilder repair packets, and Semantic Lab authoring. Semantic Lab may render/filter/navigate the report, but must not maintain a second UI-only interpretation of branch termination, cycles, pending exits, state/action outcomes, or closure classes.
 
 A local Flow Editor `terminal` flag is authoring data, not proof of semantic closure. Human/agent authoring readiness requires the compiler-owned graph/report to be visible from a primary Semantic Lab surface and diagnostics to navigate to canonical compact source. Completeness-driven scaffolding may create structural stubs only through existing ConvoTransaction/CodeBuilder services; it must not invent final wording or directly edit generated artifacts.
+
+### Authoring Workbench is problem-first and inventory-complete
+
+The primary authoring Workbench is a projection of compiler-owned health, not a compiler-debug dump. It must keep the visible editor and health selection synchronized, represent every maintained canonical family in rewrite scope, use kind-appropriate health semantics, and prioritize unhealthy work before healthy rows.
+
+Semantic color classes are machine-readable report data and must be rendered with real UI tags/styles plus textual labels; color alone is not authority. Repairs are contextual to diagnostics, and exact-field navigation targets canonical source controls.
+
+Legacy project-owned authoring surfaces are not retained merely for historical compatibility. After parity and caller-zero, delete obsolete containers/toggles rather than adding wrappers. Useful current functionality is moved/renamed into current surfaces first.

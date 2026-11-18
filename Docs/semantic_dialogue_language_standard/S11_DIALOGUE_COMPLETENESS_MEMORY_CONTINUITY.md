@@ -73,11 +73,11 @@ Persist compact semantic facts/references through existing ConversationMemory/do
 
 Wording is presentation. Memory authority is structured semantic state.
 
-## Current implementation status — post-R8 audit
+## Current implementation status — post-R9 usability audit
 
-The compiler-side analyzer exists and is retained. However, the originally required Semantic Lab exposure is **not yet implemented**: `SemanticLabAuthoringService.analyze_convo_completeness()` has no GUI caller, the primary Conversations pane does not render the compiler completeness graph/report, and safe completeness-driven structural scaffolding is not wired into the authoring UI.
+The compiler-side Dialogue Completeness Analyzer and its Semantic Lab Workbench integration now exist and are retained. However, the authoring-readiness gate is reopened under `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md` because the current Workbench is dialogue-only (520 analyzed versus 588 maintained canonical families), can desynchronize from the main editor selection, renders semantic color classes as text rather than actual visual priority, lacks exact-field/test workflow wiring, and retains obsolete legacy surfaces.
 
-Therefore the requirement later in this document to “expose the same graph/report in Semantic Lab” is still open and is tracked normatively by `S11_POST_R8_AUTHORING_READINESS_REPAIR.md` R9. Broad dialogue/beat rewriting is blocked until that Workbench is accepted.
+The same compiler-owned graph/report remains authoritative. R9R1 must improve coverage and presentation without creating a second Tk-owned semantic analyzer. Broad dialogue/beat/behavior/realization rewriting remains blocked until R9R1E.
 
 ## Compiler placement
 
