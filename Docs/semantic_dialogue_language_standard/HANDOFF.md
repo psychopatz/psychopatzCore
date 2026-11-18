@@ -2,8 +2,8 @@
 
 ~~~yaml
 status: DIRTY_RESUMABLE
-checkpoint_mode: committed_handoff
-phase_commit: self
+checkpoint_mode: dirty_resumable
+planning_doc_commit: self
 phase: S11R6 — Final Closure Repair
 chunk: R6A — explicit exact-test acceptance claim ownership
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
@@ -14,7 +14,7 @@ previous_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R4_CLOSUR
 updated_at: 2026-11-18
 ~~~
 
-This committed planning checkpoint does **not** accept R6A. It only records the audited R6 scope and resume baton.
+This committed planning document does **not** accept R6A. The participant baton is DIRTY_RESUMABLE because unrelated Hoomans authoring work is actively changing; always re-verify its live status/fingerprint before edits.
 
 ## Participant planning base
 
@@ -28,7 +28,7 @@ Residual worktree snapshot (`git status --porcelain=v1 -uall` SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=47  sha256=4235fbd994cfc2065023158211f001105ca06e7942a6dd8647d86ec3c0b75e6a
+ProjectHoomans   rows=48  sha256=a89ef933ce04f0c1e1e9d8ddc14883ba76f4e0a022c9f7a24639e405caa74f47
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
