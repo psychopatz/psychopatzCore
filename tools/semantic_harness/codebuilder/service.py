@@ -1208,6 +1208,7 @@ class SemanticLabAuthoringService:
         *,
         covered_family_ids: Iterable[str] | None = None,
         strict_manifest: bool = False,
+        family_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         """Run the canonical Dialogue Completeness Analyzer on the compiled Portable Plan."""
         from .completeness_analyzer import (
@@ -1216,13 +1217,147 @@ class SemanticLabAuthoringService:
         )
 
         model, _rendered, _reports = self._conversation_plan()
-        portable_plan = model.get("portablePlan")
+        portable_plan = model.get("portablePlan") or {}
+        shard_paths = {
+            str(shard.get("path")): str(shard.get("sourcePath"))
+            for shard in (model.get("shards") or ())
+            if isinstance(shard, dict) and shard.get("path") and shard.get("sourcePath")
+        }
+        source_paths: dict[str, str] = {}
+        for fid, dlg in (portable_plan.get("dialogues") or {}).items():
+            if isinstance(dlg, dict):
+                lineage = dlg.get("lineage") or {}
+                rel = lineage.get("sourcePath") if isinstance(lineage, dict) else None
+                if isinstance(rel, str) and rel in shard_paths:
+                    source_paths[str(fid)] = shard_paths[rel]
+                elif isinstance(rel, str):
+                    source_paths[str(fid)] = str(self._content_source_path(rel, model=model))
+        contracts: dict[str, dict[str, Any]] = {}
+        try:
+            for item in self.list_registered_action_contracts():
+                if isinstance(item, dict) and item.get("id"):
+                    contracts[str(item["id"])] = item
+        except Exception:
+            contracts = {}
         return analyze_portable_plan(
             portable_plan,
+            action_contracts=contracts or None,
             covered_family_ids=covered_family_ids,
             constrained_manifest=load_constrained_family_manifest(),
             strict_manifest=strict_manifest,
+            source_paths=source_paths,
+            family_ids=family_ids,
         )
+
+    def _find_convo_engine_family_entry(self, family_id: str) -> dict[str, Any]:
+        target = str(family_id or "").strip()
+        for entry in self.list_convo_engine_families():
+            if entry.get("canonicalID") == target or entry.get("id") == target:
+                return entry
+        raise KeyError(f"Unknown ConvoEngine family: {family_id!r}")
+
+    def preview_completeness_scaffold(
+        self,
+        family_id: str,
+        scaffold_kind: str,
+        *,
+        outcome_name: str | None = None,
+        closure_class: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview a structural completeness scaffold without writing files."""
+        from .completeness_scaffold import build_structural_scaffold_patch
+
+        entry = self._find_convo_engine_family_entry(family_id)
+        document = entry.get("document") or {}
+        patch, summary = build_structural_scaffold_patch(
+            document,
+            scaffold_kind=scaffold_kind,
+            family_id=str(entry.get("canonicalID") or family_id),
+            outcome_name=outcome_name,
+            closure_class=closure_class,
+        )
+        if scaffold_kind == "fixture_stub":
+            return {
+                "ok": True,
+                "previewOnly": True,
+                "effectFree": True,
+                "familyId": str(entry.get("canonicalID") or family_id),
+                "sourcePath": entry.get("sourcePath"),
+                "scaffoldKind": scaffold_kind,
+                "patch": {},
+                "summary": summary,
+                "transaction": {"ok": True, "effectFree": True, "writes": []},
+            }
+        tx = self.edit_convo_engine_family(
+            str(entry["sourcePath"]),
+            patch,
+            expected_source_fingerprint=entry.get("sourceFingerprint"),
+            write=False,
+            regenerate=False,
+        )
+        return {
+            "ok": bool(tx.get("ok")),
+            "previewOnly": True,
+            "effectFree": True,
+            "familyId": str(entry.get("canonicalID") or family_id),
+            "sourcePath": entry.get("sourcePath"),
+            "scaffoldKind": scaffold_kind,
+            "patch": patch,
+            "summary": summary,
+            "transaction": tx,
+        }
+
+    def apply_completeness_scaffold(
+        self,
+        family_id: str,
+        scaffold_kind: str,
+        *,
+        outcome_name: str | None = None,
+        closure_class: str | None = None,
+        regenerate: bool = True,
+    ) -> dict[str, Any]:
+        """Apply a structural completeness scaffold through ConvoTransaction."""
+        from .completeness_scaffold import build_structural_scaffold_patch
+
+        entry = self._find_convo_engine_family_entry(family_id)
+        document = entry.get("document") or {}
+        patch, summary = build_structural_scaffold_patch(
+            document,
+            scaffold_kind=scaffold_kind,
+            family_id=str(entry.get("canonicalID") or family_id),
+            outcome_name=outcome_name,
+            closure_class=closure_class,
+        )
+        if scaffold_kind == "fixture_stub":
+            return {
+                "ok": True,
+                "previewOnly": True,
+                "effectFree": True,
+                "familyId": str(entry.get("canonicalID") or family_id),
+                "sourcePath": entry.get("sourcePath"),
+                "scaffoldKind": scaffold_kind,
+                "patch": {},
+                "summary": summary,
+                "transaction": {"ok": True, "effectFree": True, "writes": []},
+            }
+        tx = self.edit_convo_engine_family(
+            str(entry["sourcePath"]),
+            patch,
+            expected_source_fingerprint=entry.get("sourceFingerprint"),
+            write=True,
+            regenerate=regenerate,
+        )
+        return {
+            "ok": bool(tx.get("ok")),
+            "previewOnly": False,
+            "effectFree": False,
+            "familyId": str(entry.get("canonicalID") or family_id),
+            "sourcePath": entry.get("sourcePath"),
+            "scaffoldKind": scaffold_kind,
+            "patch": patch,
+            "summary": summary,
+            "transaction": tx,
+        }
 
     @staticmethod
     def _content_shard_report(model: dict[str, Any], source_shard: str) -> dict[str, Any]:

@@ -17,6 +17,30 @@ from tools.semantic_harness.codebuilder.convo_engine_fields import (
     describe_unknown_fields,
     list_field_descriptors,
 )
+from tools.semantic_harness.studio.completeness_workbench import (
+    DialogueCompletenessWorkbench,
+)
+
+
+_S11_CONTROL_NAMES: tuple[str, ...] = (
+    "statePolicy",
+    "inputPolicy",
+    "repeatPolicy",
+    "postconditions",
+    "closure",
+    "roles",
+    "participantSet",
+    "topics",
+    "events",
+    "activities",
+    "memories",
+    "domains",
+)
+
+_S11_SCALAR_CHOICES: dict[str, tuple[str, ...]] = {
+    "inputPolicy": ("", "typed_parity", "click_only", "typed_only"),
+    "repeatPolicy": ("", "once", "cooldown", "max_uses", "state_retired", "unlimited"),
+}
 
 
 class ConvoEngineAuthoringPane:
@@ -39,6 +63,16 @@ class ConvoEngineAuthoringPane:
         self._messagebox = messagebox
         self.service = service
         self._field_descriptors = self._load_field_descriptors()
+        self._s11_descriptors = self._load_s11_field_descriptors()
+        self._s11_json_descriptors = [
+            d for d in self._s11_descriptors if d.get("editor_kind") == "json"
+        ]
+        self._s11_scalar_descriptors = [
+            d for d in self._s11_descriptors if d.get("editor_kind") != "json"
+        ]
+        self._s11_scalar_vars: dict[str, Any] = {
+            str(d["name"]): tk.StringVar() for d in self._s11_scalar_descriptors
+        }
         self.frame = ttk.Frame(parent, padding=6)
         self.frame.grid(row=0, column=0, sticky="nsew")
         self.frame.rowconfigure(2, weight=1)
@@ -97,8 +131,22 @@ class ConvoEngineAuthoringPane:
                 return items
         return list_field_descriptors(category="exchange", editor_kind="json")
 
+    def _load_s11_field_descriptors(self) -> list[dict[str, Any]]:
+        describe = getattr(self.service, "describe_convo_engine_fields", None)
+        items = (
+            describe()
+            if callable(describe)
+            else list_field_descriptors()
+        )
+        by_name = {
+            str(item["name"]): item
+            for item in (items or ())
+            if isinstance(item, dict) and item.get("name") in _S11_CONTROL_NAMES
+        }
+        return [by_name[name] for name in _S11_CONTROL_NAMES if name in by_name]
+
     def field_descriptors(self) -> list[dict[str, Any]]:
-        return list(self._field_descriptors)
+        return list(self._field_descriptors) + list(self._s11_descriptors)
 
     def _build_toolbar(self) -> None:
         ttk = self._ttk
@@ -191,9 +239,84 @@ class ConvoEngineAuthoringPane:
         notebook = ttk.Notebook(right)
         notebook.grid(row=1, column=0, sticky="nsew")
         structured = ttk.Frame(notebook, padding=4)
+        s11_controls = ttk.Frame(notebook, padding=4)
+        completeness_tab = ttk.Frame(notebook, padding=4)
         preview = ttk.Frame(notebook, padding=4)
         notebook.add(structured, text="Exchange family structure")
+        notebook.add(s11_controls, text="S11 Semantic Controls")
+        notebook.add(completeness_tab, text="Dialogue Completeness")
         notebook.add(preview, text="Simulation / trace")
+        self._right_notebook = notebook
+        self._structured_tab = structured
+        self._s11_controls_tab = s11_controls
+        self._completeness_tab = completeness_tab
+
+        s11_controls.columnconfigure(0, weight=1)
+        s11_controls.rowconfigure(1, weight=1)
+        s11_scalars = ttk.Frame(s11_controls)
+        s11_scalars.grid(row=0, column=0, sticky="ew", pady=(0, 4))
+        for col_idx, descriptor in enumerate(self._s11_scalar_descriptors):
+            name = str(descriptor["name"])
+            label = str(descriptor["label"])
+            ttk.Label(s11_scalars, text=label).grid(row=0, column=col_idx * 2, sticky="w", padx=4)
+            choices = _S11_SCALAR_CHOICES.get(name)
+            if choices:
+                box = ttk.Combobox(
+                    s11_scalars,
+                    textvariable=self._s11_scalar_vars[name],
+                    values=choices,
+                    width=18,
+                )
+                box.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
+            else:
+                ttk.Entry(s11_scalars, textvariable=self._s11_scalar_vars[name]).grid(
+                    row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8)
+                )
+            s11_scalars.columnconfigure(col_idx * 2 + 1, weight=1)
+
+        s11_json_host = ttk.PanedWindow(s11_controls, orient="vertical")
+        s11_json_host.grid(row=1, column=0, sticky="nsew")
+        s11_upper = ttk.Frame(s11_json_host)
+        s11_lower = ttk.Frame(s11_json_host)
+        s11_upper.columnconfigure(0, weight=1)
+        s11_lower.columnconfigure(0, weight=1)
+        s11_json_host.add(s11_upper, weight=1)
+        s11_json_host.add(s11_lower, weight=1)
+        s11_split = max(1, (len(self._s11_json_descriptors) + 1) // 2)
+        for index, descriptor in enumerate(self._s11_json_descriptors):
+            name = str(descriptor["name"])
+            label = str(descriptor["label"])
+            host = s11_upper if index < s11_split else s11_lower
+            row = index if index < s11_split else index - s11_split
+            box = ttk.LabelFrame(host, text=label)
+            box.grid(row=row, column=0, sticky="nsew", padx=2, pady=2)
+            host.rowconfigure(row, weight=1)
+            box.columnconfigure(0, weight=1)
+            editor = self._ScrolledText(box, height=3, wrap="none")
+            editor.grid(row=0, column=0, sticky="nsew")
+            self._editors[name] = editor
+
+        completeness_tab.rowconfigure(0, weight=1)
+        completeness_tab.columnconfigure(0, weight=1)
+        self.completeness_workbench = DialogueCompletenessWorkbench(
+            completeness_tab,
+            self._tk,
+            ttk,
+            self._ScrolledText,
+            self._messagebox,
+            self.service,
+            on_open_family=self.open_family_from_completeness,
+            auto_analyze=False,
+        )
+        if callable(getattr(notebook, "bind", None)) and callable(getattr(notebook, "select", None)):
+            def _on_tab_change(_event: Any = None) -> None:
+                try:
+                    if str(notebook.select()) == str(completeness_tab):
+                        self.completeness_workbench.ensure_loaded()
+                except Exception:
+                    pass
+
+            notebook.bind("<<NotebookTabChanged>>", _on_tab_change, add="+")
 
         structured.columnconfigure(0, weight=1)
         structured.rowconfigure(0, weight=1)
@@ -348,6 +471,31 @@ class ConvoEngineAuthoringPane:
         else:
             self._status_var.set("No ConvoEngine families match filter")
 
+    def open_family_from_completeness(
+        self,
+        family_id: str,
+        field_path: str | None = None,
+    ) -> bool:
+        """Select a canonical family in the authoring form from a completeness diagnostic."""
+        self.ensure_refreshed()
+        if self._filter_var.get():
+            self._filter_var.set("")
+            self._apply_filter()
+        for idx, entry in enumerate(self._filtered_families):
+            if entry.get("canonicalID") == family_id or entry.get("id") == family_id:
+                self._family_list.selection_set(idx)
+                self._family_selected()
+                target_tab = self._structured_tab
+                if field_path:
+                    for name in _S11_CONTROL_NAMES:
+                        if f".{name}" in field_path or field_path.endswith(name):
+                            target_tab = self._s11_controls_tab
+                            break
+                if callable(getattr(self._right_notebook, "select", None)):
+                    self._right_notebook.select(target_tab)
+                return True
+        return False
+
     def _family_selected(self) -> None:
         selection = self._family_list.curselection()
         if not selection or int(selection[0]) >= len(self._filtered_families):
@@ -407,9 +555,13 @@ class ConvoEngineAuthoringPane:
         self._execute_action_var.set(
             exe.get("use", "") if isinstance(exe, dict) else (exe if isinstance(exe, str) else "")
         )
-        for descriptor in self._field_descriptors:
+        for descriptor in self._field_descriptors + self._s11_json_descriptors:
             name = str(descriptor["name"])
             self._write_json_editor(name, doc.get(name))
+        for descriptor in self._s11_scalar_descriptors:
+            name = str(descriptor["name"])
+            val = doc.get(name)
+            self._s11_scalar_vars[name].set("" if val is None else str(val))
         unknown = describe_unknown_fields(doc)
         self._unknown_fields_var.set(", ".join(unknown.keys()) if unknown else "(none)")
 
@@ -437,13 +589,20 @@ class ConvoEngineAuthoringPane:
             doc["slots"] = slots
         else:
             doc.pop("slots", None)
-        for descriptor in self._field_descriptors:
+        for descriptor in self._field_descriptors + self._s11_json_descriptors:
             name = str(descriptor["name"])
             value = self._read_json_editor(name)
             if value is None:
                 doc.pop(name, None)
             else:
                 doc[name] = value
+        for descriptor in self._s11_scalar_descriptors:
+            name = str(descriptor["name"])
+            raw_scalar = self._s11_scalar_vars[name].get().strip()
+            if raw_scalar:
+                doc[name] = raw_scalar
+            else:
+                doc.pop(name, None)
 
         single_say = self._say_single_var.get().strip()
         if single_say and "say" not in doc:

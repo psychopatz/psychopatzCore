@@ -1,0 +1,312 @@
+"""R9D: Fake-widget & unit acceptance tests for DialogueCompletenessWorkbench."""
+
+from __future__ import annotations
+
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest import mock
+
+from tools.semantic_harness.codebuilder.completeness_analyzer import (
+    analyze_portable_plan,
+)
+from tools.semantic_harness.codebuilder.portable_runtime import compile_portable_plan
+from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
+from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
+from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
+from tools.semantic_harness.studio.completeness_workbench import (
+    DialogueCompletenessWorkbench,
+    filter_completeness_families,
+)
+from tools.semantic_harness.studio.convo_engine_authoring_pane import (
+    ConvoEngineAuthoringPane,
+)
+from tools.semantic_harness.tests.convo_engine_test_support import (
+    _FakeMessageBox,
+    _FakeTk,
+    _FakeTtk,
+    _FakeWidget,
+    _setup_three_repo_workspace,
+)
+
+
+def _synthetic_plan() -> dict:
+    records = [
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "valid_terminal",
+            "inputPolicy": "typed_parity",
+            "repeatPolicy": "state_retired",
+            "closure": {"closureClass": "resolved_episode", "episodeId": "ep_term"},
+            "say": "Done.",
+            "reply": {"ok": {"say": "Okay."}},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "valid_continuation",
+            "inputPolicy": "typed_parity",
+            "repeatPolicy": "once",
+            "say": "Next?",
+            "after": {"goto": "test.valid_terminal"},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "valid_pending",
+            "inputPolicy": "typed_parity",
+            "statePolicy": [
+                {
+                    "id": "wait",
+                    "when": {"path": "addressee.state", "op": "==", "value": "waiting"},
+                    "outcome": "pending",
+                    "reason": "waiting",
+                    "admission": "defer",
+                    "replyOutcome": "waiting",
+                },
+                {
+                    "id": "ready",
+                    "outcome": "actionable",
+                    "reason": "ready",
+                    "admission": "dispatch",
+                },
+            ],
+            "say": "Wait.",
+            "reply": {"waiting": {"say": "Still waiting.", "after": {"end": True}}},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "valid_obligation",
+            "inputPolicy": "typed_parity",
+            "closure": {"closureClass": "open_domain_obligation", "obligationRef": "task.escort"},
+            "say": "Follow me.",
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "warn_stale",
+            "inputPolicy": "typed_parity",
+            "execute": {"use": "act.mutate"},
+            "say": "Mutate.",
+            "reply": {"ok": {"say": "Mutated."}},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "bad_dead_end",
+            "say": "Go nowhere.",
+            "after": {"goto": "test.missing_target"},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "bad_state_outcome",
+            "statePolicy": [
+                {
+                    "id": "r1",
+                    "outcome": "already_satisfied",
+                    "reason": "done",
+                    "admission": "no_op",
+                    "replyOutcome": "missing_reply",
+                }
+            ],
+            "say": "State?",
+            "reply": {"ok": {"say": "Ok."}},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "bad_action_outcome",
+            "execute": {"use": "act.contract"},
+            "postconditions": ["done"],
+            "say": "Act.",
+            "reply": {"ok": {"say": "Ok."}},
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "bad_pending",
+            "statePolicy": [
+                {
+                    "id": "stuck",
+                    "outcome": "pending",
+                    "reason": "waiting",
+                    "admission": "defer",
+                }
+            ],
+            "say": "Stuck.",
+        },
+        {
+            "kind": "dialogue",
+            "namespace": "test",
+            "id": "bad_cycle",
+            "say": "Loop.",
+            "after": {"goto": "test.bad_cycle"},
+        },
+    ]
+    compiled = compile_convo_engine_document(
+        {"schema": CONVO_ENGINE_SCHEMA, "owner": "PsychopatzCore", "records": records}
+    )
+    return compile_portable_plan(compiled["records"], package="test")
+
+
+class DialogueCompletenessWorkbenchTests(unittest.TestCase):
+    def test_synthetic_semantic_classes_and_filters(self) -> None:
+        plan = _synthetic_plan()
+        contracts = {
+            "act.contract": {
+                "id": "act.contract",
+                "outcomeMap": {"ok": "ok", "failed": "failed"},
+                "defaultOutcome": "ok",
+            }
+        }
+        report = analyze_portable_plan(
+            plan,
+            action_contracts=contracts,
+            covered_family_ids={"test.valid_terminal"},
+        )
+        families = report["families"]
+        self.assertEqual(families["test.valid_terminal"]["semanticStatus"], "GREEN")
+        self.assertEqual(families["test.valid_terminal"]["closureHealth"], "resolved_terminal")
+        self.assertEqual(families["test.valid_continuation"]["semanticStatus"], "BLUE")
+        self.assertEqual(families["test.valid_continuation"]["closureHealth"], "continuation")
+        self.assertEqual(families["test.valid_pending"]["semanticStatus"], "YELLOW")
+        self.assertEqual(families["test.valid_pending"]["closureHealth"], "bounded_pending")
+        self.assertEqual(families["test.valid_obligation"]["semanticStatus"], "PURPLE")
+        self.assertEqual(families["test.valid_obligation"]["closureHealth"], "domain_obligation")
+        self.assertEqual(families["test.warn_stale"]["semanticStatus"], "ORANGE")
+        self.assertEqual(families["test.warn_stale"]["closureHealth"], "warning")
+        for bad_id in (
+            "test.bad_dead_end",
+            "test.bad_state_outcome",
+            "test.bad_action_outcome",
+            "test.bad_pending",
+            "test.bad_cycle",
+        ):
+            self.assertEqual(families[bad_id]["semanticStatus"], "RED", bad_id)
+            self.assertEqual(families[bad_id]["closureHealth"], "invalid", bad_id)
+
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="errors_only")},
+            {
+                "test.bad_dead_end",
+                "test.bad_state_outcome",
+                "test.bad_action_outcome",
+                "test.bad_pending",
+                "test.bad_cycle",
+            },
+        )
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="warnings_only")},
+            {"test.warn_stale"},
+        )
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="unhandled_action_outcome")},
+            {"test.bad_action_outcome"},
+        )
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="unhandled_state_outcome")},
+            {"test.bad_state_outcome"},
+        )
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="pending_without_exit")},
+            {"test.bad_pending"},
+        )
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="unbounded_cycle")},
+            {"test.bad_cycle"},
+        )
+        self.assertEqual(
+            {r["familyId"] for r in filter_completeness_families(report, issue_filter="missing_repeat_policy")},
+            {"test.bad_cycle"},
+        )
+
+    def test_workbench_uses_canonical_service_navigation_affected_refresh_and_scaffolding(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repos = _setup_three_repo_workspace(Path(tmp))
+            service = SemanticLabAuthoringService(
+                repos["core"],
+                runtime_root=repos["hoomans"],
+                core_repository=repos["core"],
+                hoomans_repository=repos["hoomans"],
+                dynamic_trading_repository=repos["dt"],
+            )
+            pane = ConvoEngineAuthoringPane(
+                _FakeWidget(),
+                _FakeTk,
+                _FakeTtk,
+                _FakeWidget,
+                _FakeMessageBox(),
+                service,
+                auto_refresh=True,
+            )
+            wb: DialogueCompletenessWorkbench = pane.completeness_workbench
+
+            with mock.patch.object(
+                service,
+                "analyze_convo_completeness",
+                wraps=service.analyze_convo_completeness,
+            ) as spy:
+                report = wb.run_strict_analysis()
+                spy.assert_called_once_with(strict_manifest=True)
+
+            self.assertEqual(
+                wb._report["summary"],
+                report["summary"],
+            )
+            first_fid = next(iter(report["families"]))
+            self.assertTrue(wb.select_family(first_fid))
+            graph_dump = wb._graph_text.get("1.0", "end")
+            self.assertIn(f"FAMILY: {first_fid}", graph_dump)
+
+            # Navigation resolves to canonical source, never generated Lua
+            wb.open_canonical_source()
+            self.assertIsNotNone(pane._current_entry)
+            self.assertEqual(pane._current_entry["canonicalID"], first_fid)
+            self.assertTrue(str(pane._current_entry["sourcePath"]).endswith(".json"))
+
+            # Affected-family refresh updates affected rows without dropping unrelated families
+            before_count = len(wb._report["families"])
+            partial = wb.run_affected_analysis([first_fid])
+            self.assertIn(first_fid, partial["affectedFamilyIds"])
+            self.assertEqual(len(wb._report["families"]), before_count)
+
+            # Scaffold preview is effect-free
+            src_path = Path(pane._current_entry["sourcePath"])
+            before_bytes = src_path.read_bytes()
+            wb._scaffold_kind_var.set("repeat_policy")
+            preview = wb.preview_scaffold()
+            self.assertTrue(preview["ok"])
+            self.assertTrue(preview["effectFree"])
+            self.assertTrue(preview["previewOnly"])
+            self.assertEqual(src_path.read_bytes(), before_bytes)
+
+            # Explicit scaffold apply updates only intended canonical source + normal CodeBuilder flow
+            applied = wb.apply_scaffold()
+            self.assertTrue(applied["ok"])
+            self.assertFalse(applied["effectFree"])
+            updated_doc = json.loads(src_path.read_text(encoding="utf-8"))
+            self.assertEqual(updated_doc.get("repeatPolicy"), "state_retired")
+
+    def test_real_package_workbench_matches_direct_strict_analyzer(self) -> None:
+        service = SemanticLabAuthoringService()
+        direct = service.analyze_convo_completeness(strict_manifest=True)
+        wb = DialogueCompletenessWorkbench(
+            _FakeWidget(),
+            _FakeTk,
+            _FakeTtk,
+            _FakeWidget,
+            _FakeMessageBox(),
+            service,
+            auto_analyze=False,
+        )
+        gui_report = wb.run_strict_analysis()
+        self.assertEqual(gui_report["summary"], direct["summary"])
+        self.assertEqual(gui_report["diagnostics"], direct["diagnostics"])
+
+
+if __name__ == "__main__":
+    unittest.main()

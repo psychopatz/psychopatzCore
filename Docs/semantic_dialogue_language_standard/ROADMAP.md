@@ -881,7 +881,7 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** IN_PROGRESS — R8A native task parity is retained; R8D must repair acceptance side effects, then R9 must expose the canonical Dialogue Completeness graph/report in Semantic Lab before broad content rewriting.
+**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — R8D and R9A-R9D are accepted and closed; `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
 
 Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
@@ -973,7 +973,7 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** NOT ACCEPTED — canonical results are 9/9, but `real_provider_worker` mutates live DynamicTrading generated output. Exact-vector closure remains open under R8D.
+**Status:** ACCEPTED — two consecutive canonical 9-suite `--jobs 4` passes are 9/9 (`convoScopeOk=True`), participant status fingerprints before/after are identical, and post-acceptance `reconcile.py --check` is `clean=true`.
 
 ### S11R5 — post-R4 closure integrity repair
 
@@ -1037,7 +1037,7 @@ Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authori
 
 ### S11R8 — native-parity and acceptance-reproducibility repair
 
-**Status:** PARTIAL — R8A accepted; original R8B race/accounting repairs retained; R8C final closure invalidated by live-repo mutation found after acceptance. Continue with R8D.
+**Status:** ACCEPTED / CLOSED (including R8D).
 
 Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
@@ -1057,33 +1057,31 @@ Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 #### R8D — acceptance side-effect isolation and exact-vector closure
 
-**Status:** ACTIVE. Repair generation-bearing tests that mix temporary source models with live adopter/output repositories; add participant-status side-effect guards; prove `real_provider_worker` and two canonical 9-suite runs leave all participant status bytes unchanged; run `reconcile.py --check` after acceptance.
+**Status:** ACCEPTED. Isolated `test_promotion_writes_only_canonical_source_then_regenerates` across Core/ProjectHoomans/DynamicTrading temp roots, added participant worktree side-effect guard in `acceptance.py`, proved two consecutive canonical 9-suite `--jobs 4` runs are 9/9 (`convoScopeOk=True`) with identical participant status hashes before/after, and verified post-acceptance `reconcile.py --check` (`clean=true`).
 
 Current authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
 
 ### S11R9 — Dialogue Completeness Workbench and authoring readiness
 
-**Status:** NOT STARTED / MANDATORY BEFORE BULK CONTENT REWRITE.
-
-The existing S11A4 backend analyzer is retained, but the originally planned Semantic Lab graph/report exposure is not implemented. There are zero GUI callers of `analyze_convo_completeness()`, and the primary Conversations pane does not make the full S11 state/repeat/postcondition/closure model first-class.
+**Status:** ACCEPTED / CLOSED — `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
 
 #### R9A — canonical authoring-report enrichment
 
-Enrich the compiler-owned completeness report with source provenance, graph/witness/cycle paths, outcome matrices, closure classes, affected-family closure, and fixture/parity ownership as needed for authoring. Do not create UI-owned graph logic.
+**Status:** ACCEPTED. Enriched `completeness_analyzer.py` and `SemanticLabAuthoringService.analyze_convo_completeness()` with canonical source provenance, graph nodes/edges (`GREEN`/`BLUE`/`PURPLE`/`YELLOW`/`ORANGE`/`RED`), witness/cycle/SCC paths, state/action outcome matrices, closure health, missing ownership, suggested closure classes, and bounded affected-family closure refresh.
 
 #### R9B — primary Dialogue Completeness Workbench
 
-Add a first-class primary Semantic Lab surface/tab with batch health/filtering, compiler-derived family graph, diagnostic detail, and canonical-source navigation. Distinguish resolved terminal, continuation, domain obligation, bounded pending/deferred, warning, and invalid paths.
+**Status:** ACCEPTED. Added first-class `Dialogue Completeness` tab (`completeness_workbench.py`) inside `ConvoEngineAuthoringPane` with batch health/filtering, compiler-derived family graph, diagnostic detail, and canonical-source navigation.
 
 #### R9C — complete semantic authoring controls + structural scaffolding
 
-Expose `statePolicy`, `inputPolicy`, `repeatPolicy`, `postconditions`, `closure`, roles/cardinality, continuation, outcome coverage, and memory/domain references through compiler-owned descriptors/schema. Add previewable structural scaffolds through ConvoTransaction/CodeBuilder; never invent final prose or hand-edit generated output.
+**Status:** ACCEPTED. Added `S11 Semantic Controls` tab inside `ConvoEngineAuthoringPane` driven by compiler-owned `FieldDescriptor`s plus previewable/effect-free structural scaffolding (`completeness_scaffold.py`) applied through `ConvoTransaction`.
 
 #### R9D — GUI acceptance and rewrite gate
 
-Prove canonical report parity, navigation, representative invalid/valid graph rendering, affected-family refresh, scaffold preview/apply discipline, and real Tk/Xvfb behavior. Only after R9D may `BULK_DIALOGUE_REWRITE_ALLOWED=true` be recorded.
+**Status:** ACCEPTED. Added `test_dialogue_completeness_workbench.py` (3/3) and `test_dialogue_completeness_workbench_tk.py` (1/1 Xvfb), proved Workbench parity with `analyze_convo_completeness(strict_manifest=True)` (`520` families, `0` errors, `1` warning, `520` SCCs), and passed two consecutive canonical 9-suite `--jobs 4` runs (`2125/2154`, `convoScopeOk=True`) with identical participant status hashes.
 
-**Gate:** broad dialogue/beat/behavior/realization rewriting is forbidden until R9A-R9D are accepted. The Workbench must consume the same compiler-owned completeness graph/report used by acceptance.
+**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
 
 
 ## Commit protocol
