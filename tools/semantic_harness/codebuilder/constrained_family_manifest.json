@@ -155,11 +155,13 @@
         "testIds": [
           "test_parameterized_task_template_generates_wait_at_and_fetch",
           "test_parameterized_task_result_branches_and_gate_are_truthful",
-          "test_parameterized_task_conversation_lifecycle_and_duplicate_suppression"
+          "test_parameterized_task_conversation_lifecycle_and_duplicate_suppression",
+          "test_native_task_projection_parity_lifecycle_and_duplicate_suppression"
         ],
         "requiredClaims": [
           "task_generation_and_result_routing",
-          "task_conversation_projection_lifecycle"
+          "task_conversation_projection_lifecycle",
+          "task_native_projection_parity"
         ]
       }
     },

@@ -94,7 +94,8 @@
       "title": "Parameterized task conversation lifecycle",
       "requiredClaims": [
         "task_generation_and_result_routing",
-        "task_conversation_projection_lifecycle"
+        "task_conversation_projection_lifecycle",
+        "task_native_projection_parity"
       ]
     },
     {
