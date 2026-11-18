@@ -342,7 +342,7 @@ class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
         self.assertEqual(compat_lineage["canonicalSchema"], CONVO_ENGINE_SCHEMA)
         self.assertEqual(compat_lineage["sourceSchema"], CONVO_ENGINE_SCHEMA)
 
-    def test_r5c_generic_policy_reply_projection_has_no_hardcoded_recruitment_dispatch_mapping(self) -> None:
+    def test_generic_policy_reply_projection_has_no_hardcoded_recruitment_dispatch_mapping(self) -> None:
         from pathlib import Path
         import subprocess
 

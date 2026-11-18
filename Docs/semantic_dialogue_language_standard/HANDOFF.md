@@ -1,75 +1,41 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: IN_PROGRESS
+status: COMPLETE
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S11R5 — R5B accepted
-chunk: R5C — generic canonical reply projection; remove runtime family duplication
+phase: S11 — State-Aware Conversation Outcome Closure (R5A-R5D / S11A-S11E COMPLETE)
+chunk: None (ready for user-owned native Project Zomboid acceptance)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
-current_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R4_CLOSURE_AUDIT_REPAIR.md
-historical_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md
-updated_at: 2026-11-18
+repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R4_CLOSURE_AUDIT_REPAIR.md
+foundation_order_doc: Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md
+updated_at: 2026-11-18T10:48:00Z
 ~~~
 
-This is a committed planning/handoff checkpoint only; it does **not** accept R5A.
-
-## Participant checkpoint
+## Final participant checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (planning base ec49bd3ec9cafc251f360430c0858ed491ce3fcf)
-ProjectHoomans   86000e26cc26561a99894a2abb978b6946da3c94
-DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
+DynamicTrading   0fcf35196452db0675788167df205aec09748caa
+ProjectHoomans   233ff16bac368588dfa1d0deb3b087b31fca18e7
+psychopatzCore   phase_commit: self (R5C: 54745128f3bc1b8a02ed54cd2a46b20e61a95689)
 ~~~
 
-Residual fingerprints:
+Residual worktree inventory (`git status --short` SHA-256):
 
 ~~~text
-psychopatzCore   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
-ProjectHoomans   rows=0   sha256=01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
-DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
+psychopatzCore   rows=0    sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+DynamicTrading   rows=0    sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+ProjectHoomans   rows=32   sha256=c055a1e6cbff83ccf071a82721d5863e537cf0b97dbdc3988b87afc92187ecfd
 ~~~
 
-ProjectHoomans is clean after unrelated UI/authoring commit `86000e26`. DynamicTrading has two unstaged generated ConvoEngine fingerprint drifts; treat them as uncertain/concurrent until source/reconcile evidence assigns ownership. Do not reset, stash, discard, or absorb either residual set.
+- **DynamicTrading** and **psychopatzCore** worktrees are clean.
+- **ProjectHoomans** retains only the 32 concurrent unrelated `UnifiedStartingCompanionAuthoring` / `NPCAuthoring` / `UniqueNPCEditor` dirty/untracked paths (`PNC_StartingCompanionAuthoringAdapter.lua`, `PNC_UniqueNPCDraft_*.lua`, `PNC_NPCAuthoring*.lua`, `PNC_StartingCompanionComposerWindow.lua`, `PNC_UniqueNPC*.lua`, `PNC_Identity_Profile.lua`, `PNC_NPCAuthoringRegistry.lua`, `PNC_Gender*.png`, `docs/Jobs/UnifiedStartingCompanionAuthoring/*`, `tests/pnc_unique_npc_editor_model_smoke.lua`), preserved untouched.
 
-## Retained accepted work
+## Closure summary
 
-- S11A0-A8 foundation retained.
-- R1 Identity retirement accepted.
-- R2 command/Needs/Greeting recipe migration accepted.
-- Canonical R3 recruitment/proposal/ceasefire/territory/effectful-social families retained.
-- Recruitment/proposal transition-refresh + repeat-no-op fixtures retained.
-- Fresh audit: Core 308 PASS / 2 skips; focused provider 17/17 PASS; reconcile clean at 410 desired; integrity/determinism clean at 588 families / 407 deterministic files.
-
-## Why S11 is still open
-
-- manifest coverage is not machine-complete against the branching audit;
-- acceptanceOwner is not machine-verified;
-- quest conversation lifecycle retains the repeated-offer shortcut;
-- parameterized task state parity is not proven;
-- event-expiry is absent from the manifest;
-- disband and settlement/ambient owners are inadequate;
-- generic `Input_Actions_Dispatch.lua` duplicates recruitment reply mapping already authored canonically;
-- prior closure docs contradicted themselves and omitted residual fingerprints.
-
-## Immediate Next Chunk — R5A only
-
-1. Verify current participant HEAD/status/fingerprints and preserve unrelated/concurrent work.
-2. Read `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
-3. Make constrained-family inventory closed-set/machine-complete against the normative audit inventory.
-4. Make acceptance ownership machine-verifiable; a non-empty path is insufficient.
-5. Add negative tests for omitted/extra audit rows, nonexistent owners/test IDs, owner-claim mismatch, and missing canonical policy.
-6. Correct current manifest rows only after the mechanism can reject incomplete/mis-owned rows.
-7. Reconcile continuity docs and commit accepted R5A locally; continue automatically to R5B.
-
-## Mandatory continuation
-
-~~~text
-R5B  task/quest/event/disband/settlement-ambient closure
-R5C  generic canonical reply projection; remove runtime family duplication
-R5D  full acceptance + reconcile/determinism/static gates + exact final docs/fingerprints
-~~~
-
-Use existing `main`. Preserve unrelated work. Exact staging only. No reset/stash/discard/broad-stage/amend/rebase/force operations. Commit changed adopter repos first and Core last. Do not push, publish Workshop content, or launch native Project Zomboid without explicit authorization.
+- **R5A (`cb2a3b7`):** Closed-set `S11_BRANCHING_AUDIT_INVENTORY.json` (25 rows) + machine-verifiable `acceptance` ownership in `constrained_family_manifest.json` + negative guards (`6/6` PASS).
+- **R5B (`ProjectHoomans` `aa35c7ea`, `psychopatzCore` `3166705`):** Parameterized task lifecycle + duplicate suppression, quest conversation lifecycle, disband `EXPLICIT_PRESENTATION_ONLY` guard, event response-window expiry, and settlement/ambient ownership verified.
+- **R5C (`DynamicTrading` `0fcf3519`, `ProjectHoomans` `233ff16b`, `psychopatzCore` `5474512`):** Generic `S11PolicyEvaluator.ProjectReply` projects `replyOutcome` from canonical `planEntry.payload.reply`; hardcoded recruitment reply mapping removed from generic dispatch Lua.
+- **R5D (this closure commit):** `core_python` `310/310`, `core_lua` `36/36`, `hoomans_provider_python` `146/146` (`5` allowed skips), `real_provider_worker` `334/334` (`9` allowed skips), `tk_xvfb_gui` `144/144` (`11` allowed skips), `dynamic_trading` `89/89`, `convo_audit` `1/1`, `kahlua_static` `3/3`, `reconcile.py --check` (`clean=true`, `desired=410`, `drifted=0`), `audit-integrity --check-determinism` (`0` violations, `0` diffs), and `Flow_Identity`/`Flow_Needs`/`Flow_Greeting` caller-zero verified.

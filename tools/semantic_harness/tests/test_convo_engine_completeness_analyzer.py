@@ -239,7 +239,7 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
         strict_report = analyze_portable_plan(model["portablePlan"], constrained_manifest=real_manifest, strict_manifest=True)
         self.assertTrue(strict_report["ok"], strict_report)
 
-    def test_r5a_closed_set_audit_inventory_and_verifiable_acceptance_negative_guards(self) -> None:
+    def test_closed_set_audit_inventory_and_verifiable_acceptance_negative_guards(self) -> None:
         from copy import deepcopy
         from tools.semantic_harness.codebuilder.completeness_analyzer import (
             load_branching_audit_inventory,
