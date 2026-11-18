@@ -73,6 +73,12 @@ Persist compact semantic facts/references through existing ConversationMemory/do
 
 Wording is presentation. Memory authority is structured semantic state.
 
+## Current implementation status — post-R8 audit
+
+The compiler-side analyzer exists and is retained. However, the originally required Semantic Lab exposure is **not yet implemented**: `SemanticLabAuthoringService.analyze_convo_completeness()` has no GUI caller, the primary Conversations pane does not render the compiler completeness graph/report, and safe completeness-driven structural scaffolding is not wired into the authoring UI.
+
+Therefore the requirement later in this document to “expose the same graph/report in Semantic Lab” is still open and is tracked normatively by `S11_POST_R8_AUTHORING_READINESS_REPAIR.md` R9. Broad dialogue/beat rewriting is blocked until that Workbench is accepted.
+
 ## Compiler placement
 
 Add one Dialogue Completeness Analyzer to the existing compiler pipeline:

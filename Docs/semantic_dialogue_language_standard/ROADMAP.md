@@ -1,9 +1,9 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** COMPLETE_DEVELOPER_SIDE — S0-S10R + G7-G9 + S11A-S11E + S11R8 ACCEPTED / CLOSED; ready for user-owned native Project Zomboid SP/MP acceptance (`USER_ACCEPTANCE`).
+**Parent status:** IN_PROGRESS — retained S11A/R1-R8A work is accepted, but R8D acceptance side-effect isolation and R9 Dialogue Completeness Workbench authoring readiness are mandatory before USER_ACCEPTANCE.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** S11A-S11E + S11R8 ACCEPTED / CLOSED. R8 is mandatory before user-owned native Project Zomboid acceptance. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
+**Developer completion boundary:** S11A-S11E + S11R8D + S11R9 ACCEPTED / CLOSED. Broad dialogue/beat rewrite remains blocked until R9D.
 
 ## Objective and ownership
 
@@ -881,7 +881,7 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — S11A-S11E + S11R8 are accepted and closed; R7A's atomic settlement/ambient and task claims are retained, while R7B's final-closure claim is historical/superseded by R8. Completed repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+**Status:** IN_PROGRESS — R8A native task parity is retained; R8D must repair acceptance side effects, then R9 must expose the canonical Dialogue Completeness graph/report in Semantic Lab before broad content rewriting.
 
 Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
@@ -922,6 +922,8 @@ Project the frozen model through both backends and prove equivalent structure/di
 
 #### S11A4 — canonical Dialogue Completeness Analyzer
 Build reachability, outcome completeness, SCC/progress, continuation-obligation, role/cardinality, effect/modifier lifecycle, closure/residue, memory-continuity, typed/click ownership and fixture-coverage analysis over the final S11A1-A3 representation.
+
+**Post-R8 status note:** backend analyzer is accepted and retained; the originally required Semantic Lab exposure of the same graph/report was missed and is now a mandatory R9 authoring-readiness gate.
 
 #### S11A5 — existing-domain adapters
 Connect portable contracts directly to existing authoritative RelationshipService, inventory services, morale/mood authority, ConversationMemory and ActionContract. This is infrastructure integration, not production dialogue migration. Do not introduce compatibility shims, fallback readers, duplicate registries/stores or dual execution paths.
@@ -971,7 +973,7 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** ACCEPTED. Reconcile (`clean=true`), integrity/determinism, Kahlua/static (`433` files), caller-zero (`Flow_Identity`/`Flow_Needs`/`Flow_Greeting`), `core_python` (`jobs=1` and `jobs=4`, `307/307` PASS, `0` skips), and two consecutive canonical 9-suite `--jobs 4` runs (`9/9` PASS, `convoScopeOk=true`) all pass from the final exact vector.
+**Status:** NOT ACCEPTED — canonical results are 9/9, but `real_provider_worker` mutates live DynamicTrading generated output. Exact-vector closure remains open under R8D.
 
 ### S11R5 — post-R4 closure integrity repair
 
@@ -1021,7 +1023,7 @@ Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance
 
 **Status:** HISTORICAL / SUPERSEDED FINAL-CLOSURE CLAIM. R7A atomic claim work and settlement/ambient behavior remain accepted. R7B's final developer-complete closure claim was superseded by R8.
 
-Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
+Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
 
 #### R7A — task + settlement/ambient atomic acceptance proof
 
@@ -1035,7 +1037,7 @@ Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authori
 
 ### S11R8 — native-parity and acceptance-reproducibility repair
 
-**Status:** ACCEPTED / CLOSED.
+**Status:** PARTIAL — R8A accepted; original R8B race/accounting repairs retained; R8C final closure invalidated by live-repo mutation found after acceptance. Continue with R8D.
 
 Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
@@ -1049,9 +1051,40 @@ Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 #### R8C — exact-vector full closure
 
-**Status:** ACCEPTED. Verified full retained matrix, `reconcile.py --check` (`clean=true`, 410 desired), caller-zero (`Flow_Identity`/`Flow_Needs`/`Flow_Greeting`), `git diff --check`, and participant HEADs/residual fingerprints before returning to `USER_ACCEPTANCE`.
+**Status:** NOT ACCEPTED — two 9/9 canonical runs were reproducible by result but `real_provider_worker` dirtied live DynamicTrading Manifest/Registry output. Superseded by R8D closure-integrity repair.
 
-**Gate:** SATISFIED — R8A, R8B, and R8C are accepted; `S11`, `S11D`, and `S11E` are `ACCEPTED`; parent `ROADMAP` is `COMPLETE_DEVELOPER_SIDE`.
+**Gate:** NOT SATISFIED — R8D must prove effect-free participant status and post-acceptance reconcile before R8 may close.
+
+#### R8D — acceptance side-effect isolation and exact-vector closure
+
+**Status:** ACTIVE. Repair generation-bearing tests that mix temporary source models with live adopter/output repositories; add participant-status side-effect guards; prove `real_provider_worker` and two canonical 9-suite runs leave all participant status bytes unchanged; run `reconcile.py --check` after acceptance.
+
+Current authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
+
+### S11R9 — Dialogue Completeness Workbench and authoring readiness
+
+**Status:** NOT STARTED / MANDATORY BEFORE BULK CONTENT REWRITE.
+
+The existing S11A4 backend analyzer is retained, but the originally planned Semantic Lab graph/report exposure is not implemented. There are zero GUI callers of `analyze_convo_completeness()`, and the primary Conversations pane does not make the full S11 state/repeat/postcondition/closure model first-class.
+
+#### R9A — canonical authoring-report enrichment
+
+Enrich the compiler-owned completeness report with source provenance, graph/witness/cycle paths, outcome matrices, closure classes, affected-family closure, and fixture/parity ownership as needed for authoring. Do not create UI-owned graph logic.
+
+#### R9B — primary Dialogue Completeness Workbench
+
+Add a first-class primary Semantic Lab surface/tab with batch health/filtering, compiler-derived family graph, diagnostic detail, and canonical-source navigation. Distinguish resolved terminal, continuation, domain obligation, bounded pending/deferred, warning, and invalid paths.
+
+#### R9C — complete semantic authoring controls + structural scaffolding
+
+Expose `statePolicy`, `inputPolicy`, `repeatPolicy`, `postconditions`, `closure`, roles/cardinality, continuation, outcome coverage, and memory/domain references through compiler-owned descriptors/schema. Add previewable structural scaffolds through ConvoTransaction/CodeBuilder; never invent final prose or hand-edit generated output.
+
+#### R9D — GUI acceptance and rewrite gate
+
+Prove canonical report parity, navigation, representative invalid/valid graph rendering, affected-family refresh, scaffold preview/apply discipline, and real Tk/Xvfb behavior. Only after R9D may `BULK_DIALOGUE_REWRITE_ALLOWED=true` be recorded.
+
+**Gate:** broad dialogue/beat/behavior/realization rewriting is forbidden until R9A-R9D are accepted. The Workbench must consume the same compiler-owned completeness graph/report used by acceptance.
+
 
 ## Commit protocol
 

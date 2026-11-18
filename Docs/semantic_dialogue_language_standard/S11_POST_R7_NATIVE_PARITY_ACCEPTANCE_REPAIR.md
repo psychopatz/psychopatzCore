@@ -1,6 +1,6 @@
 # S11 Post-R7 Native-Parity and Acceptance-Reproducibility Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR PLAN
+**Status:** HISTORICAL / PARTIAL — R8A and original R8B repairs are retained; R8C final closure was invalidated by post-R8 live-repository mutation. Current authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Previous repair:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`

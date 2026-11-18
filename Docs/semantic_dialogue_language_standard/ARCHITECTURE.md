@@ -668,3 +668,9 @@ The tool displays the production chain; it does not implement a duplicate evalua
 - no cinematic transcript scripting engine;
 - no automatic persistence of conversations;
 - no new compatibility/legacy content tree.\n
+
+### Canonical completeness graph is also the authoring graph
+
+The Dialogue Completeness Analyzer is the single graph/reachability/closure authority for compiler acceptance, CodeBuilder repair packets, and Semantic Lab authoring. Semantic Lab may render/filter/navigate the report, but must not maintain a second UI-only interpretation of branch termination, cycles, pending exits, state/action outcomes, or closure classes.
+
+A local Flow Editor `terminal` flag is authoring data, not proof of semantic closure. Human/agent authoring readiness requires the compiler-owned graph/report to be visible from a primary Semantic Lab surface and diagnostics to navigate to canonical compact source. Completeness-driven scaffolding may create structural stubs only through existing ConvoTransaction/CodeBuilder services; it must not invent final wording or directly edit generated artifacts.

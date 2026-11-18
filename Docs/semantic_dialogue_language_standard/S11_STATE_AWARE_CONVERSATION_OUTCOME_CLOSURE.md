@@ -1,14 +1,16 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** IN_PROGRESS — post-R7 audit retained S11A/R1-R7A but revoked USER_ACCEPTANCE because parameterized-task retirement is worker-only rather than native-parity proven and canonical acceptance is not reproducibly green. Execute `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md` R8A→R8C.
+**Current status:** IN_PROGRESS — R8A is retained, R8D must repair acceptance side effects, and R9 must finish the originally required Semantic Lab Dialogue Completeness graph/workbench before broad content rewriting.
 
-**Status:** IN_PROGRESS — S11R8 native task projection parity + acceptance reproducibility.
+**Status:** IN_PROGRESS — S11R8D closure integrity + S11R9 authoring readiness.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
 **Accepted baseline retained:** S0-S10 + S10R + G7-G9, S11A foundation/migrations, R5/R6 claim/policy/quest work, and R7A atomic settlement/ambient + worker task lifecycle proofs remain accepted unless targeted R8 evidence disproves them.
 **Primary adopter:** ProjectHoomans.
 **Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
 **User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities; acceptance evidence must also exercise or prove parity with the real native context rather than worker-only state.
+**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until R9D is accepted.
+**Current repair authority:** `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`.
 
 **Mandatory branching audit:** `S11_BRANCHING_DIALOGUE_AUDIT.md` is a normative scope input for S11C/S11D. Every maintained family classified there as a confirmed defect or high-risk state branch must be repaired or explicitly classified, and every reference-good family must remain regression-protected.
 
