@@ -8,20 +8,20 @@
 ## Final participant checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (parent 9bb9a54e4dc6377856435a5148d4f923f9351374)
-ProjectHoomans   6e228fac3bf56229b4c4867399a7cecaa1eb0daf (S11R7A commit ec0d61f85d077d81d58b5da855e7fab527427742)
+psychopatzCore   phase_commit: self (parent 387a15e8f07aa5e480bf07d17975de9c267d97d4)
+ProjectHoomans   9fdfc7b63354f6d29912ff90b0d98c5edffdeb8c (S11R7A commit ec0d61f85d077d81d58b5da855e7fab527427742)
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
 Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
-psychopatzCore   rows=0    sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=27   sha256=14d164affa1fee8612eee515751370ddf9ad09ecfaa05bd70bab6107de735486
-DynamicTrading   rows=0    sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans concurrent NPC-authoring/UI work remains preserved in its working tree (27 unrelated rows) and is outside S11 scope.
+ProjectHoomans concurrent NPC-authoring/UI work has landed separately through `9fdfc7b6` and all three participant worktrees are now completely clean.
 
 ## Accepted S11R7 closure summary
 
