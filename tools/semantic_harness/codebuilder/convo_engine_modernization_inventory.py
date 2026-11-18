@@ -91,7 +91,7 @@ _TONE_STYLE_TOKENS = frozenset({
     "cautious",
 })
 
-_GENDER_TOKENS = frozenset({"male", "female", "unknown"})
+_GENDER_TOKENS = frozenset({"male", "female"})
 _TIME_TOKENS = frozenset({"dawn", "morning", "noon", "afternoon", "dusk", "evening", "night", "sunrise", "sunset"})
 _REL_TOKENS = frozenset({"stranger", "acquaintance", "friend", "trusted", "companion", "family", "colonist", "ally", "hostile", "default"})
 _WEAPON_TOKENS = frozenset({"axe_head", "blade_head", "blunt", "firearm", "unarmed", "spear", "knife"})
@@ -448,11 +448,13 @@ def build_modernization_inventory(
                     classes.append("REDUNDANT_SPECIALIZATION")
                     dup_group = dup_group or f"slot_specialization:{owner}:{broad2}"
                 class_reason = class_reason or "slot_parameterizable_context"
-            if (part_set & _TONE_STYLE_TOKENS) and not mutating:
-                classes.append("REALIZATION_ONLY")
-                if len(peer3) > 1 or len(peer2) > 1:
+            if (part_set & _TONE_STYLE_TOKENS) and not mutating and (len(peer3) > 1 or len(peer2) > 1):
+                # Only treat as a realization pool if there are actually multiple tone/style peers in the same prefix
+                tone_peers = [p for p in peer3 if set(p.split(".")) & _TONE_STYLE_TOKENS]
+                if len(tone_peers) > 1:
+                    classes.append("REALIZATION_ONLY")
                     dup_group = dup_group or f"realization_pool:{owner}:{prefix3}"
-                class_reason = class_reason or "tone_or_style_token_in_id"
+                    class_reason = class_reason or "tone_or_style_token_in_id"
             if (part_set & (_TIME_TOKENS | _REL_TOKENS)) or plan.get("when") is not None or payload.get("when") is not None:
                 classes.append("CONTEXT_VARIANT")
                 if len(peer2) > 2 and dup_group is None:
