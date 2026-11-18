@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- S11A3 generic ConvoEngine policy, role-binding, query, and consequence evaluator.
 -- Consumes compiled Portable Dialogue Plan / runtime plan structures directly.
 -- Kahlua2-safe (Lua 5.1 compatible).

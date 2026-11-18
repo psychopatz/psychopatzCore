@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- S11A5: Core-owned portable domain adapter registry and dispatcher.
 -- Connects portable S11 effects, modifiers, queries, memory residue, and actions
 -- directly to existing authoritative systems without compatibility shims or shadow state.

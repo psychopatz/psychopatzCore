@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- S11A6: Generic retention, stacking/dedupe, and bounded game-time expiry lifecycle
 -- for portable S11 modifiers and semantic memory episodes.
 -- Keeps memory and modifiers as distinct semantic objects.

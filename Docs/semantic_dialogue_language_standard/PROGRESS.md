@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S11A7 accepted (dependency index, required-fact projection, authoritative invalidation, incremental cache); advancing to S11A8 Foundation Freeze Gate.
-**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A7 accepted; S11A8 Foundation Freeze Gate next before production dialogue migration (`S11B`).
+**Status:** IN_PROGRESS — S11A8 Foundation Freeze Gate ACCEPTED (`MIGRATION_ALLOWED = true`); advancing to S11B Identity reference migration.
+**Estimated developer progress:** S0-S10R + G7-G9 + S11A0-S11A8 accepted (foundation frozen); S11B-S11E production migration & closure active.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11A — preflight/regression freeze + compiler completeness + participant-agnostic portable facts/effects + optimized runtime substrate.
-**Immediate Next Chunk:** S11A8 — verify full S11A0-A7 foundation freeze gate, deterministic/no-op CodeBuilder generation, zero Kahlua errors, and flip `MIGRATION_ALLOWED = true` before S11B Identity reference migration.
+**Active phase:** S11B — Identity reference migration onto the frozen S11 substrate.
+**Immediate Next Chunk:** S11B — migrate Identity onto canonical CodeBuilder source/recipes (`statePolicy`, `inputPolicy`, `repeatPolicy`, `postconditions`, `closure`), prove all Identity P0 regressions fixed + first-contact preserved, prove old Identity semantic callers = 0, and delete obsolete Identity semantic code.
 
 ## S11 reopened developer work — post-G9 re-audit (2026-11-18)
 

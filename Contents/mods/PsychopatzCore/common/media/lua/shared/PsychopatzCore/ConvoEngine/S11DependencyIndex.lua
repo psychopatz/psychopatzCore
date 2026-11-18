@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- S11A7: Runtime dependency-driven fact projection and authoritative invalidation.
 -- Projects only required facts for a selected family (no N x N precompute) and
 -- invalidates only affected families on authoritative fact changes, with safe
