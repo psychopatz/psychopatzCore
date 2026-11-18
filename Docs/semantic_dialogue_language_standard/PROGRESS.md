@@ -1,9 +1,9 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — R0 accepted (constrained-family manifest & completeness enforcement + `psychopatz_runtime_role_split_smoke.lua` fixed); advancing to R1.
+**Status:** IN_PROGRESS — R1 accepted (`Flow_Identity.lua` retired with caller-zero; canonical CodeBuilder `Flows/Semantic/Identity.lua` owns Identity flow); advancing to R2.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11 repair — R1 finish S11B Identity retirement (`Flow_Identity.lua`).
-**Immediate Next Chunk:** R1 — move any remaining Identity flow ownership into canonical CodeBuilder source, prove parity, prove caller/reference zero for `Flow_Identity.lua`, and delete `Flow_Identity.lua` (no forwarding shim).
+**Active phase:** S11 repair — R2 redo/finish S11C (companion commands + Needs + Greeting) through canonical CodeBuilder recipes.
+**Immediate Next Chunk:** R2 — recipe-author companion command state policies (`FOLLOW`/`STAY`/`CAMP`/`RETURN_HOME`), remove family-specific semantic admission from `Input_Actions_Dispatch.lua`, recipe-author Needs and Greeting flows, regenerate via `reconcile.py`, prove parity + caller-zero, and delete `Flow_Needs.lua` and `Flow_Greeting.lua`.
 
 ## Current audited checkpoint
 
