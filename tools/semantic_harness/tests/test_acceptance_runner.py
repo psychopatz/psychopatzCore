@@ -264,6 +264,74 @@ class AcceptanceRunnerTests(unittest.TestCase):
         self.assertEqual(report["summary"]["failed"], 0)
         self.assertEqual(report["summary"]["skipped"], 0)
 
+    def test_side_effect_guard_fails_on_participant_mutation_and_preserves_existing_dirt(self) -> None:
+        import subprocess
+        import tempfile
+        from unittest import mock
+        from tools.semantic_harness.testing.acceptance import (
+            _diff_repository_snapshots,
+            _snapshot_repositories,
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            core = root / "psychopatzCore"
+            hoomans = root / "ProjectHoomans"
+            dt = root / "DynamicTrading"
+            for repo in (core, hoomans, dt):
+                repo.mkdir(parents=True)
+                subprocess.run(["git", "-C", str(repo), "init"], check=True, capture_output=True)
+                subprocess.run(["git", "-C", str(repo), "config", "user.email", "t@example.com"], check=True, capture_output=True)
+                subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test"], check=True, capture_output=True)
+                (repo / "tracked.lua").write_text("-- v1\n", encoding="utf-8")
+                subprocess.run(["git", "-C", str(repo), "add", "tracked.lua"], check=True, capture_output=True)
+                subprocess.run(["git", "-C", str(repo), "commit", "-m", "init"], check=True, capture_output=True)
+
+            (hoomans / "unrelated_dirty.lua").write_text("-- preexisting\n", encoding="utf-8")
+            (hoomans / "tools/providers/pnc/tests").mkdir(parents=True)
+            repos = {"core": core, "hoomans": hoomans, "dynamic_trading": dt}
+
+            snap_before = _snapshot_repositories(repos)
+            snap_same = _snapshot_repositories(repos)
+            self.assertEqual(_diff_repository_snapshots(snap_before, snap_same), [])
+
+            def mutating_convo_audit(_repos: dict[str, Path]) -> dict[str, object]:
+                (dt / "tracked.lua").write_text("-- mutated\n", encoding="utf-8")
+                (dt / "generated_new.lua").write_text("-- new\n", encoding="utf-8")
+                return {
+                    "suite": "convo_audit",
+                    "status": "PASS",
+                    "ok": True,
+                    "total": 1,
+                    "passed": 1,
+                    "failed": 0,
+                    "skipped": 0,
+                    "allowedSkips": 0,
+                    "unclassifiedSkips": 0,
+                    "duration": 0.01,
+                    "failures": [],
+                    "details": {},
+                }
+
+            with mock.patch(
+                "tools.semantic_harness.testing.acceptance.run_convo_audit_suite",
+                side_effect=mutating_convo_audit,
+            ):
+                report = run_acceptance_suites(
+                    core_repository=core,
+                    hoomans_repository=hoomans,
+                    dynamic_trading_repository=dt,
+                    suites=("convo_audit",),
+                )
+            self.assertFalse(report["ok"])
+            self.assertFalse(report["convoScopeOk"])
+            self.assertFalse(report["sideEffectFree"])
+            self.assertEqual(report["suites"]["convo_audit"]["status"], "FAIL")
+            self.assertIn("tracked.lua", report["sideEffects"][0]["mutations"][0]["changedFiles"])
+            self.assertIn("generated_new.lua", report["sideEffects"][0]["mutations"][0]["changedFiles"])
+            # Guard must not restore dirt to hide the failure
+            self.assertTrue((dt / "generated_new.lua").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -894,6 +895,94 @@ def run_kahlua_static_suite(
     )
 
 
+def _snapshot_repository_status(repo: Path) -> dict[str, Any] | None:
+    """Capture raw git porcelain status and dirty-file hashes for one repository."""
+    if not repo.is_dir() or not (repo / ".git").exists():
+        return None
+    probe = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", "--is-inside-work-tree"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if probe.returncode != 0 or probe.stdout.strip() != "true":
+        return None
+    status_proc = subprocess.run(
+        ["git", "-C", str(repo), "status", "--porcelain=v1", "-uall"],
+        capture_output=True,
+        check=False,
+    )
+    if status_proc.returncode != 0:
+        return None
+    raw_bytes = status_proc.stdout
+    status_sha256 = hashlib.sha256(raw_bytes).hexdigest()
+    rows = [
+        line for line in raw_bytes.decode("utf-8", errors="replace").splitlines() if line
+    ]
+    file_hashes: dict[str, str] = {}
+    for row in rows:
+        path_part = row[3:] if len(row) > 3 else ""
+        if " -> " in path_part:
+            path_part = path_part.split(" -> ", 1)[1]
+        if path_part.startswith('"') and path_part.endswith('"') and len(path_part) >= 2:
+            path_part = path_part[1:-1]
+        target = repo / path_part
+        if target.is_file():
+            file_hashes[path_part] = hashlib.sha256(target.read_bytes()).hexdigest()
+        elif target.is_dir():
+            file_hashes[path_part] = "<dir>"
+        else:
+            file_hashes[path_part] = "<missing>"
+    return {
+        "statusSha256": status_sha256,
+        "rows": rows,
+        "fileHashes": file_hashes,
+    }
+
+
+def _snapshot_repositories(
+    repos: Mapping[str, Path],
+) -> dict[str, dict[str, Any] | None]:
+    return {name: _snapshot_repository_status(path) for name, path in repos.items()}
+
+
+def _diff_repository_snapshots(
+    before: Mapping[str, dict[str, Any] | None],
+    after: Mapping[str, dict[str, Any] | None],
+) -> list[dict[str, Any]]:
+    mutations: list[dict[str, Any]] = []
+    for name in sorted(set(before) | set(after)):
+        prev = before.get(name)
+        curr = after.get(name)
+        if prev is None or curr is None:
+            continue
+        if (
+            prev["statusSha256"] == curr["statusSha256"]
+            and prev["fileHashes"] == curr["fileHashes"]
+        ):
+            continue
+        prev_rows = set(prev["rows"])
+        curr_rows = set(curr["rows"])
+        prev_hashes = prev["fileHashes"]
+        curr_hashes = curr["fileHashes"]
+        changed_files = sorted(
+            key
+            for key in (set(prev_hashes) | set(curr_hashes))
+            if prev_hashes.get(key) != curr_hashes.get(key)
+        )
+        mutations.append(
+            {
+                "repository": name,
+                "beforeStatusSha256": prev["statusSha256"],
+                "afterStatusSha256": curr["statusSha256"],
+                "addedRows": sorted(curr_rows - prev_rows),
+                "removedRows": sorted(prev_rows - curr_rows),
+                "changedFiles": changed_files,
+            }
+        )
+    return mutations
+
+
 def run_acceptance_suites(
     *,
     core_repository: Path | None = None,
@@ -979,21 +1068,52 @@ def run_acceptance_suites(
     }
 
     suite_reports: dict[str, dict[str, Any]] = {}
+    all_side_effects: list[dict[str, Any]] = []
+    initial_snapshots = _snapshot_repositories(repos)
+    current_snapshots = initial_snapshots
     for suite_id in selected:
-        suite_reports[suite_id] = runners[suite_id]()
+        item = runners[suite_id]()
+        after_snapshots = _snapshot_repositories(repos)
+        suite_mutations = _diff_repository_snapshots(current_snapshots, after_snapshots)
+        if suite_mutations:
+            item["ok"] = False
+            item["status"] = "FAIL"
+            item["failed"] = int(item.get("failed", 0)) + len(suite_mutations)
+            item["total"] = int(item.get("total", 0)) + len(suite_mutations)
+            item.setdefault("failures", []).extend(
+                {
+                    "suite": suite_id,
+                    "reason": "participant_worktree_mutated",
+                    **mutation,
+                }
+                for mutation in suite_mutations
+            )
+            item.setdefault("details", {})["sideEffects"] = suite_mutations
+            all_side_effects.append(
+                {"suite": suite_id, "mutations": suite_mutations}
+            )
+        suite_reports[suite_id] = item
+        current_snapshots = after_snapshots
 
+    overall_mutations = _diff_repository_snapshots(initial_snapshots, current_snapshots)
     suites_passed = sum(1 for item in suite_reports.values() if item["ok"])
-    convo_scope_ok = all(
-        item["ok"]
-        if sid != "hoomans_lua"
-        else int(item["details"].get("convoSemanticFailed", 0)) == 0
-        for sid, item in suite_reports.items()
+    convo_scope_ok = (
+        not all_side_effects
+        and not overall_mutations
+        and all(
+            item["ok"]
+            if sid != "hoomans_lua"
+            else int(item["details"].get("convoSemanticFailed", 0)) == 0
+            for sid, item in suite_reports.items()
+        )
     )
     return {
         "schemaVersion": 1,
         "type": "semantic_harness_acceptance",
-        "ok": suites_passed == len(selected),
+        "ok": suites_passed == len(selected) and not all_side_effects and not overall_mutations,
         "convoScopeOk": convo_scope_ok,
+        "sideEffectFree": not all_side_effects and not overall_mutations,
+        "sideEffects": all_side_effects,
         "suiteOrder": list(selected),
         "suites": suite_reports,
         "summary": {
