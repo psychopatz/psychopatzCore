@@ -296,8 +296,8 @@ class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
             self.assertEqual(desc["requiredCapability"], "semantic.convo_probe")
             self.assertEqual(desc["workerRequirement"], "required")
 
-            # Keep bounded operation vocabulary (12 operations including convo.modernization_inventory).
-            self.assertEqual(len(service.describe_operations()), 12)
+            # Keep bounded operation vocabulary (13 operations including convo.modernization_inventory and convo.modernization_closure).
+            self.assertEqual(len(service.describe_operations()), 13)
 
             # A worker without semantic.convo_probe fails closed (no Python fallback).
             service.attach_convo_probe_worker(_WorkerMissingConvoProbeCapability())
