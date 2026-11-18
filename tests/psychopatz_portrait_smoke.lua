@@ -122,7 +122,7 @@ PsychopatzCore = {
     },
 }
 
-IsoDirections = { S = "south" }
+IsoDirections = { S = "south", N = "north" }
 getTexture = function() return nil end
 ImmutableColor = { new = function(r, g, b, a) return { r = r, g = g, b = b, a = a } end }
 
@@ -360,5 +360,41 @@ assert(PsychopatzCore.UI.GetPortraitDescriptorCacheSize() <= 64,
 panel:setPortraitBounds(3, 4, 150, 300)
 assertEqual(panel.width, 150, "responsive portrait width")
 assertEqual(panel.modelView.width, 146, "responsive model width")
+
+local originalSpec = uprightPanel.targetSpec
+local originalDescriptor = uprightPanel.modelView.descriptor
+local cacheSize = PsychopatzCore.UI.GetPortraitDescriptorCacheSize()
+assertEqual(uprightPanel:getViewRegion(), nil, 'existing consumers have no forced region view')
+uprightPanel.modelView.variables.PNCPortraitState = 'speech'
+assert(uprightPanel:setViewRegion('head'), 'named head framing rejected')
+assertEqual(uprightPanel.modelView.variables.PNCPortraitState, 'speech', 'camera changes do not reset ongoing portrait animation variables')
+assertEqual(uprightPanel.modelView.zoom, 14, 'head framing reaches the reusable native model')
+assertEqual(uprightPanel.modelView.yOffset, -.85, 'head camera targets the face')
+uprightPanel.zoom = 12
+uprightPanel:applyViewState()
+assert(uprightPanel:setViewRegion('legs'))
+assertEqual(uprightPanel.modelView.yOffset, .45, 'leg framing targets the lower body')
+assert(uprightPanel:setViewRegion('head'))
+assertEqual(uprightPanel.modelView.zoom, 12, 'each region remembers user zoom independently')
+assert(uprightPanel:setViewRegion('head', true))
+assertEqual(uprightPanel.modelView.zoom, 14, 'reset restores the named default camera')
+assert(uprightPanel:setViewRegion('left_arm'))
+local leftOffset = uprightPanel.modelView.xOffset
+assert(uprightPanel:setViewRegion('right_arm'))
+assert(leftOffset ~= uprightPanel.modelView.xOffset, 'left and right arm targets have distinct horizontal framing')
+assert(uprightPanel:setViewRegion('back'))
+assertEqual(uprightPanel.modelView.direction, 'north', 'back view turns toward the backpack')
+assertEqual(uprightPanel:setViewRegion('missing_region'), false, 'unknown regions fail without altering the current camera')
+assertEqual(uprightPanel:getViewRegion(), 'back', 'invalid region preserves the active frame')
+assert(uprightPanel:clearViewRegion())
+assertEqual(uprightPanel.modelView.zoom, -3, 'clear restores the original consumer camera')
+assertEqual(uprightPanel.modelView.direction, 'south', 'clear restores the original consumer direction')
+assertEqual(uprightPanel.targetSpec, originalSpec, 'camera framing never replaces or edits the portrait target')
+assertEqual(uprightPanel.modelView.descriptor, originalDescriptor, 'camera framing never rebuilds clothing/identity')
+assertEqual(PsychopatzCore.UI.GetPortraitDescriptorCacheSize(), cacheSize, 'changing regions never expands the descriptor cache')
+local regionPanel = PsychopatzCore.UI.PortraitPanel:new(0, 0, 100, 200, { viewRegion = 'feet' })
+regionPanel:initialise(); regionPanel:createChildren()
+assertEqual(regionPanel:getViewRegion(), 'feet', 'constructor supports reusable named views')
+assertEqual(regionPanel.modelView.yOffset, .85, 'constructor applies the region when the native model is created')
 
 print("psychopatz_portrait_smoke: ok")

@@ -25,6 +25,7 @@ UI.PortraitPanel = PsychopatzPortraitPanel
 
 require "PsychopatzCore/UI/Components/PsychopatzPortraitPanel_Setup"
 require "PsychopatzCore/UI/Components/PsychopatzPortraitPanel_View"
+require "PsychopatzCore/UI/Components/PsychopatzPortraitPanel_Framing"
 require "PsychopatzCore/UI/Components/PsychopatzPortraitPanel_Renderer"
 
 function PsychopatzPortraitPanel:new(x, y, width, height, options)
@@ -56,6 +57,7 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
         o.animSetName = options.animSetName
     end
     o.stateName = options.stateName or "idle"
+    if options.viewRegion then o:setViewRegion(options.viewRegion) end
     return o
 end
 

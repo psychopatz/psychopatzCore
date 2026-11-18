@@ -15,17 +15,23 @@ local function normalizeScreenVariant(value)
     return nil
 end
 
+function Window:applyCameraState()
+    local model = self.modelView
+    if not model or not model.javaObject then return end
+    model:setDirection(self.direction or (IsoDirections and IsoDirections.S))
+    model:setIsometric(self.isometric == true)
+    model:setZoom(tonumber(self.zoom) or 14)
+    model:setXOffset(tonumber(self.xOffset) or 0)
+    model:setYOffset(tonumber(self.yOffset) or -0.85)
+end
+
 function Window:applyViewState()
     local model = self.modelView
     if not model or not model.javaObject then return end
     model.animateEnabled = self.animate ~= false
     model:setState(self.stateName or "idle")
-    model:setDirection(self.direction or (IsoDirections and IsoDirections.S))
-    model:setIsometric(self.isometric == true)
+    self:applyCameraState()
     model:setDoRandomExtAnimations(false)
-    model:setZoom(tonumber(self.zoom) or 14)
-    model:setXOffset(tonumber(self.xOffset) or 0)
-    model:setYOffset(tonumber(self.yOffset) or -0.85)
     if self.portraitAnimationEnabled then
         self:applyAnimationVariables()
     else
