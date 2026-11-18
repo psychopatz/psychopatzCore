@@ -1,12 +1,12 @@
 # S11 Post-R4 Closure Audit Repair
 
-**Status:** HISTORICAL R5 REPAIR PLAN — substantially landed; final closure reopened by post-R5 audit
+**Status:** HISTORICAL / ACCEPTED — R5 landed and is retained; subsequent R6 and R7 closures are accepted and closed (`S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`).
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Historical repair:** `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`
 
-**Current repair authority:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Do not restart R5/R6; retain accepted work and execute R7.
+**Closure record:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` (ACCEPTED / CLOSED). S11 is `COMPLETE_DEVELOPER_SIDE`.
 
 ## Purpose
 

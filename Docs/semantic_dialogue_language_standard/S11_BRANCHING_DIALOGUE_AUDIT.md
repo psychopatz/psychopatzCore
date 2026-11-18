@@ -1,6 +1,6 @@
 # S11 Branching Dialogue and Stateful Outcome Audit
 
-**Status:** R7_FINAL_ACCEPTANCE_OPEN — all 25 maintained rows remain classified and exact-owner claim validation is retained, but post-R6 audit found two under-proven presentation claims: task pre→post affordance lifecycle and settlement-admission post-success refresh.
+**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — all 25 maintained rows are closed-set, classified, and explicitly owned by exact tests declaring atomic `auditClaims` (including `task_conversation_projection_lifecycle`, `settlement_admission_post_success_refresh`, and `ambient_visit_post_success_refresh`).
 **Audit date:** 2026-11-18
 **Normative goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Approved shared architecture:** `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
@@ -909,16 +909,11 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
 
-# Post-R6 audit status — 2026-11-18
+# Final S11R7 closure status — 2026-11-18
 
-R6 closed the major acceptance-integrity and runtime architecture gaps. Exact owner-declared `auditClaims` replaced keyword inference, production quest lifecycle reaches READY_TO_TURN_IN → REWARDED → repeat, and canonical action policy admission is single-path.
+R6 and R7 closed all remaining acceptance-integrity, runtime architecture, and atomic presentation-proof gaps. Exact owner-declared `auditClaims` replaced keyword inference, production quest lifecycle reaches READY_TO_TURN_IN → REWARDED → repeat, canonical action policy admission is single-path, parameterized task presentation lifecycle proves pre-transition presence and post-transition retirement, and settlement admission and ambient visit each have their own exact post-success conversation-refresh test owner.
 
-The post-R6 audit found two narrower proof gaps:
-
-1. the parameterized-task owner proves post-transition retirement but does not assert that the public task affordance was present/actionable before dispatch;
-2. `audit.root.settlement_admission` uses one broad `settlement_ambient_admission_boundary` claim whose exact R6 owner proves ambient-visit post-success refresh only, not settlement-admission post-success conversation refresh.
-
-| Surface | Current closure status |
+| Surface | Final closure status |
 | --- | --- |
 | identity | ACCEPTED — canonical; legacy flow retired |
 | companion commands | ACCEPTED — canonical maintained command policy |
@@ -929,21 +924,22 @@ The post-R6 audit found two narrower proof gaps:
 | ceasefire | ACCEPTED |
 | set territory | ACCEPTED |
 | wellbeing/trust/affinity effects | ACCEPTED |
-| parameterized tasks | R7A PARTIAL — duplicate/terminal zero-dispatch and post-transition retirement exist; pre-transition actionable affordance proof and dedicated projection-lifecycle claim still required |
+| parameterized tasks | ACCEPTED — `task_generation_and_result_routing` + `task_conversation_projection_lifecycle` proven (`pnc:task.wait_at` visible before dispatch, retired after active/terminal transition, zero duplicate dispatch) |
 | quest operations | ACCEPTED — production offer→accept→active→READY_TO_TURN_IN→REWARDED→repeat |
 | disband | ACCEPTED — explicit confirmation/cancel/replay safety |
-| settlement admission | R7A PARTIAL — service/authority/replay exists; post-success active-conversation affordance refresh/retirement still needs exact owner |
-| ambient visit | ACCEPTED BEHAVIOR / R7A CLAIM REFINEMENT — post-success root refresh/retirement is proven; move it to atomic `ambient_visit_post_success_refresh` ownership |
+| settlement admission | ACCEPTED — `settlement_admission_post_success_refresh` proven (`test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation`) |
+| ambient visit | ACCEPTED — `ambient_visit_post_success_refresh` proven (`test_ambient_visit_root_choice_refreshes_and_retires_after_start`) |
 | event response-window expiry | ACCEPTED |
 | gift | REFERENCE_GOOD_REGRESSION |
 | grounded gossip | REFERENCE_GOOD_REGRESSION |
 | departure | REFERENCE_GOOD_REGRESSION |
 | pragmatic repair | REFERENCE_GOOD_REGRESSION |
 
-R7A must refine acceptance metadata atomically:
+Atomic acceptance claim ownership in `S11_BRANCHING_AUDIT_INVENTORY.json` and `constrained_family_manifest.json`:
 
 ~~~text
 audit.task.parameterized
+  + task_generation_and_result_routing
   + task_conversation_projection_lifecycle
 
 audit.root.settlement_admission
@@ -951,8 +947,6 @@ audit.root.settlement_admission
   + ambient_visit_post_success_refresh
 ~~~
 
-The old combined `settlement_ambient_admission_boundary` claim is internal acceptance metadata and must be replaced, not preserved as an alias.
+For any audit row that represents multiple independently observable surfaces, each surface has its own stable required claim and exact owner.
 
-For any audit row that represents multiple independently observable surfaces, each surface needs its own stable required claim and exact owner unless one exact test genuinely exercises all constituents.
-
-Current repair authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`
+Final closure record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` (ACCEPTED / CLOSED).

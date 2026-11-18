@@ -1,6 +1,6 @@
 # S11 Post-R6 Closure Audit Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR PLAN
+**Status:** ACCEPTED / CLOSED — R7A and R7B completed; S11 is developer-side complete (`COMPLETE_DEVELOPER_SIDE`).
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Previous repair:** `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`
@@ -96,13 +96,9 @@ Retain `task_generation_and_result_routing` for existing generation/result behav
 
 ## B. Split settlement and ambient post-success claims
 
-The current single inventory claim:
+The current single inventory claim in R6 (`settlement_ambient_admission_boundary` in pre-R7 metadata) was too broad because the exact R6 owner proved only ambient-visit post-success refresh.
 
-`settlement_ambient_admission_boundary`
-
-is too broad because the exact R6 owner proves only ambient-visit post-success refresh.
-
-Replace it with atomic stable claims:
+R7A replaced it with atomic stable claims:
 
 ~~~text
 settlement_admission_post_success_refresh
@@ -261,6 +257,6 @@ Dialogue semantic changes, if any are actually required, remain canonical source
 
 ## Completion invariant
 
-S11 is developer-side complete only when:
+S11 is developer-side complete (`COMPLETE_DEVELOPER_SIDE` / `ACCEPTED`):
 
-> the representative task public affordance is proven present before dispatch and correctly retired/projected after active/terminal state; settlement admission and ambient visit each have their own exact post-success conversation-refresh claim owner; the full retained acceptance is reproducibly green; and every continuity document records one consistent committed checkpoint with current participant residual fingerprints.
+> the representative task public affordance (`pnc:task.wait_at`) is proven present before dispatch and correctly retired/projected after active/terminal state (`task_conversation_projection_lifecycle`); settlement admission (`settlement_admission_post_success_refresh`) and ambient visit (`ambient_visit_post_success_refresh`) each have their own exact post-success conversation-refresh claim owner; the full retained acceptance is reproducibly green (`9/9` canonical suites PASS); and every continuity document records one consistent committed checkpoint with current participant residual fingerprints. Next responsibility is user-owned native Project Zomboid SP/MP acceptance.

@@ -1,11 +1,11 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** IN_PROGRESS — post-R6 audit retained S11A/R1-R6 and reopened only the final R7 atomic acceptance proofs plus continuity reconciliation. Execute `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` R7A→R7B before user-owned native Project Zomboid acceptance.
+**Current status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — S11A-S11E and R0-R7 are accepted; all 25 constrained branching-audit rows have explicit exact-owner `auditClaims` coverage, parameterized task pre→post presentation lifecycle and split settlement-admission / ambient-visit post-success conversation refresh are proven, canonical policy admission is single-path and family-agnostic, and canonical 9-suite acceptance is reproducibly green. Next responsibility is user-owned native Project Zomboid SP/MP acceptance.
 
-**Status:** IN_PROGRESS — S11R7 task pre→post affordance proof, settlement-admission post-success refresh/atomic claim ownership, and final continuity closure.
+**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
-**Accepted baseline retained:** S0-S10 + S10R and accepted S11A/R1-R6 work remain accepted unless targeted R7 evidence disproves them.
+**Accepted baseline retained:** S0-S10 + S10R + G7-G9 and S11A-S11E + R0-R7 are accepted.
 **Primary adopter:** ProjectHoomans.
 **Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
 **User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities.
@@ -342,7 +342,7 @@ Every terminal branch with meaningful residue must classify that residue as none
 
 ### S11A — foundation build and freeze before production migration
 
-**State:** ACTIVE.
+**State:** ACCEPTED.
 
 The exact execution order is normative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md` and ROADMAP S11A:
 
@@ -368,25 +368,25 @@ S11A5 adapts existing RelationshipService, inventory authority, morale/mood auth
 
 Dialogue/semantic content migration must use canonical CodeBuilder source/recipes. The recipe ledger is `tools/semantic_harness/codebuilder/generation_recipe.json`; use recipe-driven `reconcile.py --check` / `--apply`. Generated Lua, generated manifests/registries, generated translations and other recipe-owned outputs are downstream-only.
 
-**S11A gate:** S11A0-S11A8 pass; canonical source→IR→Portable Plan and both backends carry the frozen model; completeness analysis understands the final model; authoritative adapters and memory/modifier lifecycle are stable; optimization/dependency/persistence contracts are proven; deterministic/no-op generation passes; zero-LLM semantic correctness passes; no production family was migrated before the freeze; and no compatibility shim or parallel legacy semantic authority was introduced.
+**S11A gate:** ACCEPTED — S11A0-S11A8 pass; canonical source→IR→Portable Plan and both backends carry the frozen model; completeness analysis understands the final model; authoritative adapters and memory/modifier lifecycle are stable; optimization/dependency/persistence contracts are proven; deterministic/no-op generation passes; zero-LLM semantic correctness passes; no production family was migrated before the freeze; and no compatibility shim or parallel legacy semantic authority was introduced.
 
 ### S11B — identity reference migration
 
-Fix known/reminder first-contact leakage, classify first introduction/reconfirmation/repetition/correction/deception, make first-introduction effects idempotent, eliminate stale choice resurrection, preserve S10A label/speech semantics, and prove typed/click canonical outcome parity.
+**State:** ACCEPTED. Fixed known/reminder first-contact leakage, classified first introduction/reconfirmation/repetition/correction/deception, made first-introduction effects idempotent, eliminated stale choice resurrection, preserved S10A label/speech semantics, proved typed/click canonical outcome parity, and retired `Flow_Identity.lua` with caller-zero.
 
 ### S11C — companion commands + flow reference migrations
 
-Normalize maintained companion commands toward compact action/execute plus ActionContract, use one portable state policy for affordances and typed input, prove zero dispatch for already-satisfied/blocked commands, and repair/migrate Needs/Greeting semantic flow definitions with bounded progress.
+**State:** ACCEPTED. Normalized maintained companion commands (`follow`, `stay`, `camp`, `return_home`) and repaired/migrated Needs and Greeting semantic flow definitions in canonical `psychopatz.convo-engine.v1` recipes with bounded progress, shared portable state policy for affordances and typed input, zero dispatch for already-satisfied/blocked commands, and retired `Flow_Needs.lua` and `Flow_Greeting.lua` with caller-zero.
 
 ### S11D — full constrained-domain sweep + real-surface acceptance
 
-Cover every family in S11_BRANCHING_DIALOGUE_AUDIT.md. Use declarative fixture sweep plus compiler/schema/completeness/Portable Plan/Reference VM tests, Reference VM ↔ PZ/Lua parity, real provider worker, response-channel click, inputbox/free text, Tk/Xvfb, cross-conversation same-day context-reference cases, and persistence-sensitive lifecycle tests.
+**State:** ACCEPTED. All 25 families in `S11_BRANCHING_DIALOGUE_AUDIT.md` and `S11_BRANCHING_AUDIT_INVENTORY.json` are closed-set and owned by exact tests with explicit `auditClaims`, including quest ready→rewarded→repeat, recruitment/proposal transition refresh and repeat no-op, event response-window expiry, disband destructive confirmation safety, parameterized task pre→post presentation lifecycle (`task_conversation_projection_lifecycle`), and atomic settlement-admission (`settlement_admission_post_success_refresh`) / ambient-visit (`ambient_visit_post_success_refresh`) post-success conversation refresh.
 
-For conversations that create promises/tasks/commitments, prove the conversational branch closes while the domain obligation remains authoritative and recallable. After the obligation changes state, later same-day reference must use current authority rather than stale remembered status.
+For conversations that create promises/tasks/commitments, the conversational branch closes while the domain obligation remains authoritative and recallable. After the obligation changes state, later same-day reference uses current authority rather than stale remembered status.
 
 ### S11E — retained acceptance and closure
 
-Rerun S10A label/speech, all S11 fixtures/tests, canonical nine-suite acceptance, CodeBuilder reconciliation and deterministic/no-op generation, strict S10R baselines, and git diff --check; reconcile docs; commit adopters first/Core last; record exact vector/fingerprints; do not push/publish.
+**State:** ACCEPTED. Reruns of S10A label/speech, all S11 fixtures/tests, canonical nine-suite acceptance (`9/9` suites PASS), CodeBuilder reconciliation (`desired=410`, `0` drift/stale/missing/retired/ambiguous), deterministic/no-op generation (`588` families, `407` deterministic files, `0` violations), strict S10R baselines, and `git diff --check` are green; continuity docs are reconciled and committed with exact participant checkpoint and SHA-256 residual fingerprints.
 
 **Gate:** only after S11A-S11E are accepted may the project return to USER_ACCEPTANCE. Closure additionally requires that compiler completeness catches open-ended/unhandled branches, meaningful same-day context survives branch closure through existing ConversationMemory/domain authority without retaining stale live flow state, and the richer semantic system remains within measured runtime/save-size budgets using compile-time normalization, compact definitions, dependency-driven projection/invalidation, bounded expiry scheduling, dedupe/aggregation, and on-demand diagnostics.
 

@@ -1,12 +1,12 @@
 # S11 Post-R5 Final Closure Repair
 
-**Status:** HISTORICAL R6 REPAIR PLAN — substantially landed; final two acceptance proofs and continuity cleanup moved to R7
+**Status:** HISTORICAL / ACCEPTED — R6 landed and is retained; final two atomic acceptance proofs and continuity closure completed in R7 (`S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`).
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Mandatory scope input:** `S11_BRANCHING_DIALOGUE_AUDIT.md`
 **Previous repair:** `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`
 
-**Current repair authority:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Do not restart R6; retain accepted R6 work and execute R7.
+**Closure record:** `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md` (ACCEPTED / CLOSED). S11 is `COMPLETE_DEVELOPER_SIDE`.
 
 ## Purpose
 
@@ -80,7 +80,8 @@ Acceptance claims are stable IDs defined by the branching-audit inventory, for e
 
 ~~~text
 quest_offer_accept_turnin_repeat
-settlement_ambient_admission_boundary
+settlement_admission_post_success_refresh
+ambient_visit_post_success_refresh
 confirmation_modal_required
 no_unconfirmed_destructive_dispatch
 ~~~

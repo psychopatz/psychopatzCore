@@ -1,9 +1,9 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** IN_PROGRESS — S0-S10R + G7-G9 remain accepted; S11 is in final R7 acceptance-proof closure before user-owned native Project Zomboid SP/MP acceptance.
+**Parent status:** COMPLETE_DEVELOPER_SIDE — S0-S10R + G7-G9 and S11 (including S11A-S11E and R0-R7) are accepted. Next responsibility is user-owned native Project Zomboid SP/MP acceptance.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** S11A-S11E. Do not return to user-owned native acceptance until the full S11 gate is closed. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
+**Developer completion boundary:** S11A-S11E + S11R7 ACCEPTED / CLOSED. Next step is user-owned native Project Zomboid acceptance. No push, PR, tag, release, Workshop publication, or native Project Zomboid drive without explicit authorization.
 
 ## Objective and ownership
 
@@ -881,13 +881,13 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** IN_PROGRESS — post-R6 audit retained the successful S11A/R1-R6 work and reopened only task pre→post affordance proof, settlement-admission post-success conversation refresh/atomic claim ownership, and final continuity reconciliation. Current authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+**Status:** COMPLETE_DEVELOPER_SIDE / ACCEPTED — S11A-S11E and R0-R7 are accepted; all 25 constrained branching-audit rows have explicit exact-owner `auditClaims` coverage, task pre→post presentation lifecycle and split settlement/ambient post-success conversation refresh are proven, canonical policy admission is single-path and family-agnostic, and canonical 9-suite acceptance is reproducibly green.
 
-Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. Current repair authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 Normative design: S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md. Approved post-G9 architecture: S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md. Mandatory branching/state audit: S11_BRANCHING_DIALOGUE_AUDIT.md.
 
-Fresh 2026-11-18 production-worker audit confirms the original P0 scope still reproduces on current structural-cleanup HEADs: known-identity first-contact leakage/reward farming/stale choices; repeated or busy companion-command dispatch; Needs proposal_pending self-loop; hostile greeting plus friendly follow-up; stale recruitment; and stale relationship proposal.
+The 2026-11-18 production-worker audit P0/P1/P2 scope is closed on current `main` HEADs: known-identity first-contact leakage/reward farming/stale choices; repeated or busy companion-command dispatch; Needs proposal_pending self-loop; hostile greeting plus friendly follow-up; stale recruitment; stale relationship proposal; parameterized task presentation lifecycle; quest ready→rewarded→repeat lifecycle; disband confirmation safety; event response-window expiry; and atomic settlement-admission / ambient-visit post-success conversation refresh.
 
 The implementation seam changed after G7-G9:
 
@@ -945,7 +945,7 @@ Before any production semantic-family migration, prove canonical model stability
 
 ### Historical S11 R0-R4 post-implementation repair order
 
-R0-R4 substantially landed and are retained as historical phase evidence. Do not restart this sequence. R5 and R6 also substantially landed; current remaining work is S11R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+R0-R4 landed and are retained as historical phase evidence. R5, R6, and R7 also landed and are accepted/closed in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`, `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`, and `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 Historical order:
 
@@ -959,25 +959,23 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11B — identity reference migration
 
-**Status:** COMPLETE (R1 accepted). Canonical Identity policy and trigger/flow metadata are authored in `identity_exchange_responses.json`, `Flow_Identity.lua` is deleted with caller-zero, and `Registry.Get("identity")` passes smoke + 22/22 declarative Identity fixtures.
+**Status:** ACCEPTED (R1 accepted). Canonical Identity policy and trigger/flow metadata are authored in `identity_exchange_responses.json`, `Flow_Identity.lua` is deleted with caller-zero, and `Registry.Get("identity")` passes smoke + 22/22 declarative Identity fixtures.
 
 ### S11C — companion commands + flow reference migrations
 
-**Status:** COMPLETE (R2 accepted). Companion commands (`follow`, `stay`, `camp`, `return_home`), Needs (`flow_needs_exchange.json`), and Greeting (`flow_greeting_exchange.json`) are canonically authored in `psychopatz.convo-engine.v1` recipes; `Input_Actions_Dispatch.lua` delegates to generic `S11PolicyEvaluator.EvaluateStatePolicy`; `Flow_Needs.lua` and `Flow_Greeting.lua` are deleted with caller-zero.
+**Status:** ACCEPTED (R2 accepted). Companion commands (`follow`, `stay`, `camp`, `return_home`), Needs (`flow_needs_exchange.json`), and Greeting (`flow_greeting_exchange.json`) are canonically authored in `psychopatz.convo-engine.v1` recipes; `Input_Actions_Dispatch.lua` delegates to generic `S11PolicyEvaluator.EvaluateStatePolicy`; `Flow_Needs.lua` and `Flow_Greeting.lua` are deleted with caller-zero.
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** COMPLETE (R7A accepted). Quest, recruitment/proposal, event-expiry, disband, command, parameterized task presentation lifecycle (`task_conversation_projection_lifecycle`), and atomic settlement-admission (`settlement_admission_post_success_refresh`) / ambient-visit (`ambient_visit_post_success_refresh`) conversation refresh are all proven and owned by exact tests.
+**Status:** ACCEPTED. All 25 maintained branching-audit rows are closed-set and owned by exact tests with explicit `auditClaims`, including quest ready→rewarded→repeat, recruitment/proposal transition refresh and repeat no-op, event-expiry, disband confirmation safety, companion commands, parameterized task pre→post presentation lifecycle (`task_conversation_projection_lifecycle`), and atomic settlement-admission (`settlement_admission_post_success_refresh`) / ambient-visit (`ambient_visit_post_success_refresh`) post-success conversation refresh.
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** IN_PROGRESS / R7B FINAL CLOSURE. R7A closed the two residual behavioral acceptance proofs (`task_conversation_projection_lifecycle` and `settlement_admission_post_success_refresh` + `ambient_visit_post_success_refresh` split). R7B now runs the full retained acceptance matrix and final continuity reconciliation.
+**Status:** ACCEPTED. Full retained acceptance passes reproducibly: canonical 9-suite acceptance `9/9 PASS` (`2113/2142` cases PASS, `25` allowed skips, `4` signature-verified non-ConvoEngine baselines, `convoScopeOk=True`), CodeBuilder `reconcile --check` clean (`desired=410`, `0` missing/drifted/stale/retired/ambiguous), ConvoEngine integrity/determinism clean (`588` families, `407` deterministic files, `0` violations), Kahlua static verification clean (`0` errors across all ConvoEngine trees), legacy `Flow_Identity`/`Flow_Needs`/`Flow_Greeting` caller-zero verified, and all continuity documents reconciled to one final checkpoint.
 
 ### S11R5 — post-R4 closure integrity repair
 
-**Status:** HISTORICAL / SUBSTANTIALLY LANDED. Retain the closed-set audit inventory, exact source/test-ID validation, event/disband acceptance, canonical `ProjectReply`, removed hard-coded recruitment reply mapping, and broad green R5 test evidence. Post-R5 audit opened the narrower R6 repair; do not restart R5.
-
-Historical plan: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+**Status:** HISTORICAL / ACCEPTED. Retained the closed-set 25-row audit inventory, exact source/test-ID validation, event/disband acceptance, canonical `ProjectReply`, and removed hard-coded recruitment reply mapping. Historical record: `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`.
 
 #### R5A — acceptance inventory + ownership integrity
 
@@ -995,13 +993,11 @@ Remove family-specific recruitment/proposal canonical reply projection from gene
 
 Rerun focused R5 tests, full semantic-harness, canonical nine-suite acceptance, strict closed-set Completeness, CodeBuilder reconcile, integrity/determinism, Kahlua/static and caller-zero guards. Reconcile all current docs by replacement rather than appending stale states. Final HANDOFF records exact participant commits plus SHA-256 residual-work fingerprints. No push/publication.
 
-**Gate:** S11R5 is accepted only when every maintained branching-audit row has machine-verifiable acceptance ownership, all residual state/lifecycle gaps are closed, generic runtime contains no duplicate family-specific canonical reply authority, retained acceptance is reproducibly green, and ROADMAP/PROGRESS/HANDOFF agree on one exact committed checkpoint.
+**Gate:** SATISFIED (historical R5; superseded and completed through R6 and R7).
 
 ### S11R6 — post-R5 final closure repair
 
-**Status:** HISTORICAL / SUBSTANTIALLY ACCEPTED. R6A exact claim ownership, R6B quest/task/ambient improvements, and R6C single generic policy admission are retained. Post-R6 audit found two narrower acceptance-proof omissions and incomplete final documentation reconciliation; do not restart R6.
-
-Historical R6 plan: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`. Current normative plan: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+**Status:** HISTORICAL / ACCEPTED. R6A explicit exact-test `auditClaims` enforcement, R6B production quest READY_TO_TURN_IN → REWARDED → repeat lifecycle, and R6C single generic canonical policy-admission seam are accepted and retained. Historical record: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
 
 #### R6A — explicit exact-test acceptance claim ownership
 
@@ -1019,23 +1015,23 @@ Evaluate canonical action policy exactly once for any action with a policy plan 
 
 Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance, quest/task/settlement R6 regressions, canonical nine-suite acceptance, recipe reconcile, integrity/determinism, caller-zero guards and `git diff --check`. Rewrite all current continuity docs to one state and record exact participant commits plus live residual path counts/SHA-256 fingerprints. No push/publication.
 
-**Gate:** S11R6 is accepted only when every required audit claim is explicitly owned by the exact test/case (no keyword inference), residual quest/task/settlement conversation projections are proven, canonical policy admission is single-path and family-agnostic, retained acceptance is reproducibly green, and ROADMAP/PROGRESS/HANDOFF/parent/audit/repair docs agree on one exact committed checkpoint.
+**Gate:** SATISFIED (historical R6; final two atomic acceptance proofs and continuity reconciliation completed in R7).
 
 ### S11R7 — final atomic acceptance-proof closure
 
-**Status:** IN_PROGRESS (R7A ACCEPTED; R7B ACTIVE).
+**Status:** ACCEPTED / CLOSED.
 
-Current normative plan: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
+Closure record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
 #### R7A — task + settlement/ambient atomic acceptance proof
 
-**Status:** COMPLETE / ACCEPTED. Added `task_conversation_projection_lifecycle` and proved the public `pnc:task.wait_at` affordance is present/actionable before dispatch and retired/projected after active/terminal transition (`test_parameterized_task_conversation_lifecycle_and_duplicate_suppression`). Replaced broad `settlement_ambient_admission_boundary` with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims. Kept the ambient owner (`test_ambient_visit_root_choice_refreshes_and_retires_after_start`) and added an exact settlement-admission conversation-level owner (`test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation`) proving authoritative success → active-conversation refresh → stale affordance retirement → stale replay zero mutation.
+**Status:** ACCEPTED. Added `task_conversation_projection_lifecycle` and proved the public `pnc:task.wait_at` affordance is present/actionable before dispatch and retired/projected after active/terminal transition (`test_parameterized_task_conversation_lifecycle_and_duplicate_suppression`). Replaced broad `settlement_ambient_admission_boundary` with atomic `settlement_admission_post_success_refresh` and `ambient_visit_post_success_refresh` claims. Retained the ambient owner (`test_ambient_visit_root_choice_refreshes_and_retires_after_start`) and added an exact settlement-admission conversation-level owner (`test_settlement_admission_root_choice_executes_authority_and_refreshes_conversation`) proving authoritative success → active-conversation refresh → stale affordance retirement → stale replay zero mutation.
 
 #### R7B — final reproducible acceptance + continuity closure
 
-**Status:** ACTIVE. Run focused R7 tests plus the full retained acceptance/generation/static/caller-zero matrix. If green, rewrite all current closure docs to one state, mark S11/S11D/S11E/R7 accepted, make R6/R5 repair docs historical, and record exact participant commits plus live residual fingerprints.
+**Status:** ACCEPTED / CLOSED. Focused R7 regressions and full retained acceptance/generation/static/caller-zero gates passed (`9/9` canonical acceptance suites PASS; `reconcile --check` clean at `410` desired artifacts; `convo audit --check-determinism` clean at `588` families / `407` deterministic files / `0` violations). All closure and continuity documents are rewritten to one consistent developer-complete state, recording exact participant commits and live residual fingerprints.
 
-**Gate:** R7 closes only when both task and settlement/ambient atomic claims are exactly owned and behaviorally proven, full retained acceptance is reproducibly green, and every continuity document agrees on one exact committed checkpoint.
+**Gate:** SATISFIED — both task and settlement/ambient atomic claims are exactly owned and behaviorally proven, full retained acceptance is reproducibly green, and every continuity document agrees on one exact committed checkpoint.
 
 ## Commit protocol
 
