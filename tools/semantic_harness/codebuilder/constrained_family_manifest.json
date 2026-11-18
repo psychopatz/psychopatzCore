@@ -22,7 +22,7 @@
       "auditId": "audit.manual.needs",
       "canonicalFamilyId": "flow.needs.exchange",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R2",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Needs inquiry -> quantity -> proposal_pending -> bounded closure/progress.",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -31,7 +31,7 @@
       "auditId": "audit.manual.greeting",
       "canonicalFamilyId": "flow.greeting.exchange",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R2",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Hostile/busy/dead greeting gating and friendly continuation parity.",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -47,7 +47,7 @@
       "auditId": "audit.command.follow",
       "canonicalFamilyId": "command.companion.follow",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R2",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion FOLLOW state admission (already_following, blocked/hostile, actionable).",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -56,7 +56,7 @@
       "auditId": "audit.command.stay",
       "canonicalFamilyId": "command.companion.stay",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R2",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion STAY state admission (already_staying, blocked/hostile, actionable).",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -65,7 +65,7 @@
       "auditId": "audit.command.camp",
       "canonicalFamilyId": "command.companion.camp",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R2",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion CAMP state admission (already_camping, blocked/hostile, actionable).",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
@@ -74,7 +74,7 @@
       "auditId": "audit.command.return_home",
       "canonicalFamilyId": "command.companion.return_home",
       "classification": "CANONICAL_STATEFUL",
-      "migrationPhase": "R2",
+      "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion GO_HOME/RETURN state admission (already_returning, no_base, blocked, actionable).",
       "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"

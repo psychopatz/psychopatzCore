@@ -1305,7 +1305,7 @@ def render_psdl_flow_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
         if not isinstance(flow_spec, Mapping):
             continue
         flow_id = flow_spec.get("id", f"{record['id']}.flow")
-        flows.append({
+        flow_out = {
             "id": flow_id,
             "version": flow_spec.get("version", 1),
             "owner": flow_spec.get(
@@ -1315,7 +1315,14 @@ def render_psdl_flow_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
             "initial": flow_spec.get("initial", "accepted"),
             "nodes": _copy(flow_spec.get("nodes") or {}),
             "triggers": _copy(metadata.get("triggers") or []),
-        })
+        }
+        if "constraints" in flow_spec:
+            flow_out["constraints"] = _copy(flow_spec["constraints"])
+        if "when" in flow_spec:
+            flow_out["when"] = _copy(flow_spec["when"])
+        elif record.get("when") is not None:
+            flow_out["when"] = _copy(record["when"])
+        flows.append(flow_out)
     flows.sort(key=lambda item: str(item["id"]))
     return flows
 

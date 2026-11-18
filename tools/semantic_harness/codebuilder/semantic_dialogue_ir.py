@@ -55,6 +55,7 @@ CONTEXT_ROOTS = frozenset({
     "pragmatic", "stimulus", "history", "capability", "knowledge", "interaction",
     "flow", "social", "task", "action", "decision", "result",
     "inventory", "mood", "memory", "modifier", "event", "activity", "topic", "domain",
+    "roles", "npcState", "followState", "situation",
 })
 PRIVATE_SEGMENTS = frozenset({"private", "secret", "undiscovered", "java", "lua", "callback"})
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")

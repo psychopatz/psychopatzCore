@@ -143,8 +143,15 @@ end
 
 function S11PolicyEvaluator.EvaluateStatePolicy(planEntry, context)
     local familyId = type(planEntry) == "table" and tostring(planEntry.id or "") or ""
-    local rules = type(planEntry) == "table" and planEntry.statePolicy or nil
-    local postconditions = copyArray(type(planEntry) == "table" and planEntry.postconditions or nil)
+    local payload = type(planEntry) == "table" and type(planEntry.payload) == "table" and planEntry.payload or nil
+    local rules = (type(planEntry) == "table" and planEntry.statePolicy)
+        or (payload and payload.statePolicy)
+        or nil
+    local postconditions = copyArray(
+        (type(planEntry) == "table" and planEntry.postconditions)
+        or (payload and payload.postconditions)
+        or nil
+    )
     local ctx = type(context) == "table" and context or {}
 
     if type(rules) ~= "table" or #rules == 0 then

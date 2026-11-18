@@ -1,9 +1,9 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — R1 accepted (`Flow_Identity.lua` retired with caller-zero; canonical CodeBuilder `Flows/Semantic/Identity.lua` owns Identity flow); advancing to R2.
+**Status:** IN_PROGRESS — R2 accepted (companion commands, Needs, and Greeting migrated to canonical CodeBuilder recipes; `Flow_Needs.lua` & `Flow_Greeting.lua` retired with caller-zero; `Input_Actions_Dispatch.lua` uses generic `S11PolicyEvaluator`); advancing to R3 (S11D sweep).
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11 repair — R2 redo/finish S11C (companion commands + Needs + Greeting) through canonical CodeBuilder recipes.
-**Immediate Next Chunk:** R2 — recipe-author companion command state policies (`FOLLOW`/`STAY`/`CAMP`/`RETURN_HOME`), remove family-specific semantic admission from `Input_Actions_Dispatch.lua`, recipe-author Needs and Greeting flows, regenerate via `reconcile.py`, prove parity + caller-zero, and delete `Flow_Needs.lua` and `Flow_Greeting.lua`.
+**Active phase:** S11 repair — R3 execute actual S11D full constrained-domain sweep.
+**Immediate Next Chunk:** R3 — complete S11D canonical migrations & multi-turn transition fixtures (recruitment, relationship proposal, ceasefire, set territory, effectful social repeat semantics), flip all `CANONICAL_STATEFUL` entries in `constrained_family_manifest.json` to `"accepted"`, and prove `strict_manifest=True` passes.
 
 ## Current audited checkpoint
 
