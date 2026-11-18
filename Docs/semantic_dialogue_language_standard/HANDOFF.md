@@ -4,25 +4,27 @@
 status: IN_PROGRESS
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S11R9R1 — Authoring Readiness Corrective Closure
-chunk: R9R1I — reproducible two-run canonical acceptance closure (R9R1F-H complete)
+phase: S12 — ConvoEngine v1 Dynamic Dataset Modernization
+chunk: S12A1 — one ConvoEngine v1 source/package schema
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
-goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
-repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md
+goal_doc: Docs/semantic_dialogue_language_standard/S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md
+authoring_standard: Docs/semantic_dialogue_language_standard/DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md
 bulk_dialogue_rewrite_allowed: false
-updated_at: 2026-11-18
+updated_at: 2026-11-19
 ~~~
 
 ## Participant checkpoint
 
 ~~~text
-psychopatzCore   planning_doc_commit: self (base 5aa3c089d6c92a0f9926434f16d0148d9315aad9)
-ProjectHoomans   a64c3bcb325f209c599a77689387135e918c2de1
+psychopatzCore   planning_doc_commit: self (base 37f13c1fa526ce214ca79851328f1a317cff982a)
+ProjectHoomans   b5e538fbfe4213c4e45e6e966983ff814f9c71b4
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
-Residual snapshot at planning start:
+All three worktrees were clean at goal creation.
+
+Residual fingerprints:
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
@@ -32,40 +34,37 @@ DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934
 
 ## Retain
 
-- S11A/state-outcome runtime work.
-- R8D acceptance side-effect guard.
-- R9/R9R1 compiler-owned 588-family health inventory.
-- Dialogue Completeness real semantic color Treeview and human-first summaries.
-- Dialogue selection synchronization/exact-field navigation.
-- R9R1D legacy retirement and moved current capabilities.
+- accepted S11 state/outcome, completeness, memory, facts/effects/modifier and compiler/runtime foundations;
+- R9/R9R1 Semantic Lab authoring/readability/test-verification improvements;
+- one compiler-owned health/completeness authority;
+- current CodeBuilder authoring/reconcile workflow;
+- existing adopter gameplay/domain authority.
 
-## Reopened acceptance findings
+## Active decisions
 
-- Primary ConvoEngine families browser is still an uncolored dense Listbox with repeated owner/kind prefixes.
-- Beats/behaviors/realizations are present but not sufficiently discoverable for mass authoring.
-- Coverage ownership is not truthfully surfaced: all 588 currently show unknown; Missing Coverage reports zero.
-- run_family_tests() uses wrong manifest identity keys and therefore fails known-owned families.
-- Non-dialogue exact-field navigation is absent.
-- Dialogue form round-trip/validation is unsafe for real behavior/beat/realization records.
-- Non-dialogue health needs the remaining applicable reference/capability/slot/orphan checks.
+- Public/system/language name is ConvoEngine.
+- Pre-release first-party family/source schema is `psychopatz.convo-engine.v1`.
+- Pre-release first-party package schema is `psychopatz.convo-engine.package.v1`.
+- Do not create ConvoEngine v2 during this modernization.
+- `psychopatz.psdl.v2` / `psychopatz.psdl.package.v2` are migration residue to remove after source/caller zero.
+- Compact authoring remains compact under v1; normalized IR is a compiler stage, not a second authoring schema.
+- One semantic interaction has one canonical family conversational authority.
+- Runtime binds live roles/slots/typed references and may compose validated families/beats; it may not invent semantic/gameplay authority.
+- Wording-only differences belong in realization.
+- Broad source modernization begins only after S12B classifies every maintained family.
 
-## UI simplification findings
+## Immediate Next Chunk — S12A1
 
-- The upper compact controls duplicate canonical affordance/say/execute/reply/after fields already editable in Exchange family structure.
-- Family identity/participants exposes too much low-value/default schema detail in the normal path.
-- S11 Semantic Controls is schema-first rather than author-first and should become progressive State & Flow.
-- Conversations contains a second local Simulation / trace surface despite the top-level Simulation workspace.
-- Run ConvoEngine Integrity Audit is package maintenance but occupies primary authoring toolbar space.
-- Speaker/Addressee use pretty-printed multi-line JSON inside single-line Entries, producing the visible control-glyph bug.
+1. Reverify all participant HEAD/status.
+2. Read the two S12 normative documents.
+3. Audit every compiler/service/package/source dependency on `COMPACT_PSDL_SCHEMA` and `PACKAGE_DESCRIPTOR_SCHEMA`.
+4. Design one direct pre-release migration to ConvoEngine v1 that preserves compact profiles/defaults/sidecars without a compatibility shim.
+5. Implement/migrate through CodeBuilder tooling, not raw mass source writes.
+6. Prove all first-party family/package sources use the v1 ConvoEngine schemas.
+7. Remove obsolete PSDL schema read/alias paths after caller/source zero.
+8. Continue automatically through S12A2 CAMP single-family authority, S12A3 duplicate-authority audit and S12A4 health-scope clarity.
+9. Close S12A with full focused + canonical acceptance before starting S12B.
 
-R9R1F is therefore F1 family browser, F2 single editing path, F3 progressive disclosure, F4 surface consolidation, and F5 rendering cleanup.
+Do not begin S12C-E broad dataset rewriting during S12A.
 
-## Mandatory continuation
-
-~~~text
-R9R1F → R9R1G → R9R1H → R9R1I
-~~~
-
-Do not restore BULK_DIALOGUE_REWRITE_ALLOWED=true before R9R1I.
-
-Do not launch native Project Zomboid, push, publish, reset, stash, amend, rebase, or discard unrelated work without explicit authorization.
+Do not push, publish Workshop content, or launch native Project Zomboid without explicit authorization.

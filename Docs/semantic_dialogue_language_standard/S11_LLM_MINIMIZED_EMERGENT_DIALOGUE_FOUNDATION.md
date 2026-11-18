@@ -7,6 +7,7 @@
 **Completeness/memory:** `S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md`
 **Portable facts/effects:** `S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md`
 **Optimization:** `S11_COMPILER_RUNTIME_OPTIMIZATION.md`
+**Promoted core standard:** `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md` now makes the reusable-meaning/runtime-binding/composition boundary normative for all new and modernized dataset source. This S11 document remains the deeper design rationale; S12 performs the dataset conversion.
 
 ## Purpose
 

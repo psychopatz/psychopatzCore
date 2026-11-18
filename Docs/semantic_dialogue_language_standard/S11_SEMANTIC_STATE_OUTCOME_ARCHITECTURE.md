@@ -71,7 +71,7 @@ The canonical `SemanticOutcome` is a data contract spanning these phases, not a 
 
 ### Compact PSDL / ConvoEngine source
 
-Current production packages use `psychopatz.psdl.v2` and `psychopatz.psdl.package.v2`. These schema/toolchain identifiers remain current implementation terminology beneath the public ConvoEngine system. They are not a second runtime and must not be renamed as part of S11.
+Historical S11 implementation used `psychopatz.psdl.v2` and `psychopatz.psdl.package.v2` as compact/package identifiers. The later pre-release S12 standard supersedes that naming: first-party authoring converges on `psychopatz.convo-engine.v1` / `psychopatz.convo-engine.package.v1` with no released compatibility obligation. The state/outcome semantics defined here remain normative; only the pre-release schema naming decision is superseded.
 
 The accepted production seam is:
 

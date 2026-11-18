@@ -43,6 +43,34 @@ Adopters own domain execution:
 
 Core must not absorb adopter gameplay policy merely because ConvoEngine can invoke it.
 
+## One family owns conversational action policy
+
+A registered action contract is gameplay execution authority. It does not justify
+splitting one conversational interaction across several ConvoEngine families.
+
+For a semantic action such as CAMP, the surviving canonical family should own:
+
+~~~text
+invoke.action
+statePolicy
+inputPolicy
+repeatPolicy
+postconditions
+closure
+execute
+reply outcomes
+after / continuation
+~~~
+
+Runtime may bind the current target/site/item/task/etc. and may execute the
+registered action contract after admission. It must not search for another
+project-owned family with the same action just to borrow missing policy.
+
+If historical content/policy families are split this way, classify them as
+`LEGACY_SPLIT_AUTHORITY`, migrate the complete policy into one canonical family,
+retarget verification, prove caller/reference zero and delete the redundant
+family without a forwarding shim.
+
 ## Existing Core ActionProviders are not execution contracts
 
 The existing semantic ActionProvider registry collects candidate semantic

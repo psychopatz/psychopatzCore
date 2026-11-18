@@ -5,13 +5,20 @@
 **ConvoEngine** is the PsychopatzCore-owned conversation authoring/compiler
 system shared by PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
 
-The old name **PSDL** meant **Psychopatz Semantic Dialogue Language**. Treat
-`PSDL` / `psdl` as a migration-era internal name only. New documentation,
-new APIs, new source layout, and new runtime layout should use **ConvoEngine**.
+The old name **PSDL** meant **Psychopatz Semantic Dialogue Language**. This
+project is still pre-release, so there is no external compatibility reason to
+keep two first-party authoring schema identities. The final pre-release target is
+**ConvoEngine v1**:
 
-Do not perform a blind repository-wide rename. Migrate internal identifiers only
-through tested Core compiler/service changes and remove the old alias after
-caller-zero.
+~~~text
+family/source schema: psychopatz.convo-engine.v1
+package schema:       psychopatz.convo-engine.package.v1
+~~~
+
+`psychopatz.psdl.v2` / `psychopatz.psdl.package.v2` are migration residue.
+Migrate them through tested Core/CodeBuilder changes, prove source/caller zero,
+then delete the old readers/aliases. Do not add a ConvoEngine v2 during this
+dataset modernization.
 
 ## Naming boundary
 
@@ -24,6 +31,9 @@ Target examples:
 ```text
 schema:
 psychopatz.convo-engine.v1
+
+package schema:
+psychopatz.convo-engine.package.v1
 
 runtime:
 PsychopatzCore/ConvoEngine/...
@@ -41,11 +51,13 @@ a real concept inside the engine (`intent`, semantic family, predicates,
 semantic candidates), and generic Core semantic services remain named/located
 under `PsychopatzCore/Semantics/` when they are broader than conversation.
 
-Legacy source/schema/API names such as
-`psychopatz.semantic.dialogue-language.v1`, `PSDL`, or
-`*SemanticDialogue*` may be read temporarily by explicit migration adapters.
-New writes use ConvoEngine names. Remove old aliases/readers after migrated
-caller/source zero is proven.
+Legacy project-owned source/schema/API names such as
+`psychopatz.semantic.dialogue-language.v1`, `psychopatz.psdl.v2`,
+`psychopatz.psdl.package.v2`, `PSDL`, or `*SemanticDialogue*` are migration
+inputs only. Because there is no released compatibility boundary, do not keep
+permanent first-party compatibility readers or dual authoring paths. Migrate
+current sources/callers atomically and delete obsolete aliases after parity and
+caller/source zero.
 
 ### Steady-state text/template naming
 
@@ -109,6 +121,39 @@ the compiler itself. They must not bypass the authoring/migration API for mass
 conversation-content creation or sharding.
 
 Generated runtime files are never authored manually.
+
+## Dynamic-composition authoring rule
+
+Read `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md` before creating or
+modernizing conversation content.
+
+The compact rule is:
+
+> **Author reusable semantic meaning once. Bind live context at runtime. Compose only validated semantic pieces. Realize wording last.**
+
+Prefer one parameterized family such as:
+
+~~~text
+social.knowledge.ask_person(person=<EntityRef>)
+command.camp(camp_site=<LocationRef>)
+social.warning.threat(threat=<EventRef>)
+~~~
+
+over many hard-coded context variants.
+
+Runtime may bind participants, semantic roles, typed slots, TopicRef/EventRef/
+ActivityRef/MemoryRef/DomainRef values, declared continuations and realization
+variants. Runtime must not invent actions, effects, predicates, state
+transitions, reply meanings, gameplay truth, or unvalidated branches.
+
+For a stateful/mutating interaction, one canonical family owns the complete
+conversational policy: invoke, state/input/repeat policy, postconditions,
+closure, execute, reply outcomes and continuation. Do not split policy/content
+across multiple project-owned families and join them at runtime by action name.
+
+Semantic family identity describes reusable meaning. Runtime instances provide
+context. Beats/archetypes provide bounded composition. Realization provides
+wording.
 
 ## Compact source model
 

@@ -1,6 +1,6 @@
 # ConvoEngine Authoring Contract
 
-> Legacy/internal note: `PSDL` meant **Psychopatz Semantic Dialogue Language**. Treat `PSDL`/`psdl` identifiers as migration compatibility only; the target system name is **ConvoEngine**.
+> **Pre-release standard:** the first-party language is **ConvoEngine v1**. Persisted family/source documents use `psychopatz.convo-engine.v1` and package descriptors use `psychopatz.convo-engine.package.v1`. `PSDL`/`psychopatz.psdl.*` names are migration residue to remove after source/caller zero, not a parallel language/version.
 
 ## 1. Document envelope
 
@@ -46,6 +46,42 @@ string or locale map.
 
 The compiler normalizes compact source into explicit canonical IR. Runtime
 systems do not consume authoring sugar directly.
+
+### 1.1 Pre-release v1 freeze
+
+ConvoEngine has not crossed a public-release compatibility boundary. During S12
+dataset modernization the language evolves in place as v1.
+
+Do not introduce `psychopatz.convo-engine.v2` merely because compact source,
+profiles, roles, slots, policies, beats or realization features are being
+standardized. Migrate every first-party source/package descriptor to the v1
+ConvoEngine names and remove the old `psychopatz.psdl.*` schema identities after
+caller/source zero.
+
+Compact authoring source and explicit normalized canonical IR are different
+compiler stages, not different authoring languages.
+
+### 1.2 Dynamic composition
+
+Normative authoring principle:
+
+> **Author reusable semantic meaning once. Bind live context at runtime. Compose only validated semantic pieces. Realize wording last.**
+
+A semantic family is stable meaning. A runtime-bound instance supplies current
+roles, slots and typed context. A beat/archetype may compose bounded valid
+semantic pieces. Realization supplies wording.
+
+Prefer parameterized semantic families over entity-, location-, participant-
+count-, event-, or wording-specific duplicates whenever meaning is the same.
+
+For a single stateful/mutating semantic interaction, one canonical family owns
+its conversational policy (`invoke`, state/input/repeat policy, postconditions,
+closure, execute, reply outcomes and continuation). Do not split those
+responsibilities across project-owned families and reconstruct one interaction
+through runtime lookup.
+
+See `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md` for the modernization
+classification and per-family checklist.
 
 Initial supported `kind` values:
 

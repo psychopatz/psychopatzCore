@@ -1,14 +1,18 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** IN_PROGRESS — R8D and the R9 compiler/Workbench foundation are retained, but S11R9R1 authoring-readiness repair is mandatory before USER_ACCEPTANCE and before the broad dialogue/beat/behavior/realization rewrite.
+**Parent status:** IN_PROGRESS — S12 ConvoEngine v1 dynamic dataset modernization is active. Retained S11/R9 authoring/completeness tooling is accepted foundation; remaining CAMP single-authority and pre-release schema cleanup are S12A prerequisites.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** retained S11A-S11E + closed S11R8 + S11R9R1F-I corrective closure accepted. Broad content rewrite remains blocked until R9R1I.
+**Developer completion boundary:** S12A-S12F accepted and closed, including ConvoEngine v1 schema/source convergence, dataset classification, Core/Hoomans/DT modernization, and composition-readiness closure.
 
 ## Objective and ownership
 
 Make **ConvoEngine** the de-facto first-party conversation authoring/compiler system in
-all three repositories. `PSDL`/`psdl` is a migration-era internal alias to retire through tested caller-zero migration, not the target public name. PsychopatzCore physically and architecturally owns the
+all three repositories. The pre-release first-party authoring target is
+`psychopatz.convo-engine.v1` with package schema
+`psychopatz.convo-engine.package.v1`. `PSDL`/`psychopatz.psdl.*` is migration
+residue to retire through tested source/caller-zero migration, not a parallel
+schema/version. PsychopatzCore physically and architecturally owns the
 ConvoEngine schema/Canonical Semantic Dialogue IR, parser/compiler/normalizer,
 generic validation/predicates, actor-neutral participant/reference contracts,
 typed slots/bindings, package routing, reusable CodeBuilder authoring service,
@@ -26,6 +30,38 @@ Interaction Director, Scene Runtime, Semantic Social Conversation,
 SpeechRealization, and existing gameplay/relationship/knowledge/trading
 services. PSDL does not replace those systems.
 
+## S12 — ConvoEngine v1 Dynamic Dataset Modernization
+
+**Status:** ACTIVE. Normative goal: `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
+Normative authoring principle: `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`.
+
+S12 changes the maintained dataset toward reusable semantic meaning plus runtime
+context binding/composition rather than context-specific script duplication.
+
+~~~text
+S12A  ConvoEngine v1 schema freeze + single-family authority cleanup
+S12B  machine-readable classification of every maintained family
+S12C  PsychopatzCore dataset modernization
+S12D  ProjectHoomans dataset modernization
+S12E  DynamicTrading/DTCommon dataset modernization
+S12F  composition-readiness closure
+~~~
+
+S12A must directly migrate first-party `psychopatz.psdl.v2` /
+`psychopatz.psdl.package.v2` source/toolchain ownership to ConvoEngine v1,
+preserve compact authoring under the single v1 schema, remove obsolete aliases
+after source/caller zero, collapse CAMP to one canonical family, and add a
+duplicate semantic-action authority audit.
+
+S12B must classify every maintained family before broad rewriting. S12C-E may
+then migrate only classified coherent batches through CodeBuilder authoring
+services. S12 does not implement an unrestricted autonomous Dialogue Director;
+it makes the dataset safe and discoverable for later deterministic composition.
+
+**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` through S12A and S12B. After
+S12B acceptance, broad rewriting proceeds only through classified S12C-E
+batches, never as blind prose replacement.
+
 ## Phase matrix
 
 - **S0 — exact inventory and zero-new-legacy guard: ACCEPTED.** The Core-owned
@@ -39,11 +75,11 @@ services. PSDL does not replace those systems.
 - **S3 — offers, turns, bindings, runtime contracts: ACCEPTED.** Player buttons
   and NPC choices consume the same participant-neutral semantic affordances.
 - **S4 — behavior/beat/realization standardization: ACCEPTED for corrective
-  closure.** Maintained Core catalogs use PSDL `kind` records; Interaction
+  closure.** Maintained Core catalogs use ConvoEngine `kind` records (historically
+  introduced under the compact PSDL implementation name); Interaction
   Director and SpeechRealization remain runtime authorities; simple dialogue
   does not require a beat.
-- **S5 — first-party source migration: ACCEPTED.** Core’s surviving source inventory is PSDL
-  plus justified recognition, semantic-memory, and routing data. Hoomans and
+- **S5 — first-party source migration: ACCEPTED.** Core’s surviving source inventory is canonical ConvoEngine conversation source plus justified recognition, semantic-memory, and routing data. Hoomans and
   DTCommon final adopter records are routed through Core; superseded authoring
   sources are deleted after parity/caller-zero evidence.
 - **S6 — final cleanup/scaling: ACCEPTED foundation.** Deterministic generation, compact family source, runtime packing and semantic module routing are verified.
@@ -75,8 +111,9 @@ data-driven.
 
 ### S4-S5
 
-Use PSDL `dialogue`, `behavior`, `beat`, and `realization` records as the only
-maintained first-party semantic authoring authority. Behaviors are reusable
+Use ConvoEngine v1 `dialogue`, `behavior`, `beat`, and `realization` records as the only
+maintained first-party semantic authoring authority. Earlier PSDL naming in this
+historical phase is superseded by the S12 pre-release v1 schema freeze. Behaviors are reusable
 strategies; beats own entry/maintain/exit and rank behaviors but never wording;
 Interaction Director remains the arbitration authority. Migrate directly to
 final semantic IDs/layout, prove parity and EN/optional-locale placeholder
@@ -881,7 +918,7 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 
 ## S11 — State-Aware Conversation Outcome Closure
 
-**Status:** IN_PROGRESS — R8D remains accepted; R9A-R9D implementation is retained but authoring readiness is reopened under R9R1. `BULK_DIALOGUE_REWRITE_ALLOWED=false`.
+**Status:** ACCEPTED / RETAINED FOUNDATION — state/outcome closure, completeness, and authoring-readiness tooling are accepted. Remaining CAMP single-authority and pre-release schema cleanup moved into S12A; the current broad-rewrite gate is owned by S12B.
 
 Historical repairs: R0-R4 in `S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md`; R5 in `S11_POST_R4_CLOSURE_AUDIT_REPAIR.md`; R6 in `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`; R7 in `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`.
 
@@ -1023,7 +1060,7 @@ Run explicit-claim guards, full retained semantic/provider/GUI/static acceptance
 
 **Status:** HISTORICAL / SUPERSEDED FINAL-CLOSURE CLAIM. R7A atomic claim work and settlement/ambient behavior remain accepted. R7B's final developer-complete closure claim was superseded by R8.
 
-Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Current repair authority: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+Historical record: `S11_POST_R6_CLOSURE_AUDIT_REPAIR.md`. Historical later repair: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`. Current goal authority: `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
 
 #### R7A — task + settlement/ambient atomic acceptance proof
 
@@ -1059,11 +1096,11 @@ Completed repair plan: `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 
 **Status:** ACCEPTED. Isolated `test_promotion_writes_only_canonical_source_then_regenerates` across Core/ProjectHoomans/DynamicTrading temp roots, added participant worktree side-effect guard in `acceptance.py`, proved two consecutive canonical 9-suite `--jobs 4` runs are 9/9 (`convoScopeOk=True`) with identical participant status hashes before/after, and verified post-acceptance `reconcile.py --check` (`clean=true`).
 
-Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`. Current authoring-readiness repair authority: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPAIR.md`. Historical R9R1 repair authority: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`. Current goal authority is `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
 
 ### S11R9 — Dialogue Completeness Workbench and authoring readiness
 
-**Status:** REOPENED UNDER R9R1 CORRECTIVE CLOSURE — R9A-R9D and the useful R9R1A/B/D implementation are retained; post-R9R1 audit requires R9R1F-I before authoring readiness and bulk rewrite.
+**Status:** ACCEPTED / RETAINED — R9A-R9D plus R9R1F-I authoring/tooling work are accepted. The later S12 goal owns schema unification, CAMP single-family authority, and dataset modernization.
 
 #### R9A — canonical authoring-report enrichment
 
@@ -1081,14 +1118,14 @@ Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPA
 
 **Status:** ACCEPTED. Added `test_dialogue_completeness_workbench.py` (3/3) and `test_dialogue_completeness_workbench_tk.py` (1/1 Xvfb), proved Workbench parity with `analyze_convo_completeness(strict_manifest=True)` (`520` families, `0` errors, `1` warning, `520` SCCs), and passed two consecutive canonical 9-suite `--jobs 4` runs (`2125/2154`, `convoScopeOk=True`) with identical participant status hashes.
 
-**Gate:** Historical R9R1E closure was reopened by the post-R9R1 authoring-readiness audit. BULK_DIALOGUE_REWRITE_ALLOWED=false until R9R1I.
+**Gate:** SATISFIED for the R9/R9R1 tooling scope. The current content-rewrite gate is separately owned by S12A-S12B.
 
 
 ### S11R9R1 — Workbench usability, full-family coverage and legacy retirement
 
-**Status:** REOPENED / IN_PROGRESS. Normative repair: S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md.
+**Status:** ACCEPTED / RETAINED. Historical repair: S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md.
 
-R9R1A/B/D implementation is retained. R9R1C/E are reopened only where post-implementation audit and current UI evidence disproved authoring readiness.
+R9R1A-I implementation is retained as accepted authoring/tooling foundation. S12 supersedes the old rewrite-gate decision.
 
 #### Retained R9R1A/B/D
 
@@ -1151,7 +1188,7 @@ Real Tk/Xvfb acceptance must prove the primary family browser itself is compact,
 
 Then run focused suites, full canonical 9-suite acceptance twice from one exact participant vector, post-acceptance reconcile, diff checks, participant heads and residual fingerprints.
 
-**Gate:** BULK_DIALOGUE_REWRITE_ALLOWED=false until R9R1I. Only after all four corrective chunks pass may S11R9R1 return to ACCEPTED / CLOSED and the broad dialogue/behavior/beat/realization rewrite begin.
+**Gate:** SATISFIED for R9R1. Broad modernization now follows S12: S12A prerequisite cleanup, S12B classification, then classified S12C-E batches.
 
 ## Commit protocol
 

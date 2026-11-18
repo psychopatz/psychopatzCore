@@ -17,6 +17,20 @@ shared authoring service.
 ProjectHoomans and DynamicTrading/DTCommon own adopter-specific ConvoEngine conversation records.
 They must consume the Core rules and generator rather than duplicating them.
 
+## Schema identity
+
+Steady-state first-party source uses:
+
+~~~text
+psychopatz.convo-engine.v1
+psychopatz.convo-engine.package.v1
+~~~
+
+Do not add new `psychopatz.psdl.*` source/package schemas or create a
+ConvoEngine v2 during the pre-release dataset modernization. Compactness is a
+source-form/compiler-stage property under ConvoEngine v1, not a separate schema
+identity.
+
 ## Canonical CodeBuilder conversation roots
 
 Do not add a language-name wrapper below the already-explicit
@@ -481,10 +495,11 @@ pnc.psdl.*
 Conversation/Text/psdl/
 ```
 
-The only allowed remaining PSDL names are explicitly classified migration
-readers/test fixtures. Generic provider-neutral Semantic IR contracts are a
-separate ownership class and are not renamed merely because they contain the
-word `semantic`.
+During S12, remaining first-party PSDL names are migration findings only. After
+source/caller zero, they are not allowed in maintained ConvoEngine source,
+package descriptors, generated output or first-party runtime callers. Generic
+provider-neutral Semantic IR contracts are a separate ownership class and are
+not renamed merely because they contain the word `semantic`.
 
 Translation/text-path migration follows the same root-cause rule as Lua:
 change canonical source/compiler routing and exact first-party callers, then
@@ -622,7 +637,7 @@ required.
 
 A coding agent changing one semantic family should normally need:
 
-1. that family's PSDL source file;
+1. that family's ConvoEngine source file;
 2. shared language/runtime contract;
 3. focused tests.
 

@@ -1,6 +1,6 @@
 # S11 Post-R9 Workbench Usability, Full-Family Coverage and Legacy Retirement Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR PLAN — POST-R9R1 AUDIT REOPEN
+**Status:** HISTORICAL / IMPLEMENTED — remaining CAMP single-authority and schema-standardization work is absorbed into S12A.
 **Audit date:** 2026-11-18
 **Parent goal:** S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 **Previous repair:** S11_POST_R8_AUTHORING_READINESS_REPAIR.md

@@ -31,7 +31,7 @@ For this job read `PROGRESS.md` first, then current `HANDOFF.md`, then `CONVO_EN
 
 ## Core ownership discipline
 
-The reusable ConvoEngine mechanism belongs in PsychopatzCore. Implement the conversation schema, canonical IR, compiler/normalizer, generic validation, generic predicate/reference/slot/binding contracts, registered Semantic Action Contract/result mechanism, and shared CodeBuilder authoring service in Core. `PSDL`/`psdl` is migration compatibility only.
+The reusable ConvoEngine mechanism belongs in PsychopatzCore. Implement the conversation schema, canonical IR, compiler/normalizer, generic validation, generic predicate/reference/slot/binding contracts, registered Semantic Action Contract/result mechanism, and shared CodeBuilder authoring service in Core. The pre-release first-party schema target is `psychopatz.convo-engine.v1` with `psychopatz.convo-engine.package.v1`; `PSDL`/`psychopatz.psdl.*` identifiers are migration residue to delete after S12 source/caller zero, not a parallel supported authoring path.
 
 ProjectHoomans and DynamicTrading/DTCommon may contain only adopter-specific ConvoEngine conversation records, adapters, tests and gameplay/domain constraints. Do not copy the compiler, predicate engine, schema or generic runtime into an adopter merely because that adopter currently owns legacy dialogue source.
 
@@ -103,7 +103,7 @@ S11 extends the accepted post-G9 ConvoEngine pipeline:
 - an `acceptanceOwner` path/string alone is not evidence: the exact referenced test/fixture/case must explicitly declare its stable audit claim IDs; manifest repetition, `claimKeywords`, substring matching, test-name similarity, or whole-file source-text scans are not semantic ownership proof; keep claims atomic by observable surface so one sibling behavior cannot certify another untested sibling;
 - production/native presentation claims require native or native-equivalent context parity: a worker-only field or worker-only authority projection cannot certify an in-game behavior unless the native `Contents/` path produces the same bounded contract;
 - canonical acceptance must remain hermetic under supported parallel execution: tests that mutate canonical source use isolated temp roots, and GUI/display-dependent tests have one explicit deterministic suite owner rather than order-dependent skips;
-- before any broad dialogue/beat/behavior/realization rewrite, verify `BULK_DIALOGUE_REWRITE_ALLOWED=true` in current S11 continuity docs; until R9R1E, only R9R1 infrastructure and narrowly required fixtures may change;
+- before broad S12 dataset rewriting, follow the current S12 gate: S12A must close ConvoEngine-v1/single-authority prerequisites and S12B must classify every maintained family; `BULK_DIALOGUE_REWRITE_ALLOWED=false` until S12B is accepted, after which only classified S12C-E batches may be modernized;
 - Semantic Lab completeness UI must consume the canonical `analyze_convo_completeness()` report; do not reimplement termination/cycle/outcome/closure reasoning in Tk;
 - completeness diagnostics and scaffolds must navigate/write canonical compact source through existing services; generated Lua/registry/manifest/translation remains downstream-only;
 - authoring-health UI must cover every maintained canonical family kind that is in rewrite scope; kind-specific health checks may differ, but source-catalog inventory and Workbench inventory must not silently diverge;
@@ -121,6 +121,27 @@ For S11, Reference VM and PZ/Lua backend must agree on matched state rule, outco
 Do not create a StatefulDialogueRegistry, second action catalog, second predicate DSL, relationship/mood/inventory mini-DSL that bypasses canonical normalization, separate button-state evaluator, separate typed-input state evaluator, separate cooldown/modifier engine, persistent semantic shadow state, semantic shadow inventory/cache without authoritative invalidation ownership, runtime preset-expansion system, participant-count-specific dialogue copies where role binding would suffice, autonomous S11 Dialogue Director/scorer, LLM-required semantic authority, compatibility shim/fallback/dual-path for migrated internal semantic code, or hand-written/generated runtime descriptor that becomes a second semantic authoring authority.
 
 At review, search for duplicated domain-state predicates and policy fields present only in generated/adopter Lua but absent from canonical source/Portable Plan. Either defect fails S11 even if focused behavior tests are green.
+
+## S12 dynamic dataset modernization discipline
+
+Before modifying maintained conversation dataset source for S12, read
+`DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md` and
+`S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
+
+For every family:
+
+- identify stable semantic meaning before editing wording;
+- classify the family using the S12 modernization classes;
+- prefer typed roles/slots/references over hard-coded context duplicates;
+- prefer realization variants over wording-only semantic duplicates;
+- prefer bounded beats/archetypes over monolithic contextual scripts;
+- require one family to own the full conversational policy for one semantic action;
+- keep gameplay truth/mutation behind adopter ActionContract/capability authority;
+- let runtime bind/select/compose only compiler-valid pieces;
+- never require an LLM for semantic correctness;
+- use CodeBuilder authoring/migration APIs for dataset changes and delete superseded source after parity/caller-zero.
+
+Do not start broad S12C-E dataset rewriting before S12A ConvoEngine-v1/single-authority cleanup and S12B machine-readable classification inventory are accepted.
 
 ## ConvoEngine / CodeBuilder authoring discipline
 

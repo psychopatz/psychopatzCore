@@ -4,7 +4,7 @@
 
 **ConvoEngine** is the normative first-party conversation authoring/compiler system for **PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon**.
 
-**ConvoEngine** is the public system name. PSDL remains the current portable schema/toolchain identifier used by compact source and package contracts (psychopatz.psdl.*). It is not a second runtime or a legacy authoring authority. Do not rename these accepted schema/toolchain identifiers as incidental S11 cleanup; source ownership and generated runtime naming still follow ConvoEngine conventions.
+**ConvoEngine** is the system and language name. Because the system is still pre-release, the only maintained first-party authoring schemas are `psychopatz.convo-engine.v1` and `psychopatz.convo-engine.package.v1`. `psychopatz.psdl.v2` / `psychopatz.psdl.package.v2` are pre-release migration residue to remove through S12 after source/caller zero; they are not a second supported schema/toolchain.
 
 ConvoEngine itself is **Core-owned infrastructure**. Its language schema, canonical IR, compiler, generic validator, shared predicate/reference/binding contracts, package-routing logic and reusable authoring service belong physically in `psychopatzCore`. ProjectHoomans and DynamicTrading/DTCommon are adopters: they may own domain-specific ConvoEngine records and adapters, but they must not fork or duplicate the language/compiler/runtime authority.
 
@@ -35,7 +35,7 @@ No second parser, response engine, scene runtime, button engine, relationship au
 State-aware dialogue follows the same non-duplication rule through the accepted post-G9 production seam:
 
 ~~~text
-compact ConvoEngine/PSDL source
+compact ConvoEngine v1 source
 → Canonical Semantic Dialogue IR
 → Portable Dialogue Plan
 → descriptor-selected backend/generated runtime
@@ -54,6 +54,28 @@ Do not introduce a second persisted semantic state store, action/capability regi
 Core owns portable schema/runtime mechanisms and generic validation/outcome vocabulary. Adopters project bounded public facts from their existing authorities, implement typed capability adapters, and retain domain-specific reasons/effects. A state projection is read-only derived context, never another source of truth.
 
 The active S11 designs are specified in S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md, S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md, S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md, S11_COMPILER_RUNTIME_OPTIMIZATION.md, and S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md; once S11 closes, their accepted generic contracts become part of this architecture.
+
+### Dynamic composition and single-family authority
+
+`DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md` is the normative content-design
+contract.
+
+Reusable meaning is authored once. Runtime binds bounded live context through
+ParticipantSet/roles, typed slots, structured topic/event/activity/memory/domain
+references and authoritative fact projections. Runtime may select and compose
+compiler-valid families/beats and realization variants; it may not invent
+semantic/gameplay authority.
+
+One semantic interaction/action has one canonical family conversational
+authority. A project-owned runtime must not find a second family with the same
+action merely to borrow state policy, replies, closure or another missing part.
+If two sources collectively describe one interaction, classify the condition as
+`LEGACY_SPLIT_AUTHORITY` and collapse it before dataset modernization.
+
+Wording-only difference belongs in realization. Context-only difference belongs
+in roles/slots/references/conditions. Participant-count difference belongs in
+role cardinality unless genuinely semantically distinct. Mutable gameplay truth
+continues to belong to adopter domain systems.
 
 ### Dialogue closure and memory continuity invariant
 

@@ -1,16 +1,16 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** IN_PROGRESS — R8D is accepted; R9 implementation is retained but R9R1 authoring-readiness repair is active before the planned bulk dialogue/beat/behavior/realization rewrite.
+**Current status:** ACCEPTED / RETAINED FOUNDATION — S11 state/outcome/completeness/tooling work is retained. Remaining pre-release schema convergence, CAMP single-family authority, and dataset modernization moved to S12.
 
-**Status:** IN_PROGRESS — S11R9R1 Workbench usability, full-family coverage and legacy retirement.
+**Status:** HISTORICAL / ACCEPTED FOUNDATION — current goal authority is S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
 **Accepted baseline retained:** S0-S10 + S10R + G7-G9, S11A foundation/migrations, R5/R6 claim/policy/quest work, and R7A atomic settlement/ambient + worker task lifecycle proofs remain accepted unless targeted R8 evidence disproves them.
 **Primary adopter:** ProjectHoomans.
 **Participant scope:** PsychopatzCore owns reusable semantic/state/compiler/acceptance contracts; ProjectHoomans owns gameplay-specific state predicates/effects/projection/replies; DynamicTrading participates only where shared ConvoEngine generation/provider compatibility is affected.
 **User value:** button suggestions, typed/free-text input, NPC replies, gameplay effects, and the next response channel agree with authoritative world/conversation state without duplicate semantic authorities; acceptance evidence must also exercise or prove parity with the real native context rather than worker-only state.
-**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until R9R1E is accepted.
-**Current repair authority:** `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+**Content rewrite gate:** superseded by S12. BULK_DIALOGUE_REWRITE_ALLOWED=false until S12B classification is accepted.
+**Current goal authority:** S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md.
 
 **Mandatory branching audit:** `S11_BRANCHING_DIALOGUE_AUDIT.md` is a normative scope input for S11C/S11D. Every maintained family classified there as a confirmed defect or high-risk state branch must be repaired or explicitly classified, and every reference-good family must remain regression-protected.
 

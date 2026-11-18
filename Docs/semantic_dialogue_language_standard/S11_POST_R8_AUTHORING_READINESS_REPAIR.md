@@ -1,6 +1,6 @@
 # S11 Post-R8 Closure Integrity and Dialogue Authoring Readiness Repair
 
-**Status:** HISTORICAL / IMPLEMENTED WITH POST-R9 USABILITY GAPS — R8D and R9A-R9D code are retained. Current repair authority: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+**Status:** HISTORICAL / IMPLEMENTED — R8D and R9A-R9D code are retained. Historical follow-up: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`. Current goal authority: `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
 **Audit date:** 2026-11-18
 **Parent goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Previous repair:** `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`
