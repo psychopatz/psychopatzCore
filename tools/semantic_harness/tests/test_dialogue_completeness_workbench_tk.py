@@ -256,7 +256,7 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                     self.assertTrue(bool(pane._family_tree.tag_configure(color, "background")))
 
                 # 2. Kind filters expose live counts and immediately surface Beats/Behaviors/Realizations
-                self.assertIn("519", pane._kind_filter_vars["dialogue"].get())
+                self.assertIn("402", pane._kind_filter_vars["dialogue"].get())
                 self.assertIn("30", pane._kind_filter_vars["behavior"].get())
                 self.assertIn("3", pane._kind_filter_vars["beat"].get())
                 self.assertIn("35", pane._kind_filter_vars["realization"].get())

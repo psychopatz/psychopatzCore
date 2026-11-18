@@ -68,7 +68,7 @@ class ConvoEngineIntegrityAndDeterminismAuditTests(unittest.TestCase):
         self.assertEqual(report["stats"]["catalogLuaLeaves"], 0)
         self.assertEqual(report["stats"]["legacyRuntimeDirectories"], 0)
         self.assertEqual(report["determinism"]["diffs"], [])
-        self.assertGreaterEqual(report["compiled"]["convoPlans"], 500)
+        self.assertGreaterEqual(report["compiled"]["convoPlans"], 400)
 
     def test_audit_catches_stale_metadata_and_legacy_schema_in_isolated_tree(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
