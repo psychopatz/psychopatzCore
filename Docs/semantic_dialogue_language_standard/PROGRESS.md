@@ -2,17 +2,22 @@
 
 **Status:** IN_PROGRESS — S12 ConvoEngine v1 Dynamic Dataset Modernization is active.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12B — machine-readable dataset modernization inventory and classification.
-**Immediate Next Chunk:** S12B — build and verify the machine-readable classification inventory across all maintained families before any broad dataset rewrite.
-**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until S12B classification inventory is accepted.
+**Active phase:** S12C — PsychopatzCore dataset modernization (classified batches).
+**Immediate Next Chunk:** S12C — modernize Core-owned families by coherent semantic domain using the S12B classification inventory.
+**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true` (classified batches only; S12B inventory accepted).
 
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   S12A commit: self (base d40384c3d1ac7b074d34ce45a0a8b602cc1dd45e)
+psychopatzCore   S12B commit: self (base 668311d)
 ProjectHoomans   5039b405
 DynamicTrading   f9c8e60f
 ~~~
+
+## S12B completed
+
+- Implemented `convo_engine_modernization_inventory.py`, `convo.modernization_inventory` (`OperationRegistry`), `modernization-inventory` CLI, and `test_convo_engine_modernization_inventory.py`.
+- Verified S12B gate: `catalogFamilyCount == inventoryFamilyCount == 587`, `unknownOwnershipCount == 0`, `unclassifiedCount == 0`, `splitAuthorityCount == 0`, `duplicateGroupCount == 28`.
 
 ## S12A completed
 

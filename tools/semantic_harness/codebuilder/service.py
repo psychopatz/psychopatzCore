@@ -1064,6 +1064,16 @@ class SemanticLabAuthoringService:
             prune_source=prune_source,
         )
 
+    def build_modernization_inventory(self) -> dict[str, Any]:
+        """Build the S12B machine-readable modernization inventory across all repositories."""
+        from .convo_engine_modernization_inventory import build_modernization_inventory
+
+        return build_modernization_inventory(
+            self.core_repository,
+            hoomans_repository=self.hoomans_repository,
+            dynamic_trading_repository=self.dynamic_trading_repository,
+        )
+
     def migrate_convo_engine_schema(
         self,
         *,

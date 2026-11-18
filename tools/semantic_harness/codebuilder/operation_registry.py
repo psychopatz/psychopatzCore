@@ -250,6 +250,20 @@ class OperationRegistry:
         )
         self.register(
             OperationDescriptor(
+                id="convo.modernization_inventory",
+                mode="query",
+                required_capability=None,
+                worker_requirement="none",
+                mutates_canonical=False,
+                mutates_runtime=False,
+                input_version="1",
+                output_version="psychopatz.convo-engine.modernization-inventory.v1",
+                summary="Build the S12B machine-readable dataset modernization classification inventory.",
+            ),
+            lambda _payload: self.service.build_modernization_inventory(),
+        )
+        self.register(
+            OperationDescriptor(
                 id="convo.audit",
                 mode="query",
                 required_capability=None,

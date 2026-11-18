@@ -165,6 +165,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_migrate_schema.add_argument("--owner", default=None)
     p_migrate_schema.add_argument("--write", action="store_true")
 
+    p_inv = sub.add_parser(
+        "modernization-inventory",
+        help="Generate the S12B machine-readable dataset modernization classification inventory",
+    )
+    _add_repo_args(p_inv)
+    p_inv.add_argument("--summary", action="store_true", help="Print summary and groups only")
+    p_inv.add_argument("--out", type=Path, default=None, help="Optional JSON output file")
+
     p_locate = sub.add_parser("locate", help="Locate package, source path, capabilities, and generated modules for a PSDL ID")
     _add_repo_args(p_locate)
     p_locate.add_argument("record_id", help="Canonical PSDL record ID")
@@ -292,6 +300,21 @@ def main(arguments: list[str] | None = None) -> int:
                 "convo.migrate_schema",
                 {"owner": args.owner, "write": bool(args.write)},
             )
+        elif args.command == "modernization-inventory":
+            result = svc.dispatch_operation("convo.modernization_inventory", {})
+            if args.out is not None:
+                out_path = args.out.expanduser().resolve()
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            if args.summary:
+                result = {
+                    "ok": result.get("ok"),
+                    "schema": result.get("schema"),
+                    "summary": result.get("summary"),
+                    "groupCount": len(result.get("groups") or ()),
+                    "groups": result.get("groups"),
+                    "operation": result.get("operation"),
+                }
         elif args.command == "audit-integrity":
             result = svc.dispatch_operation(
                 "convo.audit",
