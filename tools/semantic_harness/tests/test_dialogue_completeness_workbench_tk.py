@@ -78,6 +78,14 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                     "domains",
                 ):
                     self.assertIn(field_name, pane._editors)
+
+                # Verify Treeview + real semantic tags configured in real Tk
+                wb = pane.completeness_workbench
+                self.assertEqual(wb._issue_filter_var.get(), "needs_attention")
+                self.assertIsInstance(wb._family_tree, ttk.Treeview)
+                for color in ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN"):
+                    bg = wb._family_tree.tag_configure(color, "background")
+                    self.assertTrue(bool(bg))
         finally:
             root.destroy()
 

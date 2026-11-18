@@ -260,7 +260,10 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
             first_fid = next(iter(report["families"]))
             self.assertTrue(wb.select_family(first_fid))
             graph_dump = wb._graph_text.get("1.0", "end")
-            self.assertIn(f"FAMILY: {first_fid}", graph_dump)
+            self.assertIn(first_fid, graph_dump)
+            self.assertIn("Ends cleanly", graph_dump)
+            tech_dump = wb._tech_text.get("1.0", "end")
+            self.assertIn(f"FAMILY: {first_fid}", tech_dump)
 
             # Navigation resolves to canonical source, never generated Lua
             wb.open_canonical_source()
@@ -352,6 +355,38 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         pane._apply_filter()
         self.assertEqual(pane._current_family_id, "accept")
         self.assertEqual(pane.completeness_workbench._selected_family_id, "accept")
+
+    def test_problem_first_default_severity_ordering_and_real_command_camp_visibility(self) -> None:
+        service = SemanticLabAuthoringService()
+        wb = DialogueCompletenessWorkbench(
+            _FakeWidget(),
+            _FakeTk,
+            _FakeTtk,
+            _FakeWidget,
+            _FakeMessageBox(),
+            service,
+            auto_analyze=False,
+        )
+        self.assertEqual(wb._issue_filter_var.get(), "needs_attention")
+        wb.run_strict_analysis()
+        children = wb._family_tree.get_children()
+        self.assertIn("command.camp", children)
+        self.assertEqual(children[0], "command.camp")
+        item = wb._family_tree.item("command.camp")
+        self.assertIn("ORANGE", item["tags"])
+        self.assertIn("Warning / Risky", item["values"][0])
+
+        # Verify all 6 semantic tags are configured and severity-first sorting is deterministic
+        for color in ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN"):
+            self.assertIn(color, wb._family_tree._tags)
+
+        synth_report = analyze_portable_plan(_synthetic_plan(), action_contracts={"act.contract": {"id": "act.contract", "outcomeMap": {"ok": "ok", "failed": "failed"}}})
+        all_rows = filter_completeness_families(synth_report, issue_filter="all")
+        statuses = [r["semanticStatus"] for r in all_rows]
+        self.assertEqual(
+            statuses,
+            sorted(statuses, key=lambda s: ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN").index(s)),
+        )
 
 
 if __name__ == "__main__":

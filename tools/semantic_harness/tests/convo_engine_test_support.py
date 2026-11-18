@@ -72,11 +72,102 @@ class _FakeWidget:
     def size(self) -> int:
         return len(self._items)
 
-    def selection_set(self, index: int) -> None:
+    def selection_set(self, index: Any) -> None:
         self._selection = [index]
 
-    def curselection(self) -> tuple[int, ...]:
+    def selection_clear(self, *_args: Any) -> None:
+        self._selection.clear()
+
+    def see(self, *_args: Any) -> None:
+        return None
+
+    def focus_set(self) -> None:
+        self._focused = True
+
+    def curselection(self) -> tuple[Any, ...]:
         return tuple(self._selection)
+
+
+class _FakeTreeview(_FakeWidget):
+    def __init__(self, *_args: Any, **kwargs: Any) -> None:
+        super().__init__(*_args, **kwargs)
+        self._tree_items: dict[str, dict[str, Any]] = {}
+        self._order: list[str] = []
+        self._tags: dict[str, dict[str, Any]] = {}
+        self._headings: dict[str, dict[str, Any]] = {}
+        self._columns_cfg: dict[str, dict[str, Any]] = {}
+        self._counter = 0
+
+    def heading(self, col: str, **kwargs: Any) -> None:
+        self._headings.setdefault(col, {}).update(kwargs)
+
+    def column(self, col: str, **kwargs: Any) -> None:
+        self._columns_cfg.setdefault(col, {}).update(kwargs)
+
+    def tag_configure(self, tag_name: str, **kwargs: Any) -> None:
+        self._tags.setdefault(tag_name, {}).update(kwargs)
+
+    def get_children(self, *_args: Any) -> tuple[str, ...]:
+        return tuple(self._order)
+
+    def delete(self, *items: Any) -> None:
+        if len(items) == 2 and items[0] == 0 and items[1] == "end":
+            self._tree_items.clear()
+            self._order.clear()
+            self._selection.clear()
+            return
+        for item_id in items:
+            self._tree_items.pop(str(item_id), None)
+            if str(item_id) in self._order:
+                self._order.remove(str(item_id))
+            if item_id in self._selection:
+                self._selection.remove(item_id)
+
+    def insert(
+        self,
+        parent: str,
+        index: Any,
+        iid: str | None = None,
+        *,
+        text: str = "",
+        values: tuple[Any, ...] = (),
+        tags: tuple[str, ...] = (),
+    ) -> str:
+        if iid is None:
+            self._counter += 1
+            iid = f"I{self._counter:04d}"
+        self._tree_items[iid] = {
+            "parent": parent,
+            "text": text,
+            "values": tuple(values),
+            "tags": tuple(tags),
+        }
+        if index == "end" or not isinstance(index, int):
+            self._order.append(iid)
+        else:
+            self._order.insert(index, iid)
+        return iid
+
+    def item(self, iid: str, option: str | None = None, **kwargs: Any) -> Any:
+        entry = self._tree_items.get(str(iid), {})
+        if kwargs:
+            entry.update(kwargs)
+            return None
+        if option is not None:
+            return entry.get(option)
+        return dict(entry)
+
+    def selection(self) -> tuple[Any, ...]:
+        return tuple(self._selection)
+
+    def selection_set(self, items: Any) -> None:
+        if isinstance(items, (list, tuple)):
+            self._selection = list(items)
+        else:
+            self._selection = [items]
+
+    def xview(self, *_args: Any) -> None:
+        return None
 
 
 class _FakeTk:
@@ -94,6 +185,7 @@ class _FakeTtk:
     Scrollbar = _FakeWidget
     Notebook = _FakeWidget
     PanedWindow = _FakeWidget
+    Treeview = _FakeTreeview
 
 
 class _FakeMessageBox:
