@@ -38,11 +38,16 @@ local function run_role_test(testName, roleSetup, testBody)
         print("%s: ok")
     ]], roleSetup, testBody, testName)
 
-    local f = io.open("/tmp/role_test.lua", "w")
+    local tmpPath = os.tmpname()
+    local f, err = io.open(tmpPath, "w")
+    if not f then
+        error("Failed to open temp role test file " .. tostring(tmpPath) .. ": " .. tostring(err))
+    end
     f:write(script)
     f:close()
 
-    local res = os.execute("lua /tmp/role_test.lua")
+    local res = os.execute("lua " .. tmpPath)
+    os.remove(tmpPath)
     if res ~= 0 and res ~= true then
         error("Role test failed: " .. testName)
     end

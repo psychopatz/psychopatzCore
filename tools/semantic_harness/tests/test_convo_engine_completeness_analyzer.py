@@ -4,10 +4,14 @@ from __future__ import annotations
 
 import unittest
 
+from pathlib import Path
+
 from tools.semantic_harness.codebuilder.completeness_analyzer import (
     COMPLETENESS_REPORT_SCHEMA,
     analyze_portable_plan,
+    load_constrained_family_manifest,
 )
+from tools.semantic_harness.codebuilder.conversation_compiler import compile_conversation_sources
 from tools.semantic_harness.codebuilder.portable_runtime import compile_portable_plan
 from tools.semantic_harness.codebuilder.psdl_compiler import compile_convo_engine_document
 from tools.semantic_harness.codebuilder.semantic_dialogue_ir import CONVO_ENGINE_SCHEMA
@@ -161,6 +165,79 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
         codes = {d["code"] for d in report["diagnostics"]}
         self.assertIn("dead_end", codes)
         self.assertIn("unhandled_action_outcome", codes)
+
+    def test_constrained_manifest_fails_when_required_stateful_family_is_missing_or_unmigrated(self) -> None:
+        # 1. Missing required CANONICAL_STATEFUL family fails automatically
+        other_plan = _plan(
+            [
+                {
+                    "kind": "dialogue",
+                    "namespace": "test",
+                    "id": "unrelated_family",
+                    "say": "Hi.",
+                }
+            ]
+        )
+        manifest = {
+            "schema": "psychopatz.convo-engine.constrained-family-manifest.v1",
+            "entries": [
+                {
+                    "auditId": "audit.required.demo",
+                    "canonicalFamilyId": "test.required_missing",
+                    "classification": "CANONICAL_STATEFUL",
+                    "migrationPhase": "accepted",
+                    "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
+                    "acceptanceOwner": "tests/demo.json",
+                }
+            ],
+        }
+        report_missing = analyze_portable_plan(other_plan, constrained_manifest=manifest)
+        self.assertFalse(report_missing["ok"])
+        self.assertIn("missing_canonical_stateful_family", {d["code"] for d in report_missing["diagnostics"]})
+
+        # 2. Present family without canonical S11 policy fields fails automatically
+        unmigrated_plan = _plan(
+            [
+                {
+                    "kind": "dialogue",
+                    "namespace": "test",
+                    "id": "required_unmigrated",
+                    "say": "Hello.",
+                }
+            ]
+        )
+        manifest_unmigrated = {
+            "schema": "psychopatz.convo-engine.constrained-family-manifest.v1",
+            "entries": [
+                {
+                    "auditId": "audit.required.unmigrated",
+                    "canonicalFamilyId": "test.required_unmigrated",
+                    "classification": "CANONICAL_STATEFUL",
+                    "migrationPhase": "accepted",
+                    "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
+                    "acceptanceOwner": "tests/demo.json",
+                }
+            ],
+        }
+        report_unmigrated = analyze_portable_plan(unmigrated_plan, constrained_manifest=manifest_unmigrated)
+        self.assertFalse(report_unmigrated["ok"])
+        self.assertIn("missing_required_state_policy", {d["code"] for d in report_unmigrated["diagnostics"]})
+
+        # 3. Real 3-repo manifest passes for currently accepted entries, and fails under strict_manifest until R2/R3 complete
+        core_root = Path(__file__).resolve().parents[3]
+        model = compile_conversation_sources(
+            core_root,
+            package_repositories={
+                "PsychopatzCore": core_root,
+                "ProjectHoomans": core_root.parent / "ProjectHoomans",
+                "DTCommon": core_root.parent / "DynamicTrading",
+            },
+        )
+        real_manifest = load_constrained_family_manifest()
+        r0_report = analyze_portable_plan(model["portablePlan"], constrained_manifest=real_manifest, strict_manifest=False)
+        self.assertTrue(r0_report["ok"], r0_report)
+        strict_report = analyze_portable_plan(model["portablePlan"], constrained_manifest=real_manifest, strict_manifest=True)
+        self.assertFalse(strict_report["ok"])
 
 
 if __name__ == "__main__":

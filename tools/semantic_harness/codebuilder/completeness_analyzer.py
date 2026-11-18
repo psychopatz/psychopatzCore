@@ -7,14 +7,25 @@ machine-readable diagnostics for CodeBuilder, CLI, and Semantic Lab.
 
 from __future__ import annotations
 
+import json
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 from .portable_runtime import PORTABLE_PLAN_SCHEMA
 from .semantic_contract import FORBIDDEN_POSITIONAL_ROLES, ROLE_CARDINALITIES
 
 COMPLETENESS_REPORT_SCHEMA = "psychopatz.convo-engine.completeness-report.v1"
+CONSTRAINED_MANIFEST_SCHEMA = "psychopatz.convo-engine.constrained-family-manifest.v1"
+CONSTRAINED_MANIFEST_PATH = Path(__file__).resolve().with_name("constrained_family_manifest.json")
+MANIFEST_CLASSIFICATIONS = frozenset({
+    "CANONICAL_STATEFUL",
+    "EXPLICIT_PRESENTATION_ONLY",
+    "REFERENCE_GOOD_REGRESSION",
+    "RETIRED",
+})
+DEFAULT_REQUIRED_STATEFUL_POLICY = ("statePolicy", "inputPolicy", "repeatPolicy", "closure")
 BOUNDED_REPEAT_POLICIES = frozenset({"once", "cooldown", "max_uses", "state_retired"})
 MULTI_CARDINALITIES = frozenset({"ONE_OR_MORE", "ZERO_OR_MORE", "BOUNDED_MANY"})
 
@@ -104,11 +115,142 @@ def _collect_edges(dialogue_id: str, dlg: Mapping[str, Any]) -> tuple[list[str],
     return targets, refs
 
 
+def load_constrained_family_manifest(path: Path | None = None) -> dict[str, Any]:
+    target = path or CONSTRAINED_MANIFEST_PATH
+    data = json.loads(target.read_text(encoding="utf-8"))
+    if not isinstance(data, Mapping) or data.get("schema") != CONSTRAINED_MANIFEST_SCHEMA:
+        raise ValueError(f"Invalid constrained-family manifest schema in {target}")
+    return dict(data)
+
+
+def _validate_constrained_manifest(
+    dialogues: Mapping[str, Mapping[str, Any]],
+    manifest: Mapping[str, Any],
+    *,
+    strict_manifest: bool,
+    diagnostics: list[CompletenessDiagnostic],
+) -> None:
+    entries = manifest.get("entries")
+    if not isinstance(entries, list) or not entries:
+        diagnostics.append(
+            CompletenessDiagnostic(
+                code="invalid_manifest",
+                severity="error",
+                family_id="<manifest>",
+                path="manifest.entries",
+                message="Constrained-family manifest must declare a non-empty entries list",
+                repair_hint="Populate constrained_family_manifest.json from S11_BRANCHING_DIALOGUE_AUDIT.md.",
+            )
+        )
+        return
+    seen_audit_ids: set[str] = set()
+    for idx, entry in enumerate(entries):
+        if not isinstance(entry, Mapping):
+            continue
+        aid = str(entry.get("auditId") or f"entry[{idx}]")
+        if aid in seen_audit_ids:
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="duplicate_manifest_audit_id",
+                    severity="error",
+                    family_id=aid,
+                    path=f"manifest.entries[{idx}].auditId",
+                    message=f"Duplicate manifest auditId {aid!r}",
+                    repair_hint="Ensure each branching-audit row appears once.",
+                )
+            )
+            continue
+        seen_audit_ids.add(aid)
+        classification = entry.get("classification")
+        if classification not in MANIFEST_CLASSIFICATIONS:
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="invalid_manifest_classification",
+                    severity="error",
+                    family_id=aid,
+                    path=f"manifest.entries[{idx}].classification",
+                    message=f"Unsupported classification {classification!r}",
+                    repair_hint=f"Use one of {sorted(MANIFEST_CLASSIFICATIONS)}.",
+                )
+            )
+            continue
+        owner = str(entry.get("acceptanceOwner") or "").strip()
+        reason = str(entry.get("reason") or "").strip()
+        fid = entry.get("canonicalFamilyId")
+        if classification in ("EXPLICIT_PRESENTATION_ONLY", "REFERENCE_GOOD_REGRESSION"):
+            if not owner:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="missing_acceptance_owner",
+                        severity="error",
+                        family_id=str(fid or aid),
+                        path=f"manifest.entries[{idx}].acceptanceOwner",
+                        message=f"{classification} entry {aid!r} requires acceptanceOwner",
+                        repair_hint="Bind an explicit regression test or fixture path.",
+                    )
+                )
+            if classification == "EXPLICIT_PRESENTATION_ONLY" and not reason:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="missing_presentation_only_reason",
+                        severity="error",
+                        family_id=str(fid or aid),
+                        path=f"manifest.entries[{idx}].reason",
+                        message=f"EXPLICIT_PRESENTATION_ONLY entry {aid!r} requires an explicit reason",
+                        repair_hint="Document why typed parity is intentionally omitted.",
+                    )
+                )
+        elif classification == "RETIRED":
+            if isinstance(fid, str) and fid in dialogues:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="retired_family_still_present",
+                        severity="error",
+                        family_id=fid,
+                        path=f"manifest.entries[{idx}]",
+                        message=f"Retired family {fid!r} is still present in Portable Plan",
+                        repair_hint="Delete superseded canonical/runtime artifacts and reconcile.",
+                    )
+                )
+        elif classification == "CANONICAL_STATEFUL":
+            phase = str(entry.get("migrationPhase") or "accepted")
+            if not strict_manifest and phase != "accepted":
+                continue
+            if not isinstance(fid, str) or not fid or fid not in dialogues:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="missing_canonical_stateful_family",
+                        severity="error",
+                        family_id=str(fid or aid),
+                        path=f"manifest.entries[{idx}].canonicalFamilyId",
+                        message=f"Required CANONICAL_STATEFUL family {fid!r} ({aid}) is absent from Portable Plan",
+                        repair_hint="Author the family in canonical CodeBuilder source and regenerate.",
+                    )
+                )
+                continue
+            dlg = dialogues[fid]
+            required = entry.get("requiredPolicy") or DEFAULT_REQUIRED_STATEFUL_POLICY
+            missing_fields = [f for f in required if not dlg.get(f)]
+            if missing_fields:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="missing_required_state_policy",
+                        severity="error",
+                        family_id=fid,
+                        path=fid,
+                        message=f"Required CANONICAL_STATEFUL family {fid!r} lacks canonical policy fields: {missing_fields}",
+                        repair_hint="Add the required S11 policy fields in canonical CodeBuilder source.",
+                    )
+                )
+
+
 def analyze_portable_plan(
     plan: Mapping[str, Any],
     *,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
     covered_family_ids: Iterable[str] | None = None,
+    constrained_manifest: Mapping[str, Any] | None = None,
+    strict_manifest: bool = False,
 ) -> dict[str, Any]:
     """Analyze a Portable Dialogue Plan and return a machine-readable completeness report."""
     if not isinstance(plan, Mapping) or plan.get("schema") != PORTABLE_PLAN_SCHEMA:
@@ -376,6 +518,14 @@ def analyze_portable_plan(
                 )
             )
 
+    if constrained_manifest is not None:
+        _validate_constrained_manifest(
+            dialogues,
+            constrained_manifest,
+            strict_manifest=strict_manifest,
+            diagnostics=diagnostics,
+        )
+
     errors = [d for d in diagnostics if d.severity == "error"]
     warnings = [d for d in diagnostics if d.severity == "warning"]
     infos = [d for d in diagnostics if d.severity == "info"]
@@ -395,6 +545,10 @@ def analyze_portable_plan(
 
 __all__ = [
     "COMPLETENESS_REPORT_SCHEMA",
+    "CONSTRAINED_MANIFEST_PATH",
+    "CONSTRAINED_MANIFEST_SCHEMA",
     "CompletenessDiagnostic",
+    "MANIFEST_CLASSIFICATIONS",
     "analyze_portable_plan",
+    "load_constrained_family_manifest",
 ]

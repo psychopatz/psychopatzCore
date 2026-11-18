@@ -4,14 +4,14 @@
 status: IN_PROGRESS
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S11 repair — prior S11E closure revoked
-chunk: R0 — acceptance-authority repair
+phase: S11 repair — R0 accepted
+chunk: R1 — finish S11B Identity retirement
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md
 foundation_order_doc: Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md
-updated_at: 2026-11-18
+updated_at: 2026-11-18T08:57:00Z
 ~~~
 
 ## Audited participant checkpoint

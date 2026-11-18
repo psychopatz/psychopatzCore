@@ -1207,15 +1207,21 @@ class SemanticLabAuthoringService:
         self,
         *,
         covered_family_ids: Iterable[str] | None = None,
+        strict_manifest: bool = False,
     ) -> dict[str, Any]:
-        """Run the canonical S11A4 Dialogue Completeness Analyzer on the compiled Portable Plan."""
-        from .completeness_analyzer import analyze_portable_plan
+        """Run the canonical Dialogue Completeness Analyzer on the compiled Portable Plan."""
+        from .completeness_analyzer import (
+            analyze_portable_plan,
+            load_constrained_family_manifest,
+        )
 
         model, _rendered, _reports = self._conversation_plan()
         portable_plan = model.get("portablePlan")
         return analyze_portable_plan(
             portable_plan,
             covered_family_ids=covered_family_ids,
+            constrained_manifest=load_constrained_family_manifest(),
+            strict_manifest=strict_manifest,
         )
 
     @staticmethod

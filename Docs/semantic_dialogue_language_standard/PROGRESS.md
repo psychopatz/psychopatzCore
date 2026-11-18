@@ -1,9 +1,9 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — prior S11E closure revoked by post-implementation audit.
+**Status:** IN_PROGRESS — R0 accepted (constrained-family manifest & completeness enforcement + `psychopatz_runtime_role_split_smoke.lua` fixed); advancing to R1.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11 repair — R0 acceptance-authority repair before finishing S11B/S11C and executing S11D.
-**Immediate Next Chunk:** R0 only — preserve the implemented S11A foundation; add a mandatory constrained-family acceptance manifest derived from `S11_BRANCHING_DIALOGUE_AUDIT.md`; make Completeness/acceptance fail when a required stateful family remains outside canonical policy; add negative coverage; and diagnose/fix or correctly baseline the current retained Core Lua acceptance failure. Do not broad-migrate production dialogue during R0.
+**Active phase:** S11 repair — R1 finish S11B Identity retirement (`Flow_Identity.lua`).
+**Immediate Next Chunk:** R1 — move any remaining Identity flow ownership into canonical CodeBuilder source, prove parity, prove caller/reference zero for `Flow_Identity.lua`, and delete `Flow_Identity.lua` (no forwarding shim).
 
 ## Current audited checkpoint
 
