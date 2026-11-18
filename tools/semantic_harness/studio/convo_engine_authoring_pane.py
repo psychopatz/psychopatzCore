@@ -87,6 +87,9 @@ class ConvoEngineAuthoringPane:
         self._document: dict[str, Any] | None = None
         self._loaded_fingerprint: str | None = None
         self._editors: dict[str, Any] = {}
+        self._editor_boxes: dict[str, Any] = {}
+        self._s11_scalar_widgets: dict[str, Any] = {}
+        self._highlighted_field: str | None = None
         self._action_contracts: list[dict[str, Any]] = []
 
         self._status_var = tk.StringVar(value="Refresh to load ConvoEngine families")
@@ -270,10 +273,11 @@ class ConvoEngineAuthoringPane:
                     width=18,
                 )
                 box.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
+                self._s11_scalar_widgets[name] = box
             else:
-                ttk.Entry(s11_scalars, textvariable=self._s11_scalar_vars[name]).grid(
-                    row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8)
-                )
+                entry = ttk.Entry(s11_scalars, textvariable=self._s11_scalar_vars[name])
+                entry.grid(row=0, column=col_idx * 2 + 1, sticky="ew", padx=(0, 8))
+                self._s11_scalar_widgets[name] = entry
             s11_scalars.columnconfigure(col_idx * 2 + 1, weight=1)
 
         s11_json_host = ttk.PanedWindow(s11_controls, orient="vertical")
@@ -297,6 +301,7 @@ class ConvoEngineAuthoringPane:
             editor = self._ScrolledText(box, height=3, wrap="none")
             editor.grid(row=0, column=0, sticky="nsew")
             self._editors[name] = editor
+            self._editor_boxes[name] = box
 
         completeness_tab.rowconfigure(0, weight=1)
         completeness_tab.columnconfigure(0, weight=1)
@@ -309,6 +314,7 @@ class ConvoEngineAuthoringPane:
             self.service,
             on_open_family=self.open_family_from_completeness,
             on_select_family=self.select_family_from_completeness,
+            on_run_family_tests=self.run_family_tests,
             auto_analyze=False,
         )
         if callable(getattr(notebook, "bind", None)) and callable(getattr(notebook, "select", None)):
@@ -344,6 +350,7 @@ class ConvoEngineAuthoringPane:
             editor = self._ScrolledText(box, height=4, wrap="none")
             editor.grid(row=0, column=0, sticky="nsew")
             self._editors[name] = editor
+            self._editor_boxes[name] = box
 
         preview.columnconfigure(0, weight=1)
         preview.rowconfigure(3, weight=1)
@@ -524,23 +531,109 @@ class ConvoEngineAuthoringPane:
         finally:
             self._syncing_selection = False
 
+    @staticmethod
+    def resolve_target_field(
+        field_path: str | None,
+        diag_code: str | None = None,
+    ) -> str | None:
+        """Map a diagnostic path/code to the exact canonical editor control name."""
+        known_fields = (
+            "statePolicy",
+            "inputPolicy",
+            "repeatPolicy",
+            "postconditions",
+            "closure",
+            "roles",
+            "participantSet",
+            "topics",
+            "events",
+            "activities",
+            "memories",
+            "domains",
+            "reply",
+            "after",
+            "when",
+            "say",
+            "execute",
+            "affordance",
+        )
+        raw = str(field_path or "")
+        for name in known_fields:
+            if f".{name}" in raw or raw == name or raw.startswith(f"{name}.") or raw.startswith(f"{name}["):
+                return name
+        code_map = {
+            "stale_poststate_risk": "statePolicy",
+            "unhandled_state_outcome": "statePolicy",
+            "pending_without_exit": "statePolicy",
+            "unreachable_branch": "statePolicy",
+            "unhandled_action_outcome": "reply",
+            "dead_end": "after",
+            "unbounded_loop": "repeatPolicy",
+            "missing_repeat_policy": "repeatPolicy",
+            "dangling_memory": "closure",
+            "lost_commitment": "closure",
+            "role_unbound": "roles",
+            "role_cardinality_mismatch": "roles",
+            "unbounded_group_reaction": "participantSet",
+        }
+        return code_map.get(str(diag_code or ""))
+
+    def focus_field(
+        self,
+        field_path: str | None,
+        diag_code: str | None = None,
+    ) -> str | None:
+        """Switch to the owning tab and focus/highlight the exact canonical editor control."""
+        field_name = self.resolve_target_field(field_path, diag_code)
+        target_tab = (
+            self._s11_controls_tab
+            if field_name in _S11_CONTROL_NAMES
+            else self._structured_tab
+        )
+        if callable(getattr(self._right_notebook, "select", None)):
+            self._right_notebook.select(target_tab)
+        if not field_name:
+            return None
+        widget = self._editors.get(field_name) or self._s11_scalar_widgets.get(field_name)
+        if widget is not None:
+            if callable(getattr(widget, "focus_set", None)):
+                try:
+                    widget.focus_set()
+                except Exception:
+                    pass
+            try:
+                widget.configure(highlightthickness=2, highlightbackground="#d97706")
+            except Exception:
+                pass
+        self._highlighted_field = field_name
+        return field_name
+
     def open_family_from_completeness(
         self,
         family_id: str,
         field_path: str | None = None,
+        diag_code: str | None = None,
     ) -> bool:
-        """Select a canonical family in the authoring form from a completeness diagnostic."""
+        """Select a canonical family in the authoring form and focus the affected field."""
         if not self.select_family_from_completeness(family_id):
             return False
-        target_tab = self._structured_tab
-        if field_path:
-            for name in _S11_CONTROL_NAMES:
-                if f".{name}" in field_path or field_path.endswith(name):
-                    target_tab = self._s11_controls_tab
-                    break
-        if callable(getattr(self._right_notebook, "select", None)):
-            self._right_notebook.select(target_tab)
+        self.focus_field(field_path, diag_code)
         return True
+
+    def run_family_tests(self, family_id: str) -> dict[str, Any]:
+        """Delegate family-level test execution to SemanticLabAuthoringService."""
+        fn = getattr(self.service, "run_family_tests", None)
+        if callable(fn):
+            result = fn(family_id)
+        else:
+            result = {
+                "ok": True,
+                "ran": False,
+                "familyId": family_id,
+                "message": "No exact family-level runnable test is registered",
+            }
+        self._status_var.set(str(result.get("message") or f"Family test check complete for {family_id}"))
+        return result
 
     def _family_selected(self) -> None:
         selection = self._family_list.curselection()
@@ -865,7 +958,10 @@ class ConvoEngineAuthoringPane:
         )
         if written.get("ok") is True:
             self._loaded_fingerprint = written.get("sourceFingerprint")
+            saved_fid = self._current_family_id
             self.refresh()
+            if hasattr(self, "completeness_workbench") and self.completeness_workbench._report and saved_fid:
+                self.completeness_workbench.run_affected_analysis([saved_fid])
         return written
 
     def run_integrity_audit(self) -> dict[str, Any]:

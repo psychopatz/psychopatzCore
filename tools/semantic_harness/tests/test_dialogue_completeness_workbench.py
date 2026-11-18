@@ -388,6 +388,73 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
             sorted(statuses, key=lambda s: ("RED", "ORANGE", "YELLOW", "BLUE", "PURPLE", "GREEN").index(s)),
         )
 
+    def test_exact_field_navigation_family_tests_contextual_repair_and_auto_reanalysis(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repos = _setup_three_repo_workspace(Path(tmp))
+            service = SemanticLabAuthoringService(
+                repos["core"],
+                runtime_root=repos["hoomans"],
+                core_repository=repos["core"],
+                hoomans_repository=repos["hoomans"],
+                dynamic_trading_repository=repos["dt"],
+            )
+            pane = ConvoEngineAuthoringPane(
+                _FakeWidget(),
+                _FakeTk,
+                _FakeTtk,
+                _FakeWidget,
+                _FakeMessageBox(),
+                service,
+                auto_refresh=True,
+            )
+            wb = pane.completeness_workbench
+            self.assertIsNotNone(wb._on_run_family_tests)
+
+            # Healthy family disables repair controls and says No structural repair needed
+            wb.ensure_loaded()
+            first_fid = next(iter(wb._report["families"]))
+            wb.select_family(first_fid)
+            self.assertEqual(wb._repair_status_var.get(), "No structural repair needed")
+            self.assertEqual(wb._preview_btn._config.get("state"), "disabled")
+            self.assertEqual(wb._apply_btn._config.get("state"), "disabled")
+
+            # Run family tests returns explicit message when no owner is registered
+            t_res = wb.run_family_tests()
+            self.assertIsNotNone(t_res)
+            self.assertFalse(t_res["ran"])
+            self.assertEqual(t_res["message"], "No exact family-level runnable test is registered")
+
+            # Exact-field navigation resolves diagnostic paths to exact controls
+            for path, expected_field in (
+                ("f.reply.failed", "reply"),
+                ("f.statePolicy[0].replyOutcome", "statePolicy"),
+                ("f.postconditions", "postconditions"),
+                ("f.repeatPolicy", "repeatPolicy"),
+                ("f.closure.episodeId", "closure"),
+                ("f.after", "after"),
+                ("f.roles.speaker", "roles"),
+                ("f.participantSet", "participantSet"),
+            ):
+                self.assertEqual(pane.focus_field(path), expected_field)
+                self.assertEqual(pane._highlighted_field, expected_field)
+
+            # Contextual repair card populates on diagnostic and auto-reanalysis runs on save
+            pane.open_family_from_completeness(first_fid, f"{first_fid}.repeatPolicy")
+            self.assertEqual(pane._highlighted_field, "repeatPolicy")
+            pane._s11_scalar_vars["repeatPolicy"].set("state_retired")
+            wb._issue_filter_var.set("all")
+            with mock.patch.object(
+                wb,
+                "run_affected_analysis",
+                wraps=wb.run_affected_analysis,
+            ) as spy_affected:
+                written = pane.write_source()
+                self.assertTrue(written["ok"])
+                spy_affected.assert_called_once_with([first_fid])
+            self.assertEqual(pane._current_family_id, first_fid)
+            self.assertEqual(wb._selected_family_id, first_fid)
+            self.assertEqual(wb._issue_filter_var.get(), "all")
+
 
 if __name__ == "__main__":
     unittest.main()

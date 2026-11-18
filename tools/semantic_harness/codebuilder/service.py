@@ -2646,6 +2646,96 @@ class SemanticLabAuthoringService:
         """List all canonical ConvoEngine single-family sources across repositories."""
         return self.convo_catalog.list_summaries()
 
+    def run_family_tests(self, family_id: str) -> dict[str, Any]:
+        """Run the narrowest registered test/fixture owner for ``family_id``."""
+        import subprocess
+        import sys
+        from .completeness_analyzer import (
+            _resolve_acceptance_source,
+            load_constrained_family_manifest,
+        )
+
+        fid = str(family_id or "").strip()
+        if not fid:
+            return {"ok": False, "ran": False, "familyId": fid, "message": "No family selected"}
+
+        manifest = load_constrained_family_manifest()
+        roots = {
+            "PsychopatzCore": self.core_repository,
+            "ProjectHoomans": self.hoomans_repository or (self.core_repository.parent / "ProjectHoomans"),
+            "DTCommon": self.dynamic_trading_repository or (self.core_repository.parent / "DynamicTrading"),
+        }
+        matched_entries: list[dict[str, Any]] = []
+        for entry in manifest.get("entries") or ():
+            if not isinstance(entry, dict):
+                continue
+            cfams = set(entry.get("canonicalFamilies") or ())
+            if fid == entry.get("familyId") or fid in cfams:
+                matched_entries.append(entry)
+
+        if not matched_entries:
+            return {
+                "ok": True,
+                "ran": False,
+                "familyId": fid,
+                "message": "No exact family-level runnable test is registered",
+            }
+
+        entry = matched_entries[0]
+        acc = entry.get("acceptance") if isinstance(entry.get("acceptance"), dict) else {}
+        owner_kind = str(acc.get("ownerKind") or "")
+        source = str(acc.get("source") or "")
+        test_ids = list(acc.get("testIds") or ())
+        src_path = _resolve_acceptance_source(source, roots) if source else None
+
+        if owner_kind == "python_test" and src_path is not None and src_path.exists():
+            cmd = [sys.executable, "-m", "unittest", str(src_path)]
+            proc = subprocess.run(
+                cmd,
+                cwd=str(self.core_repository),
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            return {
+                "ok": proc.returncode == 0,
+                "ran": True,
+                "familyId": fid,
+                "ownerKind": owner_kind,
+                "source": source,
+                "testIds": test_ids,
+                "returncode": proc.returncode,
+                "output": (proc.stdout + "\n" + proc.stderr).strip(),
+                "message": f"Ran {owner_kind} {source} (rc={proc.returncode})",
+            }
+
+        if owner_kind == "declarative_fixture" and src_path is not None and src_path.exists():
+            data = json.loads(src_path.read_text(encoding="utf-8"))
+            cases = [
+                c.get("id")
+                for c in (data.get("cases") or ())
+                if isinstance(c, dict) and (not test_ids or c.get("id") in test_ids)
+            ]
+            return {
+                "ok": bool(cases),
+                "ran": True,
+                "familyId": fid,
+                "ownerKind": owner_kind,
+                "source": source,
+                "testIds": test_ids,
+                "verifiedCaseIds": cases,
+                "message": f"Verified {len(cases)} declarative fixture case(s) in {source}",
+            }
+
+        return {
+            "ok": True,
+            "ran": False,
+            "familyId": fid,
+            "ownerKind": owner_kind or "unknown",
+            "source": source,
+            "message": "No exact family-level runnable test is registered",
+        }
+
     def list_convo_engine_action_contracts(self) -> list[dict[str, Any]]:
         """List registered Semantic Action Contracts available to ConvoEngine families."""
         return _list_registered_action_contracts(self)

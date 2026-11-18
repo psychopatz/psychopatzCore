@@ -260,6 +260,8 @@ class DialogueCompletenessWorkbench:
         }
         self._scaffold_kind_var = tk.StringVar(value="closure")
         self._scaffold_outcome_var = tk.StringVar(value="accepted")
+        self._repair_status_var = tk.StringVar(value="No structural repair needed")
+        self._adv_repair_visible = False
 
         self._build_ui()
         if auto_analyze:
@@ -424,9 +426,9 @@ class DialogueCompletenessWorkbench:
         self._diag_list.grid(row=0, column=0, sticky="nsew")
         self._diag_list.bind("<<ListboxSelect>>", lambda _e: self._on_diag_select())
 
-        detail_box = ttk.LabelFrame(right, text="Diagnostic Detail, Navigation & Safe Scaffolding")
+        detail_box = ttk.LabelFrame(right, text="Contextual Repair, Navigation & Verification")
         detail_box.grid(row=2, column=0, sticky="nsew")
-        detail_box.rowconfigure(2, weight=1)
+        detail_box.rowconfigure(3, weight=1)
         detail_box.columnconfigure(0, weight=1)
 
         nav_bar = ttk.Frame(detail_box)
@@ -437,11 +439,27 @@ class DialogueCompletenessWorkbench:
         if self._on_run_family_tests is not None:
             ttk.Button(nav_bar, text="Run family tests", command=self.run_family_tests).pack(side="left", padx=4)
 
-        scaf_bar = ttk.Frame(detail_box)
-        scaf_bar.grid(row=1, column=0, sticky="ew", pady=(0, 4))
-        ttk.Label(scaf_bar, text="Scaffold").pack(side="left")
+        repair_card = ttk.Frame(detail_box)
+        repair_card.grid(row=1, column=0, sticky="ew", pady=(0, 4))
+        repair_card.columnconfigure(0, weight=1)
+        ttk.Label(repair_card, textvariable=self._repair_status_var).grid(row=0, column=0, sticky="w")
+        repair_btns = ttk.Frame(repair_card)
+        repair_btns.grid(row=0, column=1, sticky="e")
+        self._preview_btn = ttk.Button(repair_btns, text="Preview", command=self.preview_scaffold)
+        self._preview_btn.pack(side="left")
+        self._apply_btn = ttk.Button(repair_btns, text="Apply", command=self.apply_scaffold)
+        self._apply_btn.pack(side="left", padx=4)
+        self._adv_repair_btn = ttk.Button(
+            repair_btns,
+            text="Advanced repair tools",
+            command=self._toggle_advanced_repair,
+        )
+        self._adv_repair_btn.pack(side="left")
+
+        self._adv_repair_frame = ttk.Frame(detail_box)
+        ttk.Label(self._adv_repair_frame, text="Scaffold").pack(side="left")
         self._scaffold_box = ttk.Combobox(
-            scaf_bar,
+            self._adv_repair_frame,
             textvariable=self._scaffold_kind_var,
             state="readonly",
             values=(
@@ -456,12 +474,11 @@ class DialogueCompletenessWorkbench:
             width=16,
         )
         self._scaffold_box.pack(side="left", padx=4)
-        ttk.Entry(scaf_bar, textvariable=self._scaffold_outcome_var, width=14).pack(side="left", padx=(0, 4))
-        ttk.Button(scaf_bar, text="Preview scaffold", command=self.preview_scaffold).pack(side="left")
-        ttk.Button(scaf_bar, text="Apply scaffold", command=self.apply_scaffold).pack(side="left", padx=4)
+        ttk.Entry(self._adv_repair_frame, textvariable=self._scaffold_outcome_var, width=14).pack(side="left", padx=(0, 4))
 
-        self._detail_text = self._ScrolledText(detail_box, height=8, wrap="none", state="disabled")
-        self._detail_text.grid(row=2, column=0, sticky="nsew")
+        self._detail_text = self._ScrolledText(detail_box, height=7, wrap="word", state="disabled")
+        self._detail_text.grid(row=3, column=0, sticky="nsew")
+        self._set_repair_controls_enabled(False)
 
     def ensure_loaded(self) -> dict[str, Any]:
         if not self._report:
@@ -825,7 +842,35 @@ class DialogueCompletenessWorkbench:
             self._on_diag_select()
         else:
             self._selected_diagnostic = None
-            self._set_text(self._detail_text, "No diagnostics for this family.")
+            self._repair_status_var.set("No structural repair needed")
+            self._set_repair_controls_enabled(False)
+            self._set_text(
+                self._detail_text,
+                "No structural repair needed.\n\nThis family has no active authoring-health diagnostics.",
+            )
+
+    def _toggle_advanced_repair(self) -> None:
+        self._adv_repair_visible = not self._adv_repair_visible
+        if self._adv_repair_visible:
+            self._adv_repair_frame.grid(row=2, column=0, sticky="ew", pady=(0, 4))
+        else:
+            try:
+                self._adv_repair_frame.grid_remove()
+            except Exception:
+                pass
+
+    def _set_repair_controls_enabled(self, enabled: bool) -> None:
+        state = "normal" if enabled else "disabled"
+        combo_state = "readonly" if enabled else "disabled"
+        for btn in (self._preview_btn, self._apply_btn):
+            try:
+                btn.configure(state=state)
+            except Exception:
+                pass
+        try:
+            self._scaffold_box.configure(state=combo_state)
+        except Exception:
+            pass
 
     def _on_diag_select(self) -> None:
         sel = self._diag_list.curselection()
@@ -836,8 +881,21 @@ class DialogueCompletenessWorkbench:
             return
         diag = self._family_diagnostics[idx]
         self._selected_diagnostic = diag
-        self._scaffold_kind_var.set(suggest_scaffold_kind(str(diag.get("code") or "")))
-        self._set_text(self._detail_text, json.dumps(diag, indent=2, ensure_ascii=False))
+        suggested = suggest_scaffold_kind(str(diag.get("code") or ""))
+        self._scaffold_kind_var.set(suggested)
+        self._repair_status_var.set(f"Suggested structural fix: {suggested}")
+        self._set_repair_controls_enabled(True)
+        why = diag.get("missingOwnership") or "Authoring-health policy requires explicit declaration."
+        card_text = "\n".join(
+            [
+                f"Problem: {diag.get('message')}",
+                f"Why it matters: {why} ({diag.get('code')})",
+                f"Suggested structural fix: {diag.get('repairHint')} [scaffold: {suggested}]",
+                "",
+                json.dumps(diag, indent=2, ensure_ascii=False),
+            ]
+        )
+        self._set_text(self._detail_text, card_text)
 
     def open_canonical_source(self) -> None:
         if self._selected_family_id and self._on_open_family is not None:
@@ -849,7 +907,22 @@ class DialogueCompletenessWorkbench:
             self._on_open_family(self._selected_family_id, path)
 
     def open_affected_field(self) -> None:
-        self.open_canonical_source()
+        if not self._selected_family_id or self._on_open_family is None:
+            return
+        path = (
+            self._selected_diagnostic.get("path")
+            if self._selected_diagnostic
+            else None
+        )
+        code = (
+            self._selected_diagnostic.get("code")
+            if self._selected_diagnostic
+            else None
+        )
+        try:
+            self._on_open_family(self._selected_family_id, path, code)
+        except TypeError:
+            self._on_open_family(self._selected_family_id, path)
 
     def open_continuation_target(self) -> None:
         if not self._selected_family_id:
@@ -861,9 +934,13 @@ class DialogueCompletenessWorkbench:
             if not self.select_family(target) and self._on_open_family is not None:
                 self._on_open_family(target, None)
 
-    def run_family_tests(self) -> None:
+    def run_family_tests(self) -> dict[str, Any] | None:
         if self._selected_family_id and self._on_run_family_tests is not None:
-            self._on_run_family_tests(self._selected_family_id)
+            result = self._on_run_family_tests(self._selected_family_id)
+            if isinstance(result, dict):
+                self._set_text(self._detail_text, json.dumps(result, indent=2, ensure_ascii=False))
+                return result
+        return None
 
     def preview_scaffold(self) -> dict[str, Any] | None:
         if not self._selected_family_id:
