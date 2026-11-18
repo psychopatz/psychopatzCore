@@ -1,6 +1,6 @@
 # S11 Branching Dialogue and Stateful Outcome Audit
 
-**Status:** ACTIVE AUDIT INPUT FOR S11
+**Status:** CLOSED_AT_S11R6 — all 25 maintained rows classified, explicitly claim-owned, and verified in S11R6 (`HANDOFF.md`).
 **Audit date:** 2026-11-18
 **Normative goal:** `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
 **Approved shared architecture:** `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
@@ -909,13 +909,9 @@ A future branch/stateful semantic feature must fail acceptance if it is introduc
 - no compatibility shim, fallback reader, dual registry/write path, legacy alias, or parallel old/new semantic authority left behind after an accepted migration;
 - automated acceptance owner.
 
-# Post-R5 closure audit — 2026-11-18
+# Post-R6 closure status — 2026-11-18
 
-R5 substantially closed the earlier structural gaps: the 25-row audit inventory is closed-set, exact owner source/test IDs are resolved, event expiry and disband are covered, and canonical reply projection replaced hard-coded recruitment reply mapping.
-
-Final S11 closure remains open for the narrower R6 requirements.
-
-The machine acceptance layer must now prove **explicit stable claim ownership by the exact test/case**. Inventory-required claim IDs are authoritative; manifest repetition, `claimKeywords`, test-name similarity, substring matching, or whole-file source-text search are not acceptance evidence.
+S11R6 (R6A–R6D) closed every remaining post-R5 gap: explicit `auditClaims` ownership replaced `claimKeywords` across all 25 rows, production `QuestService` READY_TO_TURN_IN → REWARDED → repeat idempotence, parameterized-task suggestion/response-channel parity, and ambient-visit root affordance refresh/retirement are verified, and `Input_Actions_Dispatch.lua` evaluates canonical policy through a single family-agnostic seam.
 
 | Surface | Current closure status |
 | --- | --- |
@@ -923,20 +919,20 @@ The machine acceptance layer must now prove **explicit stable claim ownership by
 | companion commands | ACCEPTED — canonical maintained command policy |
 | needs | ACCEPTED — canonical; legacy flow retired |
 | greeting | ACCEPTED — canonical; legacy flow retired |
-| recruitment | CANONICAL CONTENT/REPLY ACCEPTED; R6C still removes family-specific policy-admission selection from generic dispatch |
-| relationship proposal | CANONICAL CONTENT/REPLY ACCEPTED; R6C same generic-admission cleanup |
+| recruitment | ACCEPTED — canonical content/reply and single generic policy-admission seam (R6C) |
+| relationship proposal | ACCEPTED — canonical content/reply and single generic policy-admission seam (R6C) |
 | ceasefire | ACCEPTED — retain typed/state regression |
 | set territory | ACCEPTED — retain typed/state regression |
 | wellbeing/trust/affinity effects | ACCEPTED — retain repeat-policy regression |
-| parameterized tasks | R6B PARTIAL — duplicate/terminal zero-dispatch works; suggestion/response-channel parity after active/terminal transition still unproven |
-| quest operations | R6B PARTIAL — production authority proves offer→accept→active/repeat-active and premature turn-in; READY_TO_TURN_IN→REWARDED→repeat still unproven in the same production conversation path |
+| parameterized tasks | ACCEPTED — duplicate/terminal zero-dispatch and suggestion/response-channel parity verified (R6B) |
+| quest operations | ACCEPTED — production offer→accept→active→READY_TO_TURN_IN→REWARDED→repeat verified (R6B) |
 | disband | ACCEPTED — explicit presentation-only confirmation/cancel/replay safety retained |
-| settlement admission / ambient visit | R6B PARTIAL — service/authority/replay/expiry strong; active-conversation post-success affordance refresh/retirement still unproven |
+| settlement admission / ambient visit | ACCEPTED — service/authority/replay/expiry and active-conversation affordance refresh/retirement verified (R6B) |
 | event response-window expiry | ACCEPTED — real expiry regression retained |
-| gift | REFERENCE_GOOD_REGRESSION — retain explicit owner |
-| grounded gossip | REFERENCE_GOOD_REGRESSION — retain explicit owner |
-| departure | REFERENCE_GOOD_REGRESSION — retain explicit owner |
-| pragmatic repair | REFERENCE_GOOD_REGRESSION — retain explicit owner |
+| gift | REFERENCE_GOOD_REGRESSION — explicit claim owner verified |
+| grounded gossip | REFERENCE_GOOD_REGRESSION — explicit claim owner verified |
+| departure | REFERENCE_GOOD_REGRESSION — explicit claim owner verified |
+| pragmatic repair | REFERENCE_GOOD_REGRESSION — explicit claim owner verified |
 
 Every maintained row remains exactly one of:
 
@@ -947,6 +943,6 @@ REFERENCE_GOOD_REGRESSION
 RETIRED
 ~~~
 
-R6A strengthens how that classification is proven: each inventory `requiredClaims` entry must resolve to explicit `auditClaims` owned by the exact selected fixture/test/smoke. Closed-set membership plus an existing test name is not enough.
+All inventory `requiredClaims` entries resolve to explicit `auditClaims` owned by the exact selected fixture/test/smoke (`test_convo_engine_completeness_analyzer.py` 6/6 PASS).
 
-Current repair authority: `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`
+Current closure checkpoint: `HANDOFF.md` (`S11_POST_R5_FINAL_CLOSURE_REPAIR.md` CLOSED).

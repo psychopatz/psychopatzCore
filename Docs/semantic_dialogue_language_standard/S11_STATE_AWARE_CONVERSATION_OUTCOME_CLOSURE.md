@@ -1,9 +1,9 @@
 # S11 — State-Aware Conversation Outcome Closure
 
 
-**Current status:** IN_PROGRESS — post-R5 audit reopened only the final closure gaps. Retain S11A, Identity, commands, Needs, Greeting, closed-set R5 audit inventory, event/disband acceptance, and canonical `ProjectReply`; execute `S11_POST_R5_FINAL_CLOSURE_REPAIR.md` R6A→R6D before user acceptance.
+**Current status:** COMPLETE_DEVELOPER_SIDE — S11A–S11E and post-R5 final closure repair (`S11_POST_R5_FINAL_CLOSURE_REPAIR.md` R6A–R6D) are complete and verified (`HANDOFF.md`). Ready for user-owned native Project Zomboid acceptance.
 
-**Status:** IN_PROGRESS — S11R6 exact acceptance claims, residual quest/task/settlement projection, generic policy-admission unification, and final continuity closure.
+**Status:** COMPLETE_DEVELOPER_SIDE — S11R6 exact acceptance claims, residual quest/task/settlement projection, generic policy-admission unification, and final continuity closure are verified.
 **Parent goal:** ConvoEngine / Semantic Harness full immersive conversation correctness.
 **Accepted baseline retained:** S0-S10 + S10R, accepted S11 foundation/migrations, and the useful R5 mechanisms remain accepted unless targeted R6 evidence disproves them.
 **Primary adopter:** ProjectHoomans.

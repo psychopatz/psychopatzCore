@@ -1,11 +1,11 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: DIRTY_RESUMABLE
+status: COMPLETE_DEVELOPER_SIDE
 checkpoint_mode: dirty_resumable
-planning_doc_commit: self
+phase_commit: self
 phase: S11R6 — Final Closure Repair
-chunk: R6A — explicit exact-test acceptance claim ownership
+chunk: R6D — CLOSED (R6A–R6D complete)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
@@ -14,13 +14,13 @@ previous_repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_R4_CLOSUR
 updated_at: 2026-11-18
 ~~~
 
-This committed planning document does **not** accept R6A. The participant baton is DIRTY_RESUMABLE because unrelated Hoomans authoring work is actively changing; always re-verify its live status/fingerprint before edits.
+Developer-side S11R6 (R6A–R6D) is complete and verified across all three repositories. ProjectHoomans retains concurrent unrelated authoring dirt untouched (`DIRTY_RESUMABLE`). Ready for user-owned native Project Zomboid SP/MP acceptance.
 
-## Participant planning base
+## Final participant checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (planning base bd1a242f0cd9d641ea442b4050e2958471c84fd1)
-ProjectHoomans   233ff16bac368588dfa1d0deb3b087b31fca18e7
+psychopatzCore   phase_commit: self (code base 0d676d1e4977ea6e9a47e49b7457d9fbdc7547ac)
+ProjectHoomans   692bfabf63a8aa9a73a5f952b6dd835a6bdba68f
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
@@ -28,47 +28,19 @@ Residual worktree snapshot (`git status --porcelain=v1 -uall` SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=48  sha256=a89ef933ce04f0c1e1e9d8ddc14883ba76f4e0a022c9f7a24639e405caa74f47
+ProjectHoomans   rows=52  sha256=9b0ab0ce9311ac7b12a442a349cfabec5df5021951bde1029dbab763cbf82a22
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans has concurrent unrelated NPCAuthoring/StartingCompanions/UniqueNPCEditor work. Preserve it. Re-verify the residual fingerprint before every edit/accepted phase because concurrent work may continue.
+ProjectHoomans has concurrent unrelated `UnifiedStartingCompanionAuthoring` / NPCAuthoring / StartingCompanions / UniqueNPCEditor work; preserved untouched.
 
-## Retained accepted evidence
+## Verified R6 closure evidence
 
-- S11A/R1/R2 accepted.
-- R5 closed-set audit inventory and exact source/test ID resolution retained.
-- Event expiry and disband acceptance retained.
-- Canonical `ProjectReply` retained; hard-coded recruitment text/reason mappings remain removed.
-- Fresh audit reruns: Core 310 PASS / 2 skips; focused provider 24/24 PASS; reconcile clean at 410 desired; integrity/determinism clean at 588 families / 407 deterministic files.
+- **R6A:** Explicit `auditClaims` owned by the exact fixture case / Python test method / Lua smoke test (`test_convo_engine_completeness_analyzer.py` 6/6 PASS; keyword inference removed).
+- **R6B:** Production `QuestService` READY_TO_TURN_IN → REWARDED → repeat idempotence, parameterized-task suggestion/response-channel parity, and ambient-visit root affordance refresh/retirement (`24/24 PASS`).
+- **R6C:** Single family-agnostic `evaluateCanonicalPolicyBlock` admission seam in `Input_Actions_Dispatch.lua` after hint attachment (`test_psdl_backend_portability_and_trace_equivalence.py` 4/4 PASS, `test_contextual_talk_parity.py` 22/22 PASS, `state_aware_outcome_closure.json` 11/11 PASS).
+- **R6D:** Canonical nine-suite acceptance **suites=9/9 cases=2108/2137 failed=4 skipped=25 allowedSkips=25 convoScopeOk=True**; Core unit suite **310/310 PASS**; CodeBuilder reconcile **clean** (`desired=410`); `convo audit --check-determinism` **PASS** (`588` families, `407` deterministic files, `0` violations); caller-zero for `Flow_Identity`/`Flow_Needs`/`Flow_Greeting` **0 matches**; `git diff --check` **clean**.
 
-## Why S11 remains open
+## Next step
 
-- claim ownership is still keyword/source-text heuristic instead of explicit stable claim IDs declared by the exact owner;
-- production quest lifecycle does not reach ready/rewarded/repeat;
-- task suggestion/response-channel projection after active/terminal transition is not proven;
-- settlement/ambient active-conversation refresh after success is not proven;
-- recruitment/proposal are still special-cased solely for policy admission in generic dispatch;
-- prior closure docs/checkpoint were inconsistent/stale.
-
-## Immediate Next Chunk — R6A only
-
-1. Verify all participant HEAD/status/residual fingerprints; preserve concurrent Hoomans work.
-2. Read `S11_POST_R5_FINAL_CLOSURE_REPAIR.md`.
-3. Keep the closed-set 25-row inventory.
-4. Replace `claimKeywords` acceptance proof with exact owner-declared stable audit claim IDs.
-5. Prefer test-local metadata: declarative case `auditClaims`; exact Python method metadata/docstring/classification; exact Lua smoke/test claim marker. Do not create a duplicate broad test registry.
-6. Make manifest self-declaration and source keywords insufficient to pass.
-7. Add negative guards for missing/wrong owner claims, keyword-only false positives, Lua whole-file false positives, and stale renamed tests.
-8. Reconcile continuity docs and commit accepted R6A locally; continue automatically to R6B.
-
-## Mandatory continuation
-
-~~~text
-R6B  complete production quest ready/rewarded/repeat +
-     task and settlement/ambient conversation projection
-R6C  unify policy admission before domain dispatch
-R6D  full acceptance + one exact final docs/vector/fingerprint checkpoint
-~~~
-
-Use existing `main`. Preserve unrelated work. Exact staging only. No reset/stash/discard/broad-stage/amend/rebase/force operations. Commit changed adopter repos first and Core last. Do not push, publish Workshop content, or launch native Project Zomboid without explicit authorization.
+User-owned native Project Zomboid SP/MP visual/feel acceptance. Do not push, publish Workshop content, or launch native Project Zomboid without explicit authorization.

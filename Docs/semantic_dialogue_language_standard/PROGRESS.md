@@ -1,72 +1,40 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — post-R5 audit reopened final S11 closure; accepted S11A/R1/R2 and useful R5 work are retained.
+**Status:** COMPLETE_DEVELOPER_SIDE — S11R6 (R6A–R6D) closed; ready for user-owned native Project Zomboid acceptance.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11R6 — exact acceptance claims + residual lifecycle/presentation closure + single generic policy admission.
-**Immediate Next Chunk:** R6A only — replace keyword-based acceptance-claim inference with explicit stable claim IDs owned by the exact test/case; then continue automatically through R6B-R6D.
+**Active phase:** S11R6 — CLOSED (R6A–R6D verified and committed).
+**Immediate Next Chunk:** User-owned native Project Zomboid SP/MP visual/feel acceptance.
 
-## Current planning checkpoint
+## Current closure checkpoint
 
 ~~~text
-psychopatzCore   phase_commit: self (planning base bd1a242f0cd9d641ea442b4050e2958471c84fd1)
-ProjectHoomans   233ff16bac368588dfa1d0deb3b087b31fca18e7
+psychopatzCore   phase_commit: self (code base 0d676d1e4977ea6e9a47e49b7457d9fbdc7547ac)
+ProjectHoomans   692bfabf63a8aa9a73a5f952b6dd835a6bdba68f
 DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 ~~~
 
-Residual worktree snapshot for this planning checkpoint:
+Residual worktree snapshot for this closure checkpoint:
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=48  sha256=a89ef933ce04f0c1e1e9d8ddc14883ba76f4e0a022c9f7a24639e405caa74f47
+ProjectHoomans   rows=52  sha256=9b0ab0ce9311ac7b12a442a349cfabec5df5021951bde1029dbab763cbf82a22
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans currently contains concurrent unrelated `UnifiedStartingCompanionAuthoring` / NPCAuthoring / StartingCompanions / UniqueNPCEditor work; preserve it exactly. Core and DynamicTrading are clean after the planning commit. Re-verify the Hoomans fingerprint at resume because concurrent work may continue.
+ProjectHoomans contains concurrent unrelated `UnifiedStartingCompanionAuthoring` / NPCAuthoring / StartingCompanions / UniqueNPCEditor work; preserved untouched. Core and DynamicTrading are clean (`reconcile.py --apply` + `--check` clean after acceptance).
 
 Current repair authority:
 
-`S11_POST_R5_FINAL_CLOSURE_REPAIR.md`
+`S11_POST_R5_FINAL_CLOSURE_REPAIR.md` (CLOSED)
 
-`S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` is historical R5 context and must not be restarted.
+`S11_POST_R4_CLOSURE_AUDIT_REPAIR.md` is historical R5 context.
 
-## Retained accepted work
+## Verified R6 closure evidence
 
-Do not rebuild these unless a new targeted test proves an actual defect:
-
-- S11A0-A8 compiler/runtime foundation;
-- canonical Identity, Needs, Greeting, and maintained companion-command migrations;
-- R5 closed-set 25-row branching-audit inventory and exact owner source/test-ID existence checks;
-- event response-window expiry acceptance;
-- disband presentation-only confirmation/cancel/replay acceptance;
-- recruitment/proposal canonical reply projection via `S11PolicyEvaluator.ProjectReply`;
-- removed hard-coded recruitment reason→template/text mappings;
-- fresh Core suite: **310 PASS, 2 skipped**;
-- fresh focused R5B provider suite: **24/24 PASS**;
-- CodeBuilder reconcile: **clean**, `desired=410`, no missing/drifted/stale/ambiguous output;
-- integrity/determinism: **PASS**, `588` family files, `407` deterministic files, `0` violations/diffs.
-
-## Reopened final defects
-
-1. Acceptance semantic ownership still relies on `claimKeywords`/source-text matching. The exact test/case must explicitly declare stable audit claim IDs; manifest repetition or source keywords are not proof.
-2. Production quest conversation acceptance stops at active/premature turn-in and does not prove READY_TO_TURN_IN → REWARDED → repeat idempotence.
-3. Parameterized-task acceptance proves duplicate suppression but not refreshed suggestion/response-channel parity across active/terminal state.
-4. Settlement/ambient acceptance proves service/authority/replay/expiry but not post-success active-conversation affordance refresh/retirement.
-5. Generic `Input_Actions_Dispatch.lua` still names `RECRUIT`/`RELATIONSHIP_PROPOSAL` solely to run canonical policy before their domain dispatchers; policy admission must be one generic path.
-6. Previous R5 closure docs disagreed and the Hoomans residual fingerprint became stale.
-
-## Mandatory R6 sequence
-
-~~~text
-R6A  explicit exact-test acceptance claim ownership
-  ↓
-R6B  quest + task + settlement/ambient lifecycle/presentation closure
-  ↓
-R6C  single generic canonical policy-admission seam
-  ↓
-R6D  full reproducible acceptance + exact final continuity checkpoint
-~~~
-
-Do not return to user-owned native Project Zomboid acceptance until R6A-R6D pass.
+- **R6A:** Replaced `claimKeywords`/source-text heuristics with explicit `auditClaims` owned by the exact fixture case / Python test method / Lua smoke test (`test_convo_engine_completeness_analyzer.py` 6/6 PASS).
+- **R6B:** Closed production `QuestService` READY_TO_TURN_IN → REWARDED → repeat idempotence (`test_quest_flow_binding.py` 6/6 PASS), parameterized-task suggestion/response-channel parity across active/terminal state (`test_automatic_flow_generation.py`), and ambient-visit settlement root affordance refresh/retirement (`test_production_leave_group.py`); focused provider suite 24/24 PASS.
+- **R6C:** Unified `evaluateCanonicalPolicyBlock` into a single family-agnostic policy-admission seam in `Input_Actions_Dispatch.lua` after hint attachment and before domain routing (`test_psdl_backend_portability_and_trace_equivalence.py` 4/4 PASS, `test_contextual_talk_parity.py` 22/22 PASS, `state_aware_outcome_closure.json` 11/11 PASS).
+- **R6D:** Canonical nine-suite acceptance: **suites=9/9 cases=2108/2137 failed=4 skipped=25 allowedSkips=25 convoScopeOk=True** (4 `known_unrelated_baseline` non-convoSemantic failures in `hoomans_lua`); Core unit suite **310/310 PASS**; CodeBuilder reconcile **clean** (`desired=410`, 0 missing/drifted/stale/ambiguous); `convo audit --check-determinism` **PASS** (`588` families, `407` deterministic files, `0` violations); caller-zero for `Flow_Identity`/`Flow_Needs`/`Flow_Greeting` **0 matches**; `git diff --check` **clean**.
 
 ## Hard rules
 
