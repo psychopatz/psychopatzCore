@@ -42,5 +42,38 @@
   "say": {
     "EN": "What have you been doing?",
     "TL": "Ano ang mga pinagkakaabalahan mo?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "activity",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "activity",
+      "domain": "activity"
+    }
+  ],
+  "activities": [
+    {
+      "id": "current_activity",
+      "role": "actor"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

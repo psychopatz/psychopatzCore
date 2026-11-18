@@ -24,5 +24,45 @@
   "textSidecars": {
     "EN": "translations/interaction_world_event_warning_flavor.en.json",
     "TL": "translations/interaction_world_event_warning_flavor.tl.json"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "target": {
+      "cardinality": "OPTIONAL_ONE",
+      "kinds": [
+        "actor",
+        "entity"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "world",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "world_event",
+      "domain": "world"
+    }
+  ],
+  "events": [
+    {
+      "id": "world_event",
+      "kind": "world_event"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

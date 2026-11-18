@@ -75,6 +75,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "identity.introduction",
                 ["textRows"] = {
@@ -114,6 +120,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "identity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -138,6 +150,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {

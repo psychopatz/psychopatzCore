@@ -75,6 +75,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "choice.goodbye",
                 ["textRows"] = {
@@ -114,6 +120,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "greeting_goodbye",
+                },
+            },
         },
         ["references"] = {
         },
@@ -138,6 +150,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -602,6 +630,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -890,6 +924,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "greeting_goodbye",
+                },
+            },
         },
         ["references"] = {
         },
@@ -914,6 +954,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {

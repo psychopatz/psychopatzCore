@@ -39,5 +39,32 @@
   "say": {
     "EN": "How is the weather?",
     "TL": "Kumusta ang panahon?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "world",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "weather",
+      "domain": "world"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

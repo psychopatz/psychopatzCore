@@ -24,5 +24,38 @@
         }
       }
     ]
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "needs",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "gift_preference",
+      "domain": "needs"
+    }
+  ],
+  "slots": {
+    "item": {
+      "type": "entity.item",
+      "required": false
+    }
+  },
+  "owner": "PsychopatzCore"
 }

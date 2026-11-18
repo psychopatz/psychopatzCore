@@ -36,5 +36,32 @@
   "say": {
     "EN": "What do people call you?",
     "TL": "Ano ang tawag sa iyo ng mga tao?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "identity",
+      "domain": "social"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

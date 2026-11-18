@@ -147,6 +147,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -235,6 +241,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -259,6 +271,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -465,6 +501,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -553,6 +595,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -577,6 +625,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -747,6 +819,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -810,6 +888,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -834,6 +918,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -1025,6 +1133,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -1113,6 +1227,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1137,6 +1257,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -1307,6 +1451,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -1370,6 +1520,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1394,6 +1550,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -1549,6 +1729,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -1612,6 +1798,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1636,6 +1828,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -1791,6 +2007,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -1854,6 +2076,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1878,6 +2106,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -2321,6 +2573,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -2584,6 +2842,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -2608,6 +2872,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {
@@ -2883,6 +3171,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textRows"] = {
                     {
@@ -2946,6 +3240,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "recruitment",
+                },
+            },
         },
         ["references"] = {
         },
@@ -2970,6 +3270,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
             },
         },
         ["slots"] = {

@@ -306,6 +306,18 @@ return {
             },
         },
         ["payload"] = {
+            ["activities"] = {
+                {
+                    ["id"] = "current_activity",
+                    ["role"] = "actor",
+                },
+            },
+            ["domains"] = {
+                {
+                    ["domain"] = "activity",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
@@ -441,6 +453,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "activity",
+                    ["id"] = "activity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -465,6 +483,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -917,6 +951,18 @@ return {
             },
         },
         ["payload"] = {
+            ["activities"] = {
+                {
+                    ["id"] = "current_activity",
+                    ["role"] = "actor",
+                },
+            },
+            ["domains"] = {
+                {
+                    ["domain"] = "activity",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
@@ -1052,6 +1098,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "activity",
+                    ["id"] = "activity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1076,6 +1128,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {

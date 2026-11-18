@@ -75,6 +75,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "negative.mockery.gear",
                 ["textRows"] = {
@@ -114,6 +120,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -138,6 +150,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -242,6 +278,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "negative.mockery.retreat",
                 ["textRows"] = {
@@ -281,6 +323,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -305,6 +353,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -409,6 +481,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "negative.suspicion.story",
                 ["textRows"] = {
@@ -448,6 +526,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -472,6 +556,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -576,6 +684,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "negative.warning.abandoned",
                 ["textRows"] = {
@@ -615,6 +729,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -639,6 +759,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -751,6 +895,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "negative.warning.danger",
                 ["textRows"] = {
@@ -790,6 +940,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -814,6 +970,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -924,6 +1104,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "neutral.horde_survival",
                 ["textRows"] = {
@@ -963,6 +1149,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -987,6 +1179,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -1099,6 +1307,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "neutral.sighting",
                 ["textRows"] = {
@@ -1138,6 +1352,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1162,6 +1382,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -1272,6 +1508,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "positive.praise.help",
                 ["textRows"] = {
@@ -1311,6 +1553,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1335,6 +1583,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -1439,6 +1711,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "positive.protection",
                 ["textRows"] = {
@@ -1478,6 +1756,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1502,6 +1786,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -1606,6 +1914,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "positive.rescue.return",
                 ["textRows"] = {
@@ -1645,6 +1959,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1669,6 +1989,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -1773,6 +2117,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "positive.sympathy.loss",
                 ["textRows"] = {
@@ -1812,6 +2162,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "social_reaction",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1836,6 +2192,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {

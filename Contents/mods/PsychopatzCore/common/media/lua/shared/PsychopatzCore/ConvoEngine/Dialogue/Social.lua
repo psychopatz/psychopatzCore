@@ -306,6 +306,18 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "world",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["events"] = {
+                {
+                    ["id"] = "world_event",
+                    ["kind"] = "world_event",
+                },
+            },
             ["metadata"] = {
                 ["category"] = "psychopatzcore:world_event",
                 ["responseAct"] = "WORLD_WARNING",
@@ -441,6 +453,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "world",
+                    ["id"] = "world_event",
+                },
+            },
         },
         ["references"] = {
         },
@@ -465,6 +483,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {
@@ -917,6 +959,18 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "world",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["events"] = {
+                {
+                    ["id"] = "world_event",
+                    ["kind"] = "world_event",
+                },
+            },
             ["metadata"] = {
                 ["category"] = "psychopatzcore:world_event",
                 ["responseAct"] = "AMBIENT_FLAVOR",
@@ -1052,6 +1106,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "world",
+                    ["id"] = "world_event",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1076,6 +1136,30 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["target"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "target",
             },
         },
         ["slots"] = {

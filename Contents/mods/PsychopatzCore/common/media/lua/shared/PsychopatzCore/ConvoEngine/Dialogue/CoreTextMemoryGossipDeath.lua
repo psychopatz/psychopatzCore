@@ -75,6 +75,24 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "memory",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["events"] = {
+                {
+                    ["id"] = "character_death",
+                    ["kind"] = "world_event",
+                },
+            },
+            ["memories"] = {
+                {
+                    ["id"] = "death_episode",
+                    ["scope"] = "durable",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "death.report",
                 ["textRows"] = {
@@ -114,6 +132,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "memory",
+                    ["id"] = "death",
+                },
+            },
         },
         ["references"] = {
         },
@@ -138,6 +162,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -242,6 +282,24 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "memory",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
+            ["events"] = {
+                {
+                    ["id"] = "character_death",
+                    ["kind"] = "world_event",
+                },
+            },
+            ["memories"] = {
+                {
+                    ["id"] = "death_episode",
+                    ["scope"] = "durable",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "death.sacrifice",
                 ["textRows"] = {
@@ -281,6 +339,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "memory",
+                    ["id"] = "death",
+                },
+            },
         },
         ["references"] = {
         },
@@ -305,6 +369,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {

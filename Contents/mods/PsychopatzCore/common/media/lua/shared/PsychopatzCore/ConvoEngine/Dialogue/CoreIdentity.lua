@@ -135,6 +135,12 @@ return {
                 ["closureClass"] = "resolved_episode",
                 ["episodeId"] = "identity_exchange",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["inputPolicy"] = "typed_parity",
             ["invoke"] = {
                 ["intent"] = "QUESTION",
@@ -205,6 +211,12 @@ return {
                     ["reason"] = "identity_unknown",
                 },
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "identity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -229,6 +241,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -402,6 +430,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.identity.faction",
@@ -448,6 +482,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "identity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -472,6 +512,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -645,6 +701,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.identity.nickname",
@@ -691,6 +753,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "identity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -715,6 +783,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -888,6 +972,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.identity.surname",
@@ -934,6 +1024,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "identity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -958,6 +1054,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {

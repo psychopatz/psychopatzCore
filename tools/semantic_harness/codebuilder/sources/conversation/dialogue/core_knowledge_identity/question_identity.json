@@ -151,5 +151,32 @@
   "textSidecars": {
     "EN": "translations/question_identity.en.json",
     "TL": "translations/question_identity.tl.json"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "identity",
+      "domain": "social"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

@@ -37,5 +37,32 @@
   "say": {
     "EN": "What time is it?",
     "TL": "Anong oras na?"
-  }
+  },
+  "topics": [
+    {
+      "id": "time",
+      "domain": "world"
+    }
+  ],
+  "domains": [
+    {
+      "domain": "world",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "owner": "PsychopatzCore"
 }

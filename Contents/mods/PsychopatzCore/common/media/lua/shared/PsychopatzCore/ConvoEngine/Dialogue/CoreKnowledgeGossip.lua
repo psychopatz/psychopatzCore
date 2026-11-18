@@ -277,6 +277,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "gossip",
+            ["slots"] = {
+                ["subject"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = false,
+                    ["type"] = "entity.person",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "I haven't heard any news lately.",
@@ -566,6 +574,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "memory",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
@@ -817,6 +831,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "knowledge",
+                },
+            },
         },
         ["references"] = {
         },
@@ -843,7 +863,37 @@ return {
                 },
             },
         },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+            ["subject"] = {
+                ["cardinality"] = "OPTIONAL_ONE",
+                ["kinds"] = {
+                    "actor",
+                    "entity",
+                },
+                ["role"] = "subject",
+            },
+        },
         ["slots"] = {
+            ["subject"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = false,
+                ["type"] = "entity.person",
+            },
         },
         ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
         ["target"] = {

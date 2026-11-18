@@ -52,5 +52,32 @@
   "textSidecars": {
     "EN": "translations/question_knowledge.en.json",
     "TL": "translations/question_knowledge.tl.json"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "knowledge",
+      "domain": "social"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

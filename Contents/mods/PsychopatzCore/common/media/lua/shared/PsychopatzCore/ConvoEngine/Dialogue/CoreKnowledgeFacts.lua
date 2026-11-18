@@ -601,6 +601,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
@@ -879,8 +885,30 @@ return {
                     ["textRole"] = "response",
                 },
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "knowledge",
+                },
+            },
         },
         ["references"] = {
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
         },
         ["slots"] = {
         },

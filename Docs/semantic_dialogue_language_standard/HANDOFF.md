@@ -5,7 +5,7 @@ status: IN_PROGRESS
 checkpoint_mode: committed_handoff
 phase_commit: self
 phase: S12 — ConvoEngine v1 Dynamic Dataset Modernization
-chunk: S12C — PsychopatzCore dataset modernization
+chunk: S12D — ProjectHoomans dataset modernization
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md

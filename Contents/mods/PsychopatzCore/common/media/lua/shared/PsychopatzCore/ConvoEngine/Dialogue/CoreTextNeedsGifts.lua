@@ -35,6 +35,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "gift.preference",
+            ["slots"] = {
+                ["item"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = false,
+                    ["type"] = "entity.item",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "I don't like that.",
@@ -75,6 +83,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "needs",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "gift.preference.dislike",
                 ["textRows"] = {
@@ -114,6 +128,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "needs",
+                    ["id"] = "gift_preference",
+                },
+            },
         },
         ["references"] = {
         },
@@ -140,7 +160,29 @@ return {
                 },
             },
         },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+        },
         ["slots"] = {
+            ["item"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = false,
+                ["type"] = "entity.item",
+            },
         },
         ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference_dislike.json",
         ["target"] = {
@@ -202,6 +244,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "gift.preference",
+            ["slots"] = {
+                ["item"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = false,
+                    ["type"] = "entity.item",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "I like that.",
@@ -242,6 +292,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "needs",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "gift.preference.like",
                 ["textRows"] = {
@@ -281,6 +337,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "needs",
+                    ["id"] = "gift_preference",
+                },
+            },
         },
         ["references"] = {
         },
@@ -307,7 +369,29 @@ return {
                 },
             },
         },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+        },
         ["slots"] = {
+            ["item"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = false,
+                ["type"] = "entity.item",
+            },
         },
         ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference_like.json",
         ["target"] = {
@@ -369,6 +453,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "gift.preference",
+            ["slots"] = {
+                ["item"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = false,
+                    ["type"] = "entity.item",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "I don't have a strong preference.",
@@ -409,6 +501,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "needs",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "gift.preference.neutral",
                 ["textRows"] = {
@@ -448,6 +546,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "needs",
+                    ["id"] = "gift_preference",
+                },
+            },
         },
         ["references"] = {
         },
@@ -474,7 +578,29 @@ return {
                 },
             },
         },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+        },
         ["slots"] = {
+            ["item"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = false,
+                ["type"] = "entity.item",
+            },
         },
         ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference.json",
         ["target"] = {
@@ -536,6 +662,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "gift.preference",
+            ["slots"] = {
+                ["item"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = false,
+                    ["type"] = "entity.item",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "I'm not sure which item you mean.",
@@ -576,6 +710,12 @@ return {
             },
         },
         ["payload"] = {
+            ["domains"] = {
+                {
+                    ["domain"] = "needs",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["metadata"] = {
                 ["textKey"] = "gift.preference.unknown",
                 ["textRows"] = {
@@ -615,6 +755,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "needs",
+                    ["id"] = "gift_preference",
+                },
+            },
         },
         ["references"] = {
         },
@@ -641,7 +787,29 @@ return {
                 },
             },
         },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
+            },
+        },
         ["slots"] = {
+            ["item"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = false,
+                ["type"] = "entity.item",
+            },
         },
         ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference_unknown.json",
         ["target"] = {

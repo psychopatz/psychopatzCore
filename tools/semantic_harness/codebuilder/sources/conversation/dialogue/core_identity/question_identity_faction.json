@@ -36,5 +36,32 @@
   "say": {
     "EN": "Who are you with?",
     "TL": "Sino ang kasama mo?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "identity",
+      "domain": "social"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

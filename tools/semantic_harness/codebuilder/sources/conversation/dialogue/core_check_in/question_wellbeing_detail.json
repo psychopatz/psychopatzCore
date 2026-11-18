@@ -40,5 +40,32 @@
   "say": {
     "EN": "What's wrong?",
     "TL": "Ano ang problema?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "wellbeing",
+      "domain": "social"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

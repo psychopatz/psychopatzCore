@@ -37,5 +37,32 @@
   "say": {
     "EN": "What's today's date?",
     "TL": "Ano ang petsa ngayon?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "world",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "date",
+      "domain": "world"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

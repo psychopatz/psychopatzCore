@@ -24,5 +24,38 @@
   "textSidecars": {
     "EN": "translations/question_activity_fishing.en.json",
     "TL": "translations/question_activity_fishing.tl.json"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "activity",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "activity",
+      "domain": "activity"
+    }
+  ],
+  "activities": [
+    {
+      "id": "current_activity",
+      "role": "actor"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

@@ -115,6 +115,12 @@ return {
             },
         },
         ["payload"] = {
+            ["activities"] = {
+                {
+                    ["id"] = "current_activity",
+                    ["role"] = "actor",
+                },
+            },
             ["affordance"] = {
                 ["consumers"] = {
                     "player",
@@ -132,6 +138,12 @@ return {
                     },
                 },
                 ["textRole"] = "button_label",
+            },
+            ["domains"] = {
+                {
+                    ["domain"] = "activity",
+                    ["owner"] = "PsychopatzCore",
+                },
             },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
@@ -184,6 +196,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "activity",
+                    ["id"] = "activity",
+                },
+            },
         },
         ["references"] = {
         },
@@ -208,6 +226,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -399,6 +433,12 @@ return {
                     "question.wellbeing_detail",
                 },
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.wellbeing_feeling",
@@ -447,6 +487,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "wellbeing",
+                },
+            },
         },
         ["references"] = {
         },
@@ -471,6 +517,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -646,6 +708,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "world",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.date",
@@ -692,6 +760,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "world",
+                    ["id"] = "date",
+                },
+            },
         },
         ["references"] = {
         },
@@ -716,6 +790,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -891,6 +981,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "world",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.time",
@@ -937,6 +1033,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "world",
+                    ["id"] = "time",
+                },
+            },
         },
         ["references"] = {
         },
@@ -961,6 +1063,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -1136,6 +1254,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "world",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.weather",
@@ -1184,6 +1308,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "world",
+                    ["id"] = "weather",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1208,6 +1338,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {
@@ -1383,6 +1529,12 @@ return {
                 },
                 ["textRole"] = "button_label",
             },
+            ["domains"] = {
+                {
+                    ["domain"] = "social",
+                    ["owner"] = "PsychopatzCore",
+                },
+            },
             ["invoke"] = {
                 ["intent"] = "QUESTION",
                 ["patternID"] = "pnc.question.wellbeing_follow_up_what_is_wrong",
@@ -1432,6 +1584,12 @@ return {
                 },
                 ["textRole"] = "spoken_action",
             },
+            ["topics"] = {
+                {
+                    ["domain"] = "social",
+                    ["id"] = "wellbeing",
+                },
+            },
         },
         ["references"] = {
         },
@@ -1456,6 +1614,22 @@ return {
                         },
                     },
                 },
+            },
+        },
+        ["roles"] = {
+            ["addressee"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "addressee",
+            },
+            ["speaker"] = {
+                ["cardinality"] = "ONE",
+                ["kinds"] = {
+                    "actor",
+                },
+                ["role"] = "speaker",
             },
         },
         ["slots"] = {

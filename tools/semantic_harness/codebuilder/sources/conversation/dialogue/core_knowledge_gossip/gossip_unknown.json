@@ -36,5 +36,45 @@
   "textSidecars": {
     "EN": "translations/gossip_unknown.en.json",
     "TL": "translations/gossip_unknown.tl.json"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "subject": {
+      "cardinality": "OPTIONAL_ONE",
+      "kinds": [
+        "actor",
+        "entity"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "memory",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "knowledge",
+      "domain": "social"
+    }
+  ],
+  "slots": {
+    "subject": {
+      "type": "entity.person",
+      "required": false
+    }
+  },
+  "owner": "PsychopatzCore"
 }

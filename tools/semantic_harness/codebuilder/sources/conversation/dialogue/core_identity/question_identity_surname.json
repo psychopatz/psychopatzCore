@@ -36,5 +36,32 @@
   "say": {
     "EN": "What's your surname?",
     "TL": "Ano ang apelyido mo?"
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "social",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "identity",
+      "domain": "social"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

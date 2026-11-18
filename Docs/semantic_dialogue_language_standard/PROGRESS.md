@@ -2,17 +2,23 @@
 
 **Status:** IN_PROGRESS — S12 ConvoEngine v1 Dynamic Dataset Modernization is active.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12C — PsychopatzCore dataset modernization (classified batches).
-**Immediate Next Chunk:** S12C — modernize Core-owned families by coherent semantic domain using the S12B classification inventory.
+**Active phase:** S12D — ProjectHoomans dataset modernization (classified batches).
+**Immediate Next Chunk:** S12D — modernize ProjectHoomans-owned families by domain priority using the S12B classification inventory.
 **Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true` (classified batches only; S12B inventory accepted).
 
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   S12B commit: self (base 668311d)
+psychopatzCore   S12C commit: self (base f57098c)
 ProjectHoomans   5039b405
 DynamicTrading   f9c8e60f
 ~~~
+
+## S12C completed
+
+- Modernized 58 `PsychopatzCore` dialogue families via CodeBuilder (`convo.change.apply`) with typed `roles`, `slots` (`gift.preference.*` `item` slot, `gossip.unknown` `subject` slot), and discoverable `TopicRef`/`EventRef`/`ActivityRef`/`MemoryRef`/`DomainRef` hooks.
+- Fixed `SemanticLabAuthoringService.preview_convo_engine_document` to resolve the owning `package.json` descriptor during single-file edits/previews.
+- Reconciled all generated outputs cleanly and verified `core_lua` (36/36), `convo_audit` (1/1), and `test_fixture_authority` + `test_convo_engine_modernization_inventory` (12/12).
 
 ## S12B completed
 

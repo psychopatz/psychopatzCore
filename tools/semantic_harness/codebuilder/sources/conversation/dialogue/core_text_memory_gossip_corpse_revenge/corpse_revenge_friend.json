@@ -161,5 +161,51 @@
         }
       ]
     }
-  }
+  },
+  "roles": {
+    "speaker": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "addressee": {
+      "cardinality": "ONE",
+      "kinds": [
+        "actor"
+      ]
+    },
+    "subject": {
+      "cardinality": "OPTIONAL_ONE",
+      "kinds": [
+        "actor",
+        "entity"
+      ]
+    }
+  },
+  "domains": [
+    {
+      "domain": "memory",
+      "owner": "PsychopatzCore"
+    }
+  ],
+  "topics": [
+    {
+      "id": "death",
+      "domain": "memory"
+    }
+  ],
+  "events": [
+    {
+      "id": "character_death",
+      "kind": "world_event"
+    }
+  ],
+  "memories": [
+    {
+      "id": "death_episode",
+      "scope": "durable"
+    }
+  ],
+  "owner": "PsychopatzCore"
 }

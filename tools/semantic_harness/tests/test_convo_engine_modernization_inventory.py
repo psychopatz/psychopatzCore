@@ -1,4 +1,4 @@
-"""Tests for S12B machine-readable dataset modernization inventory."""
+"""Tests for machine-readable ConvoEngine dataset modernization inventory."""
 
 from __future__ import annotations
 
@@ -46,7 +46,7 @@ _REQUIRED_RECORD_KEYS = {
 
 
 class ConvoEngineModernizationInventoryTests(unittest.TestCase):
-    def test_s12b_gate_all_maintained_families_classified(self) -> None:
+    def test_modernization_inventory_gate_all_maintained_families_classified(self) -> None:
         inv = build_modernization_inventory(
             CORE_ROOT,
             hoomans_repository=HOOMANS_ROOT,

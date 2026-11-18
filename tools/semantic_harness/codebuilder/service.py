@@ -442,12 +442,15 @@ class SemanticLabAuthoringService:
                 default_owner=resolved_owner,
                 allow_legacy_schema=allow_legacy_schema,
             )
+        pkg_doc = self._resolve_package_descriptor(source_path)
+        if document.get("kind") == "beat":
             compiled = _compile_convo_engine_document(
                 document,
                 source_path=source_path,
                 default_owner=resolved_owner,
                 allow_legacy_schema=allow_legacy_schema,
                 validate_cross_references=False,
+                package=pkg_doc,
             )
         else:
             compiled = _compile_convo_engine_document(
@@ -455,6 +458,7 @@ class SemanticLabAuthoringService:
                 source_path=source_path,
                 default_owner=resolved_owner,
                 allow_legacy_schema=allow_legacy_schema,
+                package=pkg_doc,
             )
         diagnostics: list[dict[str, str]] = []
         if any(
@@ -527,6 +531,25 @@ class SemanticLabAuthoringService:
             "runtimePlan": render_convo_engine_runtime_plan(compiled),
             "writes": [],
         }
+
+    def _resolve_package_descriptor(
+        self, source_path: str | Path | None
+    ) -> dict[str, Any] | None:
+        if source_path is None:
+            return None
+        cur = Path(source_path).expanduser().resolve().parent
+        for parent in (cur, *cur.parents):
+            pkg_path = parent / "package.json"
+            if pkg_path.is_file():
+                try:
+                    data = json.loads(pkg_path.read_text(encoding="utf-8"))
+                    if isinstance(data, dict) and data.get("schema") == "psychopatz.convo-engine.package.v1":
+                        return data
+                except (OSError, json.JSONDecodeError):
+                    return None
+            if parent.name == "conversation":
+                break
+        return None
 
     def _convo_engine_allowed_roots(self) -> list[Path]:
         roots = [self.repository.resolve(), self.core_repository.resolve()]
