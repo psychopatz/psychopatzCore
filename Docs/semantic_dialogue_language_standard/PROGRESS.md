@@ -1,91 +1,124 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** COMPLETE — S12 ConvoEngine v1 Dynamic Dataset Modernization closed (`S12A -> S12B -> S12C -> S12D -> S12E -> S12F`).
+**Status:** REOPENED — S12 implementation is stable but structural dataset modernization is incomplete.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12F — complete.
-**Immediate Next Chunk:** None (developer-side S12 closure complete; ready for any future Dialogue Director consumer work).
-**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true` (S12 dataset modernization closed).
+**Active phase:** S12R1 — Structural Dataset Modernization Closure Repair.
+**Immediate Next Chunk:** S12R1A — make the live modernization inventory a real closure authority with OPEN / RESOLVED / INTENTIONALLY_RETAINED resolution states.
+**Content rewrite gate:** classified structural repair is allowed; S12 may not return to COMPLETE until S12R1D passes.
 
 ## Current checkpoint
 
 ~~~text
-psychopatzCore   S12F closure commit: self (base 38aa131)
-ProjectHoomans   ebbf113d5acbaf505f2c157d9c0a24454ba212b7
-DynamicTrading   2b0c3cb5b2371aff1a5837361f44916fda59d081
+psychopatzCore
+bfb10f0a60ac611fc7902bfa46df45179eeba605
+
+ProjectHoomans
+ebbf113d5acbaf505f2c157d9c0a24454ba212b7
+
+DynamicTrading
+2b0c3cb5b2371aff1a5837361f44916fda59d081
 ~~~
 
-## S12E–S12F completed
-
-- **S12E:** Modernized all 11 `DTCommon` trading dialogue families via CodeBuilder (`convo.change.apply`) with typed `roles`, `slots` (`location`, `subject`, `item`), and discoverable `TopicRef`/`DomainRef` hooks; verified `dynamic_trading` (`89/89`) and `convo_audit` (`1/1`).
-- **S12F:** Verified `audit-integrity --check-determinism` (`587` families, `408` generated files, `0` diffs, `0` violations, `0` split-authority findings, `0` legacy-name violations), `modernization-inventory` (`587/587` classified, `0` unknown ownership), `reconcile --check` clean, and two consecutive 9-suite canonical acceptance runs (`9/9` suites, `cases=2145/2174`, `convoScopeOk=True` both times). Fixed `_advanced_s11_visible` progressive-disclosure default in `convo_engine_authoring_pane.py`.
-
-## S12D completed
-
-- Modernized 450 `ProjectHoomans` dialogue families via CodeBuilder (`convo.change.apply`) with typed `roles`, `slots` (`weapon`, `threat`, `subject`, `location`, `item`), and discoverable `TopicRef`/`EventRef`/`ActivityRef`/`MemoryRef`/`DomainRef` hooks.
-- Reconciled all generated outputs and verified `hoomans_lua`, `hoomans_provider_python`, and `convo_audit` (`3/3` suites, `convoScopeOk=True`).
-
-## S12C completed
-
-- Modernized 58 `PsychopatzCore` dialogue families via CodeBuilder (`convo.change.apply`) with typed `roles`, `slots` (`gift.preference.*` `item` slot, `gossip.unknown` `subject` slot), and discoverable `TopicRef`/`EventRef`/`ActivityRef`/`MemoryRef`/`DomainRef` hooks.
-- Fixed `SemanticLabAuthoringService.preview_convo_engine_document` to resolve the owning `package.json` descriptor during single-file edits/previews.
-- Reconciled all generated outputs cleanly and verified `core_lua` (36/36), `convo_audit` (1/1), and `test_fixture_authority` + `test_convo_engine_modernization_inventory` (12/12).
-
-## S12B completed
-
-- Implemented `convo_engine_modernization_inventory.py`, `convo.modernization_inventory` (`OperationRegistry`), `modernization-inventory` CLI, and `test_convo_engine_modernization_inventory.py`.
-- Verified S12B gate: `catalogFamilyCount == inventoryFamilyCount == 587`, `unknownOwnershipCount == 0`, `unclassifiedCount == 0`, `splitAuthorityCount == 0`, `duplicateGroupCount == 28`.
-
-## S12A completed
-
-- Unified first-party family/source schema onto `psychopatz.convo-engine.v1` and package schema onto `psychopatz.convo-engine.package.v1` via Core CodeBuilder `convo.migrate_schema` / `migrate-schema` across all 3 repositories (`580` files migrated, `0` remaining `psychopatz.psdl.v2` / `psychopatz.psdl.package.v2` sources).
-- Removed `COMPACT_PSDL_SCHEMA` / `PACKAGE_DESCRIPTOR_SCHEMA` aliases from compiler/authoring/integrity-audit paths while preserving compact authoring, profiles, defaults, and sidecars under ConvoEngine v1.
-- Collapsed CAMP split authority into `command.camp`, retargeted `constrained_family_manifest.json`, and deleted `command.companion.camp` after caller-zero proof.
-- Added `audit_split_action_authority` (`LEGACY_SPLIT_AUTHORITY` detection) to `convo_engine_integrity_audit.py` (0 violations across all 587 maintained families).
-- Clarified Semantic Lab health scopes (`Package health:`, `Selected family:`, `Tests:`, `Current filter scope:`, and outside-filter notice) in `completeness_workbench.py`.
-- Two consecutive canonical acceptance runs passed `9/9` suites (`cases=2144/2173`, `convoScopeOk=True`).
-
-Residual snapshot at goal creation:
+Audit-close residual fingerprints for all three repositories:
 
 ~~~text
-psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+rows=0
+sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-## Retained accepted foundation
+## Accepted and retained
 
-- R9/R9R1 Semantic Lab authoring UI is compact, health-colored and kind-discoverable.
-- One compiler-owned authoring-health report covers the maintained dialogue/behavior/beat/realization catalog.
-- Structural health and family-test coverage are separate/truthful.
-- Exact declarative/Python/Lua family verification is implemented.
-- Behavior/beat/realization kind-aware routing and write safety are implemented.
-- Two fresh canonical acceptance runs from one clean exact participant vector passed 9/9 suites with `convoScopeOk=true`.
-- CodeBuilder reconcile remained clean.
+- canonical maintained conversation/package sources use ConvoEngine v1;
+- `command.camp` is the single CAMP conversation authority;
+- split-action authority audit is green;
+- Semantic Lab health scopes are explicit;
+- machine-readable modernization inventory covers all 587 maintained families;
+- useful S12 roles/slots/topic/event/activity/memory/domain metadata additions remain;
+- CodeBuilder generation/reconcile remains deterministic and clean;
+- current runtime/provider/GUI acceptance is stable.
 
-## Why S12 is required before content modernization
-
-1. Core docs/tooling still carry contradictory pre-release schema identities: the language spec targets `psychopatz.convo-engine.v1` while most compact source/package descriptors still use `psychopatz.psdl.v2` / `psychopatz.psdl.package.v2`.
-2. Because the project is unreleased, the target is one ConvoEngine v1 standard; no v2 or permanent compatibility layer is needed.
-3. CAMP still exposes a real split conversational authority: `command.camp` owns content/action/replies while `command.companion.camp` owns state/input/repeat/closure policy, joined by runtime action lookup.
-4. The maintained dataset needs a machine-readable modernization classification before family-by-family rewriting so agents generalize context into roles/slots/references instead of merely polishing duplicated scripts.
-5. Dynamic composition must be a core authoring rule: reusable meaning is authored once; runtime binds live context and composes only validated pieces; realization supplies wording; gameplay authority remains adopter-owned.
-
-## Mandatory sequence
+Fresh audit acceptance from the exact vector above, twice:
 
 ~~~text
-S12A  v1 schema/toolchain convergence + CAMP/split-authority cleanup
-  ↓
-S12B  classify every maintained family
-  ↓
-S12C  Core dataset modernization
-  ↓
-S12D  ProjectHoomans dataset modernization
-  ↓
-S12E  DynamicTrading/DTCommon dataset modernization
-  ↓
-S12F  exhaustive composition-readiness closure
+9/9 suites
+2145/2174 cases
+4 known unrelated Hoomans Lua baseline failures
+25 allowed skips
+0 unclassified skips
+convoScopeOk=true
 ~~~
 
-Read `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md` before modifying any dataset family and `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md` for phase gates.
+Fresh generation evidence:
 
-Do not launch native Project Zomboid, push, publish, reset/stash unrelated work, or hand-edit generated ConvoEngine artifacts.
+~~~text
+family files: 587
+deterministic generated files: 408
+integrity violations: 0
+split-authority violations: 0
+determinism diffs: 0
+
+reconcile desired: 411
+missing/drifted/stale/retired_present/ambiguous: 0
+~~~
+
+## Why S12 is reopened
+
+The accepted inventory still reports structural work after the claimed S12C-E modernization:
+
+~~~text
+duplicateGroupCount         30
+
+CONTEXT_VARIANT            140
+REALIZATION_ONLY           126
+REDUNDANT_SPECIALIZATION    44
+SLOT_PARAMETERIZABLE        33
+ARCHETYPE_MEMBER            30
+BEAT_COMPONENT               3
+~~~
+
+Representative live recommendations still include:
+
+~~~text
+parameterize_context_or_predicate_variants
+merge_into_single_family_realization_variants
+collapse_into_slot_parameterized_family
+preserve_and_expose_director_hooks_and_roles
+~~~
+
+S12C-E mostly enriched existing families with generic roles/slots/hooks while
+leaving many recommended specialization/realization/context families intact.
+The previous S12F gate verified classification coverage, ordinary tests,
+integrity and determinism, but did not require the actionable modernization
+backlog to be resolved.
+
+Core also still maintains active legacy-schema/PSDL compatibility surfaces
+(legacy supported-schema/read flags and PSDL-named implementation modules).
+Because the project is unreleased, S12R1 must finish the direct ConvoEngine-v1
+migration rather than retain a permanent compatibility path.
+
+## Mandatory repair sequence
+
+~~~text
+S12R1A  closure-authority hardening
+  ↓
+S12R1B  retire active legacy schema/compiler compatibility
+  ↓
+S12R1C1 Core structural dataset groups
+  ↓
+S12R1C2 ProjectHoomans structural dataset groups
+  ↓
+S12R1C3 DTCommon structural dataset groups
+  ↓
+S12R1C4 behavior/beat composition-readiness sweep
+  ↓
+S12R1D reproducible final closure
+~~~
+
+Normative repair:
+`S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`
+
+Authoring standard:
+`DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`
+
+Do not launch native Project Zomboid, push, publish, reset/stash unrelated work,
+or hand-edit generated ConvoEngine artifacts.

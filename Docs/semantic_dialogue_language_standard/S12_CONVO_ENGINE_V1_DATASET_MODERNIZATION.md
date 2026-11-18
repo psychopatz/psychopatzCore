@@ -1,11 +1,12 @@
 # S12 — ConvoEngine v1 Dynamic Dataset Modernization
 
-**Status:** NORMATIVE ACTIVE GOAL
+**Status:** REOPENED UNDER S12R1 — useful S12 foundation retained; structural modernization/legacy-reader closure incomplete
 **Date:** 2026-11-19
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** ProjectHoomans, DynamicTrading/DTCommon
 **Core authoring standard:** `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`
-**Content rewrite gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until S12B inventory is accepted; then modernization proceeds only through classified batches.
+**Current repair authority:** `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`
+**Content rewrite gate:** classified structural repair is allowed; parent S12 cannot return to COMPLETE until S12R1D passes.
 
 ## Objective
 
@@ -69,6 +70,55 @@ DynamicTrading   0fcf35196452db0675788167df205aec09748caa
 All three worktrees were clean.
 
 Current maintained authoring inventory is approximately 588 families and must be re-derived from current source at phase start rather than treated as a hardcoded constant.
+
+## Post-implementation audit reopening
+
+The S12 implementation reached a stable and useful intermediate state, but the
+original completion claim is invalidated by the post-agent audit.
+
+Retain:
+
+- canonical maintained ConvoEngine-v1 family/package sources;
+- `command.camp` single-family authority;
+- split-action authority audit;
+- Semantic Lab health-scope clarity;
+- machine-readable 587-family modernization inventory;
+- useful S12 roles/slots/reference metadata;
+- clean reconcile/integrity/determinism;
+- green full acceptance.
+
+Do not treat those retained pieces as proof that structural modernization is
+complete.
+
+At audit time the live inventory still reported:
+
+~~~text
+duplicateGroupCount         30
+CONTEXT_VARIANT            140
+REALIZATION_ONLY           126
+REDUNDANT_SPECIALIZATION    44
+SLOT_PARAMETERIZABLE        33
+ARCHETYPE_MEMBER            30
+BEAT_COMPONENT               3
+~~~
+
+Representative recommendations still included:
+
+~~~text
+parameterize_context_or_predicate_variants
+merge_into_single_family_realization_variants
+collapse_into_slot_parameterized_family
+preserve_and_expose_director_hooks_and_roles
+~~~
+
+The previous S12F acceptance did not require those recommendations to disappear
+or to receive a machine-checkable semantic justification.
+
+The parent goal therefore continues through S12R1.
+
+Normative repair:
+
+`S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`
 
 ## Non-negotiable principles
 
@@ -279,15 +329,22 @@ Run an exhaustive final audit across all maintained families.
 Required zero findings:
 
 ~~~text
-legacy PSDL source/package schema
+legacy first-party schema reader / supported compatibility path
 split project-owned semantic action authority
 unclassified family
+OPEN actionable modernization family
+OPEN actionable modernization group
+required composition hook missing
 redundant participant-count specialization without justification
-wording-only semantic duplicate left unclassified
+wording-only semantic duplicate without resolution/justification
 hard-coded entity/context duplicate that should be a slot
 runtime-invented gameplay authority
 direct generated-artifact edits
 ~~~
+
+`INTENTIONALLY_RETAINED` findings are allowed only with machine-checkable
+semantic justification as defined by S12R1; prose-only waivers do not satisfy
+closure.
 
 Required evidence:
 
@@ -320,4 +377,4 @@ A later director may discover/rank/compose the validated dataset.
 
 S12 is complete when:
 
-> all maintained first-party conversation source uses ConvoEngine v1; each semantic interaction has one canonical conversational authority; context-specific duplication is replaced by roles/slots/typed references where appropriate; wording-only duplication is realization; reusable interactions are composition-ready through beats/archetypes; gameplay authority remains in adopter systems; the modernization inventory matches the source catalog; the full dataset is tested/reconciled; and future deterministic runtime composition can bind live world/social context without inventing semantic or gameplay authority.
+> all maintained first-party conversation source uses ConvoEngine v1; ConvoEngine v1 is the sole first-party authoring/compiler schema path; each semantic interaction has one canonical conversational authority; every actionable modernization finding is RESOLVED or INTENTIONALLY_RETAINED with machine-checkable semantic justification; context-specific duplication is replaced by roles/slots/typed references where appropriate; wording-only duplication is realization; behaviors/beats are composition-ready or explicitly proven not to require a hook; gameplay authority remains in adopter systems; the modernization inventory matches the source catalog; the full dataset is tested/reconciled; and future deterministic runtime composition can bind live world/social context without inventing semantic or gameplay authority.

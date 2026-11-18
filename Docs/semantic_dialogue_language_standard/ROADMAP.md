@@ -1,9 +1,9 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** IN_PROGRESS — S12 ConvoEngine v1 dynamic dataset modernization is active. Retained S11/R9 authoring/completeness tooling is accepted foundation; remaining CAMP single-authority and pre-release schema cleanup are S12A prerequisites.
+**Parent status:** REOPENED — S12 implementation is stable, but post-implementation audit found unresolved structural modernization and active legacy-schema compatibility. Current repair authority is S12R1.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
-**Developer completion boundary:** S12A-S12F accepted and closed, including ConvoEngine v1 schema/source convergence, dataset classification, Core/Hoomans/DT modernization, and composition-readiness closure.
+**Developer completion boundary:** S12 plus S12R1 accepted and closed: one ConvoEngine v1 first-party authoring/compiler path, all actionable modernization findings resolved or mechanically justified, Core/Hoomans/DT structural modernization complete, composition-readiness closure reproducible, and continuity docs reconciled.
 
 ## Objective and ownership
 
@@ -28,39 +28,48 @@ ConvoEngine compiles into accepted authorities: Core semantic NLU/candidate mach
 shared predicates/context/evidence projections, ResponsePlan, BranchOffers,
 Interaction Director, Scene Runtime, Semantic Social Conversation,
 SpeechRealization, and existing gameplay/relationship/knowledge/trading
-services. PSDL does not replace those systems.
+services. ConvoEngine does not replace those systems.
 
 ## S12 — ConvoEngine v1 Dynamic Dataset Modernization
 
-**Status:** ACTIVE. Normative goal: `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
-Normative authoring principle: `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`.
+**Status:** REOPENED UNDER S12R1. Parent goal:
+`S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
+Current repair authority:
+`S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`.
+Normative authoring principle:
+`DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`.
 
-S12 changes the maintained dataset toward reusable semantic meaning plus runtime
-context binding/composition rather than context-specific script duplication.
+Retain the useful S12 implementation: canonical ConvoEngine-v1 sources/packages,
+CAMP single-family authority, split-action auditing, health-scope clarity,
+modernization inventory, metadata enrichment and green generation/runtime tests.
+
+Post-implementation audit showed that S12C-E mostly enriched existing families
+with roles/slots/reference metadata while many actionable structural
+recommendations remained. S12F then treated “all families classified” as
+closure even though the inventory still reported specialization/context/
+realization groups requiring action.
 
 ~~~text
-S12A  ConvoEngine v1 schema freeze + single-family authority cleanup
-S12B  machine-readable classification of every maintained family
-S12C  PsychopatzCore dataset modernization
-S12D  ProjectHoomans dataset modernization
-S12E  DynamicTrading/DTCommon dataset modernization
-S12F  composition-readiness closure
+S12A  useful implementation retained; legacy-reader retirement incomplete
+S12B  inventory mechanism accepted
+S12C-E metadata foundation retained; structural modernization incomplete
+S12F  prior closure invalidated
+
+S12R1A  make inventory an actual closure authority
+S12R1B  retire active pre-release legacy schema/compiler compatibility
+S12R1C  resolve structural dataset backlog across Core/Hoomans/DT + behaviors/beats
+S12R1D  reproducible final closure
 ~~~
 
-S12A must directly migrate first-party `psychopatz.psdl.v2` /
-`psychopatz.psdl.package.v2` source/toolchain ownership to ConvoEngine v1,
-preserve compact authoring under the single v1 schema, remove obsolete aliases
-after source/caller zero, collapse CAMP to one canonical family, and add a
-duplicate semantic-action authority audit.
+The key closure invariant is now:
 
-S12B must classify every maintained family before broad rewriting. S12C-E may
-then migrate only classified coherent batches through CodeBuilder authoring
-services. S12 does not implement an unrestricted autonomous Dialogue Director;
-it makes the dataset safe and discoverable for later deterministic composition.
+> every actionable inventory finding must be RESOLVED or
+> INTENTIONALLY_RETAINED with machine-checkable semantic justification;
+> OPEN findings block S12 completion.
 
-**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` through S12A and S12B. After
-S12B acceptance, broad rewriting proceeds only through classified S12C-E
-batches, never as blind prose replacement.
+Classified structural repair is allowed. Blind prose replacement remains
+forbidden. S12 still does not implement an unrestricted autonomous Dialogue
+Director; it prepares a truthful composition-ready dataset for a later consumer.
 
 ## Phase matrix
 
@@ -1188,7 +1197,7 @@ Real Tk/Xvfb acceptance must prove the primary family browser itself is compact,
 
 Then run focused suites, full canonical 9-suite acceptance twice from one exact participant vector, post-acceptance reconcile, diff checks, participant heads and residual fingerprints.
 
-**Gate:** SATISFIED for R9R1. Broad modernization now follows S12: S12A prerequisite cleanup, S12B classification, then classified S12C-E batches.
+**Gate:** SATISFIED for R9R1. Current modernization authority is S12/S12R1; use current PROGRESS/HANDOFF rather than this historical gate.
 
 ## Commit protocol
 
