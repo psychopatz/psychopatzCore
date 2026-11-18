@@ -1,9 +1,9 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — R5A accepted (closed-set `S11_BRANCHING_AUDIT_INVENTORY.json` + machine-verifiable `acceptance` ownership + 6 negative guards passing); advancing to R5B.
+**Status:** IN_PROGRESS — R5B accepted (parameterized task lifecycle + duplicate suppression, QuestService conversation lifecycle, disband EXPLICIT_PRESENTATION_ONLY guard, event-expiry + settlement/ambient ownership verified); advancing to R5C.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11R5 — R5B remaining S11D state/lifecycle closure (tasks + quests + event expiry + disband + settlement/ambient).
-**Immediate Next Chunk:** R5B — close parameterized task lifecycle, QuestService conversation lifecycle, disband explicit confirmation/typed policy, and settlement/ambient post-transition projection.
+**Active phase:** S11R5 — R5C generic policy/reply projection de-duplication.
+**Immediate Next Chunk:** R5C — remove hardcoded recruitment reply mapping from `Input_Actions_Dispatch.lua` / `Input_Presentation_Responses_Actions.lua` and project blocked/no-op replies generically from canonical `plan.payload.reply[evalRes.replyOutcome]`.
 
 ## Current checkpoint
 

@@ -154,7 +154,8 @@
         "source": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py",
         "testIds": [
           "test_parameterized_task_template_generates_wait_at_and_fetch",
-          "test_parameterized_task_result_branches_and_gate_are_truthful"
+          "test_parameterized_task_result_branches_and_gate_are_truthful",
+          "test_parameterized_task_conversation_lifecycle_and_duplicate_suppression"
         ],
         "requiredClaims": ["task_generation_and_result_routing"]
       }
@@ -169,7 +170,8 @@
         "source": "ProjectHoomans/tools/providers/pnc/tests/test_quest_flow_binding.py",
         "testIds": [
           "test_real_worker_routes_offer_accept_query_and_turn_in_results",
-          "test_quest_denied_failed_preview_and_repeat_are_truthful"
+          "test_quest_denied_failed_preview_and_repeat_are_truthful",
+          "test_production_quest_service_conversation_lifecycle"
         ],
         "requiredClaims": ["quest_offer_accept_turnin_repeat"]
       }
@@ -228,7 +230,10 @@
       "acceptance": {
         "ownerKind": "python_test",
         "source": "ProjectHoomans/tools/providers/pnc/tests/test_production_leave_group.py",
-        "testIds": ["test_positive_warning_and_confirmation_use_production_worker_route"],
+        "testIds": [
+          "test_positive_warning_and_confirmation_use_production_worker_route",
+          "test_disband_presentation_only_typed_input_cannot_bypass_confirmation_and_replay_is_idempotent"
+        ],
         "requiredClaims": ["confirmation_modal_required", "no_unconfirmed_destructive_dispatch"]
       }
     },
