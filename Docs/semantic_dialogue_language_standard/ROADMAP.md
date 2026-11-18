@@ -1,6 +1,6 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** REOPENED — S12 implementation is stable, but post-implementation audit found unresolved structural modernization and active legacy-schema compatibility. Current repair authority is S12R1.
+**Parent status:** COMPLETE — S12 and S12R1 accepted and closed: ConvoEngine v1 is the sole first-party authoring/compiler path, all actionable modernization findings are resolved or mechanically justified, Core/Hoomans/DT structural modernization and behavior/beat composition-readiness are complete, and continuity docs are reconciled.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Developer completion boundary:** S12 plus S12R1 accepted and closed: one ConvoEngine v1 first-party authoring/compiler path, all actionable modernization findings resolved or mechanically justified, Core/Hoomans/DT structural modernization complete, composition-readiness closure reproducible, and continuity docs reconciled.
@@ -32,44 +32,14 @@ services. ConvoEngine does not replace those systems.
 
 ## S12 — ConvoEngine v1 Dynamic Dataset Modernization
 
-**Status:** REOPENED UNDER S12R1. Parent goal:
+**Status:** COMPLETE (closed via S12R1). Parent goal:
 `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`.
-Current repair authority:
+Closure repair record:
 `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`.
 Normative authoring principle:
 `DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`.
 
-Retain the useful S12 implementation: canonical ConvoEngine-v1 sources/packages,
-CAMP single-family authority, split-action auditing, health-scope clarity,
-modernization inventory, metadata enrichment and green generation/runtime tests.
-
-Post-implementation audit showed that S12C-E mostly enriched existing families
-with roles/slots/reference metadata while many actionable structural
-recommendations remained. S12F then treated “all families classified” as
-closure even though the inventory still reported specialization/context/
-realization groups requiring action.
-
-~~~text
-S12A  useful implementation retained; legacy-reader retirement incomplete
-S12B  inventory mechanism accepted
-S12C-E metadata foundation retained; structural modernization incomplete
-S12F  prior closure invalidated
-
-S12R1A  make inventory an actual closure authority
-S12R1B  retire active pre-release legacy schema/compiler compatibility
-S12R1C  resolve structural dataset backlog across Core/Hoomans/DT + behaviors/beats
-S12R1D  reproducible final closure
-~~~
-
-The key closure invariant is now:
-
-> every actionable inventory finding must be RESOLVED or
-> INTENTIONALLY_RETAINED with machine-checkable semantic justification;
-> OPEN findings block S12 completion.
-
-Classified structural repair is allowed. Blind prose replacement remains
-forbidden. S12 still does not implement an unrestricted autonomous Dialogue
-Director; it prepares a truthful composition-ready dataset for a later consumer.
+All S12 and S12R1 gates (`S12R1A` → `S12R1B` → `S12R1C1` → `S12R1C2` → `S12R1C3` → `S12R1C4` → `S12R1D`) are complete: `openActionableFamilyCount = 0`, `openActionableGroupCount = 0`, `legacySplitAuthorityCount = 0`, `missingCompositionHookCount = 0`, `legacySchemaReaderCount = 0`, `unknownOwnershipCount = 0`, `unclassifiedCount = 0`, `closureOk = true`.
 
 ## Phase matrix
 

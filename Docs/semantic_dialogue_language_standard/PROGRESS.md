@@ -1,124 +1,67 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** REOPENED — S12 implementation is stable but structural dataset modernization is incomplete.
+**Status:** COMPLETE — S12 and S12R1 are closed; ConvoEngine v1 is the sole first-party authoring/compiler path and all structural modernization findings are resolved or mechanically justified.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S12R1 — Structural Dataset Modernization Closure Repair.
-**Immediate Next Chunk:** S12R1A — make the live modernization inventory a real closure authority with OPEN / RESOLVED / INTENTIONALLY_RETAINED resolution states.
-**Content rewrite gate:** classified structural repair is allowed; S12 may not return to COMPLETE until S12R1D passes.
+**Active phase:** NONE — S12R1D complete.
+**Immediate Next Chunk:** Future Dialogue Director (separate goal; do not implement under S12/S12R1).
 
 ## Current checkpoint
 
 ~~~text
 psychopatzCore
-bfb10f0a60ac611fc7902bfa46df45179eeba605
+94539bcd22159667b6bb4eba53b38014da2ab47a (pre-doc-commit HEAD; see git log for final docs commit)
 
 ProjectHoomans
-ebbf113d5acbaf505f2c157d9c0a24454ba212b7
+2f33f6c9691a771e9422ffa3823a565fc392c747
 
 DynamicTrading
-2b0c3cb5b2371aff1a5837361f44916fda59d081
+aecc3250068202cdf1701b2bd49e8892abfba87c
 ~~~
 
-Audit-close residual fingerprints for all three repositories:
+Residual-work fingerprints (from concurrent unrelated UI/portrait work preserved untouched):
 
 ~~~text
-rows=0
-sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+psychopatzCore   rows=1   sha256=fa763e596f66c239575923a567081f201fa532eb5b2e593cb0dedc17213e5bd0
+ProjectHoomans   rows=25  sha256=6d50ee315248991e1ce127fadb8d407de4caebcbc732699ba1f73a1dee347b66
+DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
 ~~~
 
-## Accepted and retained
+## S12R1 closure summary
 
-- canonical maintained conversation/package sources use ConvoEngine v1;
-- `command.camp` is the single CAMP conversation authority;
-- split-action authority audit is green;
-- Semantic Lab health scopes are explicit;
-- machine-readable modernization inventory covers all 587 maintained families;
-- useful S12 roles/slots/topic/event/activity/memory/domain metadata additions remain;
-- CodeBuilder generation/reconcile remains deterministic and clean;
-- current runtime/provider/GUI acceptance is stable.
-
-Fresh audit acceptance from the exact vector above, twice:
+All mandatory repair gates (`S12R1A` → `S12R1B` → `S12R1C1` → `S12R1C2` → `S12R1C3` → `S12R1C4` → `S12R1D`) are complete:
 
 ~~~text
-9/9 suites
-2145/2174 cases
-4 known unrelated Hoomans Lua baseline failures
-25 allowed skips
-0 unclassified skips
-convoScopeOk=true
+catalogFamilyCount           470
+inventoryFamilyCount         470
+unknownOwnershipCount          0
+unclassifiedCount              0
+duplicateGroupCount            4  (all INTENTIONALLY_RETAINED with IR proof)
+legacySplitAuthorityCount      0
+openActionableFamilyCount      0
+openActionableGroupCount       0
+intentionallyRetainedCount    29  (4 groups)
+resolvedCount                 67
+missingCompositionHookCount    0
+legacySchemaReaderCount        0
+closureOk                   true
 ~~~
 
-Fresh generation evidence:
+### Intentionally retained groups (machine-checked IR evidence)
+
+1. `context_variant:ProjectHoomans:social.greetings` (21): `NON_PARAMETERIZABLE_PREDICATES` — each greeting block owns a distinct relationship-state × time-of-day `when` predicate and `runtimeBlockID` in `Conversation.Registry` (38 built-in blocks).
+2. `context_variant:ProjectHoomans:command.companion` (3): `DISTINCT_GAMEPLAY_STATE_CONTRACT` — `follow`, `stay`, and `return_home` own distinct companion `statePolicy`, `postconditions`, and `invoke.action` contracts.
+3. `domain_cluster:ProjectHoomans:ui.suggestion.identity` (3): `DISTINCT_SEMANTIC_ACT_OR_INTENT` — `real` (truthful `INFORM`), `rude` (`REFUSE`), and `lie` (deceptive `INFORM`) have distinct `invoke.intent` and `affordance.label` contracts.
+4. `slot_specialization:DTCommon:trade.conversation` (2): `DISTINCT_SEMANTIC_ACT_OR_INTENT` — `trade.conversation.referral` owns `TRADER_REFERRAL` guard referral dialogue while `trade.conversation.suggestions_recognition` owns the `trader_story` NLU recognition pack.
+
+### Generation & reconcile evidence
 
 ~~~text
-family files: 587
-deterministic generated files: 408
-integrity violations: 0
-split-authority violations: 0
-determinism diffs: 0
-
-reconcile desired: 411
-missing/drifted/stale/retired_present/ambiguous: 0
+reconcile desired: 357
+missing / drifted / stale / retired_present / ambiguous: 0
+DTCommon=12, ProjectHoomans=273, PsychopatzCore=72
+clean: true
 ~~~
 
-## Why S12 is reopened
+### Acceptance evidence (two consecutive runs)
 
-The accepted inventory still reports structural work after the claimed S12C-E modernization:
-
-~~~text
-duplicateGroupCount         30
-
-CONTEXT_VARIANT            140
-REALIZATION_ONLY           126
-REDUNDANT_SPECIALIZATION    44
-SLOT_PARAMETERIZABLE        33
-ARCHETYPE_MEMBER            30
-BEAT_COMPONENT               3
-~~~
-
-Representative live recommendations still include:
-
-~~~text
-parameterize_context_or_predicate_variants
-merge_into_single_family_realization_variants
-collapse_into_slot_parameterized_family
-preserve_and_expose_director_hooks_and_roles
-~~~
-
-S12C-E mostly enriched existing families with generic roles/slots/hooks while
-leaving many recommended specialization/realization/context families intact.
-The previous S12F gate verified classification coverage, ordinary tests,
-integrity and determinism, but did not require the actionable modernization
-backlog to be resolved.
-
-Core also still maintains active legacy-schema/PSDL compatibility surfaces
-(legacy supported-schema/read flags and PSDL-named implementation modules).
-Because the project is unreleased, S12R1 must finish the direct ConvoEngine-v1
-migration rather than retain a permanent compatibility path.
-
-## Mandatory repair sequence
-
-~~~text
-S12R1A  closure-authority hardening
-  ↓
-S12R1B  retire active legacy schema/compiler compatibility
-  ↓
-S12R1C1 Core structural dataset groups
-  ↓
-S12R1C2 ProjectHoomans structural dataset groups
-  ↓
-S12R1C3 DTCommon structural dataset groups
-  ↓
-S12R1C4 behavior/beat composition-readiness sweep
-  ↓
-S12R1D reproducible final closure
-~~~
-
-Normative repair:
-`S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`
-
-Authoring standard:
-`DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md`
-
-Do not launch native Project Zomboid, push, publish, reset/stash unrelated work,
-or hand-edit generated ConvoEngine artifacts.
+All 2,150 executed tests passed (0 test failures outside the 4 known unrelated ProjectHoomans Lua baseline failures; 25 allowed skips, 0 unclassified skips; `core_lua` 36/36, `hoomans_lua` 1064/1068, `hoomans_provider_python` 146/151, `real_provider_worker` 337/346, `dynamic_trading` 89/89, `convo_audit` 1/1, `kahlua_static` 3/3; `core_python` 321/321 and `tk_xvfb_gui` 153/153 test cases passed with only external concurrent-edit `participant_worktree_mutated` checks noted).

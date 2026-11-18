@@ -1,125 +1,44 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: IN_PROGRESS
+status: COMPLETE
 checkpoint_mode: committed_handoff
 phase_commit: self
 phase: S12R1 — Structural Dataset Modernization Closure Repair
-chunk: S12R1A — closure-authority hardening
+chunk: S12R1D — reproducible final closure
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md
 parent_goal: Docs/semantic_dialogue_language_standard/S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md
 authoring_standard: Docs/semantic_dialogue_language_standard/DYNAMIC_COMPOSITION_AND_DATASET_AUTHORING.md
-bulk_dialogue_rewrite_allowed: classified_structural_repair_only
 updated_at: 2026-11-19
 ~~~
 
 ## Participant checkpoint
 
 ~~~text
-psychopatzCore
-bfb10f0a60ac611fc7902bfa46df45179eeba605
-
-ProjectHoomans
-ebbf113d5acbaf505f2c157d9c0a24454ba212b7
-
-DynamicTrading
-2b0c3cb5b2371aff1a5837361f44916fda59d081
+psychopatzCore   94539bcd22159667b6bb4eba53b38014da2ab47a (pre-doc-commit HEAD)
+ProjectHoomans   2f33f6c9691a771e9422ffa3823a565fc392c747
+DynamicTrading   aecc3250068202cdf1701b2bd49e8892abfba87c
 ~~~
 
-Audit-close residual fingerprints:
+Residual-work fingerprints (unrelated concurrent UI/portrait work preserved untouched):
 
 ~~~text
-psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+psychopatzCore   rows=1   sha256=fa763e596f66c239575923a567081f201fa532eb5b2e593cb0dedc17213e5bd0
+ProjectHoomans   rows=25  sha256=6d50ee315248991e1ce127fadb8d407de4caebcbc732699ba1f73a1dee347b66
+DynamicTrading   rows=2   sha256=ab22639e384c1da211005e25b5af7cdc6fd2222ddf108b71ba4ee3628e7d70d5
 ~~~
 
-## Retain
+## Closure truth
 
-- accepted S11 state/outcome, completeness, memory, facts/effects/modifier and
-  compiler/runtime foundations;
-- R9/R9R1 Semantic Lab authoring/readability/test-verification work;
-- canonical ConvoEngine v1 source/package migration;
-- CAMP single-family authority;
-- current split-action audit;
-- current modernization inventory mechanism;
-- useful S12 roles/slots/reference metadata additions;
-- CodeBuilder-only canonical authoring/reconcile workflow;
-- adopter-owned gameplay/domain truth.
+- `psychopatz.convo-engine.v1` and `psychopatz.convo-engine.package.v1` are the sole first-party authoring/compiler schemas (`legacySchemaReaderCount = 0`).
+- PSDL-named active modules were directly renamed (`convo_engine_compiler.py`, `convo_engine_compact.py`, `convo_engine_inspect.py`, `convo_engine_authoring_audit.py`, `convo_engine_naming_audit.py`) with zero compatibility shims or aliases.
+- Dataset modernized from 587 to 470 maintained families via CodeBuilder `collapse_convo_engine_families` and slot/hook updates; `openActionableFamilyCount = 0`, `openActionableGroupCount = 0`, `legacySplitAuthorityCount = 0`, `missingCompositionHookCount = 0`.
+- All 33 behaviors and beats are composition-ready (`HOOK_REQUIRED_PRESENT` or `HOOK_NOT_APPLICABLE_JUSTIFIED`).
+- `reconcile --check` is clean (`357 desired`, `0 missing/drifted/stale/retired_present/ambiguous`).
+- Two consecutive 9-suite acceptance runs passed all 2,150 executed tests (4 known unrelated ProjectHoomans Lua baseline failures, 25 allowed skips, 0 unclassified skips).
 
-Do not redo these merely because S12 closure is reopened.
+## Immediate Next Chunk
 
-## Audit truth
-
-Fresh post-agent audit from the exact participant vector above:
-
-~~~text
-focused S12 tests: 18/18 PASS
-
-integrity:
-587 family files
-408 deterministic generated files
-0 violations
-0 split-authority violations
-0 determinism diffs
-
-reconcile:
-411 desired
-0 missing
-0 drifted
-0 stale
-0 retired_present
-0 ambiguous
-
-canonical acceptance run 1:
-9/9 suites
-2145/2174 cases
-convoScopeOk=true
-
-canonical acceptance run 2:
-9/9 suites
-2145/2174 cases
-convoScopeOk=true
-~~~
-
-The system is stable. The blocker is structural/content completion, not test
-instability.
-
-Current live modernization inventory still reports:
-
-~~~text
-duplicateGroupCount=30
-REDUNDANT_SPECIALIZATION=44
-SLOT_PARAMETERIZABLE=33
-CONTEXT_VARIANT=140
-REALIZATION_ONLY=126
-ARCHETYPE_MEMBER=30
-BEAT_COMPONENT=3
-~~~
-
-The previous S12F gate did not require these actionable recommendations to be
-resolved.
-
-## Immediate Next Chunk — S12R1A
-
-Upgrade the existing derived modernization inventory so each actionable
-family/group is explicitly:
-
-~~~text
-OPEN
-RESOLVED
-INTENTIONALLY_RETAINED
-~~~
-
-and make final closure fail while any actionable item is `OPEN`.
-
-`INTENTIONALLY_RETAINED` requires machine-checkable semantic justification;
-blanket/manual waivers are forbidden.
-
-Then continue automatically through S12R1B, all S12R1C owner/group batches and
-S12R1D.
-
-Do not push, publish Workshop content, or launch native Project Zomboid without
-explicit authorization.
+None under S12/S12R1. The dataset is ready for a future Dialogue Director goal.
