@@ -81,7 +81,8 @@ class PsdlProductionToolchainTests(unittest.TestCase):
                 elif d.get("schema") == COMPACT_PSDL_SCHEMA:
                     v2_count += 1
 
-        self.assertEqual(v1_count, 0)
+        # 11 canonical S11 state-aware psychopatz.convo-engine.v1 definitions (6 in R2 + 5 in R3).
+        self.assertEqual(v1_count, 11)
         self.assertGreaterEqual(v2_count, 577)
 
         # Verify large localized family via textSidecars compiled into runtime plans

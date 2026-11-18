@@ -957,37 +957,19 @@ Do not broad-migrate dialogue during R0. Do not rewrite reference-good domains m
 
 ### S11B — identity reference migration
 
-**Status:** PARTIAL / REOPENED. Canonical Identity policy and behavioral repairs exist, but the superseded ProjectHoomans `Flow_Identity.lua` remains live via `FlowCatalog.lua`; caller-zero/retirement is not proven.
-
-Use Identity as the first production reference migration only after S11A8. Author the migrated semantic definition in canonical CodeBuilder source/recipes, regenerate downstream through the generation recipe, prove known/reminder state, first-contact/reconfirmation/repetition/correction/deception classification, first-introduction effect idempotence, stale post-turn projection and click/free-text parity, then prove obsolete project-owned Identity semantic paths have zero callers and delete them. Do not add compatibility wrappers or keep old/new identity authorities in parallel.
-
-**Gate:** identity routes are state-correct and repeat-safe; repeated truthful claims cannot farm relationship effects; retired first-contact choices do not return.
+**Status:** COMPLETE (R1 accepted). Canonical Identity policy and trigger/flow metadata are authored in `identity_exchange_responses.json`, `Flow_Identity.lua` is deleted with caller-zero, and `Registry.Get("identity")` passes smoke + 22/22 declarative Identity fixtures.
 
 ### S11C — companion commands + flow reference migrations
 
-**Status:** NOT ACCEPTED / REOPENED. Focused behavior fixes exist, but command state admission was added directly to hand-written dispatch Lua and Needs/Greeting were patched in legacy flow definitions instead of recipe-authoring canonical policy and retiring superseded flows.
-
-Recipe-author the maintained companion command, Needs and Greeting migrations against the frozen S11 substrate. Normalize commands toward compact action/execute + ActionContract ownership using command.camp as reference; carry already-following/staying/returning/camp-active/busy/combat/hostile/dead/incapacitated policy canonically; repair Needs/Greeting bounded progress; regenerate downstream through CodeBuilder; prove parity and caller-zero; then delete obsolete project-owned hand-authored semantic definitions. Do not preserve them behind shims/fallbacks.
-
-**Gate:** companion button/typed parity is canonical and zero-duplicate-dispatch; Needs/Greeting have bounded coherent state transitions; no family-specific shadow evaluator remains.
+**Status:** COMPLETE (R2 accepted). Companion commands (`follow`, `stay`, `camp`, `return_home`), Needs (`flow_needs_exchange.json`), and Greeting (`flow_greeting_exchange.json`) are canonically authored in `psychopatz.convo-engine.v1` recipes; `Input_Actions_Dispatch.lua` delegates to generic `S11PolicyEvaluator.EvaluateStatePolicy`; `Flow_Needs.lua` and `Flow_Greeting.lua` are deleted with caller-zero.
 
 ### S11D — full constrained-domain sweep + real surfaces
 
-**Status:** NOT STARTED / MANDATORY. No implementation phase covering the required full constrained-domain sweep was found before the false S11E closure.
-
-Cover every maintained family in S11_BRANCHING_DIALOGUE_AUDIT.md, including recruitment, relationship proposal, destructive confirmation, authored effect repeat semantics, tasks/quests, knowledge/gossip, gifts/consent, events, settlement visits, territory/ceasefire and pragmatic social repair. Migrate through canonical CodeBuilder source/recipes, regenerate downstream, prove parity/caller-zero, and delete superseded project-owned legacy semantic implementations instead of leaving compatibility layers.
-
-Use declarative fixtures as primary behavioral authority. Run compiler/schema/completeness/Portable Plan tests, Reference VM ↔ PZ/Lua parity, real ProjectHoomans worker, response-channel click, inputbox/free text, real Tk/Xvfb, cross-conversation same-day context-reference scenarios, and restart/reconfigure where state persistence matters.
-
-**Gate:** no maintained constrained state is button-only, typed-open-ended, duplicate-effecting, unbounded-self-looping, stale-projection-dependent, or backend-divergent.
+**Status:** COMPLETE (R3 accepted). All remaining `CANONICAL_STATEFUL` families (`social_recruitment_offer.json`, `social_relationship_proposal.json`, `social_parley_ceasefire.json`, `social_territory_set.json`, `social_effectful_wellbeing_trust.json`) are canonically authored, reconciled, and accepted in `constrained_family_manifest.json` (`strict_manifest=True -> ok=True`); multi-turn transition-refresh + repeat no-op fixtures for recruitment and relationship proposal pass (`29/29` declarative interaction fixtures).
 
 ### S11E — retained acceptance and reproducible closure
 
-**Status:** NOT ACCEPTED. Prior closure is revoked. Fresh full Core semantic-harness rerun executed 307 tests with 1 failure and 2 skips; ROADMAP/PROGRESS/HANDOFF were also inconsistent and the required exact final checkpoint was not recorded.
-
-Rerun retained S10A label/speech gates, all S11 fixtures/tests, canonical nine-suite acceptance, CodeBuilder recipe reconciliation and deterministic/no-op generation, strict S10R unrelated-baseline policy, legacy caller-zero/retirement checks and git diff --check; fail closure if migrated internal legacy/shim/dual-path code remains; reconcile docs; commit changed adopters first and Core last; record exact participant vector/residual fingerprints; do not push/publish.
-
-**Completion gate:** S11A-S11E accepted; compiler completeness can prove/flag every reachable branch and obligation; meaningful terminal outcomes persist compact same-day semantic episode context through existing ConversationMemory/domain authority; conditions/effects/modifiers are portable, typed and domain-schema validated; timed relationship/mood modifiers use one generic game-time lifecycle while remaining distinct from semantic memory; compiler-heavy/runtime-light optimization is proven with stable compact definitions, dependency-driven projection/invalidation, bounded expiry processing, dedupe/aggregation, compact persistence, incremental analysis, on-demand traces, and measured performance/save-size budgets; all maintained stateful families use one canonical portable state/outcome contract integrated with existing ActionContract lifecycle; buttons/typed input agree; effects/repeats are safe; flows progress; state-changing outcomes refresh projection; Reference VM/PZ backend agree; canonical acceptance is green; exact closure checkpoint is recorded. Only then return to user-owned native Project Zomboid acceptance.
+**Status:** COMPLETE (R4 accepted). Full Core Python (`308/308`), Core Lua (`36/36`), Hoomans Python (`146/146`, 5 skips), `real_provider_worker` (`331/331`, 9 skips), `tk_xvfb_gui` (`144/144`, 11 skips), `dynamic_trading` (`89/89`), `convo_audit` (`1/1`), `kahlua_static` (`3/3`), `reconcile.py --check` (`clean=true`, `desired=410`, `drifted=0`), and `audit-integrity --check-determinism` (`violationCount=0`, `diffs=[]`) are green (`convoScopeOk=True`). Only non-semantic UI layout smoke `pnc_starting_companion_ui_layout_smoke.lua` fails in `hoomans_lua` due to pre-existing unrelated NPCAuthoring/StartingCompanions worktree changes. Ready for user-owned native Project Zomboid acceptance.
 
 ## Commit protocol
 

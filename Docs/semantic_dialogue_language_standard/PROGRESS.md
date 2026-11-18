@@ -1,21 +1,34 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — R2 accepted (companion commands, Needs, and Greeting migrated to canonical CodeBuilder recipes; `Flow_Needs.lua` & `Flow_Greeting.lua` retired with caller-zero; `Input_Actions_Dispatch.lua` uses generic `S11PolicyEvaluator`); advancing to R3 (S11D sweep).
+**Status:** COMPLETE — S11A–S11E and R0–R4 repair sequence accepted (`convoScopeOk=True`, `reconcile --check` clean, `audit-integrity --check-determinism` 0 violations / 0 diffs).
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11 repair — R3 execute actual S11D full constrained-domain sweep.
-**Immediate Next Chunk:** R3 — complete S11D canonical migrations & multi-turn transition fixtures (recruitment, relationship proposal, ceasefire, set territory, effectful social repeat semantics), flip all `CANONICAL_STATEFUL` entries in `constrained_family_manifest.json` to `"accepted"`, and prove `strict_manifest=True` passes.
+**Active phase:** S11 complete — ready for user-owned native Project Zomboid acceptance.
+**Immediate Next Chunk:** None (S11 closed).
 
-## Current audited checkpoint
-
-Audit-start commits before this documentation correction:
+## Final S11E closure checkpoint
 
 ~~~text
-psychopatzCore   3f8b933f2545a5e5f2e6b897555c86eee96b2d31
-ProjectHoomans   35d1a6bc6b26a0515c2dd19247c3adbc4b4e5d3e
-DynamicTrading   503d13037fbc51c66ad42c81191c8b91d1fd4da2
+DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
+ProjectHoomans   fcbc787ad708dd38aff13511f07dcf48e3460558
+psychopatzCore   HEAD of this closure commit (prior R3 commit: 19677f677e3139a2b505baff12d63bc3ca381e8b)
 ~~~
 
-All three worktrees were clean at audit start.
+- **DynamicTrading** and **psychopatzCore** worktrees are clean.
+- **ProjectHoomans** retains only unrelated pre-existing dirty/untracked NPCAuthoring, StartingCompanions, and UniqueNPCEditor files (preserved untouched).
+
+## Verified closure evidence
+
+- `core_python`: **308/308 PASS** (`0` fail, `0` skip).
+- `core_lua`: **36/36 PASS**.
+- `hoomans_provider_python`: **146/146 PASS** (`5` allowed skips).
+- `real_provider_worker`: **331/331 PASS** (`9` allowed skips).
+- `tk_xvfb_gui`: **144/144 PASS** (`11` allowed skips).
+- `dynamic_trading`: **89/89 PASS**.
+- `convo_audit`: **1/1 PASS** (`588` family files, `407` deterministic files, `0` diffs, `0` violations).
+- `kahlua_static`: **3/3 PASS** (`0` Kahlua errors on touched Lua files).
+- `reconcile.py --check`: **clean=true**, `desired=410`, `missing=0`, `drifted=0`, `stale=0`, `ambiguous=0`.
+- `hoomans_lua`: **1035/1040 PASS** (`convoScopeOk=True`; `4` known unrelated baselines + `1` unrelated `pnc_starting_companion_ui_layout_smoke.lua` from preserved NPCAuthoring/StartingCompanions worktree changes).
+- Declarative S11 interaction fixtures (`state_aware_outcome_closure.json` including `recruitment_transition_refresh_and_repeat_noop` and `relationship_proposal_transition_refresh_and_repeat_noop`, plus `identity_pending_exchange_interruptions.json` and `context_repair_and_pronouns.json`): **PASS**.
 
 Normative repair plan:
 

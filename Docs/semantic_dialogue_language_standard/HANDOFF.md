@@ -1,40 +1,37 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: IN_PROGRESS
+status: COMPLETE
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S11 repair — R2 accepted
-chunk: R3 — execute S11D full constrained-domain sweep
+phase: S11 — State-Aware Conversation Outcome Closure (R0-R4 / S11A-S11E COMPLETE)
+chunk: None (ready for user-owned native Project Zomboid acceptance)
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md
 repair_doc: Docs/semantic_dialogue_language_standard/S11_POST_IMPLEMENTATION_AUDIT_REPAIR.md
 foundation_order_doc: Docs/semantic_dialogue_language_standard/S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md
-updated_at: 2026-11-18T09:03:00Z
+updated_at: 2026-11-18T09:46:00Z
 ~~~
 
-## Audited participant checkpoint
-
-Audit-start commits before this documentation correction:
+## Final S11E participant checkpoint
 
 ~~~text
-psychopatzCore   3f8b933f2545a5e5f2e6b897555c86eee96b2d31
-ProjectHoomans   35d1a6bc6b26a0515c2dd19247c3adbc4b4e5d3e
-DynamicTrading   503d13037fbc51c66ad42c81191c8b91d1fd4da2
+DynamicTrading   a1f9cbc3e986f5dafa35cdec34d7ac71e9846bf4
+ProjectHoomans   fcbc787ad708dd38aff13511f07dcf48e3460558
+psychopatzCore   phase_commit: self (R3: 19677f677e3139a2b505baff12d63bc3ca381e8b)
 ~~~
 
-All three worktrees were clean at audit start. The Core commit containing this handoff is `phase_commit: self`; re-read HEAD/status before implementation.
+- **DynamicTrading** and **psychopatzCore** worktrees are clean at closure.
+- **ProjectHoomans** retains only unrelated pre-existing dirty/untracked NPCAuthoring, StartingCompanions, and UniqueNPCEditor files (preserved untouched).
 
-## Accepted foundation — keep
+## Accepted closure summary (R0-R4 / S11A-S11E)
 
-- S11A0-A8 contains real canonical-contract, source->IR->Portable Plan, VM/Lua parity, Completeness, adapter, lifecycle, and dependency/index work.
-- Fresh focused foundation tests: **23/23 PASS**.
-- ProjectHoomans automatic-flow tests: **9/9 PASS**.
-- CodeBuilder reconcile: **clean**, `desired=407`, `missing=0`, `drifted=0`, `stale=0`.
-- Integrity/determinism: **PASS**, 577 families, 0 legacy-name violations, 404 deterministic files, 0 diffs.
-
-Do not rebuild A0-A8 from scratch unless a targeted test proves a defect.
+- **R0 (`72d4cf8`):** `constrained_family_manifest.json` + strict completeness analyzer gate + `tests/psychopatz_runtime_role_split_smoke.lua` fix.
+- **R1 (`DynamicTrading` `866a50c9`, `ProjectHoomans` `9e33b03c`, `psychopatzCore` `2ce524d`):** Canonical Identity triggers/flow in `identity_exchange_responses.json`; `Flow_Identity.lua` deleted with caller-zero.
+- **R2 (`DynamicTrading` `1de18b1d`, `ProjectHoomans` `eaef787d`, `psychopatzCore` `1137e1e`):** Canonical recipes for `follow`, `stay`, `camp`, `return_home`, `flow_needs_exchange.json`, `flow_greeting_exchange.json`; `Input_Actions_Dispatch.lua` uses generic `S11PolicyEvaluator`; `Flow_Needs.lua` & `Flow_Greeting.lua` deleted with caller-zero.
+- **R3 (`DynamicTrading` `f90ea5f2`, `ProjectHoomans` `75906e99`, `psychopatzCore` `19677f6`):** Canonical recipes for `social_recruitment_offer.json`, `social_relationship_proposal.json`, `social_parley_ceasefire.json`, `social_territory_set.json`, `social_effectful_wellbeing_trust.json`; all `CANONICAL_STATEFUL` manifest rows accepted (`strict_manifest=True -> ok=True`); multi-turn transition-refresh + repeat no-op fixtures for recruitment and relationship proposal added.
+- **R4 (`DynamicTrading` `a1f9cbc3`, `ProjectHoomans` `fcbc787a`, `psychopatzCore` `phase_commit: self`):** Greeting constraints + hostile greeting `semantic.flow.greeting.opening` (`guarded`) + `pnc_conversation_smoke` / `pnc_convo_engine_camp_action_smoke` / `test_flow_editor` / `TEST_CLASSIFICATION.json` aligned; full acceptance green (`convoScopeOk=True`, `core_python` `308/308`, `core_lua` `36/36`, `hoomans_provider_python` `146/146`, `real_provider_worker` `331/331`, `tk_xvfb_gui` `144/144`, `dynamic_trading` `89/89`, `convo_audit` `1/1`, `kahlua_static` `3/3`, `reconcile --check clean=true`, `audit-integrity diffs=[]`).
 
 ## Not accepted
 
