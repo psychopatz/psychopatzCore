@@ -1096,18 +1096,31 @@ R9R1A/B/D implementation is retained. R9R1C/E are reopened only where post-imple
 - Dialogue Completeness uses real RED/ORANGE/YELLOW/BLUE/PURPLE/GREEN Tk row tags, needs-attention default, human-first summaries and synchronized dialogue selection;
 - false legacy detection is fixed, the compatibility toggle is removed, obsolete panes are deleted, and useful current surfaces remain.
 
-#### R9R1F — compact primary family browser
+#### R9R1F — primary Conversations authoring simplification
 
-Replace the dense primary family-list presentation, not merely the Completeness table. The left ConvoEngine families browser must:
+R9R1F is a five-part UI consolidation phase governed by: normal mode edits the conversation; Advanced exposes schema; Debug exposes compiler/maintenance internals.
 
-- project canonical health color/status from the existing compiler report;
-- show compact canonical family IDs without repeating owner/kind on every row;
-- retain owner/kind as metadata/filter/selected-family context;
-- provide live quick filters/counters for All, Dialogues, Behaviors, Beats and Realizations;
-- make the 30 behaviors, 3 beats and 35 realizations immediately discoverable;
-- preserve one loop-safe current-family identity across browser, Workbench and navigation.
+##### R9R1F1 — compact family browser
 
-No second UI health analyzer.
+Color-code the primary left family browser from the canonical health report, show compact family IDs without repeated owner/kind prefixes, and add live All/Dialogues/Behaviors/Beats/Realizations filters/counters while preserving one current-family identity.
+
+##### R9R1F2 — single editing path
+
+Remove duplicate normal editing paths for affordance, say, execute, reply and after/recommend. Friendly structured authoring is primary; raw canonical JSON remains available only under Advanced schema/details.
+
+##### R9R1F3 — progressive disclosure
+
+Shrink the identity/participant block to useful selected-family context; hide default participants, empty slots, no-extra-fields and unused semantic fields; rename S11 Semantic Controls to State & Flow and reveal low-level fields only when populated, diagnosed or explicitly expanded.
+
+##### R9R1F4 — surface consolidation
+
+Remove the embedded Simulation / trace tab in favor of Preview in Simulation using the top-level Simulation workspace. Move ConvoEngine Integrity Audit to Review/Developer maintenance, make refresh automatic after writes, keep + New primary, and demote Duplicate/Delete/Move/Open-source to overflow/context actions.
+
+##### R9R1F5 — single-line rendering cleanup
+
+Do not feed pretty-printed multi-line JSON into ttk.Entry. Fix the participant control-glyph bug, prefer friendly participant selectors, audit Slots/other single-line JSON fields, and add Tk regression coverage for embedded newline/control characters.
+
+**R9R1F gate:** real Tk/Xvfb must prove compact health-colored browsing, kind discoverability, one normal editor per concept, progressive disclosure, no duplicate local simulation surface, maintenance controls demoted appropriately, and no control-glyph rendering regression.
 
 #### R9R1G — truthful coverage and exact family verification
 

@@ -682,3 +682,11 @@ The primary authoring Workbench is a projection of compiler-owned health, not a 
 Semantic color classes are machine-readable report data and must be rendered with real UI tags/styles plus textual labels; color alone is not authority. Repairs are contextual to diagnostics, and exact-field navigation targets canonical source controls.
 
 Legacy project-owned authoring surfaces are not retained merely for historical compatibility. After parity and caller-zero, delete obsolete containers/toggles rather than adding wrappers. Useful current functionality is moved/renamed into current surfaces first.
+
+### Authoring UI uses progressive disclosure and one editing path
+
+The normal authoring surface edits semantic content in human terms. Advanced views expose canonical schema/raw JSON. Debug/maintenance views expose compiler, integrity and low-level diagnostics. Do not show multiple simultaneous normal editors for the same canonical field.
+
+Primary family navigation projects the existing compiler-owned health result; it does not compute another health model. Reuse the top-level Simulation workspace instead of embedding a second simulation authority inside Conversations. Package integrity and destructive/infrequent operations belong in maintenance/overflow surfaces, not the everyday authoring path.
+
+Single-line Tk controls must contain single-line values. Pretty-printed JSON belongs in multiline editors; default participant/slot values should use compact human controls or compact serialization.

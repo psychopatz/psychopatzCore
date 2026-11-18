@@ -154,35 +154,31 @@ BULK_DIALOGUE_REWRITE_ALLOWED=true
 
 R9R1A/B/D implementation is retained. R9R1C/E are reopened only where the audit disproved their completion.
 
-# R9R1F — compact primary family browser
+# R9R1F — primary authoring simplification
 
-## Goal
+## Governing principle
 
-Make the left ConvoEngine families browser the compact first place to skim health and find any maintained family.
-
-## Required presentation
-
-Replace the repeated concatenated row string with a structured or equivalently compact presentation.
-
-Default Family text should be the canonical family ID only, for example:
+The primary Conversations surface must follow one rule:
 
 ~~~text
-social.greetings.firstmeet.sunset
-social.territory.set
-beat.argument_escalation
-behavior.retaliate_verbally
-construction.social.acknowledge
+Normal mode     explains and edits the conversation
+Advanced mode   exposes canonical schema/details
+Debug mode      exposes compiler/integrity internals
 ~~~
 
-Do not repeat [ProjectHoomans] dialogue · on every row.
+Do not mix all three modes into one always-visible screen.
 
-Owner and kind remain available as metadata/filter/context. Prefer a small dedicated Type column, tooltip, selected-family header, or filter state rather than long repeated prefixes.
+The current pane violates this by simultaneously showing identity metadata, participant JSON, shortcut controls for affordance/say/execute/reply/after, raw Exchange JSON for the same fields, S11 internals, a second local simulation surface, and package-level integrity tooling.
 
-The selected-family header may continue to show full owner/kind/source context.
+R9R1F therefore has five mandatory subphases.
 
-## Health coloring
+## R9R1F1 — compact, health-colored, kind-discoverable family browser
 
-Project the same compiler-owned health status used by Dialogue Completeness onto the primary family browser:
+Make the left ConvoEngine families browser the first place to skim health and find any maintained family.
+
+Default visible family text is the canonical family ID only. Do not repeat owner/kind prefixes such as [ProjectHoomans] dialogue · on every row. Owner and kind remain available through filters, selected-family context, tooltip, or a compact optional Type/Owner column.
+
+Project the same compiler-owned health class already used by Dialogue Completeness onto this primary browser:
 
 ~~~text
 RED      broken / must fix
@@ -193,23 +189,112 @@ PURPLE   domain obligation
 GREEN    healthy
 ~~~
 
-Do not compute a second UI-only health result.
+Color is supplemental; preserve a textual/icon status without bloating every family label.
 
-Color is supplemental. Preserve an accessible textual/icon status through tooltip, status line, compact Health column, or selected-family summary without bloating every family label.
+Add compact live quick filters/counters for All, Dialogues, Behaviors, Beats, and Realizations. Current checkpoint counts are 588 / 520 / 30 / 3 / 35 and must be derived dynamically, not hardcoded.
 
-## Kind discoverability
+The family browser, Workbench, continuation navigation and kind-aware authoring router share one loop-safe current-family identity. Filtering may hide the current family visually but must not silently switch the logical selection.
 
-Add compact quick filters/tabs/chips/counters for All, Dialogues, Behaviors, Beats, and Realizations with live counts.
+## R9R1F2 — one normal editing path per canonical concept
 
-The user must be able to reach beat.argument_escalation or a behavior/realization immediately without scrolling through hundreds of dialogue rows.
+Remove duplicated authoring paths between the always-visible upper compact controls and Exchange family structure.
 
-Existing text search and owner/namespace filtering must continue to work with kind filters.
+The current upper block directly edits shortcuts for canonical concepts that are also edited in the Exchange tab:
 
-## Selection contract
+~~~text
+UI-only affordance label   ↔ affordance
+Direct single say          ↔ say
+Execute contract           ↔ execute
+Recommend family           ↔ after.recommend
+Reply outcome / Reply say  ↔ reply
+~~~
 
-The primary browser, Workbench, continuation navigation, and kind-aware editor routing share one current-family identity.
+There must be one normal authoring path for each concept. Friendly structured authoring is the normal path; raw canonical JSON remains available under Advanced schema/details for expert/agent use.
 
-Filtering must not silently change the logical current family. If the current family is hidden by a filter, retain it as current and present that state clearly.
+Preferred normal dialogue editor:
+
+~~~text
+Player option / affordance
+Spoken line
+Action + typed parameters
+NPC outcome replies
+After this: end / continue / recommend
+~~~
+
+Keep canonical source ownership unchanged; this is presentation consolidation, not a second schema.
+
+## R9R1F3 — progressive disclosure of identity, participants and semantic internals
+
+Shrink the current Family identity, participants & compact controls block into a concise selected-family header.
+
+Normal header should communicate only useful context, for example:
+
+~~~text
+social.territory.set
+Dialogue · ProjectHoomans · GREEN Healthy
+social.territory
+~~~
+
+Move rarely changed identity controls behind Family settings / overflow: owner, namespace, family ID, kind, source path and raw metadata. Changing owner should behave as an explicit move operation where appropriate. Changing kind must not look like an ordinary harmless text edit on an existing record.
+
+Default participants must not consume two JSON text fields. When speaker/addressee are the normal participant defaults, render a compact human form such as Participants: Default or friendly selectors.
+
+Hide empty/default data instead of spending permanent rows on it: empty slots, no extra/preserved fields, absent memories/domains/topics/events/activities, empty diagnostics and irrelevant S11 controls.
+
+Rename S11 Semantic Controls to a user-facing State & Flow surface. Show common controls first, such as availability, repeat behavior, post-state/after-success and closure. Put roles, participantSet, topics, events, activities, memories, domains, raw statePolicy/postconditions and similar low-level fields under Advanced semantic fields unless populated, diagnosed or explicitly expanded.
+
+Diagnostics must automatically reveal/focus the relevant hidden advanced field when needed.
+
+## R9R1F4 — consolidate duplicate surfaces and demote maintenance controls
+
+Remove the embedded Simulation / trace tab from Conversations as a competing simulation home. Replace it with a compact Preview in Simulation action that opens the existing top-level Simulation workspace with the selected family/context preloaded.
+
+Move Run ConvoEngine Integrity Audit out of the normal authoring toolbar into Review or Developer Tools / ConvoEngine maintenance.
+
+Make family refresh automatic after canonical writes and affected analysis. Keep an unobtrusive refresh action only for explicit recovery/manual reload.
+
+Keep + New visible. Move Duplicate, Delete, Move family, Open source and similar infrequent/destructive actions into an overflow/context menu unless evidence shows a frequently used action needs primary placement.
+
+Do not remove useful capability; consolidate it into one authoritative surface.
+
+## R9R1F5 — single-line rendering cleanup and participant UX
+
+Fix the visible control-glyph bug. The current code uses _pretty() to generate multi-line JSON such as:
+
+~~~text
+[
+  "participant"
+]
+~~~
+
+then places that multi-line string into a single-line ttk.Entry. The embedded newline/control characters render as odd glyphs around participant.
+
+Single-line controls must never receive pretty-printed multi-line JSON.
+
+Requirements:
+
+- use compact serialization for any JSON that legitimately remains in a single-line field;
+- preferably replace speaker/addressee JSON with friendly participant selectors/chips;
+- audit Slots JSON and every other ttk.Entry fed by _pretty() or another multi-line formatter;
+- add a regression proving no single-line authoring Entry receives embedded newline/control characters;
+- preserve Unicode correctly; do not solve this by stripping legitimate non-ASCII content.
+
+## R9R1F acceptance gate
+
+R9R1F is accepted only when real Tk/Xvfb proves:
+
+1. primary family rows are compact and health-colored;
+2. kind filters expose All/Dialogues/Behaviors/Beats/Realizations with live counts;
+3. no repeated owner/kind prefix dominates family labels;
+4. default participant controls render without control glyphs;
+5. normal dialogue authoring has one visible editing path per canonical concept;
+6. duplicate raw JSON remains available only under Advanced details;
+7. default/empty metadata and diagnostics are collapsed/hidden;
+8. State & Flow uses progressive disclosure and diagnostics can reveal hidden fields;
+9. Conversations no longer contains a competing local Simulation surface;
+10. package Integrity Audit is no longer a primary authoring-toolbar control;
+11. destructive/infrequent family operations are demoted without losing capability;
+12. existing selection synchronization, health analysis and canonical write behavior remain intact.
 
 # R9R1G — truthful coverage and family verification
 
