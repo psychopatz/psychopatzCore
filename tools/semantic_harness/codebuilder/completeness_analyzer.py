@@ -7,6 +7,7 @@ machine-readable diagnostics for CodeBuilder, CLI, and Semantic Lab.
 
 from __future__ import annotations
 
+import ast
 import json
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
@@ -19,6 +20,12 @@ from .semantic_contract import FORBIDDEN_POSITIONAL_ROLES, ROLE_CARDINALITIES
 COMPLETENESS_REPORT_SCHEMA = "psychopatz.convo-engine.completeness-report.v1"
 CONSTRAINED_MANIFEST_SCHEMA = "psychopatz.convo-engine.constrained-family-manifest.v1"
 CONSTRAINED_MANIFEST_PATH = Path(__file__).resolve().with_name("constrained_family_manifest.json")
+AUDIT_INVENTORY_SCHEMA = "psychopatz.convo-engine.branching-audit-inventory.v1"
+CORE_ROOT = Path(__file__).resolve().parents[3]
+AUDIT_INVENTORY_PATH = (
+    CORE_ROOT / "Docs" / "semantic_dialogue_language_standard" / "S11_BRANCHING_AUDIT_INVENTORY.json"
+)
+ACCEPTANCE_OWNER_KINDS = frozenset({"declarative_fixture", "python_test", "lua_test"})
 MANIFEST_CLASSIFICATIONS = frozenset({
     "CANONICAL_STATEFUL",
     "EXPLICIT_PRESENTATION_ONLY",
@@ -123,13 +130,229 @@ def load_constrained_family_manifest(path: Path | None = None) -> dict[str, Any]
     return dict(data)
 
 
+def load_branching_audit_inventory(path: Path | None = None) -> dict[str, Any]:
+    target = path or AUDIT_INVENTORY_PATH
+    data = json.loads(target.read_text(encoding="utf-8"))
+    if not isinstance(data, Mapping) or data.get("schema") != AUDIT_INVENTORY_SCHEMA:
+        raise ValueError(f"Invalid branching-audit inventory schema in {target}")
+    return dict(data)
+
+
+def _default_workspace_roots() -> dict[str, Path]:
+    workshop_root = CORE_ROOT.parent
+    return {
+        "PsychopatzCore": CORE_ROOT,
+        "ProjectHoomans": workshop_root / "ProjectHoomans",
+        "DynamicTrading": workshop_root / "DynamicTrading",
+    }
+
+
+def _resolve_acceptance_source(source: str, roots: Mapping[str, Path]) -> Path | None:
+    parts = Path(source).parts
+    if parts and parts[0] in roots:
+        return roots[parts[0]].joinpath(*parts[1:])
+    candidate = CORE_ROOT / source
+    if candidate.is_file():
+        return candidate
+    return None
+
+
+def _extract_test_texts(
+    owner_kind: str, source_path: Path, test_ids: list[str]
+) -> tuple[dict[str, str], list[str]]:
+    """Return {test_id: searchable_text} and list of missing test_ids."""
+    raw = source_path.read_text(encoding="utf-8")
+    found: dict[str, str] = {}
+    if owner_kind == "declarative_fixture":
+        data = json.loads(raw)
+        cases = {
+            str(case.get("id")): case
+            for case in (data.get("cases") or [])
+            if isinstance(case, Mapping) and case.get("id")
+        }
+        missing: list[str] = []
+        for tid in test_ids:
+            case = cases.get(tid)
+            if case is None:
+                missing.append(tid)
+            else:
+                found[tid] = json.dumps(case, sort_keys=True).lower()
+        return found, missing
+    if owner_kind == "python_test":
+        tree = ast.parse(raw)
+        methods: dict[str, str] = {}
+        for node in ast.walk(tree):
+            if isinstance(node, ast.FunctionDef) and node.name.startswith("test_"):
+                segment = ast.get_source_segment(raw, node) or node.name
+                methods[node.name] = segment.lower()
+        missing = [tid for tid in test_ids if tid not in methods]
+        for tid in test_ids:
+            if tid in methods:
+                found[tid] = methods[tid]
+        return found, missing
+    if owner_kind == "lua_test":
+        lowered = raw.lower()
+        missing = [tid for tid in test_ids if tid not in raw]
+        for tid in test_ids:
+            if tid in raw:
+                found[tid] = lowered
+        return found, missing
+    return {}, list(test_ids)
+
+
+def _validate_acceptance_ownership(
+    *,
+    aid: str,
+    fid: str | None,
+    idx: int,
+    entry: Mapping[str, Any],
+    audit_entry: Mapping[str, Any] | None,
+    roots: Mapping[str, Path],
+    diagnostics: list[CompletenessDiagnostic],
+) -> None:
+    acceptance = entry.get("acceptance")
+    if not isinstance(acceptance, Mapping):
+        diagnostics.append(
+            CompletenessDiagnostic(
+                code="invalid_acceptance_owner",
+                severity="error",
+                family_id=str(fid or aid),
+                path=f"manifest.entries[{idx}].acceptance",
+                message=f"Manifest entry {aid!r} requires structured acceptance metadata",
+                repair_hint="Declare acceptance.{ownerKind, source, testIds, requiredClaims}.",
+            )
+        )
+        return
+    owner_kind = str(acceptance.get("ownerKind") or "").strip()
+    if owner_kind not in ACCEPTANCE_OWNER_KINDS:
+        diagnostics.append(
+            CompletenessDiagnostic(
+                code="invalid_acceptance_owner",
+                severity="error",
+                family_id=str(fid or aid),
+                path=f"manifest.entries[{idx}].acceptance.ownerKind",
+                message=f"Unsupported acceptance ownerKind {owner_kind!r} for {aid!r}",
+                repair_hint=f"Use one of {sorted(ACCEPTANCE_OWNER_KINDS)}.",
+            )
+        )
+        return
+    source = str(acceptance.get("source") or "").strip()
+    source_path = _resolve_acceptance_source(source, roots) if source else None
+    if source_path is None or not source_path.is_file():
+        diagnostics.append(
+            CompletenessDiagnostic(
+                code="missing_acceptance_source",
+                severity="error",
+                family_id=str(fid or aid),
+                path=f"manifest.entries[{idx}].acceptance.source",
+                message=f"Acceptance source {source!r} for {aid!r} does not exist",
+                repair_hint="Point acceptance.source at an existing fixture or test file.",
+            )
+        )
+        return
+    raw_ids = acceptance.get("testIds")
+    test_ids = [str(t).strip() for t in raw_ids if str(t).strip()] if isinstance(raw_ids, list) else []
+    if not test_ids:
+        diagnostics.append(
+            CompletenessDiagnostic(
+                code="missing_acceptance_test_id",
+                severity="error",
+                family_id=str(fid or aid),
+                path=f"manifest.entries[{idx}].acceptance.testIds",
+                message=f"Acceptance entry {aid!r} must declare at least one testIds entry",
+                repair_hint="Bind specific fixture case IDs or test function names.",
+            )
+        )
+        return
+    found_texts, missing_ids = _extract_test_texts(owner_kind, source_path, test_ids)
+    for missing_id in missing_ids:
+        diagnostics.append(
+            CompletenessDiagnostic(
+                code="missing_acceptance_test_id",
+                severity="error",
+                family_id=str(fid or aid),
+                path=f"manifest.entries[{idx}].acceptance.testIds",
+                message=f"Acceptance testId {missing_id!r} not found in {source!r} for {aid!r}",
+                repair_hint="Update acceptance.testIds to reference real existing test/case IDs.",
+            )
+        )
+    declared_claims = {
+        str(c).strip()
+        for c in (acceptance.get("requiredClaims") or [])
+        if str(c).strip()
+    }
+    if audit_entry is not None:
+        needed_claims = {
+            str(c).strip()
+            for c in (audit_entry.get("requiredClaims") or [])
+            if str(c).strip()
+        }
+        missing_claims = sorted(needed_claims - declared_claims)
+        if missing_claims:
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="missing_required_acceptance_claims",
+                    severity="error",
+                    family_id=str(fid or aid),
+                    path=f"manifest.entries[{idx}].acceptance.requiredClaims",
+                    message=f"Acceptance for {aid!r} omits required audit claims: {missing_claims}",
+                    repair_hint="Cover all requiredClaims declared in S11_BRANCHING_AUDIT_INVENTORY.json.",
+                )
+            )
+        keywords = [
+            str(kw).strip().lower()
+            for kw in (audit_entry.get("claimKeywords") or [])
+            if str(kw).strip()
+        ]
+        if keywords and found_texts:
+            combined = "\n".join(found_texts.values())
+            if not any(kw in combined for kw in keywords):
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="acceptance_claim_mismatch",
+                        severity="error",
+                        family_id=str(fid or aid),
+                        path=f"manifest.entries[{idx}].acceptance",
+                        message=f"Referenced tests {test_ids} in {source!r} do not claim any of {keywords} for {aid!r}",
+                        repair_hint="Bind the actual test/fixture that verifies this audit row.",
+                    )
+                )
+
+
 def _validate_constrained_manifest(
     dialogues: Mapping[str, Mapping[str, Any]],
     manifest: Mapping[str, Any],
     *,
     strict_manifest: bool,
     diagnostics: list[CompletenessDiagnostic],
+    audit_inventory: Mapping[str, Any] | None = None,
+    workspace_roots: Mapping[str, Path] | None = None,
 ) -> None:
+    roots = workspace_roots if workspace_roots is not None else _default_workspace_roots()
+    inventory = audit_inventory
+    if inventory is None and strict_manifest:
+        inventory = load_branching_audit_inventory()
+    audit_by_id: dict[str, Mapping[str, Any]] = {}
+    if inventory is not None:
+        for idx, item in enumerate(inventory.get("entries") or []):
+            if not isinstance(item, Mapping):
+                continue
+            item_id = str(item.get("auditId") or "").strip()
+            if not item_id:
+                continue
+            if item_id in audit_by_id:
+                diagnostics.append(
+                    CompletenessDiagnostic(
+                        code="duplicate_audit_inventory_id",
+                        severity="error",
+                        family_id=item_id,
+                        path=f"auditInventory.entries[{idx}].auditId",
+                        message=f"Duplicate audit inventory ID {item_id!r}",
+                        repair_hint="Ensure every audit row in S11_BRANCHING_AUDIT_INVENTORY.json has a unique auditId.",
+                    )
+                )
+            else:
+                audit_by_id[item_id] = item
     entries = manifest.get("entries")
     if not isinstance(entries, list) or not entries:
         diagnostics.append(
@@ -178,7 +401,7 @@ def _validate_constrained_manifest(
         reason = str(entry.get("reason") or "").strip()
         fid = entry.get("canonicalFamilyId")
         if classification in ("EXPLICIT_PRESENTATION_ONLY", "REFERENCE_GOOD_REGRESSION"):
-            if not owner:
+            if not owner and not isinstance(entry.get("acceptance"), Mapping):
                 diagnostics.append(
                     CompletenessDiagnostic(
                         code="missing_acceptance_owner",
@@ -199,6 +422,16 @@ def _validate_constrained_manifest(
                         message=f"EXPLICIT_PRESENTATION_ONLY entry {aid!r} requires an explicit reason",
                         repair_hint="Document why typed parity is intentionally omitted.",
                     )
+                )
+            if strict_manifest or isinstance(entry.get("acceptance"), Mapping):
+                _validate_acceptance_ownership(
+                    aid=aid,
+                    fid=fid,
+                    idx=idx,
+                    entry=entry,
+                    audit_entry=audit_by_id.get(aid),
+                    roots=roots,
+                    diagnostics=diagnostics,
                 )
         elif classification == "RETIRED":
             if isinstance(fid, str) and fid in dialogues:
@@ -242,6 +475,40 @@ def _validate_constrained_manifest(
                         repair_hint="Add the required S11 policy fields in canonical CodeBuilder source.",
                     )
                 )
+            if strict_manifest or isinstance(entry.get("acceptance"), Mapping):
+                _validate_acceptance_ownership(
+                    aid=aid,
+                    fid=fid,
+                    idx=idx,
+                    entry=entry,
+                    audit_entry=audit_by_id.get(aid),
+                    roots=roots,
+                    diagnostics=diagnostics,
+                )
+
+    if inventory is not None:
+        for missing_aid in sorted(set(audit_by_id) - seen_audit_ids):
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="missing_audit_row_in_manifest",
+                    severity="error",
+                    family_id=missing_aid,
+                    path="manifest.entries",
+                    message=f"Branching audit row {missing_aid!r} is missing from constrained_family_manifest.json",
+                    repair_hint="Classify every row from S11_BRANCHING_AUDIT_INVENTORY.json in constrained_family_manifest.json.",
+                )
+            )
+        for extra_aid in sorted(seen_audit_ids - set(audit_by_id)):
+            diagnostics.append(
+                CompletenessDiagnostic(
+                    code="extra_manifest_row_without_audit",
+                    severity="error",
+                    family_id=extra_aid,
+                    path="manifest.entries",
+                    message=f"Manifest row {extra_aid!r} does not exist in S11_BRANCHING_AUDIT_INVENTORY.json",
+                    repair_hint="Remove stale manifest rows or add the maintained row to S11_BRANCHING_AUDIT_INVENTORY.json.",
+                )
+            )
 
 
 def analyze_portable_plan(
@@ -251,6 +518,8 @@ def analyze_portable_plan(
     covered_family_ids: Iterable[str] | None = None,
     constrained_manifest: Mapping[str, Any] | None = None,
     strict_manifest: bool = False,
+    audit_inventory: Mapping[str, Any] | None = None,
+    workspace_roots: Mapping[str, Path] | None = None,
 ) -> dict[str, Any]:
     """Analyze a Portable Dialogue Plan and return a machine-readable completeness report."""
     if not isinstance(plan, Mapping) or plan.get("schema") != PORTABLE_PLAN_SCHEMA:
@@ -524,6 +793,8 @@ def analyze_portable_plan(
             constrained_manifest,
             strict_manifest=strict_manifest,
             diagnostics=diagnostics,
+            audit_inventory=audit_inventory,
+            workspace_roots=workspace_roots,
         )
 
     errors = [d for d in diagnostics if d.severity == "error"]
@@ -544,11 +815,14 @@ def analyze_portable_plan(
 
 
 __all__ = [
+    "AUDIT_INVENTORY_PATH",
+    "AUDIT_INVENTORY_SCHEMA",
     "COMPLETENESS_REPORT_SCHEMA",
     "CONSTRAINED_MANIFEST_PATH",
     "CONSTRAINED_MANIFEST_SCHEMA",
     "CompletenessDiagnostic",
     "MANIFEST_CLASSIFICATIONS",
     "analyze_portable_plan",
+    "load_branching_audit_inventory",
     "load_constrained_family_manifest",
 ]

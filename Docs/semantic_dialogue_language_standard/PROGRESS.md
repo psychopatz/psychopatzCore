@@ -1,9 +1,9 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — post-R4 closure audit reopened S11 acceptance integrity; the useful S11A/R1/R2 foundation is retained.
+**Status:** IN_PROGRESS — R5A accepted (closed-set `S11_BRANCHING_AUDIT_INVENTORY.json` + machine-verifiable `acceptance` ownership + 6 negative guards passing); advancing to R5B.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S11R5 — acceptance-inventory integrity + remaining S11D closure + generic runtime de-duplication.
-**Immediate Next Chunk:** R5A only — make the constrained-family inventory machine-complete against the branching audit and make acceptance ownership verifiable; then continue automatically through R5B-R5D.
+**Active phase:** S11R5 — R5B remaining S11D state/lifecycle closure (tasks + quests + event expiry + disband + settlement/ambient).
+**Immediate Next Chunk:** R5B — close parameterized task lifecycle, QuestService conversation lifecycle, disband explicit confirmation/typed policy, and settlement/ambient post-transition projection.
 
 ## Current checkpoint
 

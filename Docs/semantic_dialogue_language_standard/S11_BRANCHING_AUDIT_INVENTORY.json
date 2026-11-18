@@ -1,0 +1,181 @@
+{
+  "schema": "psychopatz.convo-engine.branching-audit-inventory.v1",
+  "auditSource": "Docs/semantic_dialogue_language_standard/S11_BRANCHING_DIALOGUE_AUDIT.md",
+  "entries": [
+    {
+      "auditId": "audit.manual.identity",
+      "section": "A. Manual semantic flows",
+      "title": "Identity known vs first-contact exchange",
+      "requiredClaims": ["known_reminder", "first_contact_idempotence", "retired_choices_stay_retired"],
+      "claimKeywords": ["identity"]
+    },
+    {
+      "auditId": "audit.manual.wellbeing",
+      "section": "A. Manual semantic flows",
+      "title": "Wellbeing query backed by NPC condition",
+      "requiredClaims": ["grounded_wellbeing_query"],
+      "claimKeywords": ["medical", "wellbeing", "pronoun"]
+    },
+    {
+      "auditId": "audit.manual.needs",
+      "section": "A. Manual semantic flows",
+      "title": "Needs inquiry and bounded proposal closure",
+      "requiredClaims": ["needs_proposal_closure", "bounded_progress"],
+      "claimKeywords": ["needs"]
+    },
+    {
+      "auditId": "audit.manual.greeting",
+      "section": "A. Manual semantic flows",
+      "title": "Greeting hostile/busy/dead gating and friendly continuation",
+      "requiredClaims": ["hostile_no_friendly_continuation", "friendly_continuation_parity"],
+      "claimKeywords": ["hostile", "greeting"]
+    },
+    {
+      "auditId": "audit.manual.weather_context",
+      "section": "A. Manual semantic flows",
+      "title": "Weather context query with deterministic realization",
+      "requiredClaims": ["weather_context_realization"],
+      "claimKeywords": ["weather"]
+    },
+    {
+      "auditId": "audit.command.follow",
+      "section": "B. Generated semantic workflows",
+      "title": "Companion FOLLOW state admission",
+      "requiredClaims": ["already_following_noop", "blocked_zero_dispatch"],
+      "claimKeywords": ["follow"]
+    },
+    {
+      "auditId": "audit.command.stay",
+      "section": "B. Generated semantic workflows",
+      "title": "Companion STAY state admission",
+      "requiredClaims": ["busy_blocked_noop", "state_policy_parity"],
+      "claimKeywords": ["busy", "stay", "follow"]
+    },
+    {
+      "auditId": "audit.command.camp",
+      "section": "B. Generated semantic workflows",
+      "title": "Companion CAMP state admission",
+      "requiredClaims": ["camp_state_policy_parity"],
+      "claimKeywords": ["camp", "command"]
+    },
+    {
+      "auditId": "audit.command.return_home",
+      "section": "B. Generated semantic workflows",
+      "title": "Companion RETURN_HOME / GO_HOME state admission",
+      "requiredClaims": ["return_home_state_policy_parity"],
+      "claimKeywords": ["command", "follow", "stay"]
+    },
+    {
+      "auditId": "audit.command.combat_tactics",
+      "section": "B. Generated semantic workflows",
+      "title": "Generated combat stance commands via ActionContract",
+      "requiredClaims": ["registered_capability_handlers"],
+      "claimKeywords": ["capabilities", "handler"]
+    },
+    {
+      "auditId": "audit.task.parameterized",
+      "section": "B. Generated semantic workflows",
+      "title": "Parameterized task conversation lifecycle",
+      "requiredClaims": ["task_generation_and_result_routing"],
+      "claimKeywords": ["task", "wait_at", "fetch"]
+    },
+    {
+      "auditId": "audit.quest.lifecycle",
+      "section": "B. Generated semantic workflows",
+      "title": "Quest offer/accept/active/ready/turn-in/rewarded lifecycle",
+      "requiredClaims": ["quest_offer_accept_turnin_repeat"],
+      "claimKeywords": ["quest"]
+    },
+    {
+      "auditId": "audit.task.gift",
+      "section": "B. Generated semantic workflows",
+      "title": "Multi-stage gift consent and preference responses",
+      "requiredClaims": ["gift_consent_regression"],
+      "claimKeywords": ["gift", "needs"]
+    },
+    {
+      "auditId": "audit.root.recruitment",
+      "section": "C. Native/root conversation branches",
+      "title": "Recruitment transition, refresh, and repeat no-op",
+      "requiredClaims": ["already_member_noop", "recruitment_transition_refresh_repeat_noop"],
+      "claimKeywords": ["recruit"]
+    },
+    {
+      "auditId": "audit.root.relationship_proposal",
+      "section": "C. Native/root conversation branches",
+      "title": "Relationship proposal transition, refresh, and repeat no-op",
+      "requiredClaims": ["already_partner_noop", "proposal_transition_refresh_repeat_noop"],
+      "claimKeywords": ["relationship", "proposal"]
+    },
+    {
+      "auditId": "audit.root.disband",
+      "section": "C. Native/root conversation branches",
+      "title": "Destructive disband confirmation modal vs free-text safety",
+      "requiredClaims": ["confirmation_modal_required", "no_unconfirmed_destructive_dispatch"],
+      "claimKeywords": ["warning", "confirmation", "recruited"]
+    },
+    {
+      "auditId": "audit.root.hostile_ceasefire",
+      "section": "C. Native/root conversation branches",
+      "title": "Hostile ceasefire/parley typed policy",
+      "requiredClaims": ["ceasefire_state_policy"],
+      "claimKeywords": ["hostile"]
+    },
+    {
+      "auditId": "audit.root.set_territory",
+      "section": "C. Native/root conversation branches",
+      "title": "Set-territory typed policy",
+      "requiredClaims": ["territory_state_policy"],
+      "claimKeywords": ["follow", "command"]
+    },
+    {
+      "auditId": "audit.root.settlement_admission",
+      "section": "C. Native/root conversation branches",
+      "title": "Settlement admission and ambient visit transition/refresh",
+      "requiredClaims": ["settlement_ambient_admission_boundary"],
+      "claimKeywords": ["settlement", "ambient"]
+    },
+    {
+      "auditId": "audit.root.goodbye",
+      "section": "C. Native/root conversation branches",
+      "title": "Terminal conversation close affordance",
+      "requiredClaims": ["terminal_goodbye_close"],
+      "claimKeywords": ["identity"]
+    },
+    {
+      "auditId": "audit.offer.effectful_social",
+      "section": "D. Authored PSDL offer branches",
+      "title": "Effectful wellbeing/trust/affinity repeat semantics",
+      "requiredClaims": ["effectful_social_repeat_idempotence"],
+      "claimKeywords": ["identity", "relationship"]
+    },
+    {
+      "auditId": "audit.context.gossip",
+      "section": "E. Dynamic/social/contextual branches",
+      "title": "Grounded gossip and memory continuation",
+      "requiredClaims": ["grounded_context_pronoun_followup"],
+      "claimKeywords": ["pronoun", "grounded"]
+    },
+    {
+      "auditId": "audit.context.departure",
+      "section": "E. Dynamic/social/contextual branches",
+      "title": "Departure confirmation/rejection/warning responses",
+      "requiredClaims": ["departure_confirmation_and_ownership"],
+      "claimKeywords": ["warning", "confirmation", "owner"]
+    },
+    {
+      "auditId": "audit.context.pragmatic_repair",
+      "section": "E. Dynamic/social/contextual branches",
+      "title": "Pragmatic repair/apology/challenge with bounded cooldownTurns",
+      "requiredClaims": ["backend_portability_and_repair_equivalence"],
+      "claimKeywords": ["backend", "equivalence"]
+    },
+    {
+      "auditId": "audit.event.response_window_expiry",
+      "section": "E. Dynamic/social/contextual branches",
+      "title": "Event response-window expiry hides stale follow-ups",
+      "requiredClaims": ["event_window_expiry_hides_followups"],
+      "claimKeywords": ["expire", "window", "followup"]
+    }
+  ]
+}

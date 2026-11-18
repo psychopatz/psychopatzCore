@@ -1,11 +1,11 @@
 # ConvoEngine Handoff
 
 ~~~yaml
-status: DIRTY_RESUMABLE
+status: IN_PROGRESS
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S11R5 — Post-R4 Closure Integrity Repair
-chunk: R5A — acceptance inventory + ownership integrity
+phase: S11R5 — R5A accepted
+chunk: R5B — task/quest/event/disband/settlement-ambient closure
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
 goal_doc: Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md

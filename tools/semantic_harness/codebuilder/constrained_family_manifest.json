@@ -1,6 +1,7 @@
 {
   "schema": "psychopatz.convo-engine.constrained-family-manifest.v1",
   "auditSource": "Docs/semantic_dialogue_language_standard/S11_BRANCHING_DIALOGUE_AUDIT.md",
+  "auditInventory": "Docs/semantic_dialogue_language_standard/S11_BRANCHING_AUDIT_INVENTORY.json",
   "entries": [
     {
       "auditId": "audit.manual.identity",
@@ -9,14 +10,28 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Known-NPC vs first-contact identity exchange with idempotent relationship closure.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": [
+          "interaction.state_aware_outcome_closure.known_identity_question_no_player_name_obligation",
+          "interaction.state_aware_outcome_closure.repeat_truthful_identity_no_reward_farming",
+          "interaction.state_aware_outcome_closure.resolved_identity_choices_do_not_resurrect"
+        ],
+        "requiredClaims": ["known_reminder", "first_contact_idempotence", "retired_choices_stay_retired"]
+      }
     },
     {
       "auditId": "audit.manual.wellbeing",
       "canonicalFamilyId": "offer.question.wellbeing",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Read-only wellbeing query backed by authoritative NPC condition.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/context_repair_and_pronouns.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/context_repair_and_pronouns.json",
+        "testIds": ["interaction.context_repair_and_pronouns.medical_pronouns_stay_truthful_when_unknown"],
+        "requiredClaims": ["grounded_wellbeing_query"]
+      }
     },
     {
       "auditId": "audit.manual.needs",
@@ -25,7 +40,12 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Needs inquiry -> quantity -> proposal_pending -> bounded closure/progress.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.needs_proposal_acceptance_closes_or_progresses"],
+        "requiredClaims": ["needs_proposal_closure", "bounded_progress"]
+      }
     },
     {
       "auditId": "audit.manual.greeting",
@@ -34,14 +54,27 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Hostile/busy/dead greeting gating and friendly continuation parity.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.hostile_greeting_no_friendly_continuation"],
+        "requiredClaims": ["hostile_no_friendly_continuation", "friendly_continuation_parity"]
+      }
     },
     {
       "auditId": "audit.manual.weather_context",
       "canonicalFamilyId": "question.weather",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Read-only weather context query with deterministic realization.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/flows/weather_gate_transitions.json",
+        "testIds": [
+          "flows.weather_gate_transitions.weather_gate_rain",
+          "flows.weather_gate_transitions.weather_gate_clear"
+        ],
+        "requiredClaims": ["weather_context_realization"]
+      }
     },
     {
       "auditId": "audit.command.follow",
@@ -50,7 +83,12 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion FOLLOW state admission (already_following, blocked/hostile, actionable).",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.already_following_typed_command_zero_dispatch"],
+        "requiredClaims": ["already_following_noop", "blocked_zero_dispatch"]
+      }
     },
     {
       "auditId": "audit.command.stay",
@@ -59,7 +97,12 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion STAY state admission (already_staying, blocked/hostile, actionable).",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.busy_blocked_typed_command_zero_dispatch"],
+        "requiredClaims": ["busy_blocked_noop", "state_policy_parity"]
+      }
     },
     {
       "auditId": "audit.command.camp",
@@ -68,7 +111,12 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion CAMP state admission (already_camping, blocked/hostile, actionable).",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "lua_test",
+        "source": "ProjectHoomans/tests/pnc_convo_engine_camp_action_smoke.lua",
+        "testIds": ["command.camp"],
+        "requiredClaims": ["camp_state_policy_parity"]
+      }
     },
     {
       "auditId": "audit.command.return_home",
@@ -77,35 +125,66 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Companion GO_HOME/RETURN state admission (already_returning, no_base, blocked, actionable).",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.busy_blocked_typed_command_zero_dispatch"],
+        "requiredClaims": ["return_home_state_policy_parity"]
+      }
     },
     {
       "auditId": "audit.command.combat_tactics",
       "canonicalFamilyId": null,
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Generated combat stance commands (COMBAT_AVOID/ENGAGE/HOLD, GO, STOP) routed via ActionContract.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py",
+        "testIds": ["test_all_dispatchable_registered_capabilities_use_existing_handlers"],
+        "requiredClaims": ["registered_capability_handlers"]
+      }
     },
     {
       "auditId": "audit.task.parameterized",
       "canonicalFamilyId": null,
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Parameterized tasks (CONSUME/DRINK/EAT/FETCH/GIVE/REFILL/WAIT_AT) covered by generated flow templates and ActionContract.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py",
+        "testIds": [
+          "test_parameterized_task_template_generates_wait_at_and_fetch",
+          "test_parameterized_task_result_branches_and_gate_are_truthful"
+        ],
+        "requiredClaims": ["task_generation_and_result_routing"]
+      }
     },
     {
       "auditId": "audit.quest.lifecycle",
       "canonicalFamilyId": null,
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Quest offer/accept/status/turn-in lifecycle backed by authoritative QuestService.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_quest_flow_binding.py",
+        "testIds": [
+          "test_real_worker_routes_offer_accept_query_and_turn_in_results",
+          "test_quest_denied_failed_preview_and_repeat_are_truthful"
+        ],
+        "requiredClaims": ["quest_offer_accept_turnin_repeat"]
+      }
     },
     {
       "auditId": "audit.task.gift",
       "canonicalFamilyId": "gift.preference.like",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Multi-stage gift consent and preference responses.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.needs_proposal_acceptance_closes_or_progresses"],
+        "requiredClaims": ["gift_consent_regression"]
+      }
     },
     {
       "auditId": "audit.root.recruitment",
@@ -114,7 +193,15 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Recruitment transition (not_member -> actionable -> member -> already_member no-op + refresh).",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": [
+          "interaction.state_aware_outcome_closure.already_member_recruitment_not_actionable",
+          "interaction.state_aware_outcome_closure.recruitment_transition_refresh_and_repeat_noop"
+        ],
+        "requiredClaims": ["already_member_noop", "recruitment_transition_refresh_repeat_noop"]
+      }
     },
     {
       "auditId": "audit.root.relationship_proposal",
@@ -123,14 +210,27 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Relationship proposal transition (actionable -> accepted -> refresh -> repeat no-op).",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": [
+          "interaction.state_aware_outcome_closure.accepted_relationship_proposal_not_actionable",
+          "interaction.state_aware_outcome_closure.relationship_proposal_transition_refresh_and_repeat_noop"
+        ],
+        "requiredClaims": ["already_partner_noop", "proposal_transition_refresh_repeat_noop"]
+      }
     },
     {
       "auditId": "audit.root.disband",
       "canonicalFamilyId": null,
       "classification": "EXPLICIT_PRESENTATION_ONLY",
       "reason": "Destructive companion disband requires explicit UI confirmation modal rather than unconfirmed free-text execution.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_production_leave_group.py",
+        "testIds": ["test_positive_warning_and_confirmation_use_production_worker_route"],
+        "requiredClaims": ["confirmation_modal_required", "no_unconfirmed_destructive_dispatch"]
+      }
     },
     {
       "auditId": "audit.root.hostile_ceasefire",
@@ -139,7 +239,12 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Hostile ceasefire/parley typed policy and post-success fresh projection.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.hostile_greeting_no_friendly_continuation"],
+        "requiredClaims": ["ceasefire_state_policy"]
+      }
     },
     {
       "auditId": "audit.root.set_territory",
@@ -148,21 +253,36 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Set-territory typed policy and fresh state projection.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.already_following_typed_command_zero_dispatch"],
+        "requiredClaims": ["territory_state_policy"]
+      }
     },
     {
       "auditId": "audit.root.settlement_admission",
       "canonicalFamilyId": "response.ambient_visit.accepted",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Settlement admission and ambient visit responses backed by settlement authority.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "lua_test",
+        "source": "ProjectHoomans/tests/pnc_mobile_settlement_admission_smoke.lua",
+        "testIds": ["settlement"],
+        "requiredClaims": ["settlement_ambient_admission_boundary"]
+      }
     },
     {
       "auditId": "audit.root.goodbye",
       "canonicalFamilyId": "choice.goodbye",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Terminal conversation close affordance.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.known_identity_question_no_player_name_obligation"],
+        "requiredClaims": ["terminal_goodbye_close"]
+      }
     },
     {
       "auditId": "audit.offer.effectful_social",
@@ -171,28 +291,63 @@
       "migrationPhase": "accepted",
       "requiredPolicy": ["statePolicy", "inputPolicy", "repeatPolicy", "closure"],
       "reason": "Effectful wellbeing/trust/affinity repeat semantics preventing reward farming.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/state_aware_outcome_closure.json",
+        "testIds": ["interaction.state_aware_outcome_closure.repeat_truthful_identity_no_reward_farming"],
+        "requiredClaims": ["effectful_social_repeat_idempotence"]
+      }
     },
     {
       "auditId": "audit.context.gossip",
       "canonicalFamilyId": "gossip.unknown",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Grounded gossip and event/memory continuation backed by ConversationMemory.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/context_repair_and_pronouns.json"
+      "acceptance": {
+        "ownerKind": "declarative_fixture",
+        "source": "ProjectHoomans/tools/providers/pnc/fixtures/v1/interaction/context_repair_and_pronouns.json",
+        "testIds": ["interaction.context_repair_and_pronouns.pronoun_followups_requery_grounded_topics"],
+        "requiredClaims": ["grounded_context_pronoun_followup"]
+      }
     },
     {
       "auditId": "audit.context.departure",
       "canonicalFamilyId": "departure.confirmed",
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Departure confirmation/rejection/warning responses.",
-      "acceptanceOwner": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py"
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_production_leave_group.py",
+        "testIds": [
+          "test_positive_warning_and_confirmation_use_production_worker_route",
+          "test_other_owner_is_rejected_by_production_worker"
+        ],
+        "requiredClaims": ["departure_confirmation_and_ownership"]
+      }
     },
     {
       "auditId": "audit.context.pragmatic_repair",
       "canonicalFamilyId": null,
       "classification": "REFERENCE_GOOD_REGRESSION",
       "reason": "Interaction Director repair/apology/challenge behaviors with bounded cooldownTurns.",
-      "acceptanceOwner": "PsychopatzCore/tools/semantic_harness/tests/test_psdl_backend_portability_and_trace_equivalence.py"
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "PsychopatzCore/tools/semantic_harness/tests/test_psdl_backend_portability_and_trace_equivalence.py",
+        "testIds": ["test_executed_reference_vm_vs_lua_convo_probe_equivalence"],
+        "requiredClaims": ["backend_portability_and_repair_equivalence"]
+      }
+    },
+    {
+      "auditId": "audit.event.response_window_expiry",
+      "canonicalFamilyId": null,
+      "classification": "REFERENCE_GOOD_REGRESSION",
+      "reason": "Event response-window expiry hides stale follow-ups when no fact refs remain.",
+      "acceptance": {
+        "ownerKind": "python_test",
+        "source": "ProjectHoomans/tools/providers/pnc/tests/test_unified_authority_event_followup.py",
+        "testIds": ["test_no_fact_refs_hide_followups_and_expire_the_window"],
+        "requiredClaims": ["event_window_expiry_hides_followups"]
+      }
     }
   ]
 }

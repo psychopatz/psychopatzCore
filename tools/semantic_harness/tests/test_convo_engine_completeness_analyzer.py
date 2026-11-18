@@ -239,6 +239,107 @@ class ConvoEngineCompletenessAnalyzerTests(unittest.TestCase):
         strict_report = analyze_portable_plan(model["portablePlan"], constrained_manifest=real_manifest, strict_manifest=True)
         self.assertTrue(strict_report["ok"], strict_report)
 
+    def test_r5a_closed_set_audit_inventory_and_verifiable_acceptance_negative_guards(self) -> None:
+        from copy import deepcopy
+        from tools.semantic_harness.codebuilder.completeness_analyzer import (
+            load_branching_audit_inventory,
+        )
+
+        core_root = Path(__file__).resolve().parents[3]
+        model = compile_conversation_sources(
+            core_root,
+            package_repositories={
+                "PsychopatzCore": core_root,
+                "ProjectHoomans": core_root.parent / "ProjectHoomans",
+                "DTCommon": core_root.parent / "DynamicTrading",
+            },
+        )
+        plan = model["portablePlan"]
+        base_manifest = load_constrained_family_manifest()
+        base_inventory = load_branching_audit_inventory()
+
+        # 1. Omitted audit row fails closed-set check
+        omitted_manifest = deepcopy(base_manifest)
+        omitted_manifest["entries"] = [
+            e for e in omitted_manifest["entries"] if e["auditId"] != "audit.event.response_window_expiry"
+        ]
+        rep_omitted = analyze_portable_plan(
+            plan,
+            constrained_manifest=omitted_manifest,
+            strict_manifest=True,
+            audit_inventory=base_inventory,
+        )
+        self.assertFalse(rep_omitted["ok"])
+        self.assertIn("missing_audit_row_in_manifest", {d["code"] for d in rep_omitted["diagnostics"]})
+
+        # 2. Extra manifest row with no audit ownership fails closed-set check
+        extra_manifest = deepcopy(base_manifest)
+        extra_manifest["entries"].append(
+            {
+                "auditId": "audit.invented.extra_row",
+                "canonicalFamilyId": None,
+                "classification": "REFERENCE_GOOD_REGRESSION",
+                "reason": "Invented row.",
+                "acceptance": {
+                    "ownerKind": "python_test",
+                    "source": "PsychopatzCore/tools/semantic_harness/tests/test_convo_engine_completeness_analyzer.py",
+                    "testIds": ["test_detects_unbounded_cycle_and_group_effect_hazards"],
+                    "requiredClaims": ["none"],
+                },
+            }
+        )
+        rep_extra = analyze_portable_plan(
+            plan,
+            constrained_manifest=extra_manifest,
+            strict_manifest=True,
+            audit_inventory=base_inventory,
+        )
+        self.assertFalse(rep_extra["ok"])
+        self.assertIn("extra_manifest_row_without_audit", {d["code"] for d in rep_extra["diagnostics"]})
+
+        # 3. Nonexistent acceptance source fails
+        bad_source_manifest = deepcopy(base_manifest)
+        bad_source_manifest["entries"][-1]["acceptance"]["source"] = "ProjectHoomans/tests/does_not_exist.py"
+        rep_bad_source = analyze_portable_plan(
+            plan,
+            constrained_manifest=bad_source_manifest,
+            strict_manifest=True,
+            audit_inventory=base_inventory,
+        )
+        self.assertFalse(rep_bad_source["ok"])
+        self.assertIn("missing_acceptance_source", {d["code"] for d in rep_bad_source["diagnostics"]})
+
+        # 4. Nonexistent testId / caseId fails
+        bad_tid_manifest = deepcopy(base_manifest)
+        bad_tid_manifest["entries"][-1]["acceptance"]["testIds"] = ["test_nonexistent_method_id"]
+        rep_bad_tid = analyze_portable_plan(
+            plan,
+            constrained_manifest=bad_tid_manifest,
+            strict_manifest=True,
+            audit_inventory=base_inventory,
+        )
+        self.assertFalse(rep_bad_tid["ok"])
+        self.assertIn("missing_acceptance_test_id", {d["code"] for d in rep_bad_tid["diagnostics"]})
+
+        # 5. Owner exists and testId exists, but does not claim required behavior
+        mismatch_manifest = deepcopy(base_manifest)
+        for entry in mismatch_manifest["entries"]:
+            if entry["auditId"] == "audit.root.disband":
+                entry["acceptance"] = {
+                    "ownerKind": "python_test",
+                    "source": "ProjectHoomans/tools/providers/pnc/tests/test_automatic_flow_generation.py",
+                    "testIds": ["test_live_coverage_generates_follow_and_stay_from_one_template"],
+                    "requiredClaims": ["confirmation_modal_required", "no_unconfirmed_destructive_dispatch"],
+                }
+        rep_mismatch = analyze_portable_plan(
+            plan,
+            constrained_manifest=mismatch_manifest,
+            strict_manifest=True,
+            audit_inventory=base_inventory,
+        )
+        self.assertFalse(rep_mismatch["ok"])
+        self.assertIn("acceptance_claim_mismatch", {d["code"] for d in rep_mismatch["diagnostics"]})
+
 
 if __name__ == "__main__":
     unittest.main()
