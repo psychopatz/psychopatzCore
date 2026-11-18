@@ -28,11 +28,11 @@ Residual snapshot (`git status --porcelain=v1 -uall` raw-byte SHA-256):
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=7   sha256=b11302923307a5444314d5d55a1ee8ca8e3cfe59cf9c4a2f8f06cce0c7a4e720
+ProjectHoomans   rows=28  sha256=09c577d781805f33dc361794fcf0e802d04ff34b49e8a391743f177152d08353
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-ProjectHoomans residual paths are unrelated StartingCompanion/NPC-authoring work and must be preserved exactly unless changed independently by their owner.
+ProjectHoomans has 28 unrelated concurrent NPC-authoring/editor residual paths at this snapshot; preserve them exactly unless they change independently by their owner.
 
 ## Retained accepted evidence
 
@@ -55,7 +55,7 @@ Fresh `python3 -m tools.semantic_harness.testing.acceptance --jobs 4` returns `8
 
 ## Immediate Next Chunk — R8A
 
-1. Verify all participant HEADs/status and preserve the seven unrelated Hoomans residuals.
+1. Verify all participant HEADs/status and preserve the unrelated Hoomans residuals.
 2. Read `S11_POST_R7_NATIVE_PARITY_ACCEPTANCE_REPAIR.md`.
 3. Trace the authoritative native semantic-task lifecycle: dispatch, pending request ownership, server/task authority, result receipt, and terminal state.
 4. Define/reuse one bounded task projection consumed by both native conversation context and worker.

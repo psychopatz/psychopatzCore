@@ -17,21 +17,12 @@ Residual snapshot at planning time (`git status --porcelain=v1 -uall` raw-byte S
 
 ~~~text
 psychopatzCore   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-ProjectHoomans   rows=7   sha256=b11302923307a5444314d5d55a1ee8ca8e3cfe59cf9c4a2f8f06cce0c7a4e720
+ProjectHoomans   rows=28  sha256=09c577d781805f33dc361794fcf0e802d04ff34b49e8a391743f177152d08353
 DynamicTrading   rows=0   sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ~~~
 
-The seven ProjectHoomans residuals are unrelated StartingCompanion/NPC-authoring work:
+ProjectHoomans now has 28 unrelated concurrent NPC-authoring/editor residuals across CharacterCreation, Identity/UniqueNPCDraft, NPCAuthoring, UniqueNPCEditor, and their tests/support. The residual fingerprint above is the authoritative planning snapshot.
 
-~~~text
-Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/CharacterCreation/PNC_StartingCompanionAuthoringAdapter.lua
-Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/CharacterCreation/PNC_StartingCompanionSession.lua
-Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Identity/PNC_NPCAuthoringComposer.lua
-Contents/mods/ProjectHoomans/42.20/media/lua/server/PNC/Companions/StartingCompanionService/PNC_StartingCompanionService_Identity.lua
-Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Core/Identity/PNC_NPCAuthoringResolver.lua
-Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Core/Identity/PNC_StartingCompanionCustomization.lua
-Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Core/Identity/PNC_StartingCompanionSanitizer.lua
-~~~
 
 Do not reset, stash, stage, rewrite, or otherwise absorb these paths into R8.
 
