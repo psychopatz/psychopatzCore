@@ -1063,7 +1063,7 @@ Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPA
 
 ### S11R9 — Dialogue Completeness Workbench and authoring readiness
 
-**Status:** REOPENED FOR AUTHORING READINESS — R9A-R9D code is retained, but R9R1 must close usability, all-family health coverage, workflow wiring, and legacy-retirement gaps before bulk rewriting.
+**Status:** ACCEPTED WITH R9R1 REPAIR — R9A-R9D code is retained and R9R1A-E usability, all-family health coverage, workflow wiring, and legacy-retirement repairs are accepted.
 
 #### R9A — canonical authoring-report enrichment
 
@@ -1081,12 +1081,12 @@ Historical R8/R9 implementation authority: `S11_POST_R8_AUTHORING_READINESS_REPA
 
 **Status:** ACCEPTED. Added `test_dialogue_completeness_workbench.py` (3/3) and `test_dialogue_completeness_workbench_tk.py` (1/1 Xvfb), proved Workbench parity with `analyze_convo_completeness(strict_manifest=True)` (`520` families, `0` errors, `1` warning, `520` SCCs), and passed two consecutive canonical 9-suite `--jobs 4` runs (`2125/2154`, `convoScopeOk=True`) with identical participant status hashes.
 
-**Gate:** REVOKED by post-R9 usability audit. `BULK_DIALOGUE_REWRITE_ALLOWED=false` until R9R1E.
+**Gate:** Restored by R9R1E acceptance. `BULK_DIALOGUE_REWRITE_ALLOWED=true`.
 
 
 ### S11R9R1 — Workbench usability, full-family coverage and legacy retirement
 
-**Status:** ACTIVE. Normative repair: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
+**Status:** ACCEPTED / CLOSED. Normative repair: `S11_POST_R9_WORKBENCH_USABILITY_REPAIR.md`.
 
 The post-R9 audit retained the canonical analyzer and authoring controls but found that the Workbench was closed as authoring-ready too early.
 
@@ -1110,7 +1110,7 @@ Fix false legacy-dataset detection. Remove the legacy compatibility toggle and z
 
 Require fake-widget/unit and real Tk/Xvfb proof for 588-family coverage, bidirectional selection sync, real semantic colors, needs-attention default, exact-field navigation, family-test wiring, contextual repair controls, legacy caller-zero, moved-surface parity, and a real journey where the current `command.camp` warning is immediately visible without scrolling through healthy rows. Then rerun full acceptance, participant fingerprints, post-acceptance reconcile and diff checks.
 
-**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=false` until R9R1E is accepted.
+**Gate:** `BULK_DIALOGUE_REWRITE_ALLOWED=true`. S11R8 (`ACCEPTED / CLOSED`), S11R9 (`ACCEPTED WITH R9R1 REPAIR`), S11R9R1 (`ACCEPTED / CLOSED`), S11 (`COMPLETE_DEVELOPER_SIDE / ACCEPTED`).
 
 ## Commit protocol
 
