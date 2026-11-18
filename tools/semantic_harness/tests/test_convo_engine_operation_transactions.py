@@ -232,6 +232,8 @@ class ConvoEngineOperationTransactionTests(unittest.TestCase):
             )
             pane._filter_var.set("social.caller_topic")
             pane._apply_filter()
+            pane._family_list.selection_set(0)
+            pane._family_selected()
             del_res = pane.delete_family()
             self.assertTrue(del_res["ok"], del_res)
             self.assertFalse(caller_path.exists())
@@ -239,6 +241,8 @@ class ConvoEngineOperationTransactionTests(unittest.TestCase):
             # Now leaf_topic is unreferenced and can be deleted cleanly
             pane._filter_var.set("social.leaf_topic")
             pane._apply_filter()
+            pane._family_list.selection_set(0)
+            pane._family_selected()
             leaf_del = pane.delete_family()
             self.assertTrue(leaf_del["ok"], leaf_del)
             self.assertFalse(leaf_path.exists())

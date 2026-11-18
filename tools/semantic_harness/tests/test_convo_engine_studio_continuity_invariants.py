@@ -252,6 +252,9 @@ class _FakeTk:
     Listbox = _FakeWidget
 
 
+from tools.semantic_harness.tests.convo_engine_test_support import _FakeTreeview
+
+
 class _FakeTtk:
     Frame = _FakeWidget
     Label = _FakeWidget
@@ -262,6 +265,7 @@ class _FakeTtk:
     Scrollbar = _FakeWidget
     Notebook = _FakeWidget
     PanedWindow = _FakeWidget
+    Treeview = _FakeTreeview
 
 
 class _FakeMessageBox:
