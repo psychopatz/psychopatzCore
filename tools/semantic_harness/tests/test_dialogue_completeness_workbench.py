@@ -522,7 +522,7 @@ class DialogueCompletenessWorkbenchTests(unittest.TestCase):
         finally:
             service.close()
 
-    def test_r9r1h_non_dialogue_routing_roundtrip_safety_and_f7_health_depth(self) -> None:
+    def test_non_dialogue_routing_roundtrip_safety_and_health_depth(self) -> None:
         import copy
         from tools.semantic_harness.codebuilder.completeness_analyzer import analyze_portable_plan
 

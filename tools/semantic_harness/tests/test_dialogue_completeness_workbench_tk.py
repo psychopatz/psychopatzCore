@@ -223,7 +223,7 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
         finally:
             root.destroy()
 
-    def test_real_tk_r9r1f_primary_browser_progressive_disclosure_and_single_line_entries(self) -> None:
+    def test_real_tk_primary_browser_progressive_disclosure_and_single_line_entries(self) -> None:
         if not os.environ.get("DISPLAY"):
             self.skipTest("Tk display is unavailable")
         root = tk.Tk()
@@ -299,6 +299,111 @@ class DialogueCompletenessWorkbenchTkTests(unittest.TestCase):
                 self.assertIn("State & Flow", tab_labels)
                 pane.preview_in_simulation()
                 self.assertEqual(preview_calls, ["command.camp"])
+            finally:
+                service.close()
+        finally:
+            root.destroy()
+
+    def test_real_tk_full_usability_acceptance_journey(self) -> None:
+        if not os.environ.get("DISPLAY"):
+            self.skipTest("Tk display is unavailable")
+        import copy
+        from tkinter import filedialog
+        from tools.semantic_harness.ui.interaction_modules.pane import InteractionModulesPane
+
+        root = tk.Tk()
+        root.withdraw()
+        try:
+            service = SemanticLabAuthoringService()
+            try:
+                sim_routed: list[str | None] = []
+                im_frame = ttk.Frame(root)
+                im_pane = InteractionModulesPane(
+                    im_frame,
+                    tk,
+                    ttk,
+                    scrolledtext.ScrolledText,
+                    filedialog,
+                    _FakeMessageBox(),
+                    on_refresh=lambda: {"beats": [], "behaviors": []},
+                    on_validate=lambda _d: {"ok": True},
+                    on_preview=lambda _d, _u: {"ok": True},
+                    on_register=lambda _d: {"ok": True},
+                    on_validate_behavior=lambda _d: {"ok": True},
+                    on_register_behavior=lambda _d: {"ok": True},
+                    on_load_canonical=lambda _i: {},
+                    on_preview_promotion=lambda _k, _d, _t: {"ok": True},
+                    on_promote=lambda _k, _d, _t: {"ok": True},
+                    on_open_content=lambda _c: None,
+                )
+
+                def _route_kind(kind: str, fid: str, fp: str | None, _dc: str | None) -> Any:
+                    if kind == "behavior":
+                        return im_pane.open_behavior(fid, fp)
+                    if kind == "beat":
+                        return im_pane.open_beat(fid, fp)
+                    return None
+
+                pane = ConvoEngineAuthoringPane(
+                    root,
+                    tk,
+                    ttk,
+                    scrolledtext.ScrolledText,
+                    _FakeMessageBox(),
+                    service,
+                    auto_refresh=True,
+                    on_preview_in_simulation=lambda fid, _d: sim_routed.append(fid),
+                    on_open_kind_editor=_route_kind,
+                )
+                wb = pane.completeness_workbench
+                wb.ensure_loaded()
+                root.update_idletasks()
+
+                # 1. Select command.camp -> ORANGE in both primary browser and Workbench
+                self.assertTrue(pane.select_family("command.camp"))
+                self.assertIn("ORANGE", pane._family_tree.item("command.camp")["tags"])
+                self.assertEqual(wb._selected_family_id, "command.camp")
+
+                # 2. Healthy family -> GREEN, no active structural repair
+                self.assertTrue(pane.select_family("accept"))
+                self.assertIn("GREEN", pane._family_tree.item("accept")["tags"])
+                self.assertEqual(wb._repair_status_var.get(), "No structural repair needed")
+
+                # 3. Known-owned family -> Run family tests executes real registered owner
+                self.assertTrue(wb.select_family("offer.question.identity", notify=True))
+                t_res = wb.run_family_tests()
+                self.assertTrue(t_res["ok"] and t_res["ran"], t_res)
+                self.assertEqual(t_res["coverageState"], "exact_owner")
+
+                # 4. Missing Coverage filter is truthful (includes unknown/uncovered)
+                wb._issue_filter_var.set("missing_coverage")
+                wb._apply_filters()
+                self.assertGreater(len(wb._family_tree.get_children()), 100)
+
+                # 5. Behavior/beat routing to InteractionModulesPane + realization exact-field focus + no-op round trip
+                beh_fid = next(i["canonicalID"] for i in pane._families if i["kind"] == "behavior")
+                beat_fid = next(i["canonicalID"] for i in pane._families if i["kind"] == "beat")
+                real_fid = next(i["canonicalID"] for i in pane._families if i["kind"] == "realization")
+
+                self.assertTrue(pane.open_family_from_completeness(beh_fid, f"{beh_fid}.stimuli"))
+                self.assertEqual(im_pane._highlighted_field, "behavior.stimuli")
+                self.assertEqual(pane._form_document(), copy.deepcopy(pane._document))
+
+                self.assertTrue(pane.open_family_from_completeness(beat_fid, f"{beat_fid}.entry"))
+                self.assertEqual(im_pane._highlighted_field, "beat.entry")
+                self.assertEqual(pane._form_document(), copy.deepcopy(pane._document))
+
+                self.assertTrue(pane.open_family_from_completeness(real_fid, f"{real_fid}.translations"))
+                self.assertEqual(pane._highlighted_field, "realization.translations")
+                self.assertEqual(pane._form_document(), copy.deepcopy(pane._document))
+
+                # 6. Legacy panes remain caller-zero
+                core_root = Path(__file__).resolve().parents[3]
+                for retired in ("dialogue_content_pane.py", "workflow.py", "interaction_spec_pane.py"):
+                    self.assertFalse((core_root / "tools/semantic_harness/studio" / retired).exists())
+
+                pane.preview_in_simulation()
+                self.assertEqual(sim_routed, [real_fid])
             finally:
                 service.close()
         finally:
