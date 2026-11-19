@@ -321,3 +321,17 @@ Generated Lua, registries, manifests, indexes and translations remain downstream
 A modernized dataset is ready when:
 
 > semantic families describe reusable meaning rather than hard-coded situations; live context is supplied through bounded roles/slots/references; runtime may compose validated families/beats but cannot invent authority; one family owns each semantic interaction's conversational policy; gameplay truth remains adopter-owned; wording is separated into realization; all maintained first-party sources use ConvoEngine v1; duplicate/split/wording-only families are retired after parity; and the dataset is discoverable enough for a future deterministic Dialogue Director without requiring an LLM for correctness.
+
+
+## Physical layout and Director consumption
+
+Semantic reuse must remain visible in physical layout.
+
+`CONVOENGINE_PHYSICAL_LAYOUT_AND_LOCALIZATION.md` defines the single
+localization/projection convention. `CONVERSATION_DIRECTOR_ARCHITECTURE.md`
+defines how a future Director consumes canonical behaviors/beats without
+creating a second authoring/runtime authority.
+
+Dynamic composition does not justify duplicate `Director` source trees or
+duplicate full-payload generated behavior/beat modules. The Director consumes
+compiler-derived indexes and canonical IDs.

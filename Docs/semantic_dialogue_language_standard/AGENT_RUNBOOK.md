@@ -91,7 +91,12 @@ S11 extends the accepted post-G9 ConvoEngine pipeline:
 - keep two-person dialogue as a specialization of the generic participant/role model;
 - preserve structured TopicRef/EventRef/ActivityRef/MemoryRef-compatible metadata and discoverable semantic act/archetype metadata for a future Dialogue Director;
 - keep realization separate from semantic meaning so authored/templates can function without an LLM;
+- keep localized prose in the canonical owner-local translation source/catalog pipeline; maintained semantic family source must not embed complete multi-locale corpora, and generated ConvoEngine Lua must not become a translation database;
+- treat `CONVOENGINE_PHYSICAL_LAYOUT_AND_LOCALIZATION.md` as the physical-layout authority: one full generated semantic artifact per family, no `Behavior` + `Behaviors/Director` or `Beat` + `Beats/Director` semantic-body duplication after caller-zero;
+- a runtime-specific Director view may be a compact ID/index projection only; never create a second Director semantic source tree or copy complete behavior/beat policy into another generated module;
+- the post-S12 Conversation Director may be implemented only according to `CONVERSATION_DIRECTOR_ARCHITECTURE.md`: ephemeral SceneContext, sparse event-driven candidate discovery, bounded role binding/scoring, and canonical validation before execution;
 - do not implement autonomous beat/topic scoring in S11; only establish the typed metadata and bounded compiler/runtime seams;
+- the preceding prohibition is historical S11 scope only; it is not a permanent ban on the post-S12 Director goal. Post-S12 Director work must follow `CONVERSATION_DIRECTOR_ARCHITECTURE.md` and must not introduce parallel semantic authority;
 - semantic correctness and gameplay authority must require zero LLM calls;
 - obey the S11A0→S11A8 foundation order and do not migrate production semantic families before the S11A8 freeze gate;
 - classify legacy surfaces before editing them as KEEP_AUTHORITY / ADAPT / MIGRATE_LATER / RETIRE_AFTER_PARITY / GENERATED_DO_NOT_EDIT / UNRELATED;

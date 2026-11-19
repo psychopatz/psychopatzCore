@@ -253,6 +253,25 @@ tools/semantic_harness/codebuilder/sources/conversation/
 Adopter provider roots follow the same layout beneath their own
 `sources/conversation/`.
 
+
+Canonical localized prose uses one deterministic source convention:
+
+~~~text
+sources/conversation/translations/
+├─ EN/
+│  ├─ dialogue/
+│  ├─ behavior/
+│  ├─ beat/
+│  └─ realization/
+└─ <OTHER_LOCALE>/...
+~~~
+
+The semantic family path deterministically identifies its translation path.
+Do not introduce new inline locale corpora, ad-hoc `textSidecars` maps, or mixed
+inline+sidecar authoring for maintained ConvoEngine families. CodeBuilder owns
+migration from historical forms.
+
+
 Do not create new `psdl/`, `convo_engine/`, `generated/`, `legacy/`, or
 PartNN authoring folders.
 
@@ -302,6 +321,33 @@ than ConvoEngine. Conversation-owned runtime/adapters move under ConvoEngine.
 
 Generated files still contain a generated-file header and are tracked by the
 CodeBuilder manifest/fingerprint/lineage system.
+
+
+The target runtime layout contains one full generated semantic artifact per
+canonical family kind:
+
+~~~text
+<Owner>/ConvoEngine/
+├─ Dialogue/
+├─ Behavior/
+├─ Beat/
+├─ Realization/
+├─ Index/
+├─ Registry.lua
+└─ Manifest.lua
+~~~
+
+Do not generate duplicate semantic bodies under `Behaviors/Director` or
+`Beats/Director`. If a consumer requires Director lookup data, emit a compact
+ID/index projection or derive a registry view from the same canonical plan.
+
+Localized text is emitted into the owning mod's
+`media/translation/<LOCALE>/Conversation/...` tree. Generated ConvoEngine Lua
+contains translation keys/realization identity and at most an EN fallback, not
+whole EN/TL/etc corpora.
+
+See `CONVOENGINE_PHYSICAL_LAYOUT_AND_LOCALIZATION.md`.
+
 
 The path flattening must happen in Core owner-routing/generator code, followed
 by one atomic regeneration and caller/test update. Never move generated files

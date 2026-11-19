@@ -4,7 +4,7 @@
 
 **ConvoEngine** is the normative first-party conversation authoring/compiler system for **PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon**.
 
-**ConvoEngine** is the system and language name. Because the system is still pre-release, the only maintained first-party authoring schemas are `psychopatz.convo-engine.v1` and `psychopatz.convo-engine.package.v1`. `psychopatz.psdl.v2` / `psychopatz.psdl.package.v2` are pre-release migration residue to remove through S12 after source/caller zero; they are not a second supported schema/toolchain.
+**ConvoEngine** is the system and language name. Because the system is still pre-release, the sole maintained first-party schemas are `psychopatz.convo-engine.v1` (family/source), `psychopatz.convo-engine.package.v1` (package descriptor), `psychopatz.convo-engine.target-registry.v1` (`targets/pz_packages.json`), and `psychopatz.convo-engine.naming-audit.v1` (naming/legacy audit), with no v2 schema. `psychopatz.psdl.v2`, `psychopatz.psdl.package.v2`, and `psdl.target-registry.v1` are retired at caller/source zero and rejected fail-closed (`activeCurrentPsdlIdentityCount == 0`), with zero compatibility shims, aliases, or dual schema readers.
 
 ConvoEngine itself is **Core-owned infrastructure**. Its language schema, canonical IR, compiler, generic validator, shared predicate/reference/binding contracts, package-routing logic and reusable authoring service belong physically in `psychopatzCore`. ProjectHoomans and DynamicTrading/DTCommon are adopters: they may own domain-specific ConvoEngine records and adapters, but they must not fork or duplicate the language/compiler/runtime authority.
 
@@ -53,7 +53,7 @@ Do not introduce a second persisted semantic state store, action/capability regi
 
 Core owns portable schema/runtime mechanisms and generic validation/outcome vocabulary. Adopters project bounded public facts from their existing authorities, implement typed capability adapters, and retain domain-specific reasons/effects. A state projection is read-only derived context, never another source of truth.
 
-The active S11 designs are specified in S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md, S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md, S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md, S11_COMPILER_RUNTIME_OPTIMIZATION.md, and S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md; once S11 closes, their accepted generic contracts become part of this architecture.
+The accepted S11 designs are specified in S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md, S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md, S11_DIALOGUE_COMPLETENESS_MEMORY_CONTINUITY.md, S11_PORTABLE_FACTS_EFFECTS_MODIFIERS.md, S11_COMPILER_RUNTIME_OPTIMIZATION.md, and S11_LLM_MINIMIZED_EMERGENT_DIALOGUE_FOUNDATION.md. S12/S12R2 implementation is technically verified and its generic contracts are part of this architecture; the final durable psychopatzCore commit boundary is still pending.
 
 ### Dynamic composition and single-family authority
 
@@ -76,6 +76,46 @@ Wording-only difference belongs in realization. Context-only difference belongs
 in roles/slots/references/conditions. Participant-count difference belongs in
 role cardinality unless genuinely semantically distinct. Mutable gameplay truth
 continues to belong to adopter domain systems.
+
+### Physical projection and localization invariant
+
+`CONVOENGINE_PHYSICAL_LAYOUT_AND_LOCALIZATION.md` is normative.
+
+One canonical family may have multiple runtime indexes/views, but it must not
+have multiple full semantic artifacts merely because different consumers need
+different shapes.
+
+In particular, steady state must not preserve full-payload pairs such as
+`Behavior/...` plus `Behaviors/Director/...` or `Beat/...` plus
+`Beats/Director/...`. A Director-specific projection, when needed, is a compact
+derived ID/index view over the canonical generated plan.
+
+Localized prose has one authoring convention and one owner-local generated
+translation pipeline. Maintained semantic source does not carry complete
+multi-locale corpora; generated ConvoEngine Lua carries translation identity and
+at most an EN fallback, while package-owned `media/translation/<LOCALE>/Conversation/...`
+catalogs own localized text.
+
+A generated shard/file is not semantic authority. Translation keys and canonical
+family IDs remain stable independently of sharding.
+
+### Conversation Director invariant
+
+`CONVERSATION_DIRECTOR_ARCHITECTURE.md` is the normative post-S12 design.
+
+The Director is a deterministic consumer of canonical ConvoEngine metadata. It
+owns ephemeral SceneContext, sparse candidate discovery, role binding, utility
+scoring and bounded sequencing. It does not own semantic actions/effects,
+translation text, gameplay truth, a second predicate language, or a second
+behavior/beat source tree.
+
+Current `behavior/scene/*` records are canonical semantic candidate content.
+Legacy/full-payload `Behaviors/Director/*` projections are not a new authoring
+namespace and must not be expanded.
+
+Director candidate lookup is compiler-indexed and event-driven; it must not scan
+all families every frame. Full semantic validation remains ConvoEngine-owned
+after ranking/binding and before execution.
 
 ### Dialogue closure and memory continuity invariant
 
@@ -115,7 +155,7 @@ Semantic correctness, role legality, state/outcome admission, actions/effects, m
 
 ### Foundation freeze / migration invariant
 
-S11 foundation order is authoritative in `S11_FOUNDATION_FREEZE_AND_MIGRATION_ORDER.md` and ROADMAP. Production semantic-family migration is forbidden until the S11A8 foundation freeze gate passes. Build/freeze the canonical model and compiler path first, then analyzers/adapters/lifecycle/optimization, then migrate production content once.
+S11A8 and S11 are complete and accepted. S12/S12R2 implementation is technically verified but its final durable psychopatzCore closure commit remains pending (`ROADMAP.md`). No production migration occurred before the freeze; all accepted generic contracts remain the sole foundation.
 
 Migrated project-owned semantic paths are replaced, not preserved through compatibility shims. After canonical-source parity and caller-zero proof, obsolete internal definitions/wrappers/registries/fallbacks are deleted. Dialogue/semantic source changes must flow through the existing CodeBuilder canonical source + generation recipe + reconcile pipeline; generated Lua/registries/manifests/translations remain downstream-only.
 
@@ -158,15 +198,9 @@ ConvoEngine; generic semantic interpretation/resolution stays in Semantics.
 
 ### Naming closure invariant
 
-ConvoEngine ownership applies to generated/runtime text identity as well as Lua
-module paths. Maintained ConvoEngine source/output uses `convo.*` template
-identity, adopter ConvoEngine domains such as `pnc.convo.*`, and
-`Conversation/Text/convo/...` translation paths.
+ConvoEngine ownership applies to generated/runtime text identity, schemas, target registries, compiler internals, and tooling/test names. Maintained ConvoEngine source/output uses `convo.*` template identity, adopter ConvoEngine domains such as `pnc.convo.*`, and `Conversation/Text/convo/...` translation paths.
 
-`psdl.*`, `pnc.psdl.*`, and `Conversation/Text/psdl/` are not valid
-steady-state ConvoEngine output. They may survive only inside explicitly
-classified migration readers/test fixtures until their compatibility obligation
-is removed.
+`psdl.*`, `pnc.psdl.*`, `psychopatz.psdl.*`, `psdl.target-registry.v1`, and `Conversation/Text/psdl/` are retired at caller/source zero and rejected fail-closed. PSDL tokens may appear ONLY inside explicit historical negative-detection constants, fail-closed rejection checks, or negative-rejection tests, enforced by `convo_engine_naming_audit.py` (`psychopatz.convo-engine.naming-audit.v1`) with per-line semantic classification (zero broad path whitelists) requiring `activeCurrentPsdlIdentityCount == 0` under `convo.audit` and `convo.modernization_closure`.
 
 Do not apply this rule to genuinely generic Semantic IR or NLU contracts merely
 because their schema/symbol names contain `semantic`.
@@ -536,7 +570,7 @@ See `ACTIONS_AND_RESULTS.md` for the normative execution/result contract.
 ## Canonical compilation boundary
 
 ```text
-PSDL source
+ConvoEngine v1 source
     ↓
 syntax sugar expansion
     ↓
@@ -582,7 +616,7 @@ From this goal onward:
 - do not create broad alias registries to keep first-party old IDs alive;
 - do not duplicate a migrated definition in both old and ConvoEngine source.
 
-Existing old source is migration input only. Convert one owning domain, prove parity/callers, then delete the superseded source. Transitional readers/adapters may exist in compiler/runtime code only when bounded and explicitly scheduled for removal; they are not new authoring surfaces.
+Legacy source schemas (`psychopatz.semantic.dialogue-language.v1`, `psychopatz.psdl.*`, `psdl.target-registry.v1`) are retired and rejected fail-closed. Do not maintain compatibility shims, aliases, or dual schema readers.
 
 External-mod compatibility remains an explicit adapter boundary and does not justify first-party legacy authoring.
 
