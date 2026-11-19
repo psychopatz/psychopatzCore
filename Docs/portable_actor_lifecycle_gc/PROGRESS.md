@@ -1,10 +1,16 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L6 accepted, starting L7 (DynamicTrading D1–D3 adoption).
-**Current phase:** L7 — DynamicTrading / DTAbstract / DTHoomans lifecycle & GC adoption.
-**Developer completion:** 7/10 phases accepted (L0, L1, L2, L3, L4, L5, L6 ACCEPTED).
+**Status:** IN_PROGRESS — L7 accepted, starting L8 (semantic/interaction lifecycle projections).
+**Current phase:** L8 — Lifecycle-aware semantic & hot-interaction projections.
+**Developer completion:** 8/10 phases accepted (L0, L1, L2, L3, L4, L5, L6, L7 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
-**Participants:** ProjectHoomans (H0, H1, H2, H3A, H4-policy, H6-player-lifecycle at `27d4964a`), DynamicTrading (D0, D4-policy at `20e9b084`).
+**Participants:** ProjectHoomans (H0, H1, H2, H3A, H4-policy, H6-player-lifecycle at `27d4964a`), DynamicTrading (D0, D1, D2, D3, D4-policy at `c64be379`).
+
+## Verified L7 Facts
+
+- Adopted Core lifecycle and GC across `DynamicTrading` (`D1–D3` at `c64be37915cb900ec55a3d0c961e5d95a113ed84`): created `DTCommon/DTCommon_ActorLifecycle.lua` (required in `00_DTCommon_Init.lua`) exposing server-authoritative `RetireTraderActor`, `OnActorRetired`, `HasActiveObligations`, `ClearDeadWorldKnowledge`, and `"DynamicTrading.CommercialRoots"` Core GC provider.
+- Separated rollback deletion (`DTCommon_TraderGeneration.lua` `RemoveCanonicalGroup` -> Core `HardDelete`), commercial-role removal (`DTAbstract_Server` `"RemoveTrader"` preserves `LIVE` Core actor and social history), superseded migration (`DTAbstract_PreSurvivorWorldImport.lua` merges `oldActor.social` & `WorldKnowledge` refs onto canonical replacement preserving `providerLease`, then `HardDelete`s old actor with zero fake tombstones), and true actor death (`DTAbstract_TraderWorldProvider.reconcileRecord` transitions Core `RETIRED` to `"actor_retired"`, `Policy.IsAvailable` rejects `RETIRED`, and `DTHoomans_SettlementTrader.lua` uses `Service.BindActor`).
+- Verified full DynamicTrading test suite (`python3 tests/run_tests.py`: `PASS 91/91` including `tests/dt_actor_lifecycle_gc_adoption_smoke.lua` across both standalone Core+DTAbstract and combined `DTHoomans`+`ProjectHoomans`) and `pz_verify.py --kahlua --severity ERROR` (`0` errors across all 7 created/modified DT Lua files).
 
 ## Verified L6 Facts
 
@@ -42,6 +48,6 @@
 
 ## Immediate Next Chunk
 
-**L7 — DynamicTrading / DTAbstract / DTHoomans adoption (`D1–D3`)** (Batch 3: L5-L7).
+**L8 — Semantic/interaction lifecycle-aware projections** (Batch 4: L8–L9).
 
-Create `DTCommon_ActorLifecycle.lua` (`RetireTraderActor`, `OnActorRetired`, `"DynamicTrading.CommercialRoots"` GC provider), switch rollback `RemoveCanonicalGroup` and superseded `PreSurvivorWorldImport.Rebind` to Core `HardDelete`, reconcile retired Core actors cleanly in `CoreActorPolicy` & `DTAbstract_TraderWorldProvider`, fix `DTHoomans_SettlementTrader.lua:244` (`Service.BindActor`), and add `dt_actor_lifecycle_gc_adoption_smoke.lua`.
+Implement `PsychopatzSocialQuery.lua` (`OpenInteractionHotContext`, `ExecutePlan`, `ValidateDecisionToken`, `ProjectTargetReference`), fix `GetHotRelationshipSnapshot` `ResolveAttitude` bug & enrich `PsychopatzSocialProjections`, `PsychopatzActorSocialAuthority`, `PsychopatzActorInteraction`, `GC.GetDiagnostics`, ProjectHoomans `H3/H4`, and DynamicTrading `D4`.
