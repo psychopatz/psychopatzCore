@@ -171,7 +171,9 @@ function Store.Activate(spec)
     installHooks()
 
     local existing = root(false)
-    if type(existing) == "table" and existing.registry then
+    -- Once loaded, the live registry owns unsaved mutations. Ordinary
+    -- callers activate repeatedly to resolve that registry.
+    if not Store.Loaded and type(existing) == "table" and existing.registry then
         local ok
         ok, reason = Store.Load(false)
         if not ok then return nil, reason end

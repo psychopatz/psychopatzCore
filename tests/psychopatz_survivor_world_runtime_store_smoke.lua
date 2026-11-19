@@ -100,4 +100,15 @@ assert(unchanged == false and unchangedReason == "not_dirty",
 assert(root.registry == before,
     "clean save must leave payload unchanged")
 
+local faction = assert(fresh:GetFaction("faction_runtime"))
+faction.name = "Unsaved faction promotion"
+assert(fresh:UpsertFaction(faction))
+assert(Store.MarkDirty("unsaved_promotion"))
+local activated = assert(World.ActivateRuntime())
+assert(activated == fresh, "repeated activation reuses the live registry")
+assert(activated:GetFaction(faction.id).name == faction.name,
+    "activation must preserve unsaved canonical mutations")
+assert(root.registry == before,
+    "activation must not save synchronously")
+
 print("psychopatz_survivor_world_runtime_store_smoke: PASS")
