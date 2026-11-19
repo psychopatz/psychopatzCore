@@ -47,6 +47,19 @@ for _, featureMod in ipairs(features) do
     end
 end
 
+-- PZ can load this shared file before the Actors capability. A namespace
+-- write during that load must not invoke the lazy Actors capability loader.
+local gc = require "PsychopatzCore/Actors/PsychopatzActorGC"
+local playerIdentity = require "PsychopatzCore/Actors/PsychopatzPlayerIdentity"
+local actorNamespace = rawget(Core, "Actors")
+assert(actorNamespace and actorNamespace.PlayerIdentity == playerIdentity,
+    "player identity did not publish its compatibility alias")
+assert(actorNamespace.DefaultRegistry == nil,
+    "loading ActorGC triggered recursive activation of the Actors capability")
+local actorsReady = Core.Require("core.actors", "CompositionSmokeTest")
+assert(actorsReady and Core.Actors.DefaultRegistry and Core.Actors.GC == gc,
+    "Actors capability did not finish initialization after ActorGC loaded first")
+
 -- Demand-driven activation check: requesting legacy full or specific capability activates it
 local ok = Core.RequireLegacySharedFull("CompositionSmokeTest")
 assert(ok == true, "RequireLegacySharedFull failed")

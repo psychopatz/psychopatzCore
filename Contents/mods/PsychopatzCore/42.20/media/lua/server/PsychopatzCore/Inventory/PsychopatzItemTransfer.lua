@@ -1,22 +1,10 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
+local VisualState = require "PsychopatzCore/Inventory/PsychopatzItemVisualState"
 local Portable = require "PsychopatzCore/Inventory/PsychopatzPortableItemState"
 
 PsychopatzCore.ItemTransfer = PsychopatzCore.ItemTransfer or {}
 
 local Transfer = PsychopatzCore.ItemTransfer
-
-local ITEM_VISUAL_STATE_FIELDS = {
-    baseTexture = "visualBaseTexture",
-    textureChoice = "visualTextureChoice",
-    tintR = "visualTintR",
-    tintG = "visualTintG",
-    tintB = "visualTintB",
-    modelIndex = "visualModelIndex",
-    customColor = "visualCustomColor",
-    colorR = "visualColorR",
-    colorG = "visualColorG",
-    colorB = "visualColorB",
-}
 
 local function isMultiplayerServer()
     return isServer and isServer() == true
@@ -38,127 +26,6 @@ local function applyFluidState(item, state)
         return true
     end
     return Portable.ApplyFluid(item, state)
-end
-
-local function readVisualValue(visual, methodName, ...)
-    local method = visual and visual[methodName] or nil
-    local ok
-    local value
-    if type(method) ~= "function" then return nil end
-    ok, value = pcall(method, visual, ...)
-    return ok and value or nil
-end
-
-local function applyItemVisualState(item, state)
-    local visual
-    local tintR
-    local tintG
-    local tintB
-    if not item or type(state) ~= "table" then return end
-    if state.visualFullType ~= nil
-        and item.getFullType
-        and tostring(state.visualFullType)
-            ~= tostring(item:getFullType() or "")
-    then
-        return
-    end
-    if state[ITEM_VISUAL_STATE_FIELDS.modelIndex] ~= nil
-        and item.setModelIndex
-    then
-        item:setModelIndex(math.floor(tonumber(
-            state[ITEM_VISUAL_STATE_FIELDS.modelIndex]
-        ) or -1))
-    end
-    if state[ITEM_VISUAL_STATE_FIELDS.colorR] ~= nil
-        and item.setColorRed
-    then
-        item:setColorRed(tonumber(
-            state[ITEM_VISUAL_STATE_FIELDS.colorR]
-        ) or 1)
-    end
-    if state[ITEM_VISUAL_STATE_FIELDS.colorG] ~= nil
-        and item.setColorGreen
-    then
-        item:setColorGreen(tonumber(
-            state[ITEM_VISUAL_STATE_FIELDS.colorG]
-        ) or 1)
-    end
-    if state[ITEM_VISUAL_STATE_FIELDS.colorB] ~= nil
-        and item.setColorBlue
-    then
-        item:setColorBlue(tonumber(
-            state[ITEM_VISUAL_STATE_FIELDS.colorB]
-        ) or 1)
-    end
-    if state[ITEM_VISUAL_STATE_FIELDS.customColor] ~= nil
-        and item.setCustomColor
-    then
-        item:setCustomColor(
-            state[ITEM_VISUAL_STATE_FIELDS.customColor] == true
-        )
-    end
-    visual = item.getVisual and item:getVisual() or nil
-    if not visual then return end
-    if state[ITEM_VISUAL_STATE_FIELDS.baseTexture] ~= nil
-        and visual.setBaseTexture
-    then
-        visual:setBaseTexture(tonumber(
-            state[ITEM_VISUAL_STATE_FIELDS.baseTexture]
-        ) or -1)
-    end
-    if state[ITEM_VISUAL_STATE_FIELDS.textureChoice] ~= nil
-        and visual.setTextureChoice
-    then
-        visual:setTextureChoice(tonumber(
-            state[ITEM_VISUAL_STATE_FIELDS.textureChoice]
-        ) or -1)
-    end
-    if state.visualDecal ~= nil and visual.setDecal then
-        visual:setDecal(tostring(state.visualDecal))
-    end
-    tintR = tonumber(state[ITEM_VISUAL_STATE_FIELDS.tintR])
-    tintG = tonumber(state[ITEM_VISUAL_STATE_FIELDS.tintG])
-    tintB = tonumber(state[ITEM_VISUAL_STATE_FIELDS.tintB])
-    if tintR and tintG and tintB and ImmutableColor and visual.setTint then
-        visual:setTint(ImmutableColor.new(tintR, tintG, tintB, 1))
-    end
-end
-
-local function captureItemVisualState(item, state)
-    local visual = item and item.getVisual and item:getVisual() or nil
-    local clothingItem = item and item.getClothingItem
-        and item:getClothingItem() or nil
-    local tint
-    state.visualFullType = item.getFullType
-        and tostring(item:getFullType() or "") or nil
-    state[ITEM_VISUAL_STATE_FIELDS.modelIndex] = item.getModelIndex
-        and tonumber(item:getModelIndex()) or nil
-    state[ITEM_VISUAL_STATE_FIELDS.customColor] = item.isCustomColor
-        and item:isCustomColor() == true or nil
-    state[ITEM_VISUAL_STATE_FIELDS.colorR] = item.getColorRed
-        and tonumber(item:getColorRed()) or nil
-    state[ITEM_VISUAL_STATE_FIELDS.colorG] = item.getColorGreen
-        and tonumber(item:getColorGreen()) or nil
-    state[ITEM_VISUAL_STATE_FIELDS.colorB] = item.getColorBlue
-        and tonumber(item:getColorBlue()) or nil
-    if not visual then return end
-    state[ITEM_VISUAL_STATE_FIELDS.baseTexture] = tonumber(
-        readVisualValue(visual, "getBaseTexture")
-    )
-    state[ITEM_VISUAL_STATE_FIELDS.textureChoice] = tonumber(
-        readVisualValue(visual, "getTextureChoice")
-    )
-    state.visualDecal = readVisualValue(
-        visual,
-        "getDecal",
-        clothingItem
-    )
-    tint = readVisualValue(visual, "getTint", clothingItem)
-    if tint then
-        state[ITEM_VISUAL_STATE_FIELDS.tintR] = tonumber(tint:getRedFloat())
-        state[ITEM_VISUAL_STATE_FIELDS.tintG] = tonumber(tint:getGreenFloat())
-        state[ITEM_VISUAL_STATE_FIELDS.tintB] = tonumber(tint:getBlueFloat())
-    end
 end
 
 local function applyItemState(item, state)
@@ -211,7 +78,7 @@ local function applyItemState(item, state)
         end
     end
 
-    applyItemVisualState(item, state)
+    VisualState.Apply(item, VisualState.Read(state))
 
     Portable.ApplyFood(item, state)
 
@@ -293,7 +160,7 @@ function Transfer.CaptureState(item)
     if item.getCurrentAmmoCount then
         state.ammoCount = tonumber(item:getCurrentAmmoCount())
     end
-    captureItemVisualState(item, state)
+    VisualState.Write(state, VisualState.Capture(item))
     if item.getModData then
         local raw = item:getModData()
         local copied = {}

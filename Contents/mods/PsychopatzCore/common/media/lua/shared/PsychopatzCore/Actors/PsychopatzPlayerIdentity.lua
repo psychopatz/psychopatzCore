@@ -720,8 +720,11 @@ then
 end
 
 PsychopatzCore = PsychopatzCore or {}
-PsychopatzCore.Actors = PsychopatzCore.Actors or {}
-PsychopatzCore.Actors.PlayerIdentity = PlayerIdentity
+-- Reading Actors through the lazy capability accessor here would re-enter
+-- Actors while its dependencies are still loading.
+local actors = rawget(PsychopatzCore, "Actors") or {}
+PsychopatzCore.Actors = actors
+actors.PlayerIdentity = PlayerIdentity
 PsychopatzCore.PlayerIdentity = PlayerIdentity
 
 return PlayerIdentity
