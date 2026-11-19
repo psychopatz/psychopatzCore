@@ -1,24 +1,25 @@
 # Progress — Portable Social State
 
-**Status:** ACTIVE — P11 accepted; P12 remaining.
-**Current phase:** P12 — Native player identity safety and final cross-repository proof.
-**Developer completion:** 12/13 phases accepted. P0-P11 are accepted; P12 is active.
+**Status:** READY FOR USER LIVE TEST — P0-P12, H0-H8, and DT0-DT6 accepted.
+**Current phase:** P12 — Complete (`13/13` phases accepted).
+**Developer completion:** 13/13 phases accepted (`P0-P12`), plus participant completion (`H0-H8`, `DT0-DT6`).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
 **Participants:** ProjectHoomans, DynamicTrading.
 
 ## Verified progress
 
-- P0-P11 remain source and test verified (P0-P9 committed historical milestones; P10/H7 and P11 accepted).
-- The 2026-11-19 re-audit independently reproduced 65/65 Core Lua, 90/90 DynamicTrading Lua, and 1,066/1,070 ProjectHoomans Lua with the same four known unrelated failures.
-- CodeBuilder Social Policy tests remain 8/8 and reconcile.py --check is clean.
-- The portable Core runtime is real: sparse directed relationships, SCENE/SHORT/LONG/ANCHOR retention, salience, bounded consolidation, lazy decay, provenance and confidence, revisions, server-authorized events, compact default omission, candidate projection and RuntimeStore chunking.
-- DynamicTrading adoption is real: trader actor continuity, DTAbstract operation without PNC, relationship-aware pricing context, social-aware trader conversation and DTHoomans handoff sync are implemented.
-- P10 / H7 complete (ProjectHoomans `90fd69fb41ade486f26b181c09482b6015e9c463`, Core `b2190598f0c774115e8f388b90177f46852d76c4`): Project Hoomans now serializes only PNC-owned extensions while Core `actor.social` is the sole persisted generic relationship/memory authority.
-- P11 complete: removed `EvaluateAutonomyCandidates` and all concrete action vocabulary (`TALK`, `TRADE`, `HELP`, `AVOID`, `CONFRONT`, `REPORT`, `RETALIATE`) and utility formulas from Core Actors social modules (`PsychopatzSocialProjections.lua`, `PsychopatzSocial.lua`, `PsychopatzActorSocialAuthority.lua`) after caller-zero proof across all three repositories. Enriched `QueryCandidateProjection` with bounded action-neutral decision features (`trustSignal`, `grievancePressure`, `assistanceHistory`, `familiaritySignal`, `cautionSignal`, `provenanceConfidence`, `directWitness`, `hearsayOnly`, `relationshipRevision`, `socialRevision`, normalized `personality`, and `features`). Migrated P2/P8 tests (`psychopatz_social_retention_consolidation_smoke.lua`, `psychopatz_social_autonomy_seam_smoke.lua`) to an external synthetic consumer; Kahlua 0 errors and `core_lua` 66/66 PASS.
-- Remaining finding C (P12): PsychopatzPlayerIdentity.lua still uses sandboxed os.time in identity issuance and UUID generation (`L78`, `L135`). Must be replaced with a Project Zomboid-safe server-authoritative issuance mechanism before final cross-repo matrix validation and native-ready handoff.
+- P0-P12 remain source and test verified across all three repositories:
+  - P10 / H7 (ProjectHoomans `90fd69fb41ade486f26b181c09482b6015e9c463`, Core `b2190598f0c774115e8f388b90177f46852d76c4`): single persisted generic social authority in Core `actor.social` (`PNC` stores only `authority == "core"` extensions `morale`, `moraleBaseline`, `conduct` without derived `scores`, and `relationshipExtensions` with `bond` and `interactionJournal`; one-time `core_social_single_authority` v1 migration).
+  - P11 (Core `407d7d8982944ad78fea815694ed82e7f16daf86`): removed `EvaluateAutonomyCandidates` and all action-specific scoring vocabulary (`TALK`, `TRADE`, `HELP`, `AVOID`, `CONFRONT`, `REPORT`, `RETALIATE`) from Core Actors after caller-zero check; enriched `QueryCandidateProjection` with bounded action-neutral decision features (`trustSignal`, `grievancePressure`, `assistanceHistory`, `familiaritySignal`, `cautionSignal`, `provenanceConfidence`, `directWitness`, `hearsayOnly`, `relationshipRevision`, `socialRevision`, `personality`, and `features`).
+  - P12 / H8 / DT6 (`DT6` `c5a45962047068f6e597b36a0111bdd8d99abe13`, `H8` `aa5d422567d1567a478acb4b28d1cde0089166dd`, `P12` committed in Core): removed both `os.time` calls from `PsychopatzPlayerIdentity.lua` using PZ-safe `nowTimestamp()`, `ZombRand`/fallback RNG, and monotonic `issuedSeq` sequence persistence; proved `_G.os = nil` + constant clock/RNG 50-UUID collision-free SP/MP issuance, save/reset/reload, reconnect stability, and cross-account conflict rejection in `psychopatz_player_identity_smoke.lua` Test 8.
+- Final P12 cross-repository verification matrix:
+  - `acceptance --suite core_lua`: `66/66` PASS (Core-only, Core+Hoomans, Core+DTCommon+DTAbstract without PNC, combined `DTAbstract -> DTHoomans -> DTAbstract`, MP/replay/client rejection, reconnect convergence, single-persistence proof, bounded `SCENE`/`SHORT`/`LONG`/`ANCHOR` consolidation, lazy decay, RuntimeStore chunking, scale stress, and native Kahlua player identity safety).
+  - `acceptance --suite dynamic_trading` & `DynamicTrading/tests/run_tests.py`: `90/90` PASS (zero DT production edits required).
+  - ProjectHoomans scoped social/conduct/semantic-evidence/convergence suite: `26/26` PASS (1.30s).
+  - ProjectHoomans full Lua sweep: `1,065/1,070` PASS (0 portable-social regressions; only the 4 pre-existing unrelated baselines plus 1 unrelated concurrent dirty starting-companion UI test `pnc_starting_companion_ui_interaction_smoke`).
+  - `pz_verify.py` on `PsychopatzCore/Actors`: `32/32` files clean (`0` errors, `0` warnings); all `9` modified Hoomans production files clean (`0` errors).
+  - CodeBuilder Social Policy & generation recipe unit tests: `8/8` OK; `reconcile.py --check`: `ok=true, clean=true` (`desired=467`, `missing=0`, `drifted=0`, `stale=0`).
 
 ## Immediate Next Chunk
 
-Execute P12: remove sandboxed `os.*` usage from `PsychopatzPlayerIdentity.lua`, prove SP/MP collision-safe/reconnect/save-reload/cross-account identity issuance under `_G.os = nil`, and run the full P12 / DT6 / H8 cross-repository validation matrix before returning the job to READY FOR USER LIVE TEST.
-
-Do not redo P0-P11 unless a P12 regression requires touching an accepted foundation.
+All developer phases (`P0-P12`, `H0-H8`, `DT0-DT6`) are complete and verified. Ready for user live playtesting in Project Zomboid.

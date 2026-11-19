@@ -36,14 +36,54 @@ local function isSinglePlayerAuthority()
     return not server and not client
 end
 
+local function nowTimestamp()
+    if type(getTimeInMillis) == "function" then
+        local ms = tonumber(getTimeInMillis())
+        if ms and ms == ms then return math.floor(ms / 1000) end
+    end
+    if type(getTimestampMs) == "function" then
+        local ms = tonumber(getTimestampMs())
+        if ms and ms == ms then return math.floor(ms / 1000) end
+    end
+    if type(getTimestamp) == "function" then
+        local ts = tonumber(getTimestamp())
+        if ts and ts == ts then return math.floor(ts) end
+    end
+    local gameTime = type(getGameTime) == "function" and getGameTime() or nil
+    local hours = safeCall(gameTime, "getWorldAgeHours")
+    if hours ~= nil then
+        local numericHours = tonumber(hours)
+        if numericHours and numericHours == numericHours then
+            return math.floor(numericHours * 3600)
+        end
+    end
+    return 0
+end
+
+local function randomInt(count)
+    count = math.max(1, math.floor(tonumber(count) or 1))
+    if type(ZombRand) == "function" then
+        local value = tonumber(ZombRand(count))
+        if value and value == value then
+            return (math.abs(math.floor(value)) % count) + 1
+        end
+    end
+    return math.random(1, count)
+end
+
 local function randomHex(len)
     local chars = "0123456789abcdef"
     local result = {}
     for i = 1, len do
-        local r = math.random(1, 16)
+        local r = randomInt(16)
         result[i] = string.sub(chars, r, r)
     end
     return table.concat(result)
+end
+
+local function nextIssuanceSequence(storage)
+    storage.sequence = math.max(0, math.floor(tonumber(storage.sequence) or 0)) + 1
+    return storage.sequence
 end
 
 PlayerIdentity.STORAGE_KEY = "PsychopatzCore.PlayerIdentity"
@@ -52,9 +92,17 @@ function PlayerIdentity.GetStorage()
     if ModData and type(ModData.getOrCreate) == "function" then
         local root = ModData.getOrCreate(PlayerIdentity.STORAGE_KEY)
         root.identities = root.identities or {}
+        root.sequence = math.max(0, math.floor(tonumber(root.sequence) or 0))
         return root
     end
-    PlayerIdentity._inMemoryStorage = PlayerIdentity._inMemoryStorage or { identities = {} }
+    PlayerIdentity._inMemoryStorage = PlayerIdentity._inMemoryStorage
+        or { identities = {}, sequence = 0 }
+    PlayerIdentity._inMemoryStorage.identities =
+        PlayerIdentity._inMemoryStorage.identities or {}
+    PlayerIdentity._inMemoryStorage.sequence = math.max(
+        0,
+        math.floor(tonumber(PlayerIdentity._inMemoryStorage.sequence) or 0)
+    )
     return PlayerIdentity._inMemoryStorage
 end
 
@@ -71,11 +119,13 @@ function PlayerIdentity.RegisterIssuedIdentity(uuid, accountKey, options)
             return nil, "cross_account_conflict"
         end
     end
+    local seq = nextIssuanceSequence(storage)
     local record = {
         uuid = normUUID,
         accountKey = account,
         source = options and options.source or "core_generated",
-        issuedAt = (os.time and os.time()) or 0,
+        issuedAt = nowTimestamp(),
+        issuedSeq = seq,
     }
     storage.identities[normUUID] = record
     return record
@@ -109,32 +159,56 @@ end
 function PlayerIdentity.Load(data)
     local storage = PlayerIdentity.GetStorage()
     storage.identities = {}
+    local maxSeq = 0
+    local loadedCount = 0
     if type(data) == "table" then
         local items = data.identities or data
         for k, v in pairs(items) do
             if type(v) == "table" and v.uuid then
                 storage.identities[v.uuid] = Util.clone(v)
+                loadedCount = loadedCount + 1
+                local seq = tonumber(v.issuedSeq) or 0
+                if seq > maxSeq then maxSeq = seq end
             elseif type(v) == "string" then
                 storage.identities[k] = { uuid = k, accountKey = v }
+                loadedCount = loadedCount + 1
             end
         end
     end
+    storage.sequence = math.max(maxSeq, loadedCount, tonumber(type(data) == "table" and data.sequence) or 0)
     return true
 end
 
 function PlayerIdentity.Reset()
     local storage = PlayerIdentity.GetStorage()
     storage.identities = {}
+    storage.sequence = 0
     if PlayerIdentity._inMemoryStorage then
         PlayerIdentity._inMemoryStorage.identities = {}
+        PlayerIdentity._inMemoryStorage.sequence = 0
     end
     return true
 end
 
-function PlayerIdentity.GenerateUUID()
-    local seed = Util.hash(tostring(os.time() or 123456) .. tostring(math.random(100000, 999999)))
-    local hex = string.format("%08x", seed) .. randomHex(16)
-    return PlayerIdentity.UUID_PREFIX .. hex
+function PlayerIdentity.GenerateUUID(accountKey)
+    local storage = PlayerIdentity.GetStorage()
+    local ts = nowTimestamp()
+    local acct = tostring(accountKey or "anonymous")
+    for attempt = 1, 16 do
+        local seq = nextIssuanceSequence(storage)
+        local entropy = tostring(randomInt(1000000))
+        local seed = Util.hash(
+            table.concat({ tostring(ts), tostring(seq), acct, entropy, tostring(attempt) }, ":")
+        )
+        local hex = string.format("%08x", seed)
+            .. string.format("%04x", seq % 65536)
+            .. randomHex(12)
+        local candidate = PlayerIdentity.UUID_PREFIX .. hex
+        if not storage.identities[candidate] then
+            return candidate
+        end
+    end
+    return PlayerIdentity.UUID_PREFIX .. string.format("%08x%08x", nextIssuanceSequence(storage), math.abs(ts) % 0xffffffff)
 end
 
 function PlayerIdentity.NormalizeUUID(value)
@@ -232,8 +306,8 @@ function PlayerIdentity.GetCharacterUUID(player)
         end
 
         -- 3. If neither exists, generate and store in both fields
-        local newUUID = PlayerIdentity.GenerateUUID()
         local accountKey = PlayerIdentity.GetAccountKey(player)
+        local newUUID = PlayerIdentity.GenerateUUID(accountKey)
         PlayerIdentity.RegisterIssuedIdentity(newUUID, accountKey, { source = "core_generated" })
         data[PlayerIdentity.MODDATA_CORE_UUID] = newUUID
         data[PlayerIdentity.MODDATA_PNC_UUID] = newUUID

@@ -114,3 +114,9 @@ A broad Kahlua scan found two pre-existing os.time uses in PsychopatzPlayerIdent
 - Kahlua verification: all production Lua changed across P0-P9 passes; the broader Core Actors scan finds only the pre-existing player-identity os.* issue above.
 
 The parent completion boundary is extended to P12. The prior READY FOR USER LIVE TEST conclusion is superseded.
+
+### P10-P12 Resolution — Verified Complete
+
+- **A resolved (P10 / H7):** Core `actor.social` is now the sole persisted generic relationship/memory authority (`PNC` stores only `authority == "core"` extensions and migrates supported legacy saves once via `core_social_single_authority`); verified by `psychopatz_social_single_persistence_authority_smoke` and `pnc_portable_social_convergence_smoke`.
+- **B resolved (P11):** Removed `EvaluateAutonomyCandidates` and all action-specific scoring from Core Actors social modules after caller-zero proof across all three repos; `QueryCandidateProjection` exposes bounded action-neutral decision features verified by external synthetic ranking in `psychopatz_social_autonomy_seam_smoke`.
+- **C resolved (P12):** Removed all `os.time` calls from `PsychopatzPlayerIdentity.lua` using PZ-safe timestamps, `ZombRand`/fallback RNG, and monotonic persisted issuance sequencing; `pz_verify.py` passes with 0 errors across all 32 `PsychopatzCore/Actors` files and Test 8 proves `_G.os = nil` SP/MP collision-free issuance; final `core_lua` (`66/66`), `dynamic_trading` (`90/90` DT6), CodeBuilder (`8/8`, `reconcile --check` clean), and Hoomans (`26/26` scoped, `1,065/1,070` full sweep with 0 social regressions) all pass. Ready for user live playtesting.

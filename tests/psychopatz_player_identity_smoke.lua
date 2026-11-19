@@ -287,4 +287,112 @@ PlayerIdentity.Load(savedState)
 local afterLoad, loadReason = PlayerIdentity.IsIssuedIdentity(provUUID, provAccount)
 truthy(afterLoad, "After load, identity is restored as authoritative")
 
+print("--- Test 8: Native Kahlua Sandbox Identity Safety (_G.os = nil, Constant Clock/RNG) ---")
+local savedOS = _G.os
+local savedIsServer = isServer
+local savedIsClient = isClient
+local savedZombRand = ZombRand
+local savedGetTimeInMillis = getTimeInMillis
+local savedGetTimestampMs = getTimestampMs
+local savedGetTimestamp = getTimestamp
+local savedGetGameTime = getGameTime
+
+_G.os = nil
+ZombRand = function() return 0 end
+getTimeInMillis = function() return 0 end
+getTimestampMs = nil
+getTimestamp = nil
+getGameTime = function()
+    return {
+        getWorldAgeHours = function() return 0 end,
+    }
+end
+
+PlayerIdentity.Reset()
+local seenUUIDs = {}
+local totalIssued = 0
+
+-- 25 Single-Player issuances under constant clock & constant ZombRand
+isServer = function() return false end
+isClient = function() return false end
+for i = 1, 25 do
+    local spPlayer = createMockPlayer({
+        username = "SP_Player_" .. tostring(i),
+        playerNum = 0,
+        onlineID = -1,
+    })
+    local spKey = assert(PlayerIdentity.GetTargetKey(spPlayer))
+    local spUUID = assert(PlayerIdentity.GetCharacterUUID(spPlayer))
+    truthy(PlayerIdentity.NormalizeUUID(spUUID) ~= nil, "SP UUID well-formed under _G.os=nil")
+    equal(seenUUIDs[spUUID], nil, "SP UUID collision-free #" .. tostring(i))
+    seenUUIDs[spUUID] = spKey
+    totalIssued = totalIssued + 1
+end
+
+-- 25 Multi-Player Server issuances under constant clock & constant ZombRand
+isServer = function() return true end
+isClient = function() return false end
+local mpReconnectPlayer
+local mpReconnectUUID
+local mpReconnectKey
+for i = 1, 25 do
+    local mpPlayer = createMockPlayer({
+        username = "MP_Account_" .. tostring(i),
+        playerNum = 0,
+        onlineID = 99,
+        isLocal = false,
+    })
+    local mpKey = assert(PlayerIdentity.GetTargetKey(mpPlayer))
+    local mpUUID = assert(PlayerIdentity.GetCharacterUUID(mpPlayer))
+    truthy(PlayerIdentity.NormalizeUUID(mpUUID) ~= nil, "MP UUID well-formed under _G.os=nil")
+    equal(seenUUIDs[mpUUID], nil, "MP UUID collision-free #" .. tostring(i))
+    seenUUIDs[mpUUID] = mpKey
+    totalIssued = totalIssued + 1
+    if i == 1 then
+        mpReconnectPlayer = mpPlayer
+        mpReconnectUUID = mpUUID
+        mpReconnectKey = mpKey
+    end
+end
+equal(totalIssued, 50, "Issued 50 unique SP+MP UUIDs under constant clock/RNG")
+
+-- Save, reset, reload, and verify post-reload issuance + reconnect + cross-account conflict rejection
+local sandboxSaved = PlayerIdentity.Save()
+PlayerIdentity.Reset()
+falsy(PlayerIdentity.IsIssuedIdentity(mpReconnectUUID, "MP_Account_1"), "Reset clears sandboxed registry")
+PlayerIdentity.Load(sandboxSaved)
+truthy(PlayerIdentity.IsIssuedIdentity(mpReconnectUUID, "MP_Account_1"), "Reload restores issued identity")
+
+local postReloadPlayer = createMockPlayer({
+    username = "PostReload_User",
+    playerNum = 0,
+    onlineID = 12,
+    isLocal = false,
+})
+local postReloadUUID = assert(PlayerIdentity.GetCharacterUUID(postReloadPlayer))
+equal(seenUUIDs[postReloadUUID], nil, "Post-reload UUID never collides with prior 50 issuances")
+
+local reconnectedSameModData = createMockPlayer({
+    username = "MP_Account_1",
+    playerNum = 0,
+    onlineID = 2048,
+    isLocal = false,
+    modData = mpReconnectPlayer.modData,
+})
+equal(PlayerIdentity.GetTargetKey(reconnectedSameModData), mpReconnectKey,
+    "Reconnect with changed onlineID preserves persistent canonical targetKey")
+
+local conflictRes, conflictErr = PlayerIdentity.RegisterIssuedIdentity(mpReconnectUUID, "WrongAccount")
+equal(conflictRes, nil, "Cross-account registration rejected")
+equal(conflictErr, "cross_account_conflict", "Cross-account conflict reason returned")
+
+_G.os = savedOS
+isServer = savedIsServer
+isClient = savedIsClient
+ZombRand = savedZombRand
+getTimeInMillis = savedGetTimeInMillis
+getTimestampMs = savedGetTimestampMs
+getTimestamp = savedGetTimestamp
+getGameTime = savedGetGameTime
+
 print("psychopatz_player_identity_smoke: PASS")

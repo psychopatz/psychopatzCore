@@ -193,7 +193,7 @@ Required work:
 
 **Gate:** no production Portable Social State module under Core Actors owns TALK, TRADE, HELP, AVOID, CONFRONT, REPORT or RETALIATE scoring policy, while an external synthetic consumer can still rank those candidates entirely from bounded public social features without raw-store access.
 
-## P12 — Native identity safety and final cross-repository persistence proof
+## P12 — Native identity safety and final cross-repository persistence proof — ACCEPTED
 
 Close the remaining native-safety and final-acceptance gap.
 
