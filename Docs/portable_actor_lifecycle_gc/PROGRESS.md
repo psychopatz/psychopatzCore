@@ -1,10 +1,17 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L8 accepted, starting L9 (scale, persistence, GC soak & final acceptance).
-**Current phase:** L9 — Scale, persistence, GC soak & final acceptance.
-**Developer completion:** 9/10 phases accepted (L0, L1, L2, L3, L4, L5, L6, L7, L8 ACCEPTED).
+**Status:** READY FOR USER LIVE TEST — L0–L9 complete across PsychopatzCore, ProjectHoomans (H0–H5), and DynamicTrading (D0–D5).
+**Current phase:** L9 complete — full L0–L9 roadmap accepted (`READY FOR USER LIVE TEST`).
+**Developer completion:** 10/10 phases accepted (L0, L1, L2, L3, L4, L5, L6, L7, L8, L9 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
-**Participants:** ProjectHoomans (H0, H1, H2, H3, H4, H6-player-lifecycle at `ecfee7f8`), DynamicTrading (D0, D1, D2, D3, D4 at `a3cc205a`).
+**Participants:** ProjectHoomans (H0–H5, H3A, H4-policy, H6-player-lifecycle at `fcb3c0e0`), DynamicTrading (D0–D5, D4-policy at `2b66a958`).
+
+## Verified L9 Facts
+
+- Created `tests/psychopatz_actor_lifecycle_gc_soak_scale_smoke.lua` verifying `1,200` actors, `1,000` retirements, `100`-contact × `64`-event actor (`28,765` bytes < `50 KB`, `#memoryBank <= 96`, zero `rel.memories`), cursor-budgeted `GC.Step(..., { budget = 32 })` convergence across `32` slices (`950` purged to `FORGOTTEN`, `50` strong-rooted retained, `orphanedAliasCount == 0`, serialized save shrunk from `1,560,544` bytes live baseline to `282,213` bytes post-GC = `5.5×` reduction), Kahlua `_G.next = nil` `Save()`/`Load()` roundtrip, MP player death/new-char/cross-account isolation, and `1,000` hot-interaction clicks (`0.792 ms` mean latency, `0` GC sweeps during clicks).
+- Committed `ProjectHoomans` `H5-final` (`fcb3c0e0b591040b336112dadb1da184d2442680`): `27/27 PASS` (`0.59s`) including `pnc_lifecycle_gc_scale_soak_smoke.lua` (200 NPCs retired, colony `DeathMarkers`/reanimation/quests/durable bonds/dead uniques).
+- Committed `DynamicTrading` `D5-final` (`2b66a9583fcbe3d9e915b6c16ab9d6851d053eab`): `92/92 PASS` including `dt_actor_lifecycle_gc_scale_soak_smoke.lua` (200 traders across rollback, role removal, migration, obligations, betrayal anchors, PNC-disabled & `DTHoomans` combined paths).
+- Verified CodeBuilder `reconcile.py --check` (`"ok": true, "clean": true` across all `467` desired files) and `test_social_policy_codebuilder.py` (`7/7 OK`), Core regression suite (`psychopatz_actor_lifecycle_tombstone`, `psychopatz_actor_gc_mark_sweep`, `psychopatz_player_identity`, `psychopatz_player_character_lifecycle_mp`, `psychopatz_hotplug_save_matrix`, `psychopatz_world_knowledge`, `psychopatz_survivor_world_registry` — all PASS), and `pz_verify.py --kahlua --severity ERROR` (`0` errors). Unrelated dirty worktree files in `psychopatzCore` & `ProjectHoomans` preserved untouched.
 
 ## Verified L8 Facts
 
@@ -56,6 +63,4 @@
 
 ## Immediate Next Chunk
 
-**L9 — Scale, persistence, GC soak & final acceptance** (H5 in ProjectHoomans, D5 in DynamicTrading, L9 soak + full multi-repo regression + CodeBuilder/Kahlua checks).
-
-After L9 passes all acceptance gates and `CHECKPOINT_VERIFIED`, mark `READY FOR USER LIVE TEST`.
+**READY FOR USER LIVE TEST** — L0–L9 roadmap complete across `psychopatzCore`, `ProjectHoomans`, and `DynamicTrading`. All local checkpoints committed and verified (`CHECKPOINT_VERIFIED`); ready for user-initiated in-game live testing in Project Zomboid.

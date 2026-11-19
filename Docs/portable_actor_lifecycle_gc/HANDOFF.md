@@ -4,18 +4,19 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 state: "CLEAN_CHECKPOINT"
-phase: L8
-chunk: L8 accepted — Core SocialQuery/hot-context/projections, Hoomans H3-H4, and DynamicTrading D4 complete; ready for L9
+phase: L9
+chunk: L9 accepted — Full L0-L9 roadmap complete and verified across Core, ProjectHoomans (H0-H5), and DynamicTrading (D0-D5) — READY FOR USER LIVE TEST
 retrieval_tier: verify
 phase_commit: "self"
-phase_commit_phase: "L8"
-phase_commit_message: "phase(L8): L8: implement bounded lifecycle-aware social queries, hot snapshots, and projections"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=ecfee7f8874f4e513b12bf057dd2c5e1e48c82af;dynamic-trading=a3cc205a541251d5de08f586c11648afa66d3ec4"
-phase_residual_vector: "psychopatz-core=27ef68e132727310ad9a41bd4b650b3f995f6d6abf38771c7ed11a939e6d4480;project-hoomans=9b9c918f24400548ac11539c06c97bf3c9f444a4c1a1e1997c76591ffb05c166;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
-residual_worktree_fingerprint: "27ef68e132727310ad9a41bd4b650b3f995f6d6abf38771c7ed11a939e6d4480"
+phase_commit_phase: "L9"
+phase_commit_message: "phase(L9): L9: complete scale/GC soak verification and final L0-L9 acceptance"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=fcb3c0e0b591040b336112dadb1da184d2442680;dynamic-trading=2b66a9583fcbe3d9e915b6c16ab9d6851d053eab"
+phase_residual_vector: "psychopatz-core=49b4f748b73f0f33c515a8d30fe3eb70aee49a3cec057796669e3cdbeedae840;project-hoomans=9b9c918f24400548ac11539c06c97bf3c9f444a4c1a1e1997c76591ffb05c166;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
+residual_worktree_fingerprint: "49b4f748b73f0f33c515a8d30fe3eb70aee49a3cec057796669e3cdbeedae840"
 codebase_memory_indexed_commit: "fba98ab4791bde95a12fb1fcb7fbeede88408d7a"
-updated_at: "2026-11-19T16:38:23.902477Z"
+updated_at: "2026-11-19T16:41:54.804189Z"
 ---
+
 
 
 
@@ -26,22 +27,22 @@ updated_at: "2026-11-19T16:38:23.902477Z"
 
 # Handoff — Portable Actor Lifecycle & Social Garbage Collection
 
-## What became true this session (L8)
+## What became true this session (L9 — Final Acceptance)
 
-- Created `PsychopatzSocialQuery.lua` (`Actors.SocialQuery`) and updated `PsychopatzSocial.lua`, `PsychopatzSocialProjections.lua`, `PsychopatzActors.lua`, `PsychopatzActorSocialAuthority.lua`, `PsychopatzActorInteraction.lua`, and `PsychopatzActorGC.lua`.
-- Committed `ProjectHoomans` `H3-H4` (`ecfee7f8874f4e513b12bf057dd2c5e1e48c82af`) and `DynamicTrading` `D4-semantic` (`a3cc205a541251d5de08f586c11648afa66d3ec4`).
-- Verified `13/13` Core Lua tests, `6/6` Hoomans H3/H4 tests, `91/91` DynamicTrading tests, and Kahlua lint (`0` errors across all L8 Lua files).
+- Verified `psychopatz_actor_lifecycle_gc_soak_scale_smoke.lua`: `1,200` actors, `1,000` retired, `950` purged & `50` strongly rooted retained across `32` budgeted GC slices (`1,560,544` -> `282,213` bytes serialized, high-contact `100`-contact actor = `28,765` bytes, `1,000` hot interaction opens = `0.792 ms` mean with `0` GC sweeps, `_G.next = nil` Save/Load roundtrip clean).
+- Committed `ProjectHoomans` `H5-final` (`fcb3c0e0b591040b336112dadb1da184d2442680`, `27/27 PASS`) and `DynamicTrading` `D5-final` (`2b66a9583fcbe3d9e915b6c16ab9d6851d053eab`, `92/92 PASS`).
+- Verified CodeBuilder (`reconcile.py --check` clean across `467` desired files; `test_social_policy_codebuilder.py` `7/7 OK`), Core regressions (`all PASS`), and Kahlua lint (`0` errors).
 
 ## Exact next action
 
-Execute **L9 — Scale, persistence, GC soak & final acceptance** (Core `psychopatz_actor_lifecycle_gc_soak_scale_smoke.lua`, Hoomans `H5` `pnc_lifecycle_gc_scale_soak_smoke.lua`, DynamicTrading `D5` `dt_actor_lifecycle_gc_scale_soak_smoke.lua`, full cross-repo regression, CodeBuilder check, and final commits).
+**READY FOR USER LIVE TEST.** User may launch Project Zomboid manually for live SP/MP playthrough testing; do not automate game launches or pushes.
 
 ## Concurrent work
 
-- `psychopatzCore`: unrelated dirty Inventory visual-state & map hover work preserved untouched.
-- `ProjectHoomans`: unrelated dirty NPCAuthoring/StartingCompanions/Equipment/RosterPortrait work preserved untouched (`H3-H4` committed at `ecfee7f8874f4e513b12bf057dd2c5e1e48c82af`).
-- `DynamicTrading`: clean (`D4-semantic` committed at `a3cc205a541251d5de08f586c11648afa66d3ec4`).
+- `psychopatzCore`: unrelated dirty Inventory visual-state, map hover, and `PsychopatzPlayerIdentity` `rawget` work preserved untouched.
+- `ProjectHoomans`: unrelated dirty NPCAuthoring/StartingCompanions/Equipment/RosterPortrait work preserved untouched (`H5-final` committed at `fcb3c0e0b591040b336112dadb1da184d2442680`).
+- `DynamicTrading`: clean (`D5-final` committed at `2b66a9583fcbe3d9e915b6c16ab9d6851d053eab`).
 
 ## Stop condition
 
-Complete L9 (including H5 in `ProjectHoomans`, D5 in `DynamicTrading`, full final regression + CodeBuilder/Kahlua acceptance, and `CHECKPOINT_VERIFIED`) before reporting `READY FOR USER LIVE TEST`.
+Reached — L0–L9 roadmap complete and verified (`READY FOR USER LIVE TEST`).
