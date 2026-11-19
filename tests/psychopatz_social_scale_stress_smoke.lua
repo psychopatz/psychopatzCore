@@ -172,9 +172,9 @@ truthy(#stressRel.memories <= Retention.MAX_MEMORIES and #stressRel.memories == 
 local stressProj = assert(Social.QueryCandidateProjection(stressState, targetPlayer, { worldAgeHours = 1100 }))
 equal(stressProj.consolidatedEpisodeCount, 350, "consolidatedEpisodeCount tracks 250 + 100 persistent episodes")
 
--- 4. Bucket caps (SHORT <= 16, LONG <= 42, ANCHOR <= 6, total <= 64) + 365-day lazy decay
+-- 4. Bucket caps (SHORT <= 24, LONG <= 56, ANCHOR <= 16, total <= 96) + 365-day lazy decay
 local bucketState = Social.NewState()
-for i = 1, 25 do
+for i = 1, 30 do
     bucketState = assert(Social.RecordAuthorizedEvent(bucketState, {
         targetKey = targetPlayer,
         eventID = "ev:bucket:short:" .. i,
@@ -189,7 +189,7 @@ for i = 1, 25 do
         authorized = true,
     }))
 end
-for i = 1, 50 do
+for i = 1, 65 do
     bucketState = assert(Social.RecordAuthorizedEvent(bucketState, {
         targetKey = targetPlayer,
         eventID = "ev:bucket:long:" .. i,
@@ -204,13 +204,13 @@ for i = 1, 50 do
         authorized = true,
     }))
 end
-for i = 1, 10 do
+for i = 1, 20 do
     bucketState = assert(Social.RecordAuthorizedEvent(bucketState, {
         targetKey = targetPlayer,
         eventID = "ev:bucket:anchor:" .. i,
         type = "anchor_milestone_" .. i,
         retentionClass = Retention.ANCHOR,
-        salience = 190 + i * 5,
+        salience = 190 + i * 2,
         approvalDelta = -3,
         respectDelta = -1,
         createdAt = 100,
@@ -232,10 +232,31 @@ for _, mem in ipairs(bucketRel.memories or {}) do
         nLong = nLong + 1
     end
 end
-truthy(#bucketRel.memories <= Retention.MAX_MEMORIES, "total memories never exceed MAX_MEMORIES (64)")
-truthy(nAnchor <= Retention.MAX_ANCHOR_MEMORIES, "anchor memories never exceed MAX_ANCHOR_MEMORIES (6)")
-truthy(nShort <= Retention.MAX_SHORT_MEMORIES, "short memories never exceed MAX_SHORT_MEMORIES (16)")
-truthy(nLong <= Retention.MAX_LONG_MEMORIES, "long memories never exceed MAX_LONG_MEMORIES (42)")
+truthy(#bucketRel.memories <= Retention.MAX_ACTOR_MEMORIES, "total memories never exceed MAX_ACTOR_MEMORIES (96)")
+truthy(#bucketState.memoryBank <= Retention.MAX_ACTOR_MEMORIES, "actor memoryBank never exceeds 96")
+equal(bucketState.relationships[targetPlayer].memories, nil, "stored relationship omits embedded memories")
+truthy(nAnchor <= Retention.MAX_ANCHOR_MEMORIES, "anchor memories never exceed MAX_ANCHOR_MEMORIES (16)")
+truthy(nShort <= Retention.MAX_SHORT_MEMORIES, "short memories never exceed MAX_SHORT_MEMORIES (24)")
+truthy(nLong <= Retention.MAX_LONG_MEMORIES, "long memories never exceed MAX_LONG_MEMORIES (56)")
+
+local multiContact = Social.NewState()
+for c = 1, 30 do
+    local ck = "npc:scale:c" .. c
+    for e = 1, 5 do
+        multiContact = assert(Social.RecordAuthorizedEvent(multiContact, {
+            targetKey = ck,
+            eventID = string.format("ev:mc:%d:%d", c, e),
+            type = "mc_event_" .. e,
+            retentionClass = Retention.LONG,
+            approvalDelta = 1,
+            createdAt = 100 + e,
+            authority = "server",
+            authorized = true,
+        }))
+    end
+end
+truthy(#multiContact.memoryBank <= Retention.MAX_ACTOR_MEMORIES,
+    "multi-contact memoryBank stays capped at MAX_ACTOR_MEMORIES (96) across 150 distinct events")
 
 -- Advance 365 days lazily without any per-tick loop
 local yearLaterHours = 100 + (365 * 24)

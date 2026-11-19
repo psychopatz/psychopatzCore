@@ -7,12 +7,23 @@ Retention.SHORT = "SHORT"
 Retention.LONG = "LONG"
 Retention.ANCHOR = "ANCHOR"
 
-Retention.MAX_MEMORIES = 64
-Retention.MAX_SHORT_MEMORIES = 16
-Retention.MAX_LONG_MEMORIES = 42
-Retention.MAX_ANCHOR_MEMORIES = 6
+Retention.MAX_ACTOR_MEMORIES = 96
+Retention.MAX_MEMORIES = Retention.MAX_ACTOR_MEMORIES
+Retention.MAX_SHORT_MEMORIES = 24
+Retention.MAX_LONG_MEMORIES = 56
+Retention.MAX_ANCHOR_MEMORIES = 16
 Retention.ANCHOR_MIN_SALIENCE = 180
 Retention.DEFAULT_SALIENCE = 100
+
+Retention.REF_STRONG = "STRONG"
+Retention.REF_WEAK = "WEAK"
+Retention.REF_LABEL_ONLY = "LABEL_ONLY"
+
+Retention.VALID_REF_STRENGTHS = {
+    STRONG = true,
+    WEAK = true,
+    LABEL_ONLY = true,
+}
 
 Retention.VALID_CLASSES = {
     SCENE = true,
@@ -47,6 +58,22 @@ function Retention.NormalizeClass(value, permanent)
         return Retention.ANCHOR
     end
     return nil
+end
+
+function Retention.NormalizeRefStrength(value, defaultValue)
+    if type(value) == "string" then
+        local upper = string.upper(value)
+        if Retention.VALID_REF_STRENGTHS[upper] then
+            return upper
+        end
+    end
+    if type(defaultValue) == "string" then
+        local upper = string.upper(defaultValue)
+        if Retention.VALID_REF_STRENGTHS[upper] then
+            return upper
+        end
+    end
+    return Retention.REF_WEAK
 end
 
 function Retention.EffectiveClass(memory)
@@ -124,9 +151,61 @@ function Retention.CalculateMemoryStrength(memory, worldAgeHours)
     return math.max(0, strength - (decay * elapsedDays))
 end
 
-function Retention.NextMemorySequence(relationship)
-    local memories = relationship and relationship.memories or {}
-    local seq = math.max(tonumber(relationship and relationship.revision) or 0, #memories)
+local function isActorSocialContainer(container)
+    return type(container) == "table"
+        and (type(container.memoryBank) == "table" or type(container.relationships) == "table")
+end
+
+local function getContainerMemories(container)
+    if isActorSocialContainer(container) then
+        return container.memoryBank or {}
+    end
+    return type(container) == "table" and container.memories or {}
+end
+
+local function setContainerMemories(container, list)
+    if isActorSocialContainer(container) then
+        container.memoryBank = list
+    else
+        container.memories = list
+    end
+end
+
+local function resolvePromoteTarget(container, memory)
+    if isActorSocialContainer(container) then
+        local targetKey = memory and memory.aboutKey
+        if type(targetKey) ~= "string" or type(container.relationships) ~= "table" then
+            return nil
+        end
+        return container.relationships[targetKey]
+    end
+    return container
+end
+
+local REF_STRENGTH_RANK = {
+    LABEL_ONLY = 1,
+    WEAK = 2,
+    STRONG = 3,
+}
+
+local function mergeRefStrength(left, right)
+    local lNorm = left ~= nil and Retention.NormalizeRefStrength(left) or nil
+    local rNorm = right ~= nil and Retention.NormalizeRefStrength(right) or nil
+    if not lNorm then return rNorm end
+    if not rNorm then return lNorm end
+    if (REF_STRENGTH_RANK[rNorm] or 0) > (REF_STRENGTH_RANK[lNorm] or 0) then
+        return rNorm
+    end
+    return lNorm
+end
+
+function Retention.NextMemorySequence(container)
+    local memories = getContainerMemories(container)
+    local seq = math.max(
+        tonumber(container and container.revision) or 0,
+        tonumber(container and container.memoryBankSequence) or 0,
+        #memories
+    )
     for index = 1, #memories do
         seq = math.max(seq, tonumber(memories[index].eventSequence) or 0)
     end
@@ -197,7 +276,9 @@ local function memoryRankLess(left, right, worldAgeHours)
     return tostring(left.id or "") < tostring(right.id or "")
 end
 
-local function promoteToBaseline(relationship, memory, worldAgeHours)
+local function promoteToBaseline(container, memory, worldAgeHours)
+    local relationship = resolvePromoteTarget(container, memory)
+    if type(relationship) ~= "table" then return end
     local str = Retention.CalculateMemoryStrength(memory, worldAgeHours)
     if str <= 0 then return end
     local appEff = (tonumber(memory.approvalEffect) or 0) * str
@@ -210,10 +291,12 @@ local function promoteToBaseline(relationship, memory, worldAgeHours)
     end
 end
 
-function Retention.PruneMemories(relationship, worldAgeHours, options)
-    if type(relationship) ~= "table" then return 0, 0 end
+function Retention.PruneMemories(container, worldAgeHours, options)
+    if type(container) ~= "table" then return 0, 0 end
     options = type(options) == "table" and options or {}
-    local maxTotal = math.floor(clamp(options.maxMemories or Retention.MAX_MEMORIES, 1, Retention.MAX_MEMORIES))
+    local useBank = isActorSocialContainer(container)
+    local defaultTotal = useBank and Retention.MAX_ACTOR_MEMORIES or Retention.MAX_MEMORIES
+    local maxTotal = math.floor(clamp(options.maxMemories or defaultTotal, 1, Retention.MAX_ACTOR_MEMORIES))
     local maxAnchors = math.floor(clamp(options.maxAnchors or Retention.MAX_ANCHOR_MEMORIES, 1, Retention.MAX_ANCHOR_MEMORIES))
     local maxShort = math.floor(clamp(options.maxShort or Retention.MAX_SHORT_MEMORIES, 1, Retention.MAX_SHORT_MEMORIES))
     local maxLong = math.floor(clamp(options.maxLong or Retention.MAX_LONG_MEMORIES, 1, Retention.MAX_LONG_MEMORIES))
@@ -222,7 +305,7 @@ function Retention.PruneMemories(relationship, worldAgeHours, options)
 
     local expiredCount, evictedCount = 0, 0
     local anchors, shorts, longs = {}, {}, {}
-    for _, mem in ipairs(relationship.memories or {}) do
+    for _, mem in ipairs(getContainerMemories(container)) do
         local cls = Retention.EffectiveClass(mem)
         local str = Retention.CalculateMemoryStrength(mem, worldAgeHours)
         if cls == Retention.SCENE or (worldAgeHours ~= nil and cls ~= Retention.ANCHOR and str <= 0) then
@@ -250,7 +333,7 @@ function Retention.PruneMemories(relationship, worldAgeHours, options)
                     longs[#longs + 1] = demoted
                 else
                     evictedCount = evictedCount + 1
-                    if promote then promoteToBaseline(relationship, demoted, worldAgeHours) end
+                    if promote then promoteToBaseline(container, demoted, worldAgeHours) end
                 end
             else
                 keptAnchors[#keptAnchors + 1] = anchors[idx]
@@ -267,7 +350,7 @@ function Retention.PruneMemories(relationship, worldAgeHours, options)
         for idx = 1, #bucket do
             if idx <= drop then
                 evictedCount = evictedCount + 1
-                if promote then promoteToBaseline(relationship, bucket[idx], worldAgeHours) end
+                if promote then promoteToBaseline(container, bucket[idx], worldAgeHours) end
             else
                 kept[#kept + 1] = bucket[idx]
             end
@@ -293,7 +376,7 @@ function Retention.PruneMemories(relationship, worldAgeHours, options)
         for idx = 1, math.min(needDrop, #nonAnchors) do
             dropSet[nonAnchors[idx]] = true
             evictedCount = evictedCount + 1
-            if promote then promoteToBaseline(relationship, nonAnchors[idx], worldAgeHours) end
+            if promote then promoteToBaseline(container, nonAnchors[idx], worldAgeHours) end
         end
         local nextCombined = {}
         for _, m in ipairs(anchors) do nextCombined[#nextCombined + 1] = m end
@@ -315,7 +398,7 @@ function Retention.PruneMemories(relationship, worldAgeHours, options)
         if aSeq ~= bSeq then return aSeq < bSeq end
         return tostring(a.id or "") < tostring(b.id or "")
     end)
-    relationship.memories = combined
+    setContainerMemories(container, combined)
     return expiredCount, evictedCount
 end
 
@@ -327,8 +410,8 @@ local function clampDeltaForCap(currentEffect, delta, maxCap)
     return nextTotal - (tonumber(currentEffect) or 0), nextTotal
 end
 
-function Retention.ConsolidateOrInsertMemory(relationship, memory, options)
-    if type(relationship) ~= "table" or type(memory) ~= "table" then
+function Retention.ConsolidateOrInsertMemory(container, memory, options)
+    if type(container) ~= "table" or type(memory) ~= "table" then
         return { status = "invalid" }
     end
     options = type(options) == "table" and options or {}
@@ -337,7 +420,16 @@ function Retention.ConsolidateOrInsertMemory(relationship, memory, options)
         return { status = "scene_ephemeral", memory = memory }
     end
 
-    relationship.memories = relationship.memories or {}
+    local useBank = isActorSocialContainer(container)
+    local memories
+    if useBank then
+        container.memoryBank = container.memoryBank or {}
+        memories = container.memoryBank
+    else
+        container.memories = container.memories or {}
+        memories = container.memories
+    end
+
     local consolKey = memory.consolidationKey
     if (type(consolKey) ~= "string" or consolKey == "")
         and type(memory.consolidationFamily) == "string" and memory.consolidationFamily ~= ""
@@ -347,13 +439,16 @@ function Retention.ConsolidateOrInsertMemory(relationship, memory, options)
     end
 
     if type(consolKey) == "string" and consolKey ~= "" and options.consolidate ~= false then
-        for idx = #relationship.memories, 1, -1 do
-            local existing = relationship.memories[idx]
-            if existing.consolidationKey == consolKey and Retention.EffectiveClass(existing) == cls then
+        for idx = #memories, 1, -1 do
+            local existing = memories[idx]
+            if existing.consolidationKey == consolKey
+                and Retention.EffectiveClass(existing) == cls
+                and (not useBank or existing.aboutKey == memory.aboutKey)
+            then
                 if options.worldAgeHours ~= nil and cls ~= Retention.ANCHOR
                     and Retention.CalculateMemoryStrength(existing, options.worldAgeHours) <= 0
                 then
-                    table.remove(relationship.memories, idx)
+                    table.remove(memories, idx)
                     break
                 end
                 local appDelta = tonumber(memory.approvalEffect) or 0
@@ -371,12 +466,13 @@ function Retention.ConsolidateOrInsertMemory(relationship, memory, options)
                     existing.createdAt = math.max(tonumber(existing.createdAt) or incomingAt, incomingAt)
                 end
                 existing.lastEventID = memory.id
-                existing.eventSequence = Retention.NextMemorySequence(relationship)
+                existing.eventSequence = Retention.NextMemorySequence(container)
                 existing.approvalEffect = nextApp ~= nil and nextApp or ((tonumber(existing.approvalEffect) or 0) + appDelta)
                 existing.respectEffect = nextResp ~= nil and nextResp or ((tonumber(existing.respectEffect) or 0) + respDelta)
                 existing.familiarityEffect = nextFam ~= nil and nextFam or ((tonumber(existing.familiarityEffect) or 0) + famDelta)
                 existing.strength = math.max(tonumber(existing.strength) or 1, tonumber(memory.strength) or 1)
                 existing.salience = math.max(Retention.MemorySalience(existing), Retention.MemorySalience(memory))
+                existing.refStrength = mergeRefStrength(existing.refStrength, memory.refStrength)
                 if type(memory.tags) == "table" then
                     existing.tags = existing.tags or {}
                     for tk, tv in pairs(memory.tags) do
@@ -396,14 +492,17 @@ function Retention.ConsolidateOrInsertMemory(relationship, memory, options)
     end
 
     local inserted = Util.clone(memory)
+    if inserted.refStrength ~= nil then
+        inserted.refStrength = Retention.NormalizeRefStrength(inserted.refStrength)
+    end
     if type(consolKey) == "string" and consolKey ~= "" then
         inserted.consolidationKey = consolKey
         inserted.count = tonumber(inserted.count) or 1
         inserted.firstCreatedAt = inserted.firstCreatedAt or inserted.createdAt
     end
-    inserted.eventSequence = inserted.eventSequence or Retention.NextMemorySequence(relationship)
-    relationship.memories[#relationship.memories + 1] = inserted
-    Retention.PruneMemories(relationship, options.worldAgeHours, options)
+    inserted.eventSequence = inserted.eventSequence or Retention.NextMemorySequence(container)
+    memories[#memories + 1] = inserted
+    Retention.PruneMemories(container, options.worldAgeHours, options)
     return {
         status = "inserted",
         memory = inserted,

@@ -397,8 +397,10 @@ equal(updatedSurvivor.social.relationships["actor:soc:dead_weak"], nil,
 equal(updatedSurvivor.social.aliases["legacy:dead_weak"], nil,
     "OnBeforePurge removed orphaned social alias")
 local anchorRel = assert(updatedSurvivor.social.relationships["npc:actor:soc:dead_anchor"])
-equal(anchorRel.memories[1].sourceKey, nil, "weak sourceKey degraded on purge")
-equal(anchorRel.memories[1].sourceDegraded, true, "sourceDegraded marker recorded")
+equal(anchorRel.memories, nil, "canonical relationship table omits embedded memories array")
+local anchorMems = Social.GetMemoriesForTarget(updatedSurvivor.social, "npc:actor:soc:dead_anchor")
+equal(anchorMems[1].sourceKey, nil, "weak sourceKey degraded on purge")
+equal(anchorMems[1].sourceDegraded, true, "sourceDegraded marker recorded")
 
 local swFaction = assert(sw:GetFaction("faction:gc"))
 equal(#swFaction.memberActorIDs, 2, "SurvivorWorld memberActorIDs scrubbed purged weak member")

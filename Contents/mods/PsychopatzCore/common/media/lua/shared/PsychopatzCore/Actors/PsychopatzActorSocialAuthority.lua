@@ -177,4 +177,39 @@ function Authority.QueryCandidateProjection(actorID, target, options, core)
     return Social.QueryCandidateProjection(social, target, options)
 end
 
+function Authority.GetHotRelationshipSnapshot(actorID, target, options, core)
+    local actor, reason = Authority.Get(actorID, core)
+    if not actor then return nil, reason end
+    local social = actor.social
+    if not social then return nil, "social_state_invalid" end
+    return Social.GetHotRelationshipSnapshot(social, target, options)
+end
+
+function Authority.CompactHistoricalEdge(actorID, target, tombstoneOrInfo, core,
+    expectedActorRevision)
+    local actor, reason = Authority.Get(actorID, core)
+    if not actor then return nil, reason end
+
+    local social = Social.NewState(actor.social)
+    if not social then return nil, "social_state_invalid" end
+    local compacted
+    compacted, reason = Social.CompactHistoricalEdge(social, target, tombstoneOrInfo)
+    if not compacted then return nil, reason end
+
+    return commitSocial(actorID, social, core, expectedActorRevision)
+end
+
+function Authority.RemoveMemory(actorID, memoryID, core, expectedActorRevision)
+    local actor, reason = Authority.Get(actorID, core)
+    if not actor then return nil, reason end
+
+    local social = Social.NewState(actor.social)
+    if not social then return nil, "social_state_invalid" end
+    local ok
+    ok, reason = Social.RemoveMemory(social, memoryID, "server")
+    if not ok then return nil, reason end
+
+    return commitSocial(actorID, social, core, expectedActorRevision)
+end
+
 return Authority

@@ -109,14 +109,14 @@ equal(projAt12.activeMemoryCount, 1, "active at 12h")
 local projAt24 = Social.QueryCandidateProjection(s, "player:acc2:char2", { worldAgeHours = 124 })
 equal(projAt24.activeMemoryCount, 0, "lazily expired at 24h on query without mutating store")
 
--- 6. ANCHOR cap (MAX_ANCHOR_MEMORIES = 6) deterministic salience replacement/demotion
-for i = 1, 8 do
+-- 6. ANCHOR cap (MAX_ANCHOR_MEMORIES = 16) deterministic salience replacement/demotion
+for i = 1, Social.MAX_ANCHOR_MEMORIES + 2 do
     s = assert(Social.RecordAuthorizedEvent(s, {
         targetKey = "player:acc3:char3",
         eventID = "ev:anchor:" .. i,
         type = "major_event",
         retentionClass = Social.RETENTION_ANCHOR,
-        salience = 180 + (i * 5),
+        salience = 180 + (i * 2),
         approvalDelta = 5,
         createdAt = 200 + i,
         authority = "server",
@@ -129,7 +129,7 @@ for _, m in ipairs(relAnchor.memories) do
     if m.retentionClass == Social.RETENTION_ANCHOR then anchorCount = anchorCount + 1 end
     if m.retentionClass == Social.RETENTION_LONG then longCount = longCount + 1 end
 end
-equal(anchorCount, Social.MAX_ANCHOR_MEMORIES, "anchor hard cap enforced at 6")
+equal(anchorCount, Social.MAX_ANCHOR_MEMORIES, "anchor hard cap enforced at MAX_ANCHOR_MEMORIES")
 equal(longCount, 2, "2 weakest anchors deterministically demoted to LONG")
 
 -- 7. Provenance modes: direct vs witnessed vs hearsay

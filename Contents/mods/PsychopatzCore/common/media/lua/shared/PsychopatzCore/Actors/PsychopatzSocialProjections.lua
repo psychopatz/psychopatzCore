@@ -192,7 +192,7 @@ local function buildDecisionFeatures(params)
     }
 end
 
-function Projections.QueryCandidateProjection(state, target, options, lookupRelFn)
+function Projections.QueryCandidateProjection(state, target, options, lookupRelFn, getMemoriesFn)
     options = type(options) == "table" and options or {}
     local worldAgeHours = tonumber(options.worldAgeHours)
     local maxMemories = math.floor(clamp(options.maxMemories or 8, 0, 16))
@@ -250,7 +250,13 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
     local anchorCount, activeCount, episodeCount = 0, 0, 0
     local ranked = {}
 
-    for _, mem in ipairs(rel.memories or {}) do
+    local memories
+    if type(getMemoriesFn) == "function" then
+        memories = getMemoriesFn(state, normalizedTarget)
+    else
+        memories = rel.memories or {}
+    end
+    for _, mem in ipairs(memories or {}) do
         local str = Retention.CalculateMemoryStrength(mem, worldAgeHours)
         if str > 0 then
             activeCount = activeCount + 1

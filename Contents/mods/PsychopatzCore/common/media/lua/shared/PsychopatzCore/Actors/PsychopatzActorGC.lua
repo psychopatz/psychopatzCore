@@ -4,6 +4,7 @@
 
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Lifecycle = require "PsychopatzCore/Actors/PsychopatzActorLifecycle"
+local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 
 local GC = {}
@@ -168,7 +169,37 @@ function GC.ListReferenceProviders()
     return out
 end
 
-local function isStrongRelationship(rel)
+local function isMemoryStrongRef(mem)
+    if type(mem) ~= "table" then return false end
+    if mem.refStrength ~= nil then
+        return mem.refStrength == "STRONG"
+    end
+    return mem.retentionClass == "ANCHOR" or mem.permanent == true
+end
+
+local function isRoleEntryStrong(entry, memStrong)
+    if type(entry) ~= "table" then return false end
+    if entry.refStrength ~= nil then
+        return entry.refStrength == "STRONG"
+    end
+    return memStrong
+end
+
+local function collectStrongBankTargets(social)
+    local strongTargets = {}
+    if type(social) ~= "table" or type(social.memoryBank) ~= "table" then
+        return strongTargets
+    end
+    for _, mem in ipairs(social.memoryBank) do
+        if isMemoryStrongRef(mem) and type(mem.aboutKey) == "string" and mem.aboutKey ~= "" then
+            strongTargets[mem.aboutKey] = mem.refStrength == "STRONG"
+                and "strong_memory" or "anchor_memory"
+        end
+    end
+    return strongTargets
+end
+
+local function isStrongRelationship(rel, strongBankTargets, targetKey)
     if type(rel) ~= "table" then return false end
     if rel.historicalPin == true then return true, "historical_pin" end
     local ext = rel.extensions
@@ -180,14 +211,12 @@ local function isStrongRelationship(rel)
             return true, "durable_bond"
         end
     end
+    if type(strongBankTargets) == "table" and targetKey and strongBankTargets[targetKey] then
+        return true, strongBankTargets[targetKey]
+    end
     for _, mem in ipairs(rel.memories or {}) do
-        if type(mem) == "table" then
-            if mem.refStrength == "STRONG" then
-                return true, "strong_memory"
-            end
-            if mem.retentionClass == "ANCHOR" or mem.permanent == true then
-                return true, "anchor_memory"
-            end
+        if isMemoryStrongRef(mem) then
+            return true, mem.refStrength == "STRONG" and "strong_memory" or "anchor_memory"
         end
     end
     local approval = math.abs(tonumber(rel.approval) or 0)
@@ -205,24 +234,65 @@ local function builtinSocialStrong(ctx, emit)
     for _, actorID in ipairs(actorIDs) do
         local actor = registry.records[actorID]
         local social = actor and actor.social
-        if type(social) == "table" and type(social.relationships) == "table" then
-            local targetKeys = sortedKeys(social.relationships)
-            for _, targetKey in ipairs(targetKeys) do
-                local rel = social.relationships[targetKey]
-                local strong, reason = isStrongRelationship(rel)
-                if strong then
-                    emit(targetKey, reason, { ownerActor = actorID })
+        if type(social) == "table" then
+            local strongBankTargets = collectStrongBankTargets(social)
+            if type(social.relationships) == "table" then
+                local targetKeys = sortedKeys(social.relationships)
+                for _, targetKey in ipairs(targetKeys) do
+                    local rel = social.relationships[targetKey]
+                    local strong, reason = isStrongRelationship(rel, strongBankTargets, targetKey)
+                    if strong then
+                        emit(targetKey, reason, { ownerActor = actorID })
+                    end
+                    for _, mem in ipairs((rel and rel.memories) or {}) do
+                        if type(mem) == "table"
+                            and mem.sourceRefStrength == "STRONG"
+                            and type(mem.sourceKey) == "string"
+                            and mem.sourceKey ~= ""
+                        then
+                            emit(mem.sourceKey, "strong_memory_source", {
+                                ownerActor = actorID,
+                                targetKey = targetKey,
+                            })
+                        end
+                    end
                 end
-                for _, mem in ipairs((rel and rel.memories) or {}) do
-                    if type(mem) == "table"
-                        and mem.sourceRefStrength == "STRONG"
-                        and type(mem.sourceKey) == "string"
-                        and mem.sourceKey ~= ""
+            end
+            for _, mem in ipairs(social.memoryBank or {}) do
+                if type(mem) == "table" then
+                    local memStrong = isMemoryStrongRef(mem)
+                    if memStrong then
+                        local reason = mem.refStrength == "STRONG"
+                            and "strong_memory" or "anchor_memory"
+                        if type(mem.aboutKey) == "string" and mem.aboutKey ~= "" then
+                            emit(mem.aboutKey, reason, { ownerActor = actorID })
+                        end
+                        if type(mem.subjectKey) == "string" and mem.subjectKey ~= "" then
+                            emit(mem.subjectKey, "strong_memory_subject", {
+                                ownerActor = actorID,
+                                targetKey = mem.aboutKey,
+                            })
+                        end
+                    end
+                    if mem.sourceRefStrength == "STRONG"
+                        and type(mem.sourceKey) == "string" and mem.sourceKey ~= ""
                     then
                         emit(mem.sourceKey, "strong_memory_source", {
                             ownerActor = actorID,
-                            targetKey = targetKey,
+                            targetKey = mem.aboutKey,
                         })
+                    end
+                    if type(mem.roleRefs) == "table" then
+                        for role, entry in pairs(mem.roleRefs) do
+                            if isRoleEntryStrong(entry, memStrong)
+                                and type(entry.ref) == "string" and entry.ref ~= ""
+                            then
+                                emit(entry.ref, "strong_memory_role:" .. tostring(role), {
+                                    ownerActor = actorID,
+                                    targetKey = mem.aboutKey,
+                                })
+                            end
+                        end
                     end
                 end
             end
@@ -238,31 +308,110 @@ local function builtinSocialWeak(ctx, emit)
     for _, actorID in ipairs(actorIDs) do
         local actor = registry.records[actorID]
         local social = actor and actor.social
-        if type(social) == "table" and type(social.relationships) == "table" then
-            local targetKeys = sortedKeys(social.relationships)
-            for _, targetKey in ipairs(targetKeys) do
-                local rel = social.relationships[targetKey]
-                if not isStrongRelationship(rel) then
-                    emit(targetKey, "weak_relationship", {
-                        ownerActor = actorID,
-                    })
+        if type(social) == "table" then
+            local strongBankTargets = collectStrongBankTargets(social)
+            if type(social.relationships) == "table" then
+                local targetKeys = sortedKeys(social.relationships)
+                for _, targetKey in ipairs(targetKeys) do
+                    local rel = social.relationships[targetKey]
+                    if not isStrongRelationship(rel, strongBankTargets, targetKey) then
+                        emit(targetKey, "weak_relationship", {
+                            ownerActor = actorID,
+                        })
+                    end
+                    for _, mem in ipairs((rel and rel.memories) or {}) do
+                        if type(mem) == "table"
+                            and mem.sourceRefStrength ~= "STRONG"
+                            and type(mem.sourceKey) == "string"
+                            and mem.sourceKey ~= ""
+                        then
+                            emit(mem.sourceKey, "weak_memory_source", {
+                                ownerActor = actorID,
+                                targetKey = targetKey,
+                            })
+                        end
+                    end
                 end
-                for _, mem in ipairs((rel and rel.memories) or {}) do
-                    if type(mem) == "table"
-                        and mem.sourceRefStrength ~= "STRONG"
-                        and type(mem.sourceKey) == "string"
-                        and mem.sourceKey ~= ""
+            end
+            for _, mem in ipairs(social.memoryBank or {}) do
+                if type(mem) == "table" then
+                    local memStrong = isMemoryStrongRef(mem)
+                    if not memStrong then
+                        if type(mem.aboutKey) == "string" and mem.aboutKey ~= "" then
+                            emit(mem.aboutKey, "weak_memory_about", {
+                                ownerActor = actorID,
+                            })
+                        end
+                        if type(mem.subjectKey) == "string" and mem.subjectKey ~= "" then
+                            emit(mem.subjectKey, "weak_memory_subject", {
+                                ownerActor = actorID,
+                                targetKey = mem.aboutKey,
+                            })
+                        end
+                    end
+                    if mem.sourceRefStrength ~= "STRONG"
+                        and type(mem.sourceKey) == "string" and mem.sourceKey ~= ""
                     then
                         emit(mem.sourceKey, "weak_memory_source", {
                             ownerActor = actorID,
-                            targetKey = targetKey,
+                            targetKey = mem.aboutKey,
                         })
+                    end
+                    if type(mem.roleRefs) == "table" then
+                        for _, entry in pairs(mem.roleRefs) do
+                            if not isRoleEntryStrong(entry, memStrong)
+                                and type(entry.ref) == "string" and entry.ref ~= ""
+                            then
+                                emit(entry.ref, "weak_memory_role", {
+                                    ownerActor = actorID,
+                                    targetKey = mem.aboutKey,
+                                })
+                            end
+                        end
                     end
                 end
             end
         end
     end
     return true
+end
+
+local function degradeMemoryWeakRefs(mem, matchSet)
+    local compacted = 0
+    if type(mem.sourceKey) == "string"
+        and matchSet[mem.sourceKey]
+        and mem.sourceRefStrength ~= "STRONG"
+    then
+        mem.sourceKey = nil
+        mem.sourceDegraded = true
+        compacted = compacted + 1
+    end
+    local memStrong = isMemoryStrongRef(mem)
+    if not memStrong
+        and type(mem.subjectKey) == "string"
+        and matchSet[mem.subjectKey]
+    then
+        mem.subjectKey = nil
+        mem.subjectDegraded = true
+        compacted = compacted + 1
+    end
+    if type(mem.roleRefs) == "table" then
+        for role, entry in pairs(mem.roleRefs) do
+            if type(entry) == "table"
+                and type(entry.ref) == "string"
+                and matchSet[entry.ref]
+                and not isRoleEntryStrong(entry, memStrong)
+            then
+                entry.ref = nil
+                entry.degraded = true
+                if entry.label == nil then
+                    mem.roleRefs[role] = nil
+                end
+                compacted = compacted + 1
+            end
+        end
+    end
+    return compacted
 end
 
 local function builtinSocialOnBeforePurge(ref, ctx)
@@ -278,11 +427,43 @@ local function builtinSocialOnBeforePurge(ref, ctx)
         local social = actor and actor.social
         if type(social) == "table" then
             local changed = false
+            if type(social.memoryBank) == "table" then
+                for idx = #social.memoryBank, 1, -1 do
+                    local mem = social.memoryBank[idx]
+                    if type(mem) == "table" then
+                        local weakCompacted = degradeMemoryWeakRefs(mem, matchSet)
+                        if weakCompacted > 0 then
+                            compacted = compacted + weakCompacted
+                            changed = true
+                        end
+                        if type(mem.aboutKey) == "string"
+                            and matchSet[mem.aboutKey]
+                            and not isMemoryStrongRef(mem)
+                        then
+                            if mem.retentionClass == "ANCHOR"
+                                or mem.permanent == true
+                                or mem.refStrength == "LABEL_ONLY"
+                            then
+                                mem.aboutKey = nil
+                                mem.aboutDegraded = true
+                                mem.refStrength = "LABEL_ONLY"
+                            else
+                                table.remove(social.memoryBank, idx)
+                            end
+                            compacted = compacted + 1
+                            changed = true
+                        end
+                    end
+                end
+            end
+            local strongBankTargets = collectStrongBankTargets(social)
             if type(social.relationships) == "table" then
                 local keys = sortedKeys(social.relationships)
                 for _, targetKey in ipairs(keys) do
                     local rel = social.relationships[targetKey]
-                    if matchSet[targetKey] and not isStrongRelationship(rel) then
+                    if matchSet[targetKey]
+                        and not isStrongRelationship(rel, strongBankTargets, targetKey)
+                    then
                         social.relationships[targetKey] = nil
                         compacted = compacted + 1
                         changed = true
@@ -290,15 +471,12 @@ local function builtinSocialOnBeforePurge(ref, ctx)
                         and type(rel.memories) == "table"
                     then
                         for _, mem in ipairs(rel.memories) do
-                            if type(mem) == "table"
-                                and type(mem.sourceKey) == "string"
-                                and matchSet[mem.sourceKey]
-                                and mem.sourceRefStrength ~= "STRONG"
-                            then
-                                mem.sourceKey = nil
-                                mem.sourceDegraded = true
-                                compacted = compacted + 1
-                                changed = true
+                            if type(mem) == "table" then
+                                local relCompacted = degradeMemoryWeakRefs(mem, matchSet)
+                                if relCompacted > 0 then
+                                    compacted = compacted + relCompacted
+                                    changed = true
+                                end
                             end
                         end
                     end
@@ -318,6 +496,9 @@ local function builtinSocialOnBeforePurge(ref, ctx)
             if changed then
                 social.revision = (tonumber(social.revision) or 0) + 1
                 actor.revision = (tonumber(actor.revision) or 0) + 1
+                if type(Social.InvalidateMemoryIndex) == "function" then
+                    Social.InvalidateMemoryIndex(social)
+                end
             end
         end
     end
