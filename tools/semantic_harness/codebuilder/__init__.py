@@ -121,7 +121,6 @@ from .convo_engine_compiler import (
     render_convo_director_plan,
     render_convo_semantic_pack_plan,
     render_convo_ui_plan,
-    render_convo_runtime_plan,
 )
 
 __all__ = [
@@ -194,5 +193,4 @@ __all__ = [
     "render_convo_director_plan",
     "render_convo_semantic_pack_plan",
     "render_convo_ui_plan",
-    "render_convo_runtime_plan",
 ]

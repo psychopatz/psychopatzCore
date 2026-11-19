@@ -1,6 +1,6 @@
-"""G8A: Compact PSDL authoring parser, predicate expression compiler, shallow defaults, and sidecar loader.
+"""G8A: Compact ConvoEngine authoring parser, predicate expression compiler, shallow defaults, and sidecar loader.
 
-Compact PSDL (``psychopatz.psdl.v2``) is an authoring representation only.
+Compact ConvoEngine (``psychopatz.convo-engine.v1``) is an authoring representation only.
 It expands deterministically into the explicit canonical ``psychopatz.convo-engine.v1``
 document and Semantic Dialogue IR without creating a second semantic model.
 """
@@ -343,14 +343,14 @@ def expand_compact_convo_document(
     package: Mapping[str, Any] | None = None,
     text_loader: Callable[[str], Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Expand a compact PSDL document into an explicit ``psychopatz.convo-engine.v1`` document.
+    """Expand a compact ConvoEngine document into an explicit ``psychopatz.convo-engine.v1`` document.
 
     Passes through existing ``psychopatz.convo-engine.v1`` / legacy documents unchanged
     unless they contain compact fields (``profile``, string predicates, keyed ``candidates``,
     or ``textSidecars``).
     """
     if not isinstance(document, Mapping):
-        raise CompileError("PSDL document must be an object")
+        raise CompileError("ConvoEngine document must be an object")
 
     schema = document.get("schema")
     has_compact_sugar = (
@@ -368,10 +368,10 @@ def expand_compact_convo_document(
     profile_data: dict[str, Any] = {}
     if profile_name is not None:
         if not isinstance(profile_name, str) or not profile_name.strip():
-            raise CompileError("PSDL profile must be a non-empty string")
+            raise CompileError("ConvoEngine profile must be a non-empty string")
         profiles = pkg.get("profiles") or {}
         if profile_name not in profiles:
-            raise CompileError(f"Unknown PSDL profile {profile_name!r}")
+            raise CompileError(f"Unknown ConvoEngine profile {profile_name!r}")
         profile_data = dict(profiles[profile_name])
 
     merged_defaults = {**pkg_defaults, **profile_data}

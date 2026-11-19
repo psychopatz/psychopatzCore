@@ -111,7 +111,7 @@ from .convo_engine_compiler import (
     render_convo_realization_plan,
     render_convo_response_pool_plan,
     render_convo_semantic_pack_plan,
-    render_convo_runtime_plan,
+    render_convo_engine_runtime_plan,
     render_convo_ui_plan,
 )
 from .conversation_assembly import CONVO_ENGINE_SHARD_KINDS
@@ -156,7 +156,7 @@ def _make_sidecar_loader(source_root: Path, entry: Mapping[str, Any]):
     return load_sidecar
 
 
-def _compiled_psdl_documents(
+def _compiled_convo_documents(
     loaded: list[tuple[dict[str, Any], dict[str, Any], str]],
     *,
     default_owner: str | None = None,
@@ -486,7 +486,7 @@ def _compile_conversation_sources_uncached(
         default_owner=manifest["defaultOwner"],
     )
     realization = _merge_realization_sources(loaded)
-    psdl_documents = _compiled_psdl_documents(
+    convo_documents = _compiled_convo_documents(
         loaded,
         default_owner=manifest["defaultOwner"],
         package=package_descriptor_doc,
@@ -494,8 +494,8 @@ def _compile_conversation_sources_uncached(
     )
     merged_convo_records = [
         record
-        for compiled_psdl, _entry in psdl_documents
-        for record in compiled_psdl.get("records", [])
+        for compiled_convo, _entry in convo_documents
+        for record in compiled_convo.get("records", [])
     ]
     resolved_target_descriptor = (
         dict(target_descriptor)
@@ -515,8 +515,8 @@ def _compile_conversation_sources_uncached(
             resolved_target_descriptor,
         )
     entry_by_record_id: dict[str, dict[str, Any]] = {}
-    for compiled_psdl, entry in psdl_documents:
-        for record in compiled_psdl.get("records", []):
+    for compiled_convo, entry in convo_documents:
+        for record in compiled_convo.get("records", []):
             rec_id = str(record.get("id") or "")
             if rec_id:
                 entry_by_record_id[rec_id] = entry
@@ -531,29 +531,29 @@ def _compile_conversation_sources_uncached(
         entry_by_record_id=entry_by_record_id,
         default_owner=manifest["defaultOwner"],
     )
-    psdl_ui = backend_projection["ui"]
-    psdl_packs = backend_projection["semanticPacks"]
-    psdl_runtime_plans = backend_projection["runtimePlans"]
+    convo_ui = backend_projection["ui"]
+    convo_packs = backend_projection["semanticPacks"]
+    convo_runtime_plans = backend_projection["runtimePlans"]
     behaviors["records"].extend(backend_projection["behaviors"])
     beats["records"].extend(backend_projection["beats"])
-    psdl_response_pools = backend_projection["responsePools"]
-    psdl_response_pool_owners = backend_projection["responsePoolOwners"]
-    psdl_flows = backend_projection["flows"]
-    psdl_realizations = backend_projection["realizations"]
-    if psdl_response_pools:
-        dialogue["responsePools"].extend(psdl_response_pools)
+    convo_response_pools = backend_projection["responsePools"]
+    convo_response_pool_owners = backend_projection["responsePoolOwners"]
+    convo_flows = backend_projection["flows"]
+    convo_realizations = backend_projection["realizations"]
+    if convo_response_pools:
+        dialogue["responsePools"].extend(convo_response_pools)
         dialogue["responsePools"].sort(key=lambda item: str(item.get("id", "")))
-        dialogue["_responsePoolOwners"] = psdl_response_pool_owners
-    if psdl_flows:
-        semantic["flows"].extend(psdl_flows)
+        dialogue["_responsePoolOwners"] = convo_response_pool_owners
+    if convo_flows:
+        semantic["flows"].extend(convo_flows)
         semantic["flows"].sort(key=lambda item: str(item.get("id", "")))
-    if psdl_realizations:
-        realization["records"].extend(psdl_realizations)
+    if convo_realizations:
+        realization["records"].extend(convo_realizations)
         realization["records"].sort(key=lambda item: str(item.get("id", "")))
     behaviors["records"].sort(key=lambda item: str(item.get("id", "")))
     beats["records"].sort(key=lambda item: str(item.get("id", "")))
-    psdl_runtime_plans.sort(key=lambda item: str(item.get("id", "")))
-    packs = [*psdl_packs]
+    convo_runtime_plans.sort(key=lambda item: str(item.get("id", "")))
+    packs = [*convo_packs]
     for document, entry, _fingerprint_value in loaded:
         if entry["kind"] != "packs":
             continue
@@ -573,7 +573,7 @@ def _compile_conversation_sources_uncached(
             for document, entry, _ in loaded
             if entry["kind"] == "ui"
             for item in document.get("suggestions", [])
-        ] + psdl_ui,
+        ] + convo_ui,
         key=lambda item: (item.get("order", 0), item.get("id", "")),
     )
     ui_texts = sorted(
@@ -645,14 +645,14 @@ def _compile_conversation_sources_uncached(
                     path=path,
                 )
         elif entry["kind"] in CONVO_ENGINE_SHARD_KINDS:
-            for compiled_psdl, psdl_entry in psdl_documents:
-                if psdl_entry["path"] != path:
+            for compiled_convo, convo_entry in convo_documents:
+                if convo_entry["path"] != path:
                     continue
-                psdl_ids: set[str] = set()
-                for record in compiled_psdl["records"]:
+                convo_ids: set[str] = set()
+                for record in compiled_convo["records"]:
                     rec_id = record.get("id")
                     if isinstance(rec_id, str):
-                        psdl_ids.add(rec_id)
+                        convo_ids.add(rec_id)
                     _add_global_id(
                         locations,
                         rec_id,
@@ -660,9 +660,9 @@ def _compile_conversation_sources_uncached(
                         shard=entry,
                         path=path,
                     )
-                for row in render_convo_realization_plan(compiled_psdl):
+                for row in render_convo_realization_plan(compiled_convo):
                     row_id = row.get("id")
-                    if row_id not in psdl_ids:
+                    if row_id not in convo_ids:
                         _add_global_id(
                             locations,
                             row_id,
@@ -670,7 +670,7 @@ def _compile_conversation_sources_uncached(
                             shard=entry,
                             path=path,
                         )
-                for row in render_convo_ui_plan(compiled_psdl):
+                for row in render_convo_ui_plan(compiled_convo):
                     _add_global_id(
                         ui_locations,
                         row.get("id"),
@@ -678,7 +678,7 @@ def _compile_conversation_sources_uncached(
                         shard=entry,
                         path=path,
                     )
-                for pack in render_convo_semantic_pack_plan(compiled_psdl):
+                for pack in render_convo_semantic_pack_plan(compiled_convo):
                     _add_global_id(
                         locations,
                         pack.get("id"),
@@ -698,14 +698,14 @@ def _compile_conversation_sources_uncached(
         for item in content.get("phraseFamilies", [])
         if isinstance(item, dict)
     }
-    # PSDL adopter records may split a bounded response family into multiple
+    # ConvoEngine adopter records may split a bounded response family into multiple
     # runtime plans while retaining the existing semantic content-template ID
     # used by Core-owned behaviors. The adopter runtime projects those plans
     # back into the existing phrase-family authority; Core validation must
     # therefore recognize the declared alias without creating a second
     # content authoring format or runtime.
-    for compiled_psdl, _entry in psdl_documents:
-        for record in compiled_psdl.get("records", []):
+    for compiled_convo, _entry in convo_documents:
+        for record in compiled_convo.get("records", []):
             payload = record.get("payload")
             if (
                 record.get("kind") == "dialogue"
@@ -823,7 +823,7 @@ def _compile_conversation_sources_uncached(
         "beats": beats["records"],
         "realization": realization["records"],
         "packs": packs,
-        "convoRuntimePlans": psdl_runtime_plans,
+        "convoRuntimePlans": convo_runtime_plans,
         "ui": ui,
         "uiTexts": ui_texts,
     }
@@ -849,7 +849,7 @@ def _compile_conversation_sources_uncached(
         "beats": beats["records"],
         "realization": realization["records"],
         "packs": packs,
-        "convoRuntimePlans": psdl_runtime_plans,
+        "convoRuntimePlans": convo_runtime_plans,
         "portablePlan": portable_plan,
         "targetBackend": backend_projection.get("backend"),
         "portableArtifacts": backend_projection.get("portableArtifacts", {}),
@@ -890,7 +890,7 @@ def conversation_languages(model: dict[str, Any]) -> tuple[str, ...]:
         {
             language: {}
             for plan in model.get("convoRuntimePlans", [])
-            for language in _psdl_plan_languages(plan)
+            for language in _convo_plan_languages(plan)
         },
     )
     if DEFAULT_LANGUAGE not in languages:
@@ -898,8 +898,8 @@ def conversation_languages(model: dict[str, Any]) -> tuple[str, ...]:
     return languages
 
 
-def _psdl_plan_languages(plan: Mapping[str, Any]) -> tuple[str, ...]:
-    """Return locales carried by one PSDL runtime plan's authored payload."""
+def _convo_plan_languages(plan: Mapping[str, Any]) -> tuple[str, ...]:
+    """Return locales carried by one ConvoEngine runtime plan's authored payload."""
     languages: set[str] = set()
 
     def visit(value: Any) -> None:
@@ -908,7 +908,7 @@ def _psdl_plan_languages(plan: Mapping[str, Any]) -> tuple[str, ...]:
             if DEFAULT_LANGUAGE in value:
                 for raw_language in keys:
                     if isinstance(raw_language, str):
-                        languages.add(normalize_language(raw_language, "PSDL locale"))
+                        languages.add(normalize_language(raw_language, "ConvoEngine locale"))
             for child in value.values():
                 visit(child)
         elif isinstance(value, list):
@@ -919,14 +919,14 @@ def _psdl_plan_languages(plan: Mapping[str, Any]) -> tuple[str, ...]:
     return tuple(sorted(languages))
 
 
-def _psdl_plan_text_rows(
+def _convo_plan_text_rows(
     plan: Mapping[str, Any],
 ) -> list[tuple[str, str, str, str]]:
-    """Project explicitly requested PSDL text targets into flat catalogs.
+    """Project explicitly requested ConvoEngine text targets into flat catalogs.
 
-    PSDL response text remains authored inline.  Only records that declare a
+    ConvoEngine response text remains authored inline.  Only records that declare a
     ``metadata.textTarget`` opt into the native Conversation/Text compatibility
-    boundary used by adopter runtimes; UI-only PSDL records continue through
+    boundary used by adopter runtimes; UI-only ConvoEngine records continue through
     the normal generated UI catalog path.
     """
     payload = plan.get("payload")
@@ -948,7 +948,7 @@ def _psdl_plan_text_rows(
         for raw_language, raw_values in localized.items():
             if not isinstance(raw_language, str):
                 continue
-            language = normalize_language(raw_language, "PSDL text locale")
+            language = normalize_language(raw_language, "ConvoEngine text locale")
             values = raw_values if isinstance(raw_values, list) else [raw_values]
             if values and isinstance(values[0], str):
                 rows.append((language, domain, key, values[0]))
@@ -1130,7 +1130,7 @@ def conversation_translation_catalogs(model: dict[str, Any]) -> dict[str, dict[s
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
             add(language, "Flows", key, value)
     for plan in model.get("convoRuntimePlans", []):
-        for language, domain, key, value in _psdl_plan_text_rows(plan):
+        for language, domain, key, value in _convo_plan_text_rows(plan):
             add(language, domain, key, value)
     for language in languages:
         catalogs[language] = {
@@ -1281,7 +1281,7 @@ def conversation_translation_catalogs_by_owner(
 
     for plan in model.get("convoRuntimePlans", []):
         owner = normalize_owner(plan.get("owner"), default=default_owner)
-        for language, domain, key, value in _psdl_plan_text_rows(plan):
+        for language, domain, key, value in _convo_plan_text_rows(plan):
             add(owner, language, domain, key, value)
             if domain == "Text/UI_PNC_Conversation":
                 add(owner, language, "UI", text_key("UI_PNC_Conversation", key), value)
@@ -1442,20 +1442,20 @@ def render_conversation_runtime_plan(
         pack_records,
         module_prefix=prefix,
     )
-    psdl_modules: list[tuple[str, str]] = []
-    psdl_reports: list[dict[str, Any]] = []
-    psdl_groups: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
+    convo_modules: list[tuple[str, str]] = []
+    convo_reports: list[dict[str, Any]] = []
+    convo_groups: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
     for plan in model.get("convoRuntimePlans", []):
         record_id = str(plan.get("id") or "")
         if not record_id:
-            raise CompileError("PSDL runtime plan requires id")
+            raise CompileError("ConvoEngine runtime plan requires id")
         owner = normalize_owner(plan.get("owner"))
         kind = str(plan.get("kind") or "dialogue").lower()
         domain_path = str(plan.get("domainPath") or plan.get("domain") or "general")
-        psdl_groups.setdefault((owner, kind, domain_path), []).append(plan)
+        convo_groups.setdefault((owner, kind, domain_path), []).append(plan)
 
-    psdl_names = ModuleNameRegistry()
-    for (owner, kind, domain_path), grouped_plans in sorted(psdl_groups.items()):
+    convo_names = ModuleNameRegistry()
+    for (owner, kind, domain_path), grouped_plans in sorted(convo_groups.items()):
         grouped_plans.sort(key=lambda item: str(item.get("id") or ""))
         domain = domain_path.split("/")[0]
         owner_prefix = conversation_prefix(owner)
@@ -1474,7 +1474,7 @@ def render_conversation_runtime_plan(
                     if is_split
                     else path_segments
                 )
-                temp_names = psdl_names.clone()
+                temp_names = convo_names.clone()
                 module = module_path(
                     owner_prefix,
                     segments,
@@ -1486,17 +1486,17 @@ def render_conversation_runtime_plan(
                 source = render_conversation_lua_records(chunk)
                 size = len(source.encode("utf-8"))
                 if size <= CONVERSATION_MAX_SHARD_BYTES:
-                    psdl_names = temp_names
+                    convo_names = temp_names
                     break
                 if len(chunk) == 1:
                     raise CompileError(
-                        "PSDL runtime plan shard renders above the generated budget: "
+                        "ConvoEngine runtime plan shard renders above the generated budget: "
                         + f"{owner}/{kind}/{domain}/{first_id}"
                     )
                 end -= 1
             start = end
-            psdl_modules.append((module, source))
-            psdl_reports.append({
+            convo_modules.append((module, source))
+            convo_reports.append({
                 "module": module,
                 "kind": "ConvoEngine",
                 "domain": domain,
@@ -1521,7 +1521,7 @@ def render_conversation_runtime_plan(
         *beat_modules,
         *realization_modules,
         *pack_modules,
-        *psdl_modules,
+        *convo_modules,
         *ui_modules,
     ]
     reports = [
@@ -1533,7 +1533,7 @@ def render_conversation_runtime_plan(
         *beat_reports,
         *realization_reports,
         *pack_reports,
-        *psdl_reports,
+        *convo_reports,
         *ui_reports,
     ]
 
@@ -1565,7 +1565,7 @@ def render_conversation_runtime_plan(
     # The existing Hoomans UtterancePlan loader consumes one stable social
     # realization discovery module. Keep that runtime contract while routing
     # the actual flattened realization shards through the Core-owned builder.
-    # This is generated package wiring only; PSDL remains the sole source.
+    # This is generated package wiring only; ConvoEngine remains the sole source.
     realization_entries = [
         {
             "kind": "realization",

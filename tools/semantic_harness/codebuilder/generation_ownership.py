@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Iterator, Mapping
 
 DEFAULT_TARGETS_PATH = Path(__file__).resolve().parent / "targets" / "pz_packages.json"
+TARGET_REGISTRY_SCHEMA = "psychopatz.convo-engine.target-registry.v1"
 
 # Compatibility constants for existing callers; routing itself is data-driven.
 CORE_OWNER = "PsychopatzCore"
@@ -137,6 +138,14 @@ def register_package_descriptor(descriptor: PackageDescriptor) -> None:
 def load_package_descriptors(path: Path = DEFAULT_TARGETS_PATH) -> dict[str, PackageDescriptor]:
     """Load package/target descriptors from a JSON registry file."""
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(raw, Mapping):
+        raise OwnerConfigurationError(
+            f"Target registry {path} must declare schema {TARGET_REGISTRY_SCHEMA!r} (got {type(raw).__name__!r})"
+        )
+    if raw.get("schema") != TARGET_REGISTRY_SCHEMA:
+        raise OwnerConfigurationError(
+            f"Target registry {path} must declare schema {TARGET_REGISTRY_SCHEMA!r} (got {raw.get('schema')!r})"
+        )
     packages = raw.get("packages")
     if not isinstance(packages, Mapping) or not packages:
         raise OwnerConfigurationError(f"Target registry {path} must define non-empty packages")

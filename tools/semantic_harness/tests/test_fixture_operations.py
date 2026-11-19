@@ -312,7 +312,7 @@ class FixtureOperationRegistryTests(unittest.TestCase):
             ("test_s10r1_worker_precision_and_history", ["s10r1"]),
             ("test_s10r1_c5_variation", ["c5", "s10r1"]),
             ("test_convo_s6m5_compiler", ["s6m5"]),
-            ("test_psdl_g8r7_portability", ["g8r7"]),
+            ("test_convo_g8r7_portability", ["g8r7"]),
             ("a6r13_cleanup", ["a6r13"]),
             ("c0a.r9.h4", ["c0a", "h4", "r9"]),
         ):

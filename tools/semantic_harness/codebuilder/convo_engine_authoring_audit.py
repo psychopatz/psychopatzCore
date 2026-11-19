@@ -1,4 +1,4 @@
-"""Inventory PSDL adoption surfaces and guard frozen first-party authoring.
+"""Inventory ConvoEngine adoption surfaces and guard frozen first-party authoring.
 
 The inventory is deliberately Core-owned.  It describes adopter records and
 runtime boundaries without moving their gameplay authority into Core.  The
@@ -65,7 +65,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             "source_roots": ["tools/semantic_harness/codebuilder"],
             "classification": "mechanism",
             "owner": "PsychopatzCore",
-            "destination": "PsychopatzCore PSDL schema, compiler, validator, authoring service and runtime contracts",
+            "destination": "PsychopatzCore ConvoEngine schema, compiler, validator, authoring service and runtime contracts",
             "migration_status": "mechanism_owner; extend in place; no adopter compiler copy",
             "generated_roots": [],
             "external_compatibility": {"status": "none"},
@@ -80,7 +80,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             "source_roots": ["tools/semantic_harness/codebuilder/sources/conversation"],
             "classification": "adopter_record_and_migration_input",
             "owner": "manifest-declared: PsychopatzCore, ProjectHoomans, DTCommon",
-            "destination": "Final PSDL dialogue/behavior/beat/realization records routed by declared owner",
+            "destination": "Final ConvoEngine dialogue/behavior/beat/realization records routed by declared owner",
             "migration_status": "frozen migration input; migrate by domain, then remove superseded records",
             "generated_roots": [
                 "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation",
@@ -100,7 +100,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             "source_roots": ["tools/semantic_harness/codebuilder/sources/conversation/text"],
             "classification": "manual_text_record_and_migration_input",
             "owner": "manifest-declared: PsychopatzCore, ProjectHoomans, DTCommon",
-            "destination": "Inline locale maps on final PSDL records with EN fallback",
+            "destination": "Inline locale maps on final ConvoEngine records with EN fallback",
             "migration_status": "frozen split text input; generated translation catalogs remain downstream-only",
             "generated_roots": ["Contents/mods/PsychopatzCore/common/media/translation"],
             "external_compatibility": {"status": "translation package boundary; no separate semantic authority"},
@@ -117,7 +117,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             ],
             "classification": "generated_output",
             "owner": "PsychopatzCore",
-            "destination": "Downstream output of the Core-owned PSDL compiler",
+            "destination": "Downstream output of the Core-owned ConvoEngine compiler",
             "migration_status": "retain as generated compatibility/runtime output; never hand-author",
             "generated_roots": [],
             "external_compatibility": {
@@ -138,7 +138,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             ],
             "classification": "adopter_record",
             "owner": "ProjectHoomans",
-            "destination": "ProjectHoomans-owned PSDL dialogue/behavior/beat records compiled by Core",
+            "destination": "ProjectHoomans-owned ConvoEngine dialogue/behavior/beat records compiled by Core",
             "migration_status": "frozen superseded node/choice/outcome and memory authoring; delete after domain parity and caller-zero",
             "generated_roots": [
                 "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation",
@@ -158,7 +158,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             ],
             "classification": "generated_output",
             "owner": "ProjectHoomans",
-            "destination": "Downstream output of Core PSDL consumed by existing PNC semantic/runtime authorities",
+            "destination": "Downstream output of Core ConvoEngine consumed by existing PNC semantic/runtime authorities",
             "migration_status": "retain as generated output during migration; do not hand-author or duplicate Core compiler",
             "generated_roots": [],
             "external_compatibility": {
@@ -175,11 +175,11 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             "source_roots": ["Contents/mods/ProjectHoomans/42.20/media/lua"],
             "classification": "adopter_runtime_adapter",
             "owner": "ProjectHoomans",
-            "destination": "Existing PNC semantic, social, scene and gameplay authorities behind Core PSDL contracts",
+            "destination": "Existing PNC semantic, social, scene and gameplay authorities behind Core ConvoEngine contracts",
             "migration_status": "retain gameplay authority; replace only duplicated authoring inputs during S5",
             "generated_roots": [],
             "external_compatibility": {
-                "status": "adopter runtime seam; not a generic PSDL implementation",
+                "status": "adopter runtime seam; not a generic ConvoEngine implementation",
                 "paths": ["PNC/Semantics", "PNC/Conversation"],
             },
             "reference_tokens": [
@@ -193,36 +193,36 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
         {
             "id": "dt.trader_conversation_pack",
             "source_roots": [
-                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
+                "tools/providers/dt/codebuilder/sources/conversation/dialogue/trading",
             ],
             "classification": "adopter_record",
             "owner": "DTCommon",
-            "destination": "DTCommon-owned PSDL dialogue recognition and offer records compiled by Core",
-            "migration_status": "S5 migrated and consolidated into final DTCommon PSDL dialogue; superseded pack source removed with semantic-pack parity retained",
+            "destination": "DTCommon-owned ConvoEngine dialogue recognition and offer records compiled by Core",
+            "migration_status": "S5 migrated and consolidated into final DTCommon ConvoEngine dialogue; superseded pack source removed with semantic-pack parity retained",
             "generated_roots": [
-                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Packs/Psdl/Dialogue",
+                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/ConvoEngine/Packs/Dialogue",
             ],
             "external_compatibility": {
                 "status": "provider action seam remains DTCommon-owned",
                 "paths": ["DT.trade_action", "DT.referral_action", "DT.rumors_action"],
             },
             "reference_tokens": [
-                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
-                "DTCommon/Semantics/Generated/Conversation/Packs/Psdl/Dialogue/Trading",
+                "tools/providers/dt/codebuilder/sources/conversation/dialogue/trading",
+                "DTCommon/ConvoEngine/Packs/Dialogue/Trading",
                 "DTCommon_SemanticPack",
             ],
         },
         {
             "id": "dt.static_suggestions",
             "source_roots": [
-                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
+                "tools/providers/dt/codebuilder/sources/conversation/dialogue/trading",
             ],
             "classification": "adopter_record",
             "owner": "DTCommon",
-            "destination": "Core PSDL participant-neutral offers projected to player UI or NPC affordance policy",
-            "migration_status": "S5 consolidated into the final DTCommon PSDL dialogue with recognition; superseded static suggestion source removed and generated UI parity retained",
+            "destination": "Core ConvoEngine participant-neutral offers projected to player UI or NPC affordance policy",
+            "migration_status": "S5 consolidated into the final DTCommon ConvoEngine dialogue with recognition; superseded static suggestion source removed and generated UI parity retained",
             "generated_roots": [
-                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/UI/Psdl/Dialogue",
+                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/ConvoEngine/UI/Dialogue",
                 "Contents/mods/DTCommon/common/media/translation",
             ],
             "external_compatibility": {
@@ -230,8 +230,8 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
                 "paths": ["DTCommon_TraderConversation.lua"],
             },
             "reference_tokens": [
-                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
-                "DTCommon/Semantics/Generated/Conversation/UI/Psdl/Dialogue/Trading",
+                "tools/providers/dt/codebuilder/sources/conversation/dialogue/trading",
+                "DTCommon/ConvoEngine/UI/Dialogue/Trading",
                 "GetStaticSuggestions",
             ],
         },
@@ -243,7 +243,7 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             ],
             "classification": "generated_output",
             "owner": "DTCommon",
-            "destination": "Downstream output of Core PSDL consumed by DTCommon trader conversation",
+            "destination": "Downstream output of Core ConvoEngine consumed by DTCommon trader conversation",
             "migration_status": "retain as generated output during migration; do not hand-author",
             "generated_roots": [],
             "external_compatibility": {
@@ -264,11 +264,11 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
             ],
             "classification": "adopter_runtime_and_external_compatibility",
             "owner": "DTCommon",
-            "destination": "Existing trader authority and explicit Hoomans/provider compatibility adapters behind Core PSDL seams",
+            "destination": "Existing trader authority and explicit Hoomans/provider compatibility adapters behind Core ConvoEngine seams",
             "migration_status": "retain gameplay/provider authority; remove only duplicated first-party authoring inputs",
             "generated_roots": [],
             "external_compatibility": {
-                "status": "explicit compatibility boundary; not a second PSDL language",
+                "status": "explicit compatibility boundary; not a second ConvoEngine language",
                 "paths": ["DTAbstract_CoreConversation.lua", "DTHoomans_Conversation.lua"],
             },
             "reference_tokens": [
@@ -522,10 +522,10 @@ def _status_paths(root: Path) -> list[tuple[str, str]]:
     return paths
 
 
-def _looks_like_psdl_record(root: Path, relative: str) -> bool:
+def _looks_like_convo_engine_record(root: Path, relative: str) -> bool:
     path = root / relative
     if path.suffix.lower() != ".json" or not path.is_file():
-        return any(part in {"psdl", "semantic_dialogue", "semantic-dialogue"} for part in Path(relative).parts)
+        return any(part in {"semantic_dialogue", "semantic-dialogue"} for part in Path(relative).parts)
     document = _read_json(path)
     return isinstance(document, Mapping) and document.get("schema") == CONVO_ENGINE_SCHEMA
 
@@ -555,13 +555,13 @@ def guard_changed_paths(
                 accepted.append({"path": relative, "reason": "superseded_source_removal"})
                 continue
             if not _is_under(relative, FROZEN_PREFIXES[name]):
-                reason = "psdl_record" if _looks_like_psdl_record(root, relative) else "outside_frozen_authoring_root"
+                reason = "convo_engine_record" if _looks_like_convo_engine_record(root, relative) else "outside_frozen_authoring_root"
                 accepted.append({"path": relative, "reason": reason})
                 continue
-            if Path(relative).name == "manifest.json" or _looks_like_psdl_record(root, relative):
+            if Path(relative).name == "manifest.json" or _looks_like_convo_engine_record(root, relative):
                 accepted.append({
                     "path": relative,
-                    "reason": "manifest_control_plane" if Path(relative).name == "manifest.json" else "psdl_record",
+                    "reason": "manifest_control_plane" if Path(relative).name == "manifest.json" else "convo_engine_record",
                 })
                 continue
             repo_violations.append({
@@ -569,7 +569,7 @@ def guard_changed_paths(
                 "path": relative,
                 "status": status,
                 "code": "new_first_party_authoring_on_frozen_surface",
-                "message": "New or modified first-party dialogue authoring must be added as a Core-compiled PSDL record, not to a frozen superseded surface.",
+                "message": "New or modified first-party dialogue authoring must be added as a Core-compiled ConvoEngine record, not to a frozen superseded surface.",
             })
         result = {
             "repository": name,
@@ -610,7 +610,7 @@ def build_inventory(repository_specs: Mapping[str, Path]) -> dict[str, Any]:
         "scope": {
             "primary": "PsychopatzCore",
             "mandatory_adopters": ["ProjectHoomans", "DynamicTrading"],
-            "scope": "psdl-authoring-audit",
+            "scope": "convo-engine-authoring-audit",
         },
         "repositories": repository_reports,
         "surfaces": surfaces,

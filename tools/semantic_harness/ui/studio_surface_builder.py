@@ -50,11 +50,11 @@ def build_studio_editors(
     blocks_frame = ttk.Frame(advanced_notebook)
     responses_frame = ttk.Frame(advanced_notebook)
     if conversations_tab is None:
-        psdl_frame = ttk.Frame(advanced_notebook)
-        psdl_frame.rowconfigure(0, weight=1)
-        psdl_frame.columnconfigure(0, weight=1)
+        convo_engine_frame = ttk.Frame(advanced_notebook)
+        convo_engine_frame.rowconfigure(0, weight=1)
+        convo_engine_frame.columnconfigure(0, weight=1)
     else:
-        psdl_frame = conversations_tab
+        convo_engine_frame = conversations_tab
     for panel in (interaction_frame, library_frame, blocks_frame, responses_frame):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
@@ -65,13 +65,12 @@ def build_studio_editors(
     advanced_notebook.add(blocks_frame, text="Block contracts")
     advanced_notebook.add(responses_frame, text="Responses")
     if conversations_tab is None:
-        advanced_notebook.add(psdl_frame, text="ConvoEngine")
+        advanced_notebook.add(convo_engine_frame, text="ConvoEngine")
     app.interaction_modules_frame = interaction_modules_frame
     app.flow_editor_frame = flow_frame
     app.interaction_explorer_frame = interaction_frame
     app.library_tab = library_frame
     app.blocks_tab = blocks_frame
-    app.psdl_authoring_frame = psdl_frame
 
     app.observatory = SemanticObservatoryPane(
         responses_frame, app._tk, ttk, scrolled_text,
@@ -195,7 +194,7 @@ def build_studio_editors(
         return None
 
     app.convo_engine_authoring = ConvoEngineAuthoringPane(
-        psdl_frame,
+        convo_engine_frame,
         app._tk,
         ttk,
         scrolled_text,
@@ -205,7 +204,6 @@ def build_studio_editors(
         on_preview_in_simulation=_preview_in_simulation,
         on_open_kind_editor=_open_kind_editor,
     )
-    app.psdl_authoring = app.convo_engine_authoring
     if defer_convo_refresh:
         def _refresh_studio_on_select(_event: Any = None) -> None:
             try:

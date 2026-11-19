@@ -94,9 +94,9 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
             self.assertTrue(entry["proposedModule"].startswith("PsychopatzCore/Semantics/"))
 
         # ProjectHoomans ConvoEngine vs non-ConvoEngine domain subsystems
-        psdl_adapter = by_key[("ProjectHoomans", "PNC/ConvoEngine/DialogueBlocks")]
-        self.assertEqual(psdl_adapter["classification"], "convo_engine")
-        self.assertEqual(psdl_adapter["proposedModule"], "PNC/ConvoEngine/DialogueBlocks")
+        convo_adapter = by_key[("ProjectHoomans", "PNC/ConvoEngine/DialogueBlocks")]
+        self.assertEqual(convo_adapter["classification"], "convo_engine")
+        self.assertEqual(convo_adapter["proposedModule"], "PNC/ConvoEngine/DialogueBlocks")
 
         pnc_action = by_key[("ProjectHoomans", "PNC/Semantics/PNC_SemanticActionPlan")]
         self.assertEqual(pnc_action["classification"], "generic_semantic_infrastructure")
@@ -107,7 +107,7 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
         self.assertEqual(dt_gen["classification"], "convo_engine")
         self.assertEqual(dt_gen["proposedModule"], "DTCommon/ConvoEngine/Registry")
 
-        # Every live file under Semantics/, Conversation/PSDL/, Conversation/Semantic/ is covered.
+        # Every live file under Semantics/ and Conversation/Semantic/ is covered.
         for repo_name, root in (
             ("PsychopatzCore", CORE_REPO),
             ("ProjectHoomans", HOOMANS_REPO),
@@ -115,9 +115,18 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
         ):
             for path in root.glob("Contents/mods/**/media/lua/**/*.lua"):
                 rel = str(path.relative_to(root)).replace("\\", "/")
-                if "/Semantics/" in rel or "/Conversation/PSDL/" in rel or "/Conversation/Semantic/" in rel:
+                if "/Semantics/" in rel or "/Conversation/Semantic/" in rel:
                     mod = rel.split("/media/lua/", 1)[1].split("/", 1)[1][:-4]
                     self.assertIn((repo_name, mod), by_key)
+
+    def test_rejects_retired_conversation_directory(self) -> None:
+        if not (HOOMANS_REPO.is_dir() and DT_REPO.is_dir()):
+            self.skipTest("Sibling participant repositories are not available")
+        retired_psdl_dir = "/Conversation/PSDL/"
+        for root in (CORE_REPO, HOOMANS_REPO, DT_REPO):
+            for path in root.glob("Contents/mods/**/media/lua/**/*.lua"):
+                rel = str(path.relative_to(root)).replace("\\", "/")
+                self.assertNotIn(retired_psdl_dir, rel)
 
     def test_collision_check_flags_existing_convo_engine_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

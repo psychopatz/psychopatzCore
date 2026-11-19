@@ -348,7 +348,7 @@
       "reason": "Interaction Director repair/apology/challenge behaviors with bounded cooldownTurns.",
       "acceptance": {
         "ownerKind": "python_test",
-        "source": "PsychopatzCore/tools/semantic_harness/tests/test_psdl_backend_portability_and_trace_equivalence.py",
+        "source": "PsychopatzCore/tools/semantic_harness/tests/test_convo_engine_backend_portability_and_trace_equivalence.py",
         "testIds": ["test_executed_reference_vm_vs_lua_convo_probe_equivalence"],
         "requiredClaims": ["backend_portability_and_repair_equivalence"]
       }

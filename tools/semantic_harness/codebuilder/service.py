@@ -47,7 +47,6 @@ from .convo_engine_authoring import (
     apply_family_patch,
     build_convo_engine_family_document,
     load_json_document,
-    prepare_bucket_migration,
     prepare_shard_documents,
     resolve_authorized_source_path,
     source_fingerprint_mismatch,
@@ -1064,74 +1063,6 @@ class SemanticLabAuthoringService:
             write=write,
             prune_sources=prune_sources,
         )
-
-    def migrate_legacy_text_identity(
-        self,
-        *,
-        write: bool = False,
-    ) -> dict[str, Any]:
-        """Migrate legacy ``psdl/`` textTarget and ``pnc.psdl.`` textDomain via ConvoEngine validation."""
-        allowed = self._convo_engine_allowed_roots()
-        migrated: list[dict[str, Any]] = []
-        writes: list[str] = []
-        seen_paths: set[Path] = set()
-        for root in allowed:
-            if not root.is_dir():
-                continue
-            for path in sorted(root.rglob("*.json")):
-                resolved = path.expanduser().resolve()
-                if resolved in seen_paths:
-                    continue
-                seen_paths.add(resolved)
-                if path.name == "manifest.json":
-                    continue
-                doc = load_json_document(path)
-                metadata = doc.get("metadata")
-                if not isinstance(metadata, dict):
-                    continue
-                target = metadata.get("textTarget")
-                domain = metadata.get("textDomain")
-                new_target = (
-                    "convo/" + target[len("psdl/"):]
-                    if isinstance(target, str) and target.startswith("psdl/")
-                    else target
-                )
-                new_domain = (
-                    "pnc.convo." + domain[len("pnc.psdl."):]
-                    if isinstance(domain, str) and domain.startswith("pnc.psdl.")
-                    else domain
-                )
-                if new_target == target and new_domain == domain:
-                    continue
-                updated_meta = dict(metadata)
-                if new_target != target:
-                    updated_meta["textTarget"] = new_target
-                if new_domain != domain:
-                    updated_meta["textDomain"] = new_domain
-                result = self.edit_convo_engine_family(
-                    path,
-                    {"metadata": updated_meta},
-                    expected_source_fingerprint=fingerprint(doc),
-                    write=write,
-                )
-                if result.get("ok") is not True:
-                    return result
-                migrated.append({
-                    "path": str(path),
-                    "oldTextTarget": target,
-                    "newTextTarget": new_target,
-                    "oldTextDomain": domain,
-                    "newTextDomain": new_domain,
-                })
-                writes.extend(result.get("writes") or [])
-        return {
-            "ok": True,
-            "previewOnly": not write,
-            "effectFree": not write,
-            "migratedCount": len(migrated),
-            "migrated": migrated,
-            "writes": writes,
-        }
 
     def _conversation_registry_location(
         self,

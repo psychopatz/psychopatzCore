@@ -33,6 +33,12 @@ def _run_harness_cli(argv: list[str]) -> tuple[int, dict]:
 
 class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
     def test_dead_legacy_psdl_crud_methods_removed_and_legacy_quarantined(self) -> None:
+        import argparse
+        from tools.semantic_harness.codebuilder import convo_engine_cli, reconcile
+        from tools.semantic_harness.codebuilder.convo_engine_compiler import (
+            compile_convo_engine_document,
+        )
+
         for removed in (
             "preview_psdl_document",
             "preview_psdl_sources",
@@ -45,6 +51,7 @@ class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
             "delete_psdl_record",
             "reorder_psdl_records",
             "write_psdl_source",
+            "migrate_legacy_text_identity",
         ):
             self.assertFalse(hasattr(SemanticLabAuthoringService, removed), removed)
 
@@ -61,6 +68,59 @@ class ConvoEngineUnifiedCliRoutingTests(unittest.TestCase):
             service.preview_convo_engine_document(legacy_doc)
         rejected = service.validate_convo_engine_document(legacy_doc)
         self.assertFalse(rejected["ok"])
+
+        # CLI help, subparser help texts, reconcile parser help, describe_operations, and CompileError messages
+        # contain zero active PSDL branding.
+        cli_parser = convo_engine_cli.build_parser()
+        help_texts = [
+            cli_parser.format_help(),
+            reconcile.build_parser().format_help(),
+        ]
+        for action in cli_parser._actions:
+            if isinstance(action, argparse._SubParsersAction):
+                for sub_parser in action.choices.values():
+                    help_texts.append(sub_parser.format_help())
+        for text in help_texts:
+            self.assertNotIn("psdl", text.lower())
+
+        ops_text = json.dumps(service.describe_operations(), ensure_ascii=False)
+        self.assertNotIn("psdl", ops_text.lower())
+
+        for invalid_payload in (
+            {"schema": "unknown.schema.v0", "kind": "dialogue", "id": "bad.doc", "owner": "PsychopatzCore"},
+            {"schema": "psychopatz.convo-engine.v1", "kind": "unknown_kind", "id": "bad.kind", "owner": "PsychopatzCore"},
+            {"schema": "psychopatz.semantic.dialogue-language.v1", "kind": "dialogue", "id": "bad.legacy", "owner": "PsychopatzCore"},
+        ):
+            with self.assertRaises(CompileError) as ctx:
+                compile_convo_engine_document(invalid_payload)
+            self.assertNotIn("psdl", str(ctx.exception).lower())
+
+        from tools.semantic_harness.codebuilder.conversation_manifest import (
+            load_manifest,
+        )
+        with tempfile.TemporaryDirectory() as tmp_manifest_dir:
+            tmp_dir = Path(tmp_manifest_dir)
+            bad_manifest = tmp_dir / "manifest.json"
+            bad_manifest.write_text(
+                json.dumps({"schema": "invalid.manifest.v0", "defaultOwner": "PsychopatzCore"}),
+                encoding="utf-8",
+            )
+            with self.assertRaises(CompileError) as m_ctx:
+                load_manifest(tmp_dir, bad_manifest)
+            self.assertNotIn("psdl", str(m_ctx.exception).lower())
+
+            bad_profile_manifest = tmp_dir / "bad_profile_manifest.json"
+            bad_profile_manifest.write_text(
+                json.dumps({
+                    "schema": "pnc.conversation.manifest.v1",
+                    "defaultOwner": "PsychopatzCore",
+                    "sourceProfiles": {"broken": "not-an-object"},
+                }),
+                encoding="utf-8",
+            )
+            with self.assertRaises(CompileError) as p_ctx:
+                load_manifest(tmp_dir, bad_profile_manifest)
+            self.assertNotIn("psdl", str(p_ctx.exception).lower())
 
     def test_main_cli_exposes_workspace_and_convo_operations(self) -> None:
         repo_flags = [

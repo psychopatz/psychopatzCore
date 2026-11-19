@@ -1,7 +1,7 @@
 """CodeBuilder ConvoEngine S6M4 normalization and family-folding engine.
 
 Provides effect-free preview and validated write operations that normalize
-legacy PSDL/fragmented ConvoEngine sources into canonical single-family
+fragmented ConvoEngine sources into canonical single-family
 ``psychopatz.convo-engine.v1`` documents:
 
 - Strips redundant ``semantic.`` and ``text.`` prefixes from family identities
@@ -481,7 +481,7 @@ def normalize_documents(
     write: bool = False,
     prune_sources: bool = False,
 ) -> dict[str, Any]:
-    """Normalize one or more ConvoEngine/PSDL in-memory documents into one canonical family."""
+    """Normalize one or more ConvoEngine in-memory documents into one canonical family."""
     if not documents:
         raise CompileError("normalize_documents requires at least one document")
     resolved_sources = [Path(p).expanduser().resolve() for p in source_paths]
@@ -589,7 +589,7 @@ def normalize_source_group(
     write: bool = False,
     prune_sources: bool = False,
 ) -> dict[str, Any]:
-    """Normalize one or more ConvoEngine/PSDL source files into one canonical family."""
+    """Normalize one or more ConvoEngine source files into one canonical family."""
     if not source_paths:
         raise CompileError("normalize_source_group requires at least one source path")
     resolved_sources = [Path(p).expanduser().resolve() for p in source_paths]

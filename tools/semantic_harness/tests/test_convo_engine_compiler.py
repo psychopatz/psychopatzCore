@@ -110,6 +110,14 @@ class ConvoEngineCompilerTests(unittest.TestCase):
         self.assertEqual(ir["lineage"]["sourceSchema"], CONVO_ENGINE_SCHEMA)
 
     def test_legacy_schema_is_rejected(self) -> None:
+        from tools.semantic_harness import codebuilder as codebuilder_pkg
+        from tools.semantic_harness.codebuilder import convo_engine_compiler
+        from tools.semantic_harness.codebuilder.catalog_naming import SOURCE_ROOT_SEGMENTS
+        from tools.semantic_harness.codebuilder.conversation_assembly import (
+            CONVO_ENGINE_SHARD_KINDS,
+        )
+        from tools.semantic_harness.codebuilder.conversation_manifest import SHARD_KINDS
+
         core_repo = Path(__file__).resolve().parents[3]
         service = SemanticLabAuthoringService(
             repository=core_repo,
@@ -129,10 +137,21 @@ class ConvoEngineCompilerTests(unittest.TestCase):
         strict = service.validate_convo_engine_document(legacy_doc)
         self.assertFalse(strict["ok"])
 
-        bad_hybrid = _load_fixture()
-        bad_hybrid["schema"] = "psychopatz.semantic.dialogue-language.v1"
-        with self.assertRaises(CompileError):
-            compile_convo_engine_document(bad_hybrid)
+        for legacy_schema in (
+            "psychopatz.semantic.dialogue-language.v1",
+            "psychopatz.psdl.v2",
+            "psychopatz.psdl.package.v2",
+        ):
+            bad_hybrid = _load_fixture()
+            bad_hybrid["schema"] = legacy_schema
+            with self.assertRaises(CompileError, msg=legacy_schema):
+                compile_convo_engine_document(bad_hybrid)
+
+        self.assertEqual(CONVO_ENGINE_SHARD_KINDS, frozenset({"convo_engine"}))
+        self.assertNotIn("psdl", SHARD_KINDS)
+        self.assertNotIn("psdl", SOURCE_ROOT_SEGMENTS)
+        self.assertFalse(hasattr(convo_engine_compiler, "render_convo_runtime_plan"))
+        self.assertFalse(hasattr(codebuilder_pkg, "render_convo_runtime_plan"))
 
     def test_affordance_without_say_does_not_fallback_from_button_label(self) -> None:
         doc = {

@@ -1,4 +1,4 @@
-"""Core-owned PSDL compiler and language-validation tests."""
+"""Core-owned ConvoEngine compiler pipeline and language-validation tests."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from tools.semantic_harness.codebuilder.convo_engine_compiler import (
     render_convo_director_plan,
     render_convo_semantic_pack_plan,
     render_convo_ui_plan,
-    render_convo_runtime_plan,
+    render_convo_engine_runtime_plan,
 )
 
 
@@ -113,7 +113,7 @@ def _catalog() -> dict:
     }
 
 
-class PSDLCompilerTests(unittest.TestCase):
+class ConvoEngineCompilerPipelineTests(unittest.TestCase):
     def test_core_authoring_service_mutates_and_validates_convo_engine_families(self) -> None:
         from tools.semantic_harness.tests.convo_engine_test_support import (
             _setup_three_repo_workspace,
@@ -189,7 +189,7 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertEqual(dialogue["when"]["all"][1]["op"], "gte")
         self.assertEqual(dialogue["payload"]["response"]["turns"][0]["offers"][0]["consumers"], ["participant"])
         self.assertEqual(dialogue["payload"]["bindings"]["direction"]["resolver"], "spatial.direction")
-        plans = render_convo_runtime_plan(compiled)
+        plans = render_convo_engine_runtime_plan(compiled)
         dialogue_plan = next(item for item in plans if item["id"] == "social.location.ask")
         self.assertEqual(dialogue_plan["owner"], "ProjectHoomans")
         self.assertTrue(dialogue_plan["module"].startswith("PNC/ConvoEngine/Dialogue/"))

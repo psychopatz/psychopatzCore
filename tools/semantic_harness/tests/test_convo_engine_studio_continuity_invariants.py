@@ -451,6 +451,12 @@ class ConvoEngineStudioContinuityInvariantTests(unittest.TestCase):
                     f"Stale pre-S9 statement {pattern.pattern!r} found in {name}",
                 )
 
+    def test_codebuilder_rejects_legacy_canonical_surface_claim(self) -> None:
+        codebuilder_dir = CORE_ROOT / "tools/semantic_harness/codebuilder"
+        for py_path in sorted(codebuilder_dir.rglob("*.py")):
+            text = py_path.read_text(encoding="utf-8")
+            self.assertNotIn("psdl is the canonical authoring surface", text.lower(), str(py_path))
+
 
 if __name__ == "__main__":
     unittest.main()

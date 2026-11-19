@@ -1,6 +1,6 @@
 # S12R2 — Final Closure Integrity Repair
 
-**Status:** NORMATIVE ACTIVE REPAIR
+**Status:** IMPLEMENTED / VERIFIED — final durable psychopatzCore closure commit pending
 **Date:** 2026-11-19
 **Parent goal:** `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`
 **Retained implementation record:** `S12R1_STRUCTURAL_DATASET_MODERNIZATION_CLOSURE_REPAIR.md`

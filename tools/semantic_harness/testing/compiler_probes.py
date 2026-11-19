@@ -1,7 +1,7 @@
-"""Bounded PSDL / canonical IR / portable plan compiler probes for fixtures.
+"""Bounded ConvoEngine / canonical IR / portable plan compiler probes for fixtures.
 
 Delegates all semantic compilation and inspection to canonical CodeBuilder
-authorities without reimplementing PSDL semantics in the fixture engine.
+authorities without reimplementing ConvoEngine semantics in the fixture engine.
 """
 
 from __future__ import annotations

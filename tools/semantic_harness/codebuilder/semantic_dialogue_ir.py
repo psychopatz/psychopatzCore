@@ -1,6 +1,6 @@
 """Core-owned actor-neutral Semantic Dialogue IR contracts.
 
-This module is the shared normalization boundary for PSDL.  It deliberately
+This module is the shared normalization boundary for ConvoEngine.  It deliberately
 does not select a gameplay authority or render a player/NPC UI projection.
 Those remain downstream consumers of the canonical IR.
 """
@@ -232,7 +232,7 @@ def _validate_predicate_paths(value: Any, label: str = "predicate") -> None:
 
 
 def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None = None) -> dict[str, Any]:
-    """Normalize one ConvoEngine/PSDL envelope into the Core Canonical Semantic Dialogue IR."""
+    """Normalize one ConvoEngine envelope into the Core Canonical Semantic Dialogue IR."""
     if not isinstance(source, Mapping):
         raise CompileError("ConvoEngine source must be an object")
     source_schema = source.get("schema")

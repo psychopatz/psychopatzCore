@@ -67,8 +67,55 @@ class ConvoEngineIntegrityAndDeterminismAuditTests(unittest.TestCase):
         self.assertEqual(report["stats"]["psdlDirectories"], 0)
         self.assertEqual(report["stats"]["catalogLuaLeaves"], 0)
         self.assertEqual(report["stats"]["legacyRuntimeDirectories"], 0)
+        self.assertEqual(report["stats"]["activeCurrentPsdlIdentityCount"], 0)
+        self.assertEqual(report["stats"]["legacyNameViolations"], 0)
+        self.assertGreaterEqual(report["stats"]["historicalNegativeDetectionCount"], 1)
         self.assertEqual(report["determinism"]["diffs"], [])
         self.assertGreaterEqual(report["compiled"]["convoPlans"], 400)
+
+    def test_rejects_active_legacy_symbols_in_codebuilder_ui_studio_entrypoints(self) -> None:
+        import ast
+        from tools.semantic_harness.codebuilder.convo_engine_naming_audit import (
+            _ALLOWED_AUDIT_IDENTIFIERS,
+            _HISTORICAL_PREFIX_IDENT_RE,
+        )
+
+        allowed_audit_symbols = set(_ALLOWED_AUDIT_IDENTIFIERS) | {
+            "psdl_dirs",
+            "_PSDL_RE",
+            "path_has_psdl",
+            "text_has_psdl",
+        }
+        harness_root = ROOT / "tools" / "semantic_harness"
+        findings: list[str] = []
+        for sub in ("codebuilder", "ui", "studio", "entrypoints"):
+            sub_dir = harness_root / sub
+            if not sub_dir.is_dir():
+                continue
+            for py_path in sorted(sub_dir.rglob("*.py")):
+                rel = py_path.relative_to(ROOT).as_posix()
+                tree = ast.parse(py_path.read_text(encoding="utf-8"), str(py_path))
+                for node in ast.walk(tree):
+                    candidates: list[str] = []
+                    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                        candidates.append(node.name)
+                    elif isinstance(node, ast.Name):
+                        candidates.append(node.id)
+                    elif isinstance(node, ast.Attribute):
+                        candidates.append(node.attr)
+                    for name in candidates:
+                        if "psdl" not in name.lower():
+                            continue
+                        if name in allowed_audit_symbols or _HISTORICAL_PREFIX_IDENT_RE.match(name):
+                            continue
+                        findings.append(f"{rel}:{getattr(node, 'lineno', 0)}:{name}")
+        self.assertEqual(findings, [])
+
+        studio_builder = harness_root / "ui" / "studio_surface_builder.py"
+        if studio_builder.is_file():
+            studio_src = studio_builder.read_text(encoding="utf-8")
+            self.assertNotIn("psdl_authoring", studio_src)
+            self.assertNotIn("psdl_frame", studio_src)
 
     def test_audit_catches_stale_metadata_and_legacy_schema_in_isolated_tree(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

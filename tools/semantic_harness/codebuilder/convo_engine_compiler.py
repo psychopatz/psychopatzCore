@@ -1,6 +1,6 @@
-"""Core-owned PSDL parser, normalizer and deterministic runtime plan compiler.
+"""Core-owned ConvoEngine parser, normalizer and deterministic runtime plan compiler.
 
-PSDL records are authoring input only.  This module produces the canonical
+ConvoEngine records are authoring input only.  This module produces the canonical
 Semantic Dialogue IR and a bounded plan for the already accepted response,
 behavior, beat and realization authorities; it does not introduce a second
 dialogue runtime.
@@ -679,7 +679,7 @@ def _director_record_projection(record: Mapping[str, Any]) -> dict[str, Any]:
             )
         projected = _validate_behavior_shard(
             {"behaviors": [payload]},
-            f"PSDL {record['id']}",
+            f"ConvoEngine {record['id']}",
             default_owner=record["owner"],
         )["records"][0]
         projected.update(hook_fields)
@@ -697,7 +697,7 @@ def _director_record_projection(record: Mapping[str, Any]) -> dict[str, Any]:
         )
     projected = _validate_beat_shard(
         {"beats": [payload]},
-        f"PSDL {record['id']}",
+        f"ConvoEngine {record['id']}",
         default_owner=record["owner"],
     )["records"][0]
     projected.update(hook_fields)
@@ -1133,15 +1133,10 @@ def render_convo_engine_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[s
     return plans
 
 
-def render_convo_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """Compatibility alias for ``render_convo_engine_runtime_plan``."""
-    return render_convo_engine_runtime_plan(compiled)
-
-
 def render_convo_director_plan(compiled: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
-    """Project PSDL behaviors and beats into the existing director registries."""
+    """Project ConvoEngine behaviors and beats into the existing director registries."""
     if compiled.get("schema") != CONVO_ENGINE_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     plan: dict[str, list[dict[str, Any]]] = {"behaviors": [], "beats": []}
     for record in compiled.get("records", []):
         kind = record.get("kind")
@@ -1155,10 +1150,10 @@ def render_convo_director_plan(compiled: Mapping[str, Any]) -> dict[str, list[di
 
 
 def _legacy_condition_projection(predicate: Any) -> Any:
-    """Project a public PSDL predicate for the existing bounded selector seam.
+    """Project a public ConvoEngine predicate for the existing bounded selector seam.
 
     The selector remains a runtime consumer; the semantic condition is authored
-    and validated in PSDL.  Flat ``conversation.*`` leaves are projected to the
+    and validated in ConvoEngine.  Flat ``conversation.*`` leaves are projected to the
     selector's historical context keys so adopters do not need a second
     predicate language during the migration.
     """
@@ -1191,9 +1186,9 @@ def _legacy_condition_projection(predicate: Any) -> Any:
 
 
 def render_convo_response_pool_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """Project PSDL response variants into the existing ResponsePlan catalog."""
+    """Project ConvoEngine response variants into the existing ResponsePlan catalog."""
     if compiled.get("schema") != CONVO_ENGINE_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     pools: list[dict[str, Any]] = []
     for record in compiled.get("records", []):
         if record.get("kind") != "dialogue":
@@ -1259,9 +1254,9 @@ def render_convo_response_pool_plan(compiled: Mapping[str, Any]) -> list[dict[st
 
 
 def render_convo_flow_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """Project PSDL authored triggers into the accepted flow registry shape."""
+    """Project ConvoEngine authored triggers into the accepted flow registry shape."""
     if compiled.get("schema") != CONVO_ENGINE_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     flows: list[dict[str, Any]] = []
     for record in compiled.get("records", []):
         if record.get("kind") != "dialogue":
@@ -1301,9 +1296,9 @@ def render_convo_realization_plan(
     *,
     source_path: str = "realization/realization.json",
 ) -> list[dict[str, Any]]:
-    """Project structured PSDL realization records into SpeechRealization input."""
+    """Project structured ConvoEngine realization records into SpeechRealization input."""
     if compiled.get("schema") != CONVO_ENGINE_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     output: list[dict[str, Any]] = []
     for record in compiled.get("records", []):
         if record.get("kind") != "realization":
@@ -1334,9 +1329,9 @@ def render_convo_realization_plan(
 
 
 def render_convo_ui_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """Project top-level PSDL offers into the existing UI suggestion rows."""
+    """Project top-level ConvoEngine offers into the existing UI suggestion rows."""
     if compiled.get("schema") != CONVO_ENGINE_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     rows_by_namespace: dict[str, list[dict[str, Any]]] = {}
     for record in compiled.get("records", []):
         if record.get("kind") != "dialogue":
@@ -1468,7 +1463,7 @@ def render_convo_ui_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
                     "textNamespace": namespace,
                     "suggestions": rows_by_namespace[namespace],
                 },
-                f"PSDL UI projection {namespace}",
+                f"ConvoEngine UI projection {namespace}",
             )["suggestions"]
         )
     rows.sort(key=lambda item: (item["order"], item["id"]))
@@ -1476,9 +1471,9 @@ def render_convo_ui_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 
 def render_convo_semantic_pack_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
-    """Project PSDL recognition declarations into the existing semantic-pack authority."""
+    """Project ConvoEngine recognition declarations into the existing semantic-pack authority."""
     if compiled.get("schema") != CONVO_ENGINE_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     packs: list[dict[str, Any]] = []
     seen: set[str] = set()
     for record in compiled.get("records", []):
@@ -1497,7 +1492,7 @@ def render_convo_semantic_pack_plan(compiled: Mapping[str, Any]) -> list[dict[st
                 pack[field] = _copy(recognition[field])
         if pack["id"] in seen:
             raise CompileError(
-                f"PSDL document repeats semantic-pack ID: {pack['id']}"
+                f"ConvoEngine document repeats semantic-pack ID: {pack['id']}"
             )
         seen.add(pack["id"])
         validated = compile_semantic_pack_shard(
@@ -1507,7 +1502,7 @@ def render_convo_semantic_pack_plan(compiled: Mapping[str, Any]) -> list[dict[st
                 "source": {"owner": record["owner"], "version": "1"},
                 "packs": [pack],
             },
-            f"PSDL {record['id']}.recognition",
+            f"ConvoEngine {record['id']}.recognition",
         )
         packs.extend(validated["packs"])
     return sorted(packs, key=lambda item: str(item.get("id", "")))
@@ -1533,7 +1528,7 @@ def render_pz_backend_from_portable_plan(
     entry_map = entry_by_record_id or {}
 
     runtime_plans: list[dict[str, Any]] = []
-    for plan in render_convo_runtime_plan(compiled_envelope):
+    for plan in render_convo_engine_runtime_plan(compiled_envelope):
         row = _copy(plan)
         entry = entry_map.get(str(row.get("id") or "")) or {}
         row["owner"] = normalize_owner(entry.get("owner") or row.get("owner"), default=default_owner)
@@ -1653,5 +1648,4 @@ __all__ = [
     "render_convo_director_plan",
     "render_convo_ui_plan",
     "render_convo_semantic_pack_plan",
-    "render_convo_runtime_plan",
 ]

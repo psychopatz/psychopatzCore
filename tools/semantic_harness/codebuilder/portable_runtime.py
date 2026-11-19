@@ -160,7 +160,7 @@ def compile_portable_plan(
     *,
     package: str = "default",
 ) -> dict[str, Any]:
-    """Compile canonical PSDL IR records into a target-neutral Portable Dialogue Plan JSON."""
+    """Compile canonical ConvoEngine IR records into a target-neutral Portable Dialogue Plan JSON."""
     dialogues: dict[str, dict[str, Any]] = {}
     behaviors: dict[str, dict[str, Any]] = {}
     beats: dict[str, dict[str, Any]] = {}

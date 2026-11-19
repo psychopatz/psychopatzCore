@@ -35,7 +35,7 @@ from .convo_engine_compiler import (
 from .semantic_dialogue_ir import CONVO_ENGINE_SCHEMA, SUPPORTED_SOURCE_SCHEMAS
 from .translation_support import DEFAULT_LANGUAGE, normalize_language
 
-CONVO_ENGINE_SHARD_KINDS = frozenset({"psdl", "convo_engine"})
+CONVO_ENGINE_SHARD_KINDS = frozenset({"convo_engine"})
 
 
 def _hydrate_shard_provenance(
@@ -219,8 +219,8 @@ def _content_source(
 ) -> tuple[dict[str, Any], dict[str, str]]:
     documents = [document for document, entry, _ in shards if entry["kind"] == "content"]
     if not documents:
-        # PSDL is the canonical authoring surface.  A manifest containing only
-        # PSDL, patterns, flows, or other first-class modules must not be
+        # ConvoEngine is the canonical authoring surface.  A manifest containing only
+        # ConvoEngine, patterns, flows, or other first-class modules must not be
         # forced to retain a synthetic legacy content shard merely to satisfy
         # the aggregate model shape.  Keep the runtime contract stable with an
         # empty content projection and a deterministic fingerprint.

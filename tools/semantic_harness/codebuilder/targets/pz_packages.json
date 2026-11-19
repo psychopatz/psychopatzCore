@@ -1,5 +1,5 @@
 {
-  "schema": "psdl.target-registry.v1",
+  "schema": "psychopatz.convo-engine.target-registry.v1",
   "version": 1,
   "packages": {
     "PsychopatzCore": {

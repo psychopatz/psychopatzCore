@@ -1,6 +1,6 @@
 # S12R1 — Structural Dataset Modernization Closure Repair
 
-**Status:** IMPLEMENTED / RETAINED — structural modernization accepted; final closure claim superseded by S12R2
+**Status:** HISTORICAL / IMPLEMENTED / RETAINED — structural modernization accepted; final durable S12 closure owned by the pending Core commit boundary
 **Date:** 2026-11-19
 **Parent goal:** `S12_CONVO_ENGINE_V1_DATASET_MODERNIZATION.md`
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`

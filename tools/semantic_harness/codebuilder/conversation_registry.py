@@ -177,7 +177,7 @@ def render_conversation_registry(
             lines.append(f"appendBeats({loaded_expression})")
         elif report["kind"] == "Packs":
             lines.append(f"appendPacks({loaded_expression})")
-        elif report["kind"] in ("ConvoEngine", "PSDL"):
+        elif report["kind"] == "ConvoEngine":
             lines.append(f"appendConvoPlans({loaded_expression})")
         elif report["kind"] == "UI":
             lines.append(f"appendUI({loaded_expression})")

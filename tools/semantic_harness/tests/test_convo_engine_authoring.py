@@ -116,7 +116,7 @@ class ConvoEngineAuthoringTests(unittest.TestCase):
                 repository=repo,
                 core_repository=core_repo,
             )
-            legacy_bucket = repo / "psdl/dialogue/social_greetings.json"
+            legacy_bucket = repo / "dialogue/social_greetings.json"
             legacy_bucket.parent.mkdir(parents=True, exist_ok=True)
             legacy_doc = {
                 "schema": CONVO_ENGINE_SCHEMA,

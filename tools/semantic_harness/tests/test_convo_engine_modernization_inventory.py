@@ -110,6 +110,8 @@ class ConvoEngineModernizationInventoryTests(unittest.TestCase):
         self.assertEqual(summary["openActionableGroupCount"], 0)
         self.assertEqual(summary["missingCompositionHookCount"], 0)
         self.assertEqual(summary["legacySchemaReaderCount"], 0)
+        self.assertEqual(summary["activeCurrentPsdlIdentityCount"], 0)
+        self.assertGreaterEqual(summary["historicalNegativeDetectionCount"], 1)
 
     def test_intentional_retention_requires_machine_checkable_evidence_and_does_not_hide_open_findings(self) -> None:
         baseline = build_modernization_inventory(

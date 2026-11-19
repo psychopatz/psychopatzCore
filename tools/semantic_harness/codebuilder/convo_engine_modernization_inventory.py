@@ -6,13 +6,17 @@ split-authority audits. Never maintains a separate manual semantic registry.
 
 from __future__ import annotations
 
+import json
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Mapping
 
 from .completeness_analyzer import analyze_portable_plan
+from .conversation_assembly import CONVO_ENGINE_SHARD_KINDS
 from .conversation_compiler import compile_conversation_sources
+from .conversation_manifest import SHARD_KINDS
 from .convo_engine_integrity_audit import audit_split_action_authority
+from .convo_engine_naming_audit import scan_active_legacy_name_leakage
 from .semantic_dialogue_ir import SUPPORTED_SOURCE_SCHEMAS
 
 MODERNIZATION_INVENTORY_SCHEMA = "psychopatz.convo-engine.modernization-inventory.v1"
@@ -219,10 +223,32 @@ def _count_legacy_schema_readers(core_root: Path) -> int:
     count = 0
     if any(s != "psychopatz.convo-engine.v1" for s in SUPPORTED_SOURCE_SCHEMAS):
         count += 1
+    pz_packages_path = (
+        core_root / "tools" / "semantic_harness" / "codebuilder" / "targets" / "pz_packages.json"
+    )
+    if pz_packages_path.is_file():
+        try:
+            pz_packages_doc = json.loads(pz_packages_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            count += 1
+        else:
+            if (
+                not isinstance(pz_packages_doc, Mapping)
+                or pz_packages_doc.get("schema") != "psychopatz.convo-engine.target-registry.v1"
+            ):
+                count += 1
+    else:
+        count += 1
+    if "psdl" in SHARD_KINDS:
+        count += 1
+    if "psdl" in CONVO_ENGINE_SHARD_KINDS:
+        count += 1
     codebuilder_dir = core_root / "tools" / "semantic_harness" / "codebuilder"
     for legacy_name in ("psdl_compiler.py", "psdl_compact.py", "psdl_inspect.py", "psdl_authoring_audit.py"):
         if (codebuilder_dir / legacy_name).is_file():
             count += 1
+    if (core_root / "tools" / "semantic_harness" / "studio" / "psdl_authoring_pane.py").is_file():
+        count += 1
     return count
 
 
@@ -728,6 +754,13 @@ def build_modernization_inventory(
     retained_groups = sum(1 for g in groups if g["closureState"] == "INTENTIONALLY_RETAINED")
     legacy_readers = _count_legacy_schema_readers(core_root)
     split_count = len(split_findings)
+    leakage = scan_active_legacy_name_leakage(
+        core_repository=core_root,
+        hoomans_repository=hoomans_root if hoomans_root.is_dir() else None,
+        dynamic_trading_repository=dt_root if dt_root.is_dir() else None,
+    )
+    active_current_psdl_identity_count = int(leakage["activeCurrentPsdlIdentityCount"])
+    historical_negative_detection_count = int(leakage["historicalNegativeDetectionCount"])
 
     closure_ok = (
         len(records) == len(plans)
@@ -738,6 +771,7 @@ def build_modernization_inventory(
         and split_count == 0
         and missing_hooks == 0
         and legacy_readers == 0
+        and active_current_psdl_identity_count == 0
     )
 
     return {
@@ -759,6 +793,8 @@ def build_modernization_inventory(
             "resolvedCount": resolved_families,
             "missingCompositionHookCount": missing_hooks,
             "legacySchemaReaderCount": legacy_readers,
+            "activeCurrentPsdlIdentityCount": active_current_psdl_identity_count,
+            "historicalNegativeDetectionCount": historical_negative_detection_count,
             "byClassification": dict(sorted(class_counts.items())),
             "byClosureState": dict(sorted(closure_counts.items())),
         },

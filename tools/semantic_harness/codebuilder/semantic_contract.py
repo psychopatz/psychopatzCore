@@ -1,7 +1,7 @@
 """Canonical S11 v1 semantic data-model and domain-schema contracts.
 
 This module freezes the generic, participant-count-agnostic structural
-vocabulary for ConvoEngine / PSDL before compiler normalization, analyzer
+vocabulary for ConvoEngine before compiler normalization, analyzer
 construction, or production dialogue migration.
 """
 

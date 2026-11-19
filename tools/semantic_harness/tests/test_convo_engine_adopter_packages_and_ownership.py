@@ -19,6 +19,12 @@ from tools.semantic_harness.codebuilder.conversation_compiler import (
     render_conversation_runtime_plan,
 )
 from tools.semantic_harness.codebuilder.errors import CompileError
+from tools.semantic_harness.codebuilder.generation_ownership import (
+    DEFAULT_TARGETS_PATH,
+    TARGET_REGISTRY_SCHEMA,
+    OwnerConfigurationError,
+    load_package_descriptors,
+)
 from tools.semantic_harness.codebuilder.convo_engine_compact import (
     CONVO_ENGINE_PACKAGE_SCHEMA,
     PROVENANCE_LOCK_SCHEMA,
@@ -31,7 +37,7 @@ HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
 DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
 
 
-class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
+class ConvoEngineAdopterPackagesAndOwnershipTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.pkg_repos = {
@@ -173,3 +179,28 @@ class PsdlAdopterPackagesAndOwnershipTests(unittest.TestCase):
         )
         self.assertEqual(loc_dt["package"], "DTCommon")
         self.assertIn("PsychopatzCore", loc_dt["importedPackages"])
+
+    def test_target_registry_schema_and_fail_closed_legacy_rejection(self) -> None:
+        live_raw = json.loads(DEFAULT_TARGETS_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(TARGET_REGISTRY_SCHEMA, "psychopatz.convo-engine.target-registry.v1")
+        self.assertEqual(live_raw.get("schema"), TARGET_REGISTRY_SCHEMA)
+        live_loaded = load_package_descriptors(DEFAULT_TARGETS_PATH)
+        self.assertIn("PsychopatzCore", live_loaded)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            base_packages = {
+                "PsychopatzCore": {
+                    "sharedLuaRelative": "Contents/mods/PsychopatzCore/common/media/lua/shared",
+                    "conversationPrefix": "PsychopatzCore/ConvoEngine",
+                    "translationRelative": "Contents/mods/PsychopatzCore/common/media/translation",
+                }
+            }
+            for idx, bad_payload in enumerate((
+                {"schema": "psdl.target-registry.v1", "packages": base_packages},
+                {"packages": base_packages},
+                {"schema": "unknown.target-registry.v9", "packages": base_packages},
+            )):
+                bad_path = Path(tmp) / f"bad_targets_{idx}.json"
+                bad_path.write_text(json.dumps(bad_payload), encoding="utf-8")
+                with self.assertRaises(OwnerConfigurationError):
+                    load_package_descriptors(bad_path)

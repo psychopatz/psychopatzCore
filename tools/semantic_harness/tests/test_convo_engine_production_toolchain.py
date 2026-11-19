@@ -1,4 +1,4 @@
-"""G8R1–G8R5: Production compact PSDL, portable-plan seam, special-logic migration,
+"""G8R1–G8R5: Production compact ConvoEngine, portable-plan seam, special-logic migration,
 data-driven routing, and cross-backend trace equivalence tests."""
 
 from __future__ import annotations
@@ -45,7 +45,7 @@ DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
 RECIPE_PATH = CORE_ROOT / "tools/semantic_harness/codebuilder/generation_recipe.json"
 
 
-class PsdlProductionToolchainTests(unittest.TestCase):
+class ConvoEngineProductionToolchainTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.model = compile_conversation_sources(
@@ -58,7 +58,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
         )
         cls.portable_plan = cls.model["portablePlan"]
 
-    def test_production_compact_psdl_corpus_and_sidecars(self) -> None:
+    def test_production_compact_convo_engine_corpus_and_sidecars(self) -> None:
         conv_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation"
         pkg = json.loads((conv_root / "package.json").read_text(encoding="utf-8"))
         prov = json.loads((conv_root / "provenance.lock").read_text(encoding="utf-8"))
@@ -333,7 +333,7 @@ class PsdlProductionToolchainTests(unittest.TestCase):
             self.portable_plan["dialogues"]["command.camp"]["action"],
         )
 
-        # 3. Progressive disclosure inspection works on compact PSDL
+        # 3. Progressive disclosure inspection works on compact ConvoEngine
         from tools.semantic_harness.codebuilder.portable_runtime import portable_plan_records
         summary = inspect_convo_engine(
             portable_plan_records(self.portable_plan),

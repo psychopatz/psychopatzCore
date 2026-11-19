@@ -18,6 +18,9 @@ from typing import Any, Callable, Mapping, Sequence
 from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
     audit_convo_engine_workspace,
 )
+from tools.semantic_harness.codebuilder.convo_engine_modernization_inventory import (
+    build_modernization_inventory,
+)
 from tools.semantic_harness.kahlua_verifier.verify import (
     MAX_LUA_FILES,
     run_check as run_kahlua_check,
@@ -779,9 +782,31 @@ def run_convo_audit_suite(repos: dict[str, Path]) -> dict[str, Any]:
         check_determinism=True,
         require_all_owners=True,
     )
+    closure = build_modernization_inventory(
+        repos["core"],
+        hoomans_repository=repos["hoomans"],
+        dynamic_trading_repository=repos["dynamic_trading"],
+        closure=True,
+    )
     duration = time.monotonic() - started
     violations = audit.get("violations", [])
-    ok = bool(audit.get("ok")) and not violations
+    audit_stats = audit.get("stats", {})
+    closure_summary = closure.get("summary", {})
+    ok = (
+        bool(audit.get("ok"))
+        and not violations
+        and int(audit_stats.get("activeCurrentPsdlIdentityCount", -1)) == 0
+        and closure.get("closureOk") is True
+        and int(closure_summary.get("activeCurrentPsdlIdentityCount", -1)) == 0
+    )
+    failures: list[dict[str, Any]] = []
+    if violations:
+        failures.append({"violations": violations[:16]})
+    if not ok and (
+        closure.get("closureOk") is not True
+        or int(closure_summary.get("activeCurrentPsdlIdentityCount", -1)) != 0
+    ):
+        failures.append({"modernizationClosure": closure_summary})
     return _suite_record(
         "convo_audit",
         ok=ok,
@@ -791,12 +816,13 @@ def run_convo_audit_suite(repos: dict[str, Path]) -> dict[str, Any]:
         skipped=0,
         allowed_skips=0,
         duration=duration,
-        failures=[{"violations": violations[:16]}] if not ok else [],
+        failures=failures,
         details={
-            "stats": audit.get("stats", {}),
+            "stats": audit_stats,
             "compiled": audit.get("compiled", {}),
             "determinism": audit.get("determinism", {}),
             "violationCount": audit.get("violationCount", len(violations)),
+            "modernizationClosure": closure_summary,
         },
     )
 

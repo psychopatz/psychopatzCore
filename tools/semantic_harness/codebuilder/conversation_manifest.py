@@ -35,7 +35,7 @@ from .source_manifest import (
 CONVERSATION_MANIFEST_SCHEMA = "pnc.conversation.manifest.v1"
 SHARD_KINDS = frozenset((
     "content", "patterns", "responses", "flows", "beats", "behaviors",
-    "realization", "ui", "packs", "psdl", "convo_engine",
+    "realization", "ui", "packs", "convo_engine",
 ))
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 
@@ -218,7 +218,7 @@ def load_manifest(
     package_doc: dict[str, Any] | None = None
     if package_path.is_file():
         package_doc = validate_package_descriptor(
-            read_json(package_path, "PSDL package descriptor")
+            read_json(package_path, "ConvoEngine package descriptor")
         )
     if manifest_path.name == "package.json":
         manifest = dict(package_doc or {})
@@ -248,10 +248,10 @@ def load_manifest(
             if key in package_doc and key not in manifest:
                 manifest[key] = deepcopy(package_doc[key])
     if provenance_path.is_file():
-        prov_doc = read_json(provenance_path, "PSDL provenance lock")
+        prov_doc = read_json(provenance_path, "ConvoEngine provenance lock")
         if prov_doc.get("schema") != PROVENANCE_LOCK_SCHEMA:
             raise CompileError(
-                f"PSDL provenance lock requires schema {PROVENANCE_LOCK_SCHEMA}"
+                f"ConvoEngine provenance lock requires schema {PROVENANCE_LOCK_SCHEMA}"
             )
         if isinstance(prov_doc.get("sourceProfiles"), dict):
             manifest.setdefault("sourceProfiles", {}).update(
@@ -323,15 +323,15 @@ def load_manifest(
 
     raw_imports = manifest.get("imports") or []
     if not isinstance(raw_imports, list):
-        raise CompileError("PSDL package imports must be a list")
+        raise CompileError("ConvoEngine package imports must be a list")
     imported_entries: list[dict[str, Any]] = []
     for imp in raw_imports:
         if not isinstance(imp, str) or not imp.strip():
-            raise CompileError("PSDL package import entry must be a non-empty string")
+            raise CompileError("ConvoEngine package import entry must be a non-empty string")
         try:
             imp_desc = package_descriptor(imp.strip())
         except OwnerConfigurationError as error:
-            raise CompileError(f"Unknown imported PSDL package {imp!r}: {error}") from error
+            raise CompileError(f"Unknown imported ConvoEngine package {imp!r}: {error}") from error
         if imp_desc.owner in active_visited:
             continue
         imp_repo = resolved_package_repositories.get(imp_desc.owner)
@@ -340,7 +340,7 @@ def load_manifest(
                 imp_repo = owner_repository(repository, imp_desc.owner)
             except OwnerConfigurationError as error:
                 raise CompileError(
-                    f"Missing repository for imported PSDL package {imp!r}: {error}"
+                    f"Missing repository for imported ConvoEngine package {imp!r}: {error}"
                 ) from error
         imp_root = imp_repo / imp_desc.source_root_relative
         imp_manifest_path = imp_root / "package.json"
@@ -348,7 +348,7 @@ def load_manifest(
             imp_manifest_path = imp_root / "manifest.json"
         if not imp_manifest_path.is_file():
             raise CompileError(
-                f"Imported PSDL package {imp!r} is missing package.json/manifest.json under {imp_root}"
+                f"Imported ConvoEngine package {imp!r} is missing package.json/manifest.json under {imp_root}"
             )
         imp_manifest, imp_loaded_entries = load_manifest(
             imp_repo,

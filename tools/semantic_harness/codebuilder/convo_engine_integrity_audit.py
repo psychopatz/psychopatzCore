@@ -329,6 +329,8 @@ def audit_convo_engine_workspace(
         "catalogLuaLeaves": 0,
         "legacyRuntimeDirectories": 0,
         "legacyNameViolations": 0,
+        "activeCurrentPsdlIdentityCount": 0,
+        "historicalNegativeDetectionCount": 0,
     }
 
     if require_all_owners:
@@ -489,7 +491,9 @@ def audit_convo_engine_workspace(
         hoomans_repository=hoomans_root,
         dynamic_trading_repository=dt_root,
     )
-    stats["legacyNameViolations"] = len(leakage["violations"])
+    stats["activeCurrentPsdlIdentityCount"] = leakage["activeCurrentPsdlIdentityCount"]
+    stats["historicalNegativeDetectionCount"] = leakage["historicalNegativeDetectionCount"]
+    stats["legacyNameViolations"] = leakage["activeCurrentPsdlIdentityCount"]
     violations.extend(leakage["violations"])
 
     return {

@@ -48,7 +48,7 @@ HOOMANS_ROOT = CORE_ROOT.parent / "ProjectHoomans"
 DT_ROOT = CORE_ROOT.parent / "DynamicTrading"
 
 
-class PsdlBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
+class ConvoEngineBackendPortabilityAndTraceEquivalenceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.model = compile_conversation_sources(
