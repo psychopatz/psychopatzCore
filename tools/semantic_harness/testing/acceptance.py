@@ -48,6 +48,10 @@ CORE_LUA_PATTERNS: tuple[str, ...] = (
     "*semantic*.lua",
     "*runtime_role*.lua",
     "*conversation*.lua",
+    "*social*.lua",
+    "*actor*.lua",
+    "*player_identity*.lua",
+    "*hotplug*.lua",
 )
 
 UNRELATED_BASELINES_PATH = Path(__file__).with_name("unrelated_baselines.json")

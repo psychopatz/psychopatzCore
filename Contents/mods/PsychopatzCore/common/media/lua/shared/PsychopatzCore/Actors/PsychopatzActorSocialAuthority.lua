@@ -150,4 +150,40 @@ function Authority.MigrateAliases(actorID, canonicalKey, aliasKeys, core,
     return commitSocial(actorID, social, core, expectedActorRevision)
 end
 
+function Authority.RecalculateRelationship(actorID, target, worldAgeHours,
+    core, expectedActorRevision, options)
+    local actor, reason = Authority.Get(actorID, core)
+    if not actor then return nil, reason end
+
+    local social = Social.NewState(actor.social)
+    if not social then return nil, "social_state_invalid" end
+    local updated
+    updated, reason = Social.RecalculateRelationship(
+        social,
+        target,
+        worldAgeHours,
+        options
+    )
+    if not updated then return nil, reason end
+
+    return commitSocial(actorID, social, core, expectedActorRevision)
+end
+
+function Authority.QueryCandidateProjection(actorID, target, options, core)
+    local actor, reason = Authority.Get(actorID, core)
+    if not actor then return nil, reason end
+    local social = actor.social
+    if not social then return nil, "social_state_invalid" end
+    return Social.QueryCandidateProjection(social, target, options)
+end
+
+function Authority.EvaluateAutonomyCandidates(actorID, target, candidates,
+    options, core)
+    local actor, reason = Authority.Get(actorID, core)
+    if not actor then return nil, reason end
+    local social = actor.social
+    if not social then return nil, "social_state_invalid" end
+    return Social.EvaluateAutonomyCandidates(social, target, candidates, options)
+end
+
 return Authority
