@@ -21,6 +21,12 @@
         "personalityModulation": true,
         "cooldownHours": 1
       },
+      "references": {
+        "target": "WEAK",
+        "maxActorRefs": 1,
+        "maxStrongRefs": 0,
+        "degradeOnPurge": "DROP"
+      },
       "evidence": {
         "semantic": true,
         "classes": ["greeting"],
@@ -48,6 +54,13 @@
         "familiarityDelta": 3,
         "personalityModulation": true
       },
+      "references": {
+        "target": "WEAK",
+        "source": "WEAK",
+        "maxActorRefs": 2,
+        "maxStrongRefs": 0,
+        "degradeOnPurge": "LABEL_ONLY"
+      },
       "evidence": {
         "semantic": true,
         "classes": ["assistance"],
@@ -74,6 +87,13 @@
         "familiarityDelta": 1,
         "personalityModulation": true
       },
+      "references": {
+        "target": "WEAK",
+        "source": "WEAK",
+        "maxActorRefs": 2,
+        "maxStrongRefs": 0,
+        "degradeOnPurge": "DROP"
+      },
       "evidence": {
         "semantic": true,
         "classes": ["grievance"],
@@ -88,7 +108,7 @@
         "salience": 230,
         "decayPerDay": 0.0,
         "permanent": true,
-        "anchorMax": 6,
+        "anchorMax": 16,
         "shareable": true,
         "observerPolicy": { "maxObservers": 6, "allowWitnesses": true },
         "hearsayPolicy": { "allowHearsay": true, "maxHops": 2, "attenuation": 0.6 }
@@ -99,6 +119,13 @@
         "familiarityDelta": 5,
         "personalityModulation": true,
         "updateState": true
+      },
+      "references": {
+        "target": "STRONG",
+        "source": "WEAK",
+        "maxActorRefs": 2,
+        "maxStrongRefs": 1,
+        "degradeOnPurge": "KEEP_HISTORICAL"
       },
       "evidence": {
         "semantic": true,
@@ -125,6 +152,13 @@
         "respectDelta": 0,
         "familiarityDelta": 0,
         "personalityModulation": false
+      },
+      "references": {
+        "target": "WEAK",
+        "source": "WEAK",
+        "maxActorRefs": 2,
+        "maxStrongRefs": 0,
+        "degradeOnPurge": "LABEL_ONLY"
       },
       "evidence": {
         "semantic": true,
@@ -153,6 +187,12 @@
         "personalityModulation": true,
         "cooldownHours": 4
       },
+      "references": {
+        "target": "WEAK",
+        "maxActorRefs": 1,
+        "maxStrongRefs": 0,
+        "degradeOnPurge": "LABEL_ONLY"
+      },
       "evidence": {
         "semantic": true,
         "classes": ["repair"],
@@ -179,6 +219,12 @@
         "familiarityDelta": 1,
         "personalityModulation": true,
         "cooldownHours": 2
+      },
+      "references": {
+        "target": "WEAK",
+        "maxActorRefs": 1,
+        "maxStrongRefs": 0,
+        "degradeOnPurge": "DROP"
       },
       "evidence": {
         "semantic": true,

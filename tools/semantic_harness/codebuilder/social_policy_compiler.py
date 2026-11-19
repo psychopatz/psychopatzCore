@@ -26,10 +26,18 @@ SOCIAL_POLICY_GENERATED_MARKER = (
 )
 
 VALID_RETENTION_CLASSES = frozenset({"SCENE", "SHORT", "LONG", "ANCHOR"})
-MAX_ANCHOR_BUDGET = 6
+MAX_ANCHOR_BUDGET = 16
 ANCHOR_MIN_SALIENCE = 180
 MAX_OBSERVERS_LIMIT = 8
 MAX_HEARSAY_HOPS = 2
+
+VALID_REF_STRENGTHS = frozenset({"STRONG", "WEAK", "LABEL_ONLY"})
+ALLOWED_REF_ROLES = frozenset(
+    {"target", "subject", "source", "witness", "actor", "beneficiary", "perpetrator"}
+)
+VALID_DEGRADE_POLICIES = frozenset({"LABEL_ONLY", "DROP", "KEEP_HISTORICAL"})
+MAX_DURABLE_ACTOR_REFS = 3
+MAX_STRONG_ACTOR_REFS = 2
 
 _FORBIDDEN_PORTABILITY_RE = re.compile(
     r"(?:\b(?:IsoPlayer|IsoZombie|IsoGameCharacter|getGameTime|getPlayer|ModData|GlobalModData|"
@@ -82,6 +90,126 @@ def _require_int(value: Any, label: str, lo: int, hi: int) -> int:
     if value < lo or value > hi:
         raise CompileError(f"{label}={value} outside allowed bounds [{lo}, {hi}]")
     return value
+
+
+def _normalize_references(
+    raw_refs: Any,
+    *,
+    source_rel: str,
+    event_id: str,
+    retention: str,
+) -> dict[str, Any]:
+    default_target = "STRONG" if retention == "ANCHOR" else "WEAK"
+    default_degrade = "LABEL_ONLY" if retention in ("ANCHOR", "LONG") else "DROP"
+
+    if raw_refs is None:
+        return {
+            "target": default_target,
+            "roles": {"target": default_target},
+            "maxActorRefs": 1,
+            "maxStrongRefs": 1 if retention == "ANCHOR" else 0,
+            "degradeOnPurge": default_degrade,
+        }
+
+    if not isinstance(raw_refs, Mapping):
+        raise CompileError(f"{source_rel}#{event_id}: references block must be an object")
+
+    allowed_ref_keys = {
+        "target", "subject", "source", "witness",
+        "roles", "maxActorRefs", "maxStrongRefs", "degradeOnPurge",
+    }
+    extra_keys = set(raw_refs) - allowed_ref_keys
+    if extra_keys:
+        raise CompileError(f"{source_rel}#{event_id}: unsupported references keys {sorted(extra_keys)}")
+
+    roles: dict[str, str] = {}
+    roles_map = raw_refs.get("roles")
+    if roles_map is not None:
+        if not isinstance(roles_map, Mapping):
+            raise CompileError(f"{source_rel}#{event_id}: references.roles must be an object")
+        for role_name, raw_strength in roles_map.items():
+            role_key = str(role_name)
+            if role_key not in ALLOWED_REF_ROLES:
+                raise CompileError(f"{source_rel}#{event_id}: invalid reference role {role_name!r}")
+            strength = str(raw_strength or "").upper()
+            if strength not in VALID_REF_STRENGTHS:
+                raise CompileError(
+                    f"{source_rel}#{event_id}: invalid reference strength {raw_strength!r} for role {role_key!r}"
+                )
+            roles[role_key] = strength
+
+    for shorthand in ("target", "subject", "source", "witness"):
+        if shorthand in raw_refs and raw_refs[shorthand] is not None:
+            strength = str(raw_refs[shorthand] or "").upper()
+            if strength not in VALID_REF_STRENGTHS:
+                raise CompileError(
+                    f"{source_rel}#{event_id}: invalid reference strength {raw_refs[shorthand]!r} for {shorthand!r}"
+                )
+            if shorthand in roles and roles[shorthand] != strength:
+                raise CompileError(
+                    f"{source_rel}#{event_id}: conflicting references.{shorthand} ({strength}) vs roles[{shorthand!r}] ({roles[shorthand]})"
+                )
+            roles[shorthand] = strength
+
+    if "target" not in roles:
+        roles["target"] = default_target
+
+    strong_count = sum(1 for s in roles.values() if s == "STRONG")
+    non_label_count = sum(1 for s in roles.values() if s != "LABEL_ONLY")
+
+    default_max_actor = min(MAX_DURABLE_ACTOR_REFS, max(1, non_label_count))
+    max_actor_refs = _require_int(
+        raw_refs.get("maxActorRefs", default_max_actor),
+        f"{event_id}.references.maxActorRefs",
+        0,
+        MAX_DURABLE_ACTOR_REFS,
+    )
+    if non_label_count > max_actor_refs:
+        raise CompileError(
+            f"{source_rel}#{event_id}: active actor ref count ({non_label_count}) exceeds references.maxActorRefs ({max_actor_refs})"
+        )
+
+    retention_strong_cap = (
+        0 if retention in ("SCENE", "SHORT")
+        else (1 if retention == "LONG" else MAX_STRONG_ACTOR_REFS)
+    )
+    max_strong_refs = _require_int(
+        raw_refs.get("maxStrongRefs", strong_count),
+        f"{event_id}.references.maxStrongRefs",
+        0,
+        MAX_STRONG_ACTOR_REFS,
+    )
+    if max_strong_refs > retention_strong_cap:
+        raise CompileError(
+            f"{source_rel}#{event_id}: references.maxStrongRefs ({max_strong_refs}) incompatible with retentionClass={retention} (max {retention_strong_cap})"
+        )
+    if strong_count > retention_strong_cap:
+        raise CompileError(
+            f"{source_rel}#{event_id}: {strong_count} STRONG refs incompatible with retentionClass={retention} (max {retention_strong_cap})"
+        )
+    if strong_count > max_strong_refs:
+        raise CompileError(
+            f"{source_rel}#{event_id}: {strong_count} STRONG refs exceeds references.maxStrongRefs ({max_strong_refs})"
+        )
+
+    degrade_raw = raw_refs.get("degradeOnPurge", default_degrade)
+    degrade_on_purge = str(degrade_raw or "").upper()
+    if degrade_on_purge not in VALID_DEGRADE_POLICIES:
+        raise CompileError(
+            f"{source_rel}#{event_id}: invalid references.degradeOnPurge {degrade_raw!r}"
+        )
+
+    out_refs: dict[str, Any] = {
+        "target": roles["target"],
+        "roles": {k: roles[k] for k in sorted(roles)},
+        "maxActorRefs": max_actor_refs,
+        "maxStrongRefs": max_strong_refs,
+        "degradeOnPurge": degrade_on_purge,
+    }
+    for shorthand in ("subject", "source", "witness"):
+        if shorthand in roles:
+            out_refs[shorthand] = roles[shorthand]
+    return out_refs
 
 
 def _normalize_event(
@@ -224,6 +352,13 @@ def _normalize_event(
     if consol_family is not None and (not isinstance(consol_family, str) or not consol_family.strip()):
         raise CompileError(f"{source_rel}#{event_id}: consolidationFamily must be a non-empty string")
 
+    norm_refs = _normalize_references(
+        raw.get("references"),
+        source_rel=source_rel,
+        event_id=event_id,
+        retention=retention,
+    )
+
     plan: dict[str, Any] = {
         "id": event_id,
         "code": code,
@@ -231,6 +366,8 @@ def _normalize_event(
         "domain": domain,
         "aliases": list(aliases),
         "retentionClass": retention,
+        "refStrength": norm_refs["target"],
+        "references": norm_refs,
         "salience": salience,
         "decayPerDay": decay_per_day,
         "permanent": permanent,
@@ -257,6 +394,8 @@ def _normalize_event(
         },
         "extensions": ext_refs,
     }
+    if "source" in norm_refs:
+        plan["sourceRefStrength"] = norm_refs["source"]
     if anchor_max is not None:
         plan["maxAnchors"] = anchor_max
     if consol_family:
@@ -394,6 +533,10 @@ def build_social_domain_schema(plan: Mapping[str, Any]) -> DomainSchema:
         "relationship.grievanceScore",
         "relationship.assistanceScore",
         "relationship.anchorCount",
+        "relationship.historical",
+        "relationship.targetLifecycleStatus",
+        "actor.lifecycleStatus",
+        "memory.refStrength",
     }
     effects: set[str] = set()
     actions: set[str] = set()

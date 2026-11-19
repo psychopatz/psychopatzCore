@@ -4,39 +4,40 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 state: "CLEAN_CHECKPOINT"
-phase: L3
-chunk: L3 accepted — actor-level memoryBank, v3 migration, ephemeral indexes, and historical edge compaction complete; ready for L4
+phase: L4
+chunk: L4 accepted — CodeBuilder Social Policy reference strength, bounds, and cross-repo generation complete; ready for Batch 3 planning (L5-L7)
 retrieval_tier: verify
 phase_commit: "self"
-phase_commit_phase: "L3"
-phase_commit_message: "phase(L3): L3: migrate social storage to bounded actor-level memoryBank and historical edge compaction"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=b19d3a0382a9adf1e07eba1af7535f9bd671ec50;dynamic-trading=4ca3c554c1a97fa37d14d070d2317bd240cbb3b6"
-phase_residual_vector: "psychopatz-core=886357708bcb89bcc9947c0e344ee00c4159fb229b1a51be638d4d6e64a54077;project-hoomans=916ead90b30fa95f2ddbafec767bfefae15882b95ad8caadbe0a34c7cbbcf53b;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
+phase_commit_phase: "L4"
+phase_commit_message: "phase(L4): L4: add CodeBuilder Social Policy reference strength validation and cross-repo artifacts"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=df7c49eb44c0a9d6fdd24dc8ff045e7bc9c17d62;dynamic-trading=20e9b084272327aa9a9057abf19d10596afbdaa2"
+phase_residual_vector: "psychopatz-core=886357708bcb89bcc9947c0e344ee00c4159fb229b1a51be638d4d6e64a54077;project-hoomans=a525f09fd729a3afd383e497dca5bd863aa3d9cf47818c3fa1fb425364765a9a;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 residual_worktree_fingerprint: "886357708bcb89bcc9947c0e344ee00c4159fb229b1a51be638d4d6e64a54077"
 codebase_memory_indexed_commit: "fba98ab4791bde95a12fb1fcb7fbeede88408d7a"
-updated_at: "2026-11-19T15:56:57.311018Z"
+updated_at: "2026-11-19T16:02:32.422191Z"
 ---
+
 
 
 
 # Handoff — Portable Actor Lifecycle & Social Garbage Collection
 
-## What became true this session (L3)
+## What became true this session (L4)
 
-- Migrated Core social storage (`PsychopatzSocial.lua` `SCHEMA_VERSION = 3`, `PsychopatzSocialRetention.lua`) from per-relationship `memories` (`N × 64`) to one bounded actor-level `memoryBank[]` (`MAX_ACTOR_MEMORIES = 96`: `16` ANCHOR, `56` LONG, `24` SHORT), with deterministic `v1/v2 -> v3` migration + baseline promotion, `rel.memories` prohibition, FIFO-bounded (`32`) ephemeral indexes, and `CompactHistoricalEdge`/`PruneDefaultEdges`.
-- Updated `PsychopatzSocialProjections.lua`, `PsychopatzActorSocialAuthority.lua`, `PsychopatzActorGC.lua`, and `ProjectHoomans` `PNC_Persistence_CoreSocial.lua` (H3A `b19d3a0382a9adf1e07eba1af7535f9bd671ec50`) for `memoryBank` + `refStrength` semantics.
-- Measured 100-contact 6400-event actor save = `35,943` bytes (vs `1,606,721` bytes L0 baseline); verified `39/39` Core smoke tests, `5/5` Hoomans tests, `2/2` DynamicTrading tests, and Kahlua lint (`0` errors).
+- Extended `tools/semantic_harness/codebuilder/social_policy_compiler.py` with `STRONG`/`WEAK`/`LABEL_ONLY` reference strength validation (`MAX_ANCHOR_BUDGET = 16`, `MAX_DURABLE_ACTOR_REFS = 3`, `MAX_STRONG_ACTOR_REFS = 2`, `VALID_DEGRADE_POLICIES`, retention compatibility enforcement, and new `DomainSchema` social facts).
+- Annotated explicit `references` blocks in Core `core_social.json`, ProjectHoomans `combat_and_care.json` & `dialogue_and_emotes.json` (`H4-policy` `df7c49eb44c0a9d6fdd24dc8ff045e7bc9c17d62`), and DynamicTrading `commerce.json` (`D4-policy` `20e9b084272327aa9a9057abf19d10596afbdaa2`), regenerating 7 `SocialPolicy/` Lua files via `reconcile.py --apply` (`reconcile.py --check` clean).
+- Verified 12 Python unittests (`OK`), `psychopatz_social_policy_reference_strength_smoke.lua` + Core L3/L2 regressions, `DynamicTrading` (`dt_trade_relationship_event_smoke`, `dt_portable_social_trader_adoption_smoke`), `ProjectHoomans` (`social_policy`, `core_social` 2/2 PASS), and Kahlua lint (`0` errors across all 7 generated files).
 
 ## Exact next action
 
-Continue Batch 2 with **L4 — CodeBuilder Social Policy reference strength and bounded refs** (`social_policy_compiler.py` + Core/Hoomans/DT social policy JSONs + `reconcile.py --apply` + tests).
+Enter plan mode to design and launch **Batch 3 (L5–L7)**: Project Hoomans lifecycle & GC roots adoption (L5), Player-character death & MP identity lifecycle (L6), and DynamicTrading / DTAbstract / DTHoomans adoption (L7).
 
 ## Concurrent work
 
 - `psychopatzCore`: unrelated dirty Inventory visual-state work (`PsychopatzItemTransfer.lua`, `PsychopatzItemVisualState.lua`) preserved untouched.
-- `ProjectHoomans`: unrelated dirty NPCAuthoring/StartingCompanions/Equipment work preserved untouched (`H3A` committed at `b19d3a0382a9adf1e07eba1af7535f9bd671ec50`).
-- `DynamicTrading`: clean (`D0` committed at `4ca3c554c1a97fa37d14d070d2317bd240cbb3b6`).
+- `ProjectHoomans`: unrelated dirty NPCAuthoring/StartingCompanions/Equipment/RosterPortrait work preserved untouched (`H4-policy` committed at `df7c49eb44c0a9d6fdd24dc8ff045e7bc9c17d62`).
+- `DynamicTrading`: clean (`D4-policy` committed at `20e9b084272327aa9a9057abf19d10596afbdaa2`).
 
 ## Stop condition
 
-Complete L4 verification and local commits, then call `enter_plan_mode` for Batch 3 (L5–L7).
+Call `enter_plan_mode` immediately after L4 verification and commit to plan Batch 3 (L5–L7).

@@ -1,10 +1,16 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L3 accepted, starting L4.
-**Current phase:** L4 — CodeBuilder Social Policy reference strength and bounded refs.
-**Developer completion:** 4/10 phases accepted (L0, L1, L2, L3 ACCEPTED).
+**Status:** IN_PROGRESS — L4 accepted, entering Batch 3 planning (L5-L7).
+**Current phase:** L5 — Project Hoomans lifecycle & durable roots adoption (Batch 3).
+**Developer completion:** 5/10 phases accepted (L0, L1, L2, L3, L4 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
-**Participants:** ProjectHoomans (H0, H3A at `b19d3a03`), DynamicTrading (D0).
+**Participants:** ProjectHoomans (H0, H3A, H4-policy at `df7c49eb`), DynamicTrading (D0, D4-policy at `20e9b084`).
+
+## Verified L4 Facts
+
+- Extended `tools/semantic_harness/codebuilder/social_policy_compiler.py` (`MAX_ANCHOR_BUDGET = 16`, `VALID_REF_STRENGTHS = {STRONG, WEAK, LABEL_ONLY}`, `ALLOWED_REF_ROLES`, `VALID_DEGRADE_POLICIES`, `MAX_DURABLE_ACTOR_REFS = 3`, `MAX_STRONG_ACTOR_REFS = 2`), enforcing retention/reference compatibility (`SCENE`/`SHORT` 0 STRONG, `LONG` <= 1 STRONG, `ANCHOR` <= 2 STRONG) and emitting `refStrength`, optional `sourceRefStrength`, `references`, and new `DomainSchema` social facts (`relationship.historical`, `relationship.targetLifecycleStatus`, `actor.lifecycleStatus`, `memory.refStrength`).
+- Annotated explicit `references` across Core (`core_social.json`), ProjectHoomans (`combat_and_care.json`, `dialogue_and_emotes.json`, H4-policy `df7c49eb44c0a9d6fdd24dc8ff045e7bc9c17d62`), and DynamicTrading (`commerce.json`, D4-policy `20e9b084272327aa9a9057abf19d10596afbdaa2`) and regenerated 7 `SocialPolicy/` Lua files cleanly via `reconcile.py --apply` (`reconcile.py --check` clean: 467 desired, 0 missing/drifted/stale).
+- Verified via 12 Python CodeBuilder unittests (`OK`), `tests/psychopatz_social_policy_reference_strength_smoke.lua` (confirming runtime policy inheritance + `WEAK` routine commercial purge vs `STRONG` betrayal anchor retention & `WEAK` informant degradation + fail-closed invalid `refStrength`), `psychopatz_social_memory_bank_migration_smoke.lua`, `psychopatz_actor_gc_mark_sweep_smoke.lua`, `psychopatz_social_retention_consolidation_smoke.lua`, `psychopatz_social_scale_stress_smoke.lua`, `DynamicTrading` (`dt_trade_relationship_event_smoke.lua`, `dt_portable_social_trader_adoption_smoke.lua`), `ProjectHoomans` (`social_policy`, `core_social` 2/2 PASS), and `pz_verify.py --kahlua --severity ERROR` (0 errors across all 7 generated Lua files).
 
 ## Verified L3 Facts
 
@@ -23,6 +29,6 @@
 
 ## Immediate Next Chunk
 
-**L4 — CodeBuilder Social Policy reference strength and bounded refs.**
+**L5 — Project Hoomans adoption** (Batch 3: L5-L7).
 
-Extend `social_policy_compiler.py` (`MAX_ANCHOR_BUDGET = 16`, `STRONG`/`WEAK`/`LABEL_ONLY` ref metadata, retention/reference compatibility checks, role fan-out caps), update Core/ProjectHoomans/DynamicTrading social policy JSON sources, regenerate via `reconcile.py --apply`, and verify determinism & runtime policy propagation.
+Bridge `PNC.Health.Kill` / `retireDeadRecord` to Core `Retire`, `API.Despawn` rollback to `HardDelete`, register verified durable Hoomans GC roots (corpse/reanimation identity, durable bonds, active quests/factions), and verify corpse/reanimation + tombstone reclamation.
