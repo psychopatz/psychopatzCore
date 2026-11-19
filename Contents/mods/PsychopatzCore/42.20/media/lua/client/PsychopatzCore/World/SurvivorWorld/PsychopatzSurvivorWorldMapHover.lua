@@ -63,6 +63,7 @@ local function claimOwner(map, owner)
     map._psychopatzSurvivorWorldHoverOwner = owner
     map._psychopatzSurvivorWorldHoverActorID = nil
     map._psychopatzSurvivorWorldHoverEntry = nil
+    map._psychopatzSurvivorWorldHoverPortraitRevision = nil
     clearCandidateState(map)
     return owner
 end
@@ -245,6 +246,7 @@ function Hover.Hide(map, resetCandidate, owner)
     visible(map.psychopatzSurvivorWorldHover, false)
     map._psychopatzSurvivorWorldHoverActorID = nil
     map._psychopatzSurvivorWorldHoverEntry = nil
+    map._psychopatzSurvivorWorldHoverPortraitRevision = nil
     if resetCandidate ~= false then
         clearCandidateState(map)
         map._psychopatzSurvivorWorldHoverOwner = nil
@@ -301,6 +303,7 @@ function Hover.Update(map, entry, markerX, markerY, marker, owner)
     end
     if map._psychopatzSurvivorWorldHoverActorID ~= actorID
         or map._psychopatzSurvivorWorldHoverEntry ~= entry
+        or map._psychopatzSurvivorWorldHoverPortraitRevision ~= spec.revision
     then
         if panel:setTarget(nil, spec, true) ~= true then
             Hover.Hide(map, false, owner)
@@ -308,6 +311,7 @@ function Hover.Update(map, entry, markerX, markerY, marker, owner)
         end
         map._psychopatzSurvivorWorldHoverActorID = actorID
         map._psychopatzSurvivorWorldHoverEntry = entry
+        map._psychopatzSurvivorWorldHoverPortraitRevision = spec.revision
     end
 
     local size = Hover.SIZE
