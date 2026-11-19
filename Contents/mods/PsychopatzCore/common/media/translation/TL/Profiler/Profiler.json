@@ -34,6 +34,7 @@
     "UI_PsychopatzProfiler_DetailedHistory": "available sa DETAILED mode",
     "UI_PsychopatzProfiler_None": "wala",
     "UI_PsychopatzProfiler_Metric_Mode": "Mode",
+    "UI_PsychopatzProfiler_Metric_PerformanceDepth": "Lalim ng performance",
     "UI_PsychopatzProfiler_Metric_CaptureSections": "Mga seksyon ng capture",
     "UI_PsychopatzProfiler_Metric_PerformanceInterval": "Performance interval",
     "UI_PsychopatzProfiler_Metric_ModDataInterval": "ModData interval",

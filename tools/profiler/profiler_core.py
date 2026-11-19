@@ -134,6 +134,13 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
         engine_gauges.sort(key=lambda item: item["name"])
         report["projectZomboid"] = {"gauges": engine_gauges[:40]}
         report["warnings"] = list(snapshot.get("warnings") or [])[:30]
+        instrumentation = (snapshot.get("runtime") or {}).get("instrumentation") or {}
+        if instrumentation.get("deepInstrumented") is True:
+            report["interpretation"].append(
+                "WARNING: deep_instrumented_diagnostic_only — timings include deep hot-function wrapper overhead and are not a clean normal-play baseline.")
+        elif instrumentation.get("performanceDepth") == "coarse":
+            report["interpretation"].append(
+                "Timings were collected with coarse top-level sampling only (no deep per-NPC wrappers).")
         report["interpretation"].insert(
             0, "Timer msPerSec is inclusive; selfMsPerSec is exclusive and avoids double-counting nested wrappers.")
         report["interpretation"].insert(

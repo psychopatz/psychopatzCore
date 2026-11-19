@@ -7,6 +7,11 @@ PsychopatzCore.ProfilerBootstrap = Bootstrap
 Bootstrap.MODE_OFF = "OFF"
 Bootstrap.MODE_BASIC = "BASIC"
 Bootstrap.MODE_DETAILED = "DETAILED"
+Bootstrap.DEPTH_COARSE = "coarse"
+Bootstrap.DEPTH_DEEP = "deep"
+Bootstrap.DEFAULT_DEEP_DURATION_MS = 60000
+Bootstrap.MIN_DEEP_DURATION_MS = 5000
+Bootstrap.MAX_DEEP_DURATION_MS = 300000
 Bootstrap.CONFIG_FILE = "PsychopatzCore_Profiler.txt"
 Bootstrap.mode = Bootstrap.mode or Bootstrap.MODE_OFF
 Bootstrap.captureConfig = Bootstrap.captureConfig or nil
@@ -24,6 +29,14 @@ local function normalizeMode(value)
     return Bootstrap.MODE_OFF
 end
 
+local function normalizePerformanceDepth(value)
+    local normalized = string.lower(string.match(tostring(value or ""), "^%s*(.-)%s*$") or "")
+    if normalized == Bootstrap.DEPTH_DEEP then
+        return Bootstrap.DEPTH_DEEP
+    end
+    return Bootstrap.DEPTH_COARSE
+end
+
 local function boundedInteger(value, default, minimum, maximum)
     value = math.floor(tonumber(value) or default)
     return math.max(minimum, math.min(maximum, value))
@@ -37,7 +50,8 @@ local function parseList(value)
     return output
 end
 
-local function buildConfig(values)
+local function buildConfig(values, options)
+    values = values or {}
     local mode = normalizeMode(values.mode)
     local requested, sections = {}, {}
     for _, section in ipairs(parseList(values.capture or "performance")) do
@@ -51,8 +65,26 @@ local function buildConfig(values)
     for _, section in ipairs(sections) do enabled[section] = true end
     local scope = string.lower(tostring(values.npc_scope or "selected"))
     if scope ~= "selected" and scope ~= "all_bounded" then scope = "selected" end
+    local requestedDepth = normalizePerformanceDepth(values.performance_depth or values.performanceDepth)
+    local persistedDeepDowngraded = false
+    local effectiveDepth = requestedDepth
+    if options and options.fromPersistedFile == true and requestedDepth == Bootstrap.DEPTH_DEEP then
+        effectiveDepth = Bootstrap.DEPTH_COARSE
+        persistedDeepDowngraded = true
+    end
+    local deepDurationMs = boundedInteger(
+        values.deep_duration_ms or values.deepDurationMs,
+        Bootstrap.DEFAULT_DEEP_DURATION_MS,
+        Bootstrap.MIN_DEEP_DURATION_MS,
+        Bootstrap.MAX_DEEP_DURATION_MS
+    )
+    local performanceDepth = (mode ~= Bootstrap.MODE_OFF and enabled.performance == true)
+        and effectiveDepth or Bootstrap.DEPTH_COARSE
     local config = {
         version = 2, mode = mode, sections = sections, enabled = enabled,
+        performanceDepth = performanceDepth,
+        deepDurationMs = deepDurationMs,
+        persistedDeepDowngraded = persistedDeepDowngraded,
         performanceIntervalMs = boundedInteger(values.performance_interval_ms, 1000, 250, 60000),
         modDataIntervalMs = boundedInteger(values.moddata_interval_ms, 60000, 5000, 3600000),
         npcIntervalMs = boundedInteger(values.npc_interval_ms, 5000, 1000, 300000),
@@ -61,17 +93,27 @@ local function buildConfig(values)
     local orderedIDs = {}
     for index = 1, #config.npcIDs do orderedIDs[index] = config.npcIDs[index] end
     table.sort(orderedIDs)
-    config.fingerprint = table.concat({
+    local fingerprint = table.concat({
         "v2", config.mode, table.concat(sections, ","),
         tostring(config.performanceIntervalMs), tostring(config.modDataIntervalMs),
         tostring(config.npcIntervalMs), config.npcScope, table.concat(orderedIDs, ","),
     }, "|")
+    if config.performanceDepth == Bootstrap.DEPTH_DEEP then
+        fingerprint = fingerprint .. "|deep|" .. tostring(config.deepDurationMs)
+    end
+    config.fingerprint = fingerprint
     return config
 end
 
 local function readConfiguredConfig()
     local explicit = rawget(_G, "PSYCHOPATZ_PROFILER_MODE")
-    if explicit ~= nil then return buildConfig({ mode = explicit }) end
+    if explicit ~= nil then
+        return buildConfig({
+            mode = explicit,
+            performance_depth = rawget(_G, "PSYCHOPATZ_PROFILER_PERFORMANCE_DEPTH"),
+            deep_duration_ms = rawget(_G, "PSYCHOPATZ_PROFILER_DEEP_DURATION_MS"),
+        })
+    end
     if not getFileReader then return buildConfig({ mode = "OFF" }) end
 
     local reader = getFileReader(Bootstrap.CONFIG_FILE, false)
@@ -84,7 +126,7 @@ local function readConfiguredConfig()
         line = reader:readLine()
     end
     reader:close()
-    return buildConfig(values)
+    return buildConfig(values, { fromPersistedFile = true })
 end
 
 local function serializeConfig(config)
@@ -136,6 +178,13 @@ function Bootstrap.IsSectionEnabled(section)
     return config.mode ~= Bootstrap.MODE_OFF and config.enabled[tostring(section or "")] == true
 end
 
+function Bootstrap.GetPerformanceDepth()
+    if not Bootstrap.IsEnabled() or not Bootstrap.IsSectionEnabled("performance") then
+        return "off"
+    end
+    return Bootstrap.GetCaptureConfig().performanceDepth or Bootstrap.DEPTH_COARSE
+end
+
 local function runtimeID()
     if Bootstrap.runtimeID then return Bootstrap.runtimeID end
     local now = getTimeInMillis and getTimeInMillis() or 0
@@ -148,6 +197,9 @@ function Bootstrap.GetRuntimeMetadata()
     local config = Bootstrap.GetCaptureConfig()
     return {
         id = runtimeID(), configFingerprint = config.fingerprint,
+        performanceDepth = config.performanceDepth,
+        deepDurationMs = config.deepDurationMs,
+        persistedDeepDowngraded = config.persistedDeepDowngraded == true,
         capture = { performance = config.enabled.performance == true,
             moddata = config.enabled.moddata == true, npc = config.enabled.npc == true },
     }
@@ -245,6 +297,30 @@ local function startRegisteredRoles()
     return #failed == 0, failed
 end
 
+function Bootstrap.ExpireDeepCapture()
+    if not Bootstrap.IsEnabled() or not Bootstrap.captureConfig
+        or Bootstrap.captureConfig.performanceDepth ~= Bootstrap.DEPTH_DEEP
+    then
+        return false
+    end
+    local current = Bootstrap.captureConfig
+    local downgraded = buildConfig({
+        mode = current.mode,
+        capture = table.concat(current.sections or {}, ","),
+        performance_interval_ms = current.performanceIntervalMs,
+        moddata_interval_ms = current.modDataIntervalMs,
+        npc_interval_ms = current.npcIntervalMs,
+        npc_scope = current.npcScope,
+        npc_ids = table.concat(current.npcIDs or {}, ","),
+        performance_depth = Bootstrap.DEPTH_COARSE,
+        deep_duration_ms = current.deepDurationMs,
+    })
+    downgraded.deepExpired = true
+    Bootstrap.captureConfig = downgraded
+    notifyCaptureControllers(downgraded)
+    return true
+end
+
 function Bootstrap.Enable(mode)
     mode = normalizeMode(mode)
     if mode == Bootstrap.MODE_OFF then return Bootstrap.Disable() end
@@ -264,6 +340,9 @@ function Bootstrap.Enable(mode)
     Profiler.Start(mode, Adapter, {
         sampleIntervalMs = config.performanceIntervalMs,
         capture = config.enabled,
+        performanceDepth = config.performanceDepth,
+        deepDurationMs = config.deepDurationMs,
+        onDeepExpired = function() Bootstrap.ExpireDeepCapture() end,
         runtime = Bootstrap.GetRuntimeMetadata(),
     })
     if Adapter.installEngineMetrics then Adapter.installEngineMetrics(Profiler) end
@@ -286,6 +365,19 @@ function Bootstrap.Disable()
     if server and server.Stop then server.Stop() end
     Bootstrap.activeRoles = {}
     Bootstrap.mode = Bootstrap.MODE_OFF
+    local previous = Bootstrap.captureConfig
+    Bootstrap.captureConfig = buildConfig({
+        mode = Bootstrap.MODE_OFF,
+        capture = previous and table.concat(previous.sections or {}, ",") or "performance",
+        performance_interval_ms = previous and previous.performanceIntervalMs or nil,
+        moddata_interval_ms = previous and previous.modDataIntervalMs or nil,
+        npc_interval_ms = previous and previous.npcIntervalMs or nil,
+        npc_scope = previous and previous.npcScope or nil,
+        npc_ids = previous and table.concat(previous.npcIDs or {}, ",") or nil,
+        performance_depth = Bootstrap.DEPTH_COARSE,
+        deep_duration_ms = previous and previous.deepDurationMs or nil,
+    })
+    notifyCaptureControllers(Bootstrap.captureConfig)
     return true
 end
 
@@ -296,6 +388,8 @@ function Bootstrap.ApplyCaptureConfig(arguments)
     if type(capture) == "table" then capture = table.concat(capture, ",") end
     local values = {
         mode = mode, capture = capture or "performance",
+        performance_depth = arguments.performance_depth or arguments.performanceDepth,
+        deep_duration_ms = arguments.deep_duration_ms or arguments.deepDurationMs,
         performance_interval_ms = arguments.performance_interval_ms,
         moddata_interval_ms = arguments.moddata_interval_ms,
         npc_interval_ms = arguments.npc_interval_ms,
@@ -306,15 +400,19 @@ function Bootstrap.ApplyCaptureConfig(arguments)
     Bootstrap.captureConfig, Bootstrap.mode = config, config.mode
     if config.mode == Bootstrap.MODE_OFF then
         Bootstrap.Disable()
-        notifyCaptureControllers(config)
     else
         local profiler, reason = Bootstrap.Enable(config.mode)
         if not profiler then return nil, reason or "profiler could not start" end
     end
     local applied = Bootstrap.lastControllersApplied or {}
     local failed = Bootstrap.lastControllersFailed or {}
+    local profiler = rawget(PsychopatzCore, "Profiler")
+    local profilerState = profiler and profiler.GetState and profiler.GetState() or nil
     return { applied = #failed == 0, restart_required = #failed > 0,
         runtime_id = runtimeID(), config_fingerprint = config.fingerprint,
+        performance_depth = config.performanceDepth,
+        deep_duration_ms = config.deepDurationMs,
+        deep_expires_at_ms = profilerState and profilerState.deepExpiresAtMs or nil,
         capture = { performance = config.enabled.performance == true,
             moddata = config.enabled.moddata == true, npc = config.enabled.npc == true },
         controllers_applied = applied, controllers_failed = failed }
@@ -331,6 +429,7 @@ function Bootstrap.Initialize()
 end
 
 Bootstrap.NormalizeMode = normalizeMode
+Bootstrap.NormalizePerformanceDepth = normalizePerformanceDepth
 Bootstrap.BuildConfig = buildConfig
 Bootstrap.ReadConfiguredConfig = readConfiguredConfig
 Bootstrap.ReadConfiguredMode = function() return readConfiguredConfig().mode end

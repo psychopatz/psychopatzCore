@@ -277,6 +277,7 @@ function PsychopatzProfilerWindow:refreshMetrics(force)
     if self.exportButton.setEnable then self.exportButton:setEnable(running == true) end
     if self.view == "Settings" then
         add(self.metricList, tr("UI_PsychopatzProfiler_Metric_Mode", "Mode"), config.mode)
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_PerformanceDepth", "Performance depth"), config.performanceDepth or "coarse")
         add(self.metricList, tr("UI_PsychopatzProfiler_Metric_CaptureSections", "Capture sections"), sectionSummary(config))
         add(self.metricList, tr("UI_PsychopatzProfiler_Metric_PerformanceInterval", "Performance interval"), tostring(config.performanceIntervalMs) .. " ms")
         add(self.metricList, tr("UI_PsychopatzProfiler_Metric_ModDataInterval", "ModData interval"), tostring(config.modDataIntervalMs) .. " ms")

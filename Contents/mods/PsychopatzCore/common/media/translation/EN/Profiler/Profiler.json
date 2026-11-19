@@ -34,6 +34,7 @@
     "UI_PsychopatzProfiler_DetailedHistory": "available in DETAILED mode",
     "UI_PsychopatzProfiler_None": "none",
     "UI_PsychopatzProfiler_Metric_Mode": "Mode",
+    "UI_PsychopatzProfiler_Metric_PerformanceDepth": "Performance depth",
     "UI_PsychopatzProfiler_Metric_CaptureSections": "Capture sections",
     "UI_PsychopatzProfiler_Metric_PerformanceInterval": "Performance interval",
     "UI_PsychopatzProfiler_Metric_ModDataInterval": "ModData interval",

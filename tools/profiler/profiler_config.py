@@ -10,6 +10,10 @@ from typing import Iterable, Optional
 
 VALID_MODES = ("OFF", "BASIC", "DETAILED")
 VALID_SECTIONS = ("performance", "moddata", "npc")
+VALID_PERFORMANCE_DEPTHS = ("coarse", "deep")
+DEFAULT_DEEP_DURATION_MS = 60000
+MIN_DEEP_DURATION_MS = 5000
+MAX_DEEP_DURATION_MS = 300000
 
 
 def _csv(values: Iterable[str]) -> str:
@@ -26,6 +30,8 @@ class CaptureConfig:
     npc_scope: str = "selected"
     npc_ids: tuple[str, ...] = ()
     version: int = 2
+    performance_depth: str = "coarse"
+    deep_duration_ms: int = DEFAULT_DEEP_DURATION_MS
 
     def enabled(self, section: str) -> bool:
         return self.mode != "OFF" and section in self.sections
@@ -33,11 +39,14 @@ class CaptureConfig:
     @property
     def fingerprint(self) -> str:
         ids = ",".join(sorted(set(self.npc_ids)))
-        return "|".join((
+        base = "|".join((
             f"v{self.version}", self.mode, _csv(self.sections),
             str(self.performance_interval_ms), str(self.moddata_interval_ms),
             str(self.npc_interval_ms), self.npc_scope, ids,
         ))
+        if self.mode != "OFF" and "performance" in self.sections and self.performance_depth == "deep":
+            return f"{base}|deep|{self.deep_duration_ms}"
+        return base
 
     def serialize(self) -> str:
         return "\n".join((
@@ -80,6 +89,14 @@ def parse_capture_config(text: str) -> CaptureConfig:
         scope = "selected"
     npc_ids = tuple(dict.fromkeys(
         item.strip() for item in values.get("npc_ids", "").split(",") if item.strip()))
+    deep_duration_ms = _bounded_int(
+        values.get("deep_duration_ms"),
+        DEFAULT_DEEP_DURATION_MS,
+        MIN_DEEP_DURATION_MS,
+        MAX_DEEP_DURATION_MS,
+    )
+    # Persisted config files must not silently force deep instrumentation across restarts.
+    performance_depth = "coarse"
     return CaptureConfig(
         mode=mode,
         sections=sections,
@@ -89,6 +106,8 @@ def parse_capture_config(text: str) -> CaptureConfig:
         npc_scope=scope,
         npc_ids=npc_ids,
         version=_bounded_int(values.get("config_version"), 2, 2, 2),
+        performance_depth=performance_depth,
+        deep_duration_ms=deep_duration_ms,
     )
 
 

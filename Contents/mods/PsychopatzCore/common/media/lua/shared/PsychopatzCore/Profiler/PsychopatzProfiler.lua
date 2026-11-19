@@ -15,6 +15,9 @@ local state = nil
 Profiler.VERSION = 1
 Profiler.MODE_BASIC = "BASIC"
 Profiler.MODE_DETAILED = "DETAILED"
+Profiler.DEPTH_OFF = "off"
+Profiler.DEPTH_COARSE = "coarse"
+Profiler.DEPTH_DEEP = "deep"
 
 function Internal.GetState()
     return state
@@ -75,28 +78,86 @@ function Profiler.IsSectionEnabled(section)
     return state ~= nil and state.capture[tostring(section or "")] == true
 end
 
+function Profiler.GetPerformanceDepth()
+    return state and state.performanceDepth or Profiler.DEPTH_OFF
+end
+
+function Profiler.IsDeepPerformanceEnabled()
+    return state ~= nil
+        and state.capture.performance == true
+        and state.performanceDepth == Profiler.DEPTH_DEEP
+end
+
+function Profiler.CheckDeepExpiry(nowMs)
+    if not state or state.performanceDepth ~= Profiler.DEPTH_DEEP
+        or not state.deepExpiresAtMs
+    then
+        return false
+    end
+    local now = tonumber(nowMs) or Internal.NowMs()
+    if now < state.deepExpiresAtMs then return false end
+    local currentState = state
+    local hooks = currentState.deepStopHooks
+    local onExpired = currentState.onDeepExpired
+    currentState.performanceDepth = Profiler.DEPTH_COARSE
+    currentState.deepExpired = true
+    currentState.deepExpiresAtMs = nil
+    currentState.deepStopHooks = {}
+    currentState.deepToken = {}
+    for _, callback in pairs(hooks or {}) do
+        if type(callback) == "function" then callback() end
+    end
+    if onExpired then onExpired(currentState) end
+    return true
+end
+
 function Profiler.Start(mode, adapter, options)
     if state then return Profiler end
     options = options or {}
     mode = mode == Profiler.MODE_DETAILED and Profiler.MODE_DETAILED or Profiler.MODE_BASIC
     assert(adapter and type(adapter.nowMs) == "function", "profiler adapter requires nowMs")
+    local capture = {
+        performance = options.capture == nil or options.capture.performance == true,
+        moddata = options.capture and options.capture.moddata == true or false,
+        npc = options.capture and options.capture.npc == true or false,
+    }
+    local performanceDepth = Profiler.DEPTH_OFF
+    if capture.performance then
+        performanceDepth = options.performanceDepth == Profiler.DEPTH_DEEP
+            and Profiler.DEPTH_DEEP or Profiler.DEPTH_COARSE
+    end
+    local startedAtMs = adapter.nowMs()
+    local deepDurationMs = nil
+    local deepExpiresAtMs = nil
+    local onDeepExpired = nil
+    if performanceDepth == Profiler.DEPTH_DEEP then
+        deepDurationMs = math.max(5000, math.min(300000,
+            math.floor(tonumber(options.deepDurationMs) or 60000)))
+        deepExpiresAtMs = startedAtMs + deepDurationMs
+        onDeepExpired = type(options.onDeepExpired) == "function"
+            and options.onDeepExpired or nil
+    end
     state = {
         mode = mode, adapter = adapter, metrics = {}, metricOrder = {}, namespaces = {},
         samplers = {}, snapshotProviders = {}, stopHooks = {}, warnings = {}, warningByKey = {},
         token = {},
+        performanceDepth = performanceDepth,
+        deepDurationMs = deepDurationMs,
+        deepStartedAtMs = performanceDepth == Profiler.DEPTH_DEEP and startedAtMs or nil,
+        deepExpiresAtMs = deepExpiresAtMs,
+        deepExpired = false,
+        deepStopHooks = {},
+        deepToken = {},
+        onDeepExpired = onDeepExpired,
         callStackNames = {}, callStackStartedAt = {}, callStackChildMs = {},
         callStackDepth = 0,
         maxWarnings = math.max(1, math.floor(tonumber(options.maxWarnings) or 100)),
         historyCapacity = math.max(2, math.floor(tonumber(options.historyCapacity) or 300)),
         sampleIntervalMs = math.max(100, math.floor(tonumber(options.sampleIntervalMs) or 1000)),
-        lastSampleAt = adapter.nowMs(),
+        lastSampleAt = startedAtMs,
         snapshotEnabled = mode == Profiler.MODE_DETAILED and options.snapshotEnabled ~= false,
         sourceType = adapter.sourceType and adapter.sourceType() or "unknown",
-        capture = {
-            performance = options.capture == nil or options.capture.performance == true,
-            moddata = options.capture and options.capture.moddata == true or false,
-            npc = options.capture and options.capture.npc == true or false,
-        },
+        capture = capture,
         runtime = options.runtime or {},
     }
     state.sampleCallback = function() Profiler.Sample() end
@@ -110,6 +171,7 @@ function Profiler.Stop()
     if not state then return false end
     local old = state
     state = nil
+    for _, callback in pairs(old.deepStopHooks or {}) do callback() end
     for _, callback in pairs(old.stopHooks) do callback() end
     if old.adapter.removeSampleCallback and old.sampleCallback then old.adapter.removeSampleCallback(old.sampleCallback) end
     if old.adapter.onStop then old.adapter.onStop() end
@@ -135,13 +197,20 @@ function Profiler.ConfigureMetric(name, options)
 end
 
 function Profiler.Begin(name)
+    local currentState = state
+    if not currentState then return nil end
+    local now = Internal.NowMs()
+    if currentState.deepExpiresAtMs and now >= currentState.deepExpiresAtMs then
+        Profiler.CheckDeepExpiry(now)
+        currentState = state
+        if not currentState or not currentState.capture.performance then return nil end
+    end
     local metric = Internal.GetMetric(name, "timer")
     if not metric then return nil end
-    local currentState = state
     local depth = currentState.callStackDepth + 1
     currentState.callStackDepth = depth
     currentState.callStackNames[depth] = name
-    currentState.callStackStartedAt[depth] = Internal.NowMs()
+    currentState.callStackStartedAt[depth] = now
     currentState.callStackChildMs[depth] = 0
     metric.stackDepth = metric.stackDepth + 1
     metric.stack[metric.stackDepth] = depth
@@ -186,9 +255,18 @@ function Profiler.Wrap(name, callback, options)
     assert(type(callback) == "function", "profiler wrap requires a function")
     Internal.GetMetric(name, "timer")
     local token = state.token
+    local isDeep = options and options.depth == Profiler.DEPTH_DEEP
+    local deepToken = isDeep and state.deepToken or nil
     local protectErrors = options and options.protectErrors == true
     return function(...)
         if not state or state.token ~= token then return callback(...) end
+        if isDeep then
+            if state.deepToken ~= deepToken then return callback(...) end
+            if state.deepExpiresAtMs and Internal.NowMs() >= state.deepExpiresAtMs then
+                Profiler.CheckDeepExpiry()
+                return callback(...)
+            end
+        end
         if not Profiler.Begin(name) then return callback(...) end
         if protectErrors then
             local ok, a, b, c, d, e, f, g, h = pcall(callback, ...)
@@ -268,6 +346,12 @@ end
 function Profiler.RegisterStopHook(id, callback)
     if not state or type(callback) ~= "function" then return false end
     state.stopHooks[tostring(id or callback)] = callback
+    return true
+end
+
+function Profiler.RegisterDeepStopHook(id, callback)
+    if not state or type(callback) ~= "function" then return false end
+    state.deepStopHooks[tostring(id or callback)] = callback
     return true
 end
 

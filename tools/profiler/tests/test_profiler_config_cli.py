@@ -32,6 +32,15 @@ class CaptureConfigTests(unittest.TestCase):
         self.assertEqual(config.sections, ("performance",))
         self.assertFalse(config.enabled("moddata"))
         self.assertFalse(config.enabled("npc"))
+        self.assertEqual(config.performance_depth, "coarse")
+
+    def test_persisted_deep_downgrades_to_coarse_and_never_serializes_deep(self):
+        config = parse_capture_config("mode=DETAILED\ncapture=performance\nperformance_depth=deep\ndeep_duration_ms=100\n")
+        self.assertEqual(config.performance_depth, "coarse")
+        self.assertEqual(config.deep_duration_ms, 5000)
+        deep_cfg = CaptureConfig(mode="DETAILED", sections=("performance",), performance_depth="deep", deep_duration_ms=15000)
+        self.assertTrue(deep_cfg.fingerprint.endswith("|deep|15000"))
+        self.assertNotIn("performance_depth=deep", deep_cfg.serialize())
 
 
 class ProfilerCliTests(unittest.TestCase):

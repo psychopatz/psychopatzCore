@@ -199,6 +199,35 @@ class BoundedAndRecordingTests(unittest.TestCase):
             path = write_llm_report(report, Path(directory) / "report.json")
             self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["reportVersion"], 1)
 
+    def test_llm_report_labels_deep_and_coarse_instrumentation(self):
+        deep_snapshot = {
+            "timestamp": 100,
+            "mode": "DETAILED",
+            "runtime": {
+                "instrumentation": {
+                    "performanceDepth": "deep",
+                    "deepInstrumented": True,
+                }
+            },
+            "namespaces": {"ProjectHoomans": {"timers": {}, "gauges": {}}},
+        }
+        deep_report = build_llm_report({"pid": 1, "rss": 1}, deep_snapshot, include_moddata=False)
+        self.assertTrue(any("deep_instrumented_diagnostic_only" in line for line in deep_report["interpretation"]))
+
+        coarse_snapshot = {
+            "timestamp": 100,
+            "mode": "BASIC",
+            "runtime": {
+                "instrumentation": {
+                    "performanceDepth": "coarse",
+                    "deepInstrumented": False,
+                }
+            },
+            "namespaces": {"ProjectHoomans": {"timers": {}, "gauges": {}}},
+        }
+        coarse_report = build_llm_report({"pid": 1, "rss": 1}, coarse_snapshot, include_moddata=False)
+        self.assertTrue(any("coarse top-level sampling only" in line for line in coarse_report["interpretation"]))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -65,6 +65,11 @@ function Profiler.Sample(forceElapsedMs)
     local state = Internal.GetState()
     if not state then return false end
     local at = Internal.NowMs()
+    if state.deepExpiresAtMs and at >= state.deepExpiresAtMs then
+        Profiler.CheckDeepExpiry(at)
+        state = Internal.GetState()
+        if not state then return false end
+    end
     local elapsedMs = tonumber(forceElapsedMs) or (at - state.lastSampleAt)
     if elapsedMs < state.sampleIntervalMs and forceElapsedMs == nil then return false end
     state.lastSampleAt = at

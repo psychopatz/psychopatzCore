@@ -12,6 +12,16 @@ function Profiler.BuildSnapshot()
             id = state.runtime.id,
             configFingerprint = state.runtime.configFingerprint,
             capture = state.runtime.capture or state.capture,
+            instrumentation = {
+                performanceDepth = state.performanceDepth or Profiler.DEPTH_OFF,
+                deepInstrumented = state.performanceDepth == Profiler.DEPTH_DEEP,
+                deepDurationMs = state.deepDurationMs,
+                deepExpiresAtMs = state.deepExpiresAtMs,
+                deepExpired = state.deepExpired == true,
+                timingLabel = state.performanceDepth == Profiler.DEPTH_DEEP
+                    and "deep_instrumented_diagnostic_only"
+                    or (state.capture.performance and "coarse_sampled" or "no_performance_timers"),
+            },
         },
     }
     for name, metadata in pairs(state.namespaces) do
