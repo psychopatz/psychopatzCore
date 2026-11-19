@@ -1,0 +1,6 @@
+{
+  "convo.positive.praise.help.say.1.neutral": "{target.name} has been looking out for people.",
+  "convo.positive.protection.say.1.neutral": "{target.name} stood up for someone when an attacker closed in.",
+  "convo.positive.rescue.return.say.1.neutral": "{target.name} got someone home alive.",
+  "convo.positive.sympathy.loss.say.1.neutral": "I heard what happened to {target.name}. I hope they are holding up."
+}

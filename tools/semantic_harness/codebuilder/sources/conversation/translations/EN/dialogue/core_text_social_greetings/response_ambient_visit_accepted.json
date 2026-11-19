@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "response.ambient_visit.accepted",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "Thank you. I could use somewhere safe to rest for a while.",
+    "textRows.response.ambient_visit.accepted.1": "Thank you. I could use somewhere safe to rest for a while."
+  }
+}

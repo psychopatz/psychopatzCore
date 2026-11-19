@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.sympathy.loss",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+    "textRows.positive.sympathy.loss": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya."
+  }
+}

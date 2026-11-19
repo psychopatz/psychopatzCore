@@ -22,10 +22,6 @@
     "topic": "time"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask about the time",
-      "TL": "Itanong ang oras"
-    },
     "consumers": [
       "player",
       "npc"
@@ -35,8 +31,11 @@
     ]
   },
   "say": {
-    "EN": "What time is it?",
-    "TL": "Anong oras na?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "topics": [
     {

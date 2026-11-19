@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "departure.rejected",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "I am not leaving with you. That decision is not yours to make right now.",
+    "textRows.departure.rejected": "I am not leaving with you. That decision is not yours to make right now."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "departure.rejected",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
+    "textRows.departure.rejected": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
+  }
+}

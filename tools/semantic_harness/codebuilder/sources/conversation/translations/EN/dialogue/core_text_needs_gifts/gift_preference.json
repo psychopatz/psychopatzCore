@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "gift.preference.neutral",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "I don't have a strong preference.",
+    "textRows.gift.preference.neutral": "I don't have a strong preference."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.suspicion.story",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+    "textRows.negative.suspicion.story": "Bantayan si {target.name}; pabago-bago ang kuwento niya."
+  }
+}

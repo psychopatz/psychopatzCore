@@ -866,6 +866,25 @@ def _default_sidecar_loader(source_path: str | Path) -> Any:
             raise CompileError(f"textSidecars {rel_path!r} must be a JSON object")
         return data
 
+    def load_canonical_translations() -> dict[str, dict[str, Any]]:
+        from .convo_engine_localization_audit import discover_canonical_translation_files
+
+        src_resolved = Path(source_path).expanduser().resolve()
+        for ancestor in src_resolved.parents:
+            if (ancestor / "translations").is_dir() and ancestor.name == "conversation":
+                files = discover_canonical_translation_files(ancestor, src_resolved)
+                loaded: dict[str, dict[str, Any]] = {}
+                for lang, path in files.items():
+                    try:
+                        payload = json.loads(path.read_text(encoding="utf-8"))
+                    except (OSError, json.JSONDecodeError) as error:
+                        raise CompileError(f"Invalid canonical translation JSON {path}: {error}") from error
+                    if isinstance(payload, dict):
+                        loaded[lang] = payload
+                return loaded
+        return {}
+
+    load_sidecar.load_canonical_translations = load_canonical_translations  # type: ignore[attr-defined]
     return load_sidecar
 
 
@@ -1312,16 +1331,18 @@ def render_convo_realization_plan(
             output.append(payload)
             continue
         translations = payload.pop("translations", {})
-        for raw_locale, tokens in sorted(translations.items(), key=lambda item: str(item[0])):
-            locale = str(raw_locale).upper()
+        tokens = translations.get(DEFAULT_LANGUAGE)
+        if tokens is None and translations:
+            tokens = next(iter(translations.values()))
+        if tokens is not None:
             base_parts = record["id"].split(".")
             if len(base_parts) < 3 or base_parts[0] != "construction":
                 raise CompileError(
                     f"{record['id']} must be construction.<domain>.<name>"
                 )
             item = _copy(payload)
-            item["id"] = ".".join(("construction", locale.lower(), *base_parts[1:]))
-            item["locale"] = locale
+            item["id"] = ".".join(("construction", DEFAULT_LANGUAGE.lower(), *base_parts[1:]))
+            item["translationKey"] = f"convo.{record['id']}"
             item["tokens"] = _copy(tokens)
             output.append(item)
     output.sort(key=lambda item: str(item.get("id", "")))

@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "offer.question.activity",
+  "locale": "EN",
+  "entries": {
+    "affordance.label": "Ask what they've been doing",
+    "say.variants.default": "What have you been doing?"
+  }
+}

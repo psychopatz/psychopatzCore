@@ -1,0 +1,23 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.revenge.comrade",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
+    "say.2.neutral": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
+    "say.3.neutral": "We saw {slot.killer.name} take {target.name}. This is not finished.",
+    "say.4.neutral": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
+    "say.5.neutral": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
+    "say.6.neutral": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
+    "say.7.neutral": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
+    "say.8.neutral": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
+    "textRows.corpse.revenge.comrade.01": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
+    "textRows.corpse.revenge.comrade.02": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
+    "textRows.corpse.revenge.comrade.03": "We saw {slot.killer.name} take {target.name}. This is not finished.",
+    "textRows.corpse.revenge.comrade.04": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
+    "textRows.corpse.revenge.comrade.05": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
+    "textRows.corpse.revenge.comrade.06": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
+    "textRows.corpse.revenge.comrade.07": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
+    "textRows.corpse.revenge.comrade.08": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.hostile",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Gusto mong sumama ako sa iyo? Lumayo ka.",
+    "say.2.neutral": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala.",
+    "textRows.recruitment.reject.hostile.1": "Gusto mong sumama ako sa iyo? Lumayo ka.",
+    "textRows.recruitment.reject.hostile.2": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala."
+  }
+}

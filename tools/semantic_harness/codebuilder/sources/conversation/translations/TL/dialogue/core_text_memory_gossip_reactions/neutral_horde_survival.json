@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "neutral.horde_survival",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+    "textRows.neutral.horde_survival": "Nakatakas ako nang habulin ako ng napakaraming zombie."
+  }
+}

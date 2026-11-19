@@ -27,20 +27,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "ACCEPT",
             ["strategy"] = "ACCEPT",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Yes, I accept.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Oo, pumapayag ako.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -82,20 +68,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "REFUSE",
             ["strategy"] = "REFUSE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "No, I'll pass.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Hindi, salamat na lang.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -137,20 +109,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "THANK",
             ["strategy"] = "THANK",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Thank you.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Salamat.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -192,20 +150,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "BOUNDARY_WARNING",
             ["strategy"] = "WARN",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Keep talking like that and we're going to have a problem.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Kapag itinuloy mo 'yan, magkakaproblema tayo.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -247,20 +191,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "BOUNDARY_WARNING",
             ["strategy"] = "WARN",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Don't talk to me like that.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Huwag mo akong kausapin nang ganyan.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -302,20 +232,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "BOUNDARY_WARNING",
             ["strategy"] = "WARN",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Watch your mouth.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Ayusin mo ang pananalita mo.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -357,20 +273,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "BOUNDARY_WARNING",
             ["strategy"] = "WARN",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Cut that out.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Tigilan mo 'yan.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -412,20 +314,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "INFORM",
             ["strategy"] = "WELLBEING_NEGATIVE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I've had better days.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Medyo mahirap ngayon.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -467,20 +355,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "INFORM",
             ["strategy"] = "WELLBEING_NEUTRAL",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I'm doing okay.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Kinakaya ko.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -522,20 +396,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "INFORM",
             ["strategy"] = "WELLBEING_POSITIVE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I'm doing pretty good.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Okay naman ako.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {

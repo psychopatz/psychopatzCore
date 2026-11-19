@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.member",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli.",
+    "say.2.neutral": "Bahagi na ako ng grupong ito.",
+    "textRows.recruitment.reject.member.1": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli.",
+    "textRows.recruitment.reject.member.2": "Bahagi na ako ng grupong ito."
+  }
+}

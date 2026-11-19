@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.protection",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+    "textRows.positive.protection": "Ipinagtanggol ni {target.name} ang isang tao nang may umatake."
+  }
+}

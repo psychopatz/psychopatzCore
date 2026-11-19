@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.relative",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Hindi... si {target.name}. Pamilya tayo.",
+    "say.2.neutral": "Akala ko magkikita pa tayo, {target.name}.",
+    "say.3.neutral": "Dapat nakauwi ka pa, {target.name}.",
+    "say.4.neutral": "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
+    "say.5.neutral": "{target.name}, patawad at wala ako roon.",
+    "textRows.corpse.relative.01": "Hindi... si {target.name}. Pamilya tayo.",
+    "textRows.corpse.relative.02": "Akala ko magkikita pa tayo, {target.name}.",
+    "textRows.corpse.relative.03": "Dapat nakauwi ka pa, {target.name}.",
+    "textRows.corpse.relative.04": "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
+    "textRows.corpse.relative.05": "{target.name}, patawad at wala ako roon."
+  }
+}

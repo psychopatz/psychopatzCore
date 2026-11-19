@@ -1,0 +1,29 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "response.goodbye",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Ikaw rin.",
+    "say.2.neutral": "Ikaw rin.",
+    "say.3.neutral": "Mag-ingat ka sa labas.",
+    "say.4.neutral": "Ingat. Magkikita pa tayo.",
+    "say.5.neutral": "Bantayan mo ang likod mo.",
+    "say.6.neutral": "Manatiling ligtas. Huwag sumuong sa panganib.",
+    "say.7.neutral": "Hanggang sa muli. Maging alerto.",
+    "say.8.neutral": "Sige. Magkita na lang tayo mamaya.",
+    "say.9.neutral": "Dahan-dahan ka lang sa daan.",
+    "say.10.neutral": "Sige na. Huwag kang papakita sa mga 'yun.",
+    "say.11.neutral": "Maging maingat ka palagi sa labas.",
+    "textRows.response.goodbye": "Ikaw rin.",
+    "textRows.response.goodbye.1": "Ikaw rin.",
+    "textRows.response.goodbye.2": "Mag-ingat ka sa labas.",
+    "textRows.response.goodbye.3": "Ingat. Magkikita pa tayo.",
+    "textRows.response.goodbye.4": "Bantayan mo ang likod mo.",
+    "textRows.response.goodbye.5": "Manatiling ligtas. Huwag sumuong sa panganib.",
+    "textRows.response.goodbye.6": "Hanggang sa muli. Maging alerto.",
+    "textRows.response.goodbye.7": "Sige. Magkita na lang tayo mamaya.",
+    "textRows.response.goodbye.8": "Dahan-dahan ka lang sa daan.",
+    "textRows.response.goodbye.9": "Sige na. Huwag kang papakita sa mga 'yun.",
+    "textRows.response.goodbye.10": "Maging maingat ka palagi sa labas."
+  }
+}

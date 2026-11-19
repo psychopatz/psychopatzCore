@@ -1,0 +1,27 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.relationship",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "I am not ready to put my life in your hands. We need more time before you ask that again.",
+    "say.2.neutral": "You seem capable, but I do not know you well enough to join your group.",
+    "say.3.neutral": "That is a serious promise. We have not built enough trust for me to make it.",
+    "say.4.neutral": "Out here, joining up takes real trust. We aren't there yet.",
+    "say.5.neutral": "I'm not looking to tie myself to people I barely know.",
+    "say.6.neutral": "We haven't been through enough together for me to make that call.",
+    "say.7.neutral": "Give it time. Asking someone to join your group isn't a small thing.",
+    "say.8.neutral": "I appreciate the thought, but I need to see how you operate first.",
+    "say.9.neutral": "I'm surviving on my own for now until I'm certain about who has my back.",
+    "say.10.neutral": "Let's keep talking and see how we manage before making any commitments.",
+    "textRows.recruitment.reject.relationship.1": "I am not ready to put my life in your hands. We need more time before you ask that again.",
+    "textRows.recruitment.reject.relationship.2": "You seem capable, but I do not know you well enough to join your group.",
+    "textRows.recruitment.reject.relationship.3": "That is a serious promise. We have not built enough trust for me to make it.",
+    "textRows.recruitment.reject.relationship.4": "Out here, joining up takes real trust. We aren't there yet.",
+    "textRows.recruitment.reject.relationship.5": "I'm not looking to tie myself to people I barely know.",
+    "textRows.recruitment.reject.relationship.6": "We haven't been through enough together for me to make that call.",
+    "textRows.recruitment.reject.relationship.7": "Give it time. Asking someone to join your group isn't a small thing.",
+    "textRows.recruitment.reject.relationship.8": "I appreciate the thought, but I need to see how you operate first.",
+    "textRows.recruitment.reject.relationship.9": "I'm surviving on my own for now until I'm certain about who has my back.",
+    "textRows.recruitment.reject.relationship.10": "Let's keep talking and see how we manage before making any commitments."
+  }
+}

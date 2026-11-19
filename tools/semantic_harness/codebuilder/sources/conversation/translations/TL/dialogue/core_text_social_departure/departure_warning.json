@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "departure.warning",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
+    "textRows.departure.warning": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon."
+  }
+}

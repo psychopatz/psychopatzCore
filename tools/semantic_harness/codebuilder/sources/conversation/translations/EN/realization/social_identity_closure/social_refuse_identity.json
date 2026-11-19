@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.refuse_identity",
+  "locale": "EN",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "literal",
+        "value": "I'd rather not say."
+      }
+    ]
+  }
+}

@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "positive.protection",
-        "text": {
-          "EN": "{target.name} stood up for someone when an attacker closed in.",
-          "TL": "Ipinagtanggol ni {target.name} ang isang tao nang may umatake."
-        }
+        "key": "positive.protection"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "{target.name} stood up for someone when an attacker closed in.",
-          "TL": "Ipinagtanggol ni {target.name} ang isang tao nang may umatake."
-        }
+        "id": "neutral"
       }
     ]
   },

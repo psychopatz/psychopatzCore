@@ -15,14 +15,6 @@ return {
                 ["labelFallback"] = "Ask what they've been doing",
                 ["labelKey"] = "convo.offer.question.activity.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask what they've been doing",
-                    },
-                    ["TL"] = {
-                        "Itanong ang pinagkakaabalahan",
-                    },
-                },
             },
             ["familyID"] = "offer.question.activity",
             ["initiatingSay"] = {
@@ -40,14 +32,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.offer.question.activity.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What have you been doing?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang mga pinagkakaabalahan mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -67,28 +51,12 @@ return {
                     ["fallback"] = "Ask what they've been doing",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.offer.question.activity.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask what they've been doing",
-                        },
-                        ["TL"] = {
-                            "Itanong ang pinagkakaabalahan",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "What have you been doing?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.offer.question.activity.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What have you been doing?",
-                        },
-                        ["TL"] = {
-                            "Ano ang mga pinagkakaabalahan mo?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -129,14 +97,7 @@ return {
                 ["groups"] = {
                     "activity",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask what they've been doing",
-                    },
-                    ["TL"] = {
-                        "Itanong ang pinagkakaabalahan",
-                    },
-                },
+                ["labelFallback"] = "Ask what they've been doing",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -181,15 +142,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What have you been doing?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What have you been doing?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang mga pinagkakaabalahan mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -257,28 +211,12 @@ return {
                 ["fallback"] = "Ask what they've been doing",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.offer.question.activity.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask what they've been doing",
-                    },
-                    ["TL"] = {
-                        "Itanong ang pinagkakaabalahan",
-                    },
-                },
             },
             {
                 ["fallback"] = "What have you been doing?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.offer.question.activity.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What have you been doing?",
-                    },
-                    ["TL"] = {
-                        "Ano ang mga pinagkakaabalahan mo?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -299,14 +237,6 @@ return {
                 ["labelFallback"] = "Ask about wellbeing",
                 ["labelKey"] = "convo.offer.question.wellbeing.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about wellbeing",
-                    },
-                    ["TL"] = {
-                        "Itanong ang kalagayan",
-                    },
-                },
                 ["utility"] = {
                     ["social"] = 1.2,
                 },
@@ -332,14 +262,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.offer.question.wellbeing.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "How are you feeling?",
-                                    },
-                                    ["TL"] = {
-                                        "Kumusta ang pakiramdam mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -359,28 +281,12 @@ return {
                     ["fallback"] = "Ask about wellbeing",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.offer.question.wellbeing.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask about wellbeing",
-                        },
-                        ["TL"] = {
-                            "Itanong ang kalagayan",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "How are you feeling?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.offer.question.wellbeing.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "How are you feeling?",
-                        },
-                        ["TL"] = {
-                            "Kumusta ang pakiramdam mo?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -415,14 +321,7 @@ return {
                 ["groups"] = {
                     "wellbeing",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask about wellbeing",
-                    },
-                    ["TL"] = {
-                        "Itanong ang kalagayan",
-                    },
-                },
+                ["labelFallback"] = "Ask about wellbeing",
                 ["textRole"] = "button_label",
                 ["utility"] = {
                     ["social"] = 1.2,
@@ -472,15 +371,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "How are you feeling?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "How are you feeling?",
-                                    },
-                                    ["TL"] = {
-                                        "Kumusta ang pakiramdam mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -548,28 +440,12 @@ return {
                 ["fallback"] = "Ask about wellbeing",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.offer.question.wellbeing.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about wellbeing",
-                    },
-                    ["TL"] = {
-                        "Itanong ang kalagayan",
-                    },
-                },
             },
             {
                 ["fallback"] = "How are you feeling?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.offer.question.wellbeing.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "How are you feeling?",
-                    },
-                    ["TL"] = {
-                        "Kumusta ang pakiramdam mo?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -590,14 +466,6 @@ return {
                 ["labelFallback"] = "Ask about the date",
                 ["labelKey"] = "convo.question.date.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about the date",
-                    },
-                    ["TL"] = {
-                        "Itanong ang petsa",
-                    },
-                },
             },
             ["familyID"] = "question.date",
             ["initiatingSay"] = {
@@ -615,14 +483,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.date.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What's today's date?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang petsa ngayon?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -642,28 +502,12 @@ return {
                     ["fallback"] = "Ask about the date",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.date.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask about the date",
-                        },
-                        ["TL"] = {
-                            "Itanong ang petsa",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "What's today's date?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.date.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What's today's date?",
-                        },
-                        ["TL"] = {
-                            "Ano ang petsa ngayon?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -698,14 +542,7 @@ return {
                 ["groups"] = {
                     "date",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask about the date",
-                    },
-                    ["TL"] = {
-                        "Itanong ang petsa",
-                    },
-                },
+                ["labelFallback"] = "Ask about the date",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -745,15 +582,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What's today's date?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What's today's date?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang petsa ngayon?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -821,28 +651,12 @@ return {
                 ["fallback"] = "Ask about the date",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.date.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about the date",
-                    },
-                    ["TL"] = {
-                        "Itanong ang petsa",
-                    },
-                },
             },
             {
                 ["fallback"] = "What's today's date?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.date.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What's today's date?",
-                    },
-                    ["TL"] = {
-                        "Ano ang petsa ngayon?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -863,14 +677,6 @@ return {
                 ["labelFallback"] = "Ask about the time",
                 ["labelKey"] = "convo.question.time.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about the time",
-                    },
-                    ["TL"] = {
-                        "Itanong ang oras",
-                    },
-                },
             },
             ["familyID"] = "question.time",
             ["initiatingSay"] = {
@@ -888,14 +694,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.time.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What time is it?",
-                                    },
-                                    ["TL"] = {
-                                        "Anong oras na?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -915,28 +713,12 @@ return {
                     ["fallback"] = "Ask about the time",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.time.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask about the time",
-                        },
-                        ["TL"] = {
-                            "Itanong ang oras",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "What time is it?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.time.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What time is it?",
-                        },
-                        ["TL"] = {
-                            "Anong oras na?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -971,14 +753,7 @@ return {
                 ["groups"] = {
                     "time",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask about the time",
-                    },
-                    ["TL"] = {
-                        "Itanong ang oras",
-                    },
-                },
+                ["labelFallback"] = "Ask about the time",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -1018,15 +793,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What time is it?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What time is it?",
-                                    },
-                                    ["TL"] = {
-                                        "Anong oras na?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1094,28 +862,12 @@ return {
                 ["fallback"] = "Ask about the time",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.time.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about the time",
-                    },
-                    ["TL"] = {
-                        "Itanong ang oras",
-                    },
-                },
             },
             {
                 ["fallback"] = "What time is it?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.time.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What time is it?",
-                    },
-                    ["TL"] = {
-                        "Anong oras na?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -1136,14 +888,6 @@ return {
                 ["labelFallback"] = "Ask about the weather",
                 ["labelKey"] = "convo.question.weather.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about the weather",
-                    },
-                    ["TL"] = {
-                        "Itanong ang panahon",
-                    },
-                },
             },
             ["familyID"] = "question.weather",
             ["initiatingSay"] = {
@@ -1161,14 +905,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.weather.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "How is the weather?",
-                                    },
-                                    ["TL"] = {
-                                        "Kumusta ang panahon?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1188,28 +924,12 @@ return {
                     ["fallback"] = "Ask about the weather",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.weather.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask about the weather",
-                        },
-                        ["TL"] = {
-                            "Itanong ang panahon",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "How is the weather?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.weather.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "How is the weather?",
-                        },
-                        ["TL"] = {
-                            "Kumusta ang panahon?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -1244,14 +964,7 @@ return {
                 ["groups"] = {
                     "weather",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask about the weather",
-                    },
-                    ["TL"] = {
-                        "Itanong ang panahon",
-                    },
-                },
+                ["labelFallback"] = "Ask about the weather",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -1293,15 +1006,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "How is the weather?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "How is the weather?",
-                                    },
-                                    ["TL"] = {
-                                        "Kumusta ang panahon?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1369,28 +1075,12 @@ return {
                 ["fallback"] = "Ask about the weather",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.weather.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask about the weather",
-                    },
-                    ["TL"] = {
-                        "Itanong ang panahon",
-                    },
-                },
             },
             {
                 ["fallback"] = "How is the weather?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.weather.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "How is the weather?",
-                    },
-                    ["TL"] = {
-                        "Kumusta ang panahon?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -1411,14 +1101,6 @@ return {
                 ["labelFallback"] = "Ask what is wrong",
                 ["labelKey"] = "convo.question.wellbeing_detail.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask what is wrong",
-                    },
-                    ["TL"] = {
-                        "Itanong kung ano ang problema",
-                    },
-                },
             },
             ["familyID"] = "question.wellbeing_detail",
             ["initiatingSay"] = {
@@ -1436,14 +1118,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.wellbeing_detail.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What's wrong?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang problema?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1463,28 +1137,12 @@ return {
                     ["fallback"] = "Ask what is wrong",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.wellbeing_detail.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask what is wrong",
-                        },
-                        ["TL"] = {
-                            "Itanong kung ano ang problema",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "What's wrong?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.wellbeing_detail.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What's wrong?",
-                        },
-                        ["TL"] = {
-                            "Ano ang problema?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -1519,14 +1177,7 @@ return {
                 ["groups"] = {
                     "wellbeing",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask what is wrong",
-                    },
-                    ["TL"] = {
-                        "Itanong kung ano ang problema",
-                    },
-                },
+                ["labelFallback"] = "Ask what is wrong",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -1569,15 +1220,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What's wrong?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What's wrong?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang problema?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1645,28 +1289,12 @@ return {
                 ["fallback"] = "Ask what is wrong",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.wellbeing_detail.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask what is wrong",
-                    },
-                    ["TL"] = {
-                        "Itanong kung ano ang problema",
-                    },
-                },
             },
             {
                 ["fallback"] = "What's wrong?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.wellbeing_detail.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What's wrong?",
-                    },
-                    ["TL"] = {
-                        "Ano ang problema?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },

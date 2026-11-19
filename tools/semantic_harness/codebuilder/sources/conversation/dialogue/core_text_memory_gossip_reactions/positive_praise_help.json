@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "positive.praise.help",
-        "text": {
-          "EN": "{target.name} has been looking out for people.",
-          "TL": "Inaalalayan ni {target.name} ang mga tao."
-        }
+        "key": "positive.praise.help"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "{target.name} has been looking out for people.",
-          "TL": "Inaalalayan ni {target.name} ang mga tao."
-        }
+        "id": "neutral"
       }
     ]
   },

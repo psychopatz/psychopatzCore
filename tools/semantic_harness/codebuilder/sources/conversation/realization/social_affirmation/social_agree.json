@@ -3,19 +3,5 @@
   "id": "construction.social.agree",
   "dialogueAct": "AGREE",
   "strategy": "AGREE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Yeah, I agree."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Oo, sang-ayon ako."
-      }
-    ]
-  },
   "type": "construction"
 }

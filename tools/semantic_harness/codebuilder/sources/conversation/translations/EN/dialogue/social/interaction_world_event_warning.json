@@ -1,0 +1,55 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "interaction.world_event.warning",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": [
+      "Heads up. Something's wrong out there.",
+      "Look alive. The situation outside is shifting.",
+      "Pay attention. We have unexpected movement outside.",
+      "Warning. Something big is happening nearby.",
+      "Heads up, everyone. Check your gear.",
+      "Listen close. An event is unfolding out there.",
+      "Alert. We need to be ready for trouble.",
+      "Keep your eyes open. That sound wasn't normal.",
+      "Stay sharp. The perimeter is showing activity.",
+      "Heads up. Let's not get caught unprepared."
+    ],
+    "say.variants.guarded": [
+      "Stay sharp. We've got trouble.",
+      "Weapons drawn, now. Danger outside.",
+      "Shut up and listen. Something is coming.",
+      "Lock the doors and watch every angle.",
+      "If it moves through that entrance, put it down.",
+      "Trouble's coming. Don't freeze up on me.",
+      "Get into defensive positions immediately.",
+      "Keep quiet. You don't want to draw them here.",
+      "Threat incoming. Expect the worst.",
+      "Eyes on the perimeter. Shoot on sight."
+    ],
+    "say.variants.terse": [
+      "Heads up!",
+      "Incoming!",
+      "Danger!",
+      "Look out!",
+      "Alert!",
+      "Listen!",
+      "Trouble!",
+      "Ready weapons!",
+      "Movement!",
+      "Cover!"
+    ],
+    "say.variants.warm": [
+      "Stay close. Something's wrong out there.",
+      "Stick by me, friend. We have trouble brewing outside.",
+      "Don't wander off. Something bad is moving out there.",
+      "Keep close and stay low. I'll protect you.",
+      "Hey, stay behind me until we know what that was.",
+      "Careful, everyone! Let's look out for one another.",
+      "Hold on to each other. Danger is nearby.",
+      "Stay safe by my side. Trouble is coming.",
+      "Heads up, partner. Whatever happens, we stick together.",
+      "Keep close. I don't want anyone getting separated."
+    ]
+  }
+}

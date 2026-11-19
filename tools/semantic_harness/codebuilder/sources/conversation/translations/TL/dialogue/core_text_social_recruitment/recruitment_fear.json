@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.fear",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Hindi ako mahilig ma-corner, pero alam ko kapag outmatched ako. sasama ako sayo.",
+    "say.2.neutral": "ayos lang. Susundan ko muna. Panatilihin ang iyong salita at hindi kami magkakaroon ng problema.",
+    "say.3.neutral": "Nagawa mo na ang punto mo. Sasama ako, pero huwag mong mapagkamalang pagkakaibigan ang pag-iingat ko.",
+    "textRows.recruitment.fear.1": "Hindi ako mahilig ma-corner, pero alam ko kapag outmatched ako. sasama ako sayo.",
+    "textRows.recruitment.fear.2": "ayos lang. Susundan ko muna. Panatilihin ang iyong salita at hindi kami magkakaroon ng problema.",
+    "textRows.recruitment.fear.3": "Nagawa mo na ang punto mo. Sasama ako, pero huwag mong mapagkamalang pagkakaibigan ang pag-iingat ko."
+  }
+}

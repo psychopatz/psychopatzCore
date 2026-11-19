@@ -5,25 +5,13 @@
     "textTarget": "social/recruitment/response",
     "textRows": [
       {
-        "key": "recruitment.admire.1",
-        "text": {
-          "EN": "All right. I can see the sense in following someone who has earned my trust.",
-          "TL": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala."
-        }
+        "key": "recruitment.admire.1"
       },
       {
-        "key": "recruitment.admire.2",
-        "text": {
-          "EN": "I was hoping you would ask. Give me a place in your group and I will pull my weight.",
-          "TL": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang."
-        }
+        "key": "recruitment.admire.2"
       },
       {
-        "key": "recruitment.admire.3",
-        "text": {
-          "EN": "Yes. I respect what you are building, and I would rather help than stand outside it.",
-          "TL": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito."
-        }
+        "key": "recruitment.admire.3"
       }
     ]
   },
@@ -31,33 +19,21 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "All right. I can see the sense in following someone who has earned my trust.",
-            "TL": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I was hoping you would ask. Give me a place in your group and I will pull my weight.",
-            "TL": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Yes. I respect what you are building, and I would rather help than stand outside it.",
-            "TL": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito."
-          }
+          "id": "neutral"
         }
       ]
     }

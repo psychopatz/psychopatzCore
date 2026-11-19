@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.warn_consequence",
+  "locale": "EN",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "literal",
+        "value": "Keep talking like that and we're going to have a problem."
+      }
+    ]
+  }
+}

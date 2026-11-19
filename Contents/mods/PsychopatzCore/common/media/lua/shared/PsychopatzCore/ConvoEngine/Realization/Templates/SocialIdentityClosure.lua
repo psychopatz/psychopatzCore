@@ -4,7 +4,6 @@ return {
         ["dialogueAct"] = "INFORM",
         ["domain"] = "general",
         ["id"] = "construction.en.social.disclose_name",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "DISCLOSE_NAME",
         ["tokens"] = {
@@ -21,13 +20,13 @@ return {
                 ["value"] = ".",
             },
         },
+        ["translationKey"] = "convo.construction.social.disclose_name",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "END_CONVERSATION",
         ["domain"] = "general",
         ["id"] = "construction.en.social.end_conversation_done",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "END_CONVERSATION",
         ["tokens"] = {
@@ -36,13 +35,13 @@ return {
                 ["value"] = "We're done here.",
             },
         },
+        ["translationKey"] = "convo.construction.social.end_conversation_done",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "END_CONVERSATION",
         ["domain"] = "general",
         ["id"] = "construction.en.social.end_conversation_withdraw",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "END_CONVERSATION",
         ["tokens"] = {
@@ -51,13 +50,13 @@ return {
                 ["value"] = "I'm done with this.",
             },
         },
+        ["translationKey"] = "convo.construction.social.end_conversation_withdraw",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "RETORT",
         ["domain"] = "general",
         ["id"] = "construction.en.social.mirror_retort",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "MIRROR",
         ["tokens"] = {
@@ -70,13 +69,13 @@ return {
                 ["value"] = " you too.",
             },
         },
+        ["translationKey"] = "convo.construction.social.mirror_retort",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "RETORT",
         ["domain"] = "general",
         ["id"] = "construction.en.social.mirror_retort_challenge",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "MIRROR",
         ["tokens"] = {
@@ -93,13 +92,13 @@ return {
                 ["value"] = " you too.",
             },
         },
+        ["translationKey"] = "convo.construction.social.mirror_retort_challenge",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "REFUSE",
         ["domain"] = "general",
         ["id"] = "construction.en.social.refuse_identity",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "REFUSE_IDENTITY",
         ["tokens"] = {
@@ -108,116 +107,7 @@ return {
                 ["value"] = "I'd rather not say.",
             },
         },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "INFORM",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.disclose_name",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "DISCLOSE_NAME",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Ako si ",
-            },
-            {
-                ["kind"] = "slot",
-                ["slot"] = "name",
-            },
-            {
-                ["kind"] = "literal",
-                ["value"] = ".",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "END_CONVERSATION",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.end_conversation_done",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "END_CONVERSATION",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Tapos na tayo rito.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "END_CONVERSATION",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.end_conversation_withdraw",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "END_CONVERSATION",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Ayoko na nito.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "RETORT",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.mirror_retort",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "MIRROR",
-        ["tokens"] = {
-            {
-                ["kind"] = "lexeme",
-                ["slot"] = "primary",
-            },
-            {
-                ["kind"] = "literal",
-                ["value"] = " rin.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "RETORT",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.mirror_retort_challenge",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "MIRROR",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Ha? ",
-            },
-            {
-                ["kind"] = "lexeme",
-                ["slot"] = "primary",
-            },
-            {
-                ["kind"] = "literal",
-                ["value"] = " rin.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "REFUSE",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.refuse_identity",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "REFUSE_IDENTITY",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Ayoko munang sabihin.",
-            },
-        },
+        ["translationKey"] = "convo.construction.social.refuse_identity",
         ["type"] = "construction",
     },
 }

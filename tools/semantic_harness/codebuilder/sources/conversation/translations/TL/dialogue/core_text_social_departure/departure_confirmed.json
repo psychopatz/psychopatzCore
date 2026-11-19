@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "departure.confirmed",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
+    "textRows.departure.confirmed": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo."
+  }
+}

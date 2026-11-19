@@ -5,18 +5,10 @@
     "textTarget": "social/recruitment/response",
     "textRows": [
       {
-        "key": "recruitment.reject.cooldown.1",
-        "text": {
-          "EN": "We already had this conversation today. Give me time to think before you press me again.",
-          "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
-        }
+        "key": "recruitment.reject.cooldown.1"
       },
       {
-        "key": "recruitment.reject.cooldown.2",
-        "text": {
-          "EN": "Not again today. Let us see how things stand tomorrow.",
-          "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
-        }
+        "key": "recruitment.reject.cooldown.2"
       }
     ]
   },
@@ -24,22 +16,14 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We already had this conversation today. Give me time to think before you press me again.",
-            "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Not again today. Let us see how things stand tomorrow.",
-            "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
-          }
+          "id": "neutral"
         }
       ]
     }

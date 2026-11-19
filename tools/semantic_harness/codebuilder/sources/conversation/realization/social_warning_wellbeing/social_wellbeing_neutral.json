@@ -3,19 +3,5 @@
   "id": "construction.social.wellbeing_neutral",
   "dialogueAct": "INFORM",
   "strategy": "WELLBEING_NEUTRAL",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I'm doing okay."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Kinakaya ko."
-      }
-    ]
-  },
   "type": "construction"
 }

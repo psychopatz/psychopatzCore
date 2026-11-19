@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.deescalate",
+  "locale": "EN",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "literal",
+        "value": "Let's calm down."
+      }
+    ]
+  }
+}

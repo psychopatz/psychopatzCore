@@ -6,22 +6,14 @@
     "textTarget": "social/goodbye/closing",
     "textRows": [
       {
-        "key": "choice.goodbye",
-        "text": {
-          "EN": "That's all. Stay safe.",
-          "TL": "Iyon lang. Manatiling ligtas."
-        }
+        "key": "choice.goodbye"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "That's all. Stay safe.",
-          "TL": "Iyon lang. Manatiling ligtas."
-        }
+        "id": "neutral"
       }
     ]
   },

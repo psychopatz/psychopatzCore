@@ -24,10 +24,6 @@
     "topic": "weather"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask about the weather",
-      "TL": "Itanong ang panahon"
-    },
     "consumers": [
       "player",
       "npc"
@@ -37,8 +33,11 @@
     ]
   },
   "say": {
-    "EN": "How is the weather?",
-    "TL": "Kumusta ang panahon?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

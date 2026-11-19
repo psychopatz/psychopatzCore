@@ -3,19 +3,5 @@
   "id": "construction.social.dismiss",
   "dialogueAct": "DISMISS",
   "strategy": "DISMISS",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Whatever."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Bahala ka."
-      }
-    ]
-  },
   "type": "construction"
 }

@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "negative.warning.abandoned",
-        "text": {
-          "EN": "{target.name} left someone behind when the zombies closed in.",
-          "TL": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie."
-        }
+        "key": "negative.warning.abandoned"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "{target.name} left someone behind when the zombies closed in.",
-          "TL": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie."
-        }
+        "id": "neutral"
       }
     ]
   },

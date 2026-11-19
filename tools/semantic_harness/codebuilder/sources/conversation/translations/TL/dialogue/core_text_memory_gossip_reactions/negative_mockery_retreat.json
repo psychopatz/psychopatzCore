@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.mockery.retreat",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+    "textRows.negative.mockery.retreat": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos."
+  }
+}

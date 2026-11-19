@@ -9,39 +9,19 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "corpse.hostile.01",
-        "text": {
-          "EN": "So this is how it ends for you, {target.name}.",
-          "TL": "Dito pala magtatapos para sa'yo, {target.name}."
-        }
+        "key": "corpse.hostile.01"
       },
       {
-        "key": "corpse.hostile.02",
-        "text": {
-          "EN": "You made plenty of enemies, {target.name}. I was one.",
-          "TL": "Marami kang naging kaaway, {target.name}. Isa ako roon."
-        }
+        "key": "corpse.hostile.02"
       },
       {
-        "key": "corpse.hostile.03",
-        "text": {
-          "EN": "I won't mourn you, {target.name}, but I won't forget this.",
-          "TL": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan."
-        }
+        "key": "corpse.hostile.03"
       },
       {
-        "key": "corpse.hostile.04",
-        "text": {
-          "EN": "The threat is gone. Keep moving.",
-          "TL": "Wala na ang banta. Tuloy lang."
-        }
+        "key": "corpse.hostile.04"
       },
       {
-        "key": "corpse.hostile.05",
-        "text": {
-          "EN": "Maybe you finally found some peace, {target.name}.",
-          "TL": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
-        }
+        "key": "corpse.hostile.05"
       }
     ]
   },
@@ -49,55 +29,35 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "So this is how it ends for you, {target.name}.",
-            "TL": "Dito pala magtatapos para sa'yo, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "You made plenty of enemies, {target.name}. I was one.",
-            "TL": "Marami kang naging kaaway, {target.name}. Isa ako roon."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I won't mourn you, {target.name}, but I won't forget this.",
-            "TL": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan."
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "The threat is gone. Keep moving.",
-            "TL": "Wala na ang banta. Tuloy lang."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Maybe you finally found some peace, {target.name}.",
-            "TL": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     }

@@ -1,0 +1,8 @@
+{
+  "convo.offer.question.activity.affordance.label": "Ask what they've been doing",
+  "convo.offer.question.activity.say.1.default": "What have you been doing?",
+  "convo.offer.question.identity.affordance.label": "Ask who they are",
+  "convo.offer.question.identity.say.1.default": "Who are you?",
+  "convo.offer.question.wellbeing.affordance.label": "Ask about wellbeing",
+  "convo.offer.question.wellbeing.say.1.default": "How are you feeling?"
+}

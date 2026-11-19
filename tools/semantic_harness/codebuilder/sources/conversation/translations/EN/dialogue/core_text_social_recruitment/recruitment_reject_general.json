@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.general",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "I cannot make that decision right now. There is too much working against it.",
+    "say.2.neutral": "No. I appreciate the offer, but joining you is not possible at the moment.",
+    "say.3.neutral": "I need to sort out a few things before I can even consider leaving with you.",
+    "textRows.recruitment.reject.general.1": "I cannot make that decision right now. There is too much working against it.",
+    "textRows.recruitment.reject.general.2": "No. I appreciate the offer, but joining you is not possible at the moment.",
+    "textRows.recruitment.reject.general.3": "I need to sort out a few things before I can even consider leaving with you."
+  }
+}

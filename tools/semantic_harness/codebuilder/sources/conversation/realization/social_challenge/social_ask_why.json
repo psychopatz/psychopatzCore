@@ -3,19 +3,5 @@
   "id": "construction.social.ask_why",
   "dialogueAct": "QUESTION",
   "strategy": "ASK_WHY",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Why would you say that?"
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Bakit mo sinabi 'yan?"
-      }
-    ]
-  },
   "type": "construction"
 }

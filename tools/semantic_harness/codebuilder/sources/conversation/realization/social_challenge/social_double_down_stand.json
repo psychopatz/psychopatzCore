@@ -3,19 +3,5 @@
   "id": "construction.social.double_down_stand",
   "dialogueAct": "HOSTILE_REMARK",
   "strategy": "DOUBLE_DOWN",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I stand by it."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Paninindigan ko 'yon."
-      }
-    ]
-  },
   "type": "construction"
 }

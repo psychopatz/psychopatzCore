@@ -15,39 +15,19 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "corpse.comrade.01",
-        "text": {
-          "EN": "One less of us, {target.name}. Damn.",
-          "TL": "Nabawasan na naman tayo, {target.name}. Nakakainis."
-        }
+        "key": "corpse.comrade.01"
       },
       {
-        "key": "corpse.comrade.02",
-        "text": {
-          "EN": "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-          "TL": "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan."
-        }
+        "key": "corpse.comrade.02"
       },
       {
-        "key": "corpse.comrade.03",
-        "text": {
-          "EN": "We fought side by side, {target.name}. Rest easy.",
-          "TL": "Magkatabi tayong lumaban, {target.name}. Pahinga ka na."
-        }
+        "key": "corpse.comrade.03"
       },
       {
-        "key": "corpse.comrade.04",
-        "text": {
-          "EN": "{target.name} held the line. We'll carry on.",
-          "TL": "Hindi ka umatras, {target.name}. Itutuloy namin ito."
-        }
+        "key": "corpse.comrade.04"
       },
       {
-        "key": "corpse.comrade.05",
-        "text": {
-          "EN": "I hope {slot.faction.name} remembers what you gave.",
-          "TL": "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo."
-        }
+        "key": "corpse.comrade.05"
       }
     ]
   },
@@ -55,55 +35,35 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "One less of us, {target.name}. Damn.",
-            "TL": "Nabawasan na naman tayo, {target.name}. Nakakainis."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-            "TL": "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We fought side by side, {target.name}. Rest easy.",
-            "TL": "Magkatabi tayong lumaban, {target.name}. Pahinga ka na."
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "{target.name} held the line. We'll carry on.",
-            "TL": "Hindi ka umatras, {target.name}. Itutuloy namin ito."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I hope {slot.faction.name} remembers what you gave.",
-            "TL": "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo."
-          }
+          "id": "neutral"
         }
       ]
     }

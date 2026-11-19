@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.warning.danger",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "People have spotted danger near {slot.place.name}.",
+    "textRows.negative.warning.danger": "People have spotted danger near {slot.place.name}."
+  }
+}

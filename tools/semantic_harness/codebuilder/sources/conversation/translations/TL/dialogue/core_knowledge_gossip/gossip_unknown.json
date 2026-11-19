@@ -1,0 +1,103 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "gossip.unknown",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": [
+      "Wala akong narinig na balita kamakailan.",
+      "Medyo tahimik ang mga bagay sa bahaging 'yan.",
+      "Walang kamakailang tsismis ang nakarating sa akin.",
+      "Walang nasagap na balita mula sa ibang survivor.",
+      "Wala akong anumang balita na maibabahagi ngayon.",
+      "Walang bagong maiuulat sa paksang 'yan.",
+      "Mabagal kumalat ang balita. Wala akong narinig.",
+      "Wala akong nasagap na usapan kamakailan.",
+      "Walang tsismis sa akin sa ngayon.",
+      "Halos wala akong narinig na anuman kamakailan."
+    ],
+    "say.variants.bond_guarded": [
+      "{addressee.name}, wala akong maibabahagi sa'yo.",
+      "{addressee.name}, wala akong naririnig na maaasahang balita.",
+      "Mag-ingat ka, {addressee.name}. Walang balita sa labas.",
+      "{addressee.name}, walang mapagkakatiwalaang balitang nakarating sa akin.",
+      "{addressee.name}, walang gaanong kumakalat na balita.",
+      "{addressee.name}, ang tsismis ay nakakamatay. Wala ako no'n.",
+      "Walang maiuulat, {addressee.name}. Manatiling alerto.",
+      "{addressee.name}, walang nag-uusap ng anumang kapaki-pakinabang.",
+      "Wala akong naririnig na ligtas na balita, {addressee.name}.",
+      "{addressee.name}, magpokus tayo sa sarili natin. Walang tsismis dito."
+    ],
+    "say.variants.bond_neutral": [
+      "{addressee.name}, wala akong narinig na balita kamakailan.",
+      "{addressee.name}, tahimik ang paligid pagdating sa mga balita.",
+      "Walang bagong maipapasa sa'yo, {addressee.name}.",
+      "{addressee.name}, wala akong nasagap na bagong balita.",
+      "Wala akong anumang balita ngayon, {addressee.name}.",
+      "{addressee.name}, walang kamakailang tsismis na masasabi.",
+      "Walang nasagap na balita mula sa iba, {addressee.name}.",
+      "{addressee.name}, naging tahimik dito kamakailan.",
+      "Wala pang nakakarating na tsismis sa akin, {addressee.name}.",
+      "{addressee.name}, sasabihan kita kapag may narinig ako."
+    ],
+    "say.variants.bond_terse": [
+      "{addressee.name}, walang balita.",
+      "Wala, {addressee.name}.",
+      "{addressee.name}, walang narinig.",
+      "Tahimik, {addressee.name}.",
+      "{addressee.name}, walang tsismis.",
+      "Walang balita, {addressee.name}.",
+      "{addressee.name}, tahimik lahat.",
+      "Walang maibabahagi, {addressee.name}.",
+      "{addressee.name}, walang balita.",
+      "Walang anuman, {addressee.name}."
+    ],
+    "say.variants.bond_warm": [
+      "{addressee.name}, wala akong narinig na balita, pasensya na.",
+      "Sana may maikwento ako sa'yo, {addressee.name}, pero tahimik ang paligid.",
+      "{addressee.name}, wala akong narinig kahit kaunti mula sa ibang kampo.",
+      "Pasensya na, {addressee.name}, walang magagandang kwento ngayon.",
+      "{addressee.name}, ibabahagi ko agad kapag may narinig ako.",
+      "Walang bagong dumarating sa akin, {addressee.name}. Sana ayos ka lang.",
+      "{addressee.name}, tahimik ang lahat sa panig ko, kaibigan.",
+      "Walang nasagap na tsismis, {addressee.name}, pero patuloy akong makikinig.",
+      "{addressee.name}, wala pa sa ngayon, pero mag-ingat ka sa labas.",
+      "Gusto ko sanang magbahagi ng balita sa'yo, {addressee.name}, pero wala pa."
+    ],
+    "say.variants.guarded": [
+      "Wala akong maibabahagi sa'yo.",
+      "Hindi ako nakikipagtsismisan. Lakad na.",
+      "Walang balitang karapat-dapat ipagsapalaran ang buhay natin.",
+      "Bukas ang tenga ko sa panganib, hindi sa kwento.",
+      "Wala akong narinig na mapagkakatiwalaan. Mag-ingat ka.",
+      "Mura ang tsismis at kadalasang mali. Walang masasabi.",
+      "Hindi ako nakikinig sa daldalan. Asikasuhin mo ang sarili mo.",
+      "Walang balitang may kinalaman sa'yo.",
+      "Walang maibabahagi. Panatilihing mataas ang depensa.",
+      "Huwag kang magtanong sa akin ng tsismis."
+    ],
+    "say.variants.terse": [
+      "Walang balita.",
+      "Walang narinig.",
+      "Wala.",
+      "Tahimik.",
+      "Walang tsismis.",
+      "Walang balita.",
+      "Walang bago.",
+      "Tahimik lahat.",
+      "Walang balita.",
+      "Wala."
+    ],
+    "say.variants.warm": [
+      "Wala akong narinig na balita, pasensya na.",
+      "Sana may magandang balita akong maikwento sa'yo.",
+      "Walang narinig na tsismis, pero sasabihan kita.",
+      "Tahimik sa panig ko, pero makikinig ako.",
+      "Pasensya na, walang bagong balita ngayon, kaibigan.",
+      "Walang dumarating sa akin kamakailan. Sana ayos ka lang.",
+      "Tiyak na sasabihin ko sa'yo kapag may narinig akong bago.",
+      "Tahimik ang mga araw sa labas. Walang maiuulat na tsismis.",
+      "Walang maibabahagi ngayon, pero mag-ingat ka.",
+      "Wala akong narinig na kwento, pero salamat sa pagtatanong."
+    ]
+  }
+}

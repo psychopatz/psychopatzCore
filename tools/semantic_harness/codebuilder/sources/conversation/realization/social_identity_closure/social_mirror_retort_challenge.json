@@ -3,35 +3,5 @@
   "id": "construction.social.mirror_retort_challenge",
   "dialogueAct": "RETORT",
   "strategy": "MIRROR",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Yeah? "
-      },
-      {
-        "kind": "lexeme",
-        "slot": "primary"
-      },
-      {
-        "kind": "literal",
-        "value": " you too."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ha? "
-      },
-      {
-        "kind": "lexeme",
-        "slot": "primary"
-      },
-      {
-        "kind": "literal",
-        "value": " rin."
-      }
-    ]
-  },
   "type": "construction"
 }

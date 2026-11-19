@@ -6,22 +6,14 @@
     "textTarget": "social/departure/response",
     "textRows": [
       {
-        "key": "departure.confirmed",
-        "text": {
-          "EN": "Understood. I will take my chances elsewhere. Remember what you chose.",
-          "TL": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo."
-        }
+        "key": "departure.confirmed"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "Understood. I will take my chances elsewhere. Remember what you chose.",
-          "TL": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo."
-        }
+        "id": "neutral"
       }
     ]
   },

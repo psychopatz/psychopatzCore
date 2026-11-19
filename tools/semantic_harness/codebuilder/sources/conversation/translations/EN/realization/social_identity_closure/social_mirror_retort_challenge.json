@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.mirror_retort_challenge",
+  "locale": "EN",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "literal",
+        "value": "Yeah? "
+      },
+      {
+        "kind": "lexeme",
+        "slot": "primary"
+      },
+      {
+        "kind": "literal",
+        "value": " you too."
+      }
+    ]
+  }
+}

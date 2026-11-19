@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "gift.preference.like",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Gusto ko iyan.",
+    "textRows.gift.preference.like": "Gusto ko iyan."
+  }
+}

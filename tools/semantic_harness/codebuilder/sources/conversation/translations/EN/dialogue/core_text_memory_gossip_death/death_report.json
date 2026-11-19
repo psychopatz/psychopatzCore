@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "death.report",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "I heard {target.name} did not make it back.",
+    "textRows.death.report": "I heard {target.name} did not make it back."
+  }
+}

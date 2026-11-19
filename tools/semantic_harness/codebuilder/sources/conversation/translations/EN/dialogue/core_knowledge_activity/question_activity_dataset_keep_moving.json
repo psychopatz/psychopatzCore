@@ -1,0 +1,55 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.activity.dataset.keep_moving",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": [
+      "We should keep moving. It's not safe to linger.",
+      "Staying mobile is our best option right now.",
+      "We need to continue forward and find shelter.",
+      "It's best if we keep moving down this route.",
+      "Let's keep the pace. We have ground to cover.",
+      "We shouldn't remain stationary for too long.",
+      "Keep walking. We need to reach our objective.",
+      "Moving along is the safest strategy right now.",
+      "Let's continue on our way.",
+      "We should maintain our momentum and keep moving."
+    ],
+    "say.variants.guarded": [
+      "We need to keep moving. Sitting still will get us killed.",
+      "Don't loiter. The dead migrate toward stillness.",
+      "Keep your boots moving. Danger is everywhere.",
+      "We stay on the road. Tarrying is suicide.",
+      "Keep moving. Eyes on the woodline.",
+      "No resting in the open. Walk.",
+      "Movement keeps us alive. Don't freeze up.",
+      "Keep marching. We're too exposed right here.",
+      "Keep going. Resting here is asking for trouble.",
+      "Step lively. A static survivor is a dead survivor."
+    ],
+    "say.variants.terse": [
+      "Keep moving.",
+      "Move.",
+      "Don't stop.",
+      "Walk.",
+      "Keep pace.",
+      "Forward.",
+      "Keep going.",
+      "Step up.",
+      "Don't linger.",
+      "On the move."
+    ],
+    "say.variants.warm": [
+      "Let's keep moving together, friend. We'll find safety.",
+      "We should keep going. I'll stay right by your side.",
+      "Let's keep our feet moving. A warm fire awaits us eventually.",
+      "Keep up the good pace. We're doing fine.",
+      "Let's keep walking together. We're safer on the move.",
+      "We'll get through this path. Just keep moving with me.",
+      "Let's keep going, one step at a time.",
+      "I'm with you. Let's keep walking until we find shelter.",
+      "Keep moving forward. We've got this.",
+      "Let's keep our spirits up and keep walking."
+    ]
+  }
+}

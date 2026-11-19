@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.identity_faction",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong kung kanino siya kasama",
+    "say.variants.default": "Sino ang kasama mo?"
+  }
+}

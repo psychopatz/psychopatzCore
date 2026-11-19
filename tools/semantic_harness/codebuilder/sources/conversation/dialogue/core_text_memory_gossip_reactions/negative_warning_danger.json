@@ -12,22 +12,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "negative.warning.danger",
-        "text": {
-          "EN": "People have spotted danger near {slot.place.name}.",
-          "TL": "May nakapansing panganib malapit sa {slot.place.name}."
-        }
+        "key": "negative.warning.danger"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "People have spotted danger near {slot.place.name}.",
-          "TL": "May nakapansing panganib malapit sa {slot.place.name}."
-        }
+        "id": "neutral"
       }
     ]
   },

@@ -1,0 +1,27 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.relationship",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Hindi pa ako handang ibigay ang buhay ko sa iyong mga kamay. Kailangan namin ng mas maraming oras bago mo itanong iyon muli.",
+    "say.2.neutral": "Mukhang may kakayahan ka, pero hindi pa kita gaanong kilala para sumama sa grupo mo.",
+    "say.3.neutral": "Seryosong pangako 'yan. Wala pa tayong sapat na tiwala para pumayag ako.",
+    "say.4.neutral": "Sa panahong ito, kailangan ng matibay na tiwala bago sumama. Hindi pa tayo ganoon kalapit.",
+    "say.5.neutral": "Hindi ako basta-basta sumasama sa taong kakikilala ko pa lang.",
+    "say.6.neutral": "Wala pa tayong pinagsamahan para makapagdesisyon ako nang ganoon kabilis.",
+    "say.7.neutral": "Bigyan muna natin ng oras. Hindi biro ang sumama sa isang grupo.",
+    "say.8.neutral": "Salamat sa alok, pero gusto ko munang makita kung paano ka kumilos sa labas.",
+    "say.9.neutral": "Kaya ko pa namang mag-isa sa ngayon habang hindi ko pa nasisigurado kung sino ang maaasahan ko.",
+    "say.10.neutral": "Mag-usap muna tayo at tingnan kung paano tayo magkakasundo bago magdesisyon.",
+    "textRows.recruitment.reject.relationship.1": "Hindi pa ako handang ibigay ang buhay ko sa iyong mga kamay. Kailangan namin ng mas maraming oras bago mo itanong iyon muli.",
+    "textRows.recruitment.reject.relationship.2": "Mukhang may kakayahan ka, pero hindi pa kita gaanong kilala para sumama sa grupo mo.",
+    "textRows.recruitment.reject.relationship.3": "Seryosong pangako 'yan. Wala pa tayong sapat na tiwala para pumayag ako.",
+    "textRows.recruitment.reject.relationship.4": "Sa panahong ito, kailangan ng matibay na tiwala bago sumama. Hindi pa tayo ganoon kalapit.",
+    "textRows.recruitment.reject.relationship.5": "Hindi ako basta-basta sumasama sa taong kakikilala ko pa lang.",
+    "textRows.recruitment.reject.relationship.6": "Wala pa tayong pinagsamahan para makapagdesisyon ako nang ganoon kabilis.",
+    "textRows.recruitment.reject.relationship.7": "Bigyan muna natin ng oras. Hindi biro ang sumama sa isang grupo.",
+    "textRows.recruitment.reject.relationship.8": "Salamat sa alok, pero gusto ko munang makita kung paano ka kumilos sa labas.",
+    "textRows.recruitment.reject.relationship.9": "Kaya ko pa namang mag-isa sa ngayon habang hindi ko pa nasisigurado kung sino ang maaasahan ko.",
+    "textRows.recruitment.reject.relationship.10": "Mag-usap muna tayo at tingnan kung paano tayo magkakasundo bago magdesisyon."
+  }
+}

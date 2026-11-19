@@ -9,39 +9,19 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "corpse.friend.01",
-        "text": {
-          "EN": "We were supposed to get through this together, {target.name}.",
-          "TL": "Dapat sabay nating nalagpasan ito, {target.name}."
-        }
+        "key": "corpse.friend.01"
       },
       {
-        "key": "corpse.friend.02",
-        "text": {
-          "EN": "You always had my back, {target.name}. I should've had yours.",
-          "TL": "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo."
-        }
+        "key": "corpse.friend.02"
       },
       {
-        "key": "corpse.friend.03",
-        "text": {
-          "EN": "I won't let them forget you, {target.name}.",
-          "TL": "Hindi kita hahayaang makalimutan nila, {target.name}."
-        }
+        "key": "corpse.friend.03"
       },
       {
-        "key": "corpse.friend.04",
-        "text": {
-          "EN": "Rest now, {target.name}. You did enough.",
-          "TL": "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo."
-        }
+        "key": "corpse.friend.04"
       },
       {
-        "key": "corpse.friend.05",
-        "text": {
-          "EN": "We still owed each other a drink, {target.name}.",
-          "TL": "May utang pa tayong inumin sa isa't isa, {target.name}."
-        }
+        "key": "corpse.friend.05"
       }
     ]
   },
@@ -49,55 +29,35 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We were supposed to get through this together, {target.name}.",
-            "TL": "Dapat sabay nating nalagpasan ito, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "You always had my back, {target.name}. I should've had yours.",
-            "TL": "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I won't let them forget you, {target.name}.",
-            "TL": "Hindi kita hahayaang makalimutan nila, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Rest now, {target.name}. You did enough.",
-            "TL": "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We still owed each other a drink, {target.name}.",
-            "TL": "May utang pa tayong inumin sa isa't isa, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     }

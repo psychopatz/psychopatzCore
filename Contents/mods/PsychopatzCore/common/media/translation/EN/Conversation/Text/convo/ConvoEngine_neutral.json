@@ -1,0 +1,4 @@
+{
+  "convo.neutral.horde_survival.say.1.neutral": "I got away when a whole horde came after me.",
+  "convo.neutral.sighting.say.1.neutral": "Word is {target.name} was seen near {slot.place.name}."
+}

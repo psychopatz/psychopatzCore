@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.leader",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "May mga tao na akong umaasa sa akin. Hindi ako maaaring lumayo sa kanila para sa iyong grupo.",
+    "say.2.neutral": "Ako ang may pananagutan sa kanlungang ito. Hanggang sa magbago iyon, nananatili ako rito.",
+    "textRows.recruitment.reject.leader.1": "May mga tao na akong umaasa sa akin. Hindi ako maaaring lumayo sa kanila para sa iyong grupo.",
+    "textRows.recruitment.reject.leader.2": "Ako ang may pananagutan sa kanlungang ito. Hanggang sa magbago iyon, nananatili ako rito."
+  }
+}

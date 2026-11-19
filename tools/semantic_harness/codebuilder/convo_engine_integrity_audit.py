@@ -496,6 +496,23 @@ def audit_convo_engine_workspace(
     stats["legacyNameViolations"] = leakage["activeCurrentPsdlIdentityCount"]
     violations.extend(leakage["violations"])
 
+    from .convo_engine_localization_audit import audit_convo_engine_localization
+
+    loc_audit = audit_convo_engine_localization(
+        core_root,
+        hoomans_repository=hoomans_root,
+        dynamic_trading_repository=dt_root,
+    )
+    stats["localization"] = loc_audit["counters"]
+    for counter_name, count in loc_audit["counters"].items():
+        if count > 0:
+            violations.append({
+                "code": f"localization_{counter_name}",
+                "owner": CORE_OWNER,
+                "path": str(core_root),
+                "message": f"Localization audit failed: {counter_name}={count}",
+            })
+
     return {
         "ok": len(violations) == 0,
         "schema": "psychopatz.convo-engine.integrity-audit.v1",

@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.cooldown",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin.",
+    "say.2.neutral": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas.",
+    "textRows.recruitment.reject.cooldown.1": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin.",
+    "textRows.recruitment.reject.cooldown.2": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
+  }
+}

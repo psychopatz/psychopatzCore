@@ -3,19 +3,5 @@
   "id": "construction.social.contextual_accept",
   "dialogueAct": "ACCEPT",
   "strategy": "ACCEPT",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Yes, I accept."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Oo, pumapayag ako."
-      }
-    ]
-  },
   "type": "construction"
 }

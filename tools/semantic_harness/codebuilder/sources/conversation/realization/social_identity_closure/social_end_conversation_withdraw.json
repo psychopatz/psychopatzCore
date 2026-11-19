@@ -3,19 +3,5 @@
   "id": "construction.social.end_conversation_withdraw",
   "dialogueAct": "END_CONVERSATION",
   "strategy": "END_CONVERSATION",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I'm done with this."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ayoko na nito."
-      }
-    ]
-  },
   "type": "construction"
 }

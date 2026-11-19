@@ -378,6 +378,15 @@ def expand_compact_convo_document(
     merged_defaults.pop("kind", None)
 
     doc = copy.deepcopy(dict(document))
+
+    # Hydrate canonical external translations (<source_root>/translations/<LOCALE>/<rel>)
+    canonical_loader = getattr(text_loader, "load_canonical_translations", None)
+    if callable(canonical_loader):
+        canonical_translations = canonical_loader()
+        if canonical_translations:
+            from .convo_engine_translation_migration import hydrate_family_translations
+
+            doc = hydrate_family_translations(doc, canonical_translations)
     doc.pop("profile", None)
 
     # Apply shallow defaults (only keys not explicitly overridden locally)

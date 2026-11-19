@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.cooldown",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "We already had this conversation today. Give me time to think before you press me again.",
+    "say.2.neutral": "Not again today. Let us see how things stand tomorrow.",
+    "textRows.recruitment.reject.cooldown.1": "We already had this conversation today. Give me time to think before you press me again.",
+    "textRows.recruitment.reject.cooldown.2": "Not again today. Let us see how things stand tomorrow."
+  }
+}

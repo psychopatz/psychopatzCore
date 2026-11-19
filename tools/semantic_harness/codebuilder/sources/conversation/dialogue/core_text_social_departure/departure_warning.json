@@ -6,22 +6,14 @@
     "textTarget": "social/departure/response",
     "textRows": [
       {
-        "key": "departure.warning",
-        "text": {
-          "EN": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-          "TL": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon."
-        }
+        "key": "departure.warning"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-          "TL": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon."
-        }
+        "id": "neutral"
       }
     ]
   },

@@ -3,19 +3,5 @@
   "id": "construction.social.double_down",
   "dialogueAct": "HOSTILE_REMARK",
   "strategy": "DOUBLE_DOWN",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Yeah, I meant it."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Oo, sinadya ko 'yon."
-      }
-    ]
-  },
   "type": "construction"
 }

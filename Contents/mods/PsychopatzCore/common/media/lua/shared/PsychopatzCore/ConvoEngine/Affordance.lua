@@ -125,7 +125,22 @@ local function hasAnyGroup(actual, wanted)
     return false
 end
 
-local function resolveLocalizedList(translations, fallback, language, seed, explicitIndex)
+local function lookupExternalKey(key, fallback)
+    if type(key) ~= "string" or key == "" then
+        return nil
+    end
+    local core = PsychopatzCore
+    local tr = type(core) == "table" and core.Translation or nil
+    if type(tr) == "table" and type(tr.GetKey) == "function" then
+        local ok, value = pcall(tr.GetKey, key, fallback)
+        if ok and type(value) == "string" and value ~= "" and value ~= key then
+            return value
+        end
+    end
+    return nil
+end
+
+local function resolveLocalizedList(translations, fallback, language, seed, explicitIndex, key, variantCount)
     local tbl = type(translations) == "table" and translations or {}
     local list = tbl[language] or tbl.EN
     if type(list) == "table" and #list > 0 then
@@ -140,6 +155,19 @@ local function resolveLocalizedList(translations, fallback, language, seed, expl
     if type(list) == "string" and list ~= "" then
         return list
     end
+    local count = tonumber(variantCount) or 1
+    if count > 1 and type(key) == "string" and key ~= "" then
+        local idx = tonumber(explicitIndex)
+        if not idx then
+            idx = stableIndex(seed, count)
+        else
+            idx = ((math.floor(idx) - 1) % count) + 1
+        end
+        local indexed = lookupExternalKey(key .. "." .. tostring(idx), nil)
+        if indexed then return indexed end
+    end
+    local resolved = lookupExternalKey(key, nil)
+    if resolved then return resolved end
     return type(fallback) == "string" and fallback ~= "" and fallback or nil
 end
 
@@ -204,7 +232,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
         if type(aff) ~= "table" then
             return nil, "button_label_missing"
         end
-        local raw = resolveLocalizedList(aff.translations, aff.labelFallback, language, seed, 1)
+        local raw = resolveLocalizedList(aff.translations, aff.labelFallback, language, seed, 1, aff.labelKey, 1)
         if not raw then return nil, "button_label_missing" end
         return renderTemplateText(raw, context, bindings)
     elseif role == "spoken_action" then
@@ -212,7 +240,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
         if type(chosen) ~= "table" then
             return nil, "spoken_action_missing"
         end
-        local raw = resolveLocalizedList(chosen.translations, chosen.fallback, language, seed, explicitIndex)
+        local raw = resolveLocalizedList(chosen.translations, chosen.fallback, language, seed, explicitIndex, chosen.templateID, chosen.variantCount)
         if not raw then return nil, "spoken_action_missing" end
         return renderTemplateText(raw, context, bindings)
     elseif role == "response" then
@@ -239,7 +267,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
         if type(chosen) ~= "table" then
             return nil, "response_text_missing"
         end
-        local raw = resolveLocalizedList(chosen.translations, chosen.fallback, language, seed, explicitIndex)
+        local raw = resolveLocalizedList(chosen.translations, chosen.fallback, language, seed, explicitIndex, chosen.templateID, chosen.variantCount)
         if not raw then return nil, "response_text_missing" end
         return renderTemplateText(raw, context, bindings)
     end

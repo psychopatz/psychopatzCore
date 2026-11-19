@@ -212,26 +212,41 @@ local function selectPlanPhrase(templateID, style, options)
     chosen = chosen or neutralVar or entry.variants[1]
     if type(chosen) ~= "table" then return nil end
 
+    local count = tonumber(chosen.variantCount) or 0
     local translations = type(chosen.translations) == "table" and chosen.translations or {}
     local enList = type(translations.EN) == "table" and translations.EN or nil
     local tlList = type(translations.TL) == "table" and translations.TL or nil
-    local count = (enList and #enList > 0 and #enList) or (tlList and #tlList > 0 and #tlList) or 0
+    if count <= 0 then
+        count = (enList and #enList > 0 and #enList) or (tlList and #tlList > 0 and #tlList) or 0
+    end
     local idx = 1
     if count > 0 then
         local explicit = type(options) == "table" and tonumber(options.index) or nil
         idx = explicit or stableIndex(type(options) == "table" and options.seed or "", count) or 1
         idx = ((math.floor(idx) - 1) % count) + 1
     end
+    local resolvedKey = chosen.templateID or templateID
+    local lookupKey = count > 1 and type(resolvedKey) == "string" and resolvedKey ~= ""
+        and (resolvedKey .. "." .. tostring(idx))
+        or resolvedKey
     local enText = enList and enList[idx] or chosen.fallback
     local tlText = tlList and (tlList[idx] or tlList[1]) or nil
+    local core = PsychopatzCore
+    local tr = type(core) == "table" and core.Translation or nil
+    if type(tr) == "table" and type(tr.GetKey) == "function" and type(lookupKey) == "string" and lookupKey ~= "" then
+        local ok, val = pcall(tr.GetKey, lookupKey, enText)
+        if ok and type(val) == "string" and val ~= "" and val ~= lookupKey then
+            enText = val
+        end
+    end
     return {
         id = chosen.id,
-        templateID = chosen.templateID or templateID,
+        templateID = resolvedKey,
         style = tostring(chosen.id or wanted),
         familyID = plan.id,
         outcome = outcomeName,
         fallback = enText,
-        translations = { EN = enText, TL = tlText },
+        translations = (enList or tlList) and { EN = enText, TL = tlText } or nil,
     }
 end
 

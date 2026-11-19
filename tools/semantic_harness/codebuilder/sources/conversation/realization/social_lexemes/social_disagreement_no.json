@@ -2,9 +2,5 @@
   "schema": "psychopatz.convo-engine.v1",
   "profile": "lexeme_realization",
   "id": "lexeme.social.disagreement.no",
-  "concept": "DISAGREEMENT_NO",
-  "forms": {
-    "EN": "no",
-    "TL": "hindi"
-  }
+  "concept": "DISAGREEMENT_NO"
 }

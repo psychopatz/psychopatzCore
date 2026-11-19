@@ -3,19 +3,5 @@
   "id": "construction.social.contextual_refuse",
   "dialogueAct": "REFUSE",
   "strategy": "REFUSE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "No, I'll pass."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Hindi, salamat na lang."
-      }
-    ]
-  },
   "type": "construction"
 }

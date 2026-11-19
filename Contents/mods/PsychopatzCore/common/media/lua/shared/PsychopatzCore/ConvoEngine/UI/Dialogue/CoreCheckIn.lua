@@ -1,16 +1,6 @@
 -- Generated; do not edit by hand.
 return {
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask about wellbeing",
-                ["utterance"] = "How are you feeling?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong ang kalagayan",
-                ["utterance"] = "Kumusta ang pakiramdam mo?",
-            },
-        },
         ["domain"] = "wellbeing",
         ["hubID"] = "whats_up",
         ["hubOnly"] = true,
@@ -33,16 +23,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_Wellbeing_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask what is wrong",
-                ["utterance"] = "What's wrong?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong kung ano ang problema",
-                ["utterance"] = "Ano ang problema?",
-            },
-        },
         ["domain"] = "wellbeing",
         ["extensions"] = {
             ["topic"] = "wellbeing",
@@ -66,16 +46,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_WellbeingDetail_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask what they've been doing",
-                ["utterance"] = "What have you been doing?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong ang pinagkakaabalahan",
-                ["utterance"] = "Ano ang mga pinagkakaabalahan mo?",
-            },
-        },
         ["domain"] = "activity",
         ["extensions"] = {
             ["topic"] = "activity",
@@ -101,16 +71,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_Activity_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask about the time",
-                ["utterance"] = "What time is it?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong ang oras",
-                ["utterance"] = "Anong oras na?",
-            },
-        },
         ["domain"] = "time",
         ["id"] = "question.time",
         ["intent"] = "QUESTION",
@@ -131,16 +91,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_Time_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask about the date",
-                ["utterance"] = "What's today's date?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong ang petsa",
-                ["utterance"] = "Ano ang petsa ngayon?",
-            },
-        },
         ["domain"] = "date",
         ["id"] = "question.date",
         ["intent"] = "QUESTION",
@@ -161,16 +111,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_Date_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask about the weather",
-                ["utterance"] = "How is the weather?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong ang panahon",
-                ["utterance"] = "Kumusta ang panahon?",
-            },
-        },
         ["domain"] = "weather",
         ["hubID"] = "whats_up",
         ["hubOnly"] = true,

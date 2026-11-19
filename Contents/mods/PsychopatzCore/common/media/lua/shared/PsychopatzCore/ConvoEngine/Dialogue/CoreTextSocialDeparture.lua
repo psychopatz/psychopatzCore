@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.departure.confirmed.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Understood. I will take my chances elsewhere. Remember what you chose.",
-                                    },
-                                    ["TL"] = {
-                                        "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -41,14 +33,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.departure.confirmed.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Understood. I will take my chances elsewhere. Remember what you chose.",
-                        },
-                        ["TL"] = {
-                            "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -85,11 +69,8 @@ return {
                 ["textKey"] = "departure.confirmed",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Understood. I will take my chances elsewhere. Remember what you chose.",
                         ["key"] = "departure.confirmed",
-                        ["text"] = {
-                            ["EN"] = "Understood. I will take my chances elsewhere. Remember what you chose.",
-                            ["TL"] = "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/departure/response",
@@ -105,15 +86,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Understood. I will take my chances elsewhere. Remember what you chose.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Understood. I will take my chances elsewhere. Remember what you chose.",
-                                    },
-                                    ["TL"] = {
-                                        "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -182,14 +156,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.departure.confirmed.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Understood. I will take my chances elsewhere. Remember what you chose.",
-                    },
-                    ["TL"] = {
-                        "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -215,14 +181,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.departure.rejected.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I am not leaving with you. That decision is not yours to make right now.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -236,14 +194,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.departure.rejected.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I am not leaving with you. That decision is not yours to make right now.",
-                        },
-                        ["TL"] = {
-                            "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -280,11 +230,8 @@ return {
                 ["textKey"] = "departure.rejected",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I am not leaving with you. That decision is not yours to make right now.",
                         ["key"] = "departure.rejected",
-                        ["text"] = {
-                            ["EN"] = "I am not leaving with you. That decision is not yours to make right now.",
-                            ["TL"] = "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/departure/response",
@@ -300,15 +247,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I am not leaving with you. That decision is not yours to make right now.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I am not leaving with you. That decision is not yours to make right now.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -377,14 +317,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.departure.rejected.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I am not leaving with you. That decision is not yours to make right now.",
-                    },
-                    ["TL"] = {
-                        "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -410,14 +342,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.departure.warning.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-                                    },
-                                    ["TL"] = {
-                                        "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -431,14 +355,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.departure.warning.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-                        },
-                        ["TL"] = {
-                            "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -475,11 +391,8 @@ return {
                 ["textKey"] = "departure.warning",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
                         ["key"] = "departure.warning",
-                        ["text"] = {
-                            ["EN"] = "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-                            ["TL"] = "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/departure/response",
@@ -495,15 +408,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-                                    },
-                                    ["TL"] = {
-                                        "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -572,14 +478,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.departure.warning.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-                    },
-                    ["TL"] = {
-                        "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

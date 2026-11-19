@@ -22,10 +22,6 @@
     "topic": "date"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask about the date",
-      "TL": "Itanong ang petsa"
-    },
     "consumers": [
       "player",
       "npc"
@@ -35,8 +31,11 @@
     ]
   },
   "say": {
-    "EN": "What's today's date?",
-    "TL": "Ano ang petsa ngayon?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

@@ -27,10 +27,6 @@
     "topic": "activity"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask what they've been doing",
-      "TL": "Itanong ang pinagkakaabalahan"
-    },
     "consumers": [
       "player",
       "npc"
@@ -40,8 +36,11 @@
     ]
   },
   "say": {
-    "EN": "What have you been doing?",
-    "TL": "Ano ang mga pinagkakaabalahan mo?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

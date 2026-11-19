@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.mockery.gear",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+    "textRows.negative.mockery.gear": "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit."
+  }
+}

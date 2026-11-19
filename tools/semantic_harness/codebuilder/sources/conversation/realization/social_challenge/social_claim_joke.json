@@ -3,19 +3,5 @@
   "id": "construction.social.claim_joke",
   "dialogueAct": "APOLOGIZE",
   "strategy": "CLAIM_JOKE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I was joking."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Nagbibiro lang ako."
-      }
-    ]
-  },
   "type": "construction"
 }

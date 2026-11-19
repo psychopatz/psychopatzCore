@@ -133,11 +133,8 @@ class ConvoEngineAdopterPackagesAndOwnershipTests(unittest.TestCase):
         hashed_hoomans = list(hoomans_gen.rglob("*__*.lua"))
         self.assertEqual(hashed_hoomans, [])
 
-        # CompanionCommandsLifecycle splits deterministically into readable modules
-        lifecycle_dir = hoomans_gen / "Dialogue/CompanionCommandsLifecycle"
-        self.assertTrue((lifecycle_dir / "CampToFollow.lua").is_file())
-        self.assertTrue((lifecycle_dir / "ReturnHomeToStay.lua").is_file())
-        self.assertTrue((lifecycle_dir / "CommandStopFollowing.lua").is_file())
+        # CompanionCommandsLifecycle fits cleanly into one readable module once multi-locale corpora are externalized
+        self.assertTrue((hoomans_gen / "Dialogue/CompanionCommandsLifecycle.lua").is_file())
 
         # Audit report classifies any remaining hashed modules cleanly
         rendered, _ = render_conversation_runtime_plan(self.model)

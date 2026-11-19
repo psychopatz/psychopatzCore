@@ -3,19 +3,5 @@
   "id": "construction.social.end_conversation_done",
   "dialogueAct": "END_CONVERSATION",
   "strategy": "END_CONVERSATION",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "We're done here."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Tapos na tayo rito."
-      }
-    ]
-  },
   "type": "construction"
 }

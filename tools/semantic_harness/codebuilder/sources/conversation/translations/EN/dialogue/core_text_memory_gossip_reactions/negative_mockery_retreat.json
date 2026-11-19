@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.mockery.retreat",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "{target.name} talked big, then backed down when it mattered.",
+    "textRows.negative.mockery.retreat": "{target.name} talked big, then backed down when it mattered."
+  }
+}

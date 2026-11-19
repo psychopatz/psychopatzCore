@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.relative",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "No, {target.name}. You were family.",
+    "say.2.neutral": "I thought we'd meet again, {target.name}.",
+    "say.3.neutral": "You should have made it home, {target.name}.",
+    "say.4.neutral": "I'll carry you with me, {target.name}. I promise.",
+    "say.5.neutral": "{target.name}, I'm sorry I wasn't there.",
+    "textRows.corpse.relative.01": "No, {target.name}. You were family.",
+    "textRows.corpse.relative.02": "I thought we'd meet again, {target.name}.",
+    "textRows.corpse.relative.03": "You should have made it home, {target.name}.",
+    "textRows.corpse.relative.04": "I'll carry you with me, {target.name}. I promise.",
+    "textRows.corpse.relative.05": "{target.name}, I'm sorry I wasn't there."
+  }
+}

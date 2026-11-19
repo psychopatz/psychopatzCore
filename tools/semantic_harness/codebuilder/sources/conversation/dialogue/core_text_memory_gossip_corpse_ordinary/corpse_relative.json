@@ -9,39 +9,19 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "corpse.relative.01",
-        "text": {
-          "EN": "No, {target.name}. You were family.",
-          "TL": "Hindi... si {target.name}. Pamilya tayo."
-        }
+        "key": "corpse.relative.01"
       },
       {
-        "key": "corpse.relative.02",
-        "text": {
-          "EN": "I thought we'd meet again, {target.name}.",
-          "TL": "Akala ko magkikita pa tayo, {target.name}."
-        }
+        "key": "corpse.relative.02"
       },
       {
-        "key": "corpse.relative.03",
-        "text": {
-          "EN": "You should have made it home, {target.name}.",
-          "TL": "Dapat nakauwi ka pa, {target.name}."
-        }
+        "key": "corpse.relative.03"
       },
       {
-        "key": "corpse.relative.04",
-        "text": {
-          "EN": "I'll carry you with me, {target.name}. I promise.",
-          "TL": "Dadalahin kita sa alaala ko, {target.name}. Pangako."
-        }
+        "key": "corpse.relative.04"
       },
       {
-        "key": "corpse.relative.05",
-        "text": {
-          "EN": "{target.name}, I'm sorry I wasn't there.",
-          "TL": "{target.name}, patawad at wala ako roon."
-        }
+        "key": "corpse.relative.05"
       }
     ]
   },
@@ -49,55 +29,35 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "No, {target.name}. You were family.",
-            "TL": "Hindi... si {target.name}. Pamilya tayo."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I thought we'd meet again, {target.name}.",
-            "TL": "Akala ko magkikita pa tayo, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "You should have made it home, {target.name}.",
-            "TL": "Dapat nakauwi ka pa, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I'll carry you with me, {target.name}. I promise.",
-            "TL": "Dadalahin kita sa alaala ko, {target.name}. Pangako."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "{target.name}, I'm sorry I wasn't there.",
-            "TL": "{target.name}, patawad at wala ako roon."
-          }
+          "id": "neutral"
         }
       ]
     }

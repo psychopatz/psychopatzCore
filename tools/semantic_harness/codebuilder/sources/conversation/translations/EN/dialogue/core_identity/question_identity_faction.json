@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.identity_faction",
+  "locale": "EN",
+  "entries": {
+    "affordance.label": "Ask who they are with",
+    "say.variants.default": "Who are you with?"
+  }
+}

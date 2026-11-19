@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "departure.warning",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
+    "textRows.departure.warning": "If you cast me out, I will leave this group and make my own way. You cannot take that back."
+  }
+}

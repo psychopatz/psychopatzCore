@@ -4,7 +4,6 @@ return {
         ["dialogueAct"] = "QUESTION",
         ["domain"] = "general",
         ["id"] = "construction.en.social.ask_followup",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "ASK_FOLLOWUP",
         ["tokens"] = {
@@ -13,13 +12,13 @@ return {
                 ["value"] = "What do you mean?",
             },
         },
+        ["translationKey"] = "convo.construction.social.ask_followup",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "QUESTION",
         ["domain"] = "general",
         ["id"] = "construction.en.social.ask_why",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "ASK_WHY",
         ["tokens"] = {
@@ -28,13 +27,13 @@ return {
                 ["value"] = "Why would you say that?",
             },
         },
+        ["translationKey"] = "convo.construction.social.ask_why",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "HOSTILE_REMARK",
         ["domain"] = "general",
         ["id"] = "construction.en.social.call_bluff",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "CALL_BLUFF",
         ["tokens"] = {
@@ -43,13 +42,13 @@ return {
                 ["value"] = "You're all talk.",
             },
         },
+        ["translationKey"] = "convo.construction.social.call_bluff",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "CHALLENGE",
         ["domain"] = "general",
         ["id"] = "construction.en.social.challenge",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "CHALLENGE",
         ["tokens"] = {
@@ -58,13 +57,13 @@ return {
                 ["value"] = "Say that again.",
             },
         },
+        ["translationKey"] = "convo.construction.social.challenge",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "APOLOGIZE",
         ["domain"] = "general",
         ["id"] = "construction.en.social.claim_joke",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "CLAIM_JOKE",
         ["tokens"] = {
@@ -73,13 +72,13 @@ return {
                 ["value"] = "I was joking.",
             },
         },
+        ["translationKey"] = "convo.construction.social.claim_joke",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "DISMISS",
         ["domain"] = "general",
         ["id"] = "construction.en.social.dismiss",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "DISMISS",
         ["tokens"] = {
@@ -88,13 +87,13 @@ return {
                 ["value"] = "Whatever.",
             },
         },
+        ["translationKey"] = "convo.construction.social.dismiss",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "HOSTILE_REMARK",
         ["domain"] = "general",
         ["id"] = "construction.en.social.double_down",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "DOUBLE_DOWN",
         ["tokens"] = {
@@ -103,13 +102,13 @@ return {
                 ["value"] = "Yeah, I meant it.",
             },
         },
+        ["translationKey"] = "convo.construction.social.double_down",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "HOSTILE_REMARK",
         ["domain"] = "general",
         ["id"] = "construction.en.social.double_down_direct",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "DOUBLE_DOWN",
         ["tokens"] = {
@@ -118,13 +117,13 @@ return {
                 ["value"] = "I meant what I said.",
             },
         },
+        ["translationKey"] = "convo.construction.social.double_down_direct",
         ["type"] = "construction",
     },
     {
         ["dialogueAct"] = "HOSTILE_REMARK",
         ["domain"] = "general",
         ["id"] = "construction.en.social.double_down_stand",
-        ["locale"] = "EN",
         ["owner"] = "PsychopatzCore",
         ["strategy"] = "DOUBLE_DOWN",
         ["tokens"] = {
@@ -133,141 +132,7 @@ return {
                 ["value"] = "I stand by it.",
             },
         },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "QUESTION",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.ask_followup",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "ASK_FOLLOWUP",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Ano'ng ibig mong sabihin?",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "QUESTION",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.ask_why",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "ASK_WHY",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Bakit mo sinabi 'yan?",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "HOSTILE_REMARK",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.call_bluff",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "CALL_BLUFF",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Puro salita ka lang.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "CHALLENGE",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.challenge",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "CHALLENGE",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Ulitin mo nga.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "APOLOGIZE",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.claim_joke",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "CLAIM_JOKE",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Nagbibiro lang ako.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "DISMISS",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.dismiss",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "DISMISS",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Bahala ka.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "HOSTILE_REMARK",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.double_down",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "DOUBLE_DOWN",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Oo, sinadya ko 'yon.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "HOSTILE_REMARK",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.double_down_direct",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "DOUBLE_DOWN",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Sinadya ko talaga 'yon.",
-            },
-        },
-        ["type"] = "construction",
-    },
-    {
-        ["dialogueAct"] = "HOSTILE_REMARK",
-        ["domain"] = "general",
-        ["id"] = "construction.tl.social.double_down_stand",
-        ["locale"] = "TL",
-        ["owner"] = "PsychopatzCore",
-        ["strategy"] = "DOUBLE_DOWN",
-        ["tokens"] = {
-            {
-                ["kind"] = "literal",
-                ["value"] = "Paninindigan ko 'yon.",
-            },
-        },
+        ["translationKey"] = "convo.construction.social.double_down_stand",
         ["type"] = "construction",
     },
 }

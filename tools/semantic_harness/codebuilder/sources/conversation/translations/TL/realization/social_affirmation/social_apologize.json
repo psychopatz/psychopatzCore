@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.apologize",
+  "locale": "TL",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "lexeme",
+        "slot": "primary"
+      },
+      {
+        "kind": "literal",
+        "value": " na."
+      }
+    ]
+  }
+}

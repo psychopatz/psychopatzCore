@@ -27,14 +27,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-                                    },
-                                    ["TL"] = {
-                                        "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -47,14 +39,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-                                    },
-                                    ["TL"] = {
-                                        "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -67,14 +51,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "We saw {slot.killer.name} take {target.name}. This is not finished.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -87,14 +63,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-                                    },
-                                    ["TL"] = {
-                                        "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -107,14 +75,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -127,14 +87,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.6.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-                                    },
-                                    ["TL"] = {
-                                        "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -147,14 +99,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.7.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-                                    },
-                                    ["TL"] = {
-                                        "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -167,14 +111,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.comrade.say.8.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -202,14 +138,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-                        },
-                        ["TL"] = {
-                            "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -217,14 +145,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-                        },
-                        ["TL"] = {
-                            "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -232,14 +152,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "We saw {slot.killer.name} take {target.name}. This is not finished.",
-                        },
-                        ["TL"] = {
-                            "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -247,14 +159,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-                        },
-                        ["TL"] = {
-                            "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -262,14 +166,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -277,14 +173,6 @@ return {
                     ["realizationKey"] = "6",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.6.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-                        },
-                        ["TL"] = {
-                            "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -292,14 +180,6 @@ return {
                     ["realizationKey"] = "7",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.7.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-                        },
-                        ["TL"] = {
-                            "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -307,14 +187,6 @@ return {
                     ["realizationKey"] = "8",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.comrade.say.8.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-                        },
-                        ["TL"] = {
-                            "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -362,60 +234,36 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
                         ["key"] = "corpse.revenge.comrade.01",
-                        ["text"] = {
-                            ["EN"] = "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-                            ["TL"] = "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
-                        },
                     },
                     {
+                        ["fallback"] = "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
                         ["key"] = "corpse.revenge.comrade.02",
-                        ["text"] = {
-                            ["EN"] = "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-                            ["TL"] = "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
-                        },
                     },
                     {
+                        ["fallback"] = "We saw {slot.killer.name} take {target.name}. This is not finished.",
                         ["key"] = "corpse.revenge.comrade.03",
-                        ["text"] = {
-                            ["EN"] = "We saw {slot.killer.name} take {target.name}. This is not finished.",
-                            ["TL"] = "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
-                        },
                     },
                     {
+                        ["fallback"] = "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
                         ["key"] = "corpse.revenge.comrade.04",
-                        ["text"] = {
-                            ["EN"] = "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-                            ["TL"] = "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
-                        },
                     },
                     {
+                        ["fallback"] = "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
                         ["key"] = "corpse.revenge.comrade.05",
-                        ["text"] = {
-                            ["EN"] = "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-                            ["TL"] = "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
                         ["key"] = "corpse.revenge.comrade.06",
-                        ["text"] = {
-                            ["EN"] = "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-                            ["TL"] = "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
-                        },
                     },
                     {
+                        ["fallback"] = "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
                         ["key"] = "corpse.revenge.comrade.07",
-                        ["text"] = {
-                            ["EN"] = "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-                            ["TL"] = "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
-                        },
                     },
                     {
+                        ["fallback"] = "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
                         ["key"] = "corpse.revenge.comrade.08",
-                        ["text"] = {
-                            ["EN"] = "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-                            ["TL"] = "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -438,15 +286,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-                                    },
-                                    ["TL"] = {
-                                        "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -455,15 +296,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-                                    },
-                                    ["TL"] = {
-                                        "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -472,15 +306,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "We saw {slot.killer.name} take {target.name}. This is not finished.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "We saw {slot.killer.name} take {target.name}. This is not finished.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -489,15 +316,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-                                    },
-                                    ["TL"] = {
-                                        "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -506,15 +326,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -523,15 +336,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-                                    },
-                                    ["TL"] = {
-                                        "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -540,15 +346,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-                                    },
-                                    ["TL"] = {
-                                        "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -557,15 +356,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -654,14 +446,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-                    },
-                    ["TL"] = {
-                        "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -669,14 +453,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-                    },
-                    ["TL"] = {
-                        "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -684,14 +460,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "We saw {slot.killer.name} take {target.name}. This is not finished.",
-                    },
-                    ["TL"] = {
-                        "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -699,14 +467,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-                    },
-                    ["TL"] = {
-                        "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -714,14 +474,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -729,14 +481,6 @@ return {
                 ["realizationKey"] = "6",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.6.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-                    },
-                    ["TL"] = {
-                        "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -744,14 +488,6 @@ return {
                 ["realizationKey"] = "7",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.7.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-                    },
-                    ["TL"] = {
-                        "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -759,14 +495,6 @@ return {
                 ["realizationKey"] = "8",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.comrade.say.8.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-                    },
-                    ["TL"] = {
-                        "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -799,14 +527,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
-                                    },
-                                    ["TL"] = {
-                                        "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -819,14 +539,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I saw {target.name} fall. {slot.killer.name} will answer for it.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -839,14 +551,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
-                                    },
-                                    ["TL"] = {
-                                        "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -859,14 +563,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -879,14 +575,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -899,14 +587,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.6.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Damn {slot.killer.name}. {target.name} mattered to us.",
-                                    },
-                                    ["TL"] = {
-                                        "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -919,14 +599,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.7.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -939,14 +611,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.friend.say.8.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -968,14 +632,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
-                        },
-                        ["TL"] = {
-                            "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -983,14 +639,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I saw {target.name} fall. {slot.killer.name} will answer for it.",
-                        },
-                        ["TL"] = {
-                            "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -998,14 +646,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
-                        },
-                        ["TL"] = {
-                            "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1013,14 +653,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
-                        },
-                        ["TL"] = {
-                            "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1028,14 +660,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
-                        },
-                        ["TL"] = {
-                            "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1043,14 +667,6 @@ return {
                     ["realizationKey"] = "6",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.6.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Damn {slot.killer.name}. {target.name} mattered to us.",
-                        },
-                        ["TL"] = {
-                            "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1058,14 +674,6 @@ return {
                     ["realizationKey"] = "7",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.7.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1073,14 +681,6 @@ return {
                     ["realizationKey"] = "8",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.friend.say.8.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1128,60 +728,36 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
                         ["key"] = "corpse.revenge.friend.01",
-                        ["text"] = {
-                            ["EN"] = "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
-                            ["TL"] = "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
-                        },
                     },
                     {
+                        ["fallback"] = "I saw {target.name} fall. {slot.killer.name} will answer for it.",
                         ["key"] = "corpse.revenge.friend.02",
-                        ["text"] = {
-                            ["EN"] = "I saw {target.name} fall. {slot.killer.name} will answer for it.",
-                            ["TL"] = "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
                         ["key"] = "corpse.revenge.friend.03",
-                        ["text"] = {
-                            ["EN"] = "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
-                            ["TL"] = "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
                         ["key"] = "corpse.revenge.friend.04",
-                        ["text"] = {
-                            ["EN"] = "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
-                            ["TL"] = "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
                         ["key"] = "corpse.revenge.friend.05",
-                        ["text"] = {
-                            ["EN"] = "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
-                            ["TL"] = "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Damn {slot.killer.name}. {target.name} mattered to us.",
                         ["key"] = "corpse.revenge.friend.06",
-                        ["text"] = {
-                            ["EN"] = "Damn {slot.killer.name}. {target.name} mattered to us.",
-                            ["TL"] = "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
                         ["key"] = "corpse.revenge.friend.07",
-                        ["text"] = {
-                            ["EN"] = "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
-                            ["TL"] = "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
                         ["key"] = "corpse.revenge.friend.08",
-                        ["text"] = {
-                            ["EN"] = "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
-                            ["TL"] = "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1204,15 +780,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
-                                    },
-                                    ["TL"] = {
-                                        "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1221,15 +790,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I saw {target.name} fall. {slot.killer.name} will answer for it.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I saw {target.name} fall. {slot.killer.name} will answer for it.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1238,15 +800,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
-                                    },
-                                    ["TL"] = {
-                                        "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1255,15 +810,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1272,15 +820,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1289,15 +830,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Damn {slot.killer.name}. {target.name} mattered to us.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Damn {slot.killer.name}. {target.name} mattered to us.",
-                                    },
-                                    ["TL"] = {
-                                        "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1306,15 +840,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1323,15 +850,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1414,14 +934,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
-                    },
-                    ["TL"] = {
-                        "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1429,14 +941,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I saw {target.name} fall. {slot.killer.name} will answer for it.",
-                    },
-                    ["TL"] = {
-                        "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1444,14 +948,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
-                    },
-                    ["TL"] = {
-                        "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1459,14 +955,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
-                    },
-                    ["TL"] = {
-                        "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1474,14 +962,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
-                    },
-                    ["TL"] = {
-                        "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1489,14 +969,6 @@ return {
                 ["realizationKey"] = "6",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.6.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Damn {slot.killer.name}. {target.name} mattered to us.",
-                    },
-                    ["TL"] = {
-                        "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1504,14 +976,6 @@ return {
                 ["realizationKey"] = "7",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.7.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1519,14 +983,6 @@ return {
                 ["realizationKey"] = "8",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.friend.say.8.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1559,14 +1015,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-                                    },
-                                    ["TL"] = {
-                                        "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1579,14 +1027,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1599,14 +1039,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What {slot.killer.name} did to {target.name} will never be forgiven.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1619,14 +1051,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-                                    },
-                                    ["TL"] = {
-                                        "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1639,14 +1063,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1659,14 +1075,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.6.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "No. Not {target.name}. {slot.killer.name} just made this personal.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1679,14 +1087,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.7.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} was family. {slot.killer.name} will regret this.",
-                                    },
-                                    ["TL"] = {
-                                        "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1699,14 +1099,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.revenge.relative.say.8.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-                                    },
-                                    ["TL"] = {
-                                        "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1728,14 +1120,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-                        },
-                        ["TL"] = {
-                            "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1743,14 +1127,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-                        },
-                        ["TL"] = {
-                            "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1758,14 +1134,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What {slot.killer.name} did to {target.name} will never be forgiven.",
-                        },
-                        ["TL"] = {
-                            "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1773,14 +1141,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-                        },
-                        ["TL"] = {
-                            "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1788,14 +1148,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-                        },
-                        ["TL"] = {
-                            "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1803,14 +1155,6 @@ return {
                     ["realizationKey"] = "6",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.6.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "No. Not {target.name}. {slot.killer.name} just made this personal.",
-                        },
-                        ["TL"] = {
-                            "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1818,14 +1162,6 @@ return {
                     ["realizationKey"] = "7",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.7.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} was family. {slot.killer.name} will regret this.",
-                        },
-                        ["TL"] = {
-                            "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1833,14 +1169,6 @@ return {
                     ["realizationKey"] = "8",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.revenge.relative.say.8.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-                        },
-                        ["TL"] = {
-                            "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1888,60 +1216,36 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
                         ["key"] = "corpse.revenge.relative.01",
-                        ["text"] = {
-                            ["EN"] = "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-                            ["TL"] = "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
-                        },
                     },
                     {
+                        ["fallback"] = "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
                         ["key"] = "corpse.revenge.relative.02",
-                        ["text"] = {
-                            ["EN"] = "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-                            ["TL"] = "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
-                        },
                     },
                     {
+                        ["fallback"] = "What {slot.killer.name} did to {target.name} will never be forgiven.",
                         ["key"] = "corpse.revenge.relative.03",
-                        ["text"] = {
-                            ["EN"] = "What {slot.killer.name} did to {target.name} will never be forgiven.",
-                            ["TL"] = "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
                         ["key"] = "corpse.revenge.relative.04",
-                        ["text"] = {
-                            ["EN"] = "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-                            ["TL"] = "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
-                        },
                     },
                     {
+                        ["fallback"] = "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
                         ["key"] = "corpse.revenge.relative.05",
-                        ["text"] = {
-                            ["EN"] = "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-                            ["TL"] = "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "No. Not {target.name}. {slot.killer.name} just made this personal.",
                         ["key"] = "corpse.revenge.relative.06",
-                        ["text"] = {
-                            ["EN"] = "No. Not {target.name}. {slot.killer.name} just made this personal.",
-                            ["TL"] = "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "{target.name} was family. {slot.killer.name} will regret this.",
                         ["key"] = "corpse.revenge.relative.07",
-                        ["text"] = {
-                            ["EN"] = "{target.name} was family. {slot.killer.name} will regret this.",
-                            ["TL"] = "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
                         ["key"] = "corpse.revenge.relative.08",
-                        ["text"] = {
-                            ["EN"] = "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-                            ["TL"] = "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1964,15 +1268,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-                                    },
-                                    ["TL"] = {
-                                        "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1981,15 +1278,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1998,15 +1288,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What {slot.killer.name} did to {target.name} will never be forgiven.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What {slot.killer.name} did to {target.name} will never be forgiven.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2015,15 +1298,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-                                    },
-                                    ["TL"] = {
-                                        "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2032,15 +1308,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2049,15 +1318,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "No. Not {target.name}. {slot.killer.name} just made this personal.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "No. Not {target.name}. {slot.killer.name} just made this personal.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2066,15 +1328,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} was family. {slot.killer.name} will regret this.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} was family. {slot.killer.name} will regret this.",
-                                    },
-                                    ["TL"] = {
-                                        "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2083,15 +1338,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-                                    },
-                                    ["TL"] = {
-                                        "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2174,14 +1422,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-                    },
-                    ["TL"] = {
-                        "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2189,14 +1429,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-                    },
-                    ["TL"] = {
-                        "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2204,14 +1436,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What {slot.killer.name} did to {target.name} will never be forgiven.",
-                    },
-                    ["TL"] = {
-                        "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2219,14 +1443,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-                    },
-                    ["TL"] = {
-                        "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2234,14 +1450,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-                    },
-                    ["TL"] = {
-                        "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2249,14 +1457,6 @@ return {
                 ["realizationKey"] = "6",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.6.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "No. Not {target.name}. {slot.killer.name} just made this personal.",
-                    },
-                    ["TL"] = {
-                        "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2264,14 +1464,6 @@ return {
                 ["realizationKey"] = "7",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.7.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} was family. {slot.killer.name} will regret this.",
-                    },
-                    ["TL"] = {
-                        "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2279,14 +1471,6 @@ return {
                 ["realizationKey"] = "8",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.revenge.relative.say.8.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-                    },
-                    ["TL"] = {
-                        "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

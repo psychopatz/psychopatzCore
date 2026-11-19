@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.identity.introduction.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "They introduce themselves.",
-                                    },
-                                    ["TL"] = {
-                                        "Nagpakilala sila.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -41,14 +33,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.identity.introduction.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "They introduce themselves.",
-                        },
-                        ["TL"] = {
-                            "Nagpakilala sila.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -85,11 +69,8 @@ return {
                 ["textKey"] = "identity.introduction",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "They introduce themselves.",
                         ["key"] = "identity.introduction",
-                        ["text"] = {
-                            ["EN"] = "They introduce themselves.",
-                            ["TL"] = "Nagpakilala sila.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/identity/response",
@@ -105,15 +86,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "They introduce themselves.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "They introduce themselves.",
-                                    },
-                                    ["TL"] = {
-                                        "Nagpakilala sila.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -182,14 +156,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.identity.introduction.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "They introduce themselves.",
-                    },
-                    ["TL"] = {
-                        "Nagpakilala sila.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

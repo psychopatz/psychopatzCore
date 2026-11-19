@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.leader",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "I already have people depending on me. I cannot walk away from them for your group.",
+    "say.2.neutral": "I am responsible for this shelter. Until that changes, I am staying here.",
+    "textRows.recruitment.reject.leader.1": "I already have people depending on me. I cannot walk away from them for your group.",
+    "textRows.recruitment.reject.leader.2": "I am responsible for this shelter. Until that changes, I am staying here."
+  }
+}

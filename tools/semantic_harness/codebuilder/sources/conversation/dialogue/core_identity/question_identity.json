@@ -22,10 +22,6 @@
     "topic": "identity"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask who they are",
-      "TL": "Itanong kung sino siya"
-    },
     "consumers": [
       "player"
     ],
@@ -34,8 +30,11 @@
     ]
   },
   "say": {
-    "EN": "Who are you?",
-    "TL": "Sino ka?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "inputPolicy": "typed_parity",
   "repeatPolicy": "state_retired",

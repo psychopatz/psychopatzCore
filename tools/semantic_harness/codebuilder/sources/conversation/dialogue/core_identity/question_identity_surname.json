@@ -22,10 +22,6 @@
     "topic": "identity_surname"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask their surname",
-      "TL": "Itanong ang apelyido niya"
-    },
     "consumers": [
       "player"
     ],
@@ -34,8 +30,11 @@
     ]
   },
   "say": {
-    "EN": "What's your surname?",
-    "TL": "Ano ang apelyido mo?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

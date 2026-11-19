@@ -27,20 +27,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "ACKNOWLEDGE",
             ["strategy"] = "ACKNOWLEDGE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I hear you.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Naiintindihan ko.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -82,20 +68,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "AGREE",
             ["strategy"] = "AGREE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Yeah, I agree.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Oo, sang-ayon ako.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -137,32 +109,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "APOLOGIZE",
             ["strategy"] = "APOLOGIZE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I'm ",
-                    },
-                    {
-                        ["kind"] = "lexeme",
-                        ["slot"] = "primary",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = ".",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "lexeme",
-                        ["slot"] = "primary",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = " na.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -204,20 +150,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "QUESTION",
             ["strategy"] = "COMFORT",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "What's really bothering you?",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Ano ba talaga ang bumabagabag sa'yo?",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -259,20 +191,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "DEESCALATE",
             ["strategy"] = "DEESCALATE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Let's calm down.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Kumalma tayo.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -314,20 +232,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "DISAGREE",
             ["strategy"] = "DISAGREE",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "No, I don't agree.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Hindi ako sang-ayon.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {

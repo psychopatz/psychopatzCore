@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.warning.abandoned",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+    "textRows.negative.warning.abandoned": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie."
+  }
+}

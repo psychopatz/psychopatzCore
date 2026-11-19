@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "identity.introduction",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "They introduce themselves.",
+    "textRows.identity.introduction": "They introduce themselves."
+  }
+}

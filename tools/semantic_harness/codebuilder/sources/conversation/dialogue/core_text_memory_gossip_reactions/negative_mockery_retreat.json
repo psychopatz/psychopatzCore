@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "negative.mockery.retreat",
-        "text": {
-          "EN": "{target.name} talked big, then backed down when it mattered.",
-          "TL": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos."
-        }
+        "key": "negative.mockery.retreat"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "{target.name} talked big, then backed down when it mattered.",
-          "TL": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos."
-        }
+        "id": "neutral"
       }
     ]
   },

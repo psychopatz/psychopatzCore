@@ -21,10 +21,6 @@
       }
     ]
   },
-  "textSidecars": {
-    "EN": "translations/interaction_world_event_warning_flavor.en.json",
-    "TL": "translations/interaction_world_event_warning_flavor.tl.json"
-  },
   "roles": {
     "speaker": {
       "cardinality": "ONE",

@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.death.report.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I heard {target.name} did not make it back.",
-                                    },
-                                    ["TL"] = {
-                                        "Balita ko, hindi na nakabalik si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -41,14 +33,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.death.report.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I heard {target.name} did not make it back.",
-                        },
-                        ["TL"] = {
-                            "Balita ko, hindi na nakabalik si {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -97,11 +81,8 @@ return {
                 ["textKey"] = "death.report",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I heard {target.name} did not make it back.",
                         ["key"] = "death.report",
-                        ["text"] = {
-                            ["EN"] = "I heard {target.name} did not make it back.",
-                            ["TL"] = "Balita ko, hindi na nakabalik si {target.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -117,15 +98,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I heard {target.name} did not make it back.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I heard {target.name} did not make it back.",
-                                    },
-                                    ["TL"] = {
-                                        "Balita ko, hindi na nakabalik si {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -194,14 +168,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.death.report.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I heard {target.name} did not make it back.",
-                    },
-                    ["TL"] = {
-                        "Balita ko, hindi na nakabalik si {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -227,14 +193,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.death.sacrifice.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "They say {target.name} stayed behind so others could escape.",
-                                    },
-                                    ["TL"] = {
-                                        "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -248,14 +206,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.death.sacrifice.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "They say {target.name} stayed behind so others could escape.",
-                        },
-                        ["TL"] = {
-                            "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -304,11 +254,8 @@ return {
                 ["textKey"] = "death.sacrifice",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "They say {target.name} stayed behind so others could escape.",
                         ["key"] = "death.sacrifice",
-                        ["text"] = {
-                            ["EN"] = "They say {target.name} stayed behind so others could escape.",
-                            ["TL"] = "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -324,15 +271,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "They say {target.name} stayed behind so others could escape.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "They say {target.name} stayed behind so others could escape.",
-                                    },
-                                    ["TL"] = {
-                                        "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -401,14 +341,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.death.sacrifice.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "They say {target.name} stayed behind so others could escape.",
-                    },
-                    ["TL"] = {
-                        "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

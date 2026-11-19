@@ -27,36 +27,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "INFORM",
             ["strategy"] = "DISCLOSE_NAME",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I'm ",
-                    },
-                    {
-                        ["kind"] = "slot",
-                        ["slot"] = "name",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = ".",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Ako si ",
-                    },
-                    {
-                        ["kind"] = "slot",
-                        ["slot"] = "name",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = ".",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -98,20 +68,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "END_CONVERSATION",
             ["strategy"] = "END_CONVERSATION",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "We're done here.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Tapos na tayo rito.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -153,20 +109,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "END_CONVERSATION",
             ["strategy"] = "END_CONVERSATION",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I'm done with this.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Ayoko na nito.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -208,28 +150,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "RETORT",
             ["strategy"] = "MIRROR",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "lexeme",
-                        ["slot"] = "primary",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = " you too.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "lexeme",
-                        ["slot"] = "primary",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = " rin.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -271,36 +191,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "RETORT",
             ["strategy"] = "MIRROR",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Yeah? ",
-                    },
-                    {
-                        ["kind"] = "lexeme",
-                        ["slot"] = "primary",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = " you too.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Ha? ",
-                    },
-                    {
-                        ["kind"] = "lexeme",
-                        ["slot"] = "primary",
-                    },
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = " rin.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {
@@ -342,20 +232,6 @@ return {
         ["payload"] = {
             ["dialogueAct"] = "REFUSE",
             ["strategy"] = "REFUSE_IDENTITY",
-            ["translations"] = {
-                ["EN"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "I'd rather not say.",
-                    },
-                },
-                ["TL"] = {
-                    {
-                        ["kind"] = "literal",
-                        ["value"] = "Ayoko munang sabihin.",
-                    },
-                },
-            },
             ["type"] = "construction",
         },
         ["references"] = {

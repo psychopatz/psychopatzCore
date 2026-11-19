@@ -3,19 +3,5 @@
   "id": "construction.social.ask_followup",
   "dialogueAct": "QUESTION",
   "strategy": "ASK_FOLLOWUP",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "What do you mean?"
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ano'ng ibig mong sabihin?"
-      }
-    ]
-  },
   "type": "construction"
 }

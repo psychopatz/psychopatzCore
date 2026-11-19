@@ -3,34 +3,28 @@ return {
     {
         ["concept"] = "AGREEMENT_YES",
         ["domain"] = "general",
-        ["forms"] = {
-            ["EN"] = "yeah",
-            ["TL"] = "oo",
-        },
+        ["fallback"] = "yeah",
         ["id"] = "lexeme.social.agreement.yes",
         ["owner"] = "PsychopatzCore",
+        ["translationKey"] = "convo.lexeme.social.agreement.yes",
         ["type"] = "lexeme",
     },
     {
         ["concept"] = "APOLOGY_SORRY",
         ["domain"] = "general",
-        ["forms"] = {
-            ["EN"] = "sorry",
-            ["TL"] = "pasensya",
-        },
+        ["fallback"] = "sorry",
         ["id"] = "lexeme.social.apology.sorry",
         ["owner"] = "PsychopatzCore",
+        ["translationKey"] = "convo.lexeme.social.apology.sorry",
         ["type"] = "lexeme",
     },
     {
         ["concept"] = "DISAGREEMENT_NO",
         ["domain"] = "general",
-        ["forms"] = {
-            ["EN"] = "no",
-            ["TL"] = "hindi",
-        },
+        ["fallback"] = "no",
         ["id"] = "lexeme.social.disagreement.no",
         ["owner"] = "PsychopatzCore",
+        ["translationKey"] = "convo.lexeme.social.disagreement.no",
         ["type"] = "lexeme",
     },
     {
@@ -44,12 +38,10 @@ return {
         },
         ["concept"] = "PROFANITY_FUCK",
         ["domain"] = "general",
-        ["forms"] = {
-            ["EN"] = "fuck",
-            ["TL"] = "Putang ina mo",
-        },
+        ["fallback"] = "fuck",
         ["id"] = "lexeme.social.profanity.fuck",
         ["owner"] = "PsychopatzCore",
+        ["translationKey"] = "convo.lexeme.social.profanity.fuck",
         ["type"] = "lexeme",
     },
 }

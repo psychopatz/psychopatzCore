@@ -14,14 +14,6 @@ return {
                 ["labelFallback"] = "Ask who they are",
                 ["labelKey"] = "convo.offer.question.identity.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask who they are",
-                    },
-                    ["TL"] = {
-                        "Itanong kung sino siya",
-                    },
-                },
             },
             ["familyID"] = "offer.question.identity",
             ["initiatingSay"] = {
@@ -39,14 +31,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.offer.question.identity.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Who are you?",
-                                    },
-                                    ["TL"] = {
-                                        "Sino ka?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -66,28 +50,12 @@ return {
                     ["fallback"] = "Ask who they are",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.offer.question.identity.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask who they are",
-                        },
-                        ["TL"] = {
-                            "Itanong kung sino siya",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "Who are you?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.offer.question.identity.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Who are you?",
-                        },
-                        ["TL"] = {
-                            "Sino ka?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -121,14 +89,7 @@ return {
                 ["groups"] = {
                     "identity",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask who they are",
-                    },
-                    ["TL"] = {
-                        "Itanong kung sino siya",
-                    },
-                },
+                ["labelFallback"] = "Ask who they are",
                 ["textRole"] = "button_label",
             },
             ["closure"] = {
@@ -177,15 +138,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Who are you?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Who are you?",
-                                    },
-                                    ["TL"] = {
-                                        "Sino ka?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -272,28 +226,12 @@ return {
                 ["fallback"] = "Ask who they are",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.offer.question.identity.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask who they are",
-                    },
-                    ["TL"] = {
-                        "Itanong kung sino siya",
-                    },
-                },
             },
             {
                 ["fallback"] = "Who are you?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.offer.question.identity.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Who are you?",
-                    },
-                    ["TL"] = {
-                        "Sino ka?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -313,14 +251,6 @@ return {
                 ["labelFallback"] = "Ask who they are with",
                 ["labelKey"] = "convo.question.identity_faction.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask who they are with",
-                    },
-                    ["TL"] = {
-                        "Itanong kung kanino siya kasama",
-                    },
-                },
             },
             ["familyID"] = "question.identity_faction",
             ["initiatingSay"] = {
@@ -338,14 +268,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.identity_faction.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Who are you with?",
-                                    },
-                                    ["TL"] = {
-                                        "Sino ang kasama mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -365,28 +287,12 @@ return {
                     ["fallback"] = "Ask who they are with",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.identity_faction.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask who they are with",
-                        },
-                        ["TL"] = {
-                            "Itanong kung kanino siya kasama",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "Who are you with?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.identity_faction.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Who are you with?",
-                        },
-                        ["TL"] = {
-                            "Sino ang kasama mo?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -420,14 +326,7 @@ return {
                 ["groups"] = {
                     "identity_faction",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask who they are with",
-                    },
-                    ["TL"] = {
-                        "Itanong kung kanino siya kasama",
-                    },
-                },
+                ["labelFallback"] = "Ask who they are with",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -467,15 +366,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Who are you with?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Who are you with?",
-                                    },
-                                    ["TL"] = {
-                                        "Sino ang kasama mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -543,28 +435,12 @@ return {
                 ["fallback"] = "Ask who they are with",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.identity_faction.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask who they are with",
-                    },
-                    ["TL"] = {
-                        "Itanong kung kanino siya kasama",
-                    },
-                },
             },
             {
                 ["fallback"] = "Who are you with?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.identity_faction.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Who are you with?",
-                    },
-                    ["TL"] = {
-                        "Sino ang kasama mo?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -584,14 +460,6 @@ return {
                 ["labelFallback"] = "Ask what people call them",
                 ["labelKey"] = "convo.question.identity_nickname.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask what people call them",
-                    },
-                    ["TL"] = {
-                        "Itanong kung ano ang tawag sa kanya",
-                    },
-                },
             },
             ["familyID"] = "question.identity_nickname",
             ["initiatingSay"] = {
@@ -609,14 +477,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.identity_nickname.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What do people call you?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang tawag sa iyo ng mga tao?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -636,28 +496,12 @@ return {
                     ["fallback"] = "Ask what people call them",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.identity_nickname.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask what people call them",
-                        },
-                        ["TL"] = {
-                            "Itanong kung ano ang tawag sa kanya",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "What do people call you?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.identity_nickname.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What do people call you?",
-                        },
-                        ["TL"] = {
-                            "Ano ang tawag sa iyo ng mga tao?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -691,14 +535,7 @@ return {
                 ["groups"] = {
                     "identity_nickname",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask what people call them",
-                    },
-                    ["TL"] = {
-                        "Itanong kung ano ang tawag sa kanya",
-                    },
-                },
+                ["labelFallback"] = "Ask what people call them",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -738,15 +575,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What do people call you?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What do people call you?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang tawag sa iyo ng mga tao?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -814,28 +644,12 @@ return {
                 ["fallback"] = "Ask what people call them",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.identity_nickname.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask what people call them",
-                    },
-                    ["TL"] = {
-                        "Itanong kung ano ang tawag sa kanya",
-                    },
-                },
             },
             {
                 ["fallback"] = "What do people call you?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.identity_nickname.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What do people call you?",
-                    },
-                    ["TL"] = {
-                        "Ano ang tawag sa iyo ng mga tao?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },
@@ -855,14 +669,6 @@ return {
                 ["labelFallback"] = "Ask their surname",
                 ["labelKey"] = "convo.question.identity_surname.affordance.label",
                 ["textRole"] = "button_label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask their surname",
-                    },
-                    ["TL"] = {
-                        "Itanong ang apelyido niya",
-                    },
-                },
             },
             ["familyID"] = "question.identity_surname",
             ["initiatingSay"] = {
@@ -880,14 +686,6 @@ return {
                                 ["id"] = "default",
                                 ["templateID"] = "convo.question.identity_surname.say.1.default",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "What's your surname?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang apelyido mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -907,28 +705,12 @@ return {
                     ["fallback"] = "Ask their surname",
                     ["role"] = "button_label",
                     ["templateID"] = "convo.question.identity_surname.affordance.label",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Ask their surname",
-                        },
-                        ["TL"] = {
-                            "Itanong ang apelyido niya",
-                        },
-                    },
                 },
                 {
                     ["fallback"] = "What's your surname?",
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.question.identity_surname.say.1.default",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "What's your surname?",
-                        },
-                        ["TL"] = {
-                            "Ano ang apelyido mo?",
-                        },
-                    },
                     ["variantID"] = "default",
                 },
             },
@@ -962,14 +744,7 @@ return {
                 ["groups"] = {
                     "identity_surname",
                 },
-                ["label"] = {
-                    ["EN"] = {
-                        "Ask their surname",
-                    },
-                    ["TL"] = {
-                        "Itanong ang apelyido niya",
-                    },
-                },
+                ["labelFallback"] = "Ask their surname",
                 ["textRole"] = "button_label",
             },
             ["domains"] = {
@@ -1009,15 +784,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "What's your surname?",
                                 ["id"] = "default",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "What's your surname?",
-                                    },
-                                    ["TL"] = {
-                                        "Ano ang apelyido mo?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1085,28 +853,12 @@ return {
                 ["fallback"] = "Ask their surname",
                 ["role"] = "button_label",
                 ["templateID"] = "convo.question.identity_surname.affordance.label",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Ask their surname",
-                    },
-                    ["TL"] = {
-                        "Itanong ang apelyido niya",
-                    },
-                },
             },
             {
                 ["fallback"] = "What's your surname?",
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.question.identity_surname.say.1.default",
-                ["translations"] = {
-                    ["EN"] = {
-                        "What's your surname?",
-                    },
-                    ["TL"] = {
-                        "Ano ang apelyido mo?",
-                    },
-                },
                 ["variantID"] = "default",
             },
         },

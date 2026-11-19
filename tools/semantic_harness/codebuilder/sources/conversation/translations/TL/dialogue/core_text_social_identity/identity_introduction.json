@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "identity.introduction",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Nagpakilala sila.",
+    "textRows.identity.introduction": "Nagpakilala sila."
+  }
+}

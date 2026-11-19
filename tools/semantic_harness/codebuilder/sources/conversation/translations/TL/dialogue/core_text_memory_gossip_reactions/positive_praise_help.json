@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.praise.help",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Inaalalayan ni {target.name} ang mga tao.",
+    "textRows.positive.praise.help": "Inaalalayan ni {target.name} ang mga tao."
+  }
+}

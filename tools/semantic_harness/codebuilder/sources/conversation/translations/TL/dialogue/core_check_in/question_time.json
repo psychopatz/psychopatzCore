@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.time",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong ang oras",
+    "say.variants.default": "Anong oras na?"
+  }
+}

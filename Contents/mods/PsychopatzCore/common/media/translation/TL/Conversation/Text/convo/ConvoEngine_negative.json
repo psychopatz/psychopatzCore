@@ -1,0 +1,7 @@
+{
+  "convo.negative.mockery.gear.say.1.neutral": "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+  "convo.negative.mockery.retreat.say.1.neutral": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+  "convo.negative.suspicion.story.say.1.neutral": "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+  "convo.negative.warning.abandoned.say.1.neutral": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+  "convo.negative.warning.danger.say.1.neutral": "May nakapansing panganib malapit sa {slot.place.name}."
+}

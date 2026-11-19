@@ -1,0 +1,55 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "interaction.world_event.warning_flavor",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": [
+      "The NPC snaps to attention and scans the area.",
+      "The NPC pauses and listens intently to distant noise.",
+      "The NPC raises a hand to signal sudden awareness.",
+      "The NPC turns sharply toward the source of the disturbance.",
+      "A tense hush falls as the NPC monitors the perimeter.",
+      "The NPC shifts their stance, ready to react.",
+      "The NPC points toward the horizon with furrowed brows.",
+      "The NPC squints into the distance, assessing the threat.",
+      "The NPC signals caution to everyone nearby.",
+      "The NPC's posture straightens instantly at the sound."
+    ],
+    "say.variants.guarded": [
+      "The NPC stiffens and watches the approaches.",
+      "The NPC drops behind cover, weapon ready.",
+      "The NPC checks their weapon chamber with a grim expression.",
+      "The NPC scans every window and doorway with cold vigilance.",
+      "The NPC backs slowly into a defensive choke point.",
+      "The NPC eyes their companions to ensure everyone is armed.",
+      "A calculating glare fixes on the direction of the noise.",
+      "The NPC prepares for an immediate fight with grim resolve.",
+      "The NPC's posture turns deadly and guarded.",
+      "The NPC remains motionless, waiting for the first sign of hostiles."
+    ],
+    "say.variants.terse": [
+      "The NPC jerks a warning gesture.",
+      "A sharp signal cuts the air.",
+      "The NPC stiffens instantly.",
+      "A hand shoots up in alarm.",
+      "The NPC's head snaps toward the danger.",
+      "A low hiss demands silence.",
+      "The NPC drops into a crouch.",
+      "A quick wave commands cover.",
+      "The NPC draws their weapon in one motion.",
+      "Eyes wide, the NPC freezes."
+    ],
+    "say.variants.warm": [
+      "The NPC motions for the others to stay close.",
+      "The NPC places a protective hand out, urging allies to gather.",
+      "The NPC steps forward to shield their companions from view.",
+      "The NPC gives an urgent, reassuring glance to their partners.",
+      "The NPC whispers a quiet encouragement while staying watchful.",
+      "The NPC gestures for the group to huddle together safely.",
+      "The NPC keeps one eye on the threat and one on their friends.",
+      "The NPC gently pulls their ally behind solid cover.",
+      "The NPC nods determinedly to protect those nearby.",
+      "The NPC stays tightly flanked with their companions."
+    ]
+  }
+}

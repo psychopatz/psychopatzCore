@@ -1,0 +1,103 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.identity",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": [
+      "Isa lang akong survivor na sumusubok makaraos.",
+      "Ibang tao ako noon bago nagkawasak-wasak ang lahat.",
+      "Isa lang akong tao na naghahanap ng masisilungan at makakain.",
+      "Nabubuhay ako araw-araw, tulad mo rin.",
+      "Walang gaanong maikukwento. Ginagawa lang ang kailangan para mabuhay.",
+      "Isa akong survivor dito sa lugar.",
+      "Isang tao lang na sumusubok mauna sa mga patay.",
+      "Nasa kalsada na ako simula no'ng magsimula ang outbreak.",
+      "Simpleng survivor lang. Hanggang doon lang.",
+      "Sinusubukang manatiling humihinga, tulad ng iba."
+    ],
+    "say.variants.guarded": [
+      "Sino'ng nagtatanong? Ang mga pangalan ay delikado rito.",
+      "Bakit kailangan mong malaman kung sino ako?",
+      "Survivor lang na sumusubok mabuhay. Hanggang doon na lang.",
+      "Hindi ko ibinibigay ang pinagmulan ko sa kahit sino.",
+      "Isang survivor na may sandata. 'Yon lang ang mahalaga.",
+      "Huwag mong kalkalin ang pagkatao ko. Magpokus sa kalsada.",
+      "Hindi itinataboy ng pangalan ang mga infected. Ano'ng gusto mo?",
+      "Hindi mo kailangan ng kwento ng buhay ko para sumabay sa akin.",
+      "Itinatago ko ang pagkatao ko hangga't hindi kita lubos na pinagkakatiwalaan.",
+      "Ako ay kung sino ang kailangan para mabuhay."
+    ],
+    "say.variants.terse": [
+      "Isang survivor.",
+      "Ako lang.",
+      "Walang halaga.",
+      "Isa pang lagalag.",
+      "Nabubuhay lang.",
+      "Walang espesyal.",
+      "Isang mandirigma.",
+      "Tulad mo rin.",
+      "Isang estranghero lang.",
+      "Humihinga pa."
+    ],
+    "say.variants.warm": [
+      "Masaya akong kasama ka sa kalsadang 'to, kaibigan.",
+      "Isang simpleng tao na sumusubok gumawa ng kabutihan sa sirang mundong 'to.",
+      "Isa akong taong nagpapahalaga sa mabuting kasama rito.",
+      "Tawagin mo akong kaibigan. Magkasama tayo sa laban na 'to.",
+      "May normal akong buhay noon, pero ngayon may mga taong mahalaga na sa akin.",
+      "Nagpapasalamat lang na nakatagpo kita sa gitna ng kaguluhang ito.",
+      "Isang kaibigan at kakampi. 'Yan ang nais kong maging para sa'yo.",
+      "Masaya lang ako na nakatayo rito at nakakausap ka.",
+      "Magkasosyo tayo rito. 'Yon lang ang mahalaga sa akin.",
+      "Isang tapat na kasama sa mahabang daan sa unahan."
+    ],
+    "reply.known.say.1.neutral": [
+      "Ako si {speaker.name}. Magkakilala na tayo.",
+      "Ang pangalan ko ay {speaker.name}, tulad ng alam mo na.",
+      "Ako si {speaker.name}. Nagkita na tayo noon.",
+      "Ako 'to, si {speaker.name}.",
+      "Naaalala mo ako, di ba? Si {speaker.name}.",
+      "Ako si {speaker.name}. Mabuting makausap ka ulit.",
+      "{speaker.name} pa rin, tulad kahapon.",
+      "Ako si {speaker.name}. Nasa iisang grupo tayo.",
+      "Kilala mo na ako nang maigi, ako si {speaker.name}.",
+      "Si {speaker.name} 'to. Nangungumusta lang?"
+    ],
+    "reply.known.say.1.guarded": [
+      "Ako si {speaker.name}. Dapat alam mo na 'yan.",
+      "Si {speaker.name} 'to. Huwag kang umastang nakalimot ka.",
+      "Alam mo ang pangalan ko, si {speaker.name}. Huwag kang makipaglaro.",
+      "{speaker.name} pa rin. Walang nagbago.",
+      "Ako si {speaker.name}. Tigilan mo ang pagtatanong sa alam mo na ang sagot.",
+      "Pangalan ko ay {speaker.name}. Ituon ang isip sa paligid natin.",
+      "Ako si {speaker.name}. Matagal na tayong magkasama para malaman mo.",
+      "{speaker.name} pa rin. Maging matalas ang paningin.",
+      "Kilala mo ako, si {speaker.name}. Ano ang totoong tanong mo?",
+      "Ako si {speaker.name}. Bumalik na tayo sa kaligtasan."
+    ],
+    "reply.known.say.1.terse": [
+      "Kilala mo ako. Ako si {speaker.name}.",
+      "Ako si {speaker.name}.",
+      "{speaker.name} pa rin.",
+      "{speaker.name}. Ako 'yan.",
+      "Si {speaker.name}.",
+      "Pangalan ay {speaker.name}.",
+      "Ako. Si {speaker.name}.",
+      "Tanda mo? Si {speaker.name}.",
+      "Si {speaker.name} lang.",
+      "{speaker.name}."
+    ],
+    "reply.known.say.1.warm": [
+      "Ako si {speaker.name}. Masayang makita ka ulit.",
+      "Alam mong ako 'to, si {speaker.name}! Laging masayang nasa tabi mo.",
+      "Si {speaker.name} 'to, kaibigan. Nandito lang ako.",
+      "Ako si {speaker.name}. Tunay na karangalan ang makilala ka.",
+      "Kilala mo ang kaibigan mong si {speaker.name}. Kamusta ka na?",
+      "{speaker.name} pa rin, at laging nandito para bantayan ang likod mo.",
+      "Ako 'to, si {speaker.name}. Masaya akong magkasama tayo sa paglalakbay.",
+      "Ako si {speaker.name}, ang kasama mo sa lahat ng ito.",
+      "Kilala mo ako, si {speaker.name}. Ingatan natin ang isa't isa.",
+      "Si {speaker.name} 'to! Laging masaya kapag bumabati ka."
+    ]
+  }
+}

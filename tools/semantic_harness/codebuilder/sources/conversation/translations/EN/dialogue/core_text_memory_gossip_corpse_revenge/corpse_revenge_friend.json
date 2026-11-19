@@ -1,0 +1,23 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.revenge.friend",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
+    "say.2.neutral": "I saw {target.name} fall. {slot.killer.name} will answer for it.",
+    "say.3.neutral": "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
+    "say.4.neutral": "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
+    "say.5.neutral": "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
+    "say.6.neutral": "Damn {slot.killer.name}. {target.name} mattered to us.",
+    "say.7.neutral": "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
+    "say.8.neutral": "No more warnings. {slot.killer.name} killed one of ours, {target.name}.",
+    "textRows.corpse.revenge.friend.01": "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
+    "textRows.corpse.revenge.friend.02": "I saw {target.name} fall. {slot.killer.name} will answer for it.",
+    "textRows.corpse.revenge.friend.03": "Hell, {target.name}. What {slot.killer.name} did will not be forgotten.",
+    "textRows.corpse.revenge.friend.04": "I will not let {target.name} be forgotten, and {slot.killer.name} will not get away with it.",
+    "textRows.corpse.revenge.friend.05": "{target.name} always had my back. Today, I am coming for {slot.killer.name}.",
+    "textRows.corpse.revenge.friend.06": "Damn {slot.killer.name}. {target.name} mattered to us.",
+    "textRows.corpse.revenge.friend.07": "I hope {slot.killer.name} knows what they took from us when they killed {target.name}.",
+    "textRows.corpse.revenge.friend.08": "No more warnings. {slot.killer.name} killed one of ours, {target.name}."
+  }
+}

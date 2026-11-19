@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "death.sacrifice",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
+    "textRows.death.sacrifice": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
+  }
+}

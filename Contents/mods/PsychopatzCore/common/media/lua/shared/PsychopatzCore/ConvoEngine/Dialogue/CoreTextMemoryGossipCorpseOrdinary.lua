@@ -24,14 +24,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.comrade.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "One less of us, {target.name}. Damn.",
-                                    },
-                                    ["TL"] = {
-                                        "Nabawasan na naman tayo, {target.name}. Nakakainis.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -44,14 +36,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.comrade.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-                                    },
-                                    ["TL"] = {
-                                        "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -64,14 +48,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.comrade.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "We fought side by side, {target.name}. Rest easy.",
-                                    },
-                                    ["TL"] = {
-                                        "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -84,14 +60,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.comrade.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} held the line. We'll carry on.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -104,14 +72,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.comrade.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I hope {slot.faction.name} remembers what you gave.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -133,14 +93,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.comrade.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "One less of us, {target.name}. Damn.",
-                        },
-                        ["TL"] = {
-                            "Nabawasan na naman tayo, {target.name}. Nakakainis.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -148,14 +100,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.comrade.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-                        },
-                        ["TL"] = {
-                            "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -163,14 +107,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.comrade.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "We fought side by side, {target.name}. Rest easy.",
-                        },
-                        ["TL"] = {
-                            "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -178,14 +114,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.comrade.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} held the line. We'll carry on.",
-                        },
-                        ["TL"] = {
-                            "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -193,14 +121,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.comrade.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I hope {slot.faction.name} remembers what you gave.",
-                        },
-                        ["TL"] = {
-                            "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -248,39 +168,24 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "One less of us, {target.name}. Damn.",
                         ["key"] = "corpse.comrade.01",
-                        ["text"] = {
-                            ["EN"] = "One less of us, {target.name}. Damn.",
-                            ["TL"] = "Nabawasan na naman tayo, {target.name}. Nakakainis.",
-                        },
                     },
                     {
+                        ["fallback"] = "You stood with {slot.faction.name}, {target.name}. We won't forget.",
                         ["key"] = "corpse.comrade.02",
-                        ["text"] = {
-                            ["EN"] = "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-                            ["TL"] = "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
-                        },
                     },
                     {
+                        ["fallback"] = "We fought side by side, {target.name}. Rest easy.",
                         ["key"] = "corpse.comrade.03",
-                        ["text"] = {
-                            ["EN"] = "We fought side by side, {target.name}. Rest easy.",
-                            ["TL"] = "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
-                        },
                     },
                     {
+                        ["fallback"] = "{target.name} held the line. We'll carry on.",
                         ["key"] = "corpse.comrade.04",
-                        ["text"] = {
-                            ["EN"] = "{target.name} held the line. We'll carry on.",
-                            ["TL"] = "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
-                        },
                     },
                     {
+                        ["fallback"] = "I hope {slot.faction.name} remembers what you gave.",
                         ["key"] = "corpse.comrade.05",
-                        ["text"] = {
-                            ["EN"] = "I hope {slot.faction.name} remembers what you gave.",
-                            ["TL"] = "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -300,15 +205,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "One less of us, {target.name}. Damn.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "One less of us, {target.name}. Damn.",
-                                    },
-                                    ["TL"] = {
-                                        "Nabawasan na naman tayo, {target.name}. Nakakainis.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -317,15 +215,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "You stood with {slot.faction.name}, {target.name}. We won't forget.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-                                    },
-                                    ["TL"] = {
-                                        "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -334,15 +225,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "We fought side by side, {target.name}. Rest easy.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "We fought side by side, {target.name}. Rest easy.",
-                                    },
-                                    ["TL"] = {
-                                        "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -351,15 +235,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} held the line. We'll carry on.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} held the line. We'll carry on.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -368,15 +245,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I hope {slot.faction.name} remembers what you gave.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I hope {slot.faction.name} remembers what you gave.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -459,14 +329,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.comrade.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "One less of us, {target.name}. Damn.",
-                    },
-                    ["TL"] = {
-                        "Nabawasan na naman tayo, {target.name}. Nakakainis.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -474,14 +336,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.comrade.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "You stood with {slot.faction.name}, {target.name}. We won't forget.",
-                    },
-                    ["TL"] = {
-                        "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -489,14 +343,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.comrade.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "We fought side by side, {target.name}. Rest easy.",
-                    },
-                    ["TL"] = {
-                        "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -504,14 +350,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.comrade.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} held the line. We'll carry on.",
-                    },
-                    ["TL"] = {
-                        "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -519,14 +357,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.comrade.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I hope {slot.faction.name} remembers what you gave.",
-                    },
-                    ["TL"] = {
-                        "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -556,14 +386,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.friend.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "We were supposed to get through this together, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Dapat sabay nating nalagpasan ito, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -576,14 +398,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.friend.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "You always had my back, {target.name}. I should've had yours.",
-                                    },
-                                    ["TL"] = {
-                                        "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -596,14 +410,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.friend.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I won't let them forget you, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi kita hahayaang makalimutan nila, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -616,14 +422,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.friend.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Rest now, {target.name}. You did enough.",
-                                    },
-                                    ["TL"] = {
-                                        "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -636,14 +434,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.friend.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "We still owed each other a drink, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "May utang pa tayong inumin sa isa't isa, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -657,14 +447,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.friend.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "We were supposed to get through this together, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Dapat sabay nating nalagpasan ito, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -672,14 +454,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.friend.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "You always had my back, {target.name}. I should've had yours.",
-                        },
-                        ["TL"] = {
-                            "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -687,14 +461,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.friend.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I won't let them forget you, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Hindi kita hahayaang makalimutan nila, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -702,14 +468,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.friend.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Rest now, {target.name}. You did enough.",
-                        },
-                        ["TL"] = {
-                            "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -717,14 +475,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.friend.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "We still owed each other a drink, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "May utang pa tayong inumin sa isa't isa, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -772,39 +522,24 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "We were supposed to get through this together, {target.name}.",
                         ["key"] = "corpse.friend.01",
-                        ["text"] = {
-                            ["EN"] = "We were supposed to get through this together, {target.name}.",
-                            ["TL"] = "Dapat sabay nating nalagpasan ito, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "You always had my back, {target.name}. I should've had yours.",
                         ["key"] = "corpse.friend.02",
-                        ["text"] = {
-                            ["EN"] = "You always had my back, {target.name}. I should've had yours.",
-                            ["TL"] = "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
-                        },
                     },
                     {
+                        ["fallback"] = "I won't let them forget you, {target.name}.",
                         ["key"] = "corpse.friend.03",
-                        ["text"] = {
-                            ["EN"] = "I won't let them forget you, {target.name}.",
-                            ["TL"] = "Hindi kita hahayaang makalimutan nila, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Rest now, {target.name}. You did enough.",
                         ["key"] = "corpse.friend.04",
-                        ["text"] = {
-                            ["EN"] = "Rest now, {target.name}. You did enough.",
-                            ["TL"] = "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
-                        },
                     },
                     {
+                        ["fallback"] = "We still owed each other a drink, {target.name}.",
                         ["key"] = "corpse.friend.05",
-                        ["text"] = {
-                            ["EN"] = "We still owed each other a drink, {target.name}.",
-                            ["TL"] = "May utang pa tayong inumin sa isa't isa, {target.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -824,15 +559,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "We were supposed to get through this together, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "We were supposed to get through this together, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Dapat sabay nating nalagpasan ito, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -841,15 +569,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "You always had my back, {target.name}. I should've had yours.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "You always had my back, {target.name}. I should've had yours.",
-                                    },
-                                    ["TL"] = {
-                                        "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -858,15 +579,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I won't let them forget you, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I won't let them forget you, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi kita hahayaang makalimutan nila, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -875,15 +589,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Rest now, {target.name}. You did enough.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Rest now, {target.name}. You did enough.",
-                                    },
-                                    ["TL"] = {
-                                        "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -892,15 +599,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "We still owed each other a drink, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "We still owed each other a drink, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "May utang pa tayong inumin sa isa't isa, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -977,14 +677,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.friend.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "We were supposed to get through this together, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Dapat sabay nating nalagpasan ito, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -992,14 +684,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.friend.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "You always had my back, {target.name}. I should've had yours.",
-                    },
-                    ["TL"] = {
-                        "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1007,14 +691,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.friend.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I won't let them forget you, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Hindi kita hahayaang makalimutan nila, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1022,14 +698,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.friend.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Rest now, {target.name}. You did enough.",
-                    },
-                    ["TL"] = {
-                        "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1037,14 +705,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.friend.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "We still owed each other a drink, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "May utang pa tayong inumin sa isa't isa, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1074,14 +734,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.hostile.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "So this is how it ends for you, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Dito pala magtatapos para sa'yo, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1094,14 +746,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.hostile.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "You made plenty of enemies, {target.name}. I was one.",
-                                    },
-                                    ["TL"] = {
-                                        "Marami kang naging kaaway, {target.name}. Isa ako roon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1114,14 +758,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.hostile.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I won't mourn you, {target.name}, but I won't forget this.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1134,14 +770,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.hostile.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "The threat is gone. Keep moving.",
-                                    },
-                                    ["TL"] = {
-                                        "Wala na ang banta. Tuloy lang.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1154,14 +782,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.hostile.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Maybe you finally found some peace, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Baka nakahanap ka na rin ng katahimikan, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1175,14 +795,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.hostile.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "So this is how it ends for you, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Dito pala magtatapos para sa'yo, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1190,14 +802,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.hostile.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "You made plenty of enemies, {target.name}. I was one.",
-                        },
-                        ["TL"] = {
-                            "Marami kang naging kaaway, {target.name}. Isa ako roon.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1205,14 +809,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.hostile.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I won't mourn you, {target.name}, but I won't forget this.",
-                        },
-                        ["TL"] = {
-                            "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1220,14 +816,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.hostile.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "The threat is gone. Keep moving.",
-                        },
-                        ["TL"] = {
-                            "Wala na ang banta. Tuloy lang.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1235,14 +823,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.hostile.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Maybe you finally found some peace, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Baka nakahanap ka na rin ng katahimikan, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1290,39 +870,24 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "So this is how it ends for you, {target.name}.",
                         ["key"] = "corpse.hostile.01",
-                        ["text"] = {
-                            ["EN"] = "So this is how it ends for you, {target.name}.",
-                            ["TL"] = "Dito pala magtatapos para sa'yo, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "You made plenty of enemies, {target.name}. I was one.",
                         ["key"] = "corpse.hostile.02",
-                        ["text"] = {
-                            ["EN"] = "You made plenty of enemies, {target.name}. I was one.",
-                            ["TL"] = "Marami kang naging kaaway, {target.name}. Isa ako roon.",
-                        },
                     },
                     {
+                        ["fallback"] = "I won't mourn you, {target.name}, but I won't forget this.",
                         ["key"] = "corpse.hostile.03",
-                        ["text"] = {
-                            ["EN"] = "I won't mourn you, {target.name}, but I won't forget this.",
-                            ["TL"] = "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
-                        },
                     },
                     {
+                        ["fallback"] = "The threat is gone. Keep moving.",
                         ["key"] = "corpse.hostile.04",
-                        ["text"] = {
-                            ["EN"] = "The threat is gone. Keep moving.",
-                            ["TL"] = "Wala na ang banta. Tuloy lang.",
-                        },
                     },
                     {
+                        ["fallback"] = "Maybe you finally found some peace, {target.name}.",
                         ["key"] = "corpse.hostile.05",
-                        ["text"] = {
-                            ["EN"] = "Maybe you finally found some peace, {target.name}.",
-                            ["TL"] = "Baka nakahanap ka na rin ng katahimikan, {target.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1342,15 +907,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "So this is how it ends for you, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "So this is how it ends for you, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Dito pala magtatapos para sa'yo, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1359,15 +917,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "You made plenty of enemies, {target.name}. I was one.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "You made plenty of enemies, {target.name}. I was one.",
-                                    },
-                                    ["TL"] = {
-                                        "Marami kang naging kaaway, {target.name}. Isa ako roon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1376,15 +927,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I won't mourn you, {target.name}, but I won't forget this.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I won't mourn you, {target.name}, but I won't forget this.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1393,15 +937,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "The threat is gone. Keep moving.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "The threat is gone. Keep moving.",
-                                    },
-                                    ["TL"] = {
-                                        "Wala na ang banta. Tuloy lang.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1410,15 +947,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Maybe you finally found some peace, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Maybe you finally found some peace, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Baka nakahanap ka na rin ng katahimikan, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1495,14 +1025,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.hostile.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "So this is how it ends for you, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Dito pala magtatapos para sa'yo, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1510,14 +1032,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.hostile.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "You made plenty of enemies, {target.name}. I was one.",
-                    },
-                    ["TL"] = {
-                        "Marami kang naging kaaway, {target.name}. Isa ako roon.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1525,14 +1039,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.hostile.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I won't mourn you, {target.name}, but I won't forget this.",
-                    },
-                    ["TL"] = {
-                        "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1540,14 +1046,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.hostile.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "The threat is gone. Keep moving.",
-                    },
-                    ["TL"] = {
-                        "Wala na ang banta. Tuloy lang.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1555,14 +1053,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.hostile.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Maybe you finally found some peace, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Baka nakahanap ka na rin ng katahimikan, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1592,14 +1082,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.neutral.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I didn't know you, {target.name}. You deserved better.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1612,14 +1094,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.neutral.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I hope someone remembers your name, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana may makaalala pa sa pangalan mo, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1632,14 +1106,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.neutral.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "This place takes everyone, doesn't it?",
-                                    },
-                                    ["TL"] = {
-                                        "Nilalamon ng lugar na ito ang lahat, ano?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1652,14 +1118,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.neutral.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Someone should have found you sooner, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1672,14 +1130,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.neutral.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Rest now, {target.name}. I won't leave you unnamed.",
-                                    },
-                                    ["TL"] = {
-                                        "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1693,14 +1143,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.neutral.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I didn't know you, {target.name}. You deserved better.",
-                        },
-                        ["TL"] = {
-                            "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1708,14 +1150,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.neutral.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I hope someone remembers your name, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Sana may makaalala pa sa pangalan mo, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1723,14 +1157,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.neutral.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "This place takes everyone, doesn't it?",
-                        },
-                        ["TL"] = {
-                            "Nilalamon ng lugar na ito ang lahat, ano?",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1738,14 +1164,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.neutral.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Someone should have found you sooner, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -1753,14 +1171,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.neutral.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Rest now, {target.name}. I won't leave you unnamed.",
-                        },
-                        ["TL"] = {
-                            "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1808,39 +1218,24 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I didn't know you, {target.name}. You deserved better.",
                         ["key"] = "corpse.neutral.01",
-                        ["text"] = {
-                            ["EN"] = "I didn't know you, {target.name}. You deserved better.",
-                            ["TL"] = "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
-                        },
                     },
                     {
+                        ["fallback"] = "I hope someone remembers your name, {target.name}.",
                         ["key"] = "corpse.neutral.02",
-                        ["text"] = {
-                            ["EN"] = "I hope someone remembers your name, {target.name}.",
-                            ["TL"] = "Sana may makaalala pa sa pangalan mo, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "This place takes everyone, doesn't it?",
                         ["key"] = "corpse.neutral.03",
-                        ["text"] = {
-                            ["EN"] = "This place takes everyone, doesn't it?",
-                            ["TL"] = "Nilalamon ng lugar na ito ang lahat, ano?",
-                        },
                     },
                     {
+                        ["fallback"] = "Someone should have found you sooner, {target.name}.",
                         ["key"] = "corpse.neutral.04",
-                        ["text"] = {
-                            ["EN"] = "Someone should have found you sooner, {target.name}.",
-                            ["TL"] = "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "Rest now, {target.name}. I won't leave you unnamed.",
                         ["key"] = "corpse.neutral.05",
-                        ["text"] = {
-                            ["EN"] = "Rest now, {target.name}. I won't leave you unnamed.",
-                            ["TL"] = "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1860,15 +1255,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I didn't know you, {target.name}. You deserved better.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I didn't know you, {target.name}. You deserved better.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1877,15 +1265,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I hope someone remembers your name, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I hope someone remembers your name, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana may makaalala pa sa pangalan mo, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1894,15 +1275,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "This place takes everyone, doesn't it?",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "This place takes everyone, doesn't it?",
-                                    },
-                                    ["TL"] = {
-                                        "Nilalamon ng lugar na ito ang lahat, ano?",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1911,15 +1285,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Someone should have found you sooner, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Someone should have found you sooner, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1928,15 +1295,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Rest now, {target.name}. I won't leave you unnamed.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Rest now, {target.name}. I won't leave you unnamed.",
-                                    },
-                                    ["TL"] = {
-                                        "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2013,14 +1373,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.neutral.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I didn't know you, {target.name}. You deserved better.",
-                    },
-                    ["TL"] = {
-                        "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2028,14 +1380,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.neutral.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I hope someone remembers your name, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Sana may makaalala pa sa pangalan mo, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2043,14 +1387,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.neutral.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "This place takes everyone, doesn't it?",
-                    },
-                    ["TL"] = {
-                        "Nilalamon ng lugar na ito ang lahat, ano?",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2058,14 +1394,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.neutral.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Someone should have found you sooner, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2073,14 +1401,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.neutral.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Rest now, {target.name}. I won't leave you unnamed.",
-                    },
-                    ["TL"] = {
-                        "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -2110,14 +1430,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.relative.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "No, {target.name}. You were family.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi... si {target.name}. Pamilya tayo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2130,14 +1442,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.relative.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I thought we'd meet again, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Akala ko magkikita pa tayo, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2150,14 +1454,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.relative.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "You should have made it home, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Dapat nakauwi ka pa, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2170,14 +1466,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.relative.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I'll carry you with me, {target.name}. I promise.",
-                                    },
-                                    ["TL"] = {
-                                        "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2190,14 +1478,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.corpse.relative.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name}, I'm sorry I wasn't there.",
-                                    },
-                                    ["TL"] = {
-                                        "{target.name}, patawad at wala ako roon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2211,14 +1491,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.relative.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "No, {target.name}. You were family.",
-                        },
-                        ["TL"] = {
-                            "Hindi... si {target.name}. Pamilya tayo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -2226,14 +1498,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.relative.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I thought we'd meet again, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Akala ko magkikita pa tayo, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -2241,14 +1505,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.relative.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "You should have made it home, {target.name}.",
-                        },
-                        ["TL"] = {
-                            "Dapat nakauwi ka pa, {target.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -2256,14 +1512,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.relative.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I'll carry you with me, {target.name}. I promise.",
-                        },
-                        ["TL"] = {
-                            "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -2271,14 +1519,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.corpse.relative.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name}, I'm sorry I wasn't there.",
-                        },
-                        ["TL"] = {
-                            "{target.name}, patawad at wala ako roon.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -2326,39 +1566,24 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "No, {target.name}. You were family.",
                         ["key"] = "corpse.relative.01",
-                        ["text"] = {
-                            ["EN"] = "No, {target.name}. You were family.",
-                            ["TL"] = "Hindi... si {target.name}. Pamilya tayo.",
-                        },
                     },
                     {
+                        ["fallback"] = "I thought we'd meet again, {target.name}.",
                         ["key"] = "corpse.relative.02",
-                        ["text"] = {
-                            ["EN"] = "I thought we'd meet again, {target.name}.",
-                            ["TL"] = "Akala ko magkikita pa tayo, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "You should have made it home, {target.name}.",
                         ["key"] = "corpse.relative.03",
-                        ["text"] = {
-                            ["EN"] = "You should have made it home, {target.name}.",
-                            ["TL"] = "Dapat nakauwi ka pa, {target.name}.",
-                        },
                     },
                     {
+                        ["fallback"] = "I'll carry you with me, {target.name}. I promise.",
                         ["key"] = "corpse.relative.04",
-                        ["text"] = {
-                            ["EN"] = "I'll carry you with me, {target.name}. I promise.",
-                            ["TL"] = "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
-                        },
                     },
                     {
+                        ["fallback"] = "{target.name}, I'm sorry I wasn't there.",
                         ["key"] = "corpse.relative.05",
-                        ["text"] = {
-                            ["EN"] = "{target.name}, I'm sorry I wasn't there.",
-                            ["TL"] = "{target.name}, patawad at wala ako roon.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -2378,15 +1603,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "No, {target.name}. You were family.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "No, {target.name}. You were family.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi... si {target.name}. Pamilya tayo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2395,15 +1613,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I thought we'd meet again, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I thought we'd meet again, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Akala ko magkikita pa tayo, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2412,15 +1623,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "You should have made it home, {target.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "You should have made it home, {target.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "Dapat nakauwi ka pa, {target.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2429,15 +1633,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I'll carry you with me, {target.name}. I promise.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I'll carry you with me, {target.name}. I promise.",
-                                    },
-                                    ["TL"] = {
-                                        "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2446,15 +1643,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name}, I'm sorry I wasn't there.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name}, I'm sorry I wasn't there.",
-                                    },
-                                    ["TL"] = {
-                                        "{target.name}, patawad at wala ako roon.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2531,14 +1721,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.relative.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "No, {target.name}. You were family.",
-                    },
-                    ["TL"] = {
-                        "Hindi... si {target.name}. Pamilya tayo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2546,14 +1728,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.relative.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I thought we'd meet again, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Akala ko magkikita pa tayo, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2561,14 +1735,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.relative.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "You should have made it home, {target.name}.",
-                    },
-                    ["TL"] = {
-                        "Dapat nakauwi ka pa, {target.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2576,14 +1742,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.relative.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I'll carry you with me, {target.name}. I promise.",
-                    },
-                    ["TL"] = {
-                        "Dadalahin kita sa alaala ko, {target.name}. Pangako.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -2591,14 +1749,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.corpse.relative.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name}, I'm sorry I wasn't there.",
-                    },
-                    ["TL"] = {
-                        "{target.name}, patawad at wala ako roon.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

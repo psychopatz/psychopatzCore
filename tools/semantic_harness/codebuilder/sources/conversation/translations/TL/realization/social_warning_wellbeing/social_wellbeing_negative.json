@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.wellbeing_negative",
+  "locale": "TL",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "literal",
+        "value": "Medyo mahirap ngayon."
+      }
+    ]
+  }
+}

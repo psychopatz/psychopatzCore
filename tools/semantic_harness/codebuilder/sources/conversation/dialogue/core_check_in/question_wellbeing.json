@@ -24,10 +24,6 @@
     "topic": "wellbeing"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask about wellbeing",
-      "TL": "Itanong ang kalagayan"
-    },
     "consumers": [
       "player",
       "npc"
@@ -40,8 +36,11 @@
     }
   },
   "say": {
-    "EN": "How are you feeling?",
-    "TL": "Kumusta ang pakiramdam mo?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "after": {
     "recommend": [

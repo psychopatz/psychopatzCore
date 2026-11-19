@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.rescue.return",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "{target.name} got someone home alive.",
+    "textRows.positive.rescue.return": "{target.name} got someone home alive."
+  }
+}

@@ -5,25 +5,13 @@
     "textTarget": "social/recruitment/response",
     "textRows": [
       {
-        "key": "recruitment.fear.1",
-        "text": {
-          "EN": "I do not like being cornered, but I know when I am outmatched. I will come with you.",
-          "TL": "Hindi ako mahilig ma-corner, pero alam ko kapag outmatched ako. sasama ako sayo."
-        }
+        "key": "recruitment.fear.1"
       },
       {
-        "key": "recruitment.fear.2",
-        "text": {
-          "EN": "Fine. I will follow for now. Keep your word and we will not have a problem.",
-          "TL": "ayos lang. Susundan ko muna. Panatilihin ang iyong salita at hindi kami magkakaroon ng problema."
-        }
+        "key": "recruitment.fear.2"
       },
       {
-        "key": "recruitment.fear.3",
-        "text": {
-          "EN": "You have made your point. I will join, but do not mistake caution for friendship yet.",
-          "TL": "Nagawa mo na ang punto mo. Sasama ako, pero huwag mong mapagkamalang pagkakaibigan ang pag-iingat ko."
-        }
+        "key": "recruitment.fear.3"
       }
     ]
   },
@@ -31,33 +19,21 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I do not like being cornered, but I know when I am outmatched. I will come with you.",
-            "TL": "Hindi ako mahilig ma-corner, pero alam ko kapag outmatched ako. sasama ako sayo."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Fine. I will follow for now. Keep your word and we will not have a problem.",
-            "TL": "ayos lang. Susundan ko muna. Panatilihin ang iyong salita at hindi kami magkakaroon ng problema."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "You have made your point. I will join, but do not mistake caution for friendship yet.",
-            "TL": "Nagawa mo na ang punto mo. Sasama ako, pero huwag mong mapagkamalang pagkakaibigan ang pag-iingat ko."
-          }
+          "id": "neutral"
         }
       ]
     }

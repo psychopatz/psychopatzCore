@@ -3,19 +3,5 @@
   "id": "construction.social.comfort",
   "dialogueAct": "QUESTION",
   "strategy": "COMFORT",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "What's really bothering you?"
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ano ba talaga ang bumabagabag sa'yo?"
-      }
-    ]
-  },
   "type": "construction"
 }

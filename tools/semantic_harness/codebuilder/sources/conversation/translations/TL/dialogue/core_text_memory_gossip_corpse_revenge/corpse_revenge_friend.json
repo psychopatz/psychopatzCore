@@ -1,0 +1,23 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.revenge.friend",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
+    "say.2.neutral": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
+    "say.3.neutral": "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
+    "say.4.neutral": "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
+    "say.5.neutral": "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
+    "say.6.neutral": "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
+    "say.7.neutral": "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
+    "say.8.neutral": "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}.",
+    "textRows.corpse.revenge.friend.01": "Bwisit ka, {slot.killer.name}. Kaibigan ko si {target.name}; pagbabayaran mo ito.",
+    "textRows.corpse.revenge.friend.02": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name}.",
+    "textRows.corpse.revenge.friend.03": "Lintik, {target.name}. Hindi malilimutan ang ginawa ni {slot.killer.name}.",
+    "textRows.corpse.revenge.friend.04": "Hindi ko hahayaang makalimutan si {target.name}, at hindi makakatakas si {slot.killer.name}.",
+    "textRows.corpse.revenge.friend.05": "Lagi akong ipinagtatanggol ni {target.name}. Ngayon, ako naman ang hahabol kay {slot.killer.name}.",
+    "textRows.corpse.revenge.friend.06": "Putang ina, {slot.killer.name}. Mahalaga sa amin si {target.name}.",
+    "textRows.corpse.revenge.friend.07": "Sana alam ni {slot.killer.name} ang inagaw niya sa amin nang pinatay niya si {target.name}.",
+    "textRows.corpse.revenge.friend.08": "Wala nang babala. Pinatay ni {slot.killer.name} ang isa sa amin, si {target.name}."
+  }
+}

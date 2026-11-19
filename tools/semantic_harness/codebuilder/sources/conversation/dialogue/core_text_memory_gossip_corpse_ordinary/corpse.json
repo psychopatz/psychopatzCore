@@ -9,39 +9,19 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "corpse.neutral.01",
-        "text": {
-          "EN": "I didn't know you, {target.name}. You deserved better.",
-          "TL": "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito."
-        }
+        "key": "corpse.neutral.01"
       },
       {
-        "key": "corpse.neutral.02",
-        "text": {
-          "EN": "I hope someone remembers your name, {target.name}.",
-          "TL": "Sana may makaalala pa sa pangalan mo, {target.name}."
-        }
+        "key": "corpse.neutral.02"
       },
       {
-        "key": "corpse.neutral.03",
-        "text": {
-          "EN": "This place takes everyone, doesn't it?",
-          "TL": "Nilalamon ng lugar na ito ang lahat, ano?"
-        }
+        "key": "corpse.neutral.03"
       },
       {
-        "key": "corpse.neutral.04",
-        "text": {
-          "EN": "Someone should have found you sooner, {target.name}.",
-          "TL": "Sana may nakakita sa'yo nang mas maaga, {target.name}."
-        }
+        "key": "corpse.neutral.04"
       },
       {
-        "key": "corpse.neutral.05",
-        "text": {
-          "EN": "Rest now, {target.name}. I won't leave you unnamed.",
-          "TL": "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan."
-        }
+        "key": "corpse.neutral.05"
       }
     ]
   },
@@ -49,55 +29,35 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I didn't know you, {target.name}. You deserved better.",
-            "TL": "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I hope someone remembers your name, {target.name}.",
-            "TL": "Sana may makaalala pa sa pangalan mo, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "This place takes everyone, doesn't it?",
-            "TL": "Nilalamon ng lugar na ito ang lahat, ano?"
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Someone should have found you sooner, {target.name}.",
-            "TL": "Sana may nakakita sa'yo nang mas maaga, {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Rest now, {target.name}. I won't leave you unnamed.",
-            "TL": "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan."
-          }
+          "id": "neutral"
         }
       ]
     }

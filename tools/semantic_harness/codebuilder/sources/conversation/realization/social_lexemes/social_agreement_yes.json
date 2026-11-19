@@ -2,9 +2,5 @@
   "schema": "psychopatz.convo-engine.v1",
   "profile": "lexeme_realization",
   "id": "lexeme.social.agreement.yes",
-  "concept": "AGREEMENT_YES",
-  "forms": {
-    "EN": "yeah",
-    "TL": "oo"
-  }
+  "concept": "AGREEMENT_YES"
 }

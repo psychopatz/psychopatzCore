@@ -21,10 +21,6 @@
       }
     ]
   },
-  "textSidecars": {
-    "EN": "translations/question_activity_dataset_keep_moving.en.json",
-    "TL": "translations/question_activity_dataset_keep_moving.tl.json"
-  },
   "roles": {
     "speaker": {
       "cardinality": "ONE",

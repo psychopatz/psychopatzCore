@@ -372,14 +372,13 @@ class SemanticGenerationDeterminismLifecycleTests(unittest.TestCase):
                     repos["hoomans"]
                     / f"tools/providers/pnc/codebuilder/sources/conversation/dialogue/sharded_domain/{fam_id}.json"
                 )
-                _write_json(
-                    src,
-                    _sample_family(
-                        owner="ProjectHoomans",
-                        namespace="sharded_domain",
-                        family_id=fam_id,
-                    ),
+                fam_doc = _sample_family(
+                    owner="ProjectHoomans",
+                    namespace="sharded_domain",
+                    family_id=fam_id,
                 )
+                fam_doc["metadata"] = {"notes": "x" * 2048}
+                _write_json(src, fam_doc)
 
             pass1 = reconcile_apply(
                 repos["hoomans"],

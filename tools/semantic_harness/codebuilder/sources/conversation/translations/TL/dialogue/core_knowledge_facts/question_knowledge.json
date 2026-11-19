@@ -1,0 +1,103 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.knowledge",
+  "locale": "TL",
+  "entries": {
+    "reply.known.say.1.neutral": [
+      "May alam ako tungkol sa {target.name}.",
+      "Oo, may alam ako tungkol sa {target.name}.",
+      "Pamilyar ako sa {target.name}.",
+      "May kaalaman ako sa {target.name}.",
+      "Oo, nauunawaan ko ang tungkol sa {target.name}.",
+      "Batid ko ang tungkol sa {target.name}.",
+      "Alam ko ang sitwasyon sa {target.name}.",
+      "Batid ko ang impormasyon sa {target.name}.",
+      "Oo, nalaman ko na ang tungkol sa {target.name} noon pa.",
+      "Maaasahan ang balita ko tungkol sa {target.name}."
+    ],
+    "reply.known.say.1.guarded": [
+      "Sapat ang alam ko tungkol sa {target.name}.",
+      "Alam ko ang {target.name}, pero huwag mong ipagsabi.",
+      "May alam ako sa {target.name}. Huwag mong ipagsigawan.",
+      "Oo, alam ko ang {target.name}. Ano naman?",
+      "Nasa akin ang impormasyon sa {target.name}. Hinaan mo ang boses mo.",
+      "Alam ko kung ano ang {target.name}. Mag-ingat ka.",
+      "Pamilyar ako sa {target.name}. Huwag mong ikalat.",
+      "Oo, alam ko ang {target.name}. Delikadong kaalaman 'yan.",
+      "May alam ako tungkol sa {target.name}. Atin-atin lang 'to.",
+      "Oo, alam ko ang tungkol sa {target.name}. Huwag kang magdala ng gulo sa atin."
+    ],
+    "reply.known.say.1.terse": [
+      "Alam ko ang {target.name}.",
+      "Alam ko: {target.name}.",
+      "Batid ang {target.name}.",
+      "Pamilyar sa {target.name}.",
+      "Oo, {target.name}.",
+      "Narinig ang {target.name}.",
+      "May balita sa {target.name}.",
+      "Naintindihan: {target.name}.",
+      "Alam na ang {target.name}.",
+      "Malinaw sa {target.name}."
+    ],
+    "reply.known.say.1.warm": [
+      "May alam ako tungkol sa {target.name}.",
+      "Oo, may alam ako tungkol sa {target.name}! Mabuti at nagtanong ka.",
+      "Masaya akong ibahagi sa'yo kung ano ang nalalaman ko sa {target.name}.",
+      "May alam ako sa {target.name}, kaibigan. Pag-usapan natin.",
+      "Pamilyar ako sa {target.name}. Ano'ng gusto mong malaman?",
+      "Oo, may magandang kaalaman ako tungkol sa {target.name}.",
+      "Alam na alam ko ang {target.name}! Laging masayang pag-usapan.",
+      "Tiyak na matutulungan kita tungkol sa {target.name}.",
+      "May alam ako sa {target.name}, masayang sagutin ang mga tanong mo.",
+      "Oo, kabisado ko ang {target.name}, kaibigan."
+    ],
+    "reply.unknown.say.1.neutral": [
+      "Wala akong maaasahang impormasyon tungkol diyan.",
+      "Hindi ako pamilyar sa paksang iyon.",
+      "Hindi ko pa nalaman ang impormasyong iyon noon.",
+      "Wala akong kaalaman sa bagay na iyon.",
+      "Bago 'yan sa akin, pasensya na.",
+      "Hindi ko masasagot 'yan. Talagang hindi ko alam.",
+      "Hindi ko pa 'yan nasalubong sa paglalakbay ko.",
+      "Wala sa akin ang mga sagot tungkol diyan.",
+      "Wala akong kamalayan sa paksang iyon.",
+      "Pasensya na, labas 'yan sa kaalaman ko."
+    ],
+    "reply.unknown.say.1.guarded": [
+      "Wala akong alam tungkol diyan.",
+      "Hindi ko narinig 'yan. Huwag magsayang ng oras sa walang kabuluhan.",
+      "Walang ideya. Ituon ang isip sa kung ano ang nasa harap natin.",
+      "Wala akong alam sa paksang 'yan. Kalimutan mo na.",
+      "Hindi pa dumaan sa akin 'yan. Maging alerto.",
+      "Hindi kita matutulungan diyan. Huwag mawala sa pokus.",
+      "Wala akong alam diyan. Bantayan ang daan.",
+      "Walang ideya. Huwag maghanap ng mga bagay na wala naman.",
+      "Hindi ko pa kailanman nakaharap 'yan. Tuloy sa lakad.",
+      "Hindi ko alam at ayaw kong manghula."
+    ],
+    "reply.unknown.say.1.terse": [
+      "Hindi alam.",
+      "Walang ideya.",
+      "Hindi pamilyar.",
+      "Hindi narinig.",
+      "Hindi masabi.",
+      "Hindi batid.",
+      "Walang muwang.",
+      "Wala talaga.",
+      "Wala.",
+      "Walang alam."
+    ],
+    "reply.unknown.say.1.warm": [
+      "Sana may alam ako, pero wala akong alam tungkol diyan.",
+      "Pasensya na, kaibigan, wala akong narinig tungkol diyan.",
+      "Gusto sana kitang tulungan diyan, pero hindi ako pamilyar.",
+      "Hindi ko alam, pero pwede nating alamin nang magkasama.",
+      "Pasensya na kung hindi ako masyadong makatulong sa paksang 'yan.",
+      "Bago 'yan sa akin! Sana may mga sagot ako para sa'yo.",
+      "Hindi ko pa natututunan 'yan, kaibigan.",
+      "Sana masasagot ko 'yan, pero wala rin akong alam.",
+      "Hindi ko alam 'yan, pero magkasama tayong mag-aral.",
+      "Pasensya na kung mabigo kita, pero hindi ako pamilyar diyan."
+    ]
+  }
+}

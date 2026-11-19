@@ -306,6 +306,9 @@ local function extractReplyFallback(sayNode, lang)
         local entry = realizations[firstKey] or realizations["1"]
         local variants = type(entry) == "table" and entry.variants or nil
         local firstVariant = type(variants) == "table" and variants[1] or nil
+        if type(firstVariant) == "table" and type(firstVariant.fallback) == "string" and firstVariant.fallback ~= "" then
+            return firstVariant.fallback
+        end
         local textMap = type(firstVariant) == "table" and firstVariant.text or nil
         if type(textMap) == "table" then
             local preferred = textMap[lang or "EN"] or textMap["EN"]

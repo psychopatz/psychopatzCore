@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.unavailable",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "I cannot make that decision while I am unavailable.",
+    "say.2.neutral": "This is not a conversation I can have right now.",
+    "textRows.recruitment.reject.unavailable.1": "I cannot make that decision while I am unavailable.",
+    "textRows.recruitment.reject.unavailable.2": "This is not a conversation I can have right now."
+  }
+}

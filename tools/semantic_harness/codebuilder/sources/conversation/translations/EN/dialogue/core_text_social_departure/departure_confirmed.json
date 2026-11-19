@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "departure.confirmed",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "Understood. I will take my chances elsewhere. Remember what you chose.",
+    "textRows.departure.confirmed": "Understood. I will take my chances elsewhere. Remember what you chose."
+  }
+}

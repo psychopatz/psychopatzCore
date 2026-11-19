@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.hostile",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "So this is how it ends for you, {target.name}.",
+    "say.2.neutral": "You made plenty of enemies, {target.name}. I was one.",
+    "say.3.neutral": "I won't mourn you, {target.name}, but I won't forget this.",
+    "say.4.neutral": "The threat is gone. Keep moving.",
+    "say.5.neutral": "Maybe you finally found some peace, {target.name}.",
+    "textRows.corpse.hostile.01": "So this is how it ends for you, {target.name}.",
+    "textRows.corpse.hostile.02": "You made plenty of enemies, {target.name}. I was one.",
+    "textRows.corpse.hostile.03": "I won't mourn you, {target.name}, but I won't forget this.",
+    "textRows.corpse.hostile.04": "The threat is gone. Keep moving.",
+    "textRows.corpse.hostile.05": "Maybe you finally found some peace, {target.name}."
+  }
+}

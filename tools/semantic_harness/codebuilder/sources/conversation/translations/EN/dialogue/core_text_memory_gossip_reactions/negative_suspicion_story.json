@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.suspicion.story",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "Watch {target.name}; their story keeps changing.",
+    "textRows.negative.suspicion.story": "Watch {target.name}; their story keeps changing."
+  }
+}

@@ -1,9 +1,41 @@
 {
   "languages": {
     "EN": [
+      "EN/Conversation/Text/convo/ConvoEngine_choice.json",
+      "EN/Conversation/Text/convo/ConvoEngine_corpse.json",
+      "EN/Conversation/Text/convo/ConvoEngine_death.json",
+      "EN/Conversation/Text/convo/ConvoEngine_departure.json",
+      "EN/Conversation/Text/convo/ConvoEngine_gift.json",
+      "EN/Conversation/Text/convo/ConvoEngine_gossip.json",
+      "EN/Conversation/Text/convo/ConvoEngine_identity.json",
+      "EN/Conversation/Text/convo/ConvoEngine_interaction.json",
+      "EN/Conversation/Text/convo/ConvoEngine_negative.json",
+      "EN/Conversation/Text/convo/ConvoEngine_neutral.json",
+      "EN/Conversation/Text/convo/ConvoEngine_offer.json",
+      "EN/Conversation/Text/convo/ConvoEngine_positive.json",
+      "EN/Conversation/Text/convo/ConvoEngine_question.json",
+      "EN/Conversation/Text/convo/ConvoEngine_realization.json",
+      "EN/Conversation/Text/convo/ConvoEngine_recruitment.json",
+      "EN/Conversation/Text/convo/ConvoEngine_response.json",
       "EN/Conversation/UI.json"
     ],
     "TL": [
+      "TL/Conversation/Text/convo/ConvoEngine_choice.json",
+      "TL/Conversation/Text/convo/ConvoEngine_corpse.json",
+      "TL/Conversation/Text/convo/ConvoEngine_death.json",
+      "TL/Conversation/Text/convo/ConvoEngine_departure.json",
+      "TL/Conversation/Text/convo/ConvoEngine_gift.json",
+      "TL/Conversation/Text/convo/ConvoEngine_gossip.json",
+      "TL/Conversation/Text/convo/ConvoEngine_identity.json",
+      "TL/Conversation/Text/convo/ConvoEngine_interaction.json",
+      "TL/Conversation/Text/convo/ConvoEngine_negative.json",
+      "TL/Conversation/Text/convo/ConvoEngine_neutral.json",
+      "TL/Conversation/Text/convo/ConvoEngine_offer.json",
+      "TL/Conversation/Text/convo/ConvoEngine_positive.json",
+      "TL/Conversation/Text/convo/ConvoEngine_question.json",
+      "TL/Conversation/Text/convo/ConvoEngine_realization.json",
+      "TL/Conversation/Text/convo/ConvoEngine_recruitment.json",
+      "TL/Conversation/Text/convo/ConvoEngine_response.json",
       "TL/Conversation/UI.json"
     ]
   },

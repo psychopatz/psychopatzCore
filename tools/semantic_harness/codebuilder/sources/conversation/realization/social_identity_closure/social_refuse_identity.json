@@ -3,19 +3,5 @@
   "id": "construction.social.refuse_identity",
   "dialogueAct": "REFUSE",
   "strategy": "REFUSE_IDENTITY",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I'd rather not say."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ayoko munang sabihin."
-      }
-    ]
-  },
   "type": "construction"
 }

@@ -3,19 +3,5 @@
   "id": "construction.social.wellbeing_positive",
   "dialogueAct": "INFORM",
   "strategy": "WELLBEING_POSITIVE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I'm doing pretty good."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Okay naman ako."
-      }
-    ]
-  },
   "type": "construction"
 }

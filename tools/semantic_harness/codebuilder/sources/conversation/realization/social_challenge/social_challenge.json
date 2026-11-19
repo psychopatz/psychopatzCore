@@ -3,19 +3,5 @@
   "id": "construction.social.challenge",
   "dialogueAct": "CHALLENGE",
   "strategy": "CHALLENGE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Say that again."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ulitin mo nga."
-      }
-    ]
-  },
   "type": "construction"
 }

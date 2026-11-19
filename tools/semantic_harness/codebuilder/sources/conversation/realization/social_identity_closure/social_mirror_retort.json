@@ -3,27 +3,5 @@
   "id": "construction.social.mirror_retort",
   "dialogueAct": "RETORT",
   "strategy": "MIRROR",
-  "translations": {
-    "EN": [
-      {
-        "kind": "lexeme",
-        "slot": "primary"
-      },
-      {
-        "kind": "literal",
-        "value": " you too."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "lexeme",
-        "slot": "primary"
-      },
-      {
-        "kind": "literal",
-        "value": " rin."
-      }
-    ]
-  },
   "type": "construction"
 }

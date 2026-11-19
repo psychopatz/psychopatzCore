@@ -1,0 +1,23 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.revenge.relative",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
+    "say.2.neutral": "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
+    "say.3.neutral": "What {slot.killer.name} did to {target.name} will never be forgiven.",
+    "say.4.neutral": "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
+    "say.5.neutral": "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
+    "say.6.neutral": "No. Not {target.name}. {slot.killer.name} just made this personal.",
+    "say.7.neutral": "{target.name} was family. {slot.killer.name} will regret this.",
+    "say.8.neutral": "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
+    "textRows.corpse.revenge.relative.01": "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
+    "textRows.corpse.revenge.relative.02": "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
+    "textRows.corpse.revenge.relative.03": "What {slot.killer.name} did to {target.name} will never be forgiven.",
+    "textRows.corpse.revenge.relative.04": "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
+    "textRows.corpse.revenge.relative.05": "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
+    "textRows.corpse.revenge.relative.06": "No. Not {target.name}. {slot.killer.name} just made this personal.",
+    "textRows.corpse.revenge.relative.07": "{target.name} was family. {slot.killer.name} will regret this.",
+    "textRows.corpse.revenge.relative.08": "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming."
+  }
+}

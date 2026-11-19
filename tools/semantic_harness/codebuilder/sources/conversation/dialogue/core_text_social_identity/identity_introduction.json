@@ -6,22 +6,14 @@
     "textTarget": "social/identity/response",
     "textRows": [
       {
-        "key": "identity.introduction",
-        "text": {
-          "EN": "They introduce themselves.",
-          "TL": "Nagpakilala sila."
-        }
+        "key": "identity.introduction"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "They introduce themselves.",
-          "TL": "Nagpakilala sila."
-        }
+        "id": "neutral"
       }
     ]
   },

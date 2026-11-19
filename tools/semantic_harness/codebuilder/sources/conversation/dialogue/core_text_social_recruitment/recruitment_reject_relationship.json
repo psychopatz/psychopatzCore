@@ -5,74 +5,34 @@
     "textTarget": "social/recruitment/response",
     "textRows": [
       {
-        "key": "recruitment.reject.relationship.1",
-        "text": {
-          "EN": "I am not ready to put my life in your hands. We need more time before you ask that again.",
-          "TL": "Hindi pa ako handang ibigay ang buhay ko sa iyong mga kamay. Kailangan namin ng mas maraming oras bago mo itanong iyon muli."
-        }
+        "key": "recruitment.reject.relationship.1"
       },
       {
-        "key": "recruitment.reject.relationship.2",
-        "text": {
-          "EN": "You seem capable, but I do not know you well enough to join your group.",
-          "TL": "Mukhang may kakayahan ka, pero hindi pa kita gaanong kilala para sumama sa grupo mo."
-        }
+        "key": "recruitment.reject.relationship.2"
       },
       {
-        "key": "recruitment.reject.relationship.3",
-        "text": {
-          "EN": "That is a serious promise. We have not built enough trust for me to make it.",
-          "TL": "Seryosong pangako 'yan. Wala pa tayong sapat na tiwala para pumayag ako."
-        }
+        "key": "recruitment.reject.relationship.3"
       },
       {
-        "key": "recruitment.reject.relationship.4",
-        "text": {
-          "EN": "Out here, joining up takes real trust. We aren't there yet.",
-          "TL": "Sa panahong ito, kailangan ng matibay na tiwala bago sumama. Hindi pa tayo ganoon kalapit."
-        }
+        "key": "recruitment.reject.relationship.4"
       },
       {
-        "key": "recruitment.reject.relationship.5",
-        "text": {
-          "EN": "I'm not looking to tie myself to people I barely know.",
-          "TL": "Hindi ako basta-basta sumasama sa taong kakikilala ko pa lang."
-        }
+        "key": "recruitment.reject.relationship.5"
       },
       {
-        "key": "recruitment.reject.relationship.6",
-        "text": {
-          "EN": "We haven't been through enough together for me to make that call.",
-          "TL": "Wala pa tayong pinagsamahan para makapagdesisyon ako nang ganoon kabilis."
-        }
+        "key": "recruitment.reject.relationship.6"
       },
       {
-        "key": "recruitment.reject.relationship.7",
-        "text": {
-          "EN": "Give it time. Asking someone to join your group isn't a small thing.",
-          "TL": "Bigyan muna natin ng oras. Hindi biro ang sumama sa isang grupo."
-        }
+        "key": "recruitment.reject.relationship.7"
       },
       {
-        "key": "recruitment.reject.relationship.8",
-        "text": {
-          "EN": "I appreciate the thought, but I need to see how you operate first.",
-          "TL": "Salamat sa alok, pero gusto ko munang makita kung paano ka kumilos sa labas."
-        }
+        "key": "recruitment.reject.relationship.8"
       },
       {
-        "key": "recruitment.reject.relationship.9",
-        "text": {
-          "EN": "I'm surviving on my own for now until I'm certain about who has my back.",
-          "TL": "Kaya ko pa namang mag-isa sa ngayon habang hindi ko pa nasisigurado kung sino ang maaasahan ko."
-        }
+        "key": "recruitment.reject.relationship.9"
       },
       {
-        "key": "recruitment.reject.relationship.10",
-        "text": {
-          "EN": "Let's keep talking and see how we manage before making any commitments.",
-          "TL": "Mag-usap muna tayo at tingnan kung paano tayo magkakasundo bago magdesisyon."
-        }
+        "key": "recruitment.reject.relationship.10"
       }
     ]
   },
@@ -80,110 +40,70 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I am not ready to put my life in your hands. We need more time before you ask that again.",
-            "TL": "Hindi pa ako handang ibigay ang buhay ko sa iyong mga kamay. Kailangan namin ng mas maraming oras bago mo itanong iyon muli."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "You seem capable, but I do not know you well enough to join your group.",
-            "TL": "Mukhang may kakayahan ka, pero hindi pa kita gaanong kilala para sumama sa grupo mo."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "That is a serious promise. We have not built enough trust for me to make it.",
-            "TL": "Seryosong pangako 'yan. Wala pa tayong sapat na tiwala para pumayag ako."
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Out here, joining up takes real trust. We aren't there yet.",
-            "TL": "Sa panahong ito, kailangan ng matibay na tiwala bago sumama. Hindi pa tayo ganoon kalapit."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I'm not looking to tie myself to people I barely know.",
-            "TL": "Hindi ako basta-basta sumasama sa taong kakikilala ko pa lang."
-          }
+          "id": "neutral"
         }
       ]
     },
     "6": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We haven't been through enough together for me to make that call.",
-            "TL": "Wala pa tayong pinagsamahan para makapagdesisyon ako nang ganoon kabilis."
-          }
+          "id": "neutral"
         }
       ]
     },
     "7": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Give it time. Asking someone to join your group isn't a small thing.",
-            "TL": "Bigyan muna natin ng oras. Hindi biro ang sumama sa isang grupo."
-          }
+          "id": "neutral"
         }
       ]
     },
     "8": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I appreciate the thought, but I need to see how you operate first.",
-            "TL": "Salamat sa alok, pero gusto ko munang makita kung paano ka kumilos sa labas."
-          }
+          "id": "neutral"
         }
       ]
     },
     "9": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I'm surviving on my own for now until I'm certain about who has my back.",
-            "TL": "Kaya ko pa namang mag-isa sa ngayon habang hindi ko pa nasisigurado kung sino ang maaasahan ko."
-          }
+          "id": "neutral"
         }
       ]
     },
     "10": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Let's keep talking and see how we manage before making any commitments.",
-            "TL": "Mag-usap muna tayo at tingnan kung paano tayo magkakasundo bago magdesisyon."
-          }
+          "id": "neutral"
         }
       ]
     }

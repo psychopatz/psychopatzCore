@@ -1,16 +1,6 @@
 -- Generated; do not edit by hand.
 return {
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask who they are",
-                ["utterance"] = "Who are you?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong kung sino siya",
-                ["utterance"] = "Sino ka?",
-            },
-        },
         ["domain"] = "identity",
         ["id"] = "question.identity",
         ["intent"] = "QUESTION",
@@ -31,16 +21,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_Identity_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask what people call them",
-                ["utterance"] = "What do people call you?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong kung ano ang tawag sa kanya",
-                ["utterance"] = "Ano ang tawag sa iyo ng mga tao?",
-            },
-        },
         ["domain"] = "identity_nickname",
         ["id"] = "question.identity_nickname",
         ["intent"] = "QUESTION",
@@ -61,16 +41,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_IdentityNickname_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask their surname",
-                ["utterance"] = "What's your surname?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong ang apelyido niya",
-                ["utterance"] = "Ano ang apelyido mo?",
-            },
-        },
         ["domain"] = "identity_surname",
         ["id"] = "question.identity_surname",
         ["intent"] = "QUESTION",
@@ -91,16 +61,6 @@ return {
         ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_IdentitySurname_Utterance",
     },
     {
-        ["display"] = {
-            ["EN"] = {
-                ["label"] = "Ask who they are with",
-                ["utterance"] = "Who are you with?",
-            },
-            ["TL"] = {
-                ["label"] = "Itanong kung kanino siya kasama",
-                ["utterance"] = "Sino ang kasama mo?",
-            },
-        },
         ["domain"] = "identity_faction",
         ["id"] = "question.identity_faction",
         ["intent"] = "QUESTION",

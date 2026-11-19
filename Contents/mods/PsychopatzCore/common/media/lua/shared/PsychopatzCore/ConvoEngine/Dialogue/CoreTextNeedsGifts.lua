@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.gift.preference.dislike.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I don't like that.",
-                                    },
-                                    ["TL"] = {
-                                        "Ayaw ko niyan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -49,14 +41,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.gift.preference.dislike.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I don't like that.",
-                        },
-                        ["TL"] = {
-                            "Ayaw ko niyan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -93,11 +77,8 @@ return {
                 ["textKey"] = "gift.preference.dislike",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I don't like that.",
                         ["key"] = "gift.preference.dislike",
-                        ["text"] = {
-                            ["EN"] = "I don't like that.",
-                            ["TL"] = "Ayaw ko niyan.",
-                        },
                     },
                 },
                 ["textTarget"] = "needs/gifts/preference",
@@ -113,15 +94,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I don't like that.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I don't like that.",
-                                    },
-                                    ["TL"] = {
-                                        "Ayaw ko niyan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -196,14 +170,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.gift.preference.dislike.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I don't like that.",
-                    },
-                    ["TL"] = {
-                        "Ayaw ko niyan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -229,14 +195,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.gift.preference.like.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I like that.",
-                                    },
-                                    ["TL"] = {
-                                        "Gusto ko iyan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -258,14 +216,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.gift.preference.like.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I like that.",
-                        },
-                        ["TL"] = {
-                            "Gusto ko iyan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -302,11 +252,8 @@ return {
                 ["textKey"] = "gift.preference.like",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I like that.",
                         ["key"] = "gift.preference.like",
-                        ["text"] = {
-                            ["EN"] = "I like that.",
-                            ["TL"] = "Gusto ko iyan.",
-                        },
                     },
                 },
                 ["textTarget"] = "needs/gifts/preference",
@@ -322,15 +269,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I like that.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I like that.",
-                                    },
-                                    ["TL"] = {
-                                        "Gusto ko iyan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -405,14 +345,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.gift.preference.like.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I like that.",
-                    },
-                    ["TL"] = {
-                        "Gusto ko iyan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -438,14 +370,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.gift.preference.neutral.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I don't have a strong preference.",
-                                    },
-                                    ["TL"] = {
-                                        "Wala akong matinding kagustuhan tungkol diyan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -467,14 +391,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.gift.preference.neutral.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I don't have a strong preference.",
-                        },
-                        ["TL"] = {
-                            "Wala akong matinding kagustuhan tungkol diyan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -511,11 +427,8 @@ return {
                 ["textKey"] = "gift.preference.neutral",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I don't have a strong preference.",
                         ["key"] = "gift.preference.neutral",
-                        ["text"] = {
-                            ["EN"] = "I don't have a strong preference.",
-                            ["TL"] = "Wala akong matinding kagustuhan tungkol diyan.",
-                        },
                     },
                 },
                 ["textTarget"] = "needs/gifts/preference",
@@ -531,15 +444,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I don't have a strong preference.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I don't have a strong preference.",
-                                    },
-                                    ["TL"] = {
-                                        "Wala akong matinding kagustuhan tungkol diyan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -614,14 +520,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.gift.preference.neutral.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I don't have a strong preference.",
-                    },
-                    ["TL"] = {
-                        "Wala akong matinding kagustuhan tungkol diyan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -647,14 +545,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.gift.preference.unknown.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I'm not sure which item you mean.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko alam kung anong gamit ang tinutukoy mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -676,14 +566,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.gift.preference.unknown.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I'm not sure which item you mean.",
-                        },
-                        ["TL"] = {
-                            "Hindi ko alam kung anong gamit ang tinutukoy mo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -720,11 +602,8 @@ return {
                 ["textKey"] = "gift.preference.unknown",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I'm not sure which item you mean.",
                         ["key"] = "gift.preference.unknown",
-                        ["text"] = {
-                            ["EN"] = "I'm not sure which item you mean.",
-                            ["TL"] = "Hindi ko alam kung anong gamit ang tinutukoy mo.",
-                        },
                     },
                 },
                 ["textTarget"] = "needs/gifts/preference",
@@ -740,15 +619,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I'm not sure which item you mean.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I'm not sure which item you mean.",
-                                    },
-                                    ["TL"] = {
-                                        "Hindi ko alam kung anong gamit ang tinutukoy mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -823,14 +695,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.gift.preference.unknown.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I'm not sure which item you mean.",
-                    },
-                    ["TL"] = {
-                        "Hindi ko alam kung anong gamit ang tinutukoy mo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.admire",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala.",
+    "say.2.neutral": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang.",
+    "say.3.neutral": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito.",
+    "textRows.recruitment.admire.1": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala.",
+    "textRows.recruitment.admire.2": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang.",
+    "textRows.recruitment.admire.3": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito."
+  }
+}

@@ -16,22 +16,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "neutral.sighting",
-        "text": {
-          "EN": "Word is {target.name} was seen near {slot.place.name}.",
-          "TL": "May nakakita raw kay {target.name} malapit sa {slot.place.name}."
-        }
+        "key": "neutral.sighting"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "Word is {target.name} was seen near {slot.place.name}.",
-          "TL": "May nakakita raw kay {target.name} malapit sa {slot.place.name}."
-        }
+        "id": "neutral"
       }
     ]
   },

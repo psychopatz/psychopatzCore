@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "neutral.sighting",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+    "textRows.neutral.sighting": "May nakakita raw kay {target.name} malapit sa {slot.place.name}."
+  }
+}

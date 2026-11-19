@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.comrade",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Nabawasan na naman tayo, {target.name}. Nakakainis.",
+    "say.2.neutral": "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
+    "say.3.neutral": "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
+    "say.4.neutral": "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
+    "say.5.neutral": "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo.",
+    "textRows.corpse.comrade.01": "Nabawasan na naman tayo, {target.name}. Nakakainis.",
+    "textRows.corpse.comrade.02": "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan.",
+    "textRows.corpse.comrade.03": "Magkatabi tayong lumaban, {target.name}. Pahinga ka na.",
+    "textRows.corpse.comrade.04": "Hindi ka umatras, {target.name}. Itutuloy namin ito.",
+    "textRows.corpse.comrade.05": "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo."
+  }
+}

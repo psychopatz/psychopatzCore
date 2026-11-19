@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "gift.preference.unknown",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "I'm not sure which item you mean.",
+    "textRows.gift.preference.unknown": "I'm not sure which item you mean."
+  }
+}

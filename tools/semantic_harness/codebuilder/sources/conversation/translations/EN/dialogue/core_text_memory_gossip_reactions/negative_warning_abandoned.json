@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "negative.warning.abandoned",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "{target.name} left someone behind when the zombies closed in.",
+    "textRows.negative.warning.abandoned": "{target.name} left someone behind when the zombies closed in."
+  }
+}

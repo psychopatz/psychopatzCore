@@ -26,10 +26,7 @@ return {
         },
         ["payload"] = {
             ["concept"] = "AGREEMENT_YES",
-            ["forms"] = {
-                ["EN"] = "yeah",
-                ["TL"] = "oo",
-            },
+            ["fallback"] = "yeah",
             ["type"] = "lexeme",
         },
         ["references"] = {
@@ -70,10 +67,7 @@ return {
         },
         ["payload"] = {
             ["concept"] = "APOLOGY_SORRY",
-            ["forms"] = {
-                ["EN"] = "sorry",
-                ["TL"] = "pasensya",
-            },
+            ["fallback"] = "sorry",
             ["type"] = "lexeme",
         },
         ["references"] = {
@@ -114,10 +108,7 @@ return {
         },
         ["payload"] = {
             ["concept"] = "DISAGREEMENT_NO",
-            ["forms"] = {
-                ["EN"] = "no",
-                ["TL"] = "hindi",
-            },
+            ["fallback"] = "no",
             ["type"] = "lexeme",
         },
         ["references"] = {
@@ -166,10 +157,7 @@ return {
                 "f*** you",
             },
             ["concept"] = "PROFANITY_FUCK",
-            ["forms"] = {
-                ["EN"] = "fuck",
-                ["TL"] = "Putang ina mo",
-            },
+            ["fallback"] = "fuck",
             ["type"] = "lexeme",
         },
         ["references"] = {

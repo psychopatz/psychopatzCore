@@ -5,25 +5,13 @@
     "textTarget": "social/recruitment/response",
     "textRows": [
       {
-        "key": "recruitment.reject.general.1",
-        "text": {
-          "EN": "I cannot make that decision right now. There is too much working against it.",
-          "TL": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito."
-        }
+        "key": "recruitment.reject.general.1"
       },
       {
-        "key": "recruitment.reject.general.2",
-        "text": {
-          "EN": "No. I appreciate the offer, but joining you is not possible at the moment.",
-          "TL": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon."
-        }
+        "key": "recruitment.reject.general.2"
       },
       {
-        "key": "recruitment.reject.general.3",
-        "text": {
-          "EN": "I need to sort out a few things before I can even consider leaving with you.",
-          "TL": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka."
-        }
+        "key": "recruitment.reject.general.3"
       }
     ]
   },
@@ -31,33 +19,21 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I cannot make that decision right now. There is too much working against it.",
-            "TL": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "No. I appreciate the offer, but joining you is not possible at the moment.",
-            "TL": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I need to sort out a few things before I can even consider leaving with you.",
-            "TL": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka."
-          }
+          "id": "neutral"
         }
       ]
     }

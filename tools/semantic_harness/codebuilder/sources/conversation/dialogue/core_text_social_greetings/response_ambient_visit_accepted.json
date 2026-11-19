@@ -6,22 +6,14 @@
     "textTarget": "social/greetings/ambient_visit/arrival",
     "textRows": [
       {
-        "key": "response.ambient_visit.accepted.1",
-        "text": {
-          "EN": "Thank you. I could use somewhere safe to rest for a while.",
-          "TL": "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga."
-        }
+        "key": "response.ambient_visit.accepted.1"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "Thank you. I could use somewhere safe to rest for a while.",
-          "TL": "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga."
-        }
+        "id": "neutral"
       }
     ]
   },

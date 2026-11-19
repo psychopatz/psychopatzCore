@@ -3,19 +3,5 @@
   "id": "construction.social.contextual_thank",
   "dialogueAct": "THANK",
   "strategy": "THANK",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Thank you."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Salamat."
-      }
-    ]
-  },
   "type": "construction"
 }

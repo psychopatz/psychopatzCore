@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.sympathy.loss",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "I heard what happened to {target.name}. I hope they are holding up.",
+    "textRows.positive.sympathy.loss": "I heard what happened to {target.name}. I hope they are holding up."
+  }
+}

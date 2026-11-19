@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.comrade",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "One less of us, {target.name}. Damn.",
+    "say.2.neutral": "You stood with {slot.faction.name}, {target.name}. We won't forget.",
+    "say.3.neutral": "We fought side by side, {target.name}. Rest easy.",
+    "say.4.neutral": "{target.name} held the line. We'll carry on.",
+    "say.5.neutral": "I hope {slot.faction.name} remembers what you gave.",
+    "textRows.corpse.comrade.01": "One less of us, {target.name}. Damn.",
+    "textRows.corpse.comrade.02": "You stood with {slot.faction.name}, {target.name}. We won't forget.",
+    "textRows.corpse.comrade.03": "We fought side by side, {target.name}. Rest easy.",
+    "textRows.corpse.comrade.04": "{target.name} held the line. We'll carry on.",
+    "textRows.corpse.comrade.05": "I hope {slot.faction.name} remembers what you gave."
+  }
+}

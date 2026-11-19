@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.identity_surname",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong ang apelyido niya",
+    "say.variants.default": "Ano ang apelyido mo?"
+  }
+}

@@ -155,6 +155,23 @@ def build_parser() -> argparse.ArgumentParser:
     _add_repo_args(p_locate)
     p_locate.add_argument("record_id", help="Canonical ConvoEngine record ID")
 
+    p_loc_audit = sub.add_parser(
+        "localization-audit",
+        help="Run the fail-closed ConvoEngine localization audit across all owners",
+    )
+    _add_repo_args(p_loc_audit)
+    p_loc_audit.add_argument("--summary", action="store_true", help="Print counters and shapeCounts only")
+
+    p_mig = sub.add_parser(
+        "migrate-translations",
+        help="Preview or apply canonical ConvoEngine translation migration",
+    )
+    _add_repo_args(p_mig)
+    p_mig.add_argument("--owner", default=None, help="Filter to one owner (PsychopatzCore, ProjectHoomans, DTCommon)")
+    p_mig.add_argument("--path-prefix", default=None, help="Filter relative path prefix under sources/conversation")
+    p_mig.add_argument("--write", action="store_true", help="Apply migration writes atomically")
+    p_mig.add_argument("--keep-legacy-sidecars", action="store_true", help="Do not delete old textSidecars files")
+
     return parser
 
 
@@ -279,6 +296,37 @@ def main(arguments: list[str] | None = None) -> int:
             result = svc.dispatch_operation(
                 "convo.audit",
                 {"checkDeterminism": bool(args.check_determinism)},
+            )
+        elif args.command == "localization-audit":
+            from tools.semantic_harness.codebuilder.convo_engine_localization_audit import (
+                audit_convo_engine_localization,
+            )
+
+            result = audit_convo_engine_localization(
+                svc.core_repository,
+                hoomans_repository=svc.hoomans_repository,
+                dynamic_trading_repository=svc.dynamic_trading_repository,
+            )
+            if args.summary:
+                result = {
+                    "schema": result.get("schema"),
+                    "ok": result.get("ok"),
+                    "counters": result.get("counters"),
+                    "shapeCounts": result.get("shapeCounts"),
+                }
+        elif args.command == "migrate-translations":
+            from tools.semantic_harness.codebuilder.convo_engine_translation_migration import (
+                run_translation_migration,
+            )
+
+            result = run_translation_migration(
+                svc.core_repository,
+                hoomans_repository=svc.hoomans_repository,
+                dynamic_trading_repository=svc.dynamic_trading_repository,
+                owner_filter=args.owner,
+                path_prefix=args.path_prefix,
+                apply=bool(args.write),
+                delete_legacy_sidecars=not args.keep_legacy_sidecars,
             )
         elif args.command in {"get", "impact", "locate"}:
             from tools.semantic_harness.codebuilder.conversation_compiler import compile_conversation_sources

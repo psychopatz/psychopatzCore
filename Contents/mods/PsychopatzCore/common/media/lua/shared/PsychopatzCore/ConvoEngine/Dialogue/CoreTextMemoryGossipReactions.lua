@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.negative.mockery.gear.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Someone says {target.name} cannot keep track of their own gear.",
-                                    },
-                                    ["TL"] = {
-                                        "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -41,14 +33,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.negative.mockery.gear.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Someone says {target.name} cannot keep track of their own gear.",
-                        },
-                        ["TL"] = {
-                            "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -85,11 +69,8 @@ return {
                 ["textKey"] = "negative.mockery.gear",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
                         ["key"] = "negative.mockery.gear",
-                        ["text"] = {
-                            ["EN"] = "Someone says {target.name} cannot keep track of their own gear.",
-                            ["TL"] = "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -105,15 +86,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Someone says {target.name} cannot keep track of their own gear.",
-                                    },
-                                    ["TL"] = {
-                                        "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -190,14 +164,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.negative.mockery.gear.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Someone says {target.name} cannot keep track of their own gear.",
-                    },
-                    ["TL"] = {
-                        "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -223,14 +189,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.negative.mockery.retreat.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} talked big, then backed down when it mattered.",
-                                    },
-                                    ["TL"] = {
-                                        "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -244,14 +202,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.negative.mockery.retreat.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} talked big, then backed down when it mattered.",
-                        },
-                        ["TL"] = {
-                            "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -288,11 +238,8 @@ return {
                 ["textKey"] = "negative.mockery.retreat",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
                         ["key"] = "negative.mockery.retreat",
-                        ["text"] = {
-                            ["EN"] = "{target.name} talked big, then backed down when it mattered.",
-                            ["TL"] = "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -308,15 +255,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} talked big, then backed down when it mattered.",
-                                    },
-                                    ["TL"] = {
-                                        "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -393,14 +333,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.negative.mockery.retreat.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} talked big, then backed down when it mattered.",
-                    },
-                    ["TL"] = {
-                        "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -426,14 +358,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.negative.suspicion.story.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Watch {target.name}; their story keeps changing.",
-                                    },
-                                    ["TL"] = {
-                                        "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -447,14 +371,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.negative.suspicion.story.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Watch {target.name}; their story keeps changing.",
-                        },
-                        ["TL"] = {
-                            "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -491,11 +407,8 @@ return {
                 ["textKey"] = "negative.suspicion.story",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Watch {target.name}; their story keeps changing.",
                         ["key"] = "negative.suspicion.story",
-                        ["text"] = {
-                            ["EN"] = "Watch {target.name}; their story keeps changing.",
-                            ["TL"] = "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -511,15 +424,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Watch {target.name}; their story keeps changing.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Watch {target.name}; their story keeps changing.",
-                                    },
-                                    ["TL"] = {
-                                        "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -596,14 +502,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.negative.suspicion.story.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Watch {target.name}; their story keeps changing.",
-                    },
-                    ["TL"] = {
-                        "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -629,14 +527,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.negative.warning.abandoned.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} left someone behind when the zombies closed in.",
-                                    },
-                                    ["TL"] = {
-                                        "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -650,14 +540,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.negative.warning.abandoned.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} left someone behind when the zombies closed in.",
-                        },
-                        ["TL"] = {
-                            "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -694,11 +576,8 @@ return {
                 ["textKey"] = "negative.warning.abandoned",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
                         ["key"] = "negative.warning.abandoned",
-                        ["text"] = {
-                            ["EN"] = "{target.name} left someone behind when the zombies closed in.",
-                            ["TL"] = "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -714,15 +593,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} left someone behind when the zombies closed in.",
-                                    },
-                                    ["TL"] = {
-                                        "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -799,14 +671,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.negative.warning.abandoned.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} left someone behind when the zombies closed in.",
-                    },
-                    ["TL"] = {
-                        "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -832,14 +696,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.negative.warning.danger.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "People have spotted danger near {slot.place.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "May nakapansing panganib malapit sa {slot.place.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -861,14 +717,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.negative.warning.danger.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "People have spotted danger near {slot.place.name}.",
-                        },
-                        ["TL"] = {
-                            "May nakapansing panganib malapit sa {slot.place.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -905,11 +753,8 @@ return {
                 ["textKey"] = "negative.warning.danger",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "People have spotted danger near {slot.place.name}.",
                         ["key"] = "negative.warning.danger",
-                        ["text"] = {
-                            ["EN"] = "People have spotted danger near {slot.place.name}.",
-                            ["TL"] = "May nakapansing panganib malapit sa {slot.place.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -925,15 +770,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "People have spotted danger near {slot.place.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "People have spotted danger near {slot.place.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "May nakapansing panganib malapit sa {slot.place.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1016,14 +854,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.negative.warning.danger.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "People have spotted danger near {slot.place.name}.",
-                    },
-                    ["TL"] = {
-                        "May nakapansing panganib malapit sa {slot.place.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1049,14 +879,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.neutral.horde_survival.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I got away when a whole horde came after me.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakatakas ako nang habulin ako ng napakaraming zombie.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1070,14 +892,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.neutral.horde_survival.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I got away when a whole horde came after me.",
-                        },
-                        ["TL"] = {
-                            "Nakatakas ako nang habulin ako ng napakaraming zombie.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1114,11 +928,8 @@ return {
                 ["textKey"] = "neutral.horde_survival",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I got away when a whole horde came after me.",
                         ["key"] = "neutral.horde_survival",
-                        ["text"] = {
-                            ["EN"] = "I got away when a whole horde came after me.",
-                            ["TL"] = "Nakatakas ako nang habulin ako ng napakaraming zombie.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1134,15 +945,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I got away when a whole horde came after me.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I got away when a whole horde came after me.",
-                                    },
-                                    ["TL"] = {
-                                        "Nakatakas ako nang habulin ako ng napakaraming zombie.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1211,14 +1015,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.neutral.horde_survival.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I got away when a whole horde came after me.",
-                    },
-                    ["TL"] = {
-                        "Nakatakas ako nang habulin ako ng napakaraming zombie.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1244,14 +1040,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.neutral.sighting.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Word is {target.name} was seen near {slot.place.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1273,14 +1061,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.neutral.sighting.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Word is {target.name} was seen near {slot.place.name}.",
-                        },
-                        ["TL"] = {
-                            "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1317,11 +1097,8 @@ return {
                 ["textKey"] = "neutral.sighting",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
                         ["key"] = "neutral.sighting",
-                        ["text"] = {
-                            ["EN"] = "Word is {target.name} was seen near {slot.place.name}.",
-                            ["TL"] = "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1337,15 +1114,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Word is {target.name} was seen near {slot.place.name}.",
-                                    },
-                                    ["TL"] = {
-                                        "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1420,14 +1190,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.neutral.sighting.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Word is {target.name} was seen near {slot.place.name}.",
-                    },
-                    ["TL"] = {
-                        "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1453,14 +1215,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.positive.praise.help.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} has been looking out for people.",
-                                    },
-                                    ["TL"] = {
-                                        "Inaalalayan ni {target.name} ang mga tao.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1474,14 +1228,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.positive.praise.help.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} has been looking out for people.",
-                        },
-                        ["TL"] = {
-                            "Inaalalayan ni {target.name} ang mga tao.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1518,11 +1264,8 @@ return {
                 ["textKey"] = "positive.praise.help",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "{target.name} has been looking out for people.",
                         ["key"] = "positive.praise.help",
-                        ["text"] = {
-                            ["EN"] = "{target.name} has been looking out for people.",
-                            ["TL"] = "Inaalalayan ni {target.name} ang mga tao.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1538,15 +1281,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} has been looking out for people.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} has been looking out for people.",
-                                    },
-                                    ["TL"] = {
-                                        "Inaalalayan ni {target.name} ang mga tao.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1623,14 +1359,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.positive.praise.help.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} has been looking out for people.",
-                    },
-                    ["TL"] = {
-                        "Inaalalayan ni {target.name} ang mga tao.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1656,14 +1384,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.positive.protection.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} stood up for someone when an attacker closed in.",
-                                    },
-                                    ["TL"] = {
-                                        "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1677,14 +1397,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.positive.protection.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} stood up for someone when an attacker closed in.",
-                        },
-                        ["TL"] = {
-                            "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1721,11 +1433,8 @@ return {
                 ["textKey"] = "positive.protection",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
                         ["key"] = "positive.protection",
-                        ["text"] = {
-                            ["EN"] = "{target.name} stood up for someone when an attacker closed in.",
-                            ["TL"] = "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1741,15 +1450,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} stood up for someone when an attacker closed in.",
-                                    },
-                                    ["TL"] = {
-                                        "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1826,14 +1528,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.positive.protection.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} stood up for someone when an attacker closed in.",
-                    },
-                    ["TL"] = {
-                        "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -1859,14 +1553,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.positive.rescue.return.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "{target.name} got someone home alive.",
-                                    },
-                                    ["TL"] = {
-                                        "Naiuwi ni {target.name} nang buhay ang isang tao.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -1880,14 +1566,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.positive.rescue.return.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "{target.name} got someone home alive.",
-                        },
-                        ["TL"] = {
-                            "Naiuwi ni {target.name} nang buhay ang isang tao.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -1924,11 +1602,8 @@ return {
                 ["textKey"] = "positive.rescue.return",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "{target.name} got someone home alive.",
                         ["key"] = "positive.rescue.return",
-                        ["text"] = {
-                            ["EN"] = "{target.name} got someone home alive.",
-                            ["TL"] = "Naiuwi ni {target.name} nang buhay ang isang tao.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -1944,15 +1619,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "{target.name} got someone home alive.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "{target.name} got someone home alive.",
-                                    },
-                                    ["TL"] = {
-                                        "Naiuwi ni {target.name} nang buhay ang isang tao.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2029,14 +1697,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.positive.rescue.return.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "{target.name} got someone home alive.",
-                    },
-                    ["TL"] = {
-                        "Naiuwi ni {target.name} nang buhay ang isang tao.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -2062,14 +1722,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.positive.sympathy.loss.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "I heard what happened to {target.name}. I hope they are holding up.",
-                                    },
-                                    ["TL"] = {
-                                        "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2083,14 +1735,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.positive.sympathy.loss.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "I heard what happened to {target.name}. I hope they are holding up.",
-                        },
-                        ["TL"] = {
-                            "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -2127,11 +1771,8 @@ return {
                 ["textKey"] = "positive.sympathy.loss",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
                         ["key"] = "positive.sympathy.loss",
-                        ["text"] = {
-                            ["EN"] = "I heard what happened to {target.name}. I hope they are holding up.",
-                            ["TL"] = "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
-                        },
                     },
                 },
                 ["textTarget"] = "memory/gossip",
@@ -2147,15 +1788,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "I heard what happened to {target.name}. I hope they are holding up.",
-                                    },
-                                    ["TL"] = {
-                                        "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -2232,14 +1866,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.positive.sympathy.loss.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "I heard what happened to {target.name}. I hope they are holding up.",
-                    },
-                    ["TL"] = {
-                        "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

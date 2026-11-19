@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "offer.question.wellbeing",
+  "locale": "EN",
+  "entries": {
+    "affordance.label": "Ask about wellbeing",
+    "say.variants.default": "How are you feeling?"
+  }
+}

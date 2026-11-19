@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.fear",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "I do not like being cornered, but I know when I am outmatched. I will come with you.",
+    "say.2.neutral": "Fine. I will follow for now. Keep your word and we will not have a problem.",
+    "say.3.neutral": "You have made your point. I will join, but do not mistake caution for friendship yet.",
+    "textRows.recruitment.fear.1": "I do not like being cornered, but I know when I am outmatched. I will come with you.",
+    "textRows.recruitment.fear.2": "Fine. I will follow for now. Keep your word and we will not have a problem.",
+    "textRows.recruitment.fear.3": "You have made your point. I will join, but do not mistake caution for friendship yet."
+  }
+}

@@ -6,22 +6,14 @@
     "textTarget": "needs/gifts/preference",
     "textRows": [
       {
-        "key": "gift.preference.unknown",
-        "text": {
-          "EN": "I'm not sure which item you mean.",
-          "TL": "Hindi ko alam kung anong gamit ang tinutukoy mo."
-        }
+        "key": "gift.preference.unknown"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I'm not sure which item you mean.",
-          "TL": "Hindi ko alam kung anong gamit ang tinutukoy mo."
-        }
+        "id": "neutral"
       }
     ]
   },

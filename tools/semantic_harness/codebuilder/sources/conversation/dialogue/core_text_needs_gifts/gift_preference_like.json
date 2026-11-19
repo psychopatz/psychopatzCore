@@ -6,22 +6,14 @@
     "textTarget": "needs/gifts/preference",
     "textRows": [
       {
-        "key": "gift.preference.like",
-        "text": {
-          "EN": "I like that.",
-          "TL": "Gusto ko iyan."
-        }
+        "key": "gift.preference.like"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I like that.",
-          "TL": "Gusto ko iyan."
-        }
+        "id": "neutral"
       }
     ]
   },

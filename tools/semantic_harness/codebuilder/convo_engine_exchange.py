@@ -1067,6 +1067,8 @@ def _project_realizations_runtime(
                 "fallback": text[DEFAULT_LANGUAGE][0],
                 "translations": _copy(text),
             }
+            if len(text[DEFAULT_LANGUAGE]) > 1:
+                projected_variant["variantCount"] = len(text[DEFAULT_LANGUAGE])
             if "when" in variant:
                 projected_variant["when"] = _copy(variant["when"])
             projected_variants.append(projected_variant)

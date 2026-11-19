@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.ambient_visit.accepted.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Thank you. I could use somewhere safe to rest for a while.",
-                                    },
-                                    ["TL"] = {
-                                        "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -41,14 +33,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.ambient_visit.accepted.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Thank you. I could use somewhere safe to rest for a while.",
-                        },
-                        ["TL"] = {
-                            "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -85,11 +69,8 @@ return {
                 ["textKey"] = "response.ambient_visit.accepted.1",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
                         ["key"] = "response.ambient_visit.accepted.1",
-                        ["text"] = {
-                            ["EN"] = "Thank you. I could use somewhere safe to rest for a while.",
-                            ["TL"] = "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/greetings/ambient_visit/arrival",
@@ -105,15 +86,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Thank you. I could use somewhere safe to rest for a while.",
-                                    },
-                                    ["TL"] = {
-                                        "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -182,14 +156,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.ambient_visit.accepted.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Thank you. I could use somewhere safe to rest for a while.",
-                    },
-                    ["TL"] = {
-                        "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

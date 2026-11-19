@@ -3,19 +3,5 @@
   "id": "construction.social.warn_direct",
   "dialogueAct": "BOUNDARY_WARNING",
   "strategy": "WARN",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Don't talk to me like that."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Huwag mo akong kausapin nang ganyan."
-      }
-    ]
-  },
   "type": "construction"
 }

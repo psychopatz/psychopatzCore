@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.member",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "You are already with us. Ask me about orders instead of recruiting me again.",
+    "say.2.neutral": "I am already part of this group.",
+    "textRows.recruitment.reject.member.1": "You are already with us. Ask me about orders instead of recruiting me again.",
+    "textRows.recruitment.reject.member.2": "I am already part of this group."
+  }
+}

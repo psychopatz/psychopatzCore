@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.praise.help",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "{target.name} has been looking out for people.",
+    "textRows.positive.praise.help": "{target.name} has been looking out for people."
+  }
+}

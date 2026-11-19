@@ -18,6 +18,8 @@ local BASE_PATH = "media/translation"
 Translation.Systems = Translation.Systems or {}
 Translation.Providers = Translation.Providers or {}
 Translation.KeyPrefixes = Translation.KeyPrefixes or {
+    { prefix = "convo.", system = "Conversation" },
+    { prefix = "UI_PNC_Conversation_", system = "Conversation" },
     { prefix = "UI_PsychopatzConversation_", system = "Conversation" },
     { prefix = "UI_PsychopatzProfiler_", system = "Profiler" },
     { prefix = "UI_PsychopatzRegion_", system = "WorldRegion" },
@@ -120,6 +122,8 @@ local function validResolvedValue(value, key)
         and value ~= key
 end
 
+local _resolvingProviders = false
+
 function Translation.GetKey(key, fallback, source)
     if type(key) ~= "string" or key == "" then
         return fallback or ""
@@ -134,7 +138,24 @@ function Translation.GetKey(key, fallback, source)
 
     local systemName = Translation.SystemForKey(key)
     if systemName then
-        return Translation.Get(systemName, key, fallback)
+        local sentinel = "__CORE_TR_MISS__"
+        local value = Translation.Get(systemName, key, sentinel)
+        if value ~= sentinel then return value end
+        if not _resolvingProviders and source == nil and string.sub(key, 1, 6) == "convo." then
+            _resolvingProviders = true
+            for _, registered in pairs(Translation.Providers) do
+                local resolver = registered.getKey or registered.GetKey
+                if type(resolver) == "function" then
+                    local ok, pval = pcall(resolver, key, sentinel)
+                    if ok and pval ~= sentinel and validResolvedValue(pval, key) then
+                        _resolvingProviders = false
+                        return pval
+                    end
+                end
+            end
+            _resolvingProviders = false
+        end
+        return fallback or key or ""
     end
     if getText then
         local value = getText(key)

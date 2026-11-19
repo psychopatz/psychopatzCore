@@ -3,19 +3,5 @@
   "id": "construction.social.warn_mouth",
   "dialogueAct": "BOUNDARY_WARNING",
   "strategy": "WARN",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Watch your mouth."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Ayusin mo ang pananalita mo."
-      }
-    ]
-  },
   "type": "construction"
 }

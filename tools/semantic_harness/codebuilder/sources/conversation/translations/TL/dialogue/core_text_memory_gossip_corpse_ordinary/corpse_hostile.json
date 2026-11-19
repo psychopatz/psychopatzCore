@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.hostile",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Dito pala magtatapos para sa'yo, {target.name}.",
+    "say.2.neutral": "Marami kang naging kaaway, {target.name}. Isa ako roon.",
+    "say.3.neutral": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
+    "say.4.neutral": "Wala na ang banta. Tuloy lang.",
+    "say.5.neutral": "Baka nakahanap ka na rin ng katahimikan, {target.name}.",
+    "textRows.corpse.hostile.01": "Dito pala magtatapos para sa'yo, {target.name}.",
+    "textRows.corpse.hostile.02": "Marami kang naging kaaway, {target.name}. Isa ako roon.",
+    "textRows.corpse.hostile.03": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan.",
+    "textRows.corpse.hostile.04": "Wala na ang banta. Tuloy lang.",
+    "textRows.corpse.hostile.05": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
+  }
+}

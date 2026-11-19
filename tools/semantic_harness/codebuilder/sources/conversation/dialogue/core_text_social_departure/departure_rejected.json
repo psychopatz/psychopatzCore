@@ -6,22 +6,14 @@
     "textTarget": "social/departure/response",
     "textRows": [
       {
-        "key": "departure.rejected",
-        "text": {
-          "EN": "I am not leaving with you. That decision is not yours to make right now.",
-          "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
-        }
+        "key": "departure.rejected"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I am not leaving with you. That decision is not yours to make right now.",
-          "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
-        }
+        "id": "neutral"
       }
     ]
   },

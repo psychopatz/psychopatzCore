@@ -1,0 +1,23 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.revenge.relative",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
+    "say.2.neutral": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
+    "say.3.neutral": "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
+    "say.4.neutral": "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
+    "say.5.neutral": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
+    "say.6.neutral": "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
+    "say.7.neutral": "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
+    "say.8.neutral": "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya.",
+    "textRows.corpse.revenge.relative.01": "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin.",
+    "textRows.corpse.revenge.relative.02": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko.",
+    "textRows.corpse.revenge.relative.03": "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}.",
+    "textRows.corpse.revenge.relative.04": "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya.",
+    "textRows.corpse.revenge.relative.05": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}.",
+    "textRows.corpse.revenge.relative.06": "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}.",
+    "textRows.corpse.revenge.relative.07": "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}.",
+    "textRows.corpse.revenge.relative.08": "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya."
+  }
+}

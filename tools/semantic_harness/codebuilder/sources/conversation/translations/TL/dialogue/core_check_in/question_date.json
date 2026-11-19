@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.date",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong ang petsa",
+    "say.variants.default": "Ano ang petsa ngayon?"
+  }
+}

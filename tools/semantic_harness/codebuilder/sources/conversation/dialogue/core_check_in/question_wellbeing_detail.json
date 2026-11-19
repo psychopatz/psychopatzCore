@@ -25,10 +25,6 @@
     "topic": "wellbeing"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask what is wrong",
-      "TL": "Itanong kung ano ang problema"
-    },
     "consumers": [
       "player",
       "npc"
@@ -38,8 +34,11 @@
     ]
   },
   "say": {
-    "EN": "What's wrong?",
-    "TL": "Ano ang problema?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

@@ -22,10 +22,6 @@
     "topic": "identity_nickname"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask what people call them",
-      "TL": "Itanong kung ano ang tawag sa kanya"
-    },
     "consumers": [
       "player"
     ],
@@ -34,8 +30,11 @@
     ]
   },
   "say": {
-    "EN": "What do people call you?",
-    "TL": "Ano ang tawag sa iyo ng mga tao?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

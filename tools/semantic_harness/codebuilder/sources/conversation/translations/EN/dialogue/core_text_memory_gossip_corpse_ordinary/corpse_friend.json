@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.friend",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "We were supposed to get through this together, {target.name}.",
+    "say.2.neutral": "You always had my back, {target.name}. I should've had yours.",
+    "say.3.neutral": "I won't let them forget you, {target.name}.",
+    "say.4.neutral": "Rest now, {target.name}. You did enough.",
+    "say.5.neutral": "We still owed each other a drink, {target.name}.",
+    "textRows.corpse.friend.01": "We were supposed to get through this together, {target.name}.",
+    "textRows.corpse.friend.02": "You always had my back, {target.name}. I should've had yours.",
+    "textRows.corpse.friend.03": "I won't let them forget you, {target.name}.",
+    "textRows.corpse.friend.04": "Rest now, {target.name}. You did enough.",
+    "textRows.corpse.friend.05": "We still owed each other a drink, {target.name}."
+  }
+}

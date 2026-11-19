@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.weather",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong ang panahon",
+    "say.variants.default": "Kumusta ang panahon?"
+  }
+}

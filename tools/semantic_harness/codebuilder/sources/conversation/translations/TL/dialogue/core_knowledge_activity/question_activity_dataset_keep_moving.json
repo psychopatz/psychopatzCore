@@ -1,0 +1,55 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.activity.dataset.keep_moving",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": [
+      "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+      "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
+      "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
+      "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
+      "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
+      "Hindi tayo dapat manatiling nakatigil nang matagal.",
+      "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
+      "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
+      "Magpatuloy tayo sa ating daan.",
+      "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad."
+    ],
+    "say.variants.guarded": [
+      "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+      "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
+      "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
+      "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
+      "Tuloy ang lakad. Tumingin sa kakahuyan.",
+      "Walang pahinga sa lantad na lugar. Lakad.",
+      "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
+      "Magmartsa pa. Masyado tayong lantad dito.",
+      "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
+      "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor."
+    ],
+    "say.variants.terse": [
+      "Tuloy sa paglakad.",
+      "Galaw.",
+      "Huwag hihinto.",
+      "Lakad.",
+      "Sumabay.",
+      "Sulong.",
+      "Tuloy lang.",
+      "Hakbang.",
+      "Huwag magtagal.",
+      "Kilos."
+    ],
+    "say.variants.warm": [
+      "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
+      "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
+      "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
+      "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
+      "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
+      "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
+      "Magpatuloy tayo, bawat hakbang.",
+      "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
+      "Tuloy sa pagsulong. Kaya natin 'to.",
+      "Panatilihing mataas ang loob natin at magpatuloy sa paglakad."
+    ]
+  }
+}

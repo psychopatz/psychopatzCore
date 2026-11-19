@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "positive.rescue.return",
-        "text": {
-          "EN": "{target.name} got someone home alive.",
-          "TL": "Naiuwi ni {target.name} nang buhay ang isang tao."
-        }
+        "key": "positive.rescue.return"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "{target.name} got someone home alive.",
-          "TL": "Naiuwi ni {target.name} nang buhay ang isang tao."
-        }
+        "id": "neutral"
       }
     ]
   },

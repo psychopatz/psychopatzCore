@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.hostile",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "You want me to join you? Keep your distance.",
+    "say.2.neutral": "I am not joining you. Do not mistake this conversation for trust.",
+    "textRows.recruitment.reject.hostile.1": "You want me to join you? Keep your distance.",
+    "textRows.recruitment.reject.hostile.2": "I am not joining you. Do not mistake this conversation for trust."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.unavailable",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Hindi ko magagawa ang desisyong iyon habang hindi ako available.",
+    "say.2.neutral": "Hindi ko maaaring pag-usapan iyan ngayon.",
+    "textRows.recruitment.reject.unavailable.1": "Hindi ko magagawa ang desisyong iyon habang hindi ako available.",
+    "textRows.recruitment.reject.unavailable.2": "Hindi ko maaaring pag-usapan iyan ngayon."
+  }
+}

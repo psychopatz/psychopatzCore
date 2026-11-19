@@ -5,18 +5,10 @@
     "textTarget": "social/recruitment/response",
     "textRows": [
       {
-        "key": "recruitment.reject.unavailable.1",
-        "text": {
-          "EN": "I cannot make that decision while I am unavailable.",
-          "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
-        }
+        "key": "recruitment.reject.unavailable.1"
       },
       {
-        "key": "recruitment.reject.unavailable.2",
-        "text": {
-          "EN": "This is not a conversation I can have right now.",
-          "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
-        }
+        "key": "recruitment.reject.unavailable.2"
       }
     ]
   },
@@ -24,22 +16,14 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "I cannot make that decision while I am unavailable.",
-            "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "This is not a conversation I can have right now.",
-            "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
-          }
+          "id": "neutral"
         }
       ]
     }

@@ -3,19 +3,5 @@
   "id": "construction.social.wellbeing_negative",
   "dialogueAct": "INFORM",
   "strategy": "WELLBEING_NEGATIVE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I've had better days."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Medyo mahirap ngayon."
-      }
-    ]
-  },
   "type": "construction"
 }

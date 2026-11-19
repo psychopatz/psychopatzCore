@@ -20,14 +20,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.choice.goodbye.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "That's all. Stay safe.",
-                                    },
-                                    ["TL"] = {
-                                        "Iyon lang. Manatiling ligtas.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -41,14 +33,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.choice.goodbye.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "That's all. Stay safe.",
-                        },
-                        ["TL"] = {
-                            "Iyon lang. Manatiling ligtas.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -85,11 +69,8 @@ return {
                 ["textKey"] = "choice.goodbye",
                 ["textRows"] = {
                     {
+                        ["fallback"] = "That's all. Stay safe.",
                         ["key"] = "choice.goodbye",
-                        ["text"] = {
-                            ["EN"] = "That's all. Stay safe.",
-                            ["TL"] = "Iyon lang. Manatiling ligtas.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/goodbye/closing",
@@ -105,15 +86,8 @@ return {
                         ["shorthand"] = true,
                         ["variants"] = {
                             {
+                                ["fallback"] = "That's all. Stay safe.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "That's all. Stay safe.",
-                                    },
-                                    ["TL"] = {
-                                        "Iyon lang. Manatiling ligtas.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -182,14 +156,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.choice.goodbye.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "That's all. Stay safe.",
-                    },
-                    ["TL"] = {
-                        "Iyon lang. Manatiling ligtas.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },
@@ -225,14 +191,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.1.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "You too.",
-                                    },
-                                    ["TL"] = {
-                                        "Ikaw rin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -245,14 +203,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.10.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "See you. Keep your head down.",
-                                    },
-                                    ["TL"] = {
-                                        "Sige na. Huwag kang papakita sa mga 'yun.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -265,14 +215,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.11.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Be careful on the roads.",
-                                    },
-                                    ["TL"] = {
-                                        "Maging maingat ka palagi sa labas.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -285,14 +227,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.2.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "You too.",
-                                    },
-                                    ["TL"] = {
-                                        "Ikaw rin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -305,14 +239,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.3.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Watch your back out there.",
-                                    },
-                                    ["TL"] = {
-                                        "Mag-ingat ka sa labas.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -325,14 +251,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.4.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Take care. See you around.",
-                                    },
-                                    ["TL"] = {
-                                        "Ingat. Magkikita pa tayo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -345,14 +263,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.5.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Keep your eyes open.",
-                                    },
-                                    ["TL"] = {
-                                        "Bantayan mo ang likod mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -365,14 +275,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.6.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Stay safe. Don't take unnecessary risks.",
-                                    },
-                                    ["TL"] = {
-                                        "Manatiling ligtas. Huwag sumuong sa panganib.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -385,14 +287,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.7.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Until next time. Stay sharp.",
-                                    },
-                                    ["TL"] = {
-                                        "Hanggang sa muli. Maging alerto.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -405,14 +299,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.8.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Yeah. Catch you later.",
-                                    },
-                                    ["TL"] = {
-                                        "Sige. Magkita na lang tayo mamaya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -425,14 +311,6 @@ return {
                                 ["id"] = "neutral",
                                 ["templateID"] = "convo.response.goodbye.say.9.neutral",
                                 ["textRole"] = "spoken_action",
-                                ["translations"] = {
-                                    ["EN"] = {
-                                        "Take it easy out there.",
-                                    },
-                                    ["TL"] = {
-                                        "Dahan-dahan ka lang sa daan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -446,14 +324,6 @@ return {
                     ["realizationKey"] = "1",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.1.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "You too.",
-                        },
-                        ["TL"] = {
-                            "Ikaw rin.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -461,14 +331,6 @@ return {
                     ["realizationKey"] = "2",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.2.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "You too.",
-                        },
-                        ["TL"] = {
-                            "Ikaw rin.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -476,14 +338,6 @@ return {
                     ["realizationKey"] = "3",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.3.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Watch your back out there.",
-                        },
-                        ["TL"] = {
-                            "Mag-ingat ka sa labas.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -491,14 +345,6 @@ return {
                     ["realizationKey"] = "4",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.4.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Take care. See you around.",
-                        },
-                        ["TL"] = {
-                            "Ingat. Magkikita pa tayo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -506,14 +352,6 @@ return {
                     ["realizationKey"] = "5",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.5.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Keep your eyes open.",
-                        },
-                        ["TL"] = {
-                            "Bantayan mo ang likod mo.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -521,14 +359,6 @@ return {
                     ["realizationKey"] = "6",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.6.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Stay safe. Don't take unnecessary risks.",
-                        },
-                        ["TL"] = {
-                            "Manatiling ligtas. Huwag sumuong sa panganib.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -536,14 +366,6 @@ return {
                     ["realizationKey"] = "7",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.7.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Until next time. Stay sharp.",
-                        },
-                        ["TL"] = {
-                            "Hanggang sa muli. Maging alerto.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -551,14 +373,6 @@ return {
                     ["realizationKey"] = "8",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.8.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Yeah. Catch you later.",
-                        },
-                        ["TL"] = {
-                            "Sige. Magkita na lang tayo mamaya.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -566,14 +380,6 @@ return {
                     ["realizationKey"] = "9",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.9.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Take it easy out there.",
-                        },
-                        ["TL"] = {
-                            "Dahan-dahan ka lang sa daan.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -581,14 +387,6 @@ return {
                     ["realizationKey"] = "10",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.10.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "See you. Keep your head down.",
-                        },
-                        ["TL"] = {
-                            "Sige na. Huwag kang papakita sa mga 'yun.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
                 {
@@ -596,14 +394,6 @@ return {
                     ["realizationKey"] = "11",
                     ["role"] = "spoken_action",
                     ["templateID"] = "convo.response.goodbye.say.11.neutral",
-                    ["translations"] = {
-                        ["EN"] = {
-                            "Be careful on the roads.",
-                        },
-                        ["TL"] = {
-                            "Maging maingat ka palagi sa labas.",
-                        },
-                    },
                     ["variantID"] = "neutral",
                 },
             },
@@ -639,81 +429,48 @@ return {
             ["metadata"] = {
                 ["textRows"] = {
                     {
+                        ["fallback"] = "You too.",
                         ["key"] = "response.goodbye",
-                        ["text"] = {
-                            ["EN"] = "You too.",
-                            ["TL"] = "Ikaw rin.",
-                        },
                     },
                     {
+                        ["fallback"] = "You too.",
                         ["key"] = "response.goodbye.1",
-                        ["text"] = {
-                            ["EN"] = "You too.",
-                            ["TL"] = "Ikaw rin.",
-                        },
                     },
                     {
+                        ["fallback"] = "Watch your back out there.",
                         ["key"] = "response.goodbye.2",
-                        ["text"] = {
-                            ["EN"] = "Watch your back out there.",
-                            ["TL"] = "Mag-ingat ka sa labas.",
-                        },
                     },
                     {
+                        ["fallback"] = "Take care. See you around.",
                         ["key"] = "response.goodbye.3",
-                        ["text"] = {
-                            ["EN"] = "Take care. See you around.",
-                            ["TL"] = "Ingat. Magkikita pa tayo.",
-                        },
                     },
                     {
+                        ["fallback"] = "Keep your eyes open.",
                         ["key"] = "response.goodbye.4",
-                        ["text"] = {
-                            ["EN"] = "Keep your eyes open.",
-                            ["TL"] = "Bantayan mo ang likod mo.",
-                        },
                     },
                     {
+                        ["fallback"] = "Stay safe. Don't take unnecessary risks.",
                         ["key"] = "response.goodbye.5",
-                        ["text"] = {
-                            ["EN"] = "Stay safe. Don't take unnecessary risks.",
-                            ["TL"] = "Manatiling ligtas. Huwag sumuong sa panganib.",
-                        },
                     },
                     {
+                        ["fallback"] = "Until next time. Stay sharp.",
                         ["key"] = "response.goodbye.6",
-                        ["text"] = {
-                            ["EN"] = "Until next time. Stay sharp.",
-                            ["TL"] = "Hanggang sa muli. Maging alerto.",
-                        },
                     },
                     {
+                        ["fallback"] = "Yeah. Catch you later.",
                         ["key"] = "response.goodbye.7",
-                        ["text"] = {
-                            ["EN"] = "Yeah. Catch you later.",
-                            ["TL"] = "Sige. Magkita na lang tayo mamaya.",
-                        },
                     },
                     {
+                        ["fallback"] = "Take it easy out there.",
                         ["key"] = "response.goodbye.8",
-                        ["text"] = {
-                            ["EN"] = "Take it easy out there.",
-                            ["TL"] = "Dahan-dahan ka lang sa daan.",
-                        },
                     },
                     {
+                        ["fallback"] = "See you. Keep your head down.",
                         ["key"] = "response.goodbye.9",
-                        ["text"] = {
-                            ["EN"] = "See you. Keep your head down.",
-                            ["TL"] = "Sige na. Huwag kang papakita sa mga 'yun.",
-                        },
                     },
                     {
+                        ["fallback"] = "Be careful on the roads.",
                         ["key"] = "response.goodbye.10",
-                        ["text"] = {
-                            ["EN"] = "Be careful on the roads.",
-                            ["TL"] = "Maging maingat ka palagi sa labas.",
-                        },
                     },
                 },
                 ["textTarget"] = "social/goodbye/closing",
@@ -739,15 +496,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "You too.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "You too.",
-                                    },
-                                    ["TL"] = {
-                                        "Ikaw rin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -756,15 +506,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "See you. Keep your head down.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "See you. Keep your head down.",
-                                    },
-                                    ["TL"] = {
-                                        "Sige na. Huwag kang papakita sa mga 'yun.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -773,15 +516,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Be careful on the roads.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Be careful on the roads.",
-                                    },
-                                    ["TL"] = {
-                                        "Maging maingat ka palagi sa labas.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -790,15 +526,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "You too.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "You too.",
-                                    },
-                                    ["TL"] = {
-                                        "Ikaw rin.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -807,15 +536,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Watch your back out there.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Watch your back out there.",
-                                    },
-                                    ["TL"] = {
-                                        "Mag-ingat ka sa labas.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -824,15 +546,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Take care. See you around.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Take care. See you around.",
-                                    },
-                                    ["TL"] = {
-                                        "Ingat. Magkikita pa tayo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -841,15 +556,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Keep your eyes open.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Keep your eyes open.",
-                                    },
-                                    ["TL"] = {
-                                        "Bantayan mo ang likod mo.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -858,15 +566,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Stay safe. Don't take unnecessary risks.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Stay safe. Don't take unnecessary risks.",
-                                    },
-                                    ["TL"] = {
-                                        "Manatiling ligtas. Huwag sumuong sa panganib.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -875,15 +576,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Until next time. Stay sharp.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Until next time. Stay sharp.",
-                                    },
-                                    ["TL"] = {
-                                        "Hanggang sa muli. Maging alerto.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -892,15 +586,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Yeah. Catch you later.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Yeah. Catch you later.",
-                                    },
-                                    ["TL"] = {
-                                        "Sige. Magkita na lang tayo mamaya.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -909,15 +596,8 @@ return {
                         ["shorthand"] = false,
                         ["variants"] = {
                             {
+                                ["fallback"] = "Take it easy out there.",
                                 ["id"] = "neutral",
-                                ["text"] = {
-                                    ["EN"] = {
-                                        "Take it easy out there.",
-                                    },
-                                    ["TL"] = {
-                                        "Dahan-dahan ka lang sa daan.",
-                                    },
-                                },
                             },
                         },
                     },
@@ -986,14 +666,6 @@ return {
                 ["realizationKey"] = "1",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.1.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "You too.",
-                    },
-                    ["TL"] = {
-                        "Ikaw rin.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1001,14 +673,6 @@ return {
                 ["realizationKey"] = "2",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.2.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "You too.",
-                    },
-                    ["TL"] = {
-                        "Ikaw rin.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1016,14 +680,6 @@ return {
                 ["realizationKey"] = "3",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.3.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Watch your back out there.",
-                    },
-                    ["TL"] = {
-                        "Mag-ingat ka sa labas.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1031,14 +687,6 @@ return {
                 ["realizationKey"] = "4",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.4.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Take care. See you around.",
-                    },
-                    ["TL"] = {
-                        "Ingat. Magkikita pa tayo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1046,14 +694,6 @@ return {
                 ["realizationKey"] = "5",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.5.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Keep your eyes open.",
-                    },
-                    ["TL"] = {
-                        "Bantayan mo ang likod mo.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1061,14 +701,6 @@ return {
                 ["realizationKey"] = "6",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.6.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Stay safe. Don't take unnecessary risks.",
-                    },
-                    ["TL"] = {
-                        "Manatiling ligtas. Huwag sumuong sa panganib.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1076,14 +708,6 @@ return {
                 ["realizationKey"] = "7",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.7.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Until next time. Stay sharp.",
-                    },
-                    ["TL"] = {
-                        "Hanggang sa muli. Maging alerto.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1091,14 +715,6 @@ return {
                 ["realizationKey"] = "8",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.8.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Yeah. Catch you later.",
-                    },
-                    ["TL"] = {
-                        "Sige. Magkita na lang tayo mamaya.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1106,14 +722,6 @@ return {
                 ["realizationKey"] = "9",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.9.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Take it easy out there.",
-                    },
-                    ["TL"] = {
-                        "Dahan-dahan ka lang sa daan.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1121,14 +729,6 @@ return {
                 ["realizationKey"] = "10",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.10.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "See you. Keep your head down.",
-                    },
-                    ["TL"] = {
-                        "Sige na. Huwag kang papakita sa mga 'yun.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
             {
@@ -1136,14 +736,6 @@ return {
                 ["realizationKey"] = "11",
                 ["role"] = "spoken_action",
                 ["templateID"] = "convo.response.goodbye.say.11.neutral",
-                ["translations"] = {
-                    ["EN"] = {
-                        "Be careful on the roads.",
-                    },
-                    ["TL"] = {
-                        "Maging maingat ka palagi sa labas.",
-                    },
-                },
                 ["variantID"] = "neutral",
             },
         },

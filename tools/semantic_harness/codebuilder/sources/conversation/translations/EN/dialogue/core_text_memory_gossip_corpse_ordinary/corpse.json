@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.neutral",
+  "locale": "EN",
+  "entries": {
+    "say.1.neutral": "I didn't know you, {target.name}. You deserved better.",
+    "say.2.neutral": "I hope someone remembers your name, {target.name}.",
+    "say.3.neutral": "This place takes everyone, doesn't it?",
+    "say.4.neutral": "Someone should have found you sooner, {target.name}.",
+    "say.5.neutral": "Rest now, {target.name}. I won't leave you unnamed.",
+    "textRows.corpse.neutral.01": "I didn't know you, {target.name}. You deserved better.",
+    "textRows.corpse.neutral.02": "I hope someone remembers your name, {target.name}.",
+    "textRows.corpse.neutral.03": "This place takes everyone, doesn't it?",
+    "textRows.corpse.neutral.04": "Someone should have found you sooner, {target.name}.",
+    "textRows.corpse.neutral.05": "Rest now, {target.name}. I won't leave you unnamed."
+  }
+}

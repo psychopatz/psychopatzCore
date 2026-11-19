@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "death.sacrifice",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "They say {target.name} stayed behind so others could escape.",
+    "textRows.death.sacrifice": "They say {target.name} stayed behind so others could escape."
+  }
+}

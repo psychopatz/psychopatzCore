@@ -3,19 +3,5 @@
   "id": "construction.social.call_bluff",
   "dialogueAct": "HOSTILE_REMARK",
   "strategy": "CALL_BLUFF",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "You're all talk."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Puro salita ka lang."
-      }
-    ]
-  },
   "type": "construction"
 }

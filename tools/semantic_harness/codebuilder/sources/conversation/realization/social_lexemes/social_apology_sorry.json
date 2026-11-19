@@ -2,9 +2,5 @@
   "schema": "psychopatz.convo-engine.v1",
   "profile": "lexeme_realization",
   "id": "lexeme.social.apology.sorry",
-  "concept": "APOLOGY_SORRY",
-  "forms": {
-    "EN": "sorry",
-    "TL": "pasensya"
-  }
+  "concept": "APOLOGY_SORRY"
 }

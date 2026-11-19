@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "positive.sympathy.loss",
-        "text": {
-          "EN": "I heard what happened to {target.name}. I hope they are holding up.",
-          "TL": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya."
-        }
+        "key": "positive.sympathy.loss"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I heard what happened to {target.name}. I hope they are holding up.",
-          "TL": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya."
-        }
+        "id": "neutral"
       }
     ]
   },

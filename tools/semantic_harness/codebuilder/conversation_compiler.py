@@ -138,10 +138,16 @@ def _package_for_entry(
 def _make_sidecar_loader(source_root: Path, entry: Mapping[str, Any]):
     if entry.get("sourceRepository") and entry.get("sourcePath"):
         base_root = Path(str(entry["sourceRepository"])).expanduser().resolve()
-        shard_dir = (base_root / str(entry["sourcePath"])).parent
+        full_family_path = (base_root / str(entry["sourcePath"])).resolve()
+        shard_dir = full_family_path.parent
+        conv_root = full_family_path
+        for _ in Path(str(entry["path"])).parts:
+            conv_root = conv_root.parent
     else:
         base_root = source_root.expanduser().resolve()
-        shard_dir = (base_root / str(entry["path"])).parent
+        conv_root = base_root
+        full_family_path = (base_root / str(entry["path"])).resolve()
+        shard_dir = full_family_path.parent
 
     def load_sidecar(rel_path: str) -> dict[str, Any]:
         candidate = (shard_dir / rel_path).resolve()
@@ -153,6 +159,27 @@ def _make_sidecar_loader(source_root: Path, entry: Mapping[str, Any]):
             raise CompileError(f"Missing textSidecars file {rel_path!r} for {entry['path']}")
         return _read_json(candidate, f"textSidecars {rel_path}")
 
+    def load_canonical_translations() -> dict[str, dict[str, Any]]:
+        from .convo_engine_localization_audit import discover_canonical_translation_files
+
+        if not full_family_path.is_file():
+            return {}
+        resolved_conv_root = None
+        for ancestor in full_family_path.parents:
+            if (ancestor / "translations").is_dir() and ancestor.name == "conversation":
+                resolved_conv_root = ancestor
+                break
+        if resolved_conv_root is None:
+            resolved_conv_root = conv_root
+        if not resolved_conv_root.is_dir():
+            return {}
+        files = discover_canonical_translation_files(resolved_conv_root, full_family_path)
+        loaded: dict[str, dict[str, Any]] = {}
+        for lang, tr_path in files.items():
+            loaded[lang] = _read_json(tr_path, f"canonical translation {tr_path}")
+        return loaded
+
+    load_sidecar.load_canonical_translations = load_canonical_translations  # type: ignore[attr-defined]
     return load_sidecar
 
 
@@ -258,6 +285,14 @@ def _collect_watched_files(
                     if not sidecar.is_file():
                         sidecar = (manifest_path.parent / rel).resolve()
                     paths[str(sidecar)] = sidecar
+        conv_root = full
+        for _ in Path(str(entry.get("path") or "")).parts:
+            conv_root = conv_root.parent
+        if (conv_root / "translations").is_dir():
+            from .convo_engine_localization_audit import discover_canonical_translation_files
+
+            for tr_path in discover_canonical_translation_files(conv_root, full).values():
+                paths[str(tr_path)] = tr_path
     stats: list[tuple[str, int, int]] = []
     for p in sorted(paths):
         st = _stat_tuple(paths[p])
@@ -1224,13 +1259,6 @@ def conversation_translation_catalogs_by_owner(
         for key, value in model.get("uiTranslations", {}).get(language, {}).items():
             owner = ui_key_owners.get(key, registry_owner)
             add(owner, language, "UI", key, value)
-            # The adopter registry is a runtime composition boundary.  Its
-            # package-owned UI catalog must include Core UI text because the
-            # composed PNC surface loads one package catalog in lightweight
-            # harnesses and in installations that do not merge translation
-            # manifests across dependencies.
-            if owner != registry_owner:
-                add(registry_owner, language, "UI", key, value)
 
     semantic_owner = normalize_owner(
         (model.get("semantic") or {}).get("source", {}).get("owner")
@@ -1285,6 +1313,57 @@ def conversation_translation_catalogs_by_owner(
             add(owner, language, domain, key, value)
             if domain == "Text/UI_PNC_Conversation":
                 add(owner, language, "UI", text_key("UI_PNC_Conversation", key), value)
+        exchange = plan.get("exchangeFamily")
+        if isinstance(exchange, Mapping):
+            rec_id = str(plan.get("id") or "")
+            raw_domain = str(
+                plan.get("conversationDomain")
+                or (rec_id.split(".", 1)[0] if "." in rec_id else "general")
+                or "general"
+            ).lower()
+            safe_domain = "".join(ch if ch.isalnum() or ch == "_" else "_" for ch in raw_domain) or "general"
+            tr_domain = f"Text/convo/ConvoEngine_{safe_domain}"
+            for text_entry in exchange.get("textRoles") or ():
+                if not isinstance(text_entry, Mapping):
+                    continue
+                template_id = str(text_entry.get("templateID") or "").strip()
+                tr_map = text_entry.get("translations")
+                if not template_id or not isinstance(tr_map, Mapping):
+                    continue
+                for raw_lang, raw_vals in tr_map.items():
+                    lang = normalize_language(raw_lang, "convo exchange locale")
+                    vals = raw_vals if isinstance(raw_vals, list) else [raw_vals]
+                    str_vals = [str(v) for v in vals if isinstance(v, str)]
+                    if not str_vals:
+                        continue
+                    add(owner, lang, tr_domain, template_id, str_vals[0])
+                    if len(str_vals) > 1:
+                        for idx, v in enumerate(str_vals, start=1):
+                            add(owner, lang, tr_domain, f"{template_id}.{idx}", v)
+        if plan.get("kind") == "realization":
+            payload = plan.get("payload") or {}
+            rec_id = str(plan.get("id") or "")
+            if payload.get("type") == "lexeme" and isinstance(payload.get("forms"), Mapping):
+                for raw_lang, form_val in payload["forms"].items():
+                    if isinstance(form_val, str) and rec_id:
+                        lang = normalize_language(raw_lang, "realization lexeme locale")
+                        add(owner, lang, "Text/convo/ConvoEngine_realization", f"convo.{rec_id}", form_val)
+            elif payload.get("type") == "construction" and isinstance(payload.get("translations"), Mapping):
+                for raw_lang, tokens in payload["translations"].items():
+                    if not isinstance(tokens, list) or not rec_id:
+                        continue
+                    lang = normalize_language(raw_lang, "realization construction locale")
+                    rendered_parts: list[str] = []
+                    for tok in tokens:
+                        if not isinstance(tok, Mapping):
+                            continue
+                        tkind = str(tok.get("kind") or "")
+                        if tkind == "literal":
+                            rendered_parts.append(str(tok.get("value") or ""))
+                        elif tkind in {"slot", "lexeme"}:
+                            rendered_parts.append(f"{{{tkind}:{tok.get('slot') or ''}}}")
+                    if rendered_parts:
+                        add(owner, lang, "Text/convo/ConvoEngine_realization", f"convo.{rec_id}", "".join(rendered_parts))
 
     return {
         owner: {

@@ -21,10 +21,6 @@
       }
     ]
   },
-  "textSidecars": {
-    "EN": "translations/question_activity_fishing.en.json",
-    "TL": "translations/question_activity_fishing.tl.json"
-  },
   "roles": {
     "speaker": {
       "cardinality": "ONE",

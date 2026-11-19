@@ -3,19 +3,5 @@
   "id": "construction.social.warn_stop",
   "dialogueAct": "BOUNDARY_WARNING",
   "strategy": "WARN",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Cut that out."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Tigilan mo 'yan."
-      }
-    ]
-  },
   "type": "construction"
 }

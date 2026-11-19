@@ -22,10 +22,6 @@
     "topic": "identity_faction"
   },
   "affordance": {
-    "label": {
-      "EN": "Ask who they are with",
-      "TL": "Itanong kung kanino siya kasama"
-    },
     "consumers": [
       "player"
     ],
@@ -34,8 +30,11 @@
     ]
   },
   "say": {
-    "EN": "Who are you with?",
-    "TL": "Sino ang kasama mo?"
+    "variants": [
+      {
+        "id": "default"
+      }
+    ]
   },
   "roles": {
     "speaker": {

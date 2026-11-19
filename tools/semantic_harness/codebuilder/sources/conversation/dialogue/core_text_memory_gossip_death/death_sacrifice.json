@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "death.sacrifice",
-        "text": {
-          "EN": "They say {target.name} stayed behind so others could escape.",
-          "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
-        }
+        "key": "death.sacrifice"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "They say {target.name} stayed behind so others could escape.",
-          "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
-        }
+        "id": "neutral"
       }
     ]
   },

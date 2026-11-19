@@ -1,0 +1,23 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.revenge.comrade",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
+    "say.2.neutral": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
+    "say.3.neutral": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
+    "say.4.neutral": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
+    "say.5.neutral": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
+    "say.6.neutral": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
+    "say.7.neutral": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
+    "say.8.neutral": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}.",
+    "textRows.corpse.revenge.comrade.01": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami.",
+    "textRows.corpse.revenge.comrade.02": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin.",
+    "textRows.corpse.revenge.comrade.03": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito.",
+    "textRows.corpse.revenge.comrade.04": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito.",
+    "textRows.corpse.revenge.comrade.05": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}.",
+    "textRows.corpse.revenge.comrade.06": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami.",
+    "textRows.corpse.revenge.comrade.07": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos.",
+    "textRows.corpse.revenge.comrade.08": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
+  }
+}

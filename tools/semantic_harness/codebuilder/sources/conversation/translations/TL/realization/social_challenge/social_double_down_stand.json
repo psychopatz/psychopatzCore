@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.social.double_down_stand",
+  "locale": "TL",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "literal",
+        "value": "Paninindigan ko 'yon."
+      }
+    ]
+  }
+}

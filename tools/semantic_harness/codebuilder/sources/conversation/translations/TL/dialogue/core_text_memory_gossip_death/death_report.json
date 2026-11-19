@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "death.report",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Balita ko, hindi na nakabalik si {target.name}.",
+    "textRows.death.report": "Balita ko, hindi na nakabalik si {target.name}."
+  }
+}

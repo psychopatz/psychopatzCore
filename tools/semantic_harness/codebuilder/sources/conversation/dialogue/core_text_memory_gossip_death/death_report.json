@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "death.report",
-        "text": {
-          "EN": "I heard {target.name} did not make it back.",
-          "TL": "Balita ko, hindi na nakabalik si {target.name}."
-        }
+        "key": "death.report"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I heard {target.name} did not make it back.",
-          "TL": "Balita ko, hindi na nakabalik si {target.name}."
-        }
+        "id": "neutral"
       }
     ]
   },

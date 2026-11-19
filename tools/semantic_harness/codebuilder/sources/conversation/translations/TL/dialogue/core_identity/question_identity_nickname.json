@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.identity_nickname",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong kung ano ang tawag sa kanya",
+    "say.variants.default": "Ano ang tawag sa iyo ng mga tao?"
+  }
+}

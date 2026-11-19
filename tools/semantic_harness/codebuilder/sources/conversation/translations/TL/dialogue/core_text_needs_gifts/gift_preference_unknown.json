@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "gift.preference.unknown",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Hindi ko alam kung anong gamit ang tinutukoy mo.",
+    "textRows.gift.preference.unknown": "Hindi ko alam kung anong gamit ang tinutukoy mo."
+  }
+}

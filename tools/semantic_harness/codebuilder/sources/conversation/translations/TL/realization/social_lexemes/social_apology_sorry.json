@@ -1,0 +1,8 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "lexeme.social.apology.sorry",
+  "locale": "TL",
+  "entries": {
+    "realization.forms": "pasensya"
+  }
+}

@@ -6,22 +6,14 @@
     "textTarget": "needs/gifts/preference",
     "textRows": [
       {
-        "key": "gift.preference.dislike",
-        "text": {
-          "EN": "I don't like that.",
-          "TL": "Ayaw ko niyan."
-        }
+        "key": "gift.preference.dislike"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I don't like that.",
-          "TL": "Ayaw ko niyan."
-        }
+        "id": "neutral"
       }
     ]
   },

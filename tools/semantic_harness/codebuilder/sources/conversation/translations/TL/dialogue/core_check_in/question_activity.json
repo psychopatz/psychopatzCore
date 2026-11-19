@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "offer.question.activity",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong ang pinagkakaabalahan",
+    "say.variants.default": "Ano ang mga pinagkakaabalahan mo?"
+  }
+}

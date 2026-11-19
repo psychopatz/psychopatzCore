@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.rescue.return",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Naiuwi ni {target.name} nang buhay ang isang tao.",
+    "textRows.positive.rescue.return": "Naiuwi ni {target.name} nang buhay ang isang tao."
+  }
+}

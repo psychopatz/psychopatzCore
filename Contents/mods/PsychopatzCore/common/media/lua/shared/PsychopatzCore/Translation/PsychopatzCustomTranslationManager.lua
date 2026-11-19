@@ -309,7 +309,7 @@ local function decodeManifest(raw, path)
     local value, reason = Json.Decode(raw, {
         maxString = MAX_FILE_BYTES,
         maxDepth = 4,
-        maxCollection = Manifest.MAX_SHARDS + 4,
+        maxCollection = Manifest.MAX_SHARDS * 8 + 8,
         preserveNull = true,
     })
     if type(value) ~= "table" then
@@ -451,14 +451,13 @@ local function setDiagnostic(source, values)
 end
 
 local function loadSystem(source)
-    if source._state == "loaded" then
+    local language = activeLanguage()
+    if source._state == "loaded" and source._language == language then
         return true, Manager.Data[source.modID]
             and Manager.Data[source.modID][source.systemName]
     end
     if source._state == "loading" then return false, "recursive_load" end
     source._state = "loading"
-
-    local language = activeLanguage()
     source._language = language
     source._localizedAvailable = false
     source._localizedReason = nil
@@ -883,7 +882,9 @@ function Manager.get(modID, systemName, keyName, fallback)
     end
     local systems = Manager.Systems[modID]
     local source = systems and systems[systemName] or nil
-    if source and not source._state then loadSystem(source) end
+    if source and (not source._state or (source._state == "loaded" and source._language ~= activeLanguage())) then
+        loadSystem(source)
+    end
     local data = Manager.Data[modID]
     local catalog = data and data[systemName] or nil
     local value = catalog and catalog[keyName] or nil

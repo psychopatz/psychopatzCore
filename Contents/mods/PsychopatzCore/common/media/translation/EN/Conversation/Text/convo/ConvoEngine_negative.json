@@ -1,0 +1,7 @@
+{
+  "convo.negative.mockery.gear.say.1.neutral": "Someone says {target.name} cannot keep track of their own gear.",
+  "convo.negative.mockery.retreat.say.1.neutral": "{target.name} talked big, then backed down when it mattered.",
+  "convo.negative.suspicion.story.say.1.neutral": "Watch {target.name}; their story keeps changing.",
+  "convo.negative.warning.abandoned.say.1.neutral": "{target.name} left someone behind when the zombies closed in.",
+  "convo.negative.warning.danger.say.1.neutral": "People have spotted danger near {slot.place.name}."
+}

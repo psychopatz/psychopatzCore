@@ -3,19 +3,5 @@
   "id": "construction.social.double_down_direct",
   "dialogueAct": "HOSTILE_REMARK",
   "strategy": "DOUBLE_DOWN",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I meant what I said."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Sinadya ko talaga 'yon."
-      }
-    ]
-  },
   "type": "construction"
 }

@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "positive.protection",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": "{target.name} stood up for someone when an attacker closed in.",
+    "textRows.positive.protection": "{target.name} stood up for someone when an attacker closed in."
+  }
+}

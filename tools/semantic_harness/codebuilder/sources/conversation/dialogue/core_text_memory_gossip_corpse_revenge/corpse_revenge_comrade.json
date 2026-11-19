@@ -19,60 +19,28 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "corpse.revenge.comrade.01",
-        "text": {
-          "EN": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-          "TL": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami."
-        }
+        "key": "corpse.revenge.comrade.01"
       },
       {
-        "key": "corpse.revenge.comrade.02",
-        "text": {
-          "EN": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-          "TL": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin."
-        }
+        "key": "corpse.revenge.comrade.02"
       },
       {
-        "key": "corpse.revenge.comrade.03",
-        "text": {
-          "EN": "We saw {slot.killer.name} take {target.name}. This is not finished.",
-          "TL": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito."
-        }
+        "key": "corpse.revenge.comrade.03"
       },
       {
-        "key": "corpse.revenge.comrade.04",
-        "text": {
-          "EN": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-          "TL": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito."
-        }
+        "key": "corpse.revenge.comrade.04"
       },
       {
-        "key": "corpse.revenge.comrade.05",
-        "text": {
-          "EN": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-          "TL": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}."
-        }
+        "key": "corpse.revenge.comrade.05"
       },
       {
-        "key": "corpse.revenge.comrade.06",
-        "text": {
-          "EN": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-          "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami."
-        }
+        "key": "corpse.revenge.comrade.06"
       },
       {
-        "key": "corpse.revenge.comrade.07",
-        "text": {
-          "EN": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-          "TL": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos."
-        }
+        "key": "corpse.revenge.comrade.07"
       },
       {
-        "key": "corpse.revenge.comrade.08",
-        "text": {
-          "EN": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-          "TL": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
-        }
+        "key": "corpse.revenge.comrade.08"
       }
     ]
   },
@@ -80,88 +48,56 @@
     "1": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-            "TL": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami."
-          }
+          "id": "neutral"
         }
       ]
     },
     "2": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-            "TL": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin."
-          }
+          "id": "neutral"
         }
       ]
     },
     "3": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We saw {slot.killer.name} take {target.name}. This is not finished.",
-            "TL": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito."
-          }
+          "id": "neutral"
         }
       ]
     },
     "4": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-            "TL": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito."
-          }
+          "id": "neutral"
         }
       ]
     },
     "5": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-            "TL": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}."
-          }
+          "id": "neutral"
         }
       ]
     },
     "6": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-            "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami."
-          }
+          "id": "neutral"
         }
       ]
     },
     "7": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-            "TL": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos."
-          }
+          "id": "neutral"
         }
       ]
     },
     "8": {
       "variants": [
         {
-          "id": "neutral",
-          "text": {
-            "EN": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-            "TL": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
-          }
+          "id": "neutral"
         }
       ]
     }

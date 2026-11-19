@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.neutral",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
+    "say.2.neutral": "Sana may makaalala pa sa pangalan mo, {target.name}.",
+    "say.3.neutral": "Nilalamon ng lugar na ito ang lahat, ano?",
+    "say.4.neutral": "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
+    "say.5.neutral": "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan.",
+    "textRows.corpse.neutral.01": "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito.",
+    "textRows.corpse.neutral.02": "Sana may makaalala pa sa pangalan mo, {target.name}.",
+    "textRows.corpse.neutral.03": "Nilalamon ng lugar na ito ang lahat, ano?",
+    "textRows.corpse.neutral.04": "Sana may nakakita sa'yo nang mas maaga, {target.name}.",
+    "textRows.corpse.neutral.05": "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan."
+  }
+}

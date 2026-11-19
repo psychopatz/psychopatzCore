@@ -1,0 +1,17 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "corpse.friend",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Dapat sabay nating nalagpasan ito, {target.name}.",
+    "say.2.neutral": "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
+    "say.3.neutral": "Hindi kita hahayaang makalimutan nila, {target.name}.",
+    "say.4.neutral": "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
+    "say.5.neutral": "May utang pa tayong inumin sa isa't isa, {target.name}.",
+    "textRows.corpse.friend.01": "Dapat sabay nating nalagpasan ito, {target.name}.",
+    "textRows.corpse.friend.02": "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo.",
+    "textRows.corpse.friend.03": "Hindi kita hahayaang makalimutan nila, {target.name}.",
+    "textRows.corpse.friend.04": "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo.",
+    "textRows.corpse.friend.05": "May utang pa tayong inumin sa isa't isa, {target.name}."
+  }
+}

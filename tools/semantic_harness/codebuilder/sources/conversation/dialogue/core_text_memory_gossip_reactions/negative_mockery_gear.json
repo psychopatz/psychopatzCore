@@ -10,22 +10,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "negative.mockery.gear",
-        "text": {
-          "EN": "Someone says {target.name} cannot keep track of their own gear.",
-          "TL": "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit."
-        }
+        "key": "negative.mockery.gear"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "Someone says {target.name} cannot keep track of their own gear.",
-          "TL": "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit."
-        }
+        "id": "neutral"
       }
     ]
   },

@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.wellbeing_detail",
+  "locale": "TL",
+  "entries": {
+    "affordance.label": "Itanong kung ano ang problema",
+    "say.variants.default": "Ano ang problema?"
+  }
+}

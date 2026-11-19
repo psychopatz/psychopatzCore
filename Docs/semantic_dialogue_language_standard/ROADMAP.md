@@ -1,8 +1,8 @@
 # Roadmap — ConvoEngine
 
-**Parent status:** S12 implementation is technically verified but its final Core integration remains uncommitted; S13 layout normalization/director architecture is PLANNED and blocked on that durable closure boundary.
-**Active phase:** S12 final durable commit boundary (implementation already verified).
-**Immediate Next Chunk:** commit/reconcile the already-verified S12 Core integration, then activate S13A physical-layout inventory.
+**Parent status:** S12 durable Core closure (`ce86135`) and S13A–S13C ConvoEngine localization normalization/externalization are COMPLETE; S13D (Behavior/Beat physical projection cleanup) is next.
+**Active phase:** S13C complete; ready for S13D.
+**Immediate Next Chunk:** `S13D` — collapse duplicate `Behavior`/`Behaviors/Director` and `Beat`/`Beats/Director` projections into one canonical generated semantic artifact per family (do not implement autonomous Director yet).
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopters:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Current completion boundary:** first finish the durable S12 Core closure commit from the already-verified integration; then complete S13 layout normalization and Director architecture freeze. S13 acceptance requires one localization authoring pipeline, owner-local generated translations, one full generated semantic artifact per family, zero duplicate Director behavior/beat bodies, clean reconcile/acceptance, and a frozen sparse/event-driven Director contract ready for a later implementation goal.
@@ -53,7 +53,7 @@ Immediate Next Chunk: finish the durable S12 Core closure commit; then activate 
 
 ## S13 — Layout Normalization and Director Architecture Freeze
 
-**Status:** PLANNED — BLOCKED ON DURABLE S12 CORE CLOSURE COMMIT.
+**Status:** IN_PROGRESS — S13A, S13B, and S13C are COMPLETE; S13D is next.
 Goal:
 `S13_LAYOUT_NORMALIZATION_AND_DIRECTOR_ARCHITECTURE_FREEZE.md`.
 
@@ -69,10 +69,10 @@ Conversation Director implementation.
 Required sequence:
 
 ~~~text
-S13A  exhaustive localization/projection inventory
-S13B  one canonical translation authoring convention
-S13C  external owner-local runtime localization
-S13D  collapse Behavior/Behaviors-Director and Beat/Beats-Director duplication
+S13A  exhaustive localization/projection inventory (COMPLETE)
+S13B  one canonical translation authoring convention (COMPLETE)
+S13C  external owner-local runtime localization (COMPLETE)
+S13D  collapse Behavior/Behaviors-Director and Beat/Beats-Director duplication (NEXT)
 S13E  Director architecture-readiness freeze
 S13F  deterministic cross-repo closure
 ~~~

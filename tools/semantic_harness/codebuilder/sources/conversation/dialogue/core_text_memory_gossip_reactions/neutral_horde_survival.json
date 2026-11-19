@@ -6,22 +6,14 @@
     "textTarget": "memory/gossip",
     "textRows": [
       {
-        "key": "neutral.horde_survival",
-        "text": {
-          "EN": "I got away when a whole horde came after me.",
-          "TL": "Nakatakas ako nang habulin ako ng napakaraming zombie."
-        }
+        "key": "neutral.horde_survival"
       }
     ]
   },
   "say": {
     "variants": [
       {
-        "id": "neutral",
-        "text": {
-          "EN": "I got away when a whole horde came after me.",
-          "TL": "Nakatakas ako nang habulin ako ng napakaraming zombie."
-        }
+        "id": "neutral"
       }
     ]
   },

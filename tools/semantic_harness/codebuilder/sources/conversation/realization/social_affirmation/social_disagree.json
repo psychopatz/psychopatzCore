@@ -3,19 +3,5 @@
   "id": "construction.social.disagree",
   "dialogueAct": "DISAGREE",
   "strategy": "DISAGREE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "No, I don't agree."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Hindi ako sang-ayon."
-      }
-    ]
-  },
   "type": "construction"
 }

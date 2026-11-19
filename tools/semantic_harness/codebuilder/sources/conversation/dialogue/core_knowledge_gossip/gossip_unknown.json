@@ -33,10 +33,6 @@
       }
     ]
   },
-  "textSidecars": {
-    "EN": "translations/gossip_unknown.en.json",
-    "TL": "translations/gossip_unknown.tl.json"
-  },
   "roles": {
     "speaker": {
       "cardinality": "ONE",

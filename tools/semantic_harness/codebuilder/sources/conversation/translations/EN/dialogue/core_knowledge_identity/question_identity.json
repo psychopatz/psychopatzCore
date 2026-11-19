@@ -1,0 +1,103 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "question.identity",
+  "locale": "EN",
+  "entries": {
+    "say.variants.neutral": [
+      "I'm just a survivor trying to make it through.",
+      "I used to be someone else before all this fell apart.",
+      "Just another person looking for shelter and food.",
+      "I'm surviving day by day, same as you.",
+      "Not much to tell. Just doing what it takes to live.",
+      "I'm a survivor out here in the county.",
+      "Just someone trying to stay one step ahead of the dead.",
+      "I've been on the road since the outbreak started.",
+      "Simple survivor. That's about the extent of it.",
+      "Trying to stay breathing, same as everyone else."
+    ],
+    "say.variants.guarded": [
+      "Who's asking? Names can be dangerous out here.",
+      "Why do you need to know who I am?",
+      "Just a survivor trying not to die. Leave it at that.",
+      "I don't give my background to just anyone.",
+      "A survivor with a weapon. That's all that matters.",
+      "Don't pry into my identity. Keep focused on the road.",
+      "Names don't keep the infected away. What do you want?",
+      "You don't need my life story to walk beside me.",
+      "I keep my identity to myself until I know I can trust you.",
+      "I am who I need to be to survive."
+    ],
+    "say.variants.terse": [
+      "A survivor.",
+      "Just me.",
+      "Doesn't matter.",
+      "Another wanderer.",
+      "Just surviving.",
+      "Nobody special.",
+      "A fighter.",
+      "Same as you.",
+      "Just a stranger.",
+      "Still breathing."
+    ],
+    "say.variants.warm": [
+      "I'm glad to share this road with you, friend.",
+      "Just an old soul trying to do some good in a ruined world.",
+      "I'm someone who values good company out here.",
+      "Call me a friend. We're in this struggle together.",
+      "I used to have a regular life, but now I have people I care about.",
+      "Just someone grateful to have found you in all this chaos.",
+      "A friend and ally. That's who I want to be for you.",
+      "I'm just happy to be standing here talking to you.",
+      "We're partners out here. That's all that matters to me.",
+      "A loyal companion on the long road ahead."
+    ],
+    "reply.known.say.1.neutral": [
+      "I'm {speaker.name}. We already know each other.",
+      "My name is {speaker.name}, as you know.",
+      "I'm {speaker.name}. We've met before.",
+      "It's me, {speaker.name}.",
+      "You remember me, right? {speaker.name}.",
+      "I'm {speaker.name}. Good to speak with you again.",
+      "Still {speaker.name}, same as yesterday.",
+      "I'm {speaker.name}. We're on the same team.",
+      "You know me well enough, I'm {speaker.name}.",
+      "It's {speaker.name}. Just checking in?"
+    ],
+    "reply.known.say.1.guarded": [
+      "I'm {speaker.name}. You should already know that.",
+      "It's {speaker.name}. Don't act like you forgot.",
+      "You know my name, {speaker.name}. Don't play games.",
+      "Still {speaker.name}. Nothing has changed.",
+      "I'm {speaker.name}. Stop asking questions you know the answers to.",
+      "Name's {speaker.name}. Keep your head focused on our perimeter.",
+      "I am {speaker.name}. We've walked together long enough for you to know.",
+      "Still {speaker.name}. Keep your eyes sharp.",
+      "You know me, {speaker.name}. What's the real question?",
+      "I'm {speaker.name}. Let's get back to surviving."
+    ],
+    "reply.known.say.1.terse": [
+      "You know me. I'm {speaker.name}.",
+      "I'm {speaker.name}.",
+      "Still {speaker.name}.",
+      "{speaker.name}. That's me.",
+      "It's {speaker.name}.",
+      "Name's {speaker.name}.",
+      "Me. {speaker.name}.",
+      "Remember? {speaker.name}.",
+      "Just {speaker.name}.",
+      "{speaker.name}."
+    ],
+    "reply.known.say.1.warm": [
+      "I'm {speaker.name}. Good to see you again.",
+      "You know it's me, {speaker.name}! Always glad to be by your side.",
+      "It's {speaker.name}, my friend. I'm right here.",
+      "I'm {speaker.name}. It's truly a pleasure knowing you.",
+      "You know your friend {speaker.name}. How are you holding up?",
+      "Still {speaker.name}, and always here to watch your back.",
+      "It's me, {speaker.name}. So glad we're traveling together.",
+      "I'm {speaker.name}, your companion through all of this.",
+      "You know me, {speaker.name}. Let's keep each other safe.",
+      "It's {speaker.name}! Always happy when you say hello."
+    ]
+  }
+}

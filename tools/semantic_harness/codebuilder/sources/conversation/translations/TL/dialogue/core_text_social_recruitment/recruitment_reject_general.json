@@ -1,0 +1,13 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "recruitment.reject.general",
+  "locale": "TL",
+  "entries": {
+    "say.1.neutral": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito.",
+    "say.2.neutral": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon.",
+    "say.3.neutral": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka.",
+    "textRows.recruitment.reject.general.1": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito.",
+    "textRows.recruitment.reject.general.2": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon.",
+    "textRows.recruitment.reject.general.3": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "offer.question.identity",
+  "locale": "EN",
+  "entries": {
+    "affordance.label": "Ask who they are",
+    "say.variants.default": "Who are you?"
+  }
+}

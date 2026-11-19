@@ -1,0 +1,9 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "choice.goodbye",
+  "locale": "TL",
+  "entries": {
+    "say.variants.neutral": "Iyon lang. Manatiling ligtas.",
+    "textRows.choice.goodbye": "Iyon lang. Manatiling ligtas."
+  }
+}

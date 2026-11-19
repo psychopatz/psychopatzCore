@@ -3,31 +3,5 @@
   "id": "construction.social.apologize",
   "dialogueAct": "APOLOGIZE",
   "strategy": "APOLOGIZE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "I'm "
-      },
-      {
-        "kind": "lexeme",
-        "slot": "primary"
-      },
-      {
-        "kind": "literal",
-        "value": "."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "lexeme",
-        "slot": "primary"
-      },
-      {
-        "kind": "literal",
-        "value": " na."
-      }
-    ]
-  },
   "type": "construction"
 }

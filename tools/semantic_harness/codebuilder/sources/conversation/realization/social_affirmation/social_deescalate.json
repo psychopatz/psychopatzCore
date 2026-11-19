@@ -3,19 +3,5 @@
   "id": "construction.social.deescalate",
   "dialogueAct": "DEESCALATE",
   "strategy": "DEESCALATE",
-  "translations": {
-    "EN": [
-      {
-        "kind": "literal",
-        "value": "Let's calm down."
-      }
-    ],
-    "TL": [
-      {
-        "kind": "literal",
-        "value": "Kumalma tayo."
-      }
-    ]
-  },
   "type": "construction"
 }

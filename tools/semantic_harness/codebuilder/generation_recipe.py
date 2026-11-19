@@ -874,7 +874,10 @@ def build_desired_artifact_ledger(
         for (language, rel_from_lang), values in sorted(text_files_by_lang_rel.items()):
             abs_text_path = pkg_tr_root / language / Path(*PurePosixPath(rel_from_lang).parts)
             rel_repo_path = abs_text_path.relative_to(owner_repo).as_posix()
-            if rel_from_lang == "Conversation/Text/convo/SemanticResponses.json":
+            if (
+                rel_from_lang == "Conversation/Text/convo/SemanticResponses.json"
+                or rel_from_lang.startswith("Conversation/Text/convo/ConvoEngine")
+            ):
                 manifest_entries_by_lang.setdefault(language, set()).add(
                     f"{language}/{rel_from_lang}"
                 )

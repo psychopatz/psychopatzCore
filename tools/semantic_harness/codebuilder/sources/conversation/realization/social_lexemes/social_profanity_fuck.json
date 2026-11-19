@@ -10,9 +10,5 @@
     "f**k you",
     "f*** you"
   ],
-  "concept": "PROFANITY_FUCK",
-  "forms": {
-    "EN": "fuck",
-    "TL": "Putang ina mo"
-  }
+  "concept": "PROFANITY_FUCK"
 }
