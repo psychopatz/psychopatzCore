@@ -236,3 +236,70 @@ Migration must be measured, explicit and owner-scoped:
 - remove obsolete duplicate writer/path once caller-zero is proven.
 
 Generated/CodeBuilder policy is changed at canonical source, never by hand-editing generated output.
+
+## 15. Frozen P1 Portable Contracts & Limits
+
+### 15.1 Target Key & Identity Contract
+
+`PsychopatzSocial.NormalizeTargetKey(value)` and `PsychopatzSocial.ParseTargetKey(value)` recognize:
+
+- `actor:<id>` (`kind = "actor"`)
+- `npc:<id>` (`kind = "npc"`)
+- `player:<accountIdentity>:<characterUUID>` (`kind = "player"`, canonical persistent identity)
+- `player:<id>` (`kind = "player"`, legacy/session key resolved via `state.aliases`)
+- `steam:<id>` (`kind = "steam"`)
+
+All keys reject empty strings, whitespace-only values, and control characters. `state.aliases[aliasKey] = canonicalKey` redirects reads, mutations, authorized events, extensions, and candidate projections transparently.
+
+### 15.2 Directed Relationship & Baseline Contract
+
+Each sparse entry `state.relationships[targetKey]` owns:
+
+- `targetKey` (`string`)
+- `approval` (`number`, clamped `[-100, 100]`, default `0`)
+- `respect` (`number`, clamped `[-100, 100]`, default `0`)
+- `familiarity` (`number`, clamped `[0, 100]`, default `0`)
+- `baselineApproval` (`number`, clamped `[-100, 100]`, optional/default `0`)
+- `baselineRespect` (`number`, clamped `[-100, 100]`, optional/default `0`)
+- `state` (`"unknown"|"neutral"|"friend"|"rival"|"enemy"`, optional/resolved from scores + hysteresis)
+- `previousState` (`"unknown"|"neutral"|"friend"|"rival"|"enemy"`, optional)
+- `revision` (`integer >= 0`)
+- `lastEventAt` (`number|nil`)
+- `lastEvaluatedAt` (`number|nil`)
+- `memories` (`Memory[]`, bounded `<= MAX_MEMORIES = 64`)
+- `cooldowns` (`map<string, number>`, bounded `<= MAX_COOLDOWNS = 32`)
+- `saturation` (`map<string, { approval: number, respect: number }>`, bounded `<= MAX_SATURATION = 32`)
+- `extensions` (`map<string, table>`, bounded `<= MAX_EXTENSIONS_PER_SCOPE = 16` namespaces)
+
+**Convergence invariant (Baselines + Memories):** When a memory is inserted with `approvalEffect`/`respectEffect`, its active contribution tracks against `baselineApproval`/`baselineRespect`. Non-persisted (`SCENE`) deltas, direct `MutateRelationship` score changes, and capacity-evicted non-expired memory residues promote into `baselineApproval`/`baselineRespect` so cross-mod recalculation (`RecalculateRelationship`) never erases deltas applied by another adopter (such as `DynamicTrading` trades alongside `ProjectHoomans` social events).
+
+### 15.3 Memory, Retention, Lazy Decay, Consolidation & Provenance Contract
+
+- **Hard limits:** `MAX_MEMORIES = 64`, `MAX_SHORT_MEMORIES = 16`, `MAX_LONG_MEMORIES = 42`, `MAX_ANCHOR_MEMORIES = 6`, `MAX_RECENT_EVENTS = 128`, `MAX_COOLDOWNS = 32`, `MAX_SATURATION = 32`, `MAX_EXTENSIONS_PER_SCOPE = 16`.
+- **Retention classes (`retentionClass`):**
+  - `SCENE`: transient; never stored in `relationship.memories`.
+  - `SHORT`: short-horizon episodic; default `decayPerDay = 1.0`, cap `16`.
+  - `LONG`: multi-day episodic; default `decayPerDay = 0.05`, cap `42`.
+  - `ANCHOR`: permanent identity-defining (`permanent = true`, `decayPerDay = 0`), requires `salience >= 180` or explicit anchor policy, cap `6`. On anchor saturation, deterministic comparison by `(salience, effectMagnitude, count, createdAt, eventSequence, id)` either demotes the weakest existing anchor to `LONG` or demotes the incoming entry.
+- **Lazy decay:** `CalculateMemoryStrength(memory, worldAgeHours)` evaluates `math.max(0, strength - decayPerDay * math.max(0, (worldAgeHours - createdAt) / 24))` on query, recalculation, or event insertion; zero per-tick loops.
+- **Consolidation:** Repeated equivalent `SHORT`/`LONG` events sharing `consolidationKey` coalesce in place: incrementing `count`, preserving `firstCreatedAt`, updating `createdAt` / `lastEventID` / `eventSequence`, refreshing `strength` / `salience`, and accumulating `approvalEffect` / `respectEffect` / `familiarityEffect` within policy caps (`maxConsolidatedApproval`, `maxConsolidatedRespect`, `maxConsolidatedFamiliarity`).
+- **Provenance:** Each memory carries compact semantic provenance: `sourceMode` (`"direct"|"witnessed"|"hearsay"|"system"`), `knowledgeSource`, optional `sourceKey`, `confidence` (`[0, 1]`), and `shareable` (`boolean`).
+
+### 15.4 Candidate-Oriented Projection & Autonomy Feature Seam
+
+- `Social.QueryCandidateProjection(state, target, options)` (and `SocialAuthority.QueryCandidateProjection(actorID, target, options, core)`) returns a bounded read-only table without mutating `state`:
+  - `exists`, `targetKey`, `approval`, `respect`, `familiarity`, `state`, `previousState`, `attitude`, `revision`, `socialRevision`, `lastEventAt`, `grievanceScore`, `assistanceScore`, `directEvidenceCount`, `witnessedEvidenceCount`, `hearsayEvidenceCount`, `anchorCount`, `activeMemoryCount`, `consolidatedEpisodeCount`, `memories` (capped `<= 8`), and optional `extension`.
+- `Social.EvaluateAutonomyCandidates(state, target, candidates, options)` (and `SocialAuthority.EvaluateAutonomyCandidates(...)`) evaluates candidate actions (`TALK`, `TRADE`, `HELP`, `AVOID`, `CONFRONT`, `REPORT`, `RETALIATE`) into read-only feature weights (`viabilityBias`, `trustSignal`, `grievancePressure`, `assistanceDebt`, `familiarityBonus`, `cautionSignal`, `provenanceConfidence`, `directWitness`, `socialRevision`, `relationshipRevision`, `personality`) without selecting or executing any action.
+
+### 15.5 Compact Default-Omission Persistence Invariant
+
+`Social.NewState()` with no arguments MUST remain minimal and deterministic so `PsychopatzActorPersistence.lua` continues omitting `payload.social` for actors with zero social edges, default personality, no recent events, and no extensions.
+
+### 15.6 CodeBuilder Social Policy IR Contract
+
+- Authoring schema: `psychopatz.social-policy.v1`
+- Package schema: `psychopatz.social-policy.package.v1`
+- Compiled runtime plan schema: `psychopatz.social-policy.runtime-plan.v1`
+- Generation recipe surface: `social_policy_lua` (`generator = "social_policy"`), routed per owner via `targets/pz_packages.json` (`PsychopatzCore/SocialPolicy`, `PNC/SocialPolicy`, `DTCommon/SocialPolicy`).
+- Compiler static validation fails closed on: unknown retention class, `ANCHOR` without `salience >= 180` or `anchorMax <= 6`, `observerPolicy.maxObservers > 8`, `hearsayPolicy.maxHops > 2`, out-of-range deltas/caps, or any PZ Java / ModData / PNC / DT implementation reference in canonical IR.
+- Compiles deterministically to `<Owner>/SocialPolicy/Registry.lua` (plus domain modules), includes source map metadata, and registers `DomainSchema(domain = "social", ...)` into `DomainSchemaRegistry` for static validation of `convo-engine.v1` dialogue modifiers.
