@@ -454,7 +454,11 @@ local group = { getOrCreateLocation = function(self, slot)
     return { setAttachmentName = function(_, bone) self[slot] = bone end }
 end }
 AttachedLocationGroup = { new = function() return group end }
-AttachedLocations = { getGroup = function() return {} end }
+AttachedLocations = { getGroup = function()
+    return { getLocation = function(_, slot)
+        if slot == "Back" then return { getAttachmentName = function() return "back" end } end
+    end }
+end }
 AttachedItems = { new = function(locations)
     return { group = locations, setItem = function(self, slot, item) self[slot] = item end }
 end }
@@ -472,6 +476,27 @@ assertEqual(uprightPanel.modelView.character, fixtureBody, "held preview binds t
 assertEqual(fixtureBody.attachments.primary, testWeapon, "primary preview uses the captured native item")
 assertEqual(fixtureBody.attachments.group.primary, "Bip01_Prop1")
 assertEqual(fixtureBody.attachments.group.secondary, "Bip01_Prop2")
+assert(uprightPanel:setTarget(nil, {
+    key = "weapon_pose", previewHandItems = { secondary = testWeapon }, previewWeaponPose = "handgun",
+}))
+assertEqual(uprightPanel.modelView.animSet, "player", "weapon stance uses native player animations")
+assertEqual(uprightPanel.modelView.state, "aim", "held weapon renders in an aiming pose")
+assertEqual(fixtureBody.attachments.primary, testWeapon, "weapon follows the aiming hand")
+assert(uprightPanel:setWeaponPreviewAttacking(true))
+assertEqual(uprightPanel.modelView.state, "ranged", "handgun uses the native ranged attack")
+uprightPanel:refreshAnimationState(5000)
+assertEqual(uprightPanel.modelView.state, "ranged", "generic portrait idle cannot interrupt an attack")
+assert(uprightPanel:setWeaponPreviewAttacking(false))
+assertEqual(uprightPanel.modelView.state, "aim", "the attack returns to ready stance")
+local stowedItem = { type = "Base.Hammer" }
+assert(uprightPanel:setTarget(nil, {
+    key = "melee_pose", previewHandItems = { primary = testWeapon },
+    previewStowedItems = { Back = stowedItem }, previewWeaponPose = "2handed",
+}))
+assertEqual(fixtureBody.attachments["stowed:Back"], stowedItem, "stowed gear remains visible while holding the weapon")
+assertEqual(fixtureBody.attachments.group["stowed:Back"], "back", "stowed gear keeps its native bone")
+assert(uprightPanel:setWeaponPreviewAttacking(true))
+assertEqual(uprightPanel.modelView.state, "melee", "axe uses the native melee attack")
 assert(uprightPanel:setTarget(nil, { key = "stowed", previewStowedItems = { Back = testWeapon } }))
 assertEqual(fixtureBody.attachments.primary, nil, "stowed preview clears the hand")
 assertEqual(fixtureBody.attachments.Back, testWeapon)

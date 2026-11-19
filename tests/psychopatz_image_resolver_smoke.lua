@@ -61,13 +61,13 @@ InventoryItemFactory = {
             getTex = function() return factoryTexture end,
         }
     end,
-    instanceItem = function(fullType)
-        if fullType ~= "Base.InstanceBox" then return nil end
-        return {
-            getTex = function() return instanceTexture end,
-        }
-    end,
 }
+function instanceItem(fullType)
+    if fullType ~= "Base.InstanceBox" then return nil end
+    return {
+        getTex = function() return instanceTexture end,
+    }
+end
 local createItem = InventoryItemFactory.CreateItem
 InventoryItemFactory.CreateItem = function(fullType)
     if fullType == "Base.MoveableAppliance" then

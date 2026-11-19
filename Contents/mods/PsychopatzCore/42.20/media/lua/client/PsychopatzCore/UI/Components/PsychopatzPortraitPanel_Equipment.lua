@@ -28,7 +28,18 @@ function Equipment.Build(panel, descriptor, spec)
     descriptor:getWornItems():getItemVisuals(body:getItemVisuals())
     local attachments = held and previewHands() or AttachedItems.new(AttachedLocations.getGroup("Human"))
     for slot, item in pairs(held or stowed) do
-        attachments:setItem(slot, item)
+        attachments:setItem(spec.previewWeaponPose and "primary" or slot, item)
+    end
+    if held and stowed then
+        local native = AttachedLocations.getGroup("Human")
+        for slot, item in pairs(stowed) do
+            local location = native:getLocation(slot)
+            if location then
+                local id = "stowed:" .. slot
+                handGroup:getOrCreateLocation(id):setAttachmentName(location:getAttachmentName())
+                attachments:setItem(id, item)
+            end
+        end
     end
     body:setAttachedItems(attachments)
     return body

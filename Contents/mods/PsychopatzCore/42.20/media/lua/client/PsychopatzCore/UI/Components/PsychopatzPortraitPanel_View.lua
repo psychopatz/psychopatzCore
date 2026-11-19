@@ -37,10 +37,16 @@ function Window:applyViewState()
     local model = self.modelView
     if not model or not model.javaObject then return end
     model.animateEnabled = self.animate ~= false
-    model:setState(self.stateName or "idle")
+    local weaponPose = self.targetMode == "equipment_preview" and self.targetSpec.previewWeaponPose
+    if weaponPose then
+        model:setVariable("Weapon", weaponPose)
+        model:setState("aim")
+    else
+        model:setState(self.stateName or "idle")
+    end
     self:applyCameraState()
     model:setDoRandomExtAnimations(false)
-    if self.portraitAnimationEnabled then
+    if self.portraitAnimationEnabled and not weaponPose then
         self:applyAnimationVariables()
     else
         model:setVariable("bMoving", "false")
@@ -49,6 +55,23 @@ function Window:applyViewState()
         model:setVariable("MovementSpeed", "0.0")
     end
     model.javaObject:setAnimate(self.animate ~= false)
+end
+
+function Window:setWeaponPreviewAttacking(attacking)
+    local model = self.modelView
+    local weapon = self.targetMode == "equipment_preview" and self.targetSpec.previewWeaponPose
+    if not model or not weapon then return false end
+    if attacking then
+        local ranged = weapon == "handgun" or weapon == "firearm"
+        model:setVariable("AimFloorAnim", "false")
+        model:setVariable("RangedWeaponEmpty", "false")
+        model:setVariable("bDoShove", "false")
+        model:setVariable("attackType", "")
+        model:setState(ranged and "ranged" or "melee")
+    else
+        model:setState("aim")
+    end
+    return true
 end
 
 function Window:applyAnimationVariables(state)
@@ -78,7 +101,7 @@ function Window:refreshAnimationState(current)
     local now = tonumber(current)
         or (getTimeInMillis and getTimeInMillis() or 0)
     local state = "idle"
-    if self.portraitAnimationEnabled ~= true then return end
+    if self.portraitAnimationEnabled ~= true or self.weaponPoseActive then return end
     if self.portraitAnimationUntil
         and now < self.portraitAnimationUntil
     then
@@ -156,6 +179,14 @@ function Window:setTarget(character, spec, force)
     if model.javaObject and model.javaObject.clearVariables then
         model.javaObject:clearVariables()
     end
+    -- AnimatedModel selects its animation set while binding model data.
+    local weaponPose = spec.previewWeaponPose and spec.previewHandItems
+    if weaponPose then
+        model:setAnimSetName("player")
+    elseif self.weaponPoseActive then
+        model:setAnimSetName(self.animSetName or "player-avatar")
+    end
+    self.weaponPoseActive = weaponPose ~= nil
     if not descriptorFirst and Descriptor.IsRenderableCharacter(character) then
         model:setCharacter(character)
         self.targetMode = "character"

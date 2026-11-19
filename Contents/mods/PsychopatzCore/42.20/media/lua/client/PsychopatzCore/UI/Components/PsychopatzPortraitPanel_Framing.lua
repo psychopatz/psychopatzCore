@@ -2,6 +2,8 @@
 local UI, Window = PsychopatzCore.UI, PsychopatzPortraitPanel
 -- UI3DModel offsets translate the model. Zero uses the native full-body offset.
 local presets = {
+    equipment = { zoom = 0, xOffset = 0, yOffset = -.22 },
+    weapon = { zoom = 2, xOffset = 0, yOffset = -.48, direction = 'SE' },
     body = { zoom = -3, xOffset = 0, yOffset = 0 },
     head = { zoom = 14, xOffset = 0, yOffset = -.85 },
     neck = { zoom = 10, xOffset = 0, yOffset = -.73 },
@@ -55,6 +57,12 @@ local function applyCamera(panel, camera, animate)
     } } or nil
     for _, key in ipairs({ 'zoom', 'xOffset', 'yOffset', 'direction', 'isometric' }) do panel[key] = camera[key] end
     panel:applyCameraState(now)
+end
+
+function Window:zoomBy(delta, animate)
+    local camera = copyCamera(self)
+    camera.zoom = math.max(-10, math.min(15, (tonumber(camera.zoom) or -3) + delta))
+    if camera.zoom ~= self.zoom then applyCamera(self, camera, animate) end
 end
 
 function Window:setViewRegion(region, reset, animate)
