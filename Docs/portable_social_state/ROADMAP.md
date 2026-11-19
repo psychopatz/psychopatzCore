@@ -1,6 +1,6 @@
 # Roadmap — Portable Social State
 
-**Parent status:** PLANNED.
+**Parent status:** IN PROGRESS (P0–P6 accepted; advancing to P7).
 **Primary repository:** PsychopatzCore.
 **Participants:** ProjectHoomans, DynamicTrading (DTCommon, DTAbstract, optional DTHoomans).
 **Completion boundary:** P0-P9 developer-side acceptance across all required repositories.
