@@ -23,6 +23,7 @@ if __package__ in {None, ""}:
         DT_COMMON_OWNER,
         HOOMANS_OWNER,
         generated_conversation_root,
+        generated_social_policy_root,
         normalize_owner,
         package_descriptor,
         translation_root,
@@ -49,6 +50,7 @@ else:
         DT_COMMON_OWNER,
         HOOMANS_OWNER,
         generated_conversation_root,
+        generated_social_policy_root,
         normalize_owner,
         package_descriptor,
         translation_root,
@@ -579,6 +581,42 @@ def check_owner_surface_state(
                         "surface": lex_surface.id,
                         "path": rel_path,
                         "reason": "unowned file under Lexicon root",
+                    })
+
+    # 7. Check social_policy_lua root for extra files when surface is configured
+    if recipe.has_surface("social_policy_lua"):
+        sp_surface = recipe.surface("social_policy_lua")
+        sp_root = generated_social_policy_root(
+            ledger.output_repositories.get(HOOMANS_OWNER, owner_repo),
+            norm_owner,
+            core_repository=ledger.output_repositories.get(CORE_OWNER),
+            dynamic_trading_repository=ledger.output_repositories.get(DT_COMMON_OWNER),
+            runtime_root=ledger.output_repositories.get(HOOMANS_OWNER, owner_repo),
+        )
+        if sp_root.is_dir():
+            for file_path in sorted(sp_root.rglob("*")):
+                if not file_path.is_file():
+                    continue
+                rel_path = file_path.relative_to(owner_repo).as_posix()
+                if rel_path in desired_by_path or rel_path in claimed_retired_paths:
+                    continue
+                marker = sp_surface.generated_marker or "-- Generated"
+                if (
+                    file_path.suffix == ".lua"
+                    and _has_generated_lua_header(file_path, marker)
+                ) or rel_path in receipt_owned_files:
+                    stale.append({
+                        "owner": norm_owner,
+                        "surface": sp_surface.id,
+                        "path": rel_path,
+                        "reason": "proven CodeBuilder-owned SocialPolicy Lua absent from desired ledger",
+                    })
+                else:
+                    ambiguous.append({
+                        "owner": norm_owner,
+                        "surface": sp_surface.id,
+                        "path": rel_path,
+                        "reason": "unowned/unmarked file inside SocialPolicy root",
                     })
 
     counts = {

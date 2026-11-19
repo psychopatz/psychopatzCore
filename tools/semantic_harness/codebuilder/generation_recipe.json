@@ -55,6 +55,17 @@
       ],
       "policy": "owned_fileset",
       "generatedMarker": "-- Generated"
+    },
+    {
+      "id": "social_policy_lua",
+      "generator": "social_policy",
+      "owners": [
+        "PsychopatzCore",
+        "ProjectHoomans",
+        "DTCommon"
+      ],
+      "policy": "owned_fileset",
+      "generatedMarker": "-- Generated"
     }
   ],
   "retired": [

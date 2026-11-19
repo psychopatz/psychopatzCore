@@ -50,6 +50,8 @@ class PackageDescriptor:
     resolvers: tuple[str, ...] = ()
     is_core: bool = False
     is_default_project: bool = False
+    social_policy_prefix: str | None = None
+    social_policy_source_root_relative: Path | None = None
 
 
 def _owner_key(value: Any) -> str:
@@ -114,6 +116,16 @@ def descriptor_from_mapping(owner: str, raw: Mapping[str, Any]) -> PackageDescri
         resolvers=tuple(str(r) for r in (raw.get("resolvers") or ())),
         is_core=bool(raw.get("isCore", False)),
         is_default_project=bool(raw.get("isDefaultProject", False)),
+        social_policy_prefix=(
+            str(raw["socialPolicyPrefix"]).strip()
+            if raw.get("socialPolicyPrefix")
+            else None
+        ),
+        social_policy_source_root_relative=(
+            Path(str(raw["socialPolicySourceRootRelative"]).strip())
+            if raw.get("socialPolicySourceRootRelative")
+            else None
+        ),
     )
 
 
@@ -489,6 +501,26 @@ def generated_conversation_root(
         dynamic_trading_repository=dynamic_trading_repository,
         runtime_root=runtime_root,
     ) / package_descriptor(owner).conversation_prefix
+
+
+def generated_social_policy_root(
+    project_repository: Path,
+    owner: Any,
+    *,
+    core_repository: Path | None = None,
+    dynamic_trading_repository: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path:
+    """Return the owning repository's generated SocialPolicy directory."""
+    desc = package_descriptor(owner)
+    prefix = desc.social_policy_prefix or f"{desc.owner}/SocialPolicy"
+    return shared_lua_root(
+        project_repository,
+        owner,
+        core_repository=core_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        runtime_root=runtime_root,
+    ) / prefix
 
 
 def module_target(

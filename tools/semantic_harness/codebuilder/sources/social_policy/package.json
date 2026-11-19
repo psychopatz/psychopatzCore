@@ -1,0 +1,11 @@
+{
+  "schema": "psychopatz.social-policy.package.v1",
+  "version": 1,
+  "package": "psychopatz.core.social_policy",
+  "owner": "PsychopatzCore",
+  "imports": [],
+  "shards": [
+    "events/core_social.json"
+  ],
+  "extensions": {}
+}

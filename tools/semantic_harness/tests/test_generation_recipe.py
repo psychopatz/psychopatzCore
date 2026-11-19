@@ -40,6 +40,7 @@ class GenerationRecipeTests(unittest.TestCase):
                 "conversation_ui",
                 "conversation_text",
                 "lexicon_lua",
+                "social_policy_lua",
             },
         )
         self.assertEqual(recipe.surface("conversation_ui").policy, "mixed_key_catalog")

@@ -1,0 +1,191 @@
+{
+  "schema": "psychopatz.social-policy.v1",
+  "version": 1,
+  "owner": "PsychopatzCore",
+  "domain": "CoreSocial",
+  "events": [
+    {
+      "id": "social.greeting",
+      "memory": {
+        "retentionClass": "SCENE",
+        "salience": 40,
+        "decayPerDay": 0.0,
+        "shareable": false,
+        "observerPolicy": { "maxObservers": 2, "allowWitnesses": false },
+        "hearsayPolicy": { "allowHearsay": false, "maxHops": 0 }
+      },
+      "relationship": {
+        "approvalDelta": 1,
+        "respectDelta": 0,
+        "familiarityDelta": 1,
+        "personalityModulation": true,
+        "cooldownHours": 1
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["greeting"],
+        "relations": {}
+      },
+      "extensions": []
+    },
+    {
+      "id": "social.assistance",
+      "memory": {
+        "retentionClass": "LONG",
+        "salience": 160,
+        "decayPerDay": 0.05,
+        "consolidationFamily": "core:assistance",
+        "maxConsolidatedApproval": 30,
+        "maxConsolidatedRespect": 25,
+        "maxConsolidatedFamiliarity": 30,
+        "shareable": true,
+        "observerPolicy": { "maxObservers": 4, "allowWitnesses": true },
+        "hearsayPolicy": { "allowHearsay": true, "maxHops": 1, "attenuation": 0.7 }
+      },
+      "relationship": {
+        "approvalDelta": 5,
+        "respectDelta": 3,
+        "familiarityDelta": 3,
+        "personalityModulation": true
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["assistance"],
+        "relations": { "opens": ["gratitude"] }
+      },
+      "extensions": []
+    },
+    {
+      "id": "social.grievance",
+      "memory": {
+        "retentionClass": "SHORT",
+        "salience": 130,
+        "decayPerDay": 0.5,
+        "consolidationFamily": "core:grievance",
+        "maxConsolidatedApproval": 40,
+        "maxConsolidatedRespect": 30,
+        "shareable": true,
+        "observerPolicy": { "maxObservers": 4, "allowWitnesses": true },
+        "hearsayPolicy": { "allowHearsay": true, "maxHops": 1, "attenuation": 0.65 }
+      },
+      "relationship": {
+        "approvalDelta": -4,
+        "respectDelta": -3,
+        "familiarityDelta": 1,
+        "personalityModulation": true
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["grievance"],
+        "relations": { "opens": ["repair"] }
+      },
+      "extensions": []
+    },
+    {
+      "id": "social.betrayal_anchor",
+      "memory": {
+        "retentionClass": "ANCHOR",
+        "salience": 230,
+        "decayPerDay": 0.0,
+        "permanent": true,
+        "anchorMax": 6,
+        "shareable": true,
+        "observerPolicy": { "maxObservers": 6, "allowWitnesses": true },
+        "hearsayPolicy": { "allowHearsay": true, "maxHops": 2, "attenuation": 0.6 }
+      },
+      "relationship": {
+        "approvalDelta": -45,
+        "respectDelta": -35,
+        "familiarityDelta": 5,
+        "personalityModulation": true,
+        "updateState": true
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["grievance", "betrayal", "hostility"],
+        "relations": { "opens": ["repair"] }
+      },
+      "extensions": []
+    },
+    {
+      "id": "social.hearsay_report",
+      "memory": {
+        "retentionClass": "LONG",
+        "salience": 115,
+        "decayPerDay": 0.1,
+        "consolidationFamily": "core:hearsay",
+        "maxConsolidatedApproval": 20,
+        "maxConsolidatedRespect": 15,
+        "shareable": true,
+        "observerPolicy": { "maxObservers": 2, "allowWitnesses": false },
+        "hearsayPolicy": { "allowHearsay": true, "maxHops": 1, "attenuation": 0.6 }
+      },
+      "relationship": {
+        "approvalDelta": 0,
+        "respectDelta": 0,
+        "familiarityDelta": 0,
+        "personalityModulation": false
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["hearsay"],
+        "relations": {}
+      },
+      "extensions": []
+    },
+    {
+      "id": "social.apology",
+      "memory": {
+        "retentionClass": "LONG",
+        "salience": 125,
+        "decayPerDay": 0.08,
+        "consolidationFamily": "core:repair",
+        "maxConsolidatedApproval": 15,
+        "maxConsolidatedRespect": 10,
+        "shareable": false,
+        "observerPolicy": { "maxObservers": 2, "allowWitnesses": false },
+        "hearsayPolicy": { "allowHearsay": false, "maxHops": 0 }
+      },
+      "relationship": {
+        "approvalDelta": 4,
+        "respectDelta": 1,
+        "familiarityDelta": 1,
+        "personalityModulation": true,
+        "cooldownHours": 4
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["repair"],
+        "relations": { "addresses": ["repair"] }
+      },
+      "extensions": []
+    },
+    {
+      "id": "social.gratitude",
+      "memory": {
+        "retentionClass": "SHORT",
+        "salience": 100,
+        "decayPerDay": 0.5,
+        "consolidationFamily": "core:gratitude",
+        "maxConsolidatedApproval": 12,
+        "maxConsolidatedRespect": 8,
+        "shareable": false,
+        "observerPolicy": { "maxObservers": 2, "allowWitnesses": false },
+        "hearsayPolicy": { "allowHearsay": false, "maxHops": 0 }
+      },
+      "relationship": {
+        "approvalDelta": 2,
+        "respectDelta": 1,
+        "familiarityDelta": 1,
+        "personalityModulation": true,
+        "cooldownHours": 2
+      },
+      "evidence": {
+        "semantic": true,
+        "classes": ["gratitude"],
+        "relations": { "addresses": ["gratitude"] }
+      },
+      "extensions": []
+    }
+  ]
+}

@@ -41,6 +41,10 @@ from .lexicon_compiler import (
     load_allowlist,
     render_lua_shards,
 )
+from .social_policy_compiler import (
+    compile_social_policy_workspace,
+    render_social_policy_lua_artifacts,
+)
 from .translation_support import pretty_json
 from .workspace_catalog import WorkspaceCatalog
 
@@ -54,6 +58,7 @@ SUPPORTED_GENERATORS = frozenset({
     "conversation",
     "conversation_text",
     "lexicon",
+    "social_policy",
 })
 
 SUPPORTED_POLICIES = frozenset({
@@ -69,6 +74,7 @@ SUPPORTED_SURFACE_IDS = frozenset({
     "conversation_ui",
     "conversation_text",
     "lexicon_lua",
+    "social_policy_lua",
 })
 
 SUPPORTED_RETIREMENT_KINDS = frozenset({
@@ -183,6 +189,9 @@ class GenerationRecipe:
             if item.id == surface_id:
                 return item
         raise CompileError(f"Unknown generation recipe surface: {surface_id!r}")
+
+    def has_surface(self, surface_id: str) -> bool:
+        return any(item.id == surface_id for item in self.surfaces)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -1029,12 +1038,42 @@ def build_desired_artifact_ledger(
                 )
             )
 
+    social_policy_fp = ""
+    if active_recipe.has_surface("social_policy_lua"):
+        social_surface = active_recipe.surface("social_policy_lua")
+        social_plans = compile_social_policy_workspace(out_repos_by_owner)
+        if social_plans:
+            social_fp_parts = [
+                f"{o}:{p['fingerprint']}" for o, p in sorted(social_plans.items())
+            ]
+            social_policy_fp = sha256_text("|".join(social_fp_parts))
+        for owner, plan in sorted(social_plans.items()):
+            if owner not in set(social_surface.owners) or owner not in out_repos_by_owner:
+                continue
+            shared_rel = package_descriptor(owner).shared_lua_relative.as_posix()
+            for mod_rel, source, art_kind, src_lineage in render_social_policy_lua_artifacts(plan):
+                rel_repo_path = f"{shared_rel}/{mod_rel}.lua"
+                rows.append(
+                    DesiredArtifactRow(
+                        owner=owner,
+                        surface=social_surface.id,
+                        path=rel_repo_path,
+                        artifact_kind=art_kind,
+                        source_lineage=src_lineage,
+                        cleanup_policy=social_surface.policy,
+                        content_fingerprint=sha256_text(source),
+                        rendered_content=source,
+                    )
+                )
+
     rows.sort(key=lambda item: (item.owner, item.surface, item.path))
+    base_fp = str(compiled_model.get("wholeModelFingerprint") or "")
+    combined_fp = sha256_text(f"{base_fp}|{social_policy_fp}") if social_policy_fp else base_fp
     return DesiredArtifactLedger(
         schema=DESIRED_LEDGER_SCHEMA,
         recipe=active_recipe,
         enabled_owners=enabled_owners,
-        model_fingerprint=str(compiled_model.get("wholeModelFingerprint") or ""),
+        model_fingerprint=combined_fp,
         rows=tuple(rows),
         output_repositories=out_repos_by_owner,
     )
