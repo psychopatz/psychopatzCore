@@ -12,6 +12,7 @@
 -- 4. Legacy DT (player:user:*, player:online:*) and legacy Hoomans keys converge.
 
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
+local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
 
 local PlayerIdentity = {}
 
@@ -106,6 +107,20 @@ function PlayerIdentity.GetStorage()
     return PlayerIdentity._inMemoryStorage
 end
 
+local function serverAuthorityAllowed(options)
+    if RuntimeRole and type(RuntimeRole.AllowsServerCode) == "function"
+        and not RuntimeRole.AllowsServerCode()
+    then
+        return false, "server_authority_required"
+    end
+    if type(options) == "table" and options.authority ~= nil
+        and options.authority ~= "server"
+    then
+        return false, "server_authority_required"
+    end
+    return true
+end
+
 function PlayerIdentity.RegisterIssuedIdentity(uuid, accountKey, options)
     local normUUID = PlayerIdentity.NormalizeUUID(uuid)
     if not normUUID then return nil, "malformed_uuid" end
@@ -113,11 +128,13 @@ function PlayerIdentity.RegisterIssuedIdentity(uuid, accountKey, options)
     local storage = PlayerIdentity.GetStorage()
     local existing = storage.identities[normUUID]
     if existing then
-        if tostring(existing.accountKey) == account then
-            return existing
-        else
+        if tostring(existing.accountKey) ~= account then
             return nil, "cross_account_conflict"
         end
+        if existing.lifecycleStatus == "RETIRED" then
+            return nil, "identity_retired"
+        end
+        return existing
     end
     local seq = nextIssuanceSequence(storage)
     local record = {
@@ -126,12 +143,19 @@ function PlayerIdentity.RegisterIssuedIdentity(uuid, accountKey, options)
         source = options and options.source or "core_generated",
         issuedAt = nowTimestamp(),
         issuedSeq = seq,
+        lifecycleStatus = "LIVE",
+        lifecycleRevision = 1,
     }
+    if type(options) == "table" and type(options.displayName) == "string"
+        and options.displayName ~= ""
+    then
+        record.displayName = string.sub(options.displayName, 1, 64)
+    end
     storage.identities[normUUID] = record
     return record
 end
 
-function PlayerIdentity.IsIssuedIdentity(uuid, accountKey)
+function PlayerIdentity.IsIssuedIdentity(uuid, accountKey, options)
     local normUUID = PlayerIdentity.NormalizeUUID(uuid)
     if not normUUID then return false, "malformed_uuid" end
     local storage = PlayerIdentity.GetStorage()
@@ -142,13 +166,84 @@ function PlayerIdentity.IsIssuedIdentity(uuid, accountKey)
     if accountKey ~= nil and tostring(record.accountKey) ~= tostring(accountKey) then
         return false, "account_mismatch"
     end
+    local includeRetired = type(options) == "table" and options.includeRetired == true
+    if not includeRetired and record.lifecycleStatus == "RETIRED" then
+        return false, "identity_retired"
+    end
     return true, record
 end
 
-function PlayerIdentity.ResolveIssuedIdentity(uuid, accountKey)
-    local valid, res = PlayerIdentity.IsIssuedIdentity(uuid, accountKey)
+function PlayerIdentity.ResolveIssuedIdentity(uuid, accountKey, options)
+    local valid, res = PlayerIdentity.IsIssuedIdentity(uuid, accountKey, options)
     if valid then return res end
     return nil, res
+end
+
+function PlayerIdentity.RetireIssuedIdentity(uuid, accountKey, options)
+    local allowed, authErr = serverAuthorityAllowed(options)
+    if not allowed then return nil, authErr end
+    local normUUID = PlayerIdentity.NormalizeUUID(uuid)
+    if not normUUID then return nil, "malformed_uuid" end
+    local storage = PlayerIdentity.GetStorage()
+    local record = storage.identities[normUUID]
+    if not record then return nil, "not_issued" end
+    if accountKey ~= nil and tostring(record.accountKey) ~= tostring(accountKey) then
+        return nil, "account_mismatch"
+    end
+    options = type(options) == "table" and options or {}
+    if record.lifecycleStatus == "RETIRED" then
+        if options.allowAlreadyRetired == true then
+            return Util.clone(record), "already_retired"
+        end
+        return nil, "already_retired"
+    end
+    local currentRev = math.max(1, math.floor(tonumber(record.lifecycleRevision) or 1))
+    if options.expectedLifecycleRevision ~= nil
+        and tonumber(options.expectedLifecycleRevision) ~= currentRev
+    then
+        return nil, "lifecycle_revision_conflict"
+    end
+    local nextRev = math.max(currentRev + 1,
+        math.floor(tonumber(options.lifecycleRevision) or (currentRev + 1)))
+    record.lifecycleStatus = "RETIRED"
+    record.lifecycleRevision = nextRev
+    record.retiredAt = tonumber(options.retiredAt) or nowTimestamp()
+    record.reason = tostring(options.reason or "player_death")
+    if type(options.displayName) == "string" and options.displayName ~= "" then
+        record.displayName = string.sub(options.displayName, 1, 64)
+    end
+    return Util.clone(record)
+end
+
+function PlayerIdentity.PurgeRetiredIdentity(uuid, accountKey, options)
+    local allowed, authErr = serverAuthorityAllowed(options)
+    if not allowed then return false, authErr end
+    local normUUID = PlayerIdentity.NormalizeUUID(uuid)
+    if not normUUID then return false, "malformed_uuid" end
+    local storage = PlayerIdentity.GetStorage()
+    local record = storage.identities[normUUID]
+    if not record then return false, "not_issued" end
+    if accountKey ~= nil and tostring(record.accountKey) ~= tostring(accountKey) then
+        return false, "account_mismatch"
+    end
+    if record.lifecycleStatus ~= "RETIRED" then
+        return false, "identity_not_retired"
+    end
+    storage.identities[normUUID] = nil
+    return true
+end
+
+function PlayerIdentity.GetLifecycleState(uuid, accountKey)
+    local record, reason = PlayerIdentity.ResolveIssuedIdentity(
+        uuid, accountKey, { includeRetired = true }
+    )
+    if not record then
+        return "FORGOTTEN", 0, reason
+    end
+    if record.lifecycleStatus == "RETIRED" then
+        return "RETIRED", math.max(1, math.floor(tonumber(record.lifecycleRevision) or 2)), Util.clone(record)
+    end
+    return "LIVE", math.max(1, math.floor(tonumber(record.lifecycleRevision) or 1)), Util.clone(record)
 end
 
 function PlayerIdentity.Save()

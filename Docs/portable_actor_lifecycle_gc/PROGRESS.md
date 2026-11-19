@@ -1,26 +1,21 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L0 accepted, starting L1.
-**Current phase:** L1 — Core ActorRef lifecycle and tombstones.
-**Developer completion:** 1/10 phases accepted (L0 ACCEPTED).
+**Status:** IN_PROGRESS — L1 accepted, starting L2.
+**Current phase:** L2 — Reference providers and budgeted mark-and-sweep GC.
+**Developer completion:** 2/10 phases accepted (L0, L1 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
 **Participants:** ProjectHoomans (H0), DynamicTrading (D0).
 
-## Verified L0 Facts
+## Verified L1 Facts
 
-- Complete source-verified cross-repo removal/reference inventory and footprint baseline recorded in [AUDIT.md](AUDIT.md).
-- Core `ActorRegistry:Remove` has 1 Core caller (`PsychopatzActorMigration.lua:315` -> `rollback-hard-delete`), 2 DT callers (`DTCommon_TraderGeneration.lua:98` -> `rollback-hard-delete`; `DTAbstract_PreSurvivorWorldImport.lua:181` -> `migration-redirect`), and 0 Hoomans callers (`PNC_Health_Death.lua` and `PNC_API/Lifecycle.lua` delete PNC records while leaking canonical Core actors).
-- Measured serialized `ActorRegistry` baseline at `HEAD d2d6c62`:
-  - `zero_social`: `0 -> 83 B`, `10 -> 12,353 B`, `100 -> 122,912 B` (5 chunks), `1000 -> 1,230,185 B` (42 chunks).
-  - `sparse_5x4`: `10 -> 74,643 B`, `100 -> 751,552 B`, `1000 -> 7,584,695 B` (253 chunks).
-  - High-contact `N × 64` multiplier (1 actor, same world hour): `1 -> 17,671 B`, `10 -> 162,208 B`, `25 -> 402,993 B`, `50 -> 804,193 B`, `100 -> 1,606,721 B` (6,400 persisted memories in one actor).
-  - Compact tombstone estimate: `159 B`.
-- Per-relationship `memories` readers/writers exist in only 3 Core files, 0 DT files, and ~24 Hoomans files.
-- Confirmed non-existent subsystems: no DT debts/contracts/loans/trade logs; no Hoomans memorials/cemetery/prisoners/squads/persisted bed ownership.
-- CodeBuilder `reconcile.py --check` (`467` desired, `0` drifted/stale) and `psychopatz_social_scale_stress_smoke.lua` (`1000` actors, `48` chunks) both pass cleanly at baseline.
+- Created `PsychopatzActorLifecycle.lua` owning portable `LIVE -> RETIRED -> TOMBSTONE -> FORGOTTEN` transitions, `lifecycleRevision`, `Retire`, `PurgeTombstone`, `ResolveRef`, `ProjectIdentity`, and strict compact tombstone validation (rejecting inventory/social/knowledge/appearance/stock/unknown fields).
+- Extended `PsychopatzPlayerIdentity.lua` with server-authoritative `RetireIssuedIdentity`, `PurgeRetiredIdentity`, `GetLifecycleState`, and `IsIssuedIdentity` rejection (`"identity_retired"`) for retired UUIDs while supporting `includeRetired = true` for lifecycle inspection.
+- Integrated `Retire`, `HardDelete`, `GetTombstone`, `ListTombstones`, `TombstoneCount`, `GetLifecycleState`, and `ProjectIdentity` into `PsychopatzActorRegistry.lua` and `PsychopatzActors.lua`, preserving backward compatibility on legacy `Remove` while updating `PsychopatzActorMigration.Rollback` to use `HardDelete` with `reason = "rollback"`.
+- Bumped `PsychopatzActorPersistence.lua` to `SCHEMA_VERSION = 3` (with v1/v2 backward-compatible decode, fail-closed tombstone/conflict validation, and zero extra fields on default live actors).
+- Verified via `tests/psychopatz_actor_lifecycle_tombstone_smoke.lua` and 14 existing Core Actor/PlayerIdentity/Persistence/Social/Hotplug smoke tests (all PASS) plus `pz_verify.py --kahlua --severity ERROR` (0 errors across all 6 files).
 
 ## Immediate Next Chunk
 
-**L1 — Core ActorRef lifecycle and tombstones.**
+**L2 — Reference providers and budgeted mark/sweep GC.**
 
-Implement `PsychopatzActorLifecycle.lua` and integrate `LIVE -> RETIRED -> TOMBSTONE -> FORGOTTEN` lifecycle, `lifecycleRevision`, `Retire`, `HardDelete`, compact tombstone validation/persistence (`v3` w/ `v1`/`v2` load support), `PlayerIdentity` character retirement/purge, and `LIVE/RETIRED/FORGOTTEN` identity projections in `psychopatzCore`.
+Implement `PsychopatzActorGC.lua` (`RegisterReferenceProvider`, built-in `PsychopatzCore.Social` / `PsychopatzCore.SurvivorWorld` / `PsychopatzCore.WorldKnowledge` providers, generation/cursor-budgeted fail-closed mark-and-sweep, `ExplainRetention`, `ExplainPurge`, `GetDiagnostics`) and non-tick triggers in `PsychopatzActorRuntimeStore.lua` and `PsychopatzActors.lua`.

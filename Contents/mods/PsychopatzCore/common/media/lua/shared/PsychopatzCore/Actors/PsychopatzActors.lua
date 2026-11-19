@@ -27,6 +27,7 @@ local RuntimeStore = require "PsychopatzCore/Actors/PsychopatzActorRuntimeStore"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 local PlayerIdentity = require "PsychopatzCore/Actors/PsychopatzPlayerIdentity"
+local Lifecycle = require "PsychopatzCore/Actors/PsychopatzActorLifecycle"
 
 local Actors = PsychopatzCore.Actors or {}
 Actors.Factory = Factory
@@ -56,6 +57,7 @@ Actors.Identity = Identity
 Actors.RuntimeStore = RuntimeStore
 Actors.Persona = Persona
 Actors.Knowledge = Knowledge
+Actors.Lifecycle = Lifecycle
 Actors.DefaultRegistry = Actors.DefaultRegistry or Registry.new()
 RuntimeStore.Attach(Actors.DefaultRegistry)
 
@@ -77,6 +79,26 @@ end
 
 function Actors.Resolve(reference)
     return Actors.DefaultRegistry:Resolve(reference)
+end
+
+function Actors.Retire(reference, spec)
+    return Actors.DefaultRegistry:Retire(reference, spec)
+end
+
+function Actors.HardDelete(actorId, spec)
+    return Actors.DefaultRegistry:HardDelete(actorId, spec)
+end
+
+function Actors.ProjectIdentity(reference)
+    return Actors.DefaultRegistry:ProjectIdentity(reference)
+end
+
+function Actors.GetTombstone(reference)
+    return Actors.DefaultRegistry:GetTombstone(reference)
+end
+
+function Actors.GetLifecycleState(reference)
+    return Actors.DefaultRegistry:GetLifecycleState(reference)
 end
 
 function Actors.AttachIdentity(actorID, spec)

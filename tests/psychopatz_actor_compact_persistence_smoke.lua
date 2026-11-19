@@ -37,7 +37,7 @@ equal(actor.personalInventory.baseline.definitions, nil,
 
 local saved = assert(registry:Save())
 local wrapper = assert(Json.Decode(saved))
-equal(wrapper.schemaVersion, 2, "registry compact schema version")
+equal(wrapper.schemaVersion, Persistence.SCHEMA_VERSION, "registry compact schema version")
 equal(wrapper.actors[1].schema, Persistence.ACTOR_SCHEMA,
     "compact actor schema")
 equal(wrapper.actors[1].social, nil, "default social omitted")
@@ -80,7 +80,7 @@ equal(migrated:Get(actor.actorId).personalInventory.mode, "FULL",
     "v1 load preserves full payload in memory")
 local migratedSaved = assert(migrated:Save())
 local migratedWrapper = assert(Json.Decode(migratedSaved))
-equal(migratedWrapper.schemaVersion, 2, "v1 rewrites as v2")
+equal(migratedWrapper.schemaVersion, Persistence.SCHEMA_VERSION, "v1 rewrites as current schema")
 equal(migratedWrapper.actors[1].personalInventory.mode, "SEED_ONLY",
     "unchanged legacy full inventory safely compacts")
 equal(migratedWrapper.actors[1].personalInventory.baseline.kind,

@@ -7,16 +7,19 @@ local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
+local Lifecycle = require "PsychopatzCore/Actors/PsychopatzActorLifecycle"
 
 local Persistence = {}
 
 Persistence.SCHEMA = "PsychopatzCore.NPC.Registry"
-Persistence.SCHEMA_VERSION = 2
+Persistence.SCHEMA_VERSION = 3
+Persistence.SCHEMA_VERSION_V2 = 2
 Persistence.LEGACY_SCHEMA_VERSION = 1
 Persistence.ACTOR_SCHEMA = "PsychopatzCore.NPC.ActorCompact"
 Persistence.ACTOR_SCHEMA_VERSION = 2
 Persistence.LEGACY_ACTOR_SCHEMA_VERSION = 1
 Persistence.MAX_ACTORS = 4096
+Persistence.MAX_TOMBSTONES = 8192
 Persistence.MAX_REGISTRY_BYTES = 16 * 1024 * 1024
 Persistence.REGISTRY_JSON_LIMITS = {
     maxString = Persistence.MAX_REGISTRY_BYTES,
@@ -61,6 +64,8 @@ local function cloneValidated(actor)
     if not copy.persona then return nil, reason end
     copy.knowledge, reason = Knowledge.NewState(copy.knowledge)
     if not copy.knowledge then return nil, reason end
+    copy.lifecycleRevision = math.max(1,
+        math.floor(tonumber(copy.lifecycleRevision) or 1))
     return copy
 end
 
@@ -112,6 +117,9 @@ local function encodeCompact(actor)
         appearance = compactAppearance,
         personalInventory = inventory,
     }
+    if copy.lifecycleRevision ~= nil and copy.lifecycleRevision ~= 1 then
+        payload.lifecycleRevision = copy.lifecycleRevision
+    end
 
     if copy.ownerMod ~= "PsychopatzCore" then
         payload.ownerMod = copy.ownerMod
@@ -186,6 +194,8 @@ local function decodeCompact(payload)
         actorId = payload.actorId,
         ownerMod = payload.ownerMod or "PsychopatzCore",
         revision = math.max(1, math.floor(tonumber(payload.revision) or 1)),
+        lifecycleRevision = math.max(1,
+            math.floor(tonumber(payload.lifecycleRevision) or 1)),
         identity = Util.clone(payload.identity),
         appearance = appearance,
         extensions = Util.clone(payload.extensions or {}),
@@ -256,7 +266,60 @@ function Persistence.DecodeActor(serialized)
     return nil, "actor_schema_mismatch"
 end
 
-function Persistence.SerializeRegistry(records, revision)
+local function encodeTombstones(rawTombstones)
+    if rawTombstones == nil then return nil end
+    if type(rawTombstones) ~= "table" then return nil, "tombstones_invalid" end
+
+    local list = {}
+    local seen = {}
+    if #rawTombstones > 0 then
+        for index = 1, #rawTombstones do
+            local ts = rawTombstones[index]
+            local valid, err = Lifecycle.ValidateTombstone(ts)
+            if not valid then return nil, err end
+            if seen[ts.ref] then return nil, "duplicate_tombstone_ref" end
+            seen[ts.ref] = true
+            list[#list + 1] = Util.clone(ts)
+        end
+    else
+        for key, ts in pairs(rawTombstones) do
+            local valid, err = Lifecycle.ValidateTombstone(ts)
+            if not valid then return nil, err end
+            if type(key) == "string" and key ~= ts.ref then
+                return nil, "tombstone_key_mismatch"
+            end
+            if seen[ts.ref] then return nil, "duplicate_tombstone_ref" end
+            seen[ts.ref] = true
+            list[#list + 1] = Util.clone(ts)
+        end
+    end
+
+    if #list > Persistence.MAX_TOMBSTONES then
+        return nil, "tombstone_limit"
+    end
+    table.sort(list, function(left, right)
+        return left.ref < right.ref
+    end)
+    return list
+end
+
+local function normalizeGCMeta(raw)
+    if raw == nil then return { generation = 0, lastSweepAt = 0 } end
+    if type(raw) ~= "table" then return nil, "gc_meta_invalid" end
+    local gen = tonumber(raw.generation) or 0
+    local last = tonumber(raw.lastSweepAt) or 0
+    if gen ~= gen or gen == math.huge or gen == -math.huge
+        or last ~= last or last == math.huge or last == -math.huge
+    then
+        return nil, "gc_meta_invalid"
+    end
+    return {
+        generation = math.max(0, math.floor(gen)),
+        lastSweepAt = math.max(0, last),
+    }
+end
+
+function Persistence.SerializeRegistry(records, revision, lifecycleState)
     if type(records) ~= "table" then return nil, "records_required" end
     if #records > Persistence.MAX_ACTORS then
         return nil, "registry_actor_limit"
@@ -270,12 +333,33 @@ function Persistence.SerializeRegistry(records, revision)
         seen[actor.actorId] = true
         actors[index] = actor
     end
-    local encoded = Json.Encode({
+
+    lifecycleState = type(lifecycleState) == "table" and lifecycleState or {}
+    local tombstones, tsErr = encodeTombstones(lifecycleState.tombstones)
+    if tsErr then return nil, tsErr end
+
+    local gcMeta, gcErr = normalizeGCMeta(lifecycleState.gcMeta)
+    if not gcMeta then return nil, gcErr end
+
+    local payload = {
         schema = Persistence.SCHEMA,
         schemaVersion = Persistence.SCHEMA_VERSION,
         revision = math.max(0, math.floor(tonumber(revision) or 0)),
         actors = actors,
-    }, Persistence.REGISTRY_JSON_LIMITS)
+    }
+    local lifecycleRev = math.max(0,
+        math.floor(tonumber(lifecycleState.lifecycleRevision) or 0))
+    if lifecycleRev > 0 then
+        payload.lifecycleRevision = lifecycleRev
+    end
+    if tombstones and #tombstones > 0 then
+        payload.tombstones = tombstones
+    end
+    if gcMeta.generation > 0 or gcMeta.lastSweepAt > 0 then
+        payload.gcMeta = gcMeta
+    end
+
+    local encoded = Json.Encode(payload, Persistence.REGISTRY_JSON_LIMITS)
     if #encoded > Persistence.MAX_REGISTRY_BYTES then
         return nil, "registry_size_limit"
     end
@@ -303,6 +387,7 @@ function Persistence.DecodeRegistry(serialized)
 
     local version = tonumber(payload.schemaVersion)
     if version ~= Persistence.SCHEMA_VERSION
+        and version ~= Persistence.SCHEMA_VERSION_V2
         and version ~= Persistence.LEGACY_SCHEMA_VERSION
     then
         return nil, "registry_schema_mismatch"
@@ -327,7 +412,30 @@ function Persistence.DecodeRegistry(serialized)
         seen[actor.actorId] = true
         actors[index] = actor
     end
-    return actors, tonumber(payload.revision) or 0
+
+    local tombstones = {}
+    if payload.tombstones ~= nil then
+        local decodedList, tsErr = encodeTombstones(payload.tombstones)
+        if not decodedList then return nil, tsErr end
+        for index = 1, #decodedList do
+            local ts = decodedList[index]
+            if seen[ts.ref] then
+                return nil, "live_retired_actor_conflict"
+            end
+            tombstones[ts.ref] = ts
+        end
+    end
+
+    local gcMeta, gcErr = normalizeGCMeta(payload.gcMeta)
+    if not gcMeta then return nil, gcErr end
+
+    local lifecycleState = {
+        lifecycleRevision = math.max(0,
+            math.floor(tonumber(payload.lifecycleRevision) or 0)),
+        tombstones = tombstones,
+        gcMeta = gcMeta,
+    }
+    return actors, tonumber(payload.revision) or 0, lifecycleState
 end
 
 return Persistence

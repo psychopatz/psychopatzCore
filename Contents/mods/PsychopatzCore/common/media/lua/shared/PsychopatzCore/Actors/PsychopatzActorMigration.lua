@@ -309,10 +309,17 @@ function Migration.Rollback(importResult, registry, store)
     if not mapping or mapping.actorId ~= importResult.actorId then
         return false, "mapping_not_found"
     end
-    if not registry or type(registry.Remove) ~= "function" then
+    local removed, reason
+    if type(registry.HardDelete) == "function" then
+        removed, reason = registry:HardDelete(mapping.actorId, {
+            reason = "rollback",
+            authority = "server",
+        })
+    elseif type(registry.Remove) == "function" then
+        removed, reason = registry:Remove(mapping.actorId)
+    else
         return false, "core_registry_unavailable"
     end
-    local removed, reason = registry:Remove(mapping.actorId)
     if not removed then return false, reason end
     mapping.state = "disabled"
     store.disabled[importResult.mappingKey] = mapping

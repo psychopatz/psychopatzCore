@@ -8,6 +8,7 @@ local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 local Identity = require "PsychopatzCore/Actors/PsychopatzActorIdentity"
+local Lifecycle = require "PsychopatzCore/Actors/PsychopatzActorLifecycle"
 
 local Registry = {}
 Registry.__index = Registry
@@ -137,7 +138,15 @@ local function resolvedSpec(spec)
 end
 
 function Registry.new()
-    local registry = setmetatable({ records = {}, revision = 0 }, Registry)
+    local registry = setmetatable({
+        records = {},
+        tombstones = {},
+        tombstoneAliases = {},
+        tombstoneAmbiguousAliases = {},
+        revision = 0,
+        lifecycleRevision = 0,
+        gcMeta = { generation = 0, lastSweepAt = 0 },
+    }, Registry)
     registry.identityResolver = Identity.NewResolver()
     return registry
 end
@@ -145,6 +154,12 @@ end
 function Registry:Count()
     local count = 0
     for _ in pairs(self.records) do count = count + 1 end
+    return count
+end
+
+function Registry:TombstoneCount()
+    local count = 0
+    for _ in pairs(self.tombstones or {}) do count = count + 1 end
     return count
 end
 
@@ -166,7 +181,14 @@ function Registry:Resolve(reference)
     return Util.clone(actor), resolved
 end
 
-function Registry:Remove(actorId)
+-- Legacy direct removal kept for rollback/superseded paths when spec is omitted;
+-- new callers should prefer :Retire() for death/departure and :HardDelete()
+-- for proven rollback/uncommitted/superseded cleanup.
+function Registry:Remove(actorId, spec)
+    if spec ~= nil then
+        local allowed, authErr = Lifecycle.RequireServerAuthority(spec)
+        if not allowed then return nil, authErr end
+    end
     local removed = self.records[actorId]
     if not removed then return nil, "actor_not_found" end
     self.records[actorId] = nil
@@ -179,6 +201,65 @@ function Registry:Remove(actorId)
     self.revision = self.revision + 1
     markProjectionDirty("actor_removed")
     return true
+end
+
+function Registry:HardDelete(actorId, spec)
+    local allowed, authErr = Lifecycle.RequireServerAuthority(spec)
+    if not allowed then return nil, authErr end
+    if type(spec) ~= "table"
+        or not Lifecycle.VALID_HARD_DELETE_REASONS[spec.reason]
+    then
+        return nil, "hard_delete_reason_required"
+    end
+    local removed = self.records[actorId]
+    if not removed then
+        if self.tombstones and self.tombstones[actorId] then
+            return nil, "actor_retired"
+        end
+        return nil, "actor_not_found"
+    end
+    self.records[actorId] = nil
+    local indexed, indexReason = rebuildIdentityIndex(self)
+    if not indexed then
+        self.records[actorId] = removed
+        rebuildIdentityIndex(self)
+        return nil, indexReason
+    end
+    self.revision = self.revision + 1
+    markProjectionDirty("actor_hard_deleted")
+    return true
+end
+
+function Registry:Retire(ref, spec)
+    return Lifecycle.Retire(self, ref, spec)
+end
+
+function Registry:GetTombstone(ref)
+    local resolved, err = Lifecycle.ResolveRef(self, ref)
+    if not resolved then return nil, err end
+    if resolved.status == Lifecycle.STATUS_RETIRED and resolved.tombstone then
+        return Util.clone(resolved.tombstone)
+    end
+    return nil, "tombstone_not_found"
+end
+
+function Registry:ListTombstones()
+    local ids = {}
+    for ref in pairs(self.tombstones or {}) do ids[#ids + 1] = ref end
+    table.sort(ids)
+    local result = {}
+    for index = 1, #ids do
+        result[index] = Util.clone(self.tombstones[ids[index]])
+    end
+    return result
+end
+
+function Registry:GetLifecycleState(ref)
+    return Lifecycle.GetLifecycleState(self, ref)
+end
+
+function Registry:ProjectIdentity(ref)
+    return Lifecycle.ProjectIdentity(self, ref)
 end
 
 function Registry:Get(actorId)
@@ -250,6 +331,17 @@ function Registry:Register(actor)
     copy.knowledge, reason = Knowledge.NewState(copy.knowledge)
     if not copy.knowledge then return nil, reason end
     if self.records[actor.actorId] then return nil, "duplicate_actor_id" end
+    if (self.tombstones and self.tombstones[actor.actorId])
+        or (self.tombstoneAliases and self.tombstoneAliases[actor.actorId])
+    then
+        return nil, "actor_retired"
+    end
+    local desc = Identity.DescribeActor(copy)
+    if desc and self.tombstones and self.tombstones[desc.canonicalActorID] then
+        return nil, "actor_retired"
+    end
+    copy.lifecycleRevision = math.max(1,
+        math.floor(tonumber(copy.lifecycleRevision) or 1))
     self.records[actor.actorId] = copy
     local indexed, indexReason = rebuildIdentityIndex(self)
     if not indexed then
@@ -287,6 +379,11 @@ function Registry:Ensure(spec)
     local actorID = Util.text(spec.actorId or spec.actorID, nil)
     if not actorID then return nil, "actor_id_required" end
 
+    if (self.tombstones and self.tombstones[actorID])
+        or (self.tombstoneAliases and self.tombstoneAliases[actorID])
+    then
+        return nil, "actor_retired"
+    end
     local existing = self.records[actorID]
     if existing then
         return Util.clone(existing), "existing_actor"
@@ -323,6 +420,8 @@ function Registry:Commit(actorId, patch, expectedRevision)
         nextActor.personalInventory = Util.clone(patch.personalInventory)
     end
     nextActor.revision = current.revision + 1
+    nextActor.lifecycleRevision = math.max(1,
+        math.floor(tonumber(current.lifecycleRevision) or 1))
     local valid, reason = Social.NewState(nextActor.social)
     nextActor.social = valid
     if not nextActor.social then return nil, reason end
@@ -403,29 +502,70 @@ function Registry:SwitchProvider(actorId, spec)
 end
 
 function Registry:Save()
-    return Persistence.SerializeRegistry(self:List(), self.revision)
+    return Persistence.SerializeRegistry(self:List(), self.revision, {
+        lifecycleRevision = self.lifecycleRevision,
+        tombstones = self.tombstones,
+        gcMeta = self.gcMeta,
+    })
 end
 
 function Registry:Load(serialized)
-    local actors, revision = Persistence.DecodeRegistry(serialized)
+    local actors, revision, lifecycleState = Persistence.DecodeRegistry(serialized)
     if not actors then return nil, revision end
     local replacement = {}
     for index = 1, #actors do
         local actor = actors[index]
         if replacement[actor.actorId] then return nil, "duplicate_actor_id" end
+        actor.lifecycleRevision = math.max(1,
+            math.floor(tonumber(actor.lifecycleRevision) or 1))
         replacement[actor.actorId] = actor
     end
+
+    local nextTombstones = Util.clone(
+        (type(lifecycleState) == "table" and lifecycleState.tombstones) or {}
+    )
+    for _, actor in pairs(replacement) do
+        local desc = Identity.DescribeActor(actor)
+        local canonicalID = desc and desc.canonicalActorID or actor.actorId
+        if nextTombstones[actor.actorId] or nextTombstones[canonicalID] then
+            return nil, "live_retired_actor_conflict"
+        end
+    end
+    local nextAliases, nextAmbiguous =
+        Lifecycle.RebuildTombstoneIndex(nextTombstones)
+
     local previousRecords = self.records
     local previousResolver = self.identityResolver
+    local previousTombstones = self.tombstones
+    local previousAliases = self.tombstoneAliases
+    local previousAmbiguous = self.tombstoneAmbiguousAliases
+    local previousLifecycleRev = self.lifecycleRevision
+    local previousGCMeta = self.gcMeta
+
     self.records = replacement
+    self.tombstones = nextTombstones
+    self.tombstoneAliases = nextAliases
+    self.tombstoneAmbiguousAliases = nextAmbiguous
     self.identityResolver = Identity.NewResolver()
     local indexed, indexReason = rebuildIdentityIndex(self)
     if not indexed then
         self.records = previousRecords
+        self.tombstones = previousTombstones
+        self.tombstoneAliases = previousAliases
+        self.tombstoneAmbiguousAliases = previousAmbiguous
         self.identityResolver = previousResolver
+        self.lifecycleRevision = previousLifecycleRev
+        self.gcMeta = previousGCMeta
         return nil, indexReason
     end
     self.revision = revision
+    self.lifecycleRevision = math.max(0,
+        math.floor(tonumber(type(lifecycleState) == "table"
+            and lifecycleState.lifecycleRevision) or 0))
+    self.gcMeta = Util.clone(
+        (type(lifecycleState) == "table" and lifecycleState.gcMeta)
+            or { generation = 0, lastSweepAt = 0 }
+    )
     markProjectionDirty("actors_loaded")
     return true
 end
