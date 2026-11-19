@@ -1,8 +1,8 @@
 # Progress — Portable Social State
 
-**Status:** IN PROGRESS — P0–P6 accepted; advancing to P7.
-**Current phase:** P7 — Multiplayer authority and representation continuity.
-**Developer completion:** 7/10 phases accepted (P0, P1, P2, P3, P4, P5, P6).
+**Status:** IN PROGRESS — P0–P7 accepted; advancing to P8.
+**Current phase:** P8 — Future-autonomy consumer seam.
+**Developer completion:** 8/10 phases accepted (P0, P1, P2, P3, P4, P5, P6, P7).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
 **Participants:** ProjectHoomans, DynamicTrading.
 
@@ -15,7 +15,8 @@
 - **P4 (Accepted):** Reconciled `ProjectHoomans` (`PNC_EntityRef`, `PNC_RelationshipTypes_Public`, `PNC_Persistence_CoreSocial`, `PNC_RelationshipMath`, `PNC_SocialEventDefinitions`, `PNC_RelationshipService_Queries`, `PNC_RelationshipService_Context`) onto Core generic relationship authority and `PNC/SocialPolicy/Registry`. Verified `24/24` Hoomans tests including cross-adopter DT+Hoomans convergence (`pnc_portable_social_convergence_smoke.lua`).
 - **P5 (Accepted):** Completed `DynamicTrading / DTAbstract` (`DT2–DT3`) portable social adoption (`DTCommon_CoreActorPolicy` compiled `DTCommon/SocialPolicy/Registry` retention/consolidation, `BindFaction`/`EnsureTraderForFaction` `ca.actorID`, `DTAbstract_PreSurvivorWorldImport` social/lease sync, `DTHoomans_ProviderRuntime.DematerializeTrader` social preservation) working cleanly with `PNC = nil`.
 - **P6 (Accepted):** Completed trader immersion and non-LLM conversation integration (`DT4`) across `DTCommon_CoreActorPolicy.QuerySocialProjection` / `PriceContext`, `DTCommon_MarketPricing.ContextRevision`, `DTCommon_TraderService.Snapshot`, and `DTCommon_TraderConversation` (`resolveRelationshipFrom`, differentiated non-LLM `responseFor`, `policyFor` context forwarding). Verified `90/90` DynamicTrading tests including `tests/dt_portable_social_trader_adoption_smoke.lua` and `pz_verify --kahlua` (`0` errors on all 8 modified DT production Lua files).
+- **P7 (Accepted):** Proved MP authority and representation continuity across all 4 install matrices (`Core-only`, `Core+DTCommon+DTAbstract` with `PNC=nil`, `Core+ProjectHoomans` reconnect alias migration, and combined `DTAbstract -> DTHoomans -> DTAbstract` transition) in `tests/psychopatz_social_mp_continuity_matrix_smoke.lua`. Verified `63/63` Core Lua tests pass (`0` failures).
 
 ## Immediate Next Chunk
 
-**P7 — Multiplayer authority and representation continuity across all 4 install matrices (`Core-only`, `Core+Hoomans`, `Core+DTCommon+DTAbstract`, and `Core+Hoomans+DTCommon+DTAbstract+DTHoomans`).**
+**P8 — Prove the read-only future-autonomy candidate evaluation seam (`Authority.EvaluateAutonomyCandidates`) with differentiated personalities, identical history, zero mutation, and zero LLM dependency.**
