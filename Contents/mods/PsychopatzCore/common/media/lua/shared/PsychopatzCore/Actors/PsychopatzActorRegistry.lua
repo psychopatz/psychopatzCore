@@ -13,12 +13,173 @@ local Lifecycle = require "PsychopatzCore/Actors/PsychopatzActorLifecycle"
 local Registry = {}
 Registry.__index = Registry
 
+local DEFAULT_SPATIAL_CELL_SIZE = 32
+
 local function markProjectionDirty(reason)
     local core = PsychopatzCore
     local sync = core and core.ActorProjectionSync or nil
     if sync and type(sync.MarkDirty) == "function" then
         sync.MarkDirty(reason)
     end
+end
+
+local function extractActorPosition(actor)
+    if type(actor) ~= "table" then return nil end
+    local world = type(actor.world) == "table" and actor.world or nil
+    if not world then return nil end
+    local location = type(world.location) == "table" and world.location or nil
+    local pos = (location and type(location.position) == "table" and location.position)
+        or (type(world.position) == "table" and world.position)
+        or nil
+    if type(pos) ~= "table" then return nil end
+    local x = tonumber(pos.x)
+    local y = tonumber(pos.y)
+    if not x or not y or x ~= x or y ~= y
+        or x == math.huge or y == math.huge
+        or x == -math.huge or y == -math.huge
+    then
+        return nil
+    end
+    local z = tonumber(pos.z)
+    if not z or z ~= z or z == math.huge or z == -math.huge then
+        z = 0
+    end
+    return x, y, z
+end
+
+local function ensureSpatialIndex(registry)
+    local index = registry._spatialIndex
+    if not index then
+        index = {
+            cellSize = DEFAULT_SPATIAL_CELL_SIZE,
+            builtRevision = -1,
+            cells = {},
+            membership = {},
+        }
+        registry._spatialIndex = index
+    end
+    return index
+end
+
+local function spatialCellCoords(cellSize, x, y)
+    return math.floor(x / cellSize), math.floor(y / cellSize)
+end
+
+local function spatialRemove(registry, actorId)
+    local index = registry._spatialIndex
+    if not index then return end
+    actorId = tostring(actorId or "")
+    local existing = index.membership[actorId]
+    if not existing then return end
+    local column = index.cells[existing.cx]
+    local bucket = column and column[existing.cy] or nil
+    if bucket then
+        bucket[actorId] = nil
+        local hasAny = false
+        for _ in pairs(bucket) do
+            hasAny = true
+            break
+        end
+        if not hasAny then
+            column[existing.cy] = nil
+            column._count = math.max(0, (tonumber(column._count) or 1) - 1)
+            if column._count <= 0 then
+                index.cells[existing.cx] = nil
+            end
+        end
+    end
+    index.membership[actorId] = nil
+end
+
+local function spatialUpsert(registry, actor)
+    local index = ensureSpatialIndex(registry)
+    if type(actor) ~= "table" or actor.actorId == nil then return end
+    local actorId = tostring(actor.actorId)
+    local x, y, z = extractActorPosition(actor)
+    if x == nil then
+        spatialRemove(registry, actorId)
+        return
+    end
+    local cx, cy = spatialCellCoords(index.cellSize, x, y)
+    local prev = index.membership[actorId]
+    if prev and prev.cx == cx and prev.cy == cy then
+        prev.x = x
+        prev.y = y
+        prev.z = z
+        return
+    end
+    if prev then
+        spatialRemove(registry, actorId)
+    end
+    local column = index.cells[cx]
+    if not column then
+        column = { _count = 0 }
+        index.cells[cx] = column
+    end
+    local bucket = column[cy]
+    if not bucket then
+        bucket = {}
+        column[cy] = bucket
+        column._count = (tonumber(column._count) or 0) + 1
+    end
+    bucket[actorId] = true
+    index.membership[actorId] = {
+        cx = cx,
+        cy = cy,
+        x = x,
+        y = y,
+        z = z,
+    }
+end
+
+local function spatialReset(registry)
+    local index = ensureSpatialIndex(registry)
+    index.builtRevision = -1
+    index.cells = {}
+    index.membership = {}
+end
+
+local function spatialEnsureBuilt(registry)
+    local index = ensureSpatialIndex(registry)
+    if index.builtRevision == registry.revision then
+        return index
+    end
+    index.cells = {}
+    index.membership = {}
+    for _, actor in pairs(registry.records) do
+        spatialUpsert(registry, actor)
+    end
+    index.builtRevision = registry.revision
+    return index
+end
+
+local function valuesEqual(left, right)
+    if left == right then return true end
+    if type(left) ~= type(right) then return false end
+    if type(left) ~= "table" then return false end
+    for k, v in pairs(left) do
+        if not valuesEqual(v, right[k]) then return false end
+    end
+    for k, _ in pairs(right) do
+        if left[k] == nil then return false end
+    end
+    return true
+end
+
+local function identityMetadataChanged(current, nextActor, patch)
+    if patch.identity ~= nil or patch.source ~= nil then
+        return true
+    end
+    if patch.extensions ~= nil then
+        local oldExt = type(current.extensions) == "table"
+            and current.extensions[Identity.EXTENSION] or nil
+        local newExt = type(nextActor.extensions) == "table"
+            and nextActor.extensions[Identity.EXTENSION] or nil
+        if not valuesEqual(oldExt, newExt) then
+            return true
+        end
+    end
+    return false
 end
 
 local function rebuildIdentityIndex(registry)
@@ -146,6 +307,12 @@ function Registry.new()
         revision = 0,
         lifecycleRevision = 0,
         gcMeta = { generation = 0, lastSweepAt = 0 },
+        _spatialIndex = {
+            cellSize = DEFAULT_SPATIAL_CELL_SIZE,
+            builtRevision = -1,
+            cells = {},
+            membership = {},
+        },
     }, Registry)
     registry.identityResolver = Identity.NewResolver()
     return registry
@@ -191,6 +358,7 @@ function Registry:Remove(actorId, spec)
     end
     local removed = self.records[actorId]
     if not removed then return nil, "actor_not_found" end
+    local prevRevision = self.revision
     self.records[actorId] = nil
     local indexed, indexReason = rebuildIdentityIndex(self)
     if not indexed then
@@ -199,6 +367,10 @@ function Registry:Remove(actorId, spec)
         return nil, indexReason
     end
     self.revision = self.revision + 1
+    if self._spatialIndex and self._spatialIndex.builtRevision == prevRevision then
+        spatialRemove(self, actorId)
+        self._spatialIndex.builtRevision = self.revision
+    end
     markProjectionDirty("actor_removed")
     return true
 end
@@ -218,6 +390,7 @@ function Registry:HardDelete(actorId, spec)
         end
         return nil, "actor_not_found"
     end
+    local prevRevision = self.revision
     self.records[actorId] = nil
     local indexed, indexReason = rebuildIdentityIndex(self)
     if not indexed then
@@ -226,12 +399,31 @@ function Registry:HardDelete(actorId, spec)
         return nil, indexReason
     end
     self.revision = self.revision + 1
+    if self._spatialIndex and self._spatialIndex.builtRevision == prevRevision then
+        spatialRemove(self, actorId)
+        self._spatialIndex.builtRevision = self.revision
+    end
     markProjectionDirty("actor_hard_deleted")
     return true
 end
 
 function Registry:Retire(ref, spec)
-    return Lifecycle.Retire(self, ref, spec)
+    local prevRevision = self.revision
+    local resolvedBefore = Lifecycle.ResolveRef(self, ref)
+    local retiredID = resolvedBefore
+        and resolvedBefore.status == Lifecycle.STATUS_LIVE
+        and resolvedBefore.recordID or nil
+    local result, reason = Lifecycle.Retire(self, ref, spec)
+    if not result then return nil, reason end
+    if self._spatialIndex and self._spatialIndex.builtRevision == prevRevision then
+        if retiredID and self.records[retiredID] == nil then
+            spatialRemove(self, retiredID)
+            self._spatialIndex.builtRevision = self.revision
+        else
+            spatialReset(self)
+        end
+    end
+    return result, reason
 end
 
 function Registry:GetTombstone(ref)
@@ -305,6 +497,130 @@ function Registry:List()
     return result
 end
 
+function Registry:HasActiveActor(actorId)
+    if actorId == nil then return false end
+    return self.records[tostring(actorId)] ~= nil
+end
+
+function Registry:GetExtension(actorId, extensionID)
+    if actorId == nil then return nil, "actor_id_required" end
+    extensionID = Util.text(extensionID, nil)
+    if not extensionID then return nil, "extension_id_required" end
+    local actor = self.records[tostring(actorId)]
+    if not actor then return nil, "actor_not_found" end
+    local ext = type(actor.extensions) == "table"
+        and actor.extensions[extensionID] or nil
+    if ext == nil then return nil end
+    return Util.clone(ext)
+end
+
+function Registry:ListWithExtension(extensionID)
+    extensionID = Util.text(extensionID, nil)
+    if not extensionID then return {} end
+    local ids = {}
+    for actorId, actor in pairs(self.records) do
+        if type(actor.extensions) == "table"
+            and actor.extensions[extensionID] ~= nil
+        then
+            ids[#ids + 1] = actorId
+        end
+    end
+    table.sort(ids)
+    local result = {}
+    for index = 1, #ids do
+        result[index] = Util.clone(self.records[ids[index]])
+    end
+    return result
+end
+
+function Registry:ListMaterialized()
+    local ids = {}
+    for actorId, actor in pairs(self.records) do
+        if type(actor.providerLease) == "table"
+            and actor.providerLease.state == "materialized"
+        then
+            ids[#ids + 1] = actorId
+        end
+    end
+    table.sort(ids)
+    local result = {}
+    for index = 1, #ids do
+        result[index] = Util.clone(self.records[ids[index]])
+    end
+    return result
+end
+
+function Registry:QueryNearPosition(x, y, radius, options)
+    x = tonumber(x)
+    y = tonumber(y)
+    if x == nil or y == nil or x ~= x or y ~= y then return {} end
+    radius = math.max(0, tonumber(radius) or 0)
+    options = type(options) == "table" and options or {}
+    local limit = tonumber(options.limit)
+    if limit ~= nil then
+        limit = math.max(0, math.floor(limit))
+        if limit == 0 then return {} end
+    end
+    local filterFn = type(options.filter) == "function"
+        and options.filter or nil
+
+    local index = spatialEnsureBuilt(self)
+    local cellSize = index.cellSize
+    local minCX = math.floor((x - radius) / cellSize)
+    local maxCX = math.floor((x + radius) / cellSize)
+    local minCY = math.floor((y - radius) / cellSize)
+    local maxCY = math.floor((y + radius) / cellSize)
+    local radiusSq = radius * radius
+
+    local output = {}
+    for cx = minCX, maxCX do
+        local column = index.cells[cx]
+        if column then
+            for cy = minCY, maxCY do
+                local bucket = column[cy]
+                if bucket then
+                    for actorId, _ in pairs(bucket) do
+                        local actor = self.records[actorId]
+                        local mem = index.membership[actorId]
+                        if actor and mem then
+                            local dx = mem.x - x
+                            local dy = mem.y - y
+                            local distSq = dx * dx + dy * dy
+                            if distSq <= radiusSq
+                                and (not filterFn or filterFn(actor) == true)
+                            then
+                                output[#output + 1] = {
+                                    actorId = actorId,
+                                    x = mem.x,
+                                    y = mem.y,
+                                    z = mem.z,
+                                    distSq = distSq,
+                                }
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    table.sort(output, function(left, right)
+        if left.distSq == right.distSq then
+            return left.actorId < right.actorId
+        end
+        return left.distSq < right.distSq
+    end)
+
+    if limit ~= nil and #output > limit then
+        local trimmed = {}
+        for i = 1, limit do
+            trimmed[i] = output[i]
+        end
+        return trimmed
+    end
+    return output
+end
+
 function Registry:Register(actor)
     local valid, reason = Factory.ValidateActor(actor)
     if not valid then return nil, reason end
@@ -342,6 +658,7 @@ function Registry:Register(actor)
     end
     copy.lifecycleRevision = math.max(1,
         math.floor(tonumber(copy.lifecycleRevision) or 1))
+    local prevRevision = self.revision
     self.records[actor.actorId] = copy
     local indexed, indexReason = rebuildIdentityIndex(self)
     if not indexed then
@@ -350,6 +667,10 @@ function Registry:Register(actor)
         return nil, indexReason
     end
     self.revision = self.revision + 1
+    if self._spatialIndex and self._spatialIndex.builtRevision == prevRevision then
+        spatialUpsert(self, copy)
+        self._spatialIndex.builtRevision = self.revision
+    end
     markProjectionDirty("actor_registered")
     return Util.clone(self.records[actor.actorId])
 end
@@ -443,14 +764,26 @@ function Registry:Commit(actorId, patch, expectedRevision)
     valid, reason = Factory.ValidateActor(nextActor)
     if not valid then return nil, reason end
 
+    local prevRevision = self.revision
     self.records[actorId] = nextActor
-    local indexed, indexReason = rebuildIdentityIndex(self)
-    if not indexed then
-        self.records[actorId] = current
-        rebuildIdentityIndex(self)
-        return nil, indexReason
+    local needIdentityRebuild = identityMetadataChanged(current, nextActor, patch)
+        or not self.identityResolver
+        or type(self.identityResolver.records) ~= "table"
+    if needIdentityRebuild then
+        local indexed, indexReason = rebuildIdentityIndex(self)
+        if not indexed then
+            self.records[actorId] = current
+            rebuildIdentityIndex(self)
+            return nil, indexReason
+        end
+    else
+        self.identityResolver.records[actorId] = nextActor
     end
     self.revision = self.revision + 1
+    if self._spatialIndex and self._spatialIndex.builtRevision == prevRevision then
+        spatialUpsert(self, nextActor)
+        self._spatialIndex.builtRevision = self.revision
+    end
     markProjectionDirty("actor_committed")
     return Util.clone(nextActor)
 end
@@ -566,6 +899,7 @@ function Registry:Load(serialized)
         (type(lifecycleState) == "table" and lifecycleState.gcMeta)
             or { generation = 0, lastSweepAt = 0 }
     )
+    spatialReset(self)
     markProjectionDirty("actors_loaded")
     return true
 end

@@ -130,6 +130,26 @@ function Actors.AttachExtension(actorID, extensionID, value)
     return Actors.DefaultRegistry:AttachExtension(actorID, extensionID, value)
 end
 
+function Actors.QueryNearPosition(x, y, radius, options)
+    return Actors.DefaultRegistry:QueryNearPosition(x, y, radius, options)
+end
+
+function Actors.HasActiveActor(actorID)
+    return Actors.DefaultRegistry:HasActiveActor(actorID)
+end
+
+function Actors.GetExtension(actorID, extensionID)
+    return Actors.DefaultRegistry:GetExtension(actorID, extensionID)
+end
+
+function Actors.ListWithExtension(extensionID)
+    return Actors.DefaultRegistry:ListWithExtension(extensionID)
+end
+
+function Actors.ListMaterialized()
+    return Actors.DefaultRegistry:ListMaterialized()
+end
+
 function Actors.Save()
     return Actors.DefaultRegistry:Save()
 end
