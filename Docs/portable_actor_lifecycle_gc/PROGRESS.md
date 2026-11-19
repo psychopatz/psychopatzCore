@@ -1,10 +1,17 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L4 accepted, entering Batch 3 planning (L5-L7).
-**Current phase:** L5 — Project Hoomans lifecycle & durable roots adoption (Batch 3).
-**Developer completion:** 5/10 phases accepted (L0, L1, L2, L3, L4 ACCEPTED).
+**Status:** IN_PROGRESS — L5 accepted, starting L6 (player-character death & MP identity lifecycle).
+**Current phase:** L6 — Player-character death and multiplayer identity lifecycle.
+**Developer completion:** 6/10 phases accepted (L0, L1, L2, L3, L4, L5 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
-**Participants:** ProjectHoomans (H0, H3A, H4-policy at `df7c49eb`), DynamicTrading (D0, D4-policy at `20e9b084`).
+**Participants:** ProjectHoomans (H0, H1, H2, H3A, H4-policy at `24842f92`), DynamicTrading (D0, D4-policy at `20e9b084`).
+
+## Verified L5 Facts
+
+- Created `ProjectHoomans` `PNC_Persistence_CoreLifecycle.lua` (required by `PNC_Persistence.lua`, commit `24842f92eb1abd2d7f5acb9035b9d5c61b430848`) delegating `RetireActor` and `HardDeleteRollback` exclusively to Core `DefaultRegistry` (zero parallel tombstone/GC stores in Hoomans) and registering `"ProjectHoomans.DurableRoots"` in Core `GC`.
+- Preserved `Health.Kill` consequence ordering in `PNC_Health_Death.lua`, added `OnNPCDeath` cleanup hooks in `PNC_QuestService.lua` & `PNC_MedicalCareService.lua`, preserved `Factions.OnNPCDeath` leadership-only semantics while scrubbing dead non-leader `faction.memberIDs` after `RemoveRecord` retirement and on GC `OnBeforePurge`, wired `PNC_API/Lifecycle.lua` (`API.Despawn` rollback `HardDelete` vs `retire = true` vs skipping `dtProviderProjection`), and degraded `PNC_NPCKnowledgeService_PlayerSnapshots.lua` gracefully to historical Core/DeathMarker/note snapshots.
+- Registered only justified strong roots (`DeathMarkers` for colony/infected corpses until removed or reanimated by `ReleaseReanimatedNPC`, non-terminal quests, active faction leaders/owners, and living durable bonds) while keeping `UniqueNPCRegistry` dead flags WEAK so dead unique NPCs remain `status = "dead"` without pinning Core tombstones forever.
+- Verified: `ProjectHoomans` `18/18` tests PASS (`core_actor_lifecycle_gc`, `factions_foundation`, `quest`, `medical_care`, `core_social`, `death`, `reanimat`) and `pz_verify.py --kahlua --severity ERROR` returned 0 errors across all 7 created/modified Hoomans Lua files.
 
 ## Verified L4 Facts
 
@@ -29,6 +36,6 @@
 
 ## Immediate Next Chunk
 
-**L5 — Project Hoomans adoption** (Batch 3: L5-L7).
+**L6 — Player-character death and multiplayer identity lifecycle** (Batch 3: L5-L7).
 
-Bridge `PNC.Health.Kill` / `retireDeadRecord` to Core `Retire`, `API.Despawn` rollback to `HardDelete`, register verified durable Hoomans GC roots (corpse/reanimation identity, durable bonds, active quests/factions), and verify corpse/reanimation + tombstone reclamation.
+Wire authoritative `RetirePlayerCharacter` / `ValidateLiveInteraction` and SP/MP `OnPlayerDeath` cleanup across Core `PsychopatzPlayerIdentity.lua` and ProjectHoomans `PNC_PlayerCharacterLifecycle_Callbacks.lua` (fixing 3-return bug) & `PNC_PlayerCharacterService_Lifecycle.lua`.
