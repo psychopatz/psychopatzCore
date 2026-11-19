@@ -4,17 +4,17 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
-phase_commit_phase: "P3"
-phase_commit_message: "phase(P3): add CodeBuilder portable Social Policy IR, compiler passes, runtime loader and canonical owner packages"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=b0c9d84db5953ea7d9d702b81c9a4bbe52178656;dynamic-trading=1831492790e53089f30961a01cb12df4f53f6720"
+phase_commit_phase: "P4"
+phase_commit_message: "phase(P4): reconcile Project Hoomans relationship and event authority with Core PsychopatzSocial"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=aa2ba699e34175b0243dafab1b80386e63066c35;dynamic-trading=1831492790e53089f30961a01cb12df4f53f6720"
 phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 residual_worktree_fingerprint: "a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 codebase_memory_indexed_commit: "fba98ab4791bde95a12fb1fcb7fbeede88408d7a"
-updated_at: "2026-11-19T10:41:20.372762Z"
+updated_at: "2026-11-19T10:46:09.368410Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "P4"
-chunk: "Project Hoomans authority reconciliation (PNC_EntityRef, PNC_Persistence_CoreSocial, PNC_RelationshipMath, PNC_SocialEventDefinitions)"
+phase: "P5"
+chunk: "DynamicTrading / DTAbstract trader adoption and continuity fixes"
 retrieval_tier: "verify"
 ---
 
@@ -23,29 +23,29 @@ retrieval_tier: "verify"
 
 ## What became true
 
-- P3 CodeBuilder Social Policy IR (`psychopatz.social-policy.v1` / `psychopatz.social-policy.package.v1`) implemented and reconciled across `PsychopatzCore`, `ProjectHoomans`, and `DTCommon`.
-- `reconcile.py --check` is clean (`467` desired artifacts across all 3 owners, `0` missing/drifted/stale/ambiguous).
-- Runtime loader `PsychopatzSocialPolicy.lua` wired into `PsychopatzActors` and `PsychopatzSocial.RecordAuthorizedEvent`.
+- P4 (`H1–H4`) Project Hoomans authority reconciliation accepted and committed.
+- Hoomans now promotes generic relationship fields (`baselineApproval`, `baselineRespect`, `state`, `previousState`, `cooldowns`, `saturation`, `lastEvaluatedAt`) to first-class Core fields, preserves foreign (`DynamicTrading`) memories/deltas across `FromCoreSocial` -> `Recalculate` -> `SyncToCore`, refreshes cached relationships when Core revision advances, hydrates portable parameters from `PNC/SocialPolicy/Registry.lua`, and projects foreign SocialPolicy memories into Unified Semantic Evidence.
+- Verified `24/24` Hoomans social/relationship/conduct/semantic-evidence suites and `pz_verify --kahlua`.
 
 ## Remaining
 
-- Implement P4 (Hoomans reconciliation), P5/P6 (DT/DTAbstract adoption & trader immersion), P7 (MP continuity), P8 (autonomy seam), and P9 (scale stress & final regression).
+- Implement P5 & P6 (`DynamicTrading / DTAbstract` adoption & trader immersion), P7 (MP/continuity matrix), P8 (autonomy seam), and P9 (scale stress & final acceptance).
 
 ## Resume
 
 Exact next action:
 
-1. Reconcile `ProjectHoomans` (`PNC_EntityRef`, `PNC_RelationshipTypes_Public`, `PNC_Persistence_CoreSocial`, `PNC_RelationshipMath`, `PNC_SocialEventDefinitions`, `PNC_RelationshipService_Queries`).
-2. Run Hoomans social/relationship/conduct/evidence/director tests plus cross-adopter convergence check.
+1. Fix `DTHoomans_SettlementTrader.lua` / `DTCommon_TraderRegistry.BindFaction` `actorID` binding, `DTAbstract_PreSurvivorWorldImport` roster sync, and `DTHoomans_ProviderRuntime.DematerializeTrader` social sync.
+2. Integrate compiled `DTCommon/SocialPolicy/Registry` and bounded social projections into `DTCommon_CoreActorPolicy`, `DTCommon_MarketPricing`, and `DTCommon_TraderConversation`.
 
 ## Evidence
 
-- `TEST_VERIFIED`: `test_social_policy_codebuilder.py` + `test_generation_recipe.py` + `test_reconcile_*` (`23/23` OK), `reconcile.py --check` (`clean=true`), `run_core_lua_suite` (`62/62`), and Lua `SocialPolicy` integration smoke (`LUA_SOCIAL_POLICY_SMOKE_OK`).
-- `STATIC_ONLY`: `pz_verify --kahlua` (`0` errors/warnings across Core, Hoomans, and DT `SocialPolicy` Lua artifacts).
+- `TEST_VERIFIED`: `ProjectHoomans` `24/24` social/relationship/conduct/semantic-evidence suites including `tests/pnc_portable_social_convergence_smoke.lua`.
+- `STATIC_ONLY`: `pz_verify --kahlua` (`0` errors/warnings across all 7 modified Hoomans Lua modules).
 
 ## Expensive discoveries worth preserving
 
-- Keep `"package"` identifiers portable (`psychopatz.core.social_policy`, `hoomans.social_policy`, `dynamic_trading.social_policy`) rather than embedding `PNC.` / `DTCommon.` which fail the portability scanner.
+- `pnc_relationship_foundation_smoke.lua` asserts `PNC.EntityRef.Parse("player:Patrick") == nil`; keeping 3-segment `player:*:*` strict in `EntityRef.Parse` while supporting `actor:*`, colon `npc:*`, and `EntityRef.IsCoreTargetValid` satisfies both existing tests and Core portability.
 
 ## Blockers / open decisions
 
@@ -53,4 +53,4 @@ Exact next action:
 
 ## Acceptance
 
-P3 gate passed; proceed into P4 Project Hoomans authority reconciliation.
+P4 gate passed; proceed into P5/P6 DynamicTrading adoption and immersion.
