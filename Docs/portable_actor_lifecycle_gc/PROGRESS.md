@@ -1,21 +1,20 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L1 accepted, starting L2.
-**Current phase:** L2 — Reference providers and budgeted mark-and-sweep GC.
-**Developer completion:** 2/10 phases accepted (L0, L1 ACCEPTED).
+**Status:** IN_PROGRESS — L2 accepted, starting L3.
+**Current phase:** L3 — Actor-level social memory bank and historical edges.
+**Developer completion:** 3/10 phases accepted (L0, L1, L2 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
 **Participants:** ProjectHoomans (H0), DynamicTrading (D0).
 
-## Verified L1 Facts
+## Verified L2 Facts
 
-- Created `PsychopatzActorLifecycle.lua` owning portable `LIVE -> RETIRED -> TOMBSTONE -> FORGOTTEN` transitions, `lifecycleRevision`, `Retire`, `PurgeTombstone`, `ResolveRef`, `ProjectIdentity`, and strict compact tombstone validation (rejecting inventory/social/knowledge/appearance/stock/unknown fields).
-- Extended `PsychopatzPlayerIdentity.lua` with server-authoritative `RetireIssuedIdentity`, `PurgeRetiredIdentity`, `GetLifecycleState`, and `IsIssuedIdentity` rejection (`"identity_retired"`) for retired UUIDs while supporting `includeRetired = true` for lifecycle inspection.
-- Integrated `Retire`, `HardDelete`, `GetTombstone`, `ListTombstones`, `TombstoneCount`, `GetLifecycleState`, and `ProjectIdentity` into `PsychopatzActorRegistry.lua` and `PsychopatzActors.lua`, preserving backward compatibility on legacy `Remove` while updating `PsychopatzActorMigration.Rollback` to use `HardDelete` with `reason = "rollback"`.
-- Bumped `PsychopatzActorPersistence.lua` to `SCHEMA_VERSION = 3` (with v1/v2 backward-compatible decode, fail-closed tombstone/conflict validation, and zero extra fields on default live actors).
-- Verified via `tests/psychopatz_actor_lifecycle_tombstone_smoke.lua` and 14 existing Core Actor/PlayerIdentity/Persistence/Social/Hotplug smoke tests (all PASS) plus `pz_verify.py --kahlua --severity ERROR` (0 errors across all 6 files).
+- Created `PsychopatzActorGC.lua` implementing bounded provider registration (`RegisterReferenceProvider`, `UnregisterReferenceProvider`, `ListReferenceProviders`, max 64 providers, max 4096 refs/provider), built-in Core providers (`PsychopatzCore.Social`, `PsychopatzCore.SurvivorWorld`, `PsychopatzCore.WorldKnowledge`), generation/cursor-budgeted fail-closed mark-and-sweep (`Step`, `RunFull`, `ReconcileOnLoad`, `TickBudgeted`), and read-only diagnostics (`ExplainRetention`, `ExplainPurge`, `GetDiagnostics`).
+- Wired allowed non-tick triggers in `PsychopatzActorRuntimeStore.lua` (startup `Load` reconciliation, `Save` threshold/active-cursor step, and `Events.EveryDays` maintenance; guarded for minimal mock registries) and exported GC surfaces in `PsychopatzActors.lua`.
+- Verified fail-closed behavior (provider errors/malformed refs/overflow abort sweep with zero tombstones purged; partial `OnBeforePurge` failures preserve failing tombstone for retry), active ownership blocking, grace enforcement, weak-ref compaction before purge, zero persistent refcount dependency, and `budget = 5` cursor parity across 40 tombstones.
+- Verified via `tests/psychopatz_actor_gc_mark_sweep_smoke.lua`, `tests/psychopatz_actor_lifecycle_tombstone_smoke.lua`, and all 36 existing `psychopatz_actor_*`/`psychopatz_social_*`/`psychopatz_npc_*`/`psychopatz_player_identity`/`psychopatz_hotplug_save_matrix`/`psychopatz_world_knowledge`/`psychopatz_survivor_world_registry` smoke tests (all PASS), plus `pz_verify.py --kahlua --severity ERROR` (0 errors).
 
 ## Immediate Next Chunk
 
-**L2 — Reference providers and budgeted mark/sweep GC.**
+**L3 — Actor-level social memory bank and historical edges.**
 
-Implement `PsychopatzActorGC.lua` (`RegisterReferenceProvider`, built-in `PsychopatzCore.Social` / `PsychopatzCore.SurvivorWorld` / `PsychopatzCore.WorldKnowledge` providers, generation/cursor-budgeted fail-closed mark-and-sweep, `ExplainRetention`, `ExplainPurge`, `GetDiagnostics`) and non-tick triggers in `PsychopatzActorRuntimeStore.lua` and `PsychopatzActors.lua`.
+Migrate `PsychopatzSocial` / `PsychopatzSocialRetention` / `PsychopatzSocialProjections` from per-relationship `memories` arrays (`N × 64` multiplier) to one bounded actor-level `memoryBank[]` with fixed actor-level hard memory budget, deterministic migration/consolidation/baseline promotion parity, ephemeral runtime indexes, and historical edge compaction/pruning.

@@ -3,6 +3,7 @@
 -- on server/SP authority only.
 
 local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
+local GC = require "PsychopatzCore/Actors/PsychopatzActorGC"
 
 local Store = {}
 
@@ -19,6 +20,21 @@ Store.LastResult = nil
 
 local function authority()
     return RuntimeRole.AllowsServerCode()
+end
+
+local function worldAgeHours()
+    if type(getGameTime) == "function" then
+        local gt = getGameTime()
+        if gt and type(gt.getWorldAgeHours) == "function" then
+            local hours = tonumber(gt:getWorldAgeHours())
+            if hours and hours == hours and hours ~= math.huge
+                and hours ~= -math.huge
+            then
+                return math.max(0, hours)
+            end
+        end
+    end
+    return 0
 end
 
 local function root(create)
@@ -137,7 +153,15 @@ function Store.Load(create)
     Store.LastResult = {
         action = "load", accepted = ok == true, reason = reason,
     }
-    if ok then Store.Loaded = true end
+    if ok then
+        Store.Loaded = true
+        if type(Store.Registry.TombstoneCount) == "function" then
+            GC.ReconcileOnLoad(Store.Registry, {
+                authority = "server",
+                now = worldAgeHours(),
+            })
+        end
+    end
     return ok, reason
 end
 
@@ -148,6 +172,19 @@ function Store.Save()
     local data = root(true)
     if type(data) ~= "table" then
         return false, "global_moddata_unavailable"
+    end
+
+    if type(Store.Registry.TombstoneCount) == "function" then
+        local state = Store.Registry._gcState
+        if Store.Registry:TombstoneCount() >= GC.TOMBSTONE_THRESHOLD
+            or (type(state) == "table" and state.phase ~= "idle")
+        then
+            GC.Step(Store.Registry, {
+                authority = "server",
+                budget = GC.DEFAULT_SLICE_BUDGET,
+                now = worldAgeHours(),
+            })
+        end
     end
 
     local serialized, reason = Store.Registry:Save()
@@ -190,6 +227,23 @@ local function installHooks()
     then
         Events.OnSave.Add(function()
             Store.Save()
+        end)
+    end
+
+    if Events and Events.EveryDays
+        and type(Events.EveryDays.Add) == "function"
+    then
+        Events.EveryDays.Add(function()
+            if not authority() or not Store.Registry then return end
+            if type(Store.Registry.TombstoneCount) == "function"
+                and Store.Registry:TombstoneCount() > 0
+            then
+                GC.Step(Store.Registry, {
+                    authority = "server",
+                    budget = GC.DEFAULT_SLICE_BUDGET,
+                    now = worldAgeHours(),
+                })
+            end
         end)
     end
 end

@@ -28,6 +28,7 @@ local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 local PlayerIdentity = require "PsychopatzCore/Actors/PsychopatzPlayerIdentity"
 local Lifecycle = require "PsychopatzCore/Actors/PsychopatzActorLifecycle"
+local GC = require "PsychopatzCore/Actors/PsychopatzActorGC"
 
 local Actors = PsychopatzCore.Actors or {}
 Actors.Factory = Factory
@@ -58,6 +59,8 @@ Actors.RuntimeStore = RuntimeStore
 Actors.Persona = Persona
 Actors.Knowledge = Knowledge
 Actors.Lifecycle = Lifecycle
+Actors.GC = GC
+GC.RegisterBuiltinProviders()
 Actors.DefaultRegistry = Actors.DefaultRegistry or Registry.new()
 RuntimeStore.Attach(Actors.DefaultRegistry)
 
@@ -99,6 +102,22 @@ end
 
 function Actors.GetLifecycleState(reference)
     return Actors.DefaultRegistry:GetLifecycleState(reference)
+end
+
+function Actors.RegisterReferenceProvider(providerID, provider)
+    return GC.RegisterReferenceProvider(providerID, provider)
+end
+
+function Actors.UnregisterReferenceProvider(providerID)
+    return GC.UnregisterReferenceProvider(providerID)
+end
+
+function Actors.ExplainRetention(reference, options)
+    return GC.ExplainRetention(Actors.DefaultRegistry, reference, options)
+end
+
+function Actors.ExplainPurge(reference, options)
+    return GC.ExplainPurge(Actors.DefaultRegistry, reference, options)
 end
 
 function Actors.AttachIdentity(actorID, spec)
