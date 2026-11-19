@@ -140,6 +140,7 @@ local function copyMemory(memory, target)
     if type(id) ~= "string" or id == "" then return nil, "memory_id_required" end
     local output = Util.clone(memory)
     output.id = id
+    output.type = output.type or output.eventType
     local resolvedAbout = target or targetKey(output.aboutKey)
     if resolvedAbout ~= nil then
         output.aboutKey = resolvedAbout
@@ -286,6 +287,9 @@ local function normalizeRelationship(target, value)
     end
     if type(value.historicalLabel) == "string" and value.historicalLabel ~= "" then
         output.historicalLabel = string.sub(value.historicalLabel, 1, 64)
+    end
+    if type(value.degradedLabel) == "string" and value.degradedLabel ~= "" then
+        output.degradedLabel = string.sub(value.degradedLabel, 1, 64)
     end
     if type(value.historicalRole) == "string" and value.historicalRole ~= "" then
         output.historicalRole = string.sub(value.historicalRole, 1, 32)
@@ -869,6 +873,10 @@ function Social.GetHotRelationshipSnapshot(state, target, options)
     if not normalized then return nil, "target_key_invalid" end
     options = type(options) == "table" and options or {}
     local maxMems = math.max(0, math.min(16, math.floor(tonumber(options.maxMemories) or 4)))
+    local socialRev = tonumber(state.revision) or 0
+    local identityProj = (type(options.registry) == "table"
+        and type(options.registry.ProjectIdentity) == "function")
+        and options.registry:ProjectIdentity(normalized) or nil
     if not relationship then
         return {
             exists = false,
@@ -878,8 +886,15 @@ function Social.GetHotRelationshipSnapshot(state, target, options)
             familiarity = 0,
             state = "unknown",
             attitude = "neutral",
+            revision = 0,
+            relationshipRevision = 0,
+            socialRevision = socialRev,
             historical = false,
             historicalPin = false,
+            targetLifecycleStatus = identityProj and identityProj.status or nil,
+            targetLifecycleRevision = identityProj and identityProj.lifecycleRevision or nil,
+            targetDisplayName = (identityProj and identityProj.status ~= "FORGOTTEN")
+                and identityProj.displayName or nil,
             memoryCount = 0,
             strongMemoryCount = 0,
             recentMemories = {},
@@ -901,23 +916,40 @@ function Social.GetHotRelationshipSnapshot(state, target, options)
             type = m.type,
             retentionClass = Retention.EffectiveClass(m),
             refStrength = m.refStrength,
+            aboutKey = m.aboutKey,
+            subjectKey = m.subjectKey,
+            degradedLabel = m.degradedLabel,
             salience = Retention.MemorySalience(m),
             createdAt = m.createdAt,
             count = m.count or 1,
         }
     end
+    local approvalVal = tonumber(relationship.approval) or 0
+    local respectVal = tonumber(relationship.respect) or 0
+    local relRev = tonumber(relationship.revision) or 0
+    local resolvedStatus = (identityProj and identityProj.status)
+        or relationship.targetLifecycleStatus
+    local resolvedLabel = relationship.degradedLabel or relationship.historicalLabel
     return {
         exists = true,
         targetKey = normalized,
-        approval = tonumber(relationship.approval) or 0,
-        respect = tonumber(relationship.respect) or 0,
+        approval = approvalVal,
+        respect = respectVal,
         familiarity = tonumber(relationship.familiarity) or 0,
         state = relationship.state or Projections.ResolveState(relationship),
-        attitude = Projections.ResolveAttitude(relationship),
+        attitude = Projections.ResolveAttitude(approvalVal, respectVal),
+        revision = relRev,
+        relationshipRevision = relRev,
+        socialRevision = socialRev,
         historical = relationship.historical == true,
         historicalPin = relationship.historicalPin == true,
-        targetLifecycleStatus = relationship.targetLifecycleStatus,
-        targetLifecycleRevision = relationship.targetLifecycleRevision,
+        targetLifecycleStatus = resolvedStatus,
+        targetLifecycleRevision = (identityProj and identityProj.lifecycleRevision)
+            or relationship.targetLifecycleRevision,
+        targetDisplayName = (identityProj and identityProj.status ~= "FORGOTTEN"
+            and identityProj.displayName) or relationship.historicalLabel,
+        degradedLabel = resolvedStatus == "FORGOTTEN"
+            and (resolvedLabel or "someone") or nil,
         historicalLabel = relationship.historicalLabel,
         memoryCount = #memories,
         strongMemoryCount = strongCount,

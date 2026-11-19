@@ -1354,6 +1354,39 @@ function GC.GetDiagnostics(registry, options)
         end
     end
 
+    local memoryCountsByClass = { ANCHOR = 0, LONG = 0, SHORT = 0, total = 0 }
+    local edgeCounts = { total = 0, historical = 0, historicalPinned = 0 }
+    for _, actorID in ipairs(sortedKeys(registry.records)) do
+        local actor = registry.records[actorID]
+        local social = type(actor) == "table" and actor.social or nil
+        if type(social) == "table" then
+            local stats = Social.GetActorMemoryStats(social)
+            if stats and type(stats.byClass) == "table" then
+                memoryCountsByClass.ANCHOR = memoryCountsByClass.ANCHOR + (stats.byClass.ANCHOR or 0)
+                memoryCountsByClass.LONG = memoryCountsByClass.LONG + (stats.byClass.LONG or 0)
+                memoryCountsByClass.SHORT = memoryCountsByClass.SHORT + (stats.byClass.SHORT or 0)
+                memoryCountsByClass.total = memoryCountsByClass.total + (stats.total or 0)
+            end
+            for _, rel in pairs(social.relationships or {}) do
+                if type(rel) == "table" then
+                    edgeCounts.total = edgeCounts.total + 1
+                    if rel.historical == true then
+                        edgeCounts.historical = edgeCounts.historical + 1
+                    end
+                    if rel.historicalPin == true then
+                        edgeCounts.historicalPinned = edgeCounts.historicalPinned + 1
+                    end
+                end
+            end
+        end
+    end
+
+    local socialQueryMod = PsychopatzCore and PsychopatzCore.Actors
+        and PsychopatzCore.Actors.SocialQuery or nil
+    local interactionQuery = socialQueryMod
+        and type(socialQueryMod.GetDiagnostics) == "function"
+        and socialQueryMod.GetDiagnostics() or nil
+
     return {
         generation = math.max(
             state.generation,
@@ -1369,6 +1402,9 @@ function GC.GetDiagnostics(registry, options)
         providerCount = countMapKeys(GC.Providers),
         providerCounts = providerCounts,
         orphanedAliasCount = orphanedAliases,
+        memoryCountsByClass = memoryCountsByClass,
+        edgeCounts = edgeCounts,
+        interactionQuery = interactionQuery,
     }
 end
 

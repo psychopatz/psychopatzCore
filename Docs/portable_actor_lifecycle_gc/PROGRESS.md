@@ -1,10 +1,18 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L7 accepted, starting L8 (semantic/interaction lifecycle projections).
-**Current phase:** L8 — Lifecycle-aware semantic & hot-interaction projections.
-**Developer completion:** 8/10 phases accepted (L0, L1, L2, L3, L4, L5, L6, L7 ACCEPTED).
+**Status:** IN_PROGRESS — L8 accepted, starting L9 (scale, persistence, GC soak & final acceptance).
+**Current phase:** L9 — Scale, persistence, GC soak & final acceptance.
+**Developer completion:** 9/10 phases accepted (L0, L1, L2, L3, L4, L5, L6, L7, L8 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
-**Participants:** ProjectHoomans (H0, H1, H2, H3A, H4-policy, H6-player-lifecycle at `27d4964a`), DynamicTrading (D0, D1, D2, D3, D4-policy at `c64be379`).
+**Participants:** ProjectHoomans (H0, H1, H2, H3, H4, H6-player-lifecycle at `ecfee7f8`), DynamicTrading (D0, D1, D2, D3, D4 at `a3cc205a`).
+
+## Verified L8 Facts
+
+- Created `PsychopatzSocialQuery.lua` (exported as `Actors.SocialQuery`) providing zero-GC `OpenInteractionHotContext`, bounded `ExecutePlan` (`maxMemories <= 8`, indexed lookups), `ProjectTargetReference` (`LIVE_ENTITY`, `HISTORICAL_NAMED`, `LABEL_ONLY` including GC-stripped degraded memories, and `ANONYMOUS`), `ValidateDecisionToken` (rejecting retired actors and stale lifecycle/social/relationship revisions), and runtime query diagnostics (`ResetDiagnostics`/`GetDiagnostics`).
+- Fixed `Social.GetHotRelationshipSnapshot` (`ResolveAttitude(approvalVal, respectVal)` instead of passing table) & normalized `copyMemory` `type = type or eventType` in `PsychopatzSocial.lua`; enriched `PsychopatzSocialProjections.lua`, `PsychopatzActorSocialAuthority.lua`, `PsychopatzActorInteraction.lua` (`lifecycleRevision` validation in `AuthorizeConversation`), and `PsychopatzActorGC.lua` (`memoryCountsByClass`, `edgeCounts`, `interactionQuery`).
+- Committed `ProjectHoomans` `H3-H4` (`ecfee7f8874f4e513b12bf057dd2c5e1e48c82af`: forwarded historical edge metadata in `PNC_Persistence_CoreSocial.lua`, added O(1) lifecycle projection to `PNC_RelationshipPresentation.lua`, and verified `6/6` Hoomans tests including `pnc_lifecycle_semantic_projection_smoke.lua`).
+- Committed `DynamicTrading` `D4-semantic` (`a3cc205a541251d5de08f586c11648afa66d3ec4`: enriched `DTCommon_CoreActorPolicy.lua` `QuerySocialProjection` with O(1) lifecycle status/revisions and `allowHistorical` fallback for retired/forgotten traders; verified `PASS 91/91`).
+- Verified `13/13` Core tests (`psychopatz_social_lifecycle_semantic_projection_smoke`, social, GC, lifecycle, stress suites) PASS and `pz_verify.py --kahlua --severity ERROR` returned `0` errors across all created/edited L8 Lua files.
 
 ## Verified L7 Facts
 
@@ -48,6 +56,6 @@
 
 ## Immediate Next Chunk
 
-**L8 — Semantic/interaction lifecycle-aware projections** (Batch 4: L8–L9).
+**L9 — Scale, persistence, GC soak & final acceptance** (H5 in ProjectHoomans, D5 in DynamicTrading, L9 soak + full multi-repo regression + CodeBuilder/Kahlua checks).
 
-Implement `PsychopatzSocialQuery.lua` (`OpenInteractionHotContext`, `ExecutePlan`, `ValidateDecisionToken`, `ProjectTargetReference`), fix `GetHotRelationshipSnapshot` `ResolveAttitude` bug & enrich `PsychopatzSocialProjections`, `PsychopatzActorSocialAuthority`, `PsychopatzActorInteraction`, `GC.GetDiagnostics`, ProjectHoomans `H3/H4`, and DynamicTrading `D4`.
+After L9 passes all acceptance gates and `CHECKPOINT_VERIFIED`, mark `READY FOR USER LIVE TEST`.

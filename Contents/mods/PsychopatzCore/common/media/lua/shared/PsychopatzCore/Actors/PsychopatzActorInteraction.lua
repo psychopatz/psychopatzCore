@@ -20,6 +20,9 @@ function Interaction.BuildNearbyConversation(entry, viewerKey, distance)
         action = "talk",
         distance = tonumber(distance) or 0,
         provider = entry.provider,
+        lifecycleRevision = entry.lifecycleRevision,
+        socialRevision = entry.socialRevision,
+        relationshipRevision = entry.relationshipRevision,
     }
 end
 
@@ -33,6 +36,20 @@ function Interaction.AuthorizeConversation(request, entry, context)
     end
     if context.authority ~= "server" then
         return false, "server_authority_required"
+    end
+    if type(context.registry) == "table"
+        and type(context.registry.ProjectIdentity) == "function"
+    then
+        local proj = context.registry:ProjectIdentity(request.actorID)
+        if not proj or proj.status ~= "LIVE" then
+            return false, (proj and proj.status == "RETIRED")
+                and "actor_retired" or "actor_forgotten"
+        end
+        if request.lifecycleRevision ~= nil
+            and tonumber(request.lifecycleRevision) ~= tonumber(proj.lifecycleRevision)
+        then
+            return false, "lifecycle_revision_conflict"
+        end
     end
     if entry.capabilities.talk ~= true then
         return false, "conversation_unavailable"

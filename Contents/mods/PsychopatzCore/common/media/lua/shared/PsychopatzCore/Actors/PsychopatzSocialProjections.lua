@@ -51,6 +51,10 @@ local function compactMemoryView(memory, effStrength)
         lastEventID = memory.lastEventID,
         type = memory.type or "event",
         retentionClass = Retention.EffectiveClass(memory),
+        refStrength = memory.refStrength,
+        aboutKey = memory.aboutKey,
+        subjectKey = memory.subjectKey,
+        degradedLabel = memory.degradedLabel,
         salience = Retention.MemorySalience(memory),
         effectiveStrength = effStrength,
         confidence = tonumber(memory.confidence)
@@ -192,6 +196,44 @@ local function buildDecisionFeatures(params)
     }
 end
 
+local function resolveTargetIdentity(options, rel, normalizedTarget)
+    local reg = type(options) == "table" and options.registry or nil
+    local proj = (type(reg) == "table" and type(reg.ProjectIdentity) == "function")
+        and reg:ProjectIdentity(normalizedTarget) or nil
+    local status = (proj and proj.status)
+        or (type(rel) == "table" and rel.targetLifecycleStatus)
+        or nil
+    local rev = (proj and proj.lifecycleRevision)
+        or (type(rel) == "table" and rel.targetLifecycleRevision)
+        or nil
+    local label = type(rel) == "table"
+        and (rel.degradedLabel or rel.historicalLabel)
+        or nil
+    if not status then return nil end
+
+    local referenceMode = nil
+    if status == "LIVE" then
+        referenceMode = "LIVE_ENTITY"
+    elseif status == "RETIRED" then
+        referenceMode = "HISTORICAL_NAMED"
+    elseif status == "FORGOTTEN" then
+        referenceMode = (type(label) == "string" and label ~= "")
+            and "LABEL_ONLY" or "ANONYMOUS"
+    end
+
+    return {
+        ref = (proj and proj.ref) or normalizedTarget,
+        status = status,
+        referenceMode = referenceMode,
+        lifecycleRevision = tonumber(rev) or 0,
+        displayName = status ~= "FORGOTTEN" and (proj and proj.displayName or label) or nil,
+        role = proj and proj.role or (status == "FORGOTTEN" and label or nil),
+        degradedLabel = status == "FORGOTTEN" and (label or "someone") or nil,
+        retiredAt = status == "RETIRED" and proj and proj.retiredAt or nil,
+        reason = status == "RETIRED" and proj and proj.reason or nil,
+    }
+end
+
 function Projections.QueryCandidateProjection(state, target, options, lookupRelFn, getMemoriesFn)
     options = type(options) == "table" and options or {}
     local worldAgeHours = tonumber(options.worldAgeHours)
@@ -201,6 +243,7 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
     if not normalizedTarget then
         return nil, "target_key_invalid"
     end
+    local targetIdentity = resolveTargetIdentity(options, rel, normalizedTarget)
     if not rel then
         local emptyDecision = buildDecisionFeatures({
             exists = false,
@@ -208,6 +251,11 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
             relationshipRevision = 0,
             socialRevision = socialRevision,
         })
+        if targetIdentity then
+            emptyDecision.features.targetLifecycleStatus = targetIdentity.status
+            emptyDecision.features.targetLifecycleRevision = targetIdentity.lifecycleRevision
+            emptyDecision.features.historical = false
+        end
         return {
             schemaVersion = 1,
             exists = false,
@@ -221,6 +269,12 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
             revision = 0,
             relationshipRevision = 0,
             socialRevision = socialRevision,
+            historical = false,
+            historicalPin = false,
+            targetLifecycleStatus = targetIdentity and targetIdentity.status or nil,
+            targetLifecycleRevision = targetIdentity and targetIdentity.lifecycleRevision or nil,
+            targetIdentity = targetIdentity,
+            referenceMode = targetIdentity and targetIdentity.referenceMode or nil,
             lastEventAt = nil,
             grievanceScore = 0,
             assistanceScore = 0,
@@ -336,6 +390,11 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
     })
 
     local resolvedState = (rel.state and rel.state ~= "") and rel.state or Projections.ResolveState(rel)
+    local resolvedTargetStatus = (targetIdentity and targetIdentity.status) or rel.targetLifecycleStatus
+    local resolvedTargetRev = (targetIdentity and targetIdentity.lifecycleRevision) or rel.targetLifecycleRevision
+    decision.features.historical = rel.historical == true
+    decision.features.targetLifecycleStatus = resolvedTargetStatus
+    decision.features.targetLifecycleRevision = resolvedTargetRev
     return {
         schemaVersion = 1,
         exists = true,
@@ -349,6 +408,14 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
         revision = relRev,
         relationshipRevision = relRev,
         socialRevision = socialRevision,
+        historical = rel.historical == true,
+        historicalPin = rel.historicalPin == true,
+        historicalLabel = rel.historicalLabel,
+        degradedLabel = rel.degradedLabel or rel.historicalLabel,
+        targetLifecycleStatus = resolvedTargetStatus,
+        targetLifecycleRevision = resolvedTargetRev,
+        targetIdentity = targetIdentity,
+        referenceMode = targetIdentity and targetIdentity.referenceMode or nil,
         lastEventAt = rel.lastEventAt,
         grievanceScore = grievance,
         assistanceScore = assistance,

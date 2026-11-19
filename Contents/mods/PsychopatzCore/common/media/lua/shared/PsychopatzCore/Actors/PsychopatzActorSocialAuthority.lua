@@ -1,4 +1,5 @@
 local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
+local SocialQuery = require "PsychopatzCore/Actors/PsychopatzSocialQuery"
 
 local Authority = {}
 
@@ -182,7 +183,32 @@ function Authority.GetHotRelationshipSnapshot(actorID, target, options, core)
     if not actor then return nil, reason end
     local social = actor.social
     if not social then return nil, "social_state_invalid" end
-    return Social.GetHotRelationshipSnapshot(social, target, options)
+    local queryOpts = type(options) == "table" and options or {}
+    if queryOpts.registry == nil then
+        local copied = {}
+        for k, v in pairs(queryOpts) do copied[k] = v end
+        copied.registry = registryFor(core)
+        queryOpts = copied
+    end
+    return Social.GetHotRelationshipSnapshot(social, target, queryOpts)
+end
+
+function Authority.OpenInteractionHotContext(actorID, target, options, core)
+    local registry = registryFor(core)
+    if not registry then return nil, "core_registry_unavailable" end
+    return SocialQuery.OpenInteractionHotContext(registry, actorID, target, options)
+end
+
+function Authority.ExecuteSocialQueryPlan(actorID, plan, options, core)
+    local registry = registryFor(core)
+    if not registry then return nil, "core_registry_unavailable" end
+    return SocialQuery.ExecutePlan(registry, actorID, plan, options)
+end
+
+function Authority.ValidateDecisionToken(token, options, core)
+    local registry = registryFor(core)
+    if not registry then return false, "core_registry_unavailable" end
+    return SocialQuery.ValidateDecisionToken(registry, token, options)
 end
 
 function Authority.CompactHistoricalEdge(actorID, target, tombstoneOrInfo, core,
