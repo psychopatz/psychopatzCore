@@ -189,11 +189,12 @@ local committed = assert(Authority.RecordAuthorizedEvent("actor:p2:auth", {
 local projAuth = assert(Authority.QueryCandidateProjection("actor:p2:auth", "player:acc1:char1",
     { worldAgeHours = 500 }, { Actors = { DefaultRegistry = reg } }))
 equal(projAuth.approval, 3, "Authority.QueryCandidateProjection returns committed score")
-local auto = assert(Authority.EvaluateAutonomyCandidates("actor:p2:auth", "player:acc1:char1",
-    { "TALK", "TRADE", "AVOID" }, { worldAgeHours = 500 }, { Actors = { DefaultRegistry = reg } }))
-equal(auto.selectedAction, nil, "autonomy seam never selects an action")
-equal(auto.mutated, false, "autonomy seam never mutates state")
-truthy(auto.candidates.TRADE and auto.candidates.TRADE.viabilityBias > 0, "positive trade bias")
+equal(Social.EvaluateAutonomyCandidates, nil, "Social.EvaluateAutonomyCandidates removed")
+equal(Authority.EvaluateAutonomyCandidates, nil, "Authority.EvaluateAutonomyCandidates removed")
+truthy(projAuth.trustSignal > 0, "action-neutral trustSignal positive for cooperative partner")
+truthy(projAuth.familiaritySignal > 0, "action-neutral familiaritySignal positive")
+equal(projAuth.directWitness, true, "direct witness provenance flagged")
+equal(projAuth.features.trustSignal, projAuth.trustSignal, "nested features mirror trustSignal")
 
 local savedJson = assert(reg:Save())
 local reloaded = Actors.NewRegistry()

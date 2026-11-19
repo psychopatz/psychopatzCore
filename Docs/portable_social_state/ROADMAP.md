@@ -177,7 +177,7 @@ Required work:
 
 **Gate:** one Core-backed Hoomans NPC serializes generic approval, respect, familiarity, baselines, memories and revisions exactly once in Core; save and reload plus DTAbstract and DTHoomans representation changes preserve that history; Hoomans-specific extensions survive independently; Hoomans social, semantic and conduct regressions remain green.
 
-## P11 — Action-neutral social decision-feature boundary
+## P11 — Action-neutral social decision-feature boundary — ACCEPTED
 
 The P8 implementation correctly remained read-only, but PsychopatzSocialProjections.EvaluateAutonomyCandidates currently contains action-specific scoring formulas and recognizes TALK, TRADE, HELP, AVOID, CONFRONT, REPORT and RETALIATE.
 

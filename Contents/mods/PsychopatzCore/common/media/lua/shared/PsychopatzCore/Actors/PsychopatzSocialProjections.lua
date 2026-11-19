@@ -68,6 +68,130 @@ local function compactMemoryView(memory, effStrength)
     }
 end
 
+local function round3(value)
+    value = tonumber(value) or 0
+    return math.floor(value * 1000 + 0.5) / 1000
+end
+
+local PERSONALITY_DIMENSIONS = {
+    "caution",
+    "aggression",
+    "forgiveness",
+    "sociability",
+    "greed",
+}
+
+local function normalizePersonality(state)
+    local pers = type(state and state.personality) == "table" and state.personality or {}
+    local overrides = type(state and state.personalityOverrides) == "table"
+        and state.personalityOverrides or {}
+    local out = {}
+    for _, dim in ipairs(PERSONALITY_DIMENSIONS) do
+        local raw = overrides[dim] ~= nil and overrides[dim] or pers[dim]
+        if raw == nil then raw = 0.5 end
+        out[dim] = round3(clamp(raw, 0, 1))
+    end
+    for k, v in pairs(pers) do
+        if out[k] == nil and type(k) == "string" and type(v) == "number" then
+            out[k] = round3(clamp(v, 0, 1))
+        end
+    end
+    for k, v in pairs(overrides) do
+        if type(k) == "string" and type(v) == "number" then
+            out[k] = round3(clamp(v, 0, 1))
+        end
+    end
+    return out
+end
+
+local function buildDecisionFeatures(params)
+    local exists = params.exists == true
+    local approval = tonumber(params.approval) or 0
+    local respect = tonumber(params.respect) or 0
+    local familiarity = tonumber(params.familiarity) or 0
+    local grievance = tonumber(params.grievance) or 0
+    local assistance = tonumber(params.assistance) or 0
+    local directCount = tonumber(params.directCount) or 0
+    local witnessedCount = tonumber(params.witnessedCount) or 0
+    local hearsayCount = tonumber(params.hearsayCount) or 0
+    local anchorCount = tonumber(params.anchorCount) or 0
+    local activeCount = tonumber(params.activeCount) or 0
+    local episodeCount = tonumber(params.episodeCount) or 0
+    local relRev = tonumber(params.relationshipRevision) or 0
+    local socialRev = tonumber(params.socialRevision) or 0
+    local totalEvidenceCount = directCount + witnessedCount + hearsayCount
+
+    local trustSignal = 0
+    local grievancePressure = 0
+    local assistanceHistory = 0
+    local familiaritySignal = 0
+    local cautionSignal = 0
+    local provenanceConfidence = 0
+    local directWitness = false
+    local hearsayOnly = false
+
+    if exists then
+        trustSignal = round3(clamp(
+            (approval * 0.45) + (respect * 0.35) + (familiarity * 0.20)
+            + (assistance * 0.18) - (grievance * 0.65),
+            -100,
+            100
+        ))
+        grievancePressure = round3(clamp(grievance, 0, 100))
+        assistanceHistory = round3(clamp(assistance, 0, 100))
+        familiaritySignal = round3(clamp(familiarity, 0, 100))
+        local evidenceCaution = directCount > 0 and 15 or (hearsayCount > 0 and 6 or 0)
+        cautionSignal = round3(clamp(
+            (grievance * 0.8) + evidenceCaution - (math.max(0, approval) * 0.15),
+            0,
+            100
+        ))
+        if totalEvidenceCount > 0 then
+            provenanceConfidence = round3(clamp(
+                ((directCount * 1.0) + (witnessedCount * 0.85) + (hearsayCount * 0.55))
+                / totalEvidenceCount,
+                0,
+                1
+            ))
+        end
+        directWitness = (directCount > 0 or witnessedCount > 0)
+        hearsayOnly = (hearsayCount > 0 and directCount == 0 and witnessedCount == 0)
+    end
+
+    local personality = normalizePersonality(params.state)
+    local features = {
+        trustSignal = trustSignal,
+        grievancePressure = grievancePressure,
+        assistanceHistory = assistanceHistory,
+        familiaritySignal = familiaritySignal,
+        cautionSignal = cautionSignal,
+        provenanceConfidence = provenanceConfidence,
+        directWitness = directWitness,
+        hearsayOnly = hearsayOnly,
+        directEvidenceCount = directCount,
+        witnessedEvidenceCount = witnessedCount,
+        hearsayEvidenceCount = hearsayCount,
+        anchorCount = anchorCount,
+        activeMemoryCount = activeCount,
+        consolidatedEpisodeCount = episodeCount,
+        relationshipRevision = relRev,
+        socialRevision = socialRev,
+        personality = Util.clone(personality),
+    }
+    return {
+        trustSignal = trustSignal,
+        grievancePressure = grievancePressure,
+        assistanceHistory = assistanceHistory,
+        familiaritySignal = familiaritySignal,
+        cautionSignal = cautionSignal,
+        provenanceConfidence = provenanceConfidence,
+        directWitness = directWitness,
+        hearsayOnly = hearsayOnly,
+        personality = personality,
+        features = features,
+    }
+end
+
 function Projections.QueryCandidateProjection(state, target, options, lookupRelFn)
     options = type(options) == "table" and options or {}
     local worldAgeHours = tonumber(options.worldAgeHours)
@@ -78,6 +202,12 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
         return nil, "target_key_invalid"
     end
     if not rel then
+        local emptyDecision = buildDecisionFeatures({
+            exists = false,
+            state = state,
+            relationshipRevision = 0,
+            socialRevision = socialRevision,
+        })
         return {
             schemaVersion = 1,
             exists = false,
@@ -89,6 +219,7 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
             previousState = "unknown",
             attitude = "neutral",
             revision = 0,
+            relationshipRevision = 0,
             socialRevision = socialRevision,
             lastEventAt = nil,
             grievanceScore = 0,
@@ -99,6 +230,16 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
             anchorCount = 0,
             activeMemoryCount = 0,
             consolidatedEpisodeCount = 0,
+            trustSignal = emptyDecision.trustSignal,
+            grievancePressure = emptyDecision.grievancePressure,
+            assistanceHistory = emptyDecision.assistanceHistory,
+            familiaritySignal = emptyDecision.familiaritySignal,
+            cautionSignal = emptyDecision.cautionSignal,
+            provenanceConfidence = emptyDecision.provenanceConfidence,
+            directWitness = emptyDecision.directWitness,
+            hearsayOnly = emptyDecision.hearsayOnly,
+            personality = emptyDecision.personality,
+            features = emptyDecision.features,
             memories = {},
             extension = nil,
         }
@@ -166,18 +307,41 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
         ext = Util.clone(rel.extensions[options.extensionID])
     end
 
+    local approvalVal = tonumber(rel.approval) or 0
+    local respectVal = tonumber(rel.respect) or 0
+    local familiarityVal = tonumber(rel.familiarity) or 0
+    local relRev = tonumber(rel.revision) or 0
+    local decision = buildDecisionFeatures({
+        exists = true,
+        state = state,
+        approval = approvalVal,
+        respect = respectVal,
+        familiarity = familiarityVal,
+        grievance = grievance,
+        assistance = assistance,
+        directCount = directCount,
+        witnessedCount = witnessedCount,
+        hearsayCount = hearsayCount,
+        anchorCount = anchorCount,
+        activeCount = activeCount,
+        episodeCount = episodeCount,
+        relationshipRevision = relRev,
+        socialRevision = socialRevision,
+    })
+
     local resolvedState = (rel.state and rel.state ~= "") and rel.state or Projections.ResolveState(rel)
     return {
         schemaVersion = 1,
         exists = true,
         targetKey = normalizedTarget,
-        approval = tonumber(rel.approval) or 0,
-        respect = tonumber(rel.respect) or 0,
-        familiarity = tonumber(rel.familiarity) or 0,
+        approval = approvalVal,
+        respect = respectVal,
+        familiarity = familiarityVal,
         state = resolvedState,
         previousState = rel.previousState or "unknown",
-        attitude = Projections.ResolveAttitude(rel.approval, rel.respect),
-        revision = tonumber(rel.revision) or 0,
+        attitude = Projections.ResolveAttitude(approvalVal, respectVal),
+        revision = relRev,
+        relationshipRevision = relRev,
         socialRevision = socialRevision,
         lastEventAt = rel.lastEventAt,
         grievanceScore = grievance,
@@ -188,109 +352,18 @@ function Projections.QueryCandidateProjection(state, target, options, lookupRelF
         anchorCount = anchorCount,
         activeMemoryCount = activeCount,
         consolidatedEpisodeCount = episodeCount,
+        trustSignal = decision.trustSignal,
+        grievancePressure = decision.grievancePressure,
+        assistanceHistory = decision.assistanceHistory,
+        familiaritySignal = decision.familiaritySignal,
+        cautionSignal = decision.cautionSignal,
+        provenanceConfidence = decision.provenanceConfidence,
+        directWitness = decision.directWitness,
+        hearsayOnly = decision.hearsayOnly,
+        personality = decision.personality,
+        features = decision.features,
         memories = memoriesOut,
         extension = ext,
-    }
-end
-
-function Projections.EvaluateAutonomyCandidates(state, target, candidates, options, lookupRelFn)
-    if type(candidates) ~= "table" then return nil, "candidates_required" end
-    local proj, reason = Projections.QueryCandidateProjection(state, target, options, lookupRelFn)
-    if not proj then return nil, reason end
-
-    local pers = type(state and state.personality) == "table" and state.personality or {}
-    local aggression = clamp(pers.aggression ~= nil and pers.aggression or 0.3, 0, 1)
-    local forgiveness = clamp(pers.forgiveness ~= nil and pers.forgiveness or 0.5, 0, 1)
-    local caution = clamp(pers.caution ~= nil and pers.caution or 0.5, 0, 1)
-    local sociability = clamp(pers.sociability ~= nil and pers.sociability or 0.5, 0, 1)
-    local greed = clamp(pers.greed ~= nil and pers.greed or 0.5, 0, 1)
-
-    local trustSignal = clamp((proj.approval * 0.65 + proj.respect * 0.35) / 100, -1, 1)
-    local grievanceNorm = clamp(proj.grievanceScore / 50, 0, 1)
-    local assistanceNorm = clamp(proj.assistanceScore / 50, 0, 1)
-    local famNorm = clamp(proj.familiarity / 100, 0, 1)
-    local provConf = 1.0
-    if proj.activeMemoryCount > 0 then
-        provConf = clamp((proj.directEvidenceCount + proj.witnessedEvidenceCount * 0.85
-            + proj.hearsayEvidenceCount * 0.55) / proj.activeMemoryCount, 0.25, 1)
-    end
-
-    local results = {}
-    for _, rawCandidate in ipairs(candidates) do
-        local cand = string.upper(tostring(rawCandidate or ""))
-        if cand ~= "" then
-            local bias = 0
-            local reasons = {}
-            if cand == "TALK" then
-                bias = clamp((trustSignal * 0.45) + (sociability * 0.3) + (famNorm * 0.2)
-                    - (grievanceNorm * (0.6 - 0.3 * forgiveness)), -1, 1)
-                if sociability >= 0.6 then reasons[#reasons + 1] = "personality_sociable" end
-            elseif cand == "TRADE" then
-                bias = clamp((trustSignal * 0.4) + (famNorm * 0.25) + ((1 - greed) * 0.1)
-                    + (assistanceNorm * 0.2) - (grievanceNorm * 0.55), -1, 1)
-                if famNorm >= 0.25 then reasons[#reasons + 1] = "familiar_partner" end
-            elseif cand == "HELP" then
-                bias = clamp((trustSignal * 0.5) + (assistanceNorm * 0.35) + (forgiveness * 0.15)
-                    - (grievanceNorm * 0.7), -1, 1)
-                if proj.assistanceScore > 0 then reasons[#reasons + 1] = "prior_assistance" end
-            elseif cand == "AVOID" then
-                bias = clamp((grievanceNorm * (0.45 + 0.4 * caution))
-                    - (trustSignal * 0.4) - (aggression * 0.25), -1, 1)
-                if caution >= 0.6 and proj.grievanceScore > 0 then reasons[#reasons + 1] = "cautious_grievance" end
-            elseif cand == "CONFRONT" or cand == "RETALIATE" then
-                bias = clamp((grievanceNorm * (0.4 + 0.5 * aggression) * (1.2 - 0.5 * forgiveness))
-                    - (trustSignal * 0.35) - (caution * 0.2), -1, 1)
-                if aggression >= 0.6 and proj.grievanceScore > 0 then reasons[#reasons + 1] = "aggressive_grievance" end
-            elseif cand == "REPORT" then
-                bias = clamp((grievanceNorm * 0.55 * provConf) + (caution * 0.25) - (trustSignal * 0.25), -1, 1)
-                if proj.hearsayEvidenceCount > 0 then reasons[#reasons + 1] = "hearsay_corroboration_needed" end
-            else
-                bias = clamp(trustSignal * 0.35 - grievanceNorm * 0.35, -1, 1)
-            end
-            if proj.grievanceScore > 0 then reasons[#reasons + 1] = "grievance_present" end
-            if proj.anchorCount > 0 then reasons[#reasons + 1] = "anchor_memory_present" end
-
-            results[cand] = {
-                candidate = cand,
-                viabilityBias = bias,
-                trustSignal = trustSignal,
-                grievancePressure = grievanceNorm,
-                assistanceDebt = assistanceNorm,
-                familiarityBonus = famNorm,
-                cautionSignal = clamp(grievanceNorm * caution, 0, 1),
-                provenanceConfidence = provConf,
-                directWitness = (proj.directEvidenceCount + proj.witnessedEvidenceCount) > 0,
-                reasons = reasons,
-            }
-        end
-    end
-
-    return {
-        schemaVersion = 1,
-        targetKey = proj.targetKey,
-        exists = proj.exists,
-        socialRevision = proj.socialRevision,
-        relationshipRevision = proj.revision,
-        relationship = {
-            approval = proj.approval,
-            respect = proj.respect,
-            familiarity = proj.familiarity,
-            state = proj.state,
-            attitude = proj.attitude,
-            grievanceScore = proj.grievanceScore,
-            assistanceScore = proj.assistanceScore,
-            anchorCount = proj.anchorCount,
-            activeMemoryCount = proj.activeMemoryCount,
-            provenance = {
-                direct = proj.directEvidenceCount,
-                witnessed = proj.witnessedEvidenceCount,
-                hearsay = proj.hearsayEvidenceCount,
-            },
-        },
-        personality = Util.clone(pers),
-        candidates = results,
-        selectedAction = nil,
-        mutated = false,
     }
 end
 

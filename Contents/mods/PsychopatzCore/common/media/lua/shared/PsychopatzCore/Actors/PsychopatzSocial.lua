@@ -827,10 +827,6 @@ function Social.QueryCandidateProjection(state, target, options)
     return Projections.QueryCandidateProjection(state, target, options, lookupRelationshipRef)
 end
 
-function Social.EvaluateAutonomyCandidates(state, target, candidates, options)
-    return Projections.EvaluateAutonomyCandidates(state, target, candidates, options, lookupRelationshipRef)
-end
-
 function Social.ToPayload(state)
     local normalized, reason = Social.NewState(state)
     if not normalized then return nil, reason end

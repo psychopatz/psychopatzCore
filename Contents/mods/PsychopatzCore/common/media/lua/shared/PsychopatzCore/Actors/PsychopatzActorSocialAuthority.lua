@@ -177,13 +177,4 @@ function Authority.QueryCandidateProjection(actorID, target, options, core)
     return Social.QueryCandidateProjection(social, target, options)
 end
 
-function Authority.EvaluateAutonomyCandidates(actorID, target, candidates,
-    options, core)
-    local actor, reason = Authority.Get(actorID, core)
-    if not actor then return nil, reason end
-    local social = actor.social
-    if not social then return nil, "social_state_invalid" end
-    return Social.EvaluateAutonomyCandidates(social, target, candidates, options)
-end
-
 return Authority
