@@ -1,24 +1,24 @@
 # Progress — Portable Social State
 
-**Status:** READY FOR USER LIVE TEST — P0–P9 developer-side acceptance complete across all three repositories.
-**Current phase:** USER_ACCEPTANCE (P0–P9 complete; awaiting user live SP/MP smoke acceptance).
-**Developer completion:** 10/10 phases accepted (P0, P1, P2, P3, P4, P5, P6, P7, P8, P9).
+**Status:** ACTIVE — P10 accepted; P11-P12 remaining.
+**Current phase:** P11 — Action-neutral social decision features.
+**Developer completion:** 11/13 phases accepted. P0-P10 are accepted; P11-P12 are pending.
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
 **Participants:** ProjectHoomans, DynamicTrading.
 
 ## Verified progress
 
-- **P0 (Accepted):** Cross-repo ownership audit completed.
-- **P1 (Accepted):** Froze portable Core contracts in `Docs/portable_social_state/ARCHITECTURE.md` §15.
-- **P2 (Accepted):** Evolved `PsychopatzSocial.lua` (`PsychopatzSocialRetention.lua`, `PsychopatzSocialProjections.lua`, `PsychopatzActorSocialAuthority.lua`); `62/62` Core Lua suites pass.
-- **P3 (Accepted):** Implemented CodeBuilder Social Policy IR (`psychopatz.social-policy.v1`), compiler (`social_policy_compiler.py`), `reconcile.py` surface (`social_policy_lua`), `PsychopatzSocialPolicy.lua`, and canonical packages across Core, Hoomans, and DTCommon.
-- **P4 (Accepted):** Reconciled `ProjectHoomans` (`PNC_EntityRef`, `PNC_RelationshipTypes_Public`, `PNC_Persistence_CoreSocial`, `PNC_RelationshipMath`, `PNC_SocialEventDefinitions`, `PNC_RelationshipService_Queries`, `PNC_RelationshipService_Context`) onto Core generic relationship authority and `PNC/SocialPolicy/Registry`. Verified `24/24` Hoomans tests including cross-adopter DT+Hoomans convergence (`pnc_portable_social_convergence_smoke.lua`).
-- **P5 (Accepted):** Completed `DynamicTrading / DTAbstract` (`DT2–DT3`) portable social adoption (`DTCommon_CoreActorPolicy` compiled `DTCommon/SocialPolicy/Registry` retention/consolidation, `BindFaction`/`EnsureTraderForFaction` `ca.actorID`, `DTAbstract_PreSurvivorWorldImport` social/lease sync, `DTHoomans_ProviderRuntime.DematerializeTrader` social preservation) working cleanly with `PNC = nil`.
-- **P6 (Accepted):** Completed trader immersion and non-LLM conversation integration (`DT4`) across `DTCommon_CoreActorPolicy.QuerySocialProjection` / `PriceContext`, `DTCommon_MarketPricing.ContextRevision`, `DTCommon_TraderService.Snapshot`, and `DTCommon_TraderConversation` (`resolveRelationshipFrom`, differentiated non-LLM `responseFor`, `policyFor` context forwarding). Verified `90/90` DynamicTrading tests including `tests/dt_portable_social_trader_adoption_smoke.lua` and `pz_verify --kahlua` (`0` errors on all 8 modified DT production Lua files).
-- **P7 (Accepted):** Proved MP authority and representation continuity across all 4 install matrices (`Core-only`, `Core+DTCommon+DTAbstract` with `PNC=nil`, `Core+ProjectHoomans` reconnect alias migration, and combined `DTAbstract -> DTHoomans -> DTAbstract` transition) in `tests/psychopatz_social_mp_continuity_matrix_smoke.lua`. Verified `63/63` Core Lua tests pass (`0` failures).
-- **P8 (Accepted):** Proved the read-only future-autonomy candidate seam (`Authority.EvaluateAutonomyCandidates`) across `TALK`, `TRADE`, `HELP`, `AVOID`, `CONFRONT`, `REPORT`, and `RETALIATE` in `tests/psychopatz_social_autonomy_seam_smoke.lua` (`64/64` Core Lua tests pass): distinct personalities weight identical remembered betrayal + trade history deterministically (`selectedAction == nil`, `mutated == false`, zero state mutation, direct vs hearsay provenance sensitivity, and zero LLM use).
-- **P9 (Accepted):** Verified scale stress (`tests/psychopatz_social_scale_stress_smoke.lua`: `1,000` actors with `800` zero-edge actors omitting `payload.social`, `80` social actors, `120` abstract traders, `500` repeated same-pair events collapsed into `2` consolidated memory slots, `ANCHOR`/`SHORT`/`LONG` caps `6`/`16`/`42`, compiled observer fanout `<= 8`, hearsay attenuation, `365d` lazy decay with zero per-tick loop, and `48` `30KB` chunked `RuntimeStore` save/reload round-trip), CodeBuilder determinism (`reconcile.py --check` `ok=true, clean=true`; `8/8` CodeBuilder/recipe Python unit tests), `65/65` Core Lua suites passing, `90/90` DynamicTrading Lua suites passing, `48/48` scoped ProjectHoomans social/relationship/conduct/semantic-evidence suites passing (`1,066/1,070` full sweep with `4` unrelated pre-existing dirty-work failures), and `pz_verify --kahlua --severity ERROR` (`0` errors across all 23 modified/generated production Lua files across all three repositories).
+- P0-P10 remain source and test verified (P0-P9 committed historical milestones; P10 / H7 accepted).
+- The 2026-11-19 re-audit independently reproduced 65/65 Core Lua, 90/90 DynamicTrading Lua, and 1,066/1,070 ProjectHoomans Lua with the same four known unrelated failures.
+- CodeBuilder Social Policy tests remain 8/8 and reconcile.py --check is clean.
+- The portable Core runtime is real: sparse directed relationships, SCENE/SHORT/LONG/ANCHOR retention, salience, bounded consolidation, lazy decay, provenance and confidence, revisions, server-authorized events, compact default omission, candidate projection and RuntimeStore chunking.
+- DynamicTrading adoption is real: trader actor continuity, DTAbstract operation without PNC, relationship-aware pricing context, social-aware trader conversation and DTHoomans handoff sync are implemented.
+- P10 / H7 complete (ProjectHoomans `90fd69fb41ade486f26b181c09482b6015e9c463`): Project Hoomans now serializes only PNC-owned extensions (`authority == "core"`, `morale`, `moraleBaseline`, `conduct` without derived `scores`, `relationshipExtensions` with `bond` and `interactionJournal`) while Core `actor.social` is the sole persisted generic relationship/memory authority. Combined serialization, reload with stripped Core `ProjectHoomans` extensions, versioned one-time legacy save migration, SemanticEvidence, Conduct, SocialEvents, RelationshipPresentation, and DTAbstract/DTHoomans dematerialization all pass (`core_lua` 66/66 including `psychopatz_social_single_persistence_authority_smoke`; Hoomans `pnc_portable_social_convergence_smoke` + 17/17 social/persistence smoke tests; Kahlua 0 errors on all 9 modified Hoomans files).
+- Remaining finding B (P11): PsychopatzSocialProjections.EvaluateAutonomyCandidates is read-only but contains action-specific utility formulas. Portable Social State must expose action-neutral features; final candidate scoring belongs outside the social subsystem.
+- Remaining finding C (P12): PsychopatzPlayerIdentity.lua still uses sandboxed os.time in identity issuance and UUID generation. This predates the job but is inside the multiplayer identity contract and must be removed before native-ready acceptance.
 
 ## Immediate Next Chunk
 
-Developer-side implementation and verification (**P0–P9**) are complete across `PsychopatzCore`, `ProjectHoomans` (`H0–H6`), and `DynamicTrading` (`DT0–DT5`). Ready for user-driven live SP/MP smoke acceptance.
+Execute P11 only: replace EvaluateAutonomyCandidates action-specific scoring in Core Actors with action-neutral social decision features in QueryCandidateProjection, migrate P2/P8 consumers to external synthetic tests, prove caller-zero across all three repos, and close P11 before advancing to P12.
+
+Do not redo P0-P10 unless a P11-P12 regression requires touching an accepted foundation.

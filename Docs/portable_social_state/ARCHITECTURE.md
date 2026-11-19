@@ -285,11 +285,12 @@ Each sparse entry `state.relationships[targetKey]` owns:
 - **Consolidation:** Repeated equivalent `SHORT`/`LONG` events sharing `consolidationKey` coalesce in place: incrementing `count`, preserving `firstCreatedAt`, updating `createdAt` / `lastEventID` / `eventSequence`, refreshing `strength` / `salience`, and accumulating `approvalEffect` / `respectEffect` / `familiarityEffect` within policy caps (`maxConsolidatedApproval`, `maxConsolidatedRespect`, `maxConsolidatedFamiliarity`).
 - **Provenance:** Each memory carries compact semantic provenance: `sourceMode` (`"direct"|"witnessed"|"hearsay"|"system"`), `knowledgeSource`, optional `sourceKey`, `confidence` (`[0, 1]`), and `shareable` (`boolean`).
 
-### 15.4 Candidate-Oriented Projection & Autonomy Feature Seam
+### 15.4 Candidate-Oriented Projection & Action-Neutral Decision Feature Seam
 
-- `Social.QueryCandidateProjection(state, target, options)` (and `SocialAuthority.QueryCandidateProjection(actorID, target, options, core)`) returns a bounded read-only table without mutating `state`:
-  - `exists`, `targetKey`, `approval`, `respect`, `familiarity`, `state`, `previousState`, `attitude`, `revision`, `socialRevision`, `lastEventAt`, `grievanceScore`, `assistanceScore`, `directEvidenceCount`, `witnessedEvidenceCount`, `hearsayEvidenceCount`, `anchorCount`, `activeMemoryCount`, `consolidatedEpisodeCount`, `memories` (capped `<= 8`), and optional `extension`.
-- `Social.EvaluateAutonomyCandidates(state, target, candidates, options)` (and `SocialAuthority.EvaluateAutonomyCandidates(...)`) evaluates candidate actions (`TALK`, `TRADE`, `HELP`, `AVOID`, `CONFRONT`, `REPORT`, `RETALIATE`) into read-only feature weights (`viabilityBias`, `trustSignal`, `grievancePressure`, `assistanceDebt`, `familiarityBonus`, `cautionSignal`, `provenanceConfidence`, `directWitness`, `socialRevision`, `relationshipRevision`, `personality`) without selecting or executing any action.
+- Social.QueryCandidateProjection(state, target, options) and the authority wrapper return a bounded read-only projection without mutating state.
+- Portable Social State may expose a second bounded action-neutral decision-feature projection. It may derive trust, grievance pressure, assistance history, familiarity, caution-relevant evidence, provenance confidence, direct or witnessed or hearsay evidence, relationship and social revisions, and personality inputs.
+- The social subsystem must not know concrete autonomy candidate IDs or own candidate-specific utility formulas. TALK, TRADE, HELP, AVOID, CONFRONT, REPORT, RETALIATE, future work or task actions and advertisement-specific scoring belong to the future Autonomy Resolver or domain consumer.
+- The current P8 EvaluateAutonomyCandidates implementation is a migration target, not the canonical long-term API. P11 must retire or move it after caller-zero proof. No permanent compatibility shim is required for a pre-release internal seam.
 
 ### 15.5 Compact Default-Omission Persistence Invariant
 
@@ -303,3 +304,17 @@ Each sparse entry `state.relationships[targetKey]` owns:
 - Generation recipe surface: `social_policy_lua` (`generator = "social_policy"`), routed per owner via `targets/pz_packages.json` (`PsychopatzCore/SocialPolicy`, `PNC/SocialPolicy`, `DTCommon/SocialPolicy`).
 - Compiler static validation fails closed on: unknown retention class, `ANCHOR` without `salience >= 180` or `anchorMax <= 6`, `observerPolicy.maxObservers > 8`, `hearsayPolicy.maxHops > 2`, out-of-range deltas/caps, or any PZ Java / ModData / PNC / DT implementation reference in canonical IR.
 - Compiles deterministically to `<Owner>/SocialPolicy/Registry.lua` (plus domain modules), includes source map metadata, and registers `DomainSchema(domain = "social", ...)` into `DomainSchemaRegistry` for static validation of `convo-engine.v1` dialogue modifiers.
+
+### 15.7 Single Persistence Authority Contract
+
+For any actor represented in PsychopatzCore, generic portable social state is persisted exactly once in Core actor.social.
+
+Adopters may keep only genuinely product-specific extension state in their own persistence. A Project Hoomans runtime record may present a combined convenience view derived from Core generic social state plus PNC-owned morale, conduct, bond and journal state, but that combined generic view is ephemeral and must not be serialized as a second relationship or memory history.
+
+Supported older saves may use an explicit versioned migration that imports legacy adopter generic social state into Core once. The migration must not become permanent dual-write or dual-read authority.
+
+### 15.8 Native Player Identity Safety Contract
+
+Persistent player identity is server-authoritative, survives reconnect and save reload, rejects cross-account conflicts, and must be generated and issued using Project Zomboid-safe primitives.
+
+Portable identity code must not depend on sandboxed os.* APIs. Identity issuance must remain collision-safe under repeated creation and harness-verifiable without relying on transient online player indices as the persistent key.

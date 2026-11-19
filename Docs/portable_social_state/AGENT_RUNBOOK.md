@@ -2,7 +2,7 @@
 
 ## Execution mode
 
-This is a multi-repository unattended developer goal. Complete P0-P9 unless blocked by a genuine safety/authority/tooling conflict.
+This is a multi-repository unattended developer goal. P0-P9 are accepted historical implementation milestones; complete mandatory cleanup P10-P12 unless blocked by a genuine safety, authority or tooling conflict.
 
 Primary job documentation lives in PsychopatzCore. Participant repositories may carry thin adopter documents, but they do not redefine the parent completion boundary.
 
@@ -86,3 +86,11 @@ Use the cheapest authoritative layer first:
 - full relevant regressions.
 
 Native Project Zomboid remains user-owned acceptance unless explicitly reassigned.
+
+## Post-P9 cleanup discipline
+
+- Resume at Core PROGRESS.md; do not replay P0-P9.
+- P10 owns the single-persistence authority cleanup. Preserve Hoomans-specific morale, conduct, bond and journal state and migrate only generic portable relationship and memory persistence.
+- P11 owns the action-neutral social feature boundary. Do not implement the full Event Director, advertisement system or autonomy resolver in this goal.
+- P12 owns Project Zomboid-safe player identity and final cross-repository persistence and MP regression proof.
+- No permanent legacy compatibility shim: supported old-save handling must be explicit, versioned and bounded, then leave new saves on the single-authority format.

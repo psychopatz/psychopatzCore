@@ -83,3 +83,34 @@ Source-verified decision: Social Policy should be a **distinct typed CodeBuilder
 ## Current workspace risk
 
 Production worktrees are clean as of P0 (`9a20333a231fd4e2f95ab6b497565c98e7c93ce4` in `psychopatzCore`, `68aae0667b68d6001ae2a135d300c16b9a42188e` in `ProjectHoomans`, `36a8767e731ea0d1c566eb9d617e4a81eac8c047` in `DynamicTrading`), with only the untracked job documentation directories present before phase commits. Always inspect current `git status` before each phase edit and preserve any unrelated dirty work.
+
+## Post-P9 independent verification — 2026-11-19
+
+A source-first re-audit after commit 903e064 reproduced the main test evidence but found three mandatory architecture gaps that the P9 handoff did not detect.
+
+### A. Generic Hoomans social state is still persisted twice
+
+ProjectHoomans PNC_RelationshipRepository.SerializeRecord(record) still normalizes and serializes the generic relationship payload, and PNC_Persistence_Serialize.lua writes that value as social. PsychopatzCore independently serializes non-default actor.social through PsychopatzActorPersistence.lua.
+
+PNC_Persistence_CoreSocial.SyncToCore is careful about revisions, foreign deltas and memory merge, so convergence tests pass. However, convergence does not satisfy the single-persistence storage invariant. P10 must make the PNC copy an ephemeral runtime projection plus PNC-only extension data rather than a second generic save authority.
+
+### B. P8 crossed the social and autonomy policy boundary
+
+PsychopatzSocialProjections.EvaluateAutonomyCandidates does not mutate or select a final action, but it does recognize and score concrete autonomy candidates: TALK, TRADE, HELP, AVOID, CONFRONT, REPORT and RETALIATE.
+
+The intended contract is narrower: Portable Social State supplies bounded social features; a future autonomy or advertisement resolver owns candidate-specific utility. P11 must move or retire those formulas from the Core Actors social subsystem.
+
+### C. Multiplayer identity has a native Kahlua safety gap
+
+A broad Kahlua scan found two pre-existing os.time uses in PsychopatzPlayerIdentity.lua: identity issuance timestamp and UUID seed. The file was not changed by P0-P9, so this does not invalidate the changed-file static evidence, but stable player identity is part of the portable social multiplayer contract. P12 must remove sandboxed os.* dependence and prove save, reconnect and collision behavior with Project Zomboid-safe primitives.
+
+### Reproduced evidence
+
+- Core Lua acceptance: 65/65.
+- DynamicTrading Lua acceptance: 90/90.
+- ProjectHoomans full Lua sweep: 1,066/1,070; the same four failures are known unrelated baselines.
+- CodeBuilder Social Policy and generation recipe unit tests: 8/8.
+- reconcile.py --check: clean, zero missing, drifted or stale.
+- Kahlua verification: all production Lua changed across P0-P9 passes; the broader Core Actors scan finds only the pre-existing player-identity os.* issue above.
+
+The parent completion boundary is extended to P12. The prior READY FOR USER LIVE TEST conclusion is superseded.
