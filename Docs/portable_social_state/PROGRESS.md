@@ -1,8 +1,8 @@
 # Progress — Portable Social State
 
-**Status:** IN PROGRESS — P0–P7 accepted; advancing to P8.
-**Current phase:** P8 — Future-autonomy consumer seam.
-**Developer completion:** 8/10 phases accepted (P0, P1, P2, P3, P4, P5, P6, P7).
+**Status:** IN PROGRESS — P0–P8 accepted; advancing to P9.
+**Current phase:** P9 — Scale, determinism, cross-mod regression, and final acceptance.
+**Developer completion:** 9/10 phases accepted (P0, P1, P2, P3, P4, P5, P6, P7, P8).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
 **Participants:** ProjectHoomans, DynamicTrading.
 
@@ -16,7 +16,8 @@
 - **P5 (Accepted):** Completed `DynamicTrading / DTAbstract` (`DT2–DT3`) portable social adoption (`DTCommon_CoreActorPolicy` compiled `DTCommon/SocialPolicy/Registry` retention/consolidation, `BindFaction`/`EnsureTraderForFaction` `ca.actorID`, `DTAbstract_PreSurvivorWorldImport` social/lease sync, `DTHoomans_ProviderRuntime.DematerializeTrader` social preservation) working cleanly with `PNC = nil`.
 - **P6 (Accepted):** Completed trader immersion and non-LLM conversation integration (`DT4`) across `DTCommon_CoreActorPolicy.QuerySocialProjection` / `PriceContext`, `DTCommon_MarketPricing.ContextRevision`, `DTCommon_TraderService.Snapshot`, and `DTCommon_TraderConversation` (`resolveRelationshipFrom`, differentiated non-LLM `responseFor`, `policyFor` context forwarding). Verified `90/90` DynamicTrading tests including `tests/dt_portable_social_trader_adoption_smoke.lua` and `pz_verify --kahlua` (`0` errors on all 8 modified DT production Lua files).
 - **P7 (Accepted):** Proved MP authority and representation continuity across all 4 install matrices (`Core-only`, `Core+DTCommon+DTAbstract` with `PNC=nil`, `Core+ProjectHoomans` reconnect alias migration, and combined `DTAbstract -> DTHoomans -> DTAbstract` transition) in `tests/psychopatz_social_mp_continuity_matrix_smoke.lua`. Verified `63/63` Core Lua tests pass (`0` failures).
+- **P8 (Accepted):** Proved the read-only future-autonomy candidate seam (`Authority.EvaluateAutonomyCandidates`) across `TALK`, `TRADE`, `HELP`, `AVOID`, `CONFRONT`, `REPORT`, and `RETALIATE` in `tests/psychopatz_social_autonomy_seam_smoke.lua` (`64/64` Core Lua tests pass): distinct personalities weight identical remembered betrayal + trade history deterministically (`selectedAction == nil`, `mutated == false`, zero state mutation, direct vs hearsay provenance sensitivity, and zero LLM use).
 
 ## Immediate Next Chunk
 
-**P8 — Prove the read-only future-autonomy candidate evaluation seam (`Authority.EvaluateAutonomyCandidates`) with differentiated personalities, identical history, zero mutation, and zero LLM dependency.**
+**P9 — Scale, cleanup, determinism, cross-mod regression, and final developer acceptance (`1,000+` actors, `500` repeated same-pair events, observer/hearsay/anchor bounds, `365d` lazy decay, `RuntimeStore` chunking, and full 3-repo suites).**
