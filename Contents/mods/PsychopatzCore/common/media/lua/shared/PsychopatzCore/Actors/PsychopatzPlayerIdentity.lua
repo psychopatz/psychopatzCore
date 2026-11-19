@@ -543,6 +543,182 @@ function PlayerIdentity.Parse(targetKey)
     }
 end
 
+local function resolvePlayerCanonicalRefForLifecycle(playerOrRef, explicitAccountKey)
+    if type(playerOrRef) == "string" then
+        local parsed = PlayerIdentity.Parse(playerOrRef)
+        if parsed and parsed.isCanonical == true then
+            return playerOrRef, parsed.accountKey, parsed.characterUUID
+        end
+        local normUUID = PlayerIdentity.NormalizeUUID(playerOrRef)
+        if normUUID and explicitAccountKey then
+            local acct = tostring(explicitAccountKey)
+            return "player:" .. acct .. ":" .. normUUID, acct, normUUID
+        end
+        return nil
+    end
+    if type(playerOrRef) ~= "table" then return nil end
+
+    local data = safeCall(playerOrRef, "getModData") or playerOrRef.modData
+    if type(data) == "table" then
+        local rawUUID = PlayerIdentity.NormalizeUUID(
+            data[PlayerIdentity.MODDATA_CORE_UUID]
+                or data[PlayerIdentity.MODDATA_PNC_UUID]
+        )
+        if rawUUID then
+            local acct = tostring(explicitAccountKey
+                or data[PlayerIdentity.MODDATA_CORE_ACCOUNT]
+                or PlayerIdentity.GetAccountKey(playerOrRef))
+            return "player:" .. acct .. ":" .. rawUUID, acct, rawUUID, playerOrRef
+        end
+    end
+
+    local directUUID = PlayerIdentity.NormalizeUUID(playerOrRef.characterUUID or playerOrRef.uuid)
+    if directUUID then
+        local acct = tostring(explicitAccountKey or PlayerIdentity.GetAccountKey(playerOrRef))
+        return "player:" .. acct .. ":" .. directUUID, acct, directUUID, playerOrRef
+    end
+
+    local key = PlayerIdentity.GetTargetKey(playerOrRef)
+    local parsed = key and PlayerIdentity.Parse(key) or nil
+    if parsed and parsed.isCanonical == true then
+        return key, parsed.accountKey, parsed.characterUUID, playerOrRef
+    end
+    return nil
+end
+
+function PlayerIdentity.RetirePlayerCharacter(playerOrRef, options)
+    local allowed, authErr = serverAuthorityAllowed(options)
+    if not allowed then return nil, authErr end
+    options = type(options) == "table" and options or {}
+
+    local canonicalRef, accountKey, uuid, playerObj =
+        resolvePlayerCanonicalRefForLifecycle(playerOrRef, options.accountKey)
+    if not canonicalRef or not uuid then
+        return nil, "player_ref_invalid"
+    end
+
+    local actors = PsychopatzCore and PsychopatzCore.Actors or nil
+    local lifecycle = actors and actors.Lifecycle or nil
+    if not lifecycle then
+        local ok, mod = pcall(require, "PsychopatzCore/Actors/PsychopatzActorLifecycle")
+        if ok and type(mod) == "table" then lifecycle = mod end
+    end
+    local registry = options.registry or (actors and actors.DefaultRegistry) or {}
+    local label = options.label or options.displayName
+        or (playerObj and safeCall(playerObj, "getDisplayName"))
+        or nil
+
+    if lifecycle and type(lifecycle.Retire) == "function" then
+        return lifecycle.Retire(registry, canonicalRef, {
+            authority = "server",
+            reason = options.reason or "player_death",
+            retiredAt = options.retiredAt,
+            graceHours = options.graceHours,
+            label = label,
+            owner = options.owner or "PsychopatzCore",
+            role = "player",
+            expectedLifecycleRevision = options.expectedLifecycleRevision,
+            allowAlreadyRetired = options.allowAlreadyRetired,
+            adoptUnissued = options.adoptUnissued,
+            source = options.source or "player_death",
+        })
+    end
+
+    return PlayerIdentity.RetireIssuedIdentity(uuid, accountKey, {
+        authority = "server",
+        reason = options.reason or "player_death",
+        retiredAt = options.retiredAt,
+        displayName = label,
+        expectedLifecycleRevision = options.expectedLifecycleRevision,
+        allowAlreadyRetired = options.allowAlreadyRetired,
+    })
+end
+
+function PlayerIdentity.ValidateLiveInteraction(playerOrRef, options)
+    options = type(options) == "table" and options or {}
+    local canonicalRef, accountKey, uuid, playerObj =
+        resolvePlayerCanonicalRefForLifecycle(playerOrRef, options.accountKey)
+    if not canonicalRef or not uuid then
+        return false, "player_ref_invalid"
+    end
+    if options.expectedAccountKey ~= nil
+        and tostring(options.expectedAccountKey) ~= tostring(accountKey)
+    then
+        return false, "account_mismatch"
+    end
+
+    local issuedRecord, issuedErr = PlayerIdentity.IsIssuedIdentity(
+        uuid, accountKey, { includeRetired = true }
+    )
+    if not issuedRecord then
+        if issuedErr == "account_mismatch" then return false, "account_mismatch" end
+        return false, "actor_forgotten"
+    end
+
+    if playerObj then
+        local data = safeCall(playerObj, "getModData") or playerObj.modData
+        if type(data) == "table" and data[PlayerIdentity.MODDATA_CORE_SIGNATURE] ~= nil then
+            local provOK, provErr = PlayerIdentity.VerifyProvenance(
+                playerObj, uuid, accountKey
+            )
+            if not provOK then
+                if provErr == "identity_retired" then
+                    return false, "actor_retired"
+                end
+                return false, provErr or "untrusted_provenance"
+            end
+        end
+    end
+
+    local actors = PsychopatzCore and PsychopatzCore.Actors or nil
+    local lifecycle = actors and actors.Lifecycle or nil
+    if not lifecycle then
+        local ok, mod = pcall(require, "PsychopatzCore/Actors/PsychopatzActorLifecycle")
+        if ok and type(mod) == "table" then lifecycle = mod end
+    end
+    local registry = options.registry or (actors and actors.DefaultRegistry) or {}
+    local status, rev
+    if lifecycle and type(lifecycle.GetLifecycleState) == "function" then
+        status, rev = lifecycle.GetLifecycleState(registry, canonicalRef)
+    else
+        status, rev = PlayerIdentity.GetLifecycleState(uuid, accountKey)
+    end
+    if status == "RETIRED" then
+        return false, "actor_retired", rev
+    end
+    if status ~= "LIVE" then
+        return false, "actor_forgotten", rev
+    end
+    if options.expectedLifecycleRevision ~= nil
+        and tonumber(options.expectedLifecycleRevision) ~= tonumber(rev)
+    then
+        return false, "lifecycle_revision_conflict", rev
+    end
+    return true, {
+        canonicalRef = canonicalRef,
+        accountKey = accountKey,
+        characterUUID = uuid,
+        status = status,
+        lifecycleRevision = rev,
+    }
+end
+
+if Events and Events.OnPlayerDeath
+    and type(Events.OnPlayerDeath.Add) == "function"
+    and not PlayerIdentity._deathHookRegistered
+then
+    PlayerIdentity._deathHookRegistered = true
+    Events.OnPlayerDeath.Add(function(player)
+        if not serverAuthorityAllowed() or not player then return end
+        PlayerIdentity.RetirePlayerCharacter(player, {
+            authority = "server",
+            reason = "player_death",
+            allowAlreadyRetired = true,
+            adoptUnissued = true,
+        })
+    end)
+end
+
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Actors = PsychopatzCore.Actors or {}
 PsychopatzCore.Actors.PlayerIdentity = PlayerIdentity

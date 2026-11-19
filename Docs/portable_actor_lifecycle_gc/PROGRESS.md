@@ -1,10 +1,16 @@
 # Progress — Portable Actor Lifecycle & Social Garbage Collection
 
-**Status:** IN_PROGRESS — L5 accepted, starting L6 (player-character death & MP identity lifecycle).
-**Current phase:** L6 — Player-character death and multiplayer identity lifecycle.
-**Developer completion:** 6/10 phases accepted (L0, L1, L2, L3, L4, L5 ACCEPTED).
+**Status:** IN_PROGRESS — L6 accepted, starting L7 (DynamicTrading D1–D3 adoption).
+**Current phase:** L7 — DynamicTrading / DTAbstract / DTHoomans lifecycle & GC adoption.
+**Developer completion:** 7/10 phases accepted (L0, L1, L2, L3, L4, L5, L6 ACCEPTED).
 **Primary:** /home/psychopatz/Zomboid/Workshop/psychopatzCore
-**Participants:** ProjectHoomans (H0, H1, H2, H3A, H4-policy at `24842f92`), DynamicTrading (D0, D4-policy at `20e9b084`).
+**Participants:** ProjectHoomans (H0, H1, H2, H3A, H4-policy, H6-player-lifecycle at `27d4964a`), DynamicTrading (D0, D4-policy at `20e9b084`).
+
+## Verified L6 Facts
+
+- Added `PlayerIdentity.RetirePlayerCharacter`, `PlayerIdentity.ValidateLiveInteraction`, `resolvePlayerCanonicalRefForLifecycle`, and idempotent server `Events.OnPlayerDeath` hook in `PsychopatzPlayerIdentity.lua` so SP (`sp_slot_0`) and MP (`player:<account>:<uuid>`) character deaths retire canonical Core player-character identities cleanly (rejecting client mutations, stale expected revisions, and post-death/purged/mismatched-account interactions without reviving dead UUIDs or transferring outgoing social history across new characters or accounts).
+- Updated `ProjectHoomans` (`H6-player-lifecycle` at `27d4964a525fe65da703284bc8eea043eb93af60`): fixed `PNC_PlayerCharacterLifecycle_Callbacks.lua` 3-return destructuring (`changed, result, deadUUID`) so `ReleaseCharacterOwnership` receives the dead character UUID, and wired `PlayerIdentity.RetirePlayerCharacter` in `PNC_PlayerCharacterService_Lifecycle.lua` (`MarkDead`).
+- Verified via `tests/psychopatz_player_character_lifecycle_mp_smoke.lua`, `tests/psychopatz_player_identity_smoke.lua`, `tests/psychopatz_actor_lifecycle_tombstone_smoke.lua`, and `tests/psychopatz_social_mp_continuity_matrix_smoke.lua` (all PASS), `ProjectHoomans` `python3 tests/run_tests.py player_character` (`3/3` PASS), and `pz_verify.py --kahlua --severity ERROR` (`0` errors across all 3 modified L6 Lua files).
 
 ## Verified L5 Facts
 
@@ -36,6 +42,6 @@
 
 ## Immediate Next Chunk
 
-**L6 — Player-character death and multiplayer identity lifecycle** (Batch 3: L5-L7).
+**L7 — DynamicTrading / DTAbstract / DTHoomans adoption (`D1–D3`)** (Batch 3: L5-L7).
 
-Wire authoritative `RetirePlayerCharacter` / `ValidateLiveInteraction` and SP/MP `OnPlayerDeath` cleanup across Core `PsychopatzPlayerIdentity.lua` and ProjectHoomans `PNC_PlayerCharacterLifecycle_Callbacks.lua` (fixing 3-return bug) & `PNC_PlayerCharacterService_Lifecycle.lua`.
+Create `DTCommon_ActorLifecycle.lua` (`RetireTraderActor`, `OnActorRetired`, `"DynamicTrading.CommercialRoots"` GC provider), switch rollback `RemoveCanonicalGroup` and superseded `PreSurvivorWorldImport.Rebind` to Core `HardDelete`, reconcile retired Core actors cleanly in `CoreActorPolicy` & `DTAbstract_TraderWorldProvider`, fix `DTHoomans_SettlementTrader.lua:244` (`Service.BindActor`), and add `dt_actor_lifecycle_gc_adoption_smoke.lua`.
