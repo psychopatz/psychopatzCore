@@ -139,4 +139,42 @@ assert(reloadedLarge:GetFaction("faction_chunk_250") ~= nil,
 assert(reloadedLarge:Counts().factions == 251,
     "chunked SurvivorWorld must restore exact O(1) faction count")
 
+-- Regression: OnInitGlobalModData must NOT overwrite an already-loaded/dirty
+-- live registry with an earlier provisional snapshot saved during startup
+-- (e.g. OnCreatePlayer provisional diplomacy faction -> Replace+Save ->
+-- StartingCompanions promoteProvisionalFaction + MarkDirty -> OnInitGlobalModData).
+local provisionalWorld = assert(World.NewRegistry({ worldSeed = 777 }))
+assert(provisionalWorld:UpsertFaction({
+    id = "faction_player_start",
+    name = "Player Diplomacy",
+    archetypeID = "settler",
+    tags = {
+        provisionalPlayerFaction = true,
+        hiddenFromFactionLists = true,
+    },
+}))
+local liveReplaced = assert(Store.Replace(provisionalWorld:Snapshot(), "startup_import"))
+assert(Store.Save())
+assert(liveReplaced:UpsertFaction({
+    id = "faction_player_start",
+    name = "patz Company",
+    archetypeID = "settler",
+    tags = {
+        automaticallyCreated = true,
+        factionNamePending = true,
+        promotedFromProvisional = true,
+    },
+}))
+assert(Store.MarkDirty("promoted_provisional"))
+for _, handler in ipairs(initCallbacks) do
+    handler()
+end
+local afterInit = assert(Store.GetRegistry():GetFaction("faction_player_start"))
+assert(afterInit.name == "patz Company",
+    "OnInitGlobalModData must preserve promoted player faction name")
+assert(afterInit.tags.provisionalPlayerFaction == nil,
+    "OnInitGlobalModData must not revert promoted faction back to provisional")
+assert(afterInit.tags.promotedFromProvisional == true,
+    "OnInitGlobalModData must preserve promotedFromProvisional tag")
+
 print("psychopatz_survivor_world_runtime_store_smoke: PASS")

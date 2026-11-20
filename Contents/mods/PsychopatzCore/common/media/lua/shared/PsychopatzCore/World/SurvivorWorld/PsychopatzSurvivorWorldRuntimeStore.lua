@@ -239,7 +239,12 @@ local function installHooks()
         and type(Events.OnInitGlobalModData.Add) == "function"
     then
         Events.OnInitGlobalModData.Add(function()
-            if Store.Active then Store.Load(true) end
+            -- Do not clobber an already-loaded or dirty live registry if
+            -- OnCreatePlayer / pre-cutover startup already populated and
+            -- mutated SurvivorWorld before OnInitGlobalModData fires.
+            if Store.Active and not Store.Loaded then
+                Store.Load(true)
+            end
         end)
     end
 
