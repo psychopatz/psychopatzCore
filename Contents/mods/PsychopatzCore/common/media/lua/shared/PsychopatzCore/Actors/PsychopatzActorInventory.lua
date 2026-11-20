@@ -325,7 +325,7 @@ function Ledger:SetEquipment(itemId, slot, category)
     return cloneEntry(entry)
 end
 
-function Ledger:SetEquipmentState(state)
+local function applyEquipmentState(self, state)
     state = type(state) == "table" and state or {}
     local nextState = { worn = {}, equipped = {}, attached = {} }
     local byID = {}
@@ -351,6 +351,12 @@ function Ledger:SetEquipmentState(state)
         end
     end
     self.equipment = nextState
+    return true
+end
+
+function Ledger:SetEquipmentState(state)
+    local applied, reason = applyEquipmentState(self, state)
+    if not applied then return nil, reason end
     self:_appendDelta({
         op = "equipment",
         equipment = self.equipment,
@@ -564,11 +570,10 @@ function ActorInventory.Decode(payload)
     end
     local self, reason = ActorInventory.new(options)
     if not self then return nil, reason end
-    if seedUsesDefault then
-        self.baselineKind = "default"
-    else
-        self.baselineKind = baseline.kind == "explicit"
-            and "explicit" or self.baselineKind
+    if baseline.kind == "default" or baseline.kind == "explicit" then
+        self.baselineKind = baseline.kind
+    end
+    if not seedUsesDefault then
         self.baselineDefinitions = clone(
             baseline.definitions or self.baselineDefinitions or {})
     end
@@ -595,7 +600,11 @@ function ActorInventory.Decode(payload)
         if not ok then return nil, reason end
         refreshNextOrdinal(self)
     end
-    self.equipment = clone(payload.equipment or self.equipment)
+    -- Equipment deltas can change slots without upserting the affected items.
+    -- Rebuild their slot fields from the final map without recording a mutation.
+    local applied
+    applied, reason = applyEquipmentState(self, payload.equipment or self.equipment)
+    if not applied then return nil, reason end
     self.revision = tonumber(payload.revision) or 0
     local valid
     valid, reason = self:Validate()
