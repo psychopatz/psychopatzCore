@@ -166,10 +166,12 @@ function I.NormalizePoint(value)
     then
         return nil
     end
+    local z = I.Finite(value.z, 0)
+    if z == 0 then z = 0 end
     return {
         x = x,
         y = y,
-        z = I.Finite(value.z, 0),
+        z = z,
     }
 end
 

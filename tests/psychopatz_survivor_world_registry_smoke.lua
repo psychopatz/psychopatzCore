@@ -172,12 +172,50 @@ equal(counts.groups, 1, "group count")
 equal(counts.sectors, 1, "sector count")
 equal(counts.discoveryPlayers, 1, "discovery player count")
 
+-- O(1) actor-to-group reverse index
+equal(registry:GetGroupIDForActor("actor_alex"), "agroup_alpha",
+    "actor_alex group ID lookup")
+equal(registry:GetGroupIDForActor("actor_ben"), "agroup_alpha",
+    "actor_ben group ID lookup")
+equal(registry:GetGroupIDForActor("actor_missing"), nil,
+    "missing actor group ID lookup")
+local alexGroup = assert(registry:GetGroupForActor("actor_alex"))
+equal(alexGroup.id, "agroup_alpha", "GetGroupForActor returns group")
+
+-- Active group journey round-trip + compact persistence verification
+assert(registry:StartGroupJourney("agroup_alpha", {
+    origin = { x = 1200, y = 2400, z = 0 },
+    destination = { x = 3600, y = 4100, z = 0 },
+    route = {
+        { x = 1200, y = 2400, z = 0 },
+        { x = 2400, y = 3200, z = 0, waitHours = 1.5, tag = "rest" },
+        { x = 3600, y = 4100, z = 0 },
+    },
+    speed = 12,
+    startAt = 10,
+}, 10))
+assert(registry:AdvanceGroupJourney("agroup_alpha", 15))
+
+local expandedBytes = #Json.Encode(registry:Snapshot())
 local saved = assert(registry:Save())
 truthy(#saved > 100, "serialized survivor world")
+truthy(#saved < expandedBytes,
+    "compact persistence must be smaller than expanded snapshot ("
+        .. tostring(#saved) .. " vs " .. tostring(expandedBytes) .. ")")
 local reloaded = assert(World.NewRegistry({ worldSeed = 1 }))
 truthy(reloaded:Load(saved), "survivor world reload")
 equal(Json.Encode(reloaded:Snapshot()),
-    Json.Encode(registry:Snapshot()), "save/load parity")
+    Json.Encode(World.Types.NormalizeSnapshot(registry:Snapshot())),
+    "save/load parity")
+equal(reloaded:Save(), saved, "compact save idempotence")
+equal(reloaded:GetGroupIDForActor("actor_ben"), "agroup_alpha",
+    "reloaded actor-group index")
+
+-- Removing a group updates O(1) counts and actor-group index
+assert(registry:RemoveGroup("agroup_alpha"))
+equal(registry:Counts().groups, 0, "group count after removal")
+equal(registry:GetGroupIDForActor("actor_alex"), nil,
+    "actor-group index cleared after group removal")
 
 truthy(registry:Validate(), "registry validation")
 equal(package.loaded["PNC/Core/Director/PNC_AbstractWorldTypes"], nil,
@@ -185,4 +223,5 @@ equal(package.loaded["PNC/Core/Director/PNC_AbstractWorldTypes"], nil,
 equal(package.loaded["DTCommon/DTCommon_TraderWorld"], nil,
     "Core world does not import DynamicTrading")
 
-print("psychopatz_survivor_world_registry_smoke: PASS")
+print("psychopatz_survivor_world_registry_smoke: PASS compact="
+    .. tostring(#saved) .. " expanded=" .. tostring(expandedBytes))

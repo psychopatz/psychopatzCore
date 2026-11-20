@@ -97,9 +97,20 @@ function Journey.New(groupID, spec, now)
     groupID = Util.text(groupID, nil)
     if not groupID then return nil, "group_id_required" end
     now = finite(now, spec.startAt or spec.departedWorldHour)
-    local origin = point(spec.origin or spec.from or spec.location)
+    local routePoints = type(spec.route) == "table"
+        and (type(spec.route.points) == "table"
+            and spec.route.points or spec.route)
+        or nil
+    local firstRoutePoint = type(routePoints) == "table"
+        and routePoints[1] or nil
+    local lastRoutePoint = type(routePoints) == "table"
+        and #routePoints > 0 and routePoints[#routePoints] or nil
+    local origin = point(
+        spec.origin or spec.from or spec.location or firstRoutePoint
+    )
     local destination = point(
-        spec.destination or spec.to or spec.targetLocation,
+        spec.destination or spec.to or spec.targetLocation
+            or lastRoutePoint,
         origin
     )
     local route = Route.Normalize(

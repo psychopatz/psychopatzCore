@@ -16,12 +16,21 @@ Registry.MAX_GROUPS = Types.MAX_GROUPS
 Registry.MAX_SECTORS = Types.MAX_SECTORS
 Registry.MAX_DISCOVERY_PLAYERS = Types.MAX_DISCOVERY_PLAYERS
 
-local function sortedList(map)
+local function sortedIDs(map)
     local ids = {}
     for id in pairs(type(map) == "table" and map or {}) do
         ids[#ids + 1] = id
     end
     table.sort(ids)
+    return ids
+end
+
+local function sortedList(self, bucketName, map)
+    local ids = self._sortedIDs[bucketName]
+    if not ids then
+        ids = sortedIDs(map)
+        self._sortedIDs[bucketName] = ids
+    end
     local output = {}
     for index = 1, #ids do
         output[index] = Util.clone(map[ids[index]])
@@ -31,6 +40,69 @@ end
 
 local function count(map)
     return Types.CountMap(map)
+end
+
+local function rebuildIndexes(self)
+    local snapshot = self.snapshot
+    local actorGroupIndex = {}
+    local groupIDs = sortedIDs(snapshot.groups)
+    for index = 1, #groupIDs do
+        local groupID = groupIDs[index]
+        local group = snapshot.groups[groupID]
+        local members = type(group) == "table"
+            and group.memberActorIDs or nil
+        if type(members) == "table" then
+            for mIndex = 1, #members do
+                local actorID = members[mIndex]
+                if actorID ~= nil then
+                    actorGroupIndex[actorID] = groupID
+                end
+            end
+        end
+    end
+    self._actorGroupIndex = actorGroupIndex
+    self._sortedIDs = {
+        factions = nil,
+        communities = nil,
+        locations = nil,
+        groups = groupIDs,
+    }
+    self._counts = {
+        factions = count(snapshot.factions),
+        communities = count(snapshot.communities),
+        locations = count(snapshot.locations),
+        groups = #groupIDs,
+        sectors = count(snapshot.population
+            and snapshot.population.sectors),
+        discoveryPlayers = count(snapshot.discovery
+            and snapshot.discovery.players),
+    }
+end
+
+local function unindexGroupMembers(self, groupID, group)
+    local members = type(group) == "table"
+        and group.memberActorIDs or nil
+    if type(members) ~= "table" then return end
+    local index = self._actorGroupIndex
+    for mIndex = 1, #members do
+        local actorID = members[mIndex]
+        if actorID ~= nil and index[actorID] == groupID then
+            index[actorID] = nil
+        end
+    end
+end
+
+local function indexGroupMembers(self, groupID, group)
+    local members = type(group) == "table"
+        and group.memberActorIDs or nil
+    if type(members) ~= "table" then return end
+    local index = self._actorGroupIndex
+    for mIndex = 1, #members do
+        local actorID = members[mIndex]
+        if actorID ~= nil then
+            index[actorID] = groupID
+        end
+    end
 end
 
 local function routePointCount(value)
@@ -60,7 +132,9 @@ function Registry.new(spec)
     else
         snapshot = Types.NewSnapshot(spec.worldSeed)
     end
-    return setmetatable({ snapshot = snapshot }, Registry)
+    local instance = setmetatable({ snapshot = snapshot }, Registry)
+    rebuildIndexes(instance)
+    return instance
 end
 
 function Registry:Revision()
@@ -76,15 +150,14 @@ function Registry:Snapshot()
 end
 
 function Registry:Counts()
+    local counts = self._counts
     return {
-        factions = count(self.snapshot.factions),
-        communities = count(self.snapshot.communities),
-        locations = count(self.snapshot.locations),
-        groups = count(self.snapshot.groups),
-        sectors = count(self.snapshot.population
-            and self.snapshot.population.sectors),
-        discoveryPlayers = count(self.snapshot.discovery
-            and self.snapshot.discovery.players),
+        factions = counts.factions,
+        communities = counts.communities,
+        locations = counts.locations,
+        groups = counts.groups,
+        sectors = counts.sectors,
+        discoveryPlayers = counts.discoveryPlayers,
     }
 end
 
@@ -94,7 +167,7 @@ function Registry:GetFaction(id)
 end
 
 function Registry:ListFactions()
-    return sortedList(self.snapshot.factions)
+    return sortedList(self, "factions", self.snapshot.factions)
 end
 
 function Registry:UpsertFaction(value)
@@ -108,7 +181,7 @@ function Registry:UpsertFaction(value)
     end
     local exists = self.snapshot.factions[id] ~= nil
     if not exists
-        and count(self.snapshot.factions) >= Types.MAX_FACTIONS
+        and self._counts.factions >= Types.MAX_FACTIONS
     then
         return nil, "survivor_world_capacity_exceeded"
     end
@@ -119,6 +192,10 @@ function Registry:UpsertFaction(value)
     )
     if not normalized then return nil, reason end
     self.snapshot.factions[id] = normalized
+    if not exists then
+        self._counts.factions = self._counts.factions + 1
+        self._sortedIDs.factions = nil
+    end
     touch(self)
     return Util.clone(normalized)
 end
@@ -139,6 +216,8 @@ function Registry:RemoveFaction(id)
         end
     end
     self.snapshot.factions[id] = nil
+    self._counts.factions = math.max(0, self._counts.factions - 1)
+    self._sortedIDs.factions = nil
     touch(self)
     return true
 end
@@ -149,7 +228,7 @@ function Registry:GetCommunity(id)
 end
 
 function Registry:ListCommunities()
-    return sortedList(self.snapshot.communities)
+    return sortedList(self, "communities", self.snapshot.communities)
 end
 
 function Registry:UpsertCommunity(value)
@@ -163,8 +242,7 @@ function Registry:UpsertCommunity(value)
     end
     local exists = self.snapshot.communities[id] ~= nil
     if not exists
-        and count(self.snapshot.communities)
-            >= Types.MAX_COMMUNITIES
+        and self._counts.communities >= Types.MAX_COMMUNITIES
     then
         return nil, "survivor_world_capacity_exceeded"
     end
@@ -178,6 +256,10 @@ function Registry:UpsertCommunity(value)
         return nil, "survivor_world_community_faction_missing"
     end
     self.snapshot.communities[id] = normalized
+    if not exists then
+        self._counts.communities = self._counts.communities + 1
+        self._sortedIDs.communities = nil
+    end
     touch(self)
     return Util.clone(normalized)
 end
@@ -193,6 +275,8 @@ function Registry:RemoveCommunity(id)
         end
     end
     self.snapshot.communities[id] = nil
+    self._counts.communities = math.max(0, self._counts.communities - 1)
+    self._sortedIDs.communities = nil
     if self.snapshot.population.starterCommunityID == id then
         self.snapshot.population.starterCommunityID = nil
     end
@@ -206,7 +290,7 @@ function Registry:GetLocation(id)
 end
 
 function Registry:ListLocations()
-    return sortedList(self.snapshot.locations)
+    return sortedList(self, "locations", self.snapshot.locations)
 end
 
 function Registry:UpsertLocation(value)
@@ -217,7 +301,7 @@ function Registry:UpsertLocation(value)
     end
     local exists = self.snapshot.locations[id] ~= nil
     if not exists
-        and count(self.snapshot.locations) >= Types.MAX_LOCATIONS
+        and self._counts.locations >= Types.MAX_LOCATIONS
     then
         return nil, "survivor_world_capacity_exceeded"
     end
@@ -228,6 +312,10 @@ function Registry:UpsertLocation(value)
     )
     if not normalized then return nil, reason end
     self.snapshot.locations[id] = normalized
+    if not exists then
+        self._counts.locations = self._counts.locations + 1
+        self._sortedIDs.locations = nil
+    end
     touch(self)
     return Util.clone(normalized)
 end
@@ -243,6 +331,8 @@ function Registry:RemoveLocation(id)
         end
     end
     self.snapshot.locations[id] = nil
+    self._counts.locations = math.max(0, self._counts.locations - 1)
+    self._sortedIDs.locations = nil
     touch(self)
     return true
 end
@@ -252,8 +342,21 @@ function Registry:GetGroup(id)
     return value and Util.clone(value) or nil
 end
 
+function Registry:GetGroupIDForActor(actorID)
+    actorID = Types.SafeID(actorID)
+    if not actorID then return nil end
+    return self._actorGroupIndex[actorID]
+end
+
+function Registry:GetGroupForActor(actorID)
+    local groupID = self:GetGroupIDForActor(actorID)
+    if not groupID then return nil end
+    local value = self.snapshot.groups[groupID]
+    return value and Util.clone(value) or nil
+end
+
 function Registry:ListGroups()
-    return sortedList(self.snapshot.groups)
+    return sortedList(self, "groups", self.snapshot.groups)
 end
 
 function Registry:UpsertGroup(value)
@@ -268,8 +371,9 @@ function Registry:UpsertGroup(value)
     if routePointCount(value) > Types.MAX_GROUP_ROUTE_POINTS then
         return nil, "survivor_world_group_route_capacity"
     end
-    local exists = self.snapshot.groups[id] ~= nil
-    if not exists and count(self.snapshot.groups) >= Types.MAX_GROUPS then
+    local previous = self.snapshot.groups[id]
+    local exists = previous ~= nil
+    if not exists and self._counts.groups >= Types.MAX_GROUPS then
         return nil, "survivor_world_capacity_exceeded"
     end
     local normalized, reason = Types.NormalizeGroup(
@@ -286,7 +390,15 @@ function Registry:UpsertGroup(value)
     then
         return nil, "survivor_world_group_home_missing"
     end
+    if previous then
+        unindexGroupMembers(self, id, previous)
+    end
     self.snapshot.groups[id] = normalized
+    indexGroupMembers(self, id, normalized)
+    if not exists then
+        self._counts.groups = self._counts.groups + 1
+        self._sortedIDs.groups = nil
+    end
     touch(self)
     return Util.clone(normalized)
 end
@@ -365,10 +477,14 @@ end
 
 function Registry:RemoveGroup(id)
     id = Types.SafeID(id)
-    if not id or not self.snapshot.groups[id] then
+    local previous = id and self.snapshot.groups[id] or nil
+    if not previous then
         return nil, "group_not_found"
     end
+    unindexGroupMembers(self, id, previous)
     self.snapshot.groups[id] = nil
+    self._counts.groups = math.max(0, self._counts.groups - 1)
+    self._sortedIDs.groups = nil
     touch(self)
     return true
 end
@@ -384,6 +500,7 @@ function Registry:SetPopulation(value)
     )
     population.worldSeed = self:WorldSeed()
     self.snapshot.population = population
+    self._counts.sectors = count(population.sectors)
     touch(self)
     return Util.clone(population)
 end
@@ -394,18 +511,22 @@ end
 
 function Registry:SetDiscovery(value)
     self.snapshot.discovery = Types.NormalizeDiscovery(value)
+    self._counts.discoveryPlayers = count(
+        self.snapshot.discovery and self.snapshot.discovery.players
+    )
     touch(self)
     return Util.clone(self.snapshot.discovery)
 end
 
 function Registry:Save()
-    return Persistence.Serialize(self.snapshot)
+    return Persistence.SerializeNormalized(self.snapshot)
 end
 
 function Registry:Load(serialized)
     local snapshot, reason = Persistence.Decode(serialized)
     if not snapshot then return nil, reason end
     self.snapshot = snapshot
+    rebuildIndexes(self)
     return true
 end
 

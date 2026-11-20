@@ -1,6 +1,8 @@
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Types = require
     "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesCore"
+local GroupJourney = require
+    "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupJourney"
 local I = Types.Internal
 
 local function normalizedMap(source, maximum, normalizer, worldSeed)
@@ -174,6 +176,16 @@ function Types.ValidateInputBounds(value)
     return true
 end
 
+local function hasFinitePoint(value)
+    if type(value) ~= "table" then return false end
+    local x = tonumber(value.x)
+    local y = tonumber(value.y)
+    return x ~= nil and y ~= nil
+        and x == x and y == y
+        and x ~= math.huge and x ~= -math.huge
+        and y ~= math.huge and y ~= -math.huge
+end
+
 function Types.ValidateSnapshot(value)
     if type(value) ~= "table"
         or tonumber(value.schemaVersion) ~= Types.SCHEMA_VERSION
@@ -184,57 +196,76 @@ function Types.ValidateSnapshot(value)
     local bounded, reason = Types.ValidateInputBounds(value)
     if not bounded then return false, reason end
 
-    for id, faction in pairs(value.factions or {}) do
-        local normalized = Types.NormalizeFaction(
-            faction,
-            value.worldSeed,
-            id
-        )
-        if not normalized then
+    local factions = type(value.factions) == "table"
+        and value.factions or {}
+    local communities = type(value.communities) == "table"
+        and value.communities or {}
+
+    for id, faction in pairs(factions) do
+        if type(faction) ~= "table"
+            or not I.SafeID(id or faction.id or faction.factionID)
+            or not I.BoundedText(faction.name, Types.MAX_NAME_LENGTH, nil)
+        then
             return false, "survivor_world_faction_invalid"
         end
     end
 
-    for id, community in pairs(value.communities or {}) do
-        local normalized = Types.NormalizeCommunity(
-            community,
-            value.worldSeed,
-            id
-        )
-        if not normalized then
+    for id, community in pairs(communities) do
+        if type(community) ~= "table" then
             return false, "survivor_world_community_invalid"
         end
-        if not value.factions[normalized.factionID] then
+        local factionID = I.SafeID(
+            community.factionID or community.factionId
+        )
+        local home = community.home or community.position
+        if not I.SafeID(id or community.id or community.communityID)
+            or not factionID
+            or not I.BoundedText(community.name, Types.MAX_NAME_LENGTH, nil)
+            or not hasFinitePoint(home)
+        then
+            return false, "survivor_world_community_invalid"
+        end
+        if not factions[factionID] then
             return false, "survivor_world_community_faction_missing"
         end
     end
 
     for id, location in pairs(value.locations or {}) do
-        local normalized = Types.NormalizeAbstractLocation(
-            location,
-            value.worldSeed,
-            id
-        )
-        if not normalized then
+        if type(location) ~= "table"
+            or not I.SafeID(id or location.id or location.locationID)
+            or not hasFinitePoint(location.position or location)
+        then
             return false, "survivor_world_location_invalid"
         end
     end
 
     for id, group in pairs(value.groups or {}) do
-        local normalized = Types.NormalizeGroup(
-            group,
-            value.worldSeed,
-            id
-        )
-        if not normalized then
+        if type(group) ~= "table" then
             return false, "survivor_world_group_invalid"
         end
-        if not value.factions[normalized.factionID] then
+        local factionID = I.SafeID(group.factionID or group.factionId)
+        local loc = group.location
+        if not I.SafeID(id or group.id or group.groupID)
+            or not factionID
+            or type(loc) ~= "table"
+            or not hasFinitePoint(loc.position or loc)
+        then
+            return false, "survivor_world_group_invalid"
+        end
+        local rawJourney = group.journey or group.groupJourney
+        if rawJourney ~= nil then
+            local journeyValid = GroupJourney.Validate(rawJourney)
+            if not journeyValid then
+                return false, "survivor_world_group_invalid"
+            end
+        end
+        if not factions[factionID] then
             return false, "survivor_world_group_faction_missing"
         end
-        if normalized.homeCommunityID
-            and not value.communities[normalized.homeCommunityID]
-        then
+        local homeCommunityID = I.SafeID(
+            group.homeCommunityID or group.homeCommunityId
+        )
+        if homeCommunityID and not communities[homeCommunityID] then
             return false, "survivor_world_group_home_missing"
         end
     end
