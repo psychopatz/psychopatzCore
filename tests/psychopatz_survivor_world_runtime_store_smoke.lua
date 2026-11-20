@@ -111,4 +111,30 @@ assert(activated:GetFaction(faction.id).name == faction.name,
 assert(root.registry == before,
     "activation must not save synchronously")
 
+-- Large SurvivorWorld payloads (>30,000 bytes) must split into UTF-8-safe
+-- registryChunks so Project Zomboid's signed 16-bit GlobalModData string
+-- reader never overflows on reload.
+for i = 1, 180 do
+    assert(fresh:UpsertFaction({
+        id = "faction_chunk_" .. tostring(i),
+        name = "Chunked Faction " .. tostring(i) .. " " .. string.rep("x", 180),
+    }))
+end
+assert(Store.MarkDirty("large_chunk_test"))
+local savedLarge, saveLargeReason = Store.Save()
+assert(savedLarge, saveLargeReason)
+assert(root.registry == nil,
+    "large SurvivorWorld must clear unchunked registry string")
+assert(type(root.registryChunks) == "table" and #root.registryChunks >= 2,
+    "large SurvivorWorld must persist across >= 2 registryChunks")
+for i = 1, #root.registryChunks do
+    assert(#root.registryChunks[i] <= Store.MAX_STRING_BYTES,
+        "every SurvivorWorld chunk must stay <= MAX_STRING_BYTES")
+end
+Store.ResetForTests()
+local reloadedLarge, reloadLargeReason = World.ActivateRuntime({ worldSeed = 1 })
+assert(reloadedLarge, reloadLargeReason)
+assert(reloadedLarge:GetFaction("faction_chunk_180") ~= nil,
+    "chunked SurvivorWorld must restore all persisted factions")
+
 print("psychopatz_survivor_world_runtime_store_smoke: PASS")
