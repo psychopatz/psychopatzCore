@@ -63,8 +63,8 @@ local function localPlayer()
         or (getPlayer and getPlayer() or nil)
 end
 
-function Client.RequestActors()
-    local ok, reason = ProjectionClient.Request(Client.SOURCE_ID)
+function Client.RequestActors(options)
+    local ok, reason = ProjectionClient.Request(Client.SOURCE_ID, options)
     if ok then Client.LastActorRequestAt = nowMs() end
     return ok, reason
 end
@@ -81,7 +81,9 @@ function Client.RequestActorsIfDue(intervalMs, force)
     then
         return false, "not_due"
     end
-    return Client.RequestActors()
+    return Client.RequestActors({
+        includeKnownRevision = force ~= true,
+    })
 end
 
 -- Explicit inspection state shared by all map adopters. It never grants

@@ -21,14 +21,22 @@ local function localPlayer()
         or (getPlayer and getPlayer() or nil)
 end
 
-function Client.Request(sourceID)
+function Client.Request(sourceID, options)
     local player = localPlayer()
     if not player or type(sendClientCommand) ~= "function" then
         return false, "client_transport_unavailable"
     end
+    options = type(options) == "table" and options or {}
     local args = {}
     if sourceID and tostring(sourceID) ~= "" then
-        args.sourceID = tostring(sourceID)
+        sourceID = tostring(sourceID)
+        args.sourceID = sourceID
+        if options.includeKnownRevision == true then
+            local rev = Client.GetSourceRevision(sourceID)
+            if rev >= 0 then
+                args.knownRevision = rev
+            end
+        end
     end
     sendClientCommand(player, commandModule(), Client.COMMAND_REQUEST, args)
     return true

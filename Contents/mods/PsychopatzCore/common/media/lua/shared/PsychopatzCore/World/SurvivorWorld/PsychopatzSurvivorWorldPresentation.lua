@@ -118,11 +118,18 @@ function Presentation.UnregisterEntryFilter(id)
     return true
 end
 
-local function passesEntryFilters(entry, actor, group)
+local function passesEntryFilters(entry, actor, group, player, worldRegistry)
     for _, filter in pairs(Presentation.EntryFilters) do
         -- Entry filters are addon-owned callbacks. Keep one faulty optional
         -- provider from breaking Core's presentation pipeline.
-        local ok, accepted = pcall(filter, entry, actor, group)
+        local ok, accepted = pcall(
+            filter,
+            entry,
+            actor,
+            group,
+            player,
+            worldRegistry
+        )
         if not ok or accepted == false then return false end
     end
     return true
@@ -132,7 +139,8 @@ function Presentation.ResolvePosition(
     worldRegistry,
     actor,
     group,
-    now
+    now,
+    cachedProviders
 )
     local context = {
         worldRegistry = worldRegistry,
@@ -140,7 +148,8 @@ function Presentation.ResolvePosition(
         group = group,
         now = now,
     }
-    for _, definition in ipairs(providerList()) do
+    local providers = cachedProviders or providerList()
+    for _, definition in ipairs(providers) do
         local ok, resolved = pcall(
             definition.resolve,
             actor,
@@ -229,7 +238,8 @@ function Presentation.BuildActorEntry(
             worldRegistry,
             actor,
             group,
-            now
+            now,
+            spec._providers
         )
     if not position then
         return nil, "actor_position_required"
@@ -245,7 +255,18 @@ function Presentation.BuildActorEntry(
         and type(worldRegistry.GetFaction) == "function"
         and meta.factionID
     then
-        local faction = worldRegistry:GetFaction(meta.factionID)
+        local factionCache = spec._factionCache
+        local faction
+        if factionCache then
+            faction = factionCache[meta.factionID]
+            if faction == nil then
+                faction = worldRegistry:GetFaction(meta.factionID) or false
+                factionCache[meta.factionID] = faction
+            end
+            if faction == false then faction = nil end
+        else
+            faction = worldRegistry:GetFaction(meta.factionID)
+        end
         if type(faction) == "table" then
             meta.factionName = meta.factionName or faction.name
             meta.factionArchetypeID = meta.factionArchetypeID
@@ -304,8 +325,14 @@ function Presentation.BuildActorEntries(
     end
 
     spec = type(spec) == "table" and spec or {}
+    local buildSpec = {}
+    for key, value in pairs(spec) do buildSpec[key] = value end
+    buildSpec._providers = providerList()
+    buildSpec._factionCache = {}
 
+    local player = spec.player
     local groupsByActor = contextIndex(worldRegistry)
+    local includeUnscoped = spec.includeUnscoped ~= false
     local output = {}
     for _, actor in ipairs(actorRegistry:List()) do
         local ext = affiliation(actor)
@@ -314,7 +341,6 @@ function Presentation.BuildActorEntries(
             or ext.groupID ~= nil
             or ext.communityID ~= nil
             or ext.factionID ~= nil
-        local includeUnscoped = spec.includeUnscoped ~= false
         if isSurvivorWorldActor
             or (includeUnscoped and isExplicitlyProjectable(actor))
         then
@@ -323,9 +349,15 @@ function Presentation.BuildActorEntries(
                 actor,
                 group,
                 now,
-                spec
+                buildSpec
             )
-            if entry and passesEntryFilters(entry, actor, group) then
+            if entry and passesEntryFilters(
+                entry,
+                actor,
+                group,
+                player,
+                worldRegistry
+            ) then
                 output[#output + 1] = entry
             end
         end

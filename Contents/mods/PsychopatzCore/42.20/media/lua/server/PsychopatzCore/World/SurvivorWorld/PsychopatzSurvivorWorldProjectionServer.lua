@@ -22,7 +22,7 @@ local function worldHour()
         or 0
 end
 
-function Server.BuildEntries()
+function Server.BuildEntries(player)
     local registry =
         SurvivorWorld.GetRuntimeRegistry()
     if not registry then return {} end
@@ -35,25 +35,27 @@ function Server.BuildEntries()
         {
             sourceID = Server.SOURCE_ID,
             includeUnscoped = true,
+            player = player,
         }
     )
 end
 
-function Server.Publish()
+function Server.Publish(options)
     if not SurvivorWorld.GetRuntimeRegistry() then
         return 0
     end
-    return Sync.Broadcast(Server.SOURCE_ID)
+    return Sync.Broadcast(Server.SOURCE_ID, options)
 end
 
-function Server.Send(player)
+function Server.Send(player, options)
     if not SurvivorWorld.GetRuntimeRegistry() then
         return false, "survivor_world_inactive"
     end
     return Sync.Send(
         player,
         Server.SOURCE_ID,
-        false
+        false,
+        options
     )
 end
 
