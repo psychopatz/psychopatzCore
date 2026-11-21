@@ -439,6 +439,20 @@ addDescriptor({
     end,
 })
 
+-- 29. Shocking Event Bus (spatial, excluded from DynamicTrading packs)
+addDescriptor({
+    id = "core.shocking_events",
+    domain = "Events",
+    roles = { shared = true, client = true, server = true },
+    depends = { "core.events" },
+    load = function()
+        return require "PsychopatzCore/Events/PsychopatzShockingEventBus"
+    end,
+    facade = function()
+        return PsychopatzCore.ShockingEventBus
+    end,
+})
+
 -- Convenience Adopter Packs
 addPack({
     id = "pack.trading_common",

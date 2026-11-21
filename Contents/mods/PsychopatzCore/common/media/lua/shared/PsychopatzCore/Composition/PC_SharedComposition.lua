@@ -70,6 +70,7 @@ local PROPERTY_TO_CAP = {
     Audio = "core.audio_settings",
     Semantics = "core.semantics",
     Translation = "core.translation",
+    ShockingEventBus = "core.shocking_events",
 }
 
 local resolving = {}
