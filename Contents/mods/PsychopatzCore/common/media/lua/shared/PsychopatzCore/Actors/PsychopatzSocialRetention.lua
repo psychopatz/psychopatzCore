@@ -437,6 +437,13 @@ function Retention.ConsolidateOrInsertMemory(container, memory, options)
         consolKey = memory.consolidationFamily .. ":" .. tostring(memory.aboutKey or "")
             .. ":" .. tostring(Retention.NormalizeSourceMode(memory.sourceMode, memory.knowledgeSource))
     end
+    if (type(consolKey) ~= "string" or consolKey == "")
+        and (options.stackLimit ~= nil or options.stackedEffectMultiplier ~= nil)
+        and type(memory.type) == "string" and memory.type ~= ""
+    then
+        consolKey = tostring(memory.type) .. ":" .. tostring(memory.aboutKey or "")
+            .. ":" .. tostring(Retention.NormalizeSourceMode(memory.sourceMode, memory.knowledgeSource))
+    end
 
     if type(consolKey) == "string" and consolKey ~= "" and options.consolidate ~= false then
         for idx = #memories, 1, -1 do
@@ -451,9 +458,42 @@ function Retention.ConsolidateOrInsertMemory(container, memory, options)
                     table.remove(memories, idx)
                     break
                 end
+                local existingCount = tonumber(existing.count) or 1
+                local stackLimit = tonumber(options.stackLimit)
+                if stackLimit and stackLimit >= 1 then
+                    stackLimit = math.floor(stackLimit)
+                else
+                    stackLimit = nil
+                end
+                if stackLimit and existingCount >= stackLimit then
+                    local incomingAt = tonumber(memory.createdAt)
+                    if incomingAt ~= nil then
+                        existing.createdAt = math.max(tonumber(existing.createdAt) or incomingAt, incomingAt)
+                    end
+                    existing.lastEventID = memory.id
+                    existing.eventSequence = Retention.NextMemorySequence(container)
+                    existing.strength = math.max(tonumber(existing.strength) or 1, tonumber(memory.strength) or 1)
+                    return {
+                        status = "stack_capped",
+                        memory = existing,
+                        count = existingCount,
+                        appliedApprovalDelta = 0,
+                        appliedRespectDelta = 0,
+                        appliedFamiliarityDelta = 0,
+                    }
+                end
                 local appDelta = tonumber(memory.approvalEffect) or 0
                 local respDelta = tonumber(memory.respectEffect) or 0
                 local famDelta = tonumber(memory.familiarityEffect) or 0
+                local stackMult = tonumber(options.stackedEffectMultiplier)
+                if stackMult ~= nil then
+                    if stackMult < 0 then stackMult = 0 end
+                    if stackMult > 1 then stackMult = 1 end
+                    local scale = stackMult ^ existingCount
+                    appDelta = appDelta * scale
+                    respDelta = respDelta * scale
+                    famDelta = famDelta * scale
+                end
                 local nextApp, nextResp, nextFam
                 appDelta, nextApp = clampDeltaForCap(existing.approvalEffect, appDelta, options.maxConsolidatedApproval)
                 respDelta, nextResp = clampDeltaForCap(existing.respectEffect, respDelta, options.maxConsolidatedRespect)

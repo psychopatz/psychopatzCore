@@ -9,6 +9,11 @@ from collections.abc import Mapping
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from .ai_ir_core import (
+    apply_shard_overlays,
+    flatten_inheritance,
+    load_package_overlays,
+)
 from .dialogue_content import _lua_value
 from .errors import CompileError
 from .generation_ownership import (
@@ -242,6 +247,7 @@ def _normalize_event(
         "retentionClass", "salience", "decayPerDay", "permanent",
         "consolidationFamily", "consolidationKey",
         "maxConsolidatedApproval", "maxConsolidatedRespect", "maxConsolidatedFamiliarity",
+        "stackLimit", "stackedEffectMultiplier",
         "anchorMax", "shareable", "observerPolicy", "hearsayPolicy",
     }
     extra_mem = set(mem) - allowed_mem_keys
@@ -307,6 +313,7 @@ def _normalize_event(
     allowed_rel_keys = {
         "approvalDelta", "respectDelta", "familiarityDelta",
         "personalityModulation", "cooldownHours", "saturationCaps", "updateState",
+        "nullifyingTraits",
     }
     extra_rel = set(rel) - allowed_rel_keys
     if extra_rel:
@@ -405,6 +412,21 @@ def _normalize_event(
     for cap_field in ("maxConsolidatedApproval", "maxConsolidatedRespect", "maxConsolidatedFamiliarity"):
         if mem.get(cap_field) is not None:
             plan[cap_field] = _require_number(mem[cap_field], f"{event_id}.memory.{cap_field}", 0, 100)
+    if mem.get("stackLimit") is not None:
+        plan["stackLimit"] = _require_int(mem["stackLimit"], f"{event_id}.memory.stackLimit", 1, 32)
+    if mem.get("stackedEffectMultiplier") is not None:
+        plan["stackedEffectMultiplier"] = _require_number(
+            mem["stackedEffectMultiplier"], f"{event_id}.memory.stackedEffectMultiplier", 0.0, 1.0
+        )
+    nullifying_raw = rel.get("nullifyingTraits")
+    if nullifying_raw is not None:
+        if not isinstance(nullifying_raw, list) or any(
+            not isinstance(t, str) or not _IDENTIFIER_RE.match(t) for t in nullifying_raw
+        ):
+            raise CompileError(
+                f"{source_rel}#{event_id}: relationship.nullifyingTraits must be a list of trait identifiers"
+            )
+        plan["nullifyingTraits"] = list(dict.fromkeys(nullifying_raw))
     if norm_sat_caps:
         plan["saturationCaps"] = norm_sat_caps
     return plan
@@ -440,6 +462,8 @@ def compile_social_policy_package(
     if not isinstance(shards, list) or not shards:
         raise CompileError(f"{pkg_path}: requires non-empty shards list")
 
+    overlays = load_package_overlays(root, pkg_doc.get("overlays"))
+
     events_by_id: dict[str, dict[str, Any]] = {}
     alias_to_id: dict[str, str] = {}
     codes_seen: dict[int, str] = {}
@@ -453,6 +477,8 @@ def compile_social_policy_package(
         if not shard_path.is_file():
             raise CompileError(f"{pkg_path}: shard file not found: {shard_rel}")
         shard_doc = json.loads(shard_path.read_text(encoding="utf-8"))
+        if overlays:
+            shard_doc = apply_shard_overlays(shard_doc, shard_rel=shard_rel, overlay_docs=overlays)
         if not isinstance(shard_doc, Mapping) or shard_doc.get("schema") != SOCIAL_POLICY_SHARD_SCHEMA:
             raise CompileError(
                 f"{shard_rel}: expected schema {SOCIAL_POLICY_SHARD_SCHEMA!r}"
@@ -468,6 +494,11 @@ def compile_social_policy_package(
             raise CompileError(f"{shard_rel}: events must be a list")
 
         shard_hash = _sha256_json(shard_doc)
+        if any(
+            isinstance(item, Mapping) and (item.get("abstract") is not None or item.get("parent") is not None)
+            for item in raw_events
+        ):
+            raw_events = flatten_inheritance(raw_events, source_label=shard_rel)
         for raw_ev in raw_events:
             ev = _normalize_event(
                 raw_ev,

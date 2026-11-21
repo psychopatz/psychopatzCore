@@ -9,6 +9,12 @@ from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from .ai_cross_ir_linker import link_workspace_ai_irs
+from .ai_ir_core import load_b42_asset_catalog
+from .autonomy_ad_compiler import (
+    compile_autonomy_ad_workspace,
+    render_autonomy_ad_lua_artifacts,
+)
 from .conversation_compiler import (
     CONVERSATION_UI_RUNTIME_RELATIVE,
     compile_conversation_sources,
@@ -41,11 +47,19 @@ from .lexicon_compiler import (
     load_allowlist,
     render_lua_shards,
 )
+from .reaction_policy_compiler import (
+    compile_reaction_policy_workspace,
+    render_reaction_policy_lua_artifacts,
+)
 from .social_policy_compiler import (
     compile_social_policy_workspace,
     render_social_policy_lua_artifacts,
 )
 from .translation_support import pretty_json
+from .work_scenario_compiler import (
+    compile_work_scenario_workspace,
+    render_work_scenario_lua_artifacts,
+)
 from .workspace_catalog import WorkspaceCatalog
 
 
@@ -59,6 +73,9 @@ SUPPORTED_GENERATORS = frozenset({
     "conversation_text",
     "lexicon",
     "social_policy",
+    "autonomy_ad",
+    "reaction_policy",
+    "work_scenario",
 })
 
 SUPPORTED_POLICIES = frozenset({
@@ -75,6 +92,9 @@ SUPPORTED_SURFACE_IDS = frozenset({
     "conversation_text",
     "lexicon_lua",
     "social_policy_lua",
+    "autonomy_ad_lua",
+    "reaction_policy_lua",
+    "work_scenario_lua",
 })
 
 SUPPORTED_RETIREMENT_KINDS = frozenset({
@@ -1038,6 +1058,7 @@ def build_desired_artifact_ledger(
                 )
             )
 
+    social_plans: dict[str, dict[str, Any]] = {}
     social_policy_fp = ""
     if active_recipe.has_surface("social_policy_lua"):
         social_surface = active_recipe.surface("social_policy_lua")
@@ -1066,9 +1087,59 @@ def build_desired_artifact_ledger(
                     )
                 )
 
+    autonomy_plans: dict[str, dict[str, Any]] = {}
+    reaction_plans: dict[str, dict[str, Any]] = {}
+    work_scenario_plans: dict[str, dict[str, Any]] = {}
+    extra_fps: list[str] = [social_policy_fp] if social_policy_fp else []
+
+    ai_ir_specs = (
+        ("autonomy_ad_lua", compile_autonomy_ad_workspace, render_autonomy_ad_lua_artifacts, autonomy_plans),
+        ("reaction_policy_lua", compile_reaction_policy_workspace, render_reaction_policy_lua_artifacts, reaction_plans),
+        ("work_scenario_lua", compile_work_scenario_workspace, render_work_scenario_lua_artifacts, work_scenario_plans),
+    )
+    for surface_id, compile_fn, render_fn, target_map in ai_ir_specs:
+        if not active_recipe.has_surface(surface_id):
+            continue
+        surface = active_recipe.surface(surface_id)
+        compiled_map = compile_fn(out_repos_by_owner)
+        target_map.update(compiled_map)
+        if compiled_map:
+            fp_parts = [f"{o}:{p['fingerprint']}" for o, p in sorted(compiled_map.items())]
+            extra_fps.append(sha256_text("|".join(fp_parts)))
+        for owner, plan in sorted(compiled_map.items()):
+            if owner not in set(surface.owners) or owner not in out_repos_by_owner:
+                continue
+            shared_rel = package_descriptor(owner).shared_lua_relative.as_posix()
+            for mod_rel, source, art_kind, src_lineage in render_fn(plan):
+                rel_repo_path = f"{shared_rel}/{mod_rel}.lua"
+                rows.append(
+                    DesiredArtifactRow(
+                        owner=owner,
+                        surface=surface.id,
+                        path=rel_repo_path,
+                        artifact_kind=art_kind,
+                        source_lineage=src_lineage,
+                        cleanup_policy=surface.policy,
+                        content_fingerprint=sha256_text(source),
+                        rendered_content=source,
+                    )
+                )
+
+    if autonomy_plans or reaction_plans or work_scenario_plans:
+        asset_catalog = load_b42_asset_catalog(out_repos_by_owner.get(HOOMANS_OWNER))
+        link_summary = link_workspace_ai_irs(
+            convo_model=compiled_model,
+            social_plans=social_plans,
+            autonomy_plans=autonomy_plans,
+            reaction_plans=reaction_plans,
+            work_scenario_plans=work_scenario_plans,
+            asset_catalog=asset_catalog,
+        )
+        extra_fps.append(str(link_summary["fingerprint"]))
+
     rows.sort(key=lambda item: (item.owner, item.surface, item.path))
     base_fp = str(compiled_model.get("wholeModelFingerprint") or "")
-    combined_fp = sha256_text(f"{base_fp}|{social_policy_fp}") if social_policy_fp else base_fp
+    combined_fp = sha256_text(f"{base_fp}|{'|'.join(extra_fps)}") if extra_fps else base_fp
     return DesiredArtifactLedger(
         schema=DESIRED_LEDGER_SCHEMA,
         recipe=active_recipe,

@@ -22,8 +22,11 @@ if __package__ in {None, ""}:
         CORE_OWNER,
         DT_COMMON_OWNER,
         HOOMANS_OWNER,
+        generated_autonomy_ad_root,
         generated_conversation_root,
+        generated_reaction_policy_root,
         generated_social_policy_root,
+        generated_work_scenario_root,
         normalize_owner,
         package_descriptor,
         translation_root,
@@ -49,8 +52,11 @@ else:
         CORE_OWNER,
         DT_COMMON_OWNER,
         HOOMANS_OWNER,
+        generated_autonomy_ad_root,
         generated_conversation_root,
+        generated_reaction_policy_root,
         generated_social_policy_root,
+        generated_work_scenario_root,
         normalize_owner,
         package_descriptor,
         translation_root,
@@ -87,7 +93,10 @@ def _has_generated_lua_header(path: Path, marker: str = "-- Generated") -> bool:
             first_line = handle.readline()
     except OSError:
         return False
-    return first_line.startswith(marker) and "do not edit by hand." in first_line
+    lowered = first_line.lower()
+    return first_line.startswith(marker) and (
+        "do not edit by hand." in lowered or "do not edit." in lowered
+    )
 
 
 def _has_handwritten_convo_lua_header(
@@ -583,40 +592,50 @@ def check_owner_surface_state(
                         "reason": "unowned file under Lexicon root",
                     })
 
-    # 7. Check social_policy_lua root for extra files when surface is configured
-    if recipe.has_surface("social_policy_lua"):
-        sp_surface = recipe.surface("social_policy_lua")
-        sp_root = generated_social_policy_root(
+    # 7. Check flat portable AI IR roots (SocialPolicy, AutonomyAd, ReactionPolicy, WorkScenario)
+    flat_ir_roots = (
+        ("social_policy_lua", generated_social_policy_root, "SocialPolicy"),
+        ("autonomy_ad_lua", generated_autonomy_ad_root, "AutonomyAd"),
+        ("reaction_policy_lua", generated_reaction_policy_root, "ReactionPolicy"),
+        ("work_scenario_lua", generated_work_scenario_root, "WorkScenario"),
+    )
+    for surface_id, root_fn, domain_label in flat_ir_roots:
+        if not recipe.has_surface(surface_id):
+            continue
+        ir_surface = recipe.surface(surface_id)
+        if norm_owner not in set(ir_surface.owners):
+            continue
+        ir_root = root_fn(
             ledger.output_repositories.get(HOOMANS_OWNER, owner_repo),
             norm_owner,
             core_repository=ledger.output_repositories.get(CORE_OWNER),
             dynamic_trading_repository=ledger.output_repositories.get(DT_COMMON_OWNER),
             runtime_root=ledger.output_repositories.get(HOOMANS_OWNER, owner_repo),
         )
-        if sp_root.is_dir():
-            for file_path in sorted(sp_root.rglob("*")):
+        if ir_root is not None and ir_root.is_dir():
+            for file_path in sorted(ir_root.rglob("*")):
                 if not file_path.is_file():
                     continue
                 rel_path = file_path.relative_to(owner_repo).as_posix()
                 if rel_path in desired_by_path or rel_path in claimed_retired_paths:
                     continue
-                marker = sp_surface.generated_marker or "-- Generated"
+                marker = ir_surface.generated_marker or "-- Generated"
                 if (
                     file_path.suffix == ".lua"
                     and _has_generated_lua_header(file_path, marker)
                 ) or rel_path in receipt_owned_files:
                     stale.append({
                         "owner": norm_owner,
-                        "surface": sp_surface.id,
+                        "surface": ir_surface.id,
                         "path": rel_path,
-                        "reason": "proven CodeBuilder-owned SocialPolicy Lua absent from desired ledger",
+                        "reason": f"proven CodeBuilder-owned {domain_label} Lua absent from desired ledger",
                     })
                 else:
                     ambiguous.append({
                         "owner": norm_owner,
-                        "surface": sp_surface.id,
+                        "surface": ir_surface.id,
                         "path": rel_path,
-                        "reason": "unowned/unmarked file inside SocialPolicy root",
+                        "reason": f"unowned/unmarked file inside {domain_label} root",
                     })
 
     counts = {

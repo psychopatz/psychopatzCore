@@ -1278,6 +1278,42 @@ function Social.RecalculateRelationship(state, target, worldAgeHours, options)
     return cloneRelationshipWithMemories(state, rel, normalized, options)
 end
 
+local function collectTraitSet(source, outSet)
+    if type(source) ~= "table" then return end
+    for i = 1, #source do
+        local name = source[i]
+        if type(name) == "string" and name ~= "" then
+            outSet[string.lower(name)] = true
+        end
+    end
+    for k, v in pairs(source) do
+        if type(k) == "string" and v == true then
+            outSet[string.lower(k)] = true
+        elseif type(k) == "string" and type(v) == "string" and v ~= "" then
+            outSet[string.lower(v)] = true
+        end
+    end
+end
+
+local function hasNullifyingTrait(state, event, nullifyingTraits)
+    if type(nullifyingTraits) ~= "table" or #nullifyingTraits == 0 then
+        return false
+    end
+    local actorSet = {}
+    collectTraitSet(event and event.actorTraits, actorSet)
+    collectTraitSet(state and state.traits, actorSet)
+    collectTraitSet(state and state.personality and state.personality.traits, actorSet)
+    for i = 1, #nullifyingTraits do
+        local trait = nullifyingTraits[i]
+        if type(trait) == "string" and trait ~= ""
+            and actorSet[string.lower(trait)] == true
+        then
+            return true
+        end
+    end
+    return false
+end
+
 local function resolvePolicyForEvent(event)
     if type(event.policy) == "table" then return event.policy end
     local policySvc = PsychopatzCore and PsychopatzCore.SocialPolicy
@@ -1306,6 +1342,16 @@ function Social.RecordAuthorizedEvent(state, event)
     if hasRecentEvent(state, eventID) then return nil, "duplicate_event" end
 
     local policy = resolvePolicyForEvent(event)
+    local nullifyingTraits = event.nullifyingTraits or (policy and policy.nullifyingTraits)
+    if hasNullifyingTrait(state, event, nullifyingTraits) then
+        state.recentEventIDs = state.recentEventIDs or {}
+        state.recentEventIDs[#state.recentEventIDs + 1] = eventID
+        while #state.recentEventIDs > Social.MAX_RECENT_EVENTS do
+            table.remove(state.recentEventIDs, 1)
+        end
+        state.revision = (tonumber(state.revision) or 0) + 1
+        return Util.clone(state)
+    end
     local rawRetention = event.retentionClass or (policy and policy.retentionClass)
     local isPermanent = event.permanent == true or (policy and policy.permanent == true)
     local retentionClass = Retention.NormalizeClass(rawRetention, isPermanent)
@@ -1456,6 +1502,9 @@ function Social.RecordAuthorizedEvent(state, event)
             or (policy and policy.maxConsolidatedRespect),
         maxConsolidatedFamiliarity = event.maxConsolidatedFamiliarity
             or (policy and policy.maxConsolidatedFamiliarity),
+        stackLimit = event.stackLimit or (policy and policy.stackLimit),
+        stackedEffectMultiplier = event.stackedEffectMultiplier
+            or (policy and policy.stackedEffectMultiplier),
     }
 
     local memResult = Retention.ConsolidateOrInsertMemory(state, memorySpec, insertOpts)

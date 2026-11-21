@@ -66,6 +66,33 @@
       ],
       "policy": "owned_fileset",
       "generatedMarker": "-- Generated"
+    },
+    {
+      "id": "autonomy_ad_lua",
+      "generator": "autonomy_ad",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "policy": "owned_fileset",
+      "generatedMarker": "-- Generated"
+    },
+    {
+      "id": "reaction_policy_lua",
+      "generator": "reaction_policy",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "policy": "owned_fileset",
+      "generatedMarker": "-- Generated"
+    },
+    {
+      "id": "work_scenario_lua",
+      "generator": "work_scenario",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "policy": "owned_fileset",
+      "generatedMarker": "-- Generated"
     }
   ],
   "retired": [

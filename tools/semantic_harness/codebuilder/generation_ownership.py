@@ -52,6 +52,12 @@ class PackageDescriptor:
     is_default_project: bool = False
     social_policy_prefix: str | None = None
     social_policy_source_root_relative: Path | None = None
+    autonomy_ad_prefix: str | None = None
+    autonomy_ad_source_root_relative: Path | None = None
+    reaction_policy_prefix: str | None = None
+    reaction_policy_source_root_relative: Path | None = None
+    work_scenario_prefix: str | None = None
+    work_scenario_source_root_relative: Path | None = None
 
 
 def _owner_key(value: Any) -> str:
@@ -124,6 +130,36 @@ def descriptor_from_mapping(owner: str, raw: Mapping[str, Any]) -> PackageDescri
         social_policy_source_root_relative=(
             Path(str(raw["socialPolicySourceRootRelative"]).strip())
             if raw.get("socialPolicySourceRootRelative")
+            else None
+        ),
+        autonomy_ad_prefix=(
+            str(raw["autonomyAdPrefix"]).strip()
+            if raw.get("autonomyAdPrefix")
+            else None
+        ),
+        autonomy_ad_source_root_relative=(
+            Path(str(raw["autonomyAdSourceRootRelative"]).strip())
+            if raw.get("autonomyAdSourceRootRelative")
+            else None
+        ),
+        reaction_policy_prefix=(
+            str(raw["reactionPolicyPrefix"]).strip()
+            if raw.get("reactionPolicyPrefix")
+            else None
+        ),
+        reaction_policy_source_root_relative=(
+            Path(str(raw["reactionPolicySourceRootRelative"]).strip())
+            if raw.get("reactionPolicySourceRootRelative")
+            else None
+        ),
+        work_scenario_prefix=(
+            str(raw["workScenarioPrefix"]).strip()
+            if raw.get("workScenarioPrefix")
+            else None
+        ),
+        work_scenario_source_root_relative=(
+            Path(str(raw["workScenarioSourceRootRelative"]).strip())
+            if raw.get("workScenarioSourceRootRelative")
             else None
         ),
     )
@@ -503,6 +539,26 @@ def generated_conversation_root(
     ) / package_descriptor(owner).conversation_prefix
 
 
+def _generated_optional_domain_root(
+    project_repository: Path,
+    owner: Any,
+    prefix: str | None,
+    *,
+    core_repository: Path | None = None,
+    dynamic_trading_repository: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path | None:
+    if not prefix:
+        return None
+    return shared_lua_root(
+        project_repository,
+        owner,
+        core_repository=core_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        runtime_root=runtime_root,
+    ) / prefix
+
+
 def generated_social_policy_root(
     project_repository: Path,
     owner: Any,
@@ -521,6 +577,63 @@ def generated_social_policy_root(
         dynamic_trading_repository=dynamic_trading_repository,
         runtime_root=runtime_root,
     ) / prefix
+
+
+def generated_autonomy_ad_root(
+    project_repository: Path,
+    owner: Any,
+    *,
+    core_repository: Path | None = None,
+    dynamic_trading_repository: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path | None:
+    """Return the owning repository's generated AutonomyAd directory when configured."""
+    return _generated_optional_domain_root(
+        project_repository,
+        owner,
+        package_descriptor(owner).autonomy_ad_prefix,
+        core_repository=core_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        runtime_root=runtime_root,
+    )
+
+
+def generated_reaction_policy_root(
+    project_repository: Path,
+    owner: Any,
+    *,
+    core_repository: Path | None = None,
+    dynamic_trading_repository: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path | None:
+    """Return the owning repository's generated ReactionPolicy directory when configured."""
+    return _generated_optional_domain_root(
+        project_repository,
+        owner,
+        package_descriptor(owner).reaction_policy_prefix,
+        core_repository=core_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        runtime_root=runtime_root,
+    )
+
+
+def generated_work_scenario_root(
+    project_repository: Path,
+    owner: Any,
+    *,
+    core_repository: Path | None = None,
+    dynamic_trading_repository: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path | None:
+    """Return the owning repository's generated WorkScenario directory when configured."""
+    return _generated_optional_domain_root(
+        project_repository,
+        owner,
+        package_descriptor(owner).work_scenario_prefix,
+        core_repository=core_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        runtime_root=runtime_root,
+    )
 
 
 def module_target(
