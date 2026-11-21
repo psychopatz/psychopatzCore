@@ -4,35 +4,32 @@
 status: CLEAN_CHECKPOINT
 checkpoint_mode: committed_handoff
 phase_commit: self
-phase: S13C — ConvoEngine Localization Normalization & Runtime Externalization (COMPLETE)
+phase: S13F — ConvoEngine Single-Artifact Behavior/Beat Projections & Director Readiness Freeze (COMPLETE)
 parent_phase: S13 — ConvoEngine Layout Normalization and Director Architecture Freeze
-next_chunk: S13D — collapse duplicate Behavior/Behaviors-Director and Beat/Beats-Director physical projections (do not implement autonomous Director yet)
-planned_next_goal: Docs/semantic_dialogue_language_standard/S13_LAYOUT_NORMALIZATION_AND_DIRECTOR_ARCHITECTURE_FREEZE.md
+next_chunk: ProjectHoomans Phase U5b — Micro-Beat Dialogue Director & RDR2 Street Interaction
+planned_next_goal: Docs/semantic_dialogue_language_standard/CONVERSATION_DIRECTOR_ARCHITECTURE.md
 layout_standard: Docs/semantic_dialogue_language_standard/CONVOENGINE_PHYSICAL_LAYOUT_AND_LOCALIZATION.md
 director_architecture: Docs/semantic_dialogue_language_standard/CONVERSATION_DIRECTOR_ARCHITECTURE.md
 primary_repo: /home/psychopatz/Zomboid/Workshop/psychopatzCore
 branch: main
-updated_at: 2026-11-19T10:24:00+08:00
+updated_at: 2026-11-22T05:06:00+08:00
 ~~~
 
 ## Accepted participant vector
 
 ~~~text
-psychopatzCore   self (S13C closure commit on main; S12R2 durable Core closure at ce86135)
-ProjectHoomans   68aae0667b68d6001ae2a135d300c16b9a42188e
-DynamicTrading   36a8767e731ea0d1c566eb9d617e4a81eac8c047
+psychopatzCore   self (S13D–S13F closure commit on main; S12R2 at ce86135)
+ProjectHoomans   S13D–S13F reconciled cleanly (commits with Phase U5)
+DynamicTrading   d4034fac5f547e00253dc3b9db5fd4554e37b535
 ~~~
 
 ## What became true this session
 
-- Completed **T0** durable S12R2 Core closure (`ce86135`) and S13 planning/architecture freeze doc commit (`885065c`).
-- Completed **S13A–S13C** localization normalization across `psychopatzCore`, `ProjectHoomans`, and `DynamicTrading`:
-  - All 436 localized ConvoEngine families (`34` `NO_LOCALIZED_TEXT`, `470` total) migrated to `sources/conversation/translations/<LOCALE>/<kind>/<domain>/<family>.json` (`psychopatz.convo-engine.translation.v1`); all 146 legacy sidecar files deleted.
-  - All generated ConvoEngine Lua stripped of multi-locale corpora (`generatedLuaMultiLocaleCorpusCount = 0`), `construction.tl.*` retired, and `UI.json` cross-owner writes eliminated (`crossOwnerTranslationWrites = 0`).
-  - Domain-sharded `Conversation/Text/convo/ConvoEngine_*.json` catalogs generated into each owner's `media/translation/<LOCALE>/` tree and registered in `manifests/Conversation.json`.
-  - `PNC.Translation.ConvoInline` / `RegisterInlineText` deleted at caller-zero; generic `CustomTranslationManager` APIs preserved.
-  - Fail-closed `convo_engine_localization_audit.py` wired into `convo.audit` (`ok: true`, all 9 counters `0`).
+- Completed **S13D–S13F** single-artifact Behavior/Beat projection collapse and Director readiness freeze across `psychopatzCore`, `ProjectHoomans`, and `DynamicTrading`:
+  - Emitted compact derived `Index/Director.lua` (`convo_engine_director_index.py`) with sparse inverted lookup buckets (`byStimulus`, `byDomain`, `byTopic`, `byActivity`, `byEventType`, `byRequiredFact`, `byKind`) and zero semantic body duplication.
+  - Derived `Registry.BEHAVIORS`, `Registry.BEATS`, and `Registry.DIRECTOR_INDEX` in `conversation_registry.py` from canonical `Behavior/*` and `Beat/*` plans only; deleted all 13 duplicate `Behaviors/Director/*` and `Beats/Director/*` files via `reconcile.py --apply`.
+  - Added fail-closed `convo_engine_director_audit.py` (`convo_engine_cli.py director-readiness`, wired into `convo.audit`): `duplicateBehaviorProjectionBodies=0`, `duplicateBeatProjectionBodies=0`, `obsoleteDirectorProjectionCallers=0`, `directorIndexBodyDuplicationCount=0`, `missingDirectorReadinessCapabilityCount=0`, `activeCurrentPsdlIdentityCount=0`, two-pass determinism clean (446 files, `diffs=0`).
 
 ## Exact next resume action
 
-Proceed to **S13D** (`Behavior` vs `Behaviors/Director` and `Beat` vs `Beats/Director` physical projection cleanup) per `S13_LAYOUT_NORMALIZATION_AND_DIRECTOR_ARCHITECTURE_FREEZE.md`. Do **not** implement the autonomous Conversation Director until S13D/S13E/S13F are complete. Do not push, publish Workshop content, or launch native Project Zomboid without explicit authorization.
+`ConvoEngine` S13 (S13A–S13F) is **COMPLETE**. Proceed directly with ProjectHoomans Phase **U5b** (Façade-inspired Micro-Beat Dialogue Director & RDR2 Street Interaction) atop `CONVERSATION_DIRECTOR_ARCHITECTURE.md` and `PNC/ConvoEngine/Index/Director.lua`. Do not push or launch native Project Zomboid without explicit authorization.

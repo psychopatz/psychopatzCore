@@ -1,17 +1,17 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN_PROGRESS — S13A–S13C localization normalization and runtime externalization are complete and verified across all three repositories. `S13D` (Behavior / Beat physical projection cleanup) is the next active responsibility.
+**Status:** COMPLETE — S13A–S13F layout normalization, externalized owner-local localization, single-artifact behavior/beat projection collapse, compact derived `Index/Director.lua` generation, and Director readiness freeze are complete and verified across all three repositories.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S13C complete; ready for S13D.
-**Immediate Next Chunk:** `S13D` — collapse duplicate `Behavior` vs `Behaviors/Director` and `Beat` vs `Beats/Director` physical projections into one canonical generated semantic artifact per family (do **not** implement the autonomous Conversation Director yet).
-**Planned next goal:** `S13_LAYOUT_NORMALIZATION_AND_DIRECTOR_ARCHITECTURE_FREEZE.md` (`S13D` → `S13E` → `S13F`).
+**Active phase:** S13F complete.
+**Immediate Next Chunk:** ProjectHoomans Phase U5b (Façade-inspired Micro-Beat Dialogue Director & RDR2 Street Interaction) over frozen `CONVERSATION_DIRECTOR_ARCHITECTURE.md`.
+**Parent Goal:** `UnifiedSchemaDrivenNPCAI` (Phase U5a gate closed).
 
-## Verified S12 + S13A–S13C participant vector
+## Verified S12 + S13A–S13F participant vector
 
 ~~~text
-psychopatzCore   S13C closure commit on main (see HANDOFF.md phase_commit: self)
-ProjectHoomans   68aae0667b68d6001ae2a135d300c16b9a42188e
-DynamicTrading   36a8767e731ea0d1c566eb9d617e4a81eac8c047
+psychopatzCore   S13D–S13F closure commit on main (see HANDOFF.md phase_commit: self)
+ProjectHoomans   S13D–S13F generated artifacts reconciled cleanly (closes in Phase U5 commit)
+DynamicTrading   d4034fac5f547e00253dc3b9db5fd4554e37b535
 ~~~
 
 Earlier durable Core checkpoints on `main`:
@@ -44,5 +44,26 @@ duplicateTranslationKeyCount          = 0
 unknownLocalizationShapeCount         = 0
 activeCurrentPsdlIdentityCount        = 0
 modernization closureOk               = true (470/470)
-reconcile --check                     = clean (desired=460, missing=0, drifted=0, stale=0)
+reconcile --check                     = clean (missing=0, drifted=0, stale=0, retired_present=0, ambiguous=0)
+~~~
+
+## Verified S13D–S13F Director projection collapse & readiness freeze
+
+- **S13D (Single-artifact Behavior/Beat projections):**
+  - Eliminated duplicate `Behaviors/Director/*` (10 files) and `Beats/Director/*` (3 files) generated modules across `PsychopatzCore` and `ProjectHoomans` via `conversation_compiler.py` and `reconcile.py --apply`.
+  - Consolidated `Registry.BEHAVIORS`, `Registry.BEATS`, `Registry.CONVO_PLANS`, and `Registry.DIRECTOR_INDEX` over canonical single-artifact `Behavior/*` and `Beat/*` modules in `conversation_registry.py`.
+  - Implemented compact ID-based `convo_engine_director_index.py` emitting sparse inverted indexes (`byStimulus`, `byDomain`, `byTopic`, `byActivity`, `byEventType`, `byRequiredFact`, `byKind`) into owner-isolated `Index/Director.lua` without duplicating semantic bodies.
+- **S13E–S13F (Director Readiness Freeze & Closure):**
+  - Implemented fail-closed `convo_engine_director_audit.py` + `convo_engine_cli.py director-readiness`, wired into `convo_engine_integrity_audit.py` (`convo.audit`).
+  - Verified all 8 `CONVERSATION_DIRECTOR_ARCHITECTURE.md` readiness invariants (`behaviorCount=30`, `beatCount=3`) and zero layout duplication counters:
+
+~~~text
+duplicateBehaviorProjectionBodies       = 0
+duplicateBeatProjectionBodies           = 0
+obsoleteDirectorProjectionCallers         = 0
+directorIndexBodyDuplicationCount       = 0
+missingDirectorReadinessCapabilityCount = 0
+director-readiness --summary ok         = true
+audit-integrity --check-determinism ok  = true (446 files, diffs=0)
+reconcile --check                       = clean (missing=0, drifted=0, stale=0, retired_present=0, ambiguous=0)
 ~~~

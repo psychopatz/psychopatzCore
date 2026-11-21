@@ -70,14 +70,21 @@ class ConvoEngineSemanticDomainDecompositionTests(unittest.TestCase):
 
     def test_owner_isolated_decomposed_surfaces_and_no_stale_refs(self) -> None:
         modules = {mod: src for mod, src in self.rendered}
-        # Core director contains ONLY Core behaviors, decomposed by domainPath
-        self.assertIn("PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict", modules)
-        self.assertIn("PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair", modules)
-        self.assertNotIn("behavior.scene_horde_prompt", modules["PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict"])
+        # Core canonical behaviors contain ONLY Core behaviors, decomposed by domainPath
+        self.assertIn("PsychopatzCore/ConvoEngine/Behavior/Social/Conflict", modules)
+        self.assertIn("PsychopatzCore/ConvoEngine/Behavior/Social/Repair", modules)
+        self.assertNotIn("behavior.scene_horde_prompt", modules["PsychopatzCore/ConvoEngine/Behavior/Social/Conflict"])
 
-        # Hoomans director contains Hoomans scene behaviors, decomposed by domainPath
-        self.assertIn("PNC/ConvoEngine/Behaviors/Director/Scene/Horde", modules)
-        self.assertIn("behavior.scene_horde_prompt", modules["PNC/ConvoEngine/Behaviors/Director/Scene/Horde"])
+        # Hoomans canonical behaviors contain Hoomans scene behaviors, decomposed by domainPath
+        self.assertIn("PNC/ConvoEngine/Behavior/Scene/Horde", modules)
+        self.assertIn("behavior.scene_horde_prompt", modules["PNC/ConvoEngine/Behavior/Scene/Horde"])
+        self.assertIn("PNC/ConvoEngine/Index/Director", modules)
+        self.assertIn("PsychopatzCore/ConvoEngine/Index/Director", modules)
+
+        # Zero duplicate director projection trees remain
+        retired_behavior_seg = "/".join(("Behaviors", "Director"))
+        retired_beat_seg = "/".join(("Beats", "Director"))
+        self.assertFalse(any(retired_behavior_seg in mod or retired_beat_seg in mod for mod in modules))
 
         # No references to retired hash modules
         for mod, src in self.rendered:
@@ -175,17 +182,14 @@ class ConvoEngineSemanticDomainDecompositionTests(unittest.TestCase):
 
             for changed_mod in (
                 "PsychopatzCore/ConvoEngine/Behavior/Social/Conflict",
-                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict",
+                "PsychopatzCore/ConvoEngine/Index/Director",
             ):
                 self.assertNotEqual(variant_map[changed_mod], base_map[changed_mod])
 
             for stable_mod in (
                 "PsychopatzCore/ConvoEngine/Behavior/Social/Repair",
-                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair",
                 "PsychopatzCore/ConvoEngine/Behavior/Social/Acknowledgement",
-                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Acknowledgement",
                 "PsychopatzCore/ConvoEngine/Behavior/Social/Context",
-                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Context",
             ):
                 self.assertEqual(variant_map[stable_mod], base_map[stable_mod])
 
@@ -201,18 +205,11 @@ class ConvoEngineSemanticDomainDecompositionTests(unittest.TestCase):
                 mod for mod in subdomain_map
                 if mod.startswith("PsychopatzCore/ConvoEngine/Behavior/Social/") and mod not in base_map
             }
-            new_director_modules = {
-                mod for mod in subdomain_map
-                if mod.startswith("PsychopatzCore/ConvoEngine/Behaviors/Director/Social/") and mod not in base_map
-            }
             self.assertEqual(len(new_runtime_modules), 1)
-            self.assertEqual(len(new_director_modules), 1)
-            self.assertTrue(all("__" not in mod for mod in (*new_runtime_modules, *new_director_modules)))
-            self.assertTrue(all("Smalltalk" in mod for mod in (*new_runtime_modules, *new_director_modules)))
+            self.assertTrue(all("__" not in mod for mod in new_runtime_modules))
+            self.assertTrue(all("Smalltalk" in mod for mod in new_runtime_modules))
             for stable_mod in (
                 "PsychopatzCore/ConvoEngine/Behavior/Social/Conflict",
-                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict",
                 "PsychopatzCore/ConvoEngine/Behavior/Social/Repair",
-                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair",
             ):
                 self.assertEqual(subdomain_map[stable_mod], base_map[stable_mod])

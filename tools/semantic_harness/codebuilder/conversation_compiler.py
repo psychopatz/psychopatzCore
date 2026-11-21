@@ -68,6 +68,10 @@ from .conversation_registry import (
     render_conversation_manifest_lua,
     render_conversation_registry,
 )
+from .convo_engine_director_index import (
+    build_director_index,
+    render_director_index_lua,
+)
 from .conversation_assembly import (
     _add_global_id,
     _compile_shard,
@@ -91,6 +95,7 @@ from tools.semantic_harness.codebuilder.translation_support import (
 )
 from .capability_abi import validate_target_capabilities
 from .generation_ownership import (
+    CORE_OWNER,
     HOOMANS_OWNER,
     combined_target_descriptor,
     conversation_prefix,
@@ -1478,14 +1483,6 @@ def render_conversation_runtime_plan(
         owned(item, domain="semantic")
         for item in model["semantic"].get("flows", [])
     ]
-    behavior_records = [
-        owned(item, domain=str(item.get("domain") or "social"))
-        for item in model.get("behaviors", [])
-    ]
-    beat_records = [
-        owned(item, domain=str(item.get("domain") or "social"))
-        for item in model.get("beats", [])
-    ]
     realization_records = [
         owned(item, domain=str(item.get("domain") or "general"))
         for item in model.get("realization", [])
@@ -1507,12 +1504,6 @@ def render_conversation_runtime_plan(
     )
     flow_modules, flow_reports = _chunk_records(
         flow_records, kind="Flows", module_prefix=prefix
-    )
-    behavior_modules, behavior_reports = _chunk_records(
-        behavior_records, kind="Behaviors", module_prefix=prefix
-    )
-    beat_modules, beat_reports = _chunk_records(
-        beat_records, kind="Beats", module_prefix=prefix
     )
     realization_modules, realization_reports = _chunk_records(
         realization_records, kind="Realization", module_prefix=prefix
@@ -1596,8 +1587,6 @@ def render_conversation_runtime_plan(
         *pattern_modules,
         *response_modules,
         *flow_modules,
-        *behavior_modules,
-        *beat_modules,
         *realization_modules,
         *pack_modules,
         *convo_modules,
@@ -1608,8 +1597,6 @@ def render_conversation_runtime_plan(
         *pattern_reports,
         *response_reports,
         *flow_reports,
-        *behavior_reports,
-        *beat_reports,
         *realization_reports,
         *pack_reports,
         *convo_reports,
@@ -1700,6 +1687,66 @@ def render_conversation_runtime_plan(
         report["registryOwner"] = registry_owner
     modules.extend(index_modules)
     reports.extend(index_reports)
+
+    primary_director_owners = (
+        (CORE_OWNER, HOOMANS_OWNER)
+        if registry_owner == HOOMANS_OWNER
+        else (registry_owner,)
+    )
+    primary_director_index = build_director_index(
+        model,
+        reports,
+        include_owners=primary_director_owners,
+    )
+    primary_dir_source, primary_dir_size = render_director_index_lua(
+        primary_director_index
+    )
+    primary_dir_module = f"{prefix}/Index/Director"
+    modules.append((primary_dir_module, primary_dir_source))
+    reports.append({
+        "module": primary_dir_module,
+        "kind": "Index",
+        "domain": "director",
+        "indexKind": "Director",
+        "sourceShard": "@index/director",
+        "recordCount": len(primary_director_index["entries"]),
+        "recordIDs": sorted(primary_director_index["entries"].keys()),
+        "bytes": primary_dir_size,
+        "shardOwner": registry_owner,
+        "owner": registry_owner,
+        "registryOwner": registry_owner,
+    })
+
+    has_core_director = any(
+        str(plan.get("kind") or "").lower() in ("behavior", "beat")
+        and normalize_owner(plan.get("owner")) == CORE_OWNER
+        for plan in model.get("convoRuntimePlans", [])
+    )
+    if registry_owner != CORE_OWNER and has_core_director:
+        core_director_index = build_director_index(
+            model,
+            reports,
+            include_owners=(CORE_OWNER,),
+        )
+        core_dir_source, core_dir_size = render_director_index_lua(
+            core_director_index
+        )
+        core_dir_module = f"{conversation_prefix(CORE_OWNER)}/Index/Director"
+        modules.append((core_dir_module, core_dir_source))
+        reports.append({
+            "module": core_dir_module,
+            "kind": "Index",
+            "domain": "director",
+            "indexKind": "Director",
+            "sourceShard": "@index/director/core",
+            "recordCount": len(core_director_index["entries"]),
+            "recordIDs": sorted(core_director_index["entries"].keys()),
+            "bytes": core_dir_size,
+            "shardOwner": CORE_OWNER,
+            "owner": CORE_OWNER,
+            "registryOwner": CORE_OWNER,
+        })
+
     return modules, reports
 
 

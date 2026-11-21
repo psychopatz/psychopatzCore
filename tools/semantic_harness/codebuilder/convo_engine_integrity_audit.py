@@ -513,6 +513,29 @@ def audit_convo_engine_workspace(
                 "message": f"Localization audit failed: {counter_name}={count}",
             })
 
+    from .convo_engine_director_audit import audit_convo_engine_director_readiness
+
+    has_director_plans = any(
+        str(plan.get("kind") or "").lower() in ("behavior", "beat")
+        for plan in ((compiled or {}).get("convoRuntimePlans") or ())
+    )
+    dir_audit = audit_convo_engine_director_readiness(
+        core_root,
+        hoomans_repository=hoomans_root,
+        dynamic_trading_repository=dt_root,
+        compiled_model=compiled,
+        require_director_records=has_director_plans,
+    )
+    stats["directorLayout"] = dir_audit["counters"]
+    for counter_name, count in dir_audit["counters"].items():
+        if count > 0:
+            violations.append({
+                "code": f"director_{counter_name}",
+                "owner": CORE_OWNER,
+                "path": str(core_root),
+                "message": f"Director layout audit failed: {counter_name}={count}",
+            })
+
     return {
         "ok": len(violations) == 0,
         "schema": "psychopatz.convo-engine.integrity-audit.v1",

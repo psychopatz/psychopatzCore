@@ -98,10 +98,6 @@ def _predicted_generated_modules(
             modules.append(f"{prefix}/Realization/Templates/{domain_seg}")
         if has_affordance:
             modules.append(f"{prefix}/UI/Dialogue/{domain_seg}")
-    elif kind == "behavior":
-        modules.append(f"{prefix}/Behaviors/Director/{domain_seg}")
-    elif kind == "beat":
-        modules.append(f"{prefix}/Beats/Director/{domain_seg}")
     elif kind == "realization":
         modules.append(f"{prefix}/Realization/Templates/{domain_seg}")
     return tuple(dict.fromkeys(modules))

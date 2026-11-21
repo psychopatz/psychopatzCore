@@ -162,6 +162,13 @@ def build_parser() -> argparse.ArgumentParser:
     _add_repo_args(p_loc_audit)
     p_loc_audit.add_argument("--summary", action="store_true", help="Print counters and shapeCounts only")
 
+    p_dir_audit = sub.add_parser(
+        "director-readiness",
+        help="Run the fail-closed ConvoEngine S13D/S13E Director layout and readiness audit",
+    )
+    _add_repo_args(p_dir_audit)
+    p_dir_audit.add_argument("--summary", action="store_true", help="Print counters and readinessChecks only")
+
     p_mig = sub.add_parser(
         "migrate-translations",
         help="Preview or apply canonical ConvoEngine translation migration",
@@ -313,6 +320,24 @@ def main(arguments: list[str] | None = None) -> int:
                     "ok": result.get("ok"),
                     "counters": result.get("counters"),
                     "shapeCounts": result.get("shapeCounts"),
+                }
+        elif args.command == "director-readiness":
+            from tools.semantic_harness.codebuilder.convo_engine_director_audit import (
+                audit_convo_engine_director_readiness,
+            )
+
+            result = audit_convo_engine_director_readiness(
+                svc.core_repository,
+                hoomans_repository=svc.hoomans_repository,
+                dynamic_trading_repository=svc.dynamic_trading_repository,
+            )
+            if args.summary:
+                result = {
+                    "schema": result.get("schema"),
+                    "ok": result.get("ok"),
+                    "counters": result.get("counters"),
+                    "readinessChecks": result.get("readinessChecks"),
+                    "stats": result.get("stats"),
                 }
         elif args.command == "migrate-translations":
             from tools.semantic_harness.codebuilder.convo_engine_translation_migration import (

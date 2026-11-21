@@ -2189,7 +2189,7 @@ class SemanticLabAuthoringService:
         rendered, reports = render_conversation_runtime_plan(model)
         artifacts: list[tuple[Path, Path, str]] = []
         for module, source in rendered:
-            if "/Beats/" in module or "/Behaviors/" in module:
+            if "/Beat/" in module or "/Behavior/" in module or module.endswith("/Index/Director"):
                 repository, target = module_target(
                     self.repository,
                     module,

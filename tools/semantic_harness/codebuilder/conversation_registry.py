@@ -71,6 +71,7 @@ def render_conversation_registry(
         "Registry.FLOWS = {}",
         "Registry.BEHAVIORS = {}",
         "Registry.BEATS = {}",
+        "Registry.DIRECTOR_INDEX = {}",
           "Registry.PACKS = {}",
         "Registry.CONVO_PLANS = {}",
         "Registry.CONVO_RESPONSE_TEMPLATES = {}",
@@ -97,14 +98,6 @@ def render_conversation_registry(
         "local function appendFlows(loaded)",
         "    if type(loaded) ~= \"table\" then return end",
         "    for _, value in ipairs(loaded) do Registry.FLOWS[#Registry.FLOWS + 1] = value end",
-        "end",
-        "local function appendBehaviors(loaded)",
-        "    if type(loaded) ~= \"table\" then return end",
-        "    for _, value in ipairs(loaded) do Registry.BEHAVIORS[#Registry.BEHAVIORS + 1] = value end",
-        "end",
-        "local function appendBeats(loaded)",
-        "    if type(loaded) ~= \"table\" then return end",
-        "    for _, value in ipairs(loaded) do Registry.BEATS[#Registry.BEATS + 1] = value end",
         "end",
           "local function appendPacks(loaded)",
           "    if type(loaded) ~= \"table\" then return end",
@@ -144,6 +137,29 @@ def render_conversation_registry(
         "                    end",
         "                end",
         "            end",
+        "            if value.kind == \"behavior\" or value.kind == \"beat\" then",
+        "                local view = {}",
+        "                if type(payload) == \"table\" then",
+        "                    for pk, pv in pairs(payload) do view[pk] = pv end",
+        "                end",
+        "                view.id = value.id",
+        "                if value.owner ~= nil then view.owner = value.owner end",
+        "                if value.domain ~= nil then view.domain = value.domain end",
+        "                if value.domainPath ~= nil then view.domainPath = value.domainPath end",
+        "                if value.when ~= nil then view.when = value.when end",
+        "                if value.kind == \"behavior\" then",
+        "                    if view.version == nil then view.version = 1 end",
+        "                    if view.mode == nil then view.mode = \"beat\" end",
+        "                    if view.baseRelevance == nil then view.baseRelevance = 0.5 end",
+        "                    Registry.BEHAVIORS[#Registry.BEHAVIORS + 1] = view",
+        "                else",
+        "                    if view.version == nil then view.version = 1 end",
+        "                    if view.baseRelevance == nil then view.baseRelevance = 0.5 end",
+        "                    if view.cooldownTurns == nil then view.cooldownTurns = 0 end",
+        "                    if view.maxTurns == nil then view.maxTurns = 6 end",
+        "                    Registry.BEATS[#Registry.BEATS + 1] = view",
+        "                end",
+        "            end",
         "        end",
         "    end",
         "end",
@@ -153,6 +169,10 @@ def render_conversation_registry(
         "end",
     ])
     for report in reports:
+        if report.get("kind") == "Index" and report.get("indexKind") == "Director":
+            if report.get("owner") == registry_owner:
+                lines.append(f"Registry.DIRECTOR_INDEX = require {_lua_string(report['module'])}")
+            continue
         if report.get("kind") in ("Index", "IndexRegistry"):
             continue
         if include_owner is not None and report.get("owner") != include_owner:
@@ -171,10 +191,6 @@ def render_conversation_registry(
             lines.append(f"appendResponses({loaded_expression})")
         elif report["kind"] == "Flows":
             lines.append(f"appendFlows({loaded_expression})")
-        elif report["kind"] == "Behaviors":
-            lines.append(f"appendBehaviors({loaded_expression})")
-        elif report["kind"] == "Beats":
-            lines.append(f"appendBeats({loaded_expression})")
         elif report["kind"] == "Packs":
             lines.append(f"appendPacks({loaded_expression})")
         elif report["kind"] == "ConvoEngine":
