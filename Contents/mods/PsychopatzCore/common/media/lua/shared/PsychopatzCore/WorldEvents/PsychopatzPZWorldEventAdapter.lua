@@ -5,6 +5,7 @@
 
 local Observer = require "PsychopatzCore/WorldEvents/PsychopatzVanillaEventObserver"
 local ScopedWorldEvents = require "PsychopatzCore/WorldEvents/PsychopatzScopedWorldEvents"
+local Location = require "PsychopatzCore/WorldEvents/PsychopatzWorldEventLocation"
 local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
 
 PsychopatzCore = PsychopatzCore or {}
@@ -290,15 +291,317 @@ function Adapter.OnElectricityChanged()
     return Adapter.ObserveUtilities(Adapter.CurrentWorldHours())
 end
 
+function Adapter.ReadHelicopterAuthority(opts)
+    opts = type(opts) == "table" and opts or {}
+    local heli = objectOrNil(opts.helicopter)
+    if not heli then
+        local world = currentWorld(opts)
+        if world then
+            heli = objectOrNil(world.helicopter)
+            if not heli and type(world.getHelicopter) == "function" then
+                heli = objectOrNil(world:getHelicopter())
+            end
+        end
+    end
+    if not heli then
+        return { known = false, reason = "helicopter_authority_unavailable" }
+    end
+
+    local active = false
+    if type(heli.isActive) == "function" then
+        active = heli:isActive() == true
+    elseif type(heli.active) == "boolean" then
+        active = heli.active == true
+    else
+        return { known = false, reason = "helicopter_active_state_unavailable" }
+    end
+
+    local hx = finite(heli.x, nil)
+    if hx == nil and type(heli.getX) == "function" then
+        hx = finite(heli:getX(), nil)
+    end
+    local hy = finite(heli.y, nil)
+    if hy == nil and type(heli.getY) == "function" then
+        hy = finite(heli:getY(), nil)
+    end
+    return {
+        known = true,
+        active = active,
+        x = hx,
+        y = hy,
+    }
+end
+
+local function appendRouteSample(summary, label, sampleCount)
+    local cleanLabel = tostring(label or "")
+    if cleanLabel == "" then return summary end
+    if sampleCount > Observer.MAX_EPISODE_SAMPLES then
+        return summary
+    end
+    if not summary or summary == "" then
+        return string.sub(cleanLabel, 1, 140)
+    end
+    if #summary >= 140 then
+        return summary
+    end
+    local joined = summary .. " -> " .. cleanLabel
+    if #joined > 150 then
+        return summary
+    end
+    return joined
+end
+
+function Adapter.ObserveHelicopter(nowHours, opts)
+    if not isAuthorityAllowed(opts) then
+        return nil, "server_authority_required"
+    end
+    opts = type(opts) == "table" and opts or {}
+    nowHours = finite(nowHours, nil) or Adapter.CurrentWorldHours(opts)
+    local auth = Adapter.ReadHelicopterAuthority(opts)
+    if not auth.known then
+        return nil, auth.reason
+    end
+
+    local state = Observer.GetHelicopterState()
+    local wasActive = state.active == true
+    local nowActive = auth.active == true
+
+    if not wasActive and not nowActive then
+        return nil, "helicopter_inactive"
+    end
+
+    if wasActive and not nowActive then
+        local nextRev = (tonumber(state.revision) or 1) + 1
+        local lastLoc = state.lastLocation
+        local obsRes, obsErr = Observer.Observe({
+            eventID = state.eventID,
+            factID = state.factID,
+            semanticType = "world.helicopter_overflight",
+            factKind = "world.helicopter_overflight",
+            sourceKind = "helicopter",
+            vanillaSourceID = "IsoWorld.helicopter",
+            phase = "end",
+            endReason = "helicopter_departed",
+            retention = "historical",
+            provenance = "environmental",
+            preferredScope = (lastLoc and lastLoc.regionID) and "region" or "local_area",
+            locationRef = lastLoc,
+            occurredAt = tonumber(state.startedAt) or nowHours,
+            observedAt = nowHours,
+            revision = nextRev,
+            severity = 0.50,
+            salience = 0.75,
+            subject = { id = "world:helicopter", kind = "world_event" },
+            payload = {
+                semanticType = "world.helicopter_overflight",
+                phase = "ended",
+                episodeSeq = state.episodeSeq,
+                locationLabel = (lastLoc and lastLoc.label) or state.startLabel or "area",
+                startAreaID = state.startAreaID,
+                latestAreaID = state.lastAreaID,
+                sampleCount = state.sampleCount or 1,
+                routeSummary = state.routeSummary or state.startLabel or "area",
+            },
+        }, opts)
+        Observer.SetHelicopterState({
+            active = false,
+            episodeSeq = state.episodeSeq or 0,
+            endedAt = nowHours,
+        })
+        return {
+            action = "ended",
+            eventID = state.eventID,
+            factID = state.factID,
+            locationRef = lastLoc,
+            result = obsRes,
+            err = obsErr,
+        }
+    end
+
+    -- Helicopter is currently active (either newly started or ongoing)
+    if auth.x == nil or auth.y == nil then
+        return nil, "helicopter_coordinates_unavailable"
+    end
+    local bx, by = Location.QuantizeArea(auth.x, auth.y)
+    local bucketKey = tostring(bx) .. "_" .. tostring(by)
+
+    if wasActive and state.lastBucketKey == bucketKey then
+        return nil, "same_coarse_region"
+    end
+
+    local locRef, locErr = Location.Resolve(auth.x, auth.y, 0, opts)
+    if not locRef then
+        return nil, locErr or "helicopter_location_resolution_failed"
+    end
+
+    if wasActive and state.lastAreaID == locRef.localAreaID then
+        state.lastBucketKey = bucketKey
+        Observer.SetHelicopterState(state)
+        return nil, "same_coarse_region"
+    end
+
+    if not wasActive then
+        local seq = (tonumber(state.episodeSeq) or 0) + 1
+        local eventID = "core:helicopter:episode:" .. tostring(seq)
+        local factID = "fact:core:world.helicopter_overflight:" .. tostring(seq)
+        local obsRes, obsErr = Observer.Observe({
+            eventID = eventID,
+            factID = factID,
+            semanticType = "world.helicopter_overflight",
+            factKind = "world.helicopter_overflight",
+            sourceKind = "helicopter",
+            vanillaSourceID = "IsoWorld.helicopter",
+            phase = "start",
+            retention = "historical",
+            provenance = "environmental",
+            preferredScope = locRef.regionID and "region" or "local_area",
+            locationRef = locRef,
+            occurredAt = nowHours,
+            observedAt = nowHours,
+            durationHours = 12,
+            factTTLHours = 72,
+            revision = 1,
+            severity = 0.70,
+            salience = 0.85,
+            subject = { id = "world:helicopter", kind = "world_event" },
+            effects = {
+                travelRisk = 0.35,
+                caravanRisk = 0.40,
+                hostileActivityMultiplier = 1.20,
+                moralePressure = 0.15,
+            },
+            metadata = {
+                episodeSeq = seq,
+                startAreaID = locRef.localAreaID,
+                latestAreaID = locRef.localAreaID,
+                sampleCount = 1,
+            },
+            payload = {
+                semanticType = "world.helicopter_overflight",
+                phase = "active",
+                episodeSeq = seq,
+                locationLabel = locRef.label,
+                startAreaID = locRef.localAreaID,
+                latestAreaID = locRef.localAreaID,
+                sampleCount = 1,
+                routeSummary = locRef.label,
+            },
+        }, opts)
+        Observer.SetHelicopterState({
+            active = true,
+            episodeSeq = seq,
+            eventID = eventID,
+            factID = factID,
+            startAreaID = locRef.localAreaID,
+            startLabel = locRef.label,
+            lastAreaID = locRef.localAreaID,
+            lastBucketKey = bucketKey,
+            lastLocation = locRef,
+            sampleCount = 1,
+            routeSummary = locRef.label,
+            revision = 1,
+            startedAt = nowHours,
+        })
+        return {
+            action = "started",
+            eventID = eventID,
+            factID = factID,
+            locationRef = locRef,
+            x = auth.x,
+            y = auth.y,
+            result = obsRes,
+            err = obsErr,
+        }
+    end
+
+    -- Meaningful coarse location transition while active
+    local sampleCount = (tonumber(state.sampleCount) or 1) + 1
+    local storedSamples = math.min(Observer.MAX_EPISODE_SAMPLES, sampleCount)
+    local nextRev = (tonumber(state.revision) or 1) + 1
+    local routeSummary = appendRouteSample(state.routeSummary, locRef.label, sampleCount)
+    local obsRes, obsErr = Observer.Observe({
+        eventID = state.eventID,
+        factID = state.factID,
+        semanticType = "world.helicopter_overflight",
+        factKind = "world.helicopter_overflight",
+        sourceKind = "helicopter",
+        vanillaSourceID = "IsoWorld.helicopter",
+        phase = "update",
+        retention = "historical",
+        provenance = "environmental",
+        preferredScope = locRef.regionID and "region" or "local_area",
+        locationRef = locRef,
+        occurredAt = tonumber(state.startedAt) or nowHours,
+        observedAt = nowHours,
+        durationHours = 12,
+        factTTLHours = 72,
+        revision = nextRev,
+        severity = 0.70,
+        salience = 0.85,
+        subject = { id = "world:helicopter", kind = "world_event" },
+        effects = {
+            travelRisk = 0.35,
+            caravanRisk = 0.40,
+            hostileActivityMultiplier = 1.20,
+            moralePressure = 0.15,
+        },
+        metadata = {
+            episodeSeq = state.episodeSeq,
+            startAreaID = state.startAreaID,
+            latestAreaID = locRef.localAreaID,
+            sampleCount = storedSamples,
+        },
+        payload = {
+            semanticType = "world.helicopter_overflight",
+            phase = "active",
+            episodeSeq = state.episodeSeq,
+            locationLabel = locRef.label,
+            startAreaID = state.startAreaID,
+            latestAreaID = locRef.localAreaID,
+            sampleCount = storedSamples,
+            routeSummary = routeSummary,
+        },
+    }, opts)
+    Observer.SetHelicopterState({
+        active = true,
+        episodeSeq = state.episodeSeq,
+        eventID = state.eventID,
+        factID = state.factID,
+        startAreaID = state.startAreaID,
+        startLabel = state.startLabel,
+        lastAreaID = locRef.localAreaID,
+        lastBucketKey = bucketKey,
+        lastLocation = locRef,
+        sampleCount = storedSamples,
+        routeSummary = routeSummary,
+        revision = nextRev,
+        startedAt = state.startedAt,
+    })
+    return {
+        action = "updated",
+        eventID = state.eventID,
+        factID = state.factID,
+        locationRef = locRef,
+        x = auth.x,
+        y = auth.y,
+        sampleCount = storedSamples,
+        result = obsRes,
+        err = obsErr,
+    }
+end
+
 function Adapter.PumpCoarse(nowHours, opts)
     if not isAuthorityAllowed(opts) then
         return nil, "server_authority_required"
     end
     nowHours = finite(nowHours, nil) or Adapter.CurrentWorldHours(opts)
     local utilityResults = Adapter.ObserveUtilities(nowHours, opts)
+    local heliResult, heliStatus = Adapter.ObserveHelicopter(nowHours, opts)
     return {
         nowHours = nowHours,
         utilities = utilityResults or {},
+        helicopter = heliResult,
+        helicopterStatus = heliStatus,
     }
 end
 
@@ -323,6 +626,11 @@ function Adapter.InstallHooks()
     if type(Events.EveryHours) == "table" and type(Events.EveryHours.Add) == "function" then
         Events.EveryHours.Add(function()
             Adapter.PumpCoarse()
+        end)
+    end
+    if type(Events.EveryTenMinutes) == "table" and type(Events.EveryTenMinutes.Add) == "function" then
+        Events.EveryTenMinutes.Add(function()
+            Adapter.ObserveHelicopter()
         end)
     end
     return true

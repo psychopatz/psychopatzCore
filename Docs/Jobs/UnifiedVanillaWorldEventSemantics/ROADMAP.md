@@ -82,7 +82,7 @@ Requirements:
 - location-grounded realization only when known;
 - no continuous trajectory ModData.
 
-**Gate:** deterministic fixtures show one event, bounded samples, indoor/outdoor provenance, coarse location change, episode close/reload and no per-frame/per-NPC work.
+**Gate (PASSED in V4):** `PsychopatzPZWorldEventAdapter.ObserveHelicopter` (`EveryTenMinutes` + shared cadence), `PsychopatzVanillaEventObserver` shared-fact actor provenance separation, and Hoomans `ObserveHelicopterEpisode` / `RenderFact` verified via `tests/psychopatz_helicopter_episode_smoke.lua`, `tests/pnc_helicopter_epistemic_smoke.lua`, and `pz_verify.py` (single canonical episode, zero writes in same coarse area, max 5 samples, reload continuity, outdoor witnessed vs indoor heard vs told/radio epistemic precision, zero full NPC scans).
 
 ## V5 — Vanilla live/meta-event ingestion
 

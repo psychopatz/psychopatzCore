@@ -511,6 +511,7 @@ function InstanceMethods:Observe(input, opts)
         factPayload.scopeID = scopeID
         if locRef and locRef.label then factPayload.locationLabel = locRef.label end
         if input.phase then factPayload.phase = phase end
+        factPayload = flatPayload(factPayload) or {}
 
         local factTTL = finite(input.factTTLHours, nil)
         local expiresAt = finite(input.factExpiresAt, nil)
@@ -532,7 +533,7 @@ function InstanceMethods:Observe(input, opts)
             producer = "core:vanilla_event",
             revision = math.max(1, math.floor(finite(input.revision, 1))),
             shareable = input.shareable ~= false,
-            provenance = provenance,
+            provenance = input.factProvenance,
             confidence = clamp(input.confidence, 0, 1, provenance == "witnessed" and 0.95 or 0.75),
             payload = factPayload,
         }, { now = observedAt })

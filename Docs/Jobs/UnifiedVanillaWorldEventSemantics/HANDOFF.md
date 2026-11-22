@@ -4,19 +4,20 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
-phase_commit_phase: "V3"
-phase_commit_message: "phase(V3): feat(world-events): add V3 vanilla utility transition adapter and capability"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=53e4a0f311264cf1c53bc9a2696171657bc015fe;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
+phase_commit_phase: "V4"
+phase_commit_message: "phase(V4): feat(world-events): add V4 regional helicopter episode capture"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=5d2868b99b04f81f3c561b16c0548b194cb46d3d;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
 phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 residual_worktree_fingerprint: "a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 codebase_memory_indexed_commit: "bbd9fee90a96f63323129ea29e5bf76e2f1525be"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "V4"
-chunk: "Helicopter regional episode capture"
+phase: "V5"
+chunk: "Vanilla live/meta-event ingestion"
 retrieval_tier: "auditor"
-updated_at: "2026-11-22T19:48:55.417009Z"
+updated_at: "2026-11-22T19:53:13.132407Z"
 ---
+
 
 
 
@@ -26,17 +27,17 @@ updated_at: "2026-11-22T19:48:55.417009Z"
 
 ## What became true
 
-- V0–V3 are complete and verified across `psychopatzCore` and `ProjectHoomans`.
-- `PsychopatzPZWorldEventAdapter` observes authoritative electricity (`IsoWorld:isHydroPowerOn`, `SandboxOptions:doesPowerGridExist`, `OnElectricityChanged`) and water (`SandboxOptions:getWaterShutModifier` vs world days) transitions exactly once across save/reload.
-- `ProjectHoomans` `PNC_ScopedWorldEventDirector` forbids global defaults/scopes for synthetic events (`food_crisis`, `agricultural_surplus`, `bandit_bonanza`, `severe_weather`, `epidemic`, `trade_disruption`), and utility beats share Core transitions.
+- V0–V4 are complete and verified across `psychopatzCore` and `ProjectHoomans`.
+- Helicopter overflight captures one canonical regional/local episode per flight (`<= 5` coarse samples, zero same-bucket writes, reload resume, clean close on end).
+- `PsychopatzVanillaEventObserver` keeps actor provenance per `ActorKnowledge` reference so shared Core events preserve `witnessed` (outdoor) vs `environmental` (indoor audio) vs `told`/`radio` (`uncertain`) epistemic distinction.
 
 ## Remaining
 
-- V4–V8 implementation and verification.
+- V5–V8 implementation and verification.
 
 ## Resume
 
-Proceed immediately to V4 (helicopter regional episode capture in Core + outdoor witnessed vs indoor heard epistemic acquisition in `ProjectHoomans`).
+Proceed immediately to V5 (vanilla live/meta-event ingestion: gunfire, scream, house alarms, wildlife/thunder ephemeral filtering, weather periods, broadcasts, and fire hazards).
 
 ## Evidence
 
