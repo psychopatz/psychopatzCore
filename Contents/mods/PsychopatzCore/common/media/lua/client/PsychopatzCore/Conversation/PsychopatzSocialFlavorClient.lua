@@ -38,6 +38,13 @@ Client.TTS_FINISH_GAP_MS = 350
 Client.MAX_DELIVERED = 256
 Client.CRITICAL_PRIORITY = 100
 Client.LLM_PRIORITY = 90
+Client.SCENE_PRIORITY_FLOOR = 80
+Client.LANE_SCENE = "scene"
+Client.LANE_BEAT = "beat"
+Client.LANE_AMBIENT = "ambient"
+Client.MAX_ACTIVE_SCENES = 16
+Client.MAX_ACTIVE_THREADS = 24
+Client.MAX_COOLDOWNS = 128
 
 local queue = {}
 local byEventID = {}
@@ -45,16 +52,24 @@ local delivered = {}
 local deliveredOrder = {}
 local recentFamily = {}
 local recentSpeaker = {}
+local recentSceneFamily = {}
+local recentSceneSpeaker = {}
+local activeScenes = {}
+local activeThreads = {}
 local sequence = 0
+local laneSequence = 0
 local activeUntil = 0
 local activePriority = 0
+local activeFloorPriority = 0
+local activeLane = nil
+local activeSceneID = nil
 local activeEventID = nil
 local activeMessageID = nil
 local activeSpeakerID = nil
+local activeConversationID = nil
 local lastAmbientAt = 0
 local lastAmbientPriority = 0
 local activeThreadID = nil
-local activeThreadUntil = 0
 local llmProvider = nil
 local llmCanceler = nil
 local debugEnabled = false
@@ -102,20 +117,119 @@ local function copyMap(source)
     return output
 end
 
-local function priorityFor(spec)
+local function basePriorityFor(spec)
     local priority = numeric(spec.priority, nil)
+    if priority == nil then priority = 35 end
+    return math.max(0, math.min(Client.CRITICAL_PRIORITY, priority))
+end
+
+local function priorityFor(spec, basePriority)
+    local priority = basePriority
     if spec.llmEligible then
         priority = math.max(priority or 0,
             numeric(spec.llmPriority, Client.LLM_PRIORITY))
     end
-    if priority == nil then priority = 35 end
     return math.max(0, math.min(Client.CRITICAL_PRIORITY, priority))
+end
+
+local function effectiveScorePriority(item)
+    if item.lane == Client.LANE_SCENE then
+        return math.max(item.priority, item.sceneFloor or Client.SCENE_PRIORITY_FLOOR)
+    end
+    if item.urgent then
+        return math.max(item.priority, Client.SCENE_PRIORITY_FLOOR + 1)
+    end
+    if item.basePriority < Client.SCENE_PRIORITY_FLOOR
+        and item.priority >= Client.SCENE_PRIORITY_FLOOR
+    then
+        return Client.SCENE_PRIORITY_FLOOR - 1
+    end
+    return item.priority
 end
 
 local function score(item)
     -- Priority is the hard ordering class. Weight only breaks ties, so a
     -- burst of low-value chatter can never starve a warning.
-    return item.priority * 1000000 + item.weight * 1000 - item.sequence
+    return effectiveScorePriority(item) * 1000000 + item.weight * 1000 - item.sequence
+end
+
+local function cancelLLM(item)
+    if item and item.llmRequested and type(llmCanceler) == "function" then
+        llmCanceler(item.eventID)
+    end
+end
+
+local function pruneCooldownMap(map, current)
+    local expired = {}
+    local count = 0
+    local oldestKey = nil
+    local oldestExpiry = nil
+    for key, expiry in pairs(map) do
+        local exp = tonumber(expiry) or 0
+        if current >= exp then
+            expired[#expired + 1] = key
+        else
+            count = count + 1
+            if not oldestExpiry or exp < oldestExpiry then
+                oldestExpiry = exp
+                oldestKey = key
+            end
+        end
+    end
+    for i = 1, #expired do
+        map[expired[i]] = nil
+    end
+    if count > Client.MAX_COOLDOWNS and oldestKey ~= nil then
+        map[oldestKey] = nil
+    end
+end
+
+local function pruneLaneMap(map, current, maxEntries)
+    local expired = {}
+    local count = 0
+    for key, entry in pairs(map) do
+        if type(entry) ~= "table" or current >= (tonumber(entry.untilMs) or 0) then
+            expired[#expired + 1] = key
+        else
+            count = count + 1
+        end
+    end
+    for i = 1, #expired do
+        map[expired[i]] = nil
+    end
+    while count > maxEntries do
+        local oldestKey = nil
+        local oldestSeq = nil
+        for key, entry in pairs(map) do
+            local seq = tonumber(entry.seq) or 0
+            if not oldestSeq or seq < oldestSeq then
+                oldestSeq = seq
+                oldestKey = key
+            end
+        end
+        if oldestKey == nil then break end
+        map[oldestKey] = nil
+        count = count - 1
+    end
+end
+
+local function pruneRuntimeState(current)
+    pruneLaneMap(activeScenes, current, Client.MAX_ACTIVE_SCENES)
+    pruneLaneMap(activeThreads, current, Client.MAX_ACTIVE_THREADS)
+    if activeSceneID and not activeScenes[activeSceneID] and current >= activeUntil then
+        activeSceneID = nil
+    end
+    if activeThreadID and not activeThreads[activeThreadID] then
+        activeThreadID = nil
+    end
+    if activeLane ~= nil and current >= activeUntil then
+        activeLane = nil
+        activeFloorPriority = 0
+    end
+    pruneCooldownMap(recentFamily, current)
+    pruneCooldownMap(recentSpeaker, current)
+    pruneCooldownMap(recentSceneFamily, current)
+    pruneCooldownMap(recentSceneSpeaker, current)
 end
 
 local function removeAt(index)
@@ -127,13 +241,12 @@ local function removeAt(index)
 end
 
 local function purge(current)
+    pruneRuntimeState(current)
     local index = 1
     while index <= #queue do
         local item = queue[index]
         if item.expiresAt > 0 and current >= item.expiresAt then
-            if item.llmRequested and type(llmCanceler) == "function" then
-                pcall(llmCanceler, item.eventID)
-            end
+            cancelLLM(item)
             removeAt(index)
             log("expired", "event=" .. tostring(item.eventID))
         else
@@ -159,6 +272,9 @@ local function findMerge(item)
     if not key then return nil end
     for _, queued in ipairs(queue) do
         if queued.mergeKey == key
+            and queued.lane == item.lane
+            and queued.sceneID == item.sceneID
+            and queued.threadID == item.threadID
             and queued.createdAt + item.mergeWindowMs >= item.createdAt
         then
             return queued
@@ -171,16 +287,39 @@ local function cooldownActive(map, key, current)
     return key and tonumber(map[key]) and current < tonumber(map[key])
 end
 
+local function sameActiveScene(item, current)
+    if item.lane ~= Client.LANE_SCENE or item.sceneID == nil then return false end
+    local entry = activeScenes[item.sceneID]
+    return type(entry) == "table" and current < (tonumber(entry.untilMs) or 0)
+end
+
 local function sameActiveThread(item, current)
-    return item.threadID ~= nil
-        and activeThreadID == item.threadID
-        and current < activeThreadUntil
+    if item.lane ~= Client.LANE_BEAT or item.threadID == nil then return false end
+    local entry = activeThreads[item.threadID]
+    return type(entry) == "table" and current < (tonumber(entry.untilMs) or 0)
 end
 
 local function ambientCadenceBlocks(item, current)
     return item.priority <= lastAmbientPriority
         and lastAmbientAt > 0
         and current < lastAmbientAt + item.ambientCadenceMs
+end
+
+local function resolveLaneAndIDs(spec, context)
+    local rawLane = clean(spec.lane, nil)
+    if rawLane then rawLane = string.lower(rawLane) end
+    local ctx = type(spec.context) == "table" and spec.context or context
+    local rawSceneID = clean(spec.sceneID or (ctx and ctx.sceneID) or nil, nil)
+    local rawThreadID = clean(spec.threadID or (ctx and ctx.threadID) or nil, nil)
+    if rawLane == Client.LANE_SCENE
+        or (rawLane ~= Client.LANE_BEAT and rawSceneID ~= nil)
+    then
+        return Client.LANE_SCENE, rawSceneID or rawThreadID, nil
+    end
+    if rawLane == Client.LANE_BEAT or rawThreadID ~= nil then
+        return Client.LANE_BEAT, nil, rawThreadID
+    end
+    return rawLane or Client.LANE_AMBIENT, nil, nil
 end
 
 local function normalize(spec)
@@ -190,7 +329,8 @@ local function normalize(spec)
     if not eventID or not speakerID then return nil, "identity_required" end
     local current = now()
     sequence = sequence + 1
-    local priority = priorityFor(spec)
+    local basePriority = basePriorityFor(spec)
+    local priority = priorityFor(spec, basePriority)
     local cooldowns = type(spec.cooldowns) == "table" and spec.cooldowns or {}
     local context = copyMap(spec.context)
     local voiceBinding = spec.voiceBinding or spec.voice_binding
@@ -203,14 +343,26 @@ local function normalize(spec)
         or spec.relationshipState
     context.relationshipTier = context.relationshipTier
         or spec.relationshipTier
+    local lane, sceneID, threadID = resolveLaneAndIDs(spec, context)
+    local presentationState = copyMap(spec.presentationState)
+    local source = copyMap(spec.source)
+    local urgent = spec.urgent == true
+        or (type(spec.context) == "table" and spec.context.urgent == true)
+        or source.urgent == true
+        or presentationState.urgent == true
+    local explicitFloor = numeric(spec.sceneFloor
+        or (type(spec.context) == "table" and spec.context.sceneFloor), nil)
+    local sceneFloor = lane == Client.LANE_SCENE
+        and math.max(priority, math.min(Client.CRITICAL_PRIORITY,
+            explicitFloor or Client.SCENE_PRIORITY_FLOOR))
+        or nil
     local item = {
         eventID = eventID,
         flavorID = clean(spec.flavorID, nil),
         family = clean(spec.family, "ambient"),
-        threadID = clean(spec.threadID
-            or (type(spec.context) == "table"
-                and (spec.context.threadID or spec.context.sceneID))
-            or nil, nil),
+        lane = lane,
+        sceneID = sceneID,
+        threadID = threadID,
         speakerID = speakerID,
         speakerName = clean(spec.speakerName, speakerID),
         speakerKind = clean(spec.speakerKind, "npc"),
@@ -218,7 +370,10 @@ local function normalize(spec)
         context = context,
         text = boundedText(spec.text),
         seed = spec.seed or eventID,
+        basePriority = basePriority,
         priority = priority,
+        urgent = urgent,
+        sceneFloor = sceneFloor,
         weight = numeric(spec.weight, 0),
         mergeKey = clean(spec.mergeKey, nil),
         mergeWindowMs = numeric(cooldowns.mergeWindowMs
@@ -232,14 +387,18 @@ local function normalize(spec)
         holdMs = spec.holdMs ~= nil and numeric(spec.holdMs, nil) or nil,
         respectShortHold = spec.respectShortHold == true,
         interrupt = spec.interrupt == true
-            or (type(spec.presentationState) == "table" and spec.presentationState.interrupt == true),
+            or presentationState.interrupt == true,
         conversationID = clean(spec.conversationID, nil),
         ttlMs = numeric(spec.ttlMs, Client.DEFAULT_TTL_MS),
+        threadTTLMs = spec.threadTTLMs ~= nil and numeric(spec.threadTTLMs, nil)
+            or (spec.threadTtlMs ~= nil and numeric(spec.threadTtlMs, nil) or nil),
+        sceneTTLMs = spec.sceneTTLMs ~= nil and numeric(spec.sceneTTLMs, nil)
+            or (spec.sceneTtlMs ~= nil and numeric(spec.sceneTtlMs, nil) or nil),
         llmEligible = spec.llmEligible == true,
         memoryEligible = spec.memoryEligible == true,
         llmGraceMs = numeric(spec.llmGraceMs, Client.DEFAULT_LLM_GRACE_MS),
-        presentationState = copyMap(spec.presentationState),
-        source = copyMap(spec.source),
+        presentationState = presentationState,
+        source = source,
         createdAt = current,
         expiresAt = current + numeric(spec.ttlMs, Client.DEFAULT_TTL_MS),
         sequence = sequence,
@@ -249,29 +408,44 @@ local function normalize(spec)
     return item
 end
 
+local function suppressionReason(item, current)
+    if item.priority >= Client.CRITICAL_PRIORITY or item.urgent == true then
+        return nil
+    end
+    if item.lane == Client.LANE_SCENE then
+        local inScene = sameActiveScene(item, current)
+        if not inScene
+            and cooldownActive(recentSceneFamily, item.family, current)
+        then
+            return "family_cooldown"
+        end
+        if cooldownActive(recentSceneSpeaker, item.speakerID, current) then
+            return "speaker_cooldown"
+        end
+        return nil
+    end
+    local inThread = sameActiveThread(item, current)
+    if not inThread
+        and cooldownActive(recentFamily, item.family, current)
+    then
+        return "family_cooldown"
+    end
+    if cooldownActive(recentSpeaker, item.speakerID, current) then
+        return "speaker_cooldown"
+    end
+    if not inThread and ambientCadenceBlocks(item, current) then
+        return "ambient_cadence"
+    end
+    return nil
+end
+
 local function shouldAdmit(item, current)
     if delivered[item.eventID] then return false, "duplicate_delivered" end
     if byEventID[item.eventID] then return false, "duplicate_queued" end
     local merged = findMerge(item)
     if merged then return true, "merge", merged end
-    local inThread = sameActiveThread(item, current)
-    if not inThread
-        and item.priority < Client.CRITICAL_PRIORITY
-        and cooldownActive(recentFamily, item.family, current)
-    then
-        return false, "family_cooldown"
-    end
-    if item.priority < Client.CRITICAL_PRIORITY
-        and cooldownActive(recentSpeaker, item.speakerID, current)
-    then
-        return false, "speaker_cooldown"
-    end
-    if not inThread
-        and item.priority < Client.CRITICAL_PRIORITY
-        and ambientCadenceBlocks(item, current)
-    then
-        return false, "ambient_cadence"
-    end
+    local suppressed = suppressionReason(item, current)
+    if suppressed then return false, suppressed end
     return true, "accepted"
 end
 
@@ -279,19 +453,8 @@ local function discardSuppressed(current)
     local index = 1
     while index <= #queue do
         local item = queue[index]
-        local inThread = sameActiveThread(item, current)
-        local suppressed = item.priority < Client.CRITICAL_PRIORITY
-            and (
-                cooldownActive(recentSpeaker, item.speakerID, current)
-                or (not inThread and (
-                    cooldownActive(recentFamily, item.family, current)
-                    or ambientCadenceBlocks(item, current)
-                ))
-            )
-        if suppressed then
-            if item.llmRequested and type(llmCanceler) == "function" then
-                pcall(llmCanceler, item.eventID)
-            end
+        if suppressionReason(item, current) ~= nil then
+            cancelLLM(item)
             removeAt(index)
             log("discarded", "event=" .. tostring(item.eventID)
                 .. " reason=delivery_cooldown")
@@ -304,8 +467,7 @@ end
 local function isBridgeReady()
     local gw = PsychopatzCore and PsychopatzCore.VoiceGateway or nil
     if not gw or type(gw.IsBridgeReady) ~= "function" then return false end
-    local ok, ready = pcall(gw.IsBridgeReady)
-    return ok and ready == true
+    return gw.IsBridgeReady() == true
 end
 
 local function computeFloorHold(item, text, presentation)
@@ -333,8 +495,10 @@ local function onVoiceLifecycle(event)
     if type(event) ~= "table" or not activeEventID then return end
     local kind = tostring(event.event or "")
     local msgID = tostring(event.utterance_id or event.utteranceID or event.message_id or event.messageID or "")
+    local convID = tostring(event.conversation_id or event.conversationID or "")
+    local expectedConvID = tostring(activeConversationID or Client.AMBIENT_TTS_CONVERSATION_ID)
     local sameUtterance = (msgID ~= "" and msgID == activeMessageID)
-        or (tostring(event.conversation_id or "") == Client.AMBIENT_TTS_CONVERSATION_ID
+        or (convID ~= "" and convID == expectedConvID
             and tostring(event.speaker_id or "") == tostring(activeSpeakerID or ""))
     if not sameUtterance then return end
     if kind == "speechFinished" or kind == "speechFailed" then
@@ -343,6 +507,7 @@ local function onVoiceLifecycle(event)
         activeEventID = nil
         activeMessageID = nil
         activeSpeakerID = nil
+        activeConversationID = nil
     end
 end
 
@@ -355,11 +520,17 @@ local function enforceSpeakerQueueCap(item)
         local q = queue[i]
         if q.speakerID == item.speakerID and not q.interrupt then
             count = count + 1
-            if q.family == item.family and score(q) <= score(item) then
+            if q.lane == item.lane and q.family == item.family
+                and score(q) <= score(item)
+            then
                 removeAt(i)
                 return
             end
-            if not lowestSpeakerItem or score(q) < score(lowestSpeakerItem) then
+            if not (q.lane == Client.LANE_SCENE
+                and item.lane ~= Client.LANE_SCENE
+                and not item.urgent)
+                and (not lowestSpeakerItem or score(q) < score(lowestSpeakerItem))
+            then
                 lowestSpeakerItem = q
                 lowestSpeakerIdx = i
             end
@@ -422,23 +593,39 @@ local function publish(item, text, isLLM, current)
         presentation.tts = false
     end
     if presentation.nameplate == nil then presentation.nameplate = true end
-    if presentation.conversationUI == nil then presentation.conversationUI = false end
+    if item.lane == Client.LANE_BEAT then
+        -- Transient beat threads must never persist into conversation history.
+        presentation.conversationUI = false
+    elseif presentation.conversationUI == nil then
+        presentation.conversationUI = false
+    end
     if presentation.interrupt == nil then
         presentation.interrupt = item.interrupt == true
+            or item.urgent == true
             or item.priority >= Client.CRITICAL_PRIORITY
     end
     local source = copyMap(item.source)
     source.kind = source.kind or "social_flavor"
     source.family = item.family
+    source.lane = item.lane
     source.eventID = item.eventID
     source.priority = item.priority
     source.weight = item.weight
     source.llm = isLLM == true
-    -- Ambient chatter is not durable LLM memory by default.  Future event
-    -- families such as gossip may explicitly opt in; this keeps routine
-    -- combat commentary from inflating the client-to-provider outbox.
-    source.contextEligible = item.memoryEligible == true
-    source.excludeFromLLM = item.memoryEligible ~= true
+    if item.lane == Client.LANE_SCENE and item.sceneID ~= nil then
+        source.sceneID = item.sceneID
+        source.threadID = nil
+    elseif item.lane == Client.LANE_BEAT and item.threadID ~= nil then
+        source.threadID = item.threadID
+        source.sceneID = nil
+    end
+    if item.urgent == true then source.urgent = true end
+    -- Ambient chatter and transient beat threads are not durable LLM memory
+    -- unless explicitly opted in on non-beat items.
+    local memoryEligible = item.memoryEligible == true
+        and item.lane ~= Client.LANE_BEAT
+    source.contextEligible = memoryEligible
+    source.excludeFromLLM = not memoryEligible
     local msgID = "social-flavor:" .. item.eventID
     local convID = item.conversationID or Client.AMBIENT_TTS_CONVERSATION_ID
     local message = Message.New({
@@ -465,19 +652,50 @@ local function publish(item, text, isLLM, current)
         delivered[oldest] = nil
     end
     byEventID[item.eventID] = nil
-    recentFamily[item.family] = current + item.familyCooldownMs
-    recentSpeaker[item.speakerID] = current + item.speakerCooldownMs
-    lastAmbientAt = current
-    lastAmbientPriority = item.priority
+    if item.lane == Client.LANE_SCENE then
+        recentSceneFamily[item.family] = current + item.familyCooldownMs
+        recentSceneSpeaker[item.speakerID] = current + item.speakerCooldownMs
+    else
+        recentFamily[item.family] = current + item.familyCooldownMs
+        recentSpeaker[item.speakerID] = current + item.speakerCooldownMs
+        lastAmbientAt = current
+        lastAmbientPriority = item.priority
+    end
     local holdDuration = computeFloorHold(item, text, presentation)
     activeUntil = current + holdDuration
     activePriority = item.priority
+    activeLane = item.lane
+    activeFloorPriority = effectiveScorePriority(item)
     activeEventID = item.eventID
     activeMessageID = msgID
     activeSpeakerID = item.speakerID
-    if item.threadID ~= nil then
+    activeConversationID = convID
+    if item.lane == Client.LANE_SCENE and item.sceneID ~= nil then
+        laneSequence = laneSequence + 1
+        local sceneTTL = item.sceneTTLMs or math.max(item.ttlMs or 9000, 12000)
+        activeSceneID = item.sceneID
+        activeScenes[item.sceneID] = {
+            untilMs = current + math.max(0, sceneTTL),
+            floor = item.sceneFloor or Client.SCENE_PRIORITY_FLOOR,
+            lastAt = current,
+            seq = laneSequence,
+        }
+        pruneLaneMap(activeScenes, current, Client.MAX_ACTIVE_SCENES)
+    else
+        activeSceneID = nil
+    end
+    if item.lane == Client.LANE_BEAT and item.threadID ~= nil then
+        laneSequence = laneSequence + 1
+        local threadTTL = item.threadTTLMs or math.max(item.ttlMs or 9000, 12000)
         activeThreadID = item.threadID
-        activeThreadUntil = current + math.max(item.ttlMs or 9000, 12000)
+        activeThreads[item.threadID] = {
+            untilMs = current + math.max(0, threadTTL),
+            lastAt = current,
+            seq = laneSequence,
+        }
+        pruneLaneMap(activeThreads, current, Client.MAX_ACTIVE_THREADS)
+    else
+        activeThreadID = nil
     end
     EventBus.emit(Client.EVENT_DELIVERED, {
         item = item,
@@ -486,19 +704,45 @@ local function publish(item, text, isLLM, current)
         llm = isLLM == true,
     })
     log("delivered", "event=" .. item.eventID .. " priority="
-        .. tostring(item.priority) .. " llm=" .. tostring(isLLM == true)
-        .. " text=" .. text)
+        .. tostring(item.priority) .. " lane=" .. tostring(item.lane)
+        .. " llm=" .. tostring(isLLM == true) .. " text=" .. text)
     return true, "delivered"
+end
+
+local function isUrgentOverScene(item, floor)
+    local highAuthority = item.urgent == true
+        or item.basePriority >= floor
+        or item.priority >= Client.CRITICAL_PRIORITY
+    local wantsPreempt = item.interrupt == true
+        or item.urgent == true
+        or item.priority >= Client.CRITICAL_PRIORITY
+    return highAuthority and wantsPreempt
+end
+
+local function canPreemptActiveFloor(item, current)
+    if current >= activeUntil then return true end
+    if activeLane == Client.LANE_SCENE then
+        if item.lane == Client.LANE_SCENE then
+            return item.interrupt == true and (
+                item.sceneID == activeSceneID
+                or item.basePriority >= activeFloorPriority
+                or item.priority >= Client.CRITICAL_PRIORITY
+            )
+        end
+        return isUrgentOverScene(item, activeFloorPriority)
+    end
+    return item.interrupt == true
+        or item.urgent == true
+        or item.priority >= Client.CRITICAL_PRIORITY
+        or (type(item.presentationState) == "table"
+            and item.presentationState.interrupt == true)
 end
 
 local function choose(current)
     local selected
     local selectedIndex
     for index, item in ipairs(queue) do
-        local canPreempt = item.interrupt == true
-            or item.priority >= Client.CRITICAL_PRIORITY
-            or (type(item.presentationState) == "table" and item.presentationState.interrupt == true)
-        if current >= activeUntil or canPreempt then
+        if canPreemptActiveFloor(item, current) then
             if not selected or score(item) > score(selected) then
                 selected = item
                 selectedIndex = index
@@ -518,8 +762,8 @@ local function requestLLM(item, current)
     local function complete(text, options)
         Client.ReceiveLLMResult(item.eventID, text, options)
     end
-    local ok, accepted = pcall(llmProvider, item, complete)
-    if not ok or accepted ~= true then
+    local accepted = llmProvider(item, complete)
+    if accepted ~= true then
         item.llmRequested = false
         item.llmDeadline = nil
         log("llm_unavailable", "event=" .. item.eventID)
@@ -574,10 +818,8 @@ function Client.Pump(current)
         then
             return false, "llm_wait"
         end
-        if item.llmRequested and not item.llmReady
-            and type(llmCanceler) == "function"
-        then
-            pcall(llmCanceler, item.eventID)
+        if item.llmRequested and not item.llmReady then
+            cancelLLM(item)
         end
     end
     removeAt(index)
@@ -597,8 +839,12 @@ function Client.GetQueueSnapshot()
         output[#output + 1] = {
             eventID = item.eventID,
             family = item.family,
+            lane = item.lane,
+            sceneID = item.sceneID,
+            threadID = item.threadID,
             speakerID = item.speakerID,
             priority = item.priority,
+            urgent = item.urgent == true,
             weight = item.weight,
             mergedCount = item.mergedCount,
             llmRequested = item.llmRequested == true,
@@ -609,16 +855,47 @@ function Client.GetQueueSnapshot()
     return output
 end
 
+function Client.GetLaneSnapshot(current)
+    current = tonumber(current) or now()
+    pruneRuntimeState(current)
+    local scenes = {}
+    local sceneCount = 0
+    for id, entry in pairs(activeScenes) do
+        sceneCount = sceneCount + 1
+        scenes[id] = {
+            untilMs = entry.untilMs,
+            floor = entry.floor,
+        }
+    end
+    local threads = {}
+    local threadCount = 0
+    for id, entry in pairs(activeThreads) do
+        threadCount = threadCount + 1
+        threads[id] = {
+            untilMs = entry.untilMs,
+        }
+    end
+    return {
+        activeLane = activeLane,
+        activeSceneID = activeSceneID,
+        activeThreadID = activeThreadID,
+        activeUntil = activeUntil,
+        activeFloorPriority = activeFloorPriority,
+        activeSceneCount = sceneCount,
+        activeThreadCount = threadCount,
+        activeScenes = scenes,
+        activeThreads = threads,
+    }
+end
+
 function Client.SetDebug(enabled)
     debugEnabled = enabled == true
     return debugEnabled
 end
 
 function Client.Reset()
-    if type(llmCanceler) == "function" then
-        for _, item in ipairs(queue) do
-            if item.llmRequested then pcall(llmCanceler, item.eventID) end
-        end
+    for _, item in ipairs(queue) do
+        cancelLLM(item)
     end
     queue = {}
     byEventID = {}
@@ -626,16 +903,24 @@ function Client.Reset()
     deliveredOrder = {}
     recentFamily = {}
     recentSpeaker = {}
+    recentSceneFamily = {}
+    recentSceneSpeaker = {}
+    activeScenes = {}
+    activeThreads = {}
     sequence = 0
+    laneSequence = 0
     activeUntil = 0
     activePriority = 0
+    activeFloorPriority = 0
+    activeLane = nil
+    activeSceneID = nil
     activeEventID = nil
     activeMessageID = nil
     activeSpeakerID = nil
+    activeConversationID = nil
     lastAmbientAt = 0
     lastAmbientPriority = 0
     activeThreadID = nil
-    activeThreadUntil = 0
     return true
 end
 
