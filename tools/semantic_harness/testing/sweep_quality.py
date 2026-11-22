@@ -13,7 +13,7 @@ Evaluates compact evidence rows against QUALITY_RUBRIC rules:
 from __future__ import annotations
 
 import re
-from typing import Any, Mapping
+from typing import Any, Mapping, Sequence
 
 from .sweep_evidence import QualityFlag
 
@@ -76,6 +76,300 @@ TRANSLATION_KEY_PATTERN = re.compile(
 )
 
 VALID_FAMILY_BONDS = frozenset({"mother", "father", "sister", "brother"})
+
+_GENERIC_NAME_FALLBACKS = frozenset({
+    "",
+    "player",
+    "npc",
+    "listener",
+    "speaker",
+    "addressee",
+    "stranger",
+    "you",
+    "unknown",
+    "none",
+    "nil",
+    "null",
+    "n/a",
+})
+
+_ATOMIC_BARK_INTENTS = frozenset({
+    "bark",
+    "exertion",
+    "pain",
+    "grunt",
+    "shout",
+    "combat_bark",
+})
+
+_DOUBLE_COMMA_RE = re.compile(r",\s*,")
+_MULTI_SPACE_RE = re.compile(r" {2,}")
+_LEADING_PUNCT_RE = re.compile(r"^[,;:]")
+_COMMA_BEFORE_END_RE = re.compile(r",\s*[.!?]")
+_SPACE_BEFORE_END_RE = re.compile(r"\s+[.!?]")
+_DANGLING_PREP_RE = re.compile(
+    r"\b(?:near|beside|toward|towards|against|between|around|from|into|at)\s*[.!?]",
+    re.IGNORECASE,
+)
+_VOCATIVE_PLACEHOLDER_RE = re.compile(
+    r"(?:(?:,\s*|^)(?:Unknown|Null|Nil|N/A)(?:\s*[,!?]|\s*$)|"
+    r"\b(?:hey|hi|hello|listen|thanks|sorry|careful|look),\s+(?:unknown|none|null|nil)\b)",
+)
+_DOUBLE_VOCATIVE_RE = re.compile(
+    r"(?:,\s*(?:stranger|you)\s*,\s*(?:stranger|you)\b|"
+    r"^(?:hey|hi|hello|listen|look|thanks|sorry),\s+[^,]+,\s+(?:stranger|you)\b|"
+    r"\bstranger,\s+stranger\b)",
+    re.IGNORECASE,
+)
+_AWKWARD_YOU_VOCATIVE_RE = re.compile(
+    r"(?:,\s+you\s*[.!?]$|^(?:hey|hi|hello|listen|thanks|sorry|careful),\s+you\b)",
+    re.IGNORECASE,
+)
+
+
+def _first_non_empty_str(*values: Any) -> str:
+    for val in values:
+        if isinstance(val, str):
+            text = val.strip()
+            if text:
+                return text
+    return ""
+
+
+def _word_present(needle: str, haystack: str) -> bool:
+    clean = needle.strip()
+    if len(clean) < 2 or not haystack:
+        return False
+    return bool(re.search(rf"(?<!\w){re.escape(clean)}(?!\w)", haystack, re.IGNORECASE))
+
+
+def _extract_dynamic_context(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Extract normalized dynamic-token, actor, relationship, and location context."""
+    output = row.get("output") or {}
+    final_text = str(output.get("finalText") or "").strip()
+    semantic_path = row.get("semanticPath") or {}
+    trigger = row.get("trigger") or {}
+    rel_summary = trigger.get("relationshipSummary") or {}
+    actor_summary = trigger.get("actorSummary") or {}
+    state_summary = trigger.get("stateSummary") or {}
+    params = trigger.get("parameters") or {}
+    row_ctx = row.get("context") or {}
+    trigger_ctx = trigger.get("context") or {}
+
+    dynamic_meta = row.get("dynamicTokens") or output.get("dynamicTokens") or {}
+    resolved_tokens_raw = (
+        dynamic_meta.get("resolvedTokens")
+        or output.get("resolvedTokens")
+        or row.get("resolvedTokens")
+        or {}
+    )
+    resolved_tokens = (
+        {str(k).strip("{}"): str(v) for k, v in resolved_tokens_raw.items()}
+        if isinstance(resolved_tokens_raw, Mapping)
+        else {}
+    )
+    used_tokens_raw = (
+        dynamic_meta.get("usedTokens")
+        or output.get("usedTokens")
+        or row.get("usedTokens")
+        or []
+    )
+    used_tokens = [str(t) for t in used_tokens_raw] if isinstance(used_tokens_raw, (list, tuple)) else []
+
+    bond_kind = str(rel_summary.get("bondKind") or "none").strip().lower()
+    raw_fam = rel_summary.get("familiarity")
+    if raw_fam is None:
+        raw_fam = params.get("relationship.familiarity")
+    familiarity = _optional_float(raw_fam)
+    familiarity_num = familiarity if familiarity is not None else 0.0
+
+    identity_trust_raw = rel_summary.get("identityTrust")
+    if identity_trust_raw is None:
+        identity_trust_raw = params.get("relationship.identityTrust")
+    identity_trust = _optional_float(identity_trust_raw)
+    identity_trust_state = str(identity_trust_raw or "").strip().lower()
+
+    knows_val = rel_summary.get("knowsAddressee")
+    if knows_val is None:
+        knows_val = actor_summary.get("knowsAddressee")
+    if knows_val is None:
+        knows_val = params.get("knowsAddressee")
+    if knows_val is None:
+        knows_val = params.get("addressee.knowsAddressee")
+    if knows_val is None:
+        knows_val = row_ctx.get("knowsAddressee")
+
+    has_bond = bond_kind not in ("", "none", "unknown", "stranger")
+    trust_explicitly_unknown = (
+        (identity_trust is not None and identity_trust <= 0.0)
+        or (
+            identity_trust is None
+            and identity_trust_raw is not None
+            and identity_trust_state in {"unknown", "unmet", "untrusted", "none", "0"}
+        )
+    )
+    if knows_val is False:
+        speaker_does_not_know = True
+    elif knows_val is True:
+        speaker_does_not_know = False
+    elif trust_explicitly_unknown:
+        speaker_does_not_know = True
+    elif has_bond:
+        speaker_does_not_know = False
+    else:
+        speaker_does_not_know = familiarity_num <= 0.0
+
+    listener_id = _first_non_empty_str(actor_summary.get("listenerID"))
+    personal_listener_id = (
+        listener_id if listener_id.lower() not in _GENERIC_NAME_FALLBACKS else ""
+    )
+    addressee_name = _first_non_empty_str(
+        actor_summary.get("addresseeName"),
+        actor_summary.get("listenerName"),
+        rel_summary.get("addresseeName"),
+        params.get("addressee.name"),
+        params.get("addresseeName"),
+        row_ctx.get("addresseeName"),
+        trigger_ctx.get("addresseeName"),
+        personal_listener_id,
+    )
+    if addressee_name.lower() in _GENERIC_NAME_FALLBACKS:
+        addressee_name = ""
+
+    speaker_name = _first_non_empty_str(
+        actor_summary.get("speakerName"),
+        params.get("speaker.name"),
+        params.get("speakerName"),
+        row_ctx.get("speakerName"),
+        trigger_ctx.get("speakerName"),
+        resolved_tokens.get("speaker.name"),
+    )
+    if speaker_name.lower() in _GENERIC_NAME_FALLBACKS:
+        speaker_name = ""
+
+    bound_location = _first_non_empty_str(
+        state_summary.get("sceneLocation"),
+        state_summary.get("eventLocation"),
+        state_summary.get("location"),
+        row_ctx.get("sceneLocation"),
+        row_ctx.get("eventLocation"),
+        trigger_ctx.get("sceneLocation"),
+        trigger_ctx.get("eventLocation"),
+        params.get("scene.location"),
+        params.get("sceneLocation"),
+        params.get("eventLocation"),
+        params.get("slot.place.name"),
+    )
+
+    addressee_token_val = resolved_tokens.get("addressee.name", "")
+    used_name = bool(
+        (addressee_name and _word_present(addressee_name, final_text))
+        or (
+            "addressee.name" in {t.strip("{}") for t in used_tokens}
+            and addressee_token_val.strip().lower() not in _GENERIC_NAME_FALLBACKS
+        )
+    )
+    used_location = bool(bound_location and _word_present(bound_location, final_text))
+    used_speaker_name = bool(speaker_name and _word_present(speaker_name, final_text))
+    used_resolved_value = any(
+        val.strip()
+        and val.strip().lower() not in _GENERIC_NAME_FALLBACKS
+        and _word_present(val, final_text)
+        for val in resolved_tokens.values()
+    )
+    used_dynamic_reference = bool(
+        used_tokens
+        or used_name
+        or used_location
+        or used_speaker_name
+        or used_resolved_value
+    )
+
+    return {
+        "finalText": final_text,
+        "semanticPath": semantic_path,
+        "familiarity": familiarity_num,
+        "bondKind": bond_kind,
+        "speakerDoesNotKnow": speaker_does_not_know,
+        "addresseeName": addressee_name,
+        "speakerName": speaker_name,
+        "boundLocation": bound_location,
+        "resolvedTokens": resolved_tokens,
+        "usedTokens": used_tokens,
+        "addresseeTokenValue": addressee_token_val,
+        "usedName": used_name,
+        "usedDynamicReference": used_dynamic_reference,
+    }
+
+
+def summarize_dynamic_grounding(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Summarize dynamic-token resolution, name appropriateness, and grammar health."""
+    total_rows = len(rows)
+    rows_with_dynamic_resolved = 0
+    rows_with_name_use = 0
+    rows_with_appropriate_name = 0
+    broken_token_count = 0
+    ungrounded_name_count = 0
+    grounding_opportunity_count = 0
+
+    for row in rows:
+        quality = row.get("quality") or {}
+        flags = quality.get("flags") or []
+        flag_names = {
+            str(f.get("name") or "")
+            for f in flags
+            if isinstance(f, Mapping)
+        }
+        has_ungrounded = "UNGROUNDED_NAME_USE" in flag_names
+        has_broken = "BROKEN_TOKEN_GRAMMAR" in flag_names
+        has_opportunity = "DYNAMIC_GROUNDING_OPPORTUNITY" in flag_names
+
+        if has_ungrounded:
+            ungrounded_name_count += 1
+        if has_broken:
+            broken_token_count += 1
+        if has_opportunity:
+            grounding_opportunity_count += 1
+
+        ctx = _extract_dynamic_context(row)
+        dg = quality.get("dynamicGrounding")
+        if isinstance(dg, Mapping):
+            used_dyn = bool(dg.get("usedDynamicReference"))
+            used_name = bool(dg.get("usedName"))
+        else:
+            used_dyn = bool(ctx["usedDynamicReference"])
+            used_name = bool(ctx["usedName"])
+
+        if used_dyn and not has_broken:
+            rows_with_dynamic_resolved += 1
+        if used_name or has_ungrounded:
+            rows_with_name_use += 1
+            if not has_ungrounded:
+                rows_with_appropriate_name += 1
+
+    name_rate = (
+        round(rows_with_appropriate_name / rows_with_name_use, 4)
+        if rows_with_name_use > 0
+        else 1.0
+    )
+    if total_rows == 0:
+        status = "NO_ROWS"
+    elif broken_token_count == 0 and ungrounded_name_count == 0:
+        status = "DYNAMIC_GROUNDING_VERIFIED"
+    else:
+        status = "ISSUES_FOUND"
+
+    return {
+        "status": status,
+        "totalRows": total_rows,
+        "rowsWithDynamicTokensResolved": rows_with_dynamic_resolved,
+        "rowsWithNameUse": rows_with_name_use,
+        "rowsWithAppropriateNameUse": rows_with_appropriate_name,
+        "appropriateNameUsageRate": name_rate,
+        "brokenTokenCount": broken_token_count,
+        "ungroundedNameCount": ungrounded_name_count,
+        "groundingOpportunityCount": grounding_opportunity_count,
+    }
 
 
 def _optional_float(value: Any) -> float | None:
@@ -242,6 +536,136 @@ class QualityAnalyzer:
                 )
             )
 
+        # 10. UNGROUNDED_NAME_USE & 11. BROKEN_TOKEN_GRAMMAR & 12. DYNAMIC_GROUNDING_OPPORTUNITY
+        dyn_ctx = _extract_dynamic_context(row)
+        flags.extend(self._analyze_dynamic_grounding(row, dyn_ctx, intent=intent))
+
+        return flags
+
+    def _analyze_dynamic_grounding(
+        self,
+        row: Mapping[str, Any],
+        dyn_ctx: Mapping[str, Any],
+        *,
+        intent: str,
+    ) -> list[QualityFlag]:
+        flags: list[QualityFlag] = []
+        final_text = str(dyn_ctx["finalText"])
+        addressee_name = str(dyn_ctx["addresseeName"])
+        speaker_does_not_know = bool(dyn_ctx["speakerDoesNotKnow"])
+        addressee_tok_val = str(dyn_ctx["addresseeTokenValue"])
+        used_tokens = list(dyn_ctx["usedTokens"])
+        resolved_tokens = dict(dyn_ctx["resolvedTokens"])
+        bound_location = str(dyn_ctx["boundLocation"])
+        familiarity = float(dyn_ctx["familiarity"])
+        used_dynamic_reference = bool(dyn_ctx["usedDynamicReference"])
+
+        # BROKEN_TOKEN_GRAMMAR
+        grammar_reasons: list[str] = []
+        if _DOUBLE_COMMA_RE.search(final_text):
+            grammar_reasons.append("empty slot between commas (', ,')")
+        if _MULTI_SPACE_RE.search(final_text):
+            grammar_reasons.append("consecutive spaces from empty token")
+        if _LEADING_PUNCT_RE.search(final_text):
+            grammar_reasons.append("leading punctuation from empty prefix token")
+        if _COMMA_BEFORE_END_RE.search(final_text):
+            grammar_reasons.append("comma immediately before terminal punctuation")
+        if _SPACE_BEFORE_END_RE.search(final_text):
+            grammar_reasons.append("whitespace immediately before terminal punctuation")
+        if _DANGLING_PREP_RE.search(final_text):
+            grammar_reasons.append("dangling preposition before terminal punctuation")
+        if _VOCATIVE_PLACEHOLDER_RE.search(final_text):
+            grammar_reasons.append("placeholder fallback ('Unknown'/'Nil'/'Null') rendered in text")
+        if _DOUBLE_VOCATIVE_RE.search(final_text):
+            grammar_reasons.append("double-vocative fallback artifact")
+
+        for tok in used_tokens:
+            clean_tok = str(tok).strip("{}")
+            if clean_tok in resolved_tokens:
+                val = str(resolved_tokens[clean_tok]).strip()
+                if val == "" or val.lower() in {"unknown", "nil", "null", "n/a"}:
+                    grammar_reasons.append(f"token '{{{clean_tok}}}' resolved to '{val or '<empty>'}'")
+
+        if grammar_reasons:
+            flags.append(
+                QualityFlag(
+                    name="BROKEN_TOKEN_GRAMMAR",
+                    severity="HIGH",
+                    confidence="DEFINITE",
+                    detail="Broken dynamic-token grammar: " + "; ".join(dict.fromkeys(grammar_reasons)),
+                )
+            )
+
+        # UNGROUNDED_NAME_USE
+        ungrounded_reasons: list[str] = []
+        tok_names = {str(t).strip("{}") for t in used_tokens}
+        used_personal_name = bool(addressee_name and _word_present(addressee_name, final_text))
+        used_addressee_tok = "addressee.name" in tok_names
+
+        if speaker_does_not_know and (
+            used_personal_name
+            or (
+                used_addressee_tok
+                and addressee_tok_val.strip().lower() not in {"", "stranger", "you", "unknown"}
+            )
+        ):
+            name_label = addressee_name or addressee_tok_val or "{addressee.name}"
+            ungrounded_reasons.append(
+                f"addressee personal name '{name_label}' used when speaker does not know addressee"
+            )
+
+        tok_low = addressee_tok_val.strip().lower()
+        if tok_low == "you" and (used_addressee_tok or _AWKWARD_YOU_VOCATIVE_RE.search(final_text)):
+            ungrounded_reasons.append("'{addressee.name}' resolved to generic 'you' inside vocative")
+        elif not addressee_tok_val and _AWKWARD_YOU_VOCATIVE_RE.search(final_text):
+            ungrounded_reasons.append("generic 'you' used in vocative address slot")
+        elif tok_low == "stranger" and (not speaker_does_not_know or _DOUBLE_VOCATIVE_RE.search(final_text)):
+            ungrounded_reasons.append(
+                "'{addressee.name}' resolved to 'stranger' despite known addressee or double-vocative"
+            )
+
+        if ungrounded_reasons:
+            flags.append(
+                QualityFlag(
+                    name="UNGROUNDED_NAME_USE",
+                    severity="HIGH",
+                    confidence="DEFINITE",
+                    detail="; ".join(dict.fromkeys(ungrounded_reasons)),
+                )
+            )
+
+        # DYNAMIC_GROUNDING_OPPORTUNITY (INFO/LOW)
+        sem_path = dyn_ctx["semanticPath"]
+        category = str(sem_path.get("category") or "").strip().lower()
+        row_type = str(row.get("rowType") or sem_path.get("rowType") or "").strip().lower()
+        is_atomic_bark = (
+            intent in _ATOMIC_BARK_INTENTS
+            or category == "bark"
+            or row_type == "bark"
+            or (len(final_text.split()) <= 2 and final_text.lower() in ALLOWED_SHORT_WORDS)
+        )
+        rich_addressee = bool(addressee_name and not speaker_does_not_know and familiarity >= 0.3)
+        rich_location = bool(bound_location)
+
+        if not is_atomic_bark and (rich_addressee or rich_location) and not used_dynamic_reference:
+            context_bits: list[str] = []
+            if rich_addressee:
+                context_bits.append(f"known addresseeName='{addressee_name}' (familiarity={familiarity:.2f})")
+            if rich_location:
+                context_bits.append(f"location='{bound_location}'")
+            flags.append(
+                QualityFlag(
+                    name="DYNAMIC_GROUNDING_OPPORTUNITY",
+                    severity="INFO",
+                    confidence="REVIEW",
+                    detail=(
+                        "Row has rich bound context ("
+                        + ", ".join(context_bits)
+                        + ") yet rendered text used zero dynamic references."
+                    ),
+                )
+            )
+
         return flags
 
     def tag_row(self, row: dict[str, Any]) -> dict[str, Any]:
@@ -249,6 +673,33 @@ class QualityAnalyzer:
         flags = self.analyze_row(row)
         flag_dicts = [f.to_dict() for f in flags]
         row.setdefault("quality", {})["flags"] = flag_dicts
+
+        dyn_ctx = _extract_dynamic_context(row)
+        flag_names = {f.name for f in flags}
+        has_ungrounded = "UNGROUNDED_NAME_USE" in flag_names
+        has_broken = "BROKEN_TOKEN_GRAMMAR" in flag_names
+        has_opportunity = "DYNAMIC_GROUNDING_OPPORTUNITY" in flag_names
+        used_dyn = bool(dyn_ctx["usedDynamicReference"])
+        used_name = bool(dyn_ctx["usedName"])
+
+        if has_ungrounded or has_broken:
+            dg_status = "FAILED"
+        elif used_dyn:
+            dg_status = "DYNAMIC_GROUNDING_VERIFIED"
+        elif has_opportunity:
+            dg_status = "OPPORTUNITY"
+        else:
+            dg_status = "NO_DYNAMIC_TOKENS"
+
+        row["quality"]["dynamicGrounding"] = {
+            "status": dg_status,
+            "usedDynamicReference": used_dyn,
+            "usedName": used_name,
+            "appropriateNameUse": bool(used_name and not has_ungrounded),
+            "ungroundedName": has_ungrounded,
+            "brokenTokenGrammar": has_broken,
+            "groundingOpportunity": has_opportunity,
+        }
 
         # Build cluster keys
         cluster_keys: list[str] = []
@@ -273,6 +724,12 @@ class QualityAnalyzer:
             row["quality"]["reviewState"] = "UNREVIEWED"
 
         return row
+
+    def summarize_dynamic_grounding(
+        self, rows: Sequence[Mapping[str, Any]]
+    ) -> dict[str, Any]:
+        """Compute DYNAMIC_GROUNDING_VERIFIED summary counters across analyzed rows."""
+        return summarize_dynamic_grounding(rows)
 
     def analyze_run(self, rows: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
         """Run two-stage analysis across all rows in a sweep run:
@@ -391,4 +848,5 @@ class QualityAnalyzer:
                         r.setdefault("quality", {}).setdefault("clusterKeys", []).append("flag:DUPLICATE_RENDERED_TEXT")
                         r["quality"]["reviewState"] = "FLAGGED"
 
+        self.last_dynamic_grounding_summary = self.summarize_dynamic_grounding(rows)
         return list(rows)

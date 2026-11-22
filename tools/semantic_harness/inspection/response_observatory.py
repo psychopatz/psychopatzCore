@@ -13,6 +13,7 @@ import subprocess
 from typing import Any
 
 from tools.semantic_harness.codebuilder.translation_support import DEFAULT_LANGUAGE, normalize_language, normalize_translations
+from tools.semantic_harness.testing.sweep_quality import QualityAnalyzer
 
 from .conversation_inspector import build_conversation_inspector
 from tools.semantic_harness.runtime.scenario import DEFAULT_SCENARIO, merge
@@ -20,6 +21,243 @@ from tools.semantic_harness.runtime.worker import LuaSemanticWorker
 
 MAX_CASES = 8
 MAX_UTTERANCES = 4
+_TOKEN_RE = re.compile(r"\{([a-zA-Z0-9_.*]+)\}")
+
+
+def _extract_token_set(value: Any) -> set[str]:
+    if isinstance(value, str):
+        return {f"{{{m}}}" for m in _TOKEN_RE.findall(value)}
+    if isinstance(value, list):
+        return {tok for item in value for tok in _extract_token_set(item)}
+    return set()
+
+
+def _word_in_texts(needle: str, texts: list[str]) -> bool:
+    clean = needle.strip()
+    if len(clean) < 2:
+        return False
+    pattern = re.compile(rf"(?<!\w){re.escape(clean)}(?!\w)", re.IGNORECASE)
+    return any(pattern.search(t) for t in texts if t)
+
+
+def _evaluate_row_dynamic_grounding(
+    scenario: dict[str, Any],
+    last: dict[str, Any],
+    messages: list[dict[str, Any]],
+    texts: list[str],
+    inspector: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Compute bounded dynamicTokens and dynamicGrounding metrics for an observatory row."""
+    used_tokens_set: list[str] = []
+    resolved_tokens: dict[str, str] = {}
+
+    def _add_used(tok: str) -> None:
+        norm = tok if tok.startswith("{") else f"{{{tok}}}"
+        if norm not in used_tokens_set:
+            used_tokens_set.append(norm)
+
+    obs = last.get("observation") if isinstance(last.get("observation"), dict) else {}
+    obs_resp = obs.get("response") if isinstance(obs.get("response"), dict) else {}
+    translation = last.get("translation") if isinstance(last.get("translation"), dict) else {}
+    ctx_after = last.get("contextAfter") if isinstance(last.get("contextAfter"), dict) else {}
+    actor_ctx = ctx_after.get("actorConversationContext") if isinstance(ctx_after.get("actorConversationContext"), dict) else {}
+    social_ctx = ctx_after.get("socialContext") if isinstance(ctx_after.get("socialContext"), dict) else {}
+
+    sources = [*messages, obs_resp, translation]
+    for src in sources:
+        if not isinstance(src, dict):
+            continue
+        dyn = src.get("dynamicTokens") if isinstance(src.get("dynamicTokens"), dict) else {}
+        for ut in (src.get("usedTokens"), dyn.get("usedTokens")):
+            if isinstance(ut, list):
+                for item in ut:
+                    if isinstance(item, str) and item.strip():
+                        _add_used(item.strip())
+        for rt in (src.get("resolvedTokens"), dyn.get("resolvedTokens")):
+            if isinstance(rt, dict):
+                for k, v in rt.items():
+                    if isinstance(k, str) and v is not None:
+                        clean_k = k.strip("{}")
+                        resolved_tokens[clean_k] = str(v)
+                        _add_used(clean_k)
+        for tmpl_key in ("templateText", "rawText", "fallback"):
+            tmpl_val = src.get(tmpl_key)
+            if isinstance(tmpl_val, str):
+                for tok in sorted(_extract_token_set(tmpl_val)):
+                    _add_used(tok)
+
+    npc_cfg = scenario.get("npc") if isinstance(scenario.get("npc"), dict) else {}
+    player_cfg = scenario.get("player") if isinstance(scenario.get("player"), dict) else {}
+    scene_cfg = scenario.get("scene") if isinstance(scenario.get("scene"), dict) else {}
+    world_cfg = scenario.get("world") if isinstance(scenario.get("world"), dict) else {}
+    rel_cfg = (
+        npc_cfg.get("relationship")
+        if isinstance(npc_cfg.get("relationship"), dict)
+        else (scenario.get("relationship") if isinstance(scenario.get("relationship"), dict) else {})
+    )
+    pers_rel = (
+        actor_ctx.get("personalRelationship")
+        if isinstance(actor_ctx.get("personalRelationship"), dict)
+        else (actor_ctx.get("relationship") if isinstance(actor_ctx.get("relationship"), dict) else {})
+    )
+    bond_cfg = (
+        social_ctx.get("durableBond")
+        if isinstance(social_ctx.get("durableBond"), dict)
+        else (actor_ctx.get("bond") if isinstance(actor_ctx.get("bond"), dict) else {})
+    )
+
+    addressee_name = next(
+        (
+            str(v).strip()
+            for v in (
+                player_cfg.get("name"),
+                scenario.get("addresseeName"),
+                ctx_after.get("addresseeName"),
+                actor_ctx.get("addresseeName"),
+                resolved_tokens.get("addressee.name"),
+            )
+            if isinstance(v, str) and v.strip()
+        ),
+        "",
+    )
+    speaker_name = next(
+        (
+            str(v).strip()
+            for v in (
+                npc_cfg.get("name"),
+                scenario.get("speakerName"),
+                ctx_after.get("speakerName"),
+                actor_ctx.get("speakerName"),
+                resolved_tokens.get("speaker.name"),
+            )
+            if isinstance(v, str) and v.strip()
+        ),
+        "",
+    )
+    scene_location = next(
+        (
+            str(v).strip()
+            for v in (
+                scene_cfg.get("location"),
+                world_cfg.get("location"),
+                scenario.get("sceneLocation"),
+                ctx_after.get("sceneLocation"),
+                resolved_tokens.get("scene.location"),
+            )
+            if isinstance(v, str) and v.strip()
+        ),
+        "",
+    )
+    event_location = next(
+        (
+            str(v).strip()
+            for v in (
+                scenario.get("eventLocation"),
+                ctx_after.get("eventLocation"),
+            )
+            if isinstance(v, str) and v.strip()
+        ),
+        "",
+    )
+
+    if addressee_name and addressee_name.lower() not in {"player", "stranger", "you", "unknown"}:
+        if _word_in_texts(addressee_name, texts):
+            _add_used("addressee.name")
+            resolved_tokens.setdefault("addressee.name", addressee_name)
+    if speaker_name and _word_in_texts(speaker_name, texts):
+        _add_used("speaker.name")
+        resolved_tokens.setdefault("speaker.name", speaker_name)
+    if scene_location and _word_in_texts(scene_location, texts):
+        _add_used("scene.location")
+        resolved_tokens.setdefault("scene.location", scene_location)
+
+    familiarity = pers_rel.get("familiarity", rel_cfg.get("familiarity"))
+    bond_kind = bond_cfg.get("kind") or rel_cfg.get("bondKind") or "none"
+    identity_trust = pers_rel.get("identityTrust", rel_cfg.get("identityTrust"))
+    knows_addressee = pers_rel.get("knowsAddressee", rel_cfg.get("knowsAddressee"))
+
+    analyzer = QualityAnalyzer()
+    ungrounded_name = False
+    broken_grammar = False
+    grounding_opportunity = False
+    last_dg_status = "NO_DYNAMIC_TOKENS"
+
+    target_texts = texts if texts else [""]
+    for txt in target_texts:
+        synthetic_row = {
+            "semanticPath": {
+                "intent": (inspector.get("semantic") or {}).get("intent"),
+                "subject": (inspector.get("semantic") or {}).get("subject"),
+            },
+            "trigger": {
+                "relationshipSummary": {
+                    "familiarity": familiarity,
+                    "bondKind": bond_kind,
+                    "identityTrust": identity_trust,
+                    "knowsAddressee": knows_addressee,
+                },
+                "actorSummary": {
+                    "addresseeName": addressee_name,
+                    "speakerName": speaker_name,
+                },
+                "stateSummary": {
+                    "sceneLocation": scene_location,
+                    "eventLocation": event_location,
+                },
+            },
+            "output": {
+                "finalText": txt,
+                "usedTokens": used_tokens_set,
+                "resolvedTokens": resolved_tokens,
+            },
+        }
+        analyzer.tag_row(synthetic_row)
+        dg = synthetic_row["quality"]["dynamicGrounding"]
+        ungrounded_name = ungrounded_name or bool(dg.get("ungroundedName"))
+        broken_grammar = broken_grammar or bool(dg.get("brokenTokenGrammar"))
+        grounding_opportunity = grounding_opportunity or bool(dg.get("groundingOpportunity"))
+        last_dg_status = str(dg.get("status") or last_dg_status)
+
+    en_tl_parity: bool | None = None
+    for src in sources:
+        if isinstance(src, dict) and isinstance(src.get("enTlPlaceholderParity"), bool):
+            en_tl_parity = src["enTlPlaceholderParity"]
+            break
+    if en_tl_parity is None:
+        for src in sources:
+            if not isinstance(src, dict):
+                continue
+            tr_map = src.get("translations")
+            if isinstance(tr_map, dict) and "EN" in tr_map and "TL" in tr_map:
+                en_tl_parity = _extract_token_set(tr_map["EN"]) == _extract_token_set(tr_map["TL"])
+                break
+            if isinstance(src.get("enText"), str) and isinstance(src.get("tlText"), str):
+                en_tl_parity = _extract_token_set(src["enText"]) == _extract_token_set(src["tlText"])
+                break
+
+    if ungrounded_name or broken_grammar or en_tl_parity is False:
+        overall_status = "ISSUES_FOUND"
+    elif used_tokens_set:
+        overall_status = "DYNAMIC_GROUNDING_VERIFIED"
+    elif grounding_opportunity:
+        overall_status = "OPPORTUNITY"
+    else:
+        overall_status = last_dg_status
+
+    dynamic_tokens = {
+        "usedTokens": used_tokens_set,
+        "resolvedTokens": resolved_tokens,
+    }
+    dynamic_grounding = {
+        "usedTokens": used_tokens_set,
+        "resolvedTokens": resolved_tokens,
+        "ungroundedName": ungrounded_name,
+        "brokenTokenGrammar": broken_grammar,
+        "groundingOpportunity": grounding_opportunity,
+        "enTlPlaceholderParity": en_tl_parity,
+        "status": overall_status,
+    }
+    return dynamic_tokens, dynamic_grounding
 
 
 def run_quality_matrix(
@@ -246,6 +484,13 @@ def run_quality_matrix(
                 checks["textContains"] = any(
                     required.casefold() in text.casefold() for text in texts
                 )
+            dynamic_tokens, dynamic_grounding = _evaluate_row_dynamic_grounding(
+                scenario,
+                last,
+                messages,
+                texts,
+                inspector,
+            )
             rows.append({
                 "index": index, "label": str(case.get("label") or f"case-{index + 1}")[:96],
                 "language": language, "sourceKind": "FIXTURE",
@@ -281,6 +526,8 @@ def run_quality_matrix(
                 "epistemicStatus": inspector.get("epistemicStatus"),
                 "memorySalience": inspector.get("memorySalience"),
                 "actorRoles": inspector.get("actorRoles"),
+                "dynamicTokens": dynamic_tokens,
+                "dynamicGrounding": dynamic_grounding,
                 "checks": checks,
                 "status": "PASS" if checks and all(checks.values())
                     else "FAIL" if checks else "OBSERVED_ONLY",
@@ -300,6 +547,26 @@ def run_quality_matrix(
         "passed": sum(row["status"] == "PASS" for row in rows),
         "failed": sum(row["status"] == "FAIL" for row in rows),
         "observedOnly": sum(row["status"] == "OBSERVED_ONLY" for row in rows),
+        "dynamicGroundingSummary": {
+            "totalCases": len(rows),
+            "rowsWithDynamicTokensResolved": sum(
+                1 for row in rows
+                if row["dynamicGrounding"]["usedTokens"]
+                and not row["dynamicGrounding"]["brokenTokenGrammar"]
+            ),
+            "ungroundedNameCount": sum(
+                1 for row in rows if row["dynamicGrounding"]["ungroundedName"]
+            ),
+            "brokenTokenGrammarCount": sum(
+                1 for row in rows if row["dynamicGrounding"]["brokenTokenGrammar"]
+            ),
+            "groundingOpportunityCount": sum(
+                1 for row in rows if row["dynamicGrounding"]["groundingOpportunity"]
+            ),
+            "enTlParityFailures": sum(
+                1 for row in rows if row["dynamicGrounding"]["enTlPlaceholderParity"] is False
+            ),
+        },
         "cases": rows,
     }
 

@@ -198,6 +198,11 @@ def build_parser() -> argparse.ArgumentParser:
         default=12,
         help="Flag variant pools with >= N variants (default: 12)",
     )
+    p_hygiene.add_argument(
+        "--dynamic-audit",
+        action="store_true",
+        help="Include static dynamic-token audit (EN/TL parity, stranger-name guard, coverage)",
+    )
     p_hygiene.add_argument("--summary", action="store_true", help="Print summary stats only")
 
     return parser
@@ -382,15 +387,25 @@ def main(arguments: list[str] | None = None) -> int:
             result = audit_convo_engine_family_hygiene(
                 roots,
                 variant_threshold=args.variant_threshold,
+                include_dynamic_audit=bool(args.dynamic_audit),
             )
             if args.summary:
-                result = {
+                summary_result: dict[str, Any] = {
                     "ok": result.get("ok"),
                     "schema": result.get("schema"),
                     "sourceRoots": result.get("sourceRoots"),
                     "variantThreshold": result.get("variantThreshold"),
                     "stats": result.get("stats"),
                 }
+                if "dynamicAudit" in result:
+                    dyn = result["dynamicAudit"]
+                    summary_result["dynamicAudit"] = {
+                        "ok": dyn.get("ok"),
+                        "schema": dyn.get("schema"),
+                        "stats": dyn.get("stats"),
+                        "dynamic_coverage_summary": dyn.get("dynamic_coverage_summary"),
+                    }
+                result = summary_result
         elif args.command == "migrate-translations":
             from tools.semantic_harness.codebuilder.convo_engine_translation_migration import (
                 run_translation_migration,
