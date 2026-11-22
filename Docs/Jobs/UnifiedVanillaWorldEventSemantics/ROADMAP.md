@@ -41,7 +41,7 @@ Requirements:
 
 If PZ-specific capture lives in Core, isolate it behind an explicit Project-Zomboid adapter namespace/capability so portable event/knowledge APIs do not hard-code game classes.
 
-**Gate:** Core tests prove normalization, location fallback, dedupe, fail-closed unknown authority and no duplicate event authority.
+**Gate (PASSED in V1):** `PsychopatzWorldEventLocation.lua` and `PsychopatzVanillaEventObserver.lua` verified via `tests/psychopatz_vanilla_event_observer_smoke.lua`, `tests/psychopatz_scoped_world_events_smoke.lua`, and `pz_verify.py` (location fallback + zone + adopter provider, fail-closed missing authority, global-scope utility restriction, ephemeral exclusion, cooldown & fingerprint dedupe).
 
 ## V2 — Persistence and lifecycle hardening
 

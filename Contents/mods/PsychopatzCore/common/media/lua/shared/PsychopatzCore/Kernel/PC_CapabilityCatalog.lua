@@ -466,6 +466,21 @@ addDescriptor({
     end,
 })
 
+-- 31. Normalized Vanilla World Event Observer & Location Resolver
+addDescriptor({
+    id = "core.vanilla_event_observer",
+    domain = "WorldEvents",
+    roles = { shared = true, client = true, server = true },
+    depends = { "core.scoped_world_events", "core.world_region" },
+    load = function()
+        require "PsychopatzCore/WorldEvents/PsychopatzWorldEventLocation"
+        return require "PsychopatzCore/WorldEvents/PsychopatzVanillaEventObserver"
+    end,
+    facade = function()
+        return PsychopatzCore.VanillaEventObserver
+    end,
+})
+
 -- Convenience Adopter Packs
 addPack({
     id = "pack.trading_common",

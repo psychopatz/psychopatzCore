@@ -4,36 +4,37 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
-phase_commit_phase: "V0"
-phase_commit_message: "phase(V0): feat(world-events): generate V0 vanilla event coverage manifest"
+phase_commit_phase: "V1"
+phase_commit_message: "phase(V1): feat(world-events): add V1 normalized event observer and location contract"
 phase_commit_vector: "psychopatz-core=self;project-hoomans=4450f9a17ab73efa454e5e645af740312e3c888a;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
 phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 residual_worktree_fingerprint: "a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 codebase_memory_indexed_commit: "bbd9fee90a96f63323129ea29e5bf76e2f1525be"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "V1"
-chunk: "Core normalized event observation and location contract"
+phase: "V2"
+chunk: "Persistence and lifecycle hardening"
 retrieval_tier: "auditor"
-updated_at: "2026-11-22T19:36:33.364607Z"
+updated_at: "2026-11-22T19:40:22.126543Z"
 ---
+
 
 
 # Session Handoff
 
 ## What became true
 
-- V0 is complete and verified: `tools/vanilla_event_coverage/generate_manifest.py` deterministically emits `VANILLA_EVENT_COVERAGE.json` (`203` entries across 45 RB, 33 RDS, 26 RVS, 42 RZS, 2 RR Java classes, 21 Lua ranch definitions, and all live/ambient/utility/helicopter/weather hooks; `0` unclassified).
-- Verified unregistered Java classes (`RBReverend` and `RDSRatWar`) are explicitly classified as `unsupported_missing_authoritative_seam` with Java line evidence.
-- Verified `OnAmbientSound(name,x,y)` and `OnWorldSound` (`Alarm`) plus `IsoChunk.vehicleStorySpawnData` / `Zone.pickedRzStory` / `OnSeeNewRoom` seams.
+- V0 and V1 are complete and verified.
+- `PsychopatzWorldEventLocation` provides single-pass location resolution via registered adopter providers, `PsychopatzCore.Zones`, and quantized coarse cells/local areas.
+- `PsychopatzVanillaEventObserver` enforces strict automatic global scope restriction (utility transitions only), routes persistent events into `ScopedWorldEvents` and `WorldKnowledge`, filters ephemeral ambience cleanly, and deduplicates discovery fingerprints and cooldown buckets.
 
 ## Remaining
 
-- V1–V8 implementation and verification.
+- V2–V8 implementation and verification.
 
 ## Resume
 
-Proceed immediately to V1 (`PsychopatzWorldEventLocation.lua` + `PsychopatzVanillaEventObserver.lua`).
+Proceed immediately to V2 (ModData persistence and lifecycle hardening for `PsychopatzScopedWorldEvents` + `PsychopatzVanillaEventObserver`).
 
 ## Evidence
 

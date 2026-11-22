@@ -67,6 +67,8 @@ local PROPERTY_TO_CAP = {
     Translation = "core.translation",
     ShockingEventBus = "core.shocking_events",
     ScopedWorldEvents = "core.scoped_world_events",
+    VanillaEventObserver = "core.vanilla_event_observer",
+    WorldEventLocation = "core.vanilla_event_observer",
 }
 
 local resolving = {}
