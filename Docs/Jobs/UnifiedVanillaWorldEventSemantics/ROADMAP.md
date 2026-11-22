@@ -25,7 +25,7 @@ Inventory and classify:
 
 Generate a deterministic machine-readable coverage manifest with no silent omissions and explicit unsupported/gap reasons.
 
-**Gate:** exact installed-build manifest, source/event classification, authoritative observation seams, location strategy and consumer map accepted. No broad implementation before this gate.
+**Gate (PASSED in V0):** exact installed-build manifest (`VANILLA_EVENT_COVERAGE.json`, 203 entries), source/event classification, authoritative observation seams, location strategy and consumer map verified via `tools/vanilla_event_coverage/generate_manifest.py --check` and `tests/test_vanilla_event_coverage_manifest.py`.
 
 ## V1 — Core normalized event observation and location contract
 

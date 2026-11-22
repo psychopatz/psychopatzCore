@@ -61,12 +61,13 @@ V0 must classify and adopt where useful:
 
 ### Randomized-world discovery content
 
-Installed first-party randomized-world families, excluding helper inner classes:
-- randomized building: 45 classes;
-- randomized dead survivor: 33 classes;
-- randomized vehicle story: 26 classes;
-- randomized zone story: 42 classes;
-- randomized ranch: 2 classes.
+- Randomized building: **45 Java classes** (`RandomizedBuildingBase`, `RBBasic`, 33 other `RB*` building classes including `RBReverend` which is not added to `IsoWorld.randomizedBuildingList`, `RBTableStoryBase`, and 9 `RBTS*` table story classes).
+- Randomized dead survivor: **33 Java classes** (`RandomizedDeadSurvivorBase` + 32 `RDS*` classes; `RDSRatWar` exists on disk but is not registered in `RBBasic.deadSurvivorsStory`).
+- Randomized vehicle story: **26 Java classes** (`RandomizedVehicleStoryBase`, `VehicleStorySpawnData`, `VehicleStorySpawner`, and 23 concrete `RVS*` classes).
+- Randomized zone story: **42 Java classes** (`RandomizedZoneStoryBase` + 41 concrete `RZS*` / `RZJackieJaye` classes).
+- Randomized ranch: **2 Java classes** (`RandomizedRanchBase`, `RanchZoneDefinitions`) plus **21 Lua ranch definitions** in `media/lua/shared/Definitions/animal/RanchZoneDefinitions.lua`.
+- Verified live/ambient/weather hooks: `utility.electricity_cutoff`, `utility.water_cutoff`, `world.helicopter_overflight`, 11 `OnAmbientSound` meta signatures (`MetaAssaultRifle1`, `MetaPistol1..3`, `MetaShotgun1`, `MetaScream`, `burglar2`, `MetaDogBark`, `MetaOwl`, `MetaWolfHowl`, empty thunder `""`), 9 weather/climate/rain/thunder surfaces, `OnWorldSound` (`Alarm` SP seam), `OnDeviceText`, `OnNewFire`/`OnGridBurnt`, `OnSeeNewRoom`, `LoadChunk`, `OnSpawnVehicleEnd`, `OnDeadBodySpawn`, `SleepingEvent`, and `IsoChunk.addSurvivorInHorde`.
+- Deterministic manifest generated at `Docs/Jobs/UnifiedVanillaWorldEventSemantics/VANILLA_EVENT_COVERAGE.json` (`203` total entries, `0` unclassified) via `tools/vanilla_event_coverage/generate_manifest.py` and verified by `tests/test_vanilla_event_coverage_manifest.py`.
 
 Examples include ambulance crash, bandit road, police blockade/shooting, crash horde, murder scene, survivalist camp, tragic picnic, bandit raid, police-at-house, suicide pact, zombies eating, gunstore siege, looted/burnt/safehouse stories and many others.
 
