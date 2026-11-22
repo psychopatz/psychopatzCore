@@ -561,4 +561,48 @@ function Factory.ValidateActor(actor)
     return true
 end
 
+function Factory.ValidateActorPatch(actor, patch)
+    if type(actor) ~= "table" then return false, "actor_required" end
+    if actor.schema ~= Factory.SCHEMA
+        or Util.integer(actor.schemaVersion, 0) ~= Factory.SCHEMA_VERSION
+    then
+        return false, "actor_schema_mismatch"
+    end
+    if Util.text(actor.actorId, nil) == nil then return false, "actor_id_required" end
+    if Util.text(actor.ownerMod, nil) == nil then return false, "owner_mod_required" end
+    if Util.integer(actor.revision, 0) < 1 then return false, "revision_required" end
+    if type(actor.identity) ~= "table" or type(actor.appearance) ~= "table" then
+        return false, "identity_appearance_required"
+    end
+    patch = type(patch) == "table" and patch or actor
+    if patch.identity ~= nil then
+        if (type(actor.identity.identitySeed) ~= "string"
+            and type(actor.identity.identitySeed) ~= "number")
+            or type(actor.identity.survivor) ~= "table"
+        then
+            return false, "identity_contract_invalid"
+        end
+    end
+    if patch.appearance ~= nil then
+        if Util.integer(actor.appearance.policySchemaVersion, 0)
+            ~= Factory.APPEARANCE_POLICY_SCHEMA
+            or type(actor.appearance.policy) ~= "table"
+            or type(actor.appearance.resolved) ~= "table"
+            or type(actor.appearance.contract) ~= "table"
+        then
+            return false, "appearance_contract_invalid"
+        end
+    end
+    if patch.persona ~= nil and actor.persona ~= nil then
+        local personaValid, personaReason = Persona.Validate(actor.persona)
+        if not personaValid then return false, personaReason end
+    end
+    if patch.knowledge ~= nil and actor.knowledge ~= nil then
+        local knowledgeValid, knowledgeReason = Knowledge.Validate(actor.knowledge)
+        if not knowledgeValid then return false, knowledgeReason end
+    end
+    if not Util.isSerializable(patch) then return false, "actor_not_serializable" end
+    return true
+end
+
 return Factory

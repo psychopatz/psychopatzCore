@@ -460,6 +460,14 @@ function Registry:Get(actorId)
     return Util.clone(actor)
 end
 
+-- Return a read-only internal view without cloning the entire actor graph.
+-- Callers must treat the returned table as immutable.
+function Registry:Peek(actorId)
+    local actor = self.records[actorId]
+    if not actor then return nil, "actor_not_found" end
+    return actor
+end
+
 -- Attach provider-neutral identity metadata without replacing the actor or
 -- changing its opaque canonical ID. Adopters use this seam to publish aliases,
 -- capabilities, and presence hints after they claim an actor.
@@ -715,7 +723,7 @@ function Registry:Ensure(spec)
     return self:Create(createSpec)
 end
 
-function Registry:Commit(actorId, patch, expectedRevision)
+function Registry:Commit(actorId, patch, expectedRevision, options)
     local current = self.records[actorId]
     if not current then return nil, "actor_not_found" end
     if expectedRevision ~= nil and tonumber(expectedRevision) ~= current.revision then
@@ -723,7 +731,12 @@ function Registry:Commit(actorId, patch, expectedRevision)
     end
     if type(patch) ~= "table" then return nil, "patch_required" end
 
-    local nextActor = Util.clone(current)
+    -- Top-level shallow copy so untouched large domains (e.g. 100 KB social)
+    -- are not deep-cloned or re-normalized on unrelated updates.
+    local nextActor = {}
+    for key, value in pairs(current) do
+        nextActor[key] = value
+    end
     if patch.identity ~= nil then nextActor.identity = Util.clone(patch.identity) end
     if patch.appearance ~= nil then nextActor.appearance = Util.clone(patch.appearance) end
     if patch.persona ~= nil then nextActor.persona = Util.clone(patch.persona) end
@@ -743,25 +756,39 @@ function Registry:Commit(actorId, patch, expectedRevision)
     nextActor.revision = current.revision + 1
     nextActor.lifecycleRevision = math.max(1,
         math.floor(tonumber(current.lifecycleRevision) or 1))
-    local valid, reason = Social.NewState(nextActor.social)
-    nextActor.social = valid
-    if not nextActor.social then return nil, reason end
-    valid, reason = Social.Validate(nextActor.social)
-    if not valid then return nil, reason end
-    nextActor.world, reason = World.NewState(nextActor.world, actorId)
-    if not nextActor.world then return nil, reason end
-    valid, reason = World.Validate(nextActor.world)
-    if not valid then return nil, reason end
-    nextActor.providerLease, reason = Provider.Normalize(
-        nextActor.providerLease, actorId)
-    if not nextActor.providerLease then return nil, reason end
-    valid, reason = Provider.Validate(nextActor.providerLease, actorId)
-    if not valid then return nil, reason end
-    nextActor.persona, reason = Persona.NewState(nextActor.persona)
-    if not nextActor.persona then return nil, reason end
-    nextActor.knowledge, reason = Knowledge.NewState(nextActor.knowledge)
-    if not nextActor.knowledge then return nil, reason end
-    valid, reason = Factory.ValidateActor(nextActor)
+    local valid, reason
+    if patch.social ~= nil or nextActor.social == nil then
+        nextActor.social, reason = Social.NewState(nextActor.social)
+        if not nextActor.social then return nil, reason end
+        valid, reason = Social.Validate(nextActor.social)
+        if not valid then return nil, reason end
+    end
+    if patch.world ~= nil or nextActor.world == nil then
+        nextActor.world, reason = World.NewState(nextActor.world, actorId)
+        if not nextActor.world then return nil, reason end
+        valid, reason = World.Validate(nextActor.world)
+        if not valid then return nil, reason end
+    end
+    if patch.providerLease ~= nil or nextActor.providerLease == nil then
+        nextActor.providerLease, reason = Provider.Normalize(
+            nextActor.providerLease, actorId)
+        if not nextActor.providerLease then return nil, reason end
+        valid, reason = Provider.Validate(nextActor.providerLease, actorId)
+        if not valid then return nil, reason end
+    end
+    if patch.persona ~= nil or nextActor.persona == nil then
+        nextActor.persona, reason = Persona.NewState(nextActor.persona)
+        if not nextActor.persona then return nil, reason end
+    end
+    if patch.knowledge ~= nil or nextActor.knowledge == nil then
+        nextActor.knowledge, reason = Knowledge.NewState(nextActor.knowledge)
+        if not nextActor.knowledge then return nil, reason end
+    end
+    if type(Factory.ValidateActorPatch) == "function" then
+        valid, reason = Factory.ValidateActorPatch(nextActor, patch)
+    else
+        valid, reason = Factory.ValidateActor(nextActor)
+    end
     if not valid then return nil, reason end
 
     local prevRevision = self.revision
@@ -785,6 +812,9 @@ function Registry:Commit(actorId, patch, expectedRevision)
         self._spatialIndex.builtRevision = self.revision
     end
     markProjectionDirty("actor_committed")
+    if type(options) == "table" and options.returnClone == false then
+        return { actorId = actorId, revision = nextActor.revision }
+    end
     return Util.clone(nextActor)
 end
 

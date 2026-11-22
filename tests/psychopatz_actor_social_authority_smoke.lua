@@ -80,4 +80,19 @@ local afterEvent = Authority.GetSocial(actor.actorId, core)
 equal(afterEvent.relationships["player:char:one"].approval, 29,
     "authorized event approval")
 
+local peeked = registry:Peek(actor.actorId)
+truthy(peeked and peeked.world, "Registry:Peek returns internal actor view")
+local mutablePatchWorld = { location = { position = { x = 42, y = 84, z = 0 } } }
+local slimCommit = registry:Commit(actor.actorId, { world = mutablePatchWorld },
+    peeked.revision, { returnClone = false })
+truthy(slimCommit and slimCommit.revision == peeked.revision + 1 and slimCommit.social == nil,
+    "Commit returnClone=false returns compact ack")
+mutablePatchWorld.location.position.x = 777
+local fetched = registry:Get(actor.actorId)
+fetched.world.location.position.x = 999
+equal(registry:Peek(actor.actorId).world.location.position.x, 42,
+    "Commit clones patched domain and Get returns isolated clone")
+equal(registry:Peek(actor.actorId).social.relationships["player:char:one"].approval, 29,
+    "Commit preserves untouched social graph intact")
+
 print("psychopatz_actor_social_authority_smoke: PASS")
