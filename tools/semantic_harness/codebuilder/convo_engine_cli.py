@@ -179,6 +179,27 @@ def build_parser() -> argparse.ArgumentParser:
     p_mig.add_argument("--write", action="store_true", help="Apply migration writes atomically")
     p_mig.add_argument("--keep-legacy-sidecars", action="store_true", help="Do not delete old textSidecars files")
 
+    p_hygiene = sub.add_parser(
+        "hygiene-audit",
+        help="Run deterministic ConvoEngine semantic family hygiene / anti-duplication / anti-overpacking audit",
+    )
+    _add_repo_args(p_hygiene)
+    p_hygiene.add_argument(
+        "--source-root",
+        action="append",
+        dest="source_roots",
+        type=Path,
+        default=None,
+        help="Explicit ConvoEngine conversation source root(s) to audit (repeatable)",
+    )
+    p_hygiene.add_argument(
+        "--variant-threshold",
+        type=int,
+        default=12,
+        help="Flag variant pools with >= N variants (default: 12)",
+    )
+    p_hygiene.add_argument("--summary", action="store_true", help="Print summary stats only")
+
     return parser
 
 
@@ -337,6 +358,37 @@ def main(arguments: list[str] | None = None) -> int:
                     "ok": result.get("ok"),
                     "counters": result.get("counters"),
                     "readinessChecks": result.get("readinessChecks"),
+                    "stats": result.get("stats"),
+                }
+        elif args.command == "hygiene-audit":
+            from tools.semantic_harness.codebuilder.convo_engine_hygiene_audit import (
+                audit_convo_engine_family_hygiene,
+            )
+
+            if args.source_roots:
+                roots = args.source_roots
+            else:
+                from tools.semantic_harness.codebuilder.convo_engine_integrity_audit import (
+                    _source_roots_by_owner,
+                )
+
+                roots = list(
+                    _source_roots_by_owner(
+                        svc.core_repository,
+                        svc.hoomans_repository,
+                        svc.dynamic_trading_repository,
+                    ).values()
+                )
+            result = audit_convo_engine_family_hygiene(
+                roots,
+                variant_threshold=args.variant_threshold,
+            )
+            if args.summary:
+                result = {
+                    "ok": result.get("ok"),
+                    "schema": result.get("schema"),
+                    "sourceRoots": result.get("sourceRoots"),
+                    "variantThreshold": result.get("variantThreshold"),
                     "stats": result.get("stats"),
                 }
         elif args.command == "migrate-translations":
