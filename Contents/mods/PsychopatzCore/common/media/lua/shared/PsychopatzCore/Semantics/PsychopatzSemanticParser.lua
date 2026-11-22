@@ -188,6 +188,7 @@ local function candidateQuality(candidate)
         unresolved = tonumber(match.unresolvedCount) or 0,
         ambiguous = tonumber(match.ambiguousCount) or 0,
         unmatched = tonumber(match.unmatchedCount) or 0,
+        secondary = tonumber(match.secondaryCount) or 0,
         fuzzy = tonumber(match.fuzzyCount) or 0,
     }
 end
@@ -204,6 +205,9 @@ local function betterEqualScore(candidate, best)
     end
     if left.unmatched ~= right.unmatched then
         return left.unmatched < right.unmatched
+    end
+    if left.secondary ~= right.secondary then
+        return left.secondary < right.secondary
     end
     -- Once semantic completeness is equal, preserve the exact-pass preference.
     if candidate.exact ~= best.exact then return candidate.exact == true end
@@ -256,6 +260,11 @@ local function candidateComparator(left, right)
     end
     if left.exact ~= right.exact then return left.exact end
     if left.fuzzy ~= right.fuzzy then return left.fuzzy ~= true end
+    local leftSecondary = tonumber(left.match and left.match.secondaryCount) or 0
+    local rightSecondary = tonumber(right.match and right.match.secondaryCount) or 0
+    if leftSecondary ~= rightSecondary then
+        return leftSecondary < rightSecondary
+    end
     local leftPriority = tonumber(left.pattern.priority) or 0
     local rightPriority = tonumber(right.pattern.priority) or 0
     if leftPriority ~= rightPriority then

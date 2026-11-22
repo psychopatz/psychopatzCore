@@ -29,6 +29,61 @@ local function phrase(tokens, first, last)
     return table.concat(values, " ")
 end
 
+local function conceptOwner(entry)
+    if type(entry) ~= "table" then return "__default__" end
+    if entry.owner ~= nil and entry.owner ~= "" then
+        return tostring(entry.owner)
+    end
+    local concept = entry.id and Registry and Registry.GetConcept
+        and Registry.GetConcept(entry.id) or nil
+    if type(concept) == "table" and concept.owner ~= nil and concept.owner ~= "" then
+        return tostring(concept.owner)
+    end
+    return "__default__"
+end
+
+local function collectAllCandidates(matches)
+    local byOwner = {}
+    local ownerOrder = {}
+    for index = 1, #matches do
+        local entry = matches[index]
+        local id = entry and entry.id
+        if id ~= nil then
+            local ownerKey = conceptOwner(entry)
+            local prio = tonumber(entry.priority) or 0
+            local bucket = byOwner[ownerKey]
+            if not bucket then
+                bucket = {
+                    priority = prio,
+                    ids = { id },
+                    seen = { [id] = true },
+                }
+                byOwner[ownerKey] = bucket
+                ownerOrder[#ownerOrder + 1] = ownerKey
+            elseif prio > bucket.priority then
+                bucket.priority = prio
+                bucket.ids = { id }
+                bucket.seen = { [id] = true }
+            elseif prio == bucket.priority and not bucket.seen[id] then
+                bucket.ids[#bucket.ids + 1] = id
+                bucket.seen[id] = true
+            end
+        end
+    end
+    local all = {}
+    local seen = {}
+    for _, ownerKey in ipairs(ownerOrder) do
+        local ids = byOwner[ownerKey].ids
+        for _, id in ipairs(ids) do
+            if not seen[id] then
+                all[#all + 1] = id
+                seen[id] = true
+            end
+        end
+    end
+    return all
+end
+
 local function bestConcept(matches)
     local highestPriority = nil
     local candidateIDs = {}
@@ -95,6 +150,7 @@ function Matcher.Build(normalized, options)
                         kind = "concept",
                         id = id,
                         candidates = candidates,
+                        allCandidates = collectAllCandidates(matches),
                         text = candidatePhrase,
                         matchedAlias = candidatePhrase,
                         matchType = "exact",
@@ -113,6 +169,7 @@ function Matcher.Build(normalized, options)
                         kind = "concept",
                         id = verbForm.concept,
                         candidates = { verbForm.concept },
+                        allCandidates = { verbForm.concept },
                         text = candidatePhrase,
                         matchedAlias = candidatePhrase,
                         matchType = "verb_form",
@@ -138,6 +195,7 @@ function Matcher.Build(normalized, options)
                         kind = "concept",
                         id = id,
                         candidates = candidates,
+                        allCandidates = collectAllCandidates(fuzzy.matches),
                         text = candidatePhrase,
                         matchedAlias = fuzzy.matches[1].alias,
                         matchType = "fuzzy",
@@ -185,6 +243,7 @@ function Matcher.Analysis(normalized, symbols)
             value = symbol.value,
             text = symbol.text,
             candidates = copyValue(symbol.candidates),
+            allCandidates = symbol.allCandidates and copyValue(symbol.allCandidates) or nil,
             matchedAlias = symbol.matchedAlias,
             matchType = symbol.matchType,
             verbForm = copyValue(symbol.verbForm),

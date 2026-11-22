@@ -91,6 +91,7 @@ local function addAlias(alias, definition)
     entries[#entries + 1] = {
         id = definition.id,
         priority = definition.priority,
+        owner = definition.owner,
     }
     Registry.Aliases[alias] = entries
     local tokenCount = 0

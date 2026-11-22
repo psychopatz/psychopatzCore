@@ -2,7 +2,7 @@ local Match = {}
 local search
 
 local function terminalResult(state, symbolIndex, captures, consumed,
-    skipped, unresolved, ambiguous, fuzzy)
+    skipped, unresolved, ambiguous, fuzzy, secondary)
     local remaining = #state.symbols - symbolIndex + 1
     if remaining > 0 and state.pattern.allowUnmatched ~= true then
         return nil
@@ -14,6 +14,7 @@ local function terminalResult(state, symbolIndex, captures, consumed,
         unresolvedCount = unresolved,
         ambiguousCount = ambiguous,
         fuzzyCount = fuzzy,
+        secondaryCount = secondary,
         unmatchedCount = math.max(0, remaining),
         fullCoverage = remaining == 0,
         truncated = state.normalized.truncated == true,
@@ -21,7 +22,7 @@ local function terminalResult(state, symbolIndex, captures, consumed,
 end
 
 local function skipOptional(state, ruleIndex, symbolIndex, captures, consumed,
-    skipped, unresolved, ambiguous, fuzzy)
+    skipped, unresolved, ambiguous, fuzzy, secondary)
     return search(
         state,
         ruleIndex + 1,
@@ -31,12 +32,13 @@ local function skipOptional(state, ruleIndex, symbolIndex, captures, consumed,
         skipped + 1,
         unresolved,
         ambiguous,
-        fuzzy
+        fuzzy,
+        secondary
     )
 end
 
 local function tryPhraseSpan(state, rule, ruleIndex, symbolIndex, captures,
-    consumed, skipped, unresolved, ambiguous, fuzzy, last)
+    consumed, skipped, unresolved, ambiguous, fuzzy, secondary, last)
     local nextCaptures = state.Captures.clone(captures)
     if rule.capture then
         nextCaptures[rule.capture] = state.Captures.capturePhraseValue(
@@ -53,12 +55,13 @@ local function tryPhraseSpan(state, rule, ruleIndex, symbolIndex, captures,
         skipped,
         unresolved + spanUnresolved,
         ambiguous + spanAmbiguous,
-        fuzzy + spanFuzzy
+        fuzzy + spanFuzzy,
+        secondary
     )
 end
 
 local function matchPhraseRule(state, ruleIndex, rule, symbolIndex, captures,
-    consumed, skipped, unresolved, ambiguous, fuzzy)
+    consumed, skipped, unresolved, ambiguous, fuzzy, secondary)
     local firstToken = state.symbols[symbolIndex]
         and state.symbols[symbolIndex].startToken or nil
     local last
@@ -86,6 +89,7 @@ local function matchPhraseRule(state, ruleIndex, rule, symbolIndex, captures,
                 unresolved,
                 ambiguous,
                 fuzzy,
+                secondary,
                 last
             )
             if result then return result end
@@ -101,39 +105,44 @@ local function matchPhraseRule(state, ruleIndex, rule, symbolIndex, captures,
             skipped,
             unresolved,
             ambiguous,
-            fuzzy
+            fuzzy,
+            secondary
         )
     end
     return nil
 end
 
 local function matchRegularRule(state, ruleIndex, rule, symbolIndex, captures,
-    consumed, skipped, unresolved, ambiguous, fuzzy)
+    consumed, skipped, unresolved, ambiguous, fuzzy, secondary)
     -- Consume first so optional words are retained when they actually match.
     -- Backtracking handles optional grammar without hardcoding sentence paths.
     if symbolIndex <= #state.symbols
         and state.Rules.matchesRule(rule, state.symbols[symbolIndex])
     then
+        local sym = state.symbols[symbolIndex]
         local nextCaptures = state.Captures.clone(captures)
         if rule.capture then
-            nextCaptures[rule.capture] = state.Captures.captureValue(
-                state.symbols[symbolIndex])
+            nextCaptures[rule.capture] = state.Captures.captureValue(sym)
         end
         local nextUnresolved = unresolved
-        if rule.capture and (state.symbols[symbolIndex].kind ~= "concept"
-            or state.symbols[symbolIndex].id == nil)
-        then
+        if rule.capture and (sym.kind ~= "concept" or sym.id == nil) then
             nextUnresolved = nextUnresolved + 1
         end
         local nextAmbiguous = ambiguous
-        if state.symbols[symbolIndex].kind == "concept"
-            and (not state.symbols[symbolIndex].id)
-        then
+        if sym.kind == "concept" and (not sym.id) then
             nextAmbiguous = nextAmbiguous + 1
         end
         local nextFuzzy = fuzzy
-        if state.symbols[symbolIndex].fuzzy == true then
+        if sym.fuzzy == true then
             nextFuzzy = nextFuzzy + 1
+        end
+        local nextSecondary = secondary
+        if rule.kind == "concept"
+            and sym.kind == "concept"
+            and sym.id ~= nil
+            and tostring(sym.id) ~= tostring(rule.id)
+        then
+            nextSecondary = nextSecondary + 1
         end
         local result = search(
             state,
@@ -144,7 +153,8 @@ local function matchRegularRule(state, ruleIndex, rule, symbolIndex, captures,
             skipped,
             nextUnresolved,
             nextAmbiguous,
-            nextFuzzy
+            nextFuzzy,
+            nextSecondary
         )
         if result then return result end
     end
@@ -158,14 +168,15 @@ local function matchRegularRule(state, ruleIndex, rule, symbolIndex, captures,
             skipped,
             unresolved,
             ambiguous,
-            fuzzy
+            fuzzy,
+            secondary
         )
     end
     return nil
 end
 
 search = function(state, ruleIndex, symbolIndex, captures, consumed, skipped,
-    unresolved, ambiguous, fuzzy)
+    unresolved, ambiguous, fuzzy, secondary)
     if ruleIndex > #state.rules then
         return terminalResult(
             state,
@@ -175,7 +186,8 @@ search = function(state, ruleIndex, symbolIndex, captures, consumed, skipped,
             skipped,
             unresolved,
             ambiguous,
-            fuzzy
+            fuzzy,
+            secondary
         )
     end
 
@@ -192,7 +204,8 @@ search = function(state, ruleIndex, symbolIndex, captures, consumed, skipped,
             skipped,
             unresolved,
             ambiguous,
-            fuzzy
+            fuzzy,
+            secondary
         )
     end
     return matchRegularRule(
@@ -205,7 +218,8 @@ search = function(state, ruleIndex, symbolIndex, captures, consumed, skipped,
         skipped,
         unresolved,
         ambiguous,
-        fuzzy
+        fuzzy,
+        secondary
     )
 end
 
@@ -220,7 +234,7 @@ function Match.Install(PatternMatcher, Rules, Captures, Support)
             Captures = Captures,
             Support = Support,
         }
-        return search(state, 1, 1, {}, 0, 0, 0, 0, 0)
+        return search(state, 1, 1, {}, 0, 0, 0, 0, 0, 0)
     end
 end
 

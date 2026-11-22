@@ -18,7 +18,10 @@ local EventBus = PsychopatzCore.Events
 local OWNER_TOKEN = Client
 
 Client.EVENT_DELIVERED = "PsychopatzCore.SocialFlavor.Delivered"
-Client.MAX_QUEUE = 24
+Client.AMBIENT_TTS_CONVERSATION_ID = "social-flavor:ambient_floor"
+Client.VOICE_LIFECYCLE_EVENT = "PsychopatzCore.Voice.Lifecycle"
+Client.MAX_QUEUE = 12
+Client.MAX_QUEUE_PER_SPEAKER = 2
 Client.MAX_TEXT_LENGTH = 420
 Client.DEFAULT_TTL_MS = 20000
 Client.DEFAULT_MERGE_WINDOW_MS = 10000
@@ -26,7 +29,12 @@ Client.DEFAULT_FAMILY_COOLDOWN_MS = 30000
 Client.DEFAULT_SPEAKER_COOLDOWN_MS = 20000
 Client.DEFAULT_AMBIENT_CADENCE_MS = 4500
 Client.DEFAULT_LLM_GRACE_MS = 2500
-Client.DEFAULT_HOLD_MS = 4500
+Client.DEFAULT_HOLD_MS = 2400
+Client.MIN_READABLE_HOLD_MS = 1800
+Client.MAX_READABLE_HOLD_MS = 3800
+Client.TTS_MIN_TIMEOUT_MS = 4500
+Client.TTS_MAX_TIMEOUT_MS = 9000
+Client.TTS_FINISH_GAP_MS = 350
 Client.MAX_DELIVERED = 256
 Client.CRITICAL_PRIORITY = 100
 Client.LLM_PRIORITY = 90
@@ -40,6 +48,9 @@ local recentSpeaker = {}
 local sequence = 0
 local activeUntil = 0
 local activePriority = 0
+local activeEventID = nil
+local activeMessageID = nil
+local activeSpeakerID = nil
 local lastAmbientAt = 0
 local lastAmbientPriority = 0
 local activeThreadID = nil
@@ -218,7 +229,11 @@ local function normalize(spec)
             or spec.speakerCooldownMs, Client.DEFAULT_SPEAKER_COOLDOWN_MS),
         ambientCadenceMs = numeric(cooldowns.ambientMs
             or spec.ambientCadenceMs, Client.DEFAULT_AMBIENT_CADENCE_MS),
-        holdMs = numeric(spec.holdMs, Client.DEFAULT_HOLD_MS),
+        holdMs = spec.holdMs ~= nil and numeric(spec.holdMs, nil) or nil,
+        respectShortHold = spec.respectShortHold == true,
+        interrupt = spec.interrupt == true
+            or (type(spec.presentationState) == "table" and spec.presentationState.interrupt == true),
+        conversationID = clean(spec.conversationID, nil),
         ttlMs = numeric(spec.ttlMs, Client.DEFAULT_TTL_MS),
         llmEligible = spec.llmEligible == true,
         memoryEligible = spec.memoryEligible == true,
@@ -286,6 +301,75 @@ local function discardSuppressed(current)
     end
 end
 
+local function isBridgeReady()
+    local gw = PsychopatzCore and PsychopatzCore.VoiceGateway or nil
+    if not gw or type(gw.IsBridgeReady) ~= "function" then return false end
+    local ok, ready = pcall(gw.IsBridgeReady)
+    return ok and ready == true
+end
+
+local function computeFloorHold(item, text, presentation)
+    local textLen = #(tostring(text or ""))
+    local estMs = math.min(
+        Client.MAX_READABLE_HOLD_MS,
+        math.max(Client.MIN_READABLE_HOLD_MS, 1600 + textLen * 26)
+    )
+    if item.respectShortHold and type(item.holdMs) == "number" then
+        estMs = math.max(0, item.holdMs)
+    elseif type(item.holdMs) == "number" and item.holdMs >= Client.MIN_READABLE_HOLD_MS then
+        estMs = math.min(Client.TTS_MAX_TIMEOUT_MS, item.holdMs)
+    end
+    local usingTTS = presentation.tts ~= false and isBridgeReady()
+    if usingTTS then
+        return math.min(
+            Client.TTS_MAX_TIMEOUT_MS,
+            math.max(Client.TTS_MIN_TIMEOUT_MS, estMs + 2500)
+        ), true
+    end
+    return estMs, false
+end
+
+local function onVoiceLifecycle(event)
+    if type(event) ~= "table" or not activeEventID then return end
+    local kind = tostring(event.event or "")
+    local msgID = tostring(event.utterance_id or event.utteranceID or event.message_id or event.messageID or "")
+    local sameUtterance = (msgID ~= "" and msgID == activeMessageID)
+        or (tostring(event.conversation_id or "") == Client.AMBIENT_TTS_CONVERSATION_ID
+            and tostring(event.speaker_id or "") == tostring(activeSpeakerID or ""))
+    if not sameUtterance then return end
+    if kind == "speechFinished" or kind == "speechFailed" then
+        local current = now()
+        activeUntil = math.min(activeUntil, current + Client.TTS_FINISH_GAP_MS)
+        activeEventID = nil
+        activeMessageID = nil
+        activeSpeakerID = nil
+    end
+end
+
+local function enforceSpeakerQueueCap(item)
+    if item.interrupt then return end
+    local count = 0
+    local lowestSpeakerIdx = nil
+    local lowestSpeakerItem = nil
+    for i = 1, #queue do
+        local q = queue[i]
+        if q.speakerID == item.speakerID and not q.interrupt then
+            count = count + 1
+            if q.family == item.family and score(q) <= score(item) then
+                removeAt(i)
+                return
+            end
+            if not lowestSpeakerItem or score(q) < score(lowestSpeakerItem) then
+                lowestSpeakerItem = q
+                lowestSpeakerIdx = i
+            end
+        end
+    end
+    if count >= Client.MAX_QUEUE_PER_SPEAKER and lowestSpeakerIdx then
+        removeAt(lowestSpeakerIdx)
+    end
+end
+
 local function enqueueInternal(item)
     local current = now()
     purge(current)
@@ -302,6 +386,7 @@ local function enqueueInternal(item)
         merged.weight = math.max(merged.weight, item.weight)
         return true, "merged"
     end
+    enforceSpeakerQueueCap(item)
     if #queue >= Client.MAX_QUEUE then
         local index, lowest = lowestIndex()
         if not lowest or score(lowest) >= score(item) then
@@ -339,7 +424,8 @@ local function publish(item, text, isLLM, current)
     if presentation.nameplate == nil then presentation.nameplate = true end
     if presentation.conversationUI == nil then presentation.conversationUI = false end
     if presentation.interrupt == nil then
-        presentation.interrupt = item.priority >= Client.CRITICAL_PRIORITY
+        presentation.interrupt = item.interrupt == true
+            or item.priority >= Client.CRITICAL_PRIORITY
     end
     local source = copyMap(item.source)
     source.kind = source.kind or "social_flavor"
@@ -353,9 +439,11 @@ local function publish(item, text, isLLM, current)
     -- combat commentary from inflating the client-to-provider outbox.
     source.contextEligible = item.memoryEligible == true
     source.excludeFromLLM = item.memoryEligible ~= true
+    local msgID = "social-flavor:" .. item.eventID
+    local convID = item.conversationID or Client.AMBIENT_TTS_CONVERSATION_ID
     local message = Message.New({
-        messageID = "social-flavor:" .. item.eventID,
-        conversationID = "social-flavor:" .. item.eventID,
+        messageID = msgID,
+        conversationID = convID,
         sequence = item.mergedCount,
         speaker = item.speakerKind,
         speakerID = item.speakerID,
@@ -381,11 +469,15 @@ local function publish(item, text, isLLM, current)
     recentSpeaker[item.speakerID] = current + item.speakerCooldownMs
     lastAmbientAt = current
     lastAmbientPriority = item.priority
-    activeUntil = current + item.holdMs
+    local holdDuration = computeFloorHold(item, text, presentation)
+    activeUntil = current + holdDuration
     activePriority = item.priority
+    activeEventID = item.eventID
+    activeMessageID = msgID
+    activeSpeakerID = item.speakerID
     if item.threadID ~= nil then
         activeThreadID = item.threadID
-        activeThreadUntil = current + math.max(item.ttlMs or 6000, 8000)
+        activeThreadUntil = current + math.max(item.ttlMs or 9000, 12000)
     end
     EventBus.emit(Client.EVENT_DELIVERED, {
         item = item,
@@ -403,10 +495,10 @@ local function choose(current)
     local selected
     local selectedIndex
     for index, item in ipairs(queue) do
-        if current >= activeUntil
-            or item.priority > activePriority
+        local canPreempt = item.interrupt == true
             or item.priority >= Client.CRITICAL_PRIORITY
-        then
+            or (type(item.presentationState) == "table" and item.presentationState.interrupt == true)
+        if current >= activeUntil or canPreempt then
             if not selected or score(item) > score(selected) then
                 selected = item
                 selectedIndex = index
@@ -537,6 +629,9 @@ function Client.Reset()
     sequence = 0
     activeUntil = 0
     activePriority = 0
+    activeEventID = nil
+    activeMessageID = nil
+    activeSpeakerID = nil
     lastAmbientAt = 0
     lastAmbientPriority = 0
     activeThreadID = nil
@@ -545,6 +640,9 @@ function Client.Reset()
 end
 
 EventBus.clearOwner(OWNER_TOKEN)
+local gw = PsychopatzCore and PsychopatzCore.VoiceGateway or nil
+local lifecycleEvent = (gw and gw.LIFECYCLE_EVENT_TYPE) or Client.VOICE_LIFECYCLE_EVENT
+EventBus.subscribe(lifecycleEvent, onVoiceLifecycle, OWNER_TOKEN)
 if Events and Events.OnTick and not Client.TickRegistered then
     Events.OnTick.Add(function() Client.Pump() end)
     Client.TickRegistered = true

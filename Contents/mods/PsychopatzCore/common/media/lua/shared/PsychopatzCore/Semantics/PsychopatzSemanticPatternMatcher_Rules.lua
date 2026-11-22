@@ -72,12 +72,20 @@ function Rules.matchesRule(rule, symbol)
             and (symbol.verbForm == nil or rule.allowVerbForms == true)
     end
     if rule.kind == "concept" then
-        if symbol.kind ~= "concept"
-            or symbol.id == nil
-            or tostring(symbol.id) ~= tostring(rule.id)
-        then
+        if symbol.kind ~= "concept" or symbol.id == nil then
             return false
         end
+        local targetID = tostring(rule.id)
+        local matched = tostring(symbol.id) == targetID
+        if not matched and type(symbol.allCandidates) == "table" then
+            for i = 1, #symbol.allCandidates do
+                if tostring(symbol.allCandidates[i]) == targetID then
+                    matched = true
+                    break
+                end
+            end
+        end
+        if not matched then return false end
 
         if type(rule.verbForms) == "table" then
             if not symbol.verbForm then return rule.allowBaseVerb == true end
