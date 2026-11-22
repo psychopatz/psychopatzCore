@@ -28,6 +28,7 @@ require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldProjectionSer
 require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscoveryServer"
 require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldBootstrapServer"
 require "PsychopatzCore/WorldEvents/PsychopatzPZWorldEventAdapter"
+require "PsychopatzCore/WorldEvents/PsychopatzVanillaDiscoveryAdapter"
 
 Composition.serverLoaded = true
 

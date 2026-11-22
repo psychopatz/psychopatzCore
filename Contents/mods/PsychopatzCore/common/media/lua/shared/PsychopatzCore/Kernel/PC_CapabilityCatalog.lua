@@ -495,6 +495,20 @@ addDescriptor({
     end,
 })
 
+-- 33. Project Zomboid Vanilla Randomized-World Discovery Adapter
+addDescriptor({
+    id = "core.vanilla_discovery_adapter",
+    domain = "WorldEvents",
+    roles = { shared = true, client = true, server = true },
+    depends = { "core.vanilla_event_observer" },
+    load = function()
+        return require "PsychopatzCore/WorldEvents/PsychopatzVanillaDiscoveryAdapter"
+    end,
+    facade = function()
+        return PsychopatzCore.VanillaDiscoveryAdapter
+    end,
+})
+
 -- Convenience Adopter Packs
 addPack({
     id = "pack.trading_common",

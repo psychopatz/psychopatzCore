@@ -113,7 +113,7 @@ Rules:
 - discovery work runs only on already-relevant loaded/observed local content, never world scans;
 - update the coverage manifest with exact supported/gap status.
 
-**Gate:** zone and vehicle exemplars including ambulance crash pass; building/dead-survivor/ranch strategy is implemented where feasible and evidence-backed gaps are explicitly documented.
+**Gate (PASSED in V6):** `PsychopatzVanillaDiscoveryAdapter` (`LoadChunk`, `OnSpawnVehicleEnd`, `OnSeeNewRoom`, `DiscoverNearPoint` bounded buffer `MAX_PENDING_SITES = 64`, zero world scans) and Hoomans `DiscoverNearbyStories` / `RenderFact` verified via `tests/psychopatz_vanilla_discovery_smoke.lua`, `tests/pnc_vanilla_story_discovery_smoke.lua`, `generate_manifest.py --check` (`203` entries, `0` unclassified), and `pz_verify.py` (ambulance crash, bandit road, police blockade, crash horde, zone murder/survivalist/tragic picnic, burnt/safehouse/gunstore/corpse room scenes, and ranch discoveries covered; `RBReverend`/`RDSRatWar` remain explicitly documented unregistered gaps).
 
 ## V7 — ProjectHoomans adoption and deeper branching
 

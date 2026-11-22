@@ -1,12 +1,12 @@
 # Progress — Unified Vanilla World Event Semantics
 
-**Status:** V5 COMPLETE; PROCEEDING TO V6 (Randomized-world discovery integration).
+**Status:** V6 COMPLETE; PROCEEDING TO V7 (ProjectHoomans adoption and deeper branching).
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Branch policy:** existing `main` only; no new branches.
 **Planning heads:** Core `fecc800b05d0874e94a8600833880a77cd967e8d`; Hoomans `7847ccfb833425a2553bd9602aebaf958f76d7ed`; DynamicTrading `feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb`.
-**Current phase:** V6 — Randomized-world discovery integration.
-**Next Chunk:** Implement `PsychopatzVanillaDiscoveryAdapter.lua` for zero-scan vehicle (`RVSAmbulanceCrash`, bandit road, police blockade, crash horde), zone (`pickedRzStory`), building/dead-survivor (`OnSeeNewRoom`), and ranch discoveries plus Hoomans consumption.
+**Current phase:** V7 — ProjectHoomans adoption and deeper branching.
+**Next Chunk:** Expand all 8 thematic interactive dialogue families, semantic affordances, hard contextual constraints, numeric disposition/relationship weighting, multi-actor scene interjections/outcomes, and EN/TL realizations in ProjectHoomans (via canonical CodeBuilder JSON sources + reconcile).
 
 ## Completed phases
 - **V0 (Accepted):** Generated deterministic `VANILLA_EVENT_COVERAGE.json` (`203` entries) via `tools/vanilla_event_coverage/generate_manifest.py`, verified with `tests/test_vanilla_event_coverage_manifest.py`.
@@ -15,6 +15,7 @@
 - **V3 (Accepted):** Added `PsychopatzPZWorldEventAdapter.lua` utility adapter + Hoomans non-global synthetic scope enforcement + shared utility wiring.
 - **V4 (Accepted):** Added regional helicopter episode capture (`<= 5` coarse samples, zero same-bucket writes, reload resume) + Hoomans indoor/outdoor/told/radio epistemic precision.
 - **V5 (Accepted):** Implemented `OnAmbientSound` (gunfire variants, scream, `burglar2`, ephemeral wildlife/dog/thunder), `OnWorldSound` (`Alarm` fast guard), `WeatherPeriod` severe storms, `OnThunderEvent`, `OnDeviceText`, `OnNewFire`, and `ObserveSeason` in Core (`PC_ServerComposition` eager server load + fact-before-event publish order), plus Hoomans nearby actor live perception & realizations; verified across Core & Hoomans suites.
+- **V6 (Accepted):** Added `PsychopatzVanillaDiscoveryAdapter.lua` (`core.vanilla_discovery_adapter`) for zero-scan chunk/spawn/room story discovery (`RVS*` including `RVSAmbulanceCrash`, `RZS*` via `pickedRzStory`, `RB*`/`RDS*` grounded observable room evidence on `OnSeeNewRoom`, and `Ranch` zones via bounded `MAX_PENDING_SITES = 64` buffer) plus Hoomans `DiscoverNearbyStories` and `discovery.*` realizations; verified via `tests/psychopatz_vanilla_discovery_smoke.lua`, `tests/pnc_vanilla_story_discovery_smoke.lua`, and `pz_verify.py`.
 
 ## Verified planning facts
 

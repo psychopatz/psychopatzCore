@@ -70,6 +70,7 @@ local PROPERTY_TO_CAP = {
     VanillaEventObserver = "core.vanilla_event_observer",
     WorldEventLocation = "core.vanilla_event_observer",
     WorldEventAdapter = "core.pz_world_event_adapter",
+    VanillaDiscoveryAdapter = "core.vanilla_discovery_adapter",
 }
 
 local resolving = {}
