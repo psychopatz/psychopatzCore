@@ -42,6 +42,8 @@ local activeUntil = 0
 local activePriority = 0
 local lastAmbientAt = 0
 local lastAmbientPriority = 0
+local activeThreadID = nil
+local activeThreadUntil = 0
 local llmProvider = nil
 local llmCanceler = nil
 local debugEnabled = false
@@ -158,6 +160,12 @@ local function cooldownActive(map, key, current)
     return key and tonumber(map[key]) and current < tonumber(map[key])
 end
 
+local function sameActiveThread(item, current)
+    return item.threadID ~= nil
+        and activeThreadID == item.threadID
+        and current < activeThreadUntil
+end
+
 local function ambientCadenceBlocks(item, current)
     return item.priority <= lastAmbientPriority
         and lastAmbientAt > 0
@@ -188,6 +196,10 @@ local function normalize(spec)
         eventID = eventID,
         flavorID = clean(spec.flavorID, nil),
         family = clean(spec.family, "ambient"),
+        threadID = clean(spec.threadID
+            or (type(spec.context) == "table"
+                and (spec.context.threadID or spec.context.sceneID))
+            or nil, nil),
         speakerID = speakerID,
         speakerName = clean(spec.speakerName, speakerID),
         speakerKind = clean(spec.speakerKind, "npc"),
@@ -227,7 +239,9 @@ local function shouldAdmit(item, current)
     if byEventID[item.eventID] then return false, "duplicate_queued" end
     local merged = findMerge(item)
     if merged then return true, "merge", merged end
-    if item.priority < Client.CRITICAL_PRIORITY
+    local inThread = sameActiveThread(item, current)
+    if not inThread
+        and item.priority < Client.CRITICAL_PRIORITY
         and cooldownActive(recentFamily, item.family, current)
     then
         return false, "family_cooldown"
@@ -237,7 +251,8 @@ local function shouldAdmit(item, current)
     then
         return false, "speaker_cooldown"
     end
-    if item.priority < Client.CRITICAL_PRIORITY
+    if not inThread
+        and item.priority < Client.CRITICAL_PRIORITY
         and ambientCadenceBlocks(item, current)
     then
         return false, "ambient_cadence"
@@ -249,11 +264,14 @@ local function discardSuppressed(current)
     local index = 1
     while index <= #queue do
         local item = queue[index]
+        local inThread = sameActiveThread(item, current)
         local suppressed = item.priority < Client.CRITICAL_PRIORITY
             and (
-                cooldownActive(recentFamily, item.family, current)
-                or cooldownActive(recentSpeaker, item.speakerID, current)
-                or ambientCadenceBlocks(item, current)
+                cooldownActive(recentSpeaker, item.speakerID, current)
+                or (not inThread and (
+                    cooldownActive(recentFamily, item.family, current)
+                    or ambientCadenceBlocks(item, current)
+                ))
             )
         if suppressed then
             if item.llmRequested and type(llmCanceler) == "function" then
@@ -365,6 +383,10 @@ local function publish(item, text, isLLM, current)
     lastAmbientPriority = item.priority
     activeUntil = current + item.holdMs
     activePriority = item.priority
+    if item.threadID ~= nil then
+        activeThreadID = item.threadID
+        activeThreadUntil = current + math.max(item.ttlMs or 6000, 8000)
+    end
     EventBus.emit(Client.EVENT_DELIVERED, {
         item = item,
         message = message,
@@ -517,6 +539,8 @@ function Client.Reset()
     activePriority = 0
     lastAmbientAt = 0
     lastAmbientPriority = 0
+    activeThreadID = nil
+    activeThreadUntil = 0
     return true
 end
 
