@@ -4,19 +4,20 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
-phase_commit_phase: "V7"
-phase_commit_message: "phase(V7): docs(world-events): reconcile V7 thematic branching metrics and Core FoundationRegistry"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=4522d6e952708bf3ccb013ce620ad9d698a60cb1;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
-phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=0906291aeb101304b202385a78f40bb3cd8059bc9b3054a3dfd1967e2f3abe5d"
+phase_commit_phase: "V8"
+phase_commit_message: "phase(V8): test(world-events): add V8 scale soak test and close V0-V8 developer roadmap"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=4522d6e952708bf3ccb013ce620ad9d698a60cb1;dynamic-trading=62757d0b7fc1c114873735387827ccad9d828077"
+phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 residual_worktree_fingerprint: "a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 codebase_memory_indexed_commit: "bbd9fee90a96f63323129ea29e5bf76e2f1525be"
 state: "CLEAN_CHECKPOINT"
-parent_status: "IN_PROGRESS"
-phase: "V8"
-chunk: "DynamicTrading adoption and exhaustive regression"
+parent_status: "COMPLETE"
+phase: "V9"
+chunk: "User native SP/MP acceptance"
 retrieval_tier: "auditor"
-updated_at: "2026-11-22T20:26:24.047107Z"
+updated_at: "2026-11-22T20:33:41.428196Z"
 ---
+
 
 
 
@@ -30,18 +31,18 @@ updated_at: "2026-11-22T20:26:24.047107Z"
 
 ## What became true
 
-- V0–V7 are complete and verified across `psychopatzCore` and `ProjectHoomans`.
-- Core ingests gunfire (`MetaAssaultRifle1`, `MetaPistol1..3`, `MetaShotgun1`), screams (`MetaScream`), alarms (`burglar2` & SP `Alarm`), severe storms, structured broadcasts, fire hazards, seasonal transitions, AND randomized-world discoveries via `PsychopatzVanillaDiscoveryAdapter` (`RVS*` including `RVSAmbulanceCrash`, `RZS*` via `pickedRzStory`, `RB*`/`RDS*` grounded room scenes on `OnSeeNewRoom`, and `Ranch` zones via bounded `MAX_PENDING_SITES = 64` buffer, zero world scans) while keeping wildlife (`MetaDogBark`, `MetaOwl`, `MetaWolfHowl`) and thunder strictly ephemeral.
-- `PsychopatzVanillaEventObserver` publishes the canonical `WorldKnowledge` fact before firing `ScopedWorldEvents` listeners, and `PC_ServerComposition` loads `PsychopatzPZWorldEventAdapter` and `PsychopatzVanillaDiscoveryAdapter` early on server/SP startup.
-- ProjectHoomans V7 deeper branching expanded all 8 thematic interactive families (`60` nodes / avg `7.50`, `132` branch offers / avg `16.50`, `43` hard-constrained offers across `8/8` flows, `45` distinct outcome keys with separated `replySemantics`, and `after.recommend`), extended numeric disposition + epistemic/condition/fatigue weighting in `ChoicePolicy.lua`, added third-party witness/mediator interjection outcomes (`TurnPolicy.lua`/`Conversation.lua`), and reconciled all CodeBuilder EN/TL artifacts (`reconcile.py --check` clean).
+- All developer phases V0–V8 of `UnifiedVanillaWorldEventSemantics` are complete, verified, and locally committed across `psychopatzCore`, `ProjectHoomans`, and `DynamicTrading`.
+- Core owns normalized observation, single-pass location resolution, bounded scoped-event/ledger ModData persistence (`<= 32` active, `<= 64` history, `<= 256` ledger facts), global utility transitions (`electricity_cutoff`, `water_cutoff`), bounded regional helicopter episodes (`<= 5` coarse samples, zero per-tick telemetry), live/meta event ingestion (gunfire, scream, house alarm, severe storm, broadcasts, fire, season) with ephemeral wildlife/thunder filtering, and zero-scan randomized-world discovery (`PsychopatzVanillaDiscoveryAdapter`: `RVS*` including `RVSAmbulanceCrash`, `RZS*`, `RB*`/`RDS*` grounded room observations, and `Ranch` zones; `203` manifest entries with explicit `RBReverend` and `RDSRatWar` gaps).
+- ProjectHoomans V7 deepened all 8 thematic interactive families (`60` nodes / avg `7.50`, `132` offers / avg `16.50`, `43` hard-constrained offers across `8/8` flows, `45` distinct outcome keys, `replySemantics`, and `after.recommend`), extended numeric disposition + epistemic/condition/fatigue weighting (`ChoicePolicy.lua`), added third-party witness/mediator interjection outcomes (`TurnPolicy.lua`/`Conversation.lua`, `MAX_PARTICIPANTS = 4`, `MAX_STEPS = 8`), and reconciled all EN/TL CodeBuilder artifacts cleanly.
+- DynamicTrading V8 consumes Core `ScopedWorldEvents` and `WorldKnowledge` directly via `DTCommon/DTCommon_CoreWorldEventProjection.lua` and `DTCommon_WorldKnowledge.lua` (standalone without `ProjectHoomans`, coordinated cleanly with `DTHoomans_WorldEventProjection.lua`, ignoring non-economic ambience/campsites, never recursing `dt-market-condition:*`, and reconciling reload state via `OnStateLoaded`).
 
 ## Remaining
 
-- V8 implementation and exhaustive cross-repo verification.
+- V9: User-owned native Project Zomboid SP/MP acceptance testing.
 
 ## Resume
 
-Proceed immediately to V8 (standalone `DynamicTrading` `DTCommon_CoreWorldEventProjection.lua` + `DTCommon_WorldKnowledge.lua`, `dt_core_vanilla_world_event_projection_smoke.lua`, Core `psychopatz_v8_world_event_scale_soak_smoke.lua`, and full V0–V8 regression).
+All developer work V0–V8 is finished. Proceed only with user-driven native SP/MP acceptance per `ROADMAP.md` V9.
 
 ## Evidence
 

@@ -149,7 +149,7 @@ Run cross-repo regression:
 - Kahlua/static guards;
 - event-heavy scale soak and ModData-size/boundedness checks.
 
-**Gate:** every V0 coverage entry is accounted for; supported paths are verified; gaps are evidence-backed; no performance regression or duplicate authority; generated ownership remains clean; docs reconciled.
+**Gate (PASSED in V8):** Every V0 coverage entry (`203` entries, `0` unclassified) is accounted for; `DTCommon/DTCommon_CoreWorldEventProjection.lua` + `DTCommon/DTCommon_WorldKnowledge.lua` consume Core `ScopedWorldEvents` & `WorldKnowledge` standalone without `ProjectHoomans` while coordinating cleanly with `DTHoomans_WorldEventProjection.lua`, ignoring low-value ambience (`MetaDogBark`/campsites) and never recursing `dt-market-condition:*`; all Core/Hoomans/DynamicTrading V0–V8 Lua tests, CodeBuilder `--check` (`clean=true`, `486` desired, `0` drift), `generate_manifest.py --check`, `test_vanilla_event_coverage_manifest.py`, `tests/psychopatz_v8_world_event_scale_soak_smoke.lua`, and `pz_verify.py --kahlua` (`0` issues) passed with zero failures.
 
 ## V9 — User native SP/MP acceptance
 
