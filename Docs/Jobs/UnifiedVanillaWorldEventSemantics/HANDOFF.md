@@ -4,19 +4,20 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
-phase_commit_phase: "V2"
-phase_commit_message: "phase(V2): feat(world-events): add V2 ModData persistence and load-time expiry pruning"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=4450f9a17ab73efa454e5e645af740312e3c888a;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
+phase_commit_phase: "V3"
+phase_commit_message: "phase(V3): feat(world-events): add V3 vanilla utility transition adapter and capability"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=53e4a0f311264cf1c53bc9a2696171657bc015fe;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
 phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 residual_worktree_fingerprint: "a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 codebase_memory_indexed_commit: "bbd9fee90a96f63323129ea29e5bf76e2f1525be"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "V3"
-chunk: "Global vanilla utilities"
+phase: "V4"
+chunk: "Helicopter regional episode capture"
 retrieval_tier: "auditor"
-updated_at: "2026-11-22T19:42:19.232349Z"
+updated_at: "2026-11-22T19:48:55.417009Z"
 ---
+
 
 
 
@@ -25,16 +26,17 @@ updated_at: "2026-11-22T19:42:19.232349Z"
 
 ## What became true
 
-- V0, V1, and V2 are complete and verified.
-- `PsychopatzScopedWorldEvents` persists both scoped events and `VanillaEventObserver` watermarks/episode state/discovery fingerprints in `ModData` (`"PsychopatzCore.ScopedWorldEvents"`), prunes expired entries on load without reactivation, fires `OnStateLoaded` for adopter reconciliation, and enforces `32`/`64`/`256` bounds.
+- V0–V3 are complete and verified across `psychopatzCore` and `ProjectHoomans`.
+- `PsychopatzPZWorldEventAdapter` observes authoritative electricity (`IsoWorld:isHydroPowerOn`, `SandboxOptions:doesPowerGridExist`, `OnElectricityChanged`) and water (`SandboxOptions:getWaterShutModifier` vs world days) transitions exactly once across save/reload.
+- `ProjectHoomans` `PNC_ScopedWorldEventDirector` forbids global defaults/scopes for synthetic events (`food_crisis`, `agricultural_surplus`, `bandit_bonanza`, `severe_weather`, `epidemic`, `trade_disruption`), and utility beats share Core transitions.
 
 ## Remaining
 
-- V3–V8 implementation and verification.
+- V4–V8 implementation and verification.
 
 ## Resume
 
-Proceed immediately to V3 (`PsychopatzPZWorldEventAdapter.lua` global utilities + `ProjectHoomans` `PNC_ScopedWorldEventDirector.lua` non-global enforcement & shared utility wiring).
+Proceed immediately to V4 (helicopter regional episode capture in Core + outdoor witnessed vs indoor heard epistemic acquisition in `ProjectHoomans`).
 
 ## Evidence
 

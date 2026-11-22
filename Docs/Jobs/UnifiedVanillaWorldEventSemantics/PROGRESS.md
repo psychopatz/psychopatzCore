@@ -1,17 +1,18 @@
 # Progress — Unified Vanilla World Event Semantics
 
-**Status:** V2 COMPLETE; PROCEEDING TO V3 (Global vanilla utilities & synthetic non-global enforcement).
+**Status:** V3 COMPLETE; PROCEEDING TO V4 (Helicopter regional episode capture).
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Branch policy:** existing `main` only; no new branches.
 **Planning heads:** Core `fecc800b05d0874e94a8600833880a77cd967e8d`; Hoomans `7847ccfb833425a2553bd9602aebaf958f76d7ed`; DynamicTrading `feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb`.
-**Current phase:** V3 — Global vanilla utilities.
-**Next Chunk:** Implement Core `PsychopatzPZWorldEventAdapter.lua` electricity/water cutoff transition detection and enforce non-global scope defaults on synthetic events in `ProjectHoomans`.
+**Current phase:** V4 — Helicopter regional episode capture.
+**Next Chunk:** Implement helicopter regional/local episode capture in `PsychopatzPZWorldEventAdapter.lua` and outdoor witnessed vs indoor heard epistemic acquisition/rendering in `ProjectHoomans`.
 
 ## Completed phases
 - **V0 (Accepted):** Generated deterministic `VANILLA_EVENT_COVERAGE.json` (`203` entries) via `tools/vanilla_event_coverage/generate_manifest.py`, verified with `tests/test_vanilla_event_coverage_manifest.py`.
 - **V1 (Accepted):** Added `PsychopatzWorldEventLocation.lua` and `PsychopatzVanillaEventObserver.lua`, registered `core.vanilla_event_observer`, verified via `tests/psychopatz_vanilla_event_observer_smoke.lua` and `pz-verify`.
 - **V2 (Accepted):** Wired ModData persistence (`PsychopatzCore.ScopedWorldEvents`, `OnInitGlobalModData`/`OnSave`, `OnStateLoaded`), expired-on-load pruning, ledger load-time expiry pruning, and cap enforcement (`32`/`64`/`256`), verified via `tests/psychopatz_world_events_persistence_smoke.lua` and `pz-verify`.
+- **V3 (Accepted):** Added `PsychopatzPZWorldEventAdapter.lua` (`ReadUtilityAuthority`, `ObserveUtilities`, `OnElectricityChanged` + coarse cadence), registered `core.pz_world_event_adapter`, updated `ProjectHoomans` `PNC_ScopedWorldEventDirector.lua` (restricting synthetic events to non-global scopes), `PNC_SemanticBeats_Utilities.lua`, and `PNC_WorldKnowledge_PZ.lua`; verified via Core & Hoomans Lua smoke suites and `pz-verify`.
 
 ## Verified planning facts
 

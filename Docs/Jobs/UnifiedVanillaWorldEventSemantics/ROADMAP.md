@@ -67,7 +67,7 @@ Reuse `OnElectricityChanged` plus the existing bounded authoritative state recon
 
 Publish semantic current-state/transition facts and allow Hoomans and DT to consume them independently.
 
-**Gate:** exactly-once power/water transitions in SP/MP-compatible authority paths; save/load safe; no duplicate Beat path; synthetic food/raider/weather events no longer default global.
+**Gate (PASSED in V3):** `PsychopatzPZWorldEventAdapter.lua` (`ReadUtilityAuthority`, `ObserveUtilities`, `OnElectricityChanged` + coarse reconciliation) and Hoomans `PNC_ScopedWorldEventDirector.lua` + `PNC_SemanticBeats_Utilities.lua` + `PNC_WorldKnowledge_PZ.lua` verified via `tests/psychopatz_vanilla_utilities_smoke.lua`, `tests/pnc_vanilla_utilities_world_events_smoke.lua`, `tests/pnc_chronology_world_events_demeanor_smoke.lua`, `tests/pnc_world_knowledge_smoke.lua`, `tests/pnc_world_and_item_beats_smoke.lua`, and `pz_verify.py` (exactly-once global power/water cutoffs, save/load watermark dedupe, fail-closed missing authority, synthetic events barred from global default/scope).
 
 ## V4 — Helicopter regional episode capture
 

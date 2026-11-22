@@ -481,6 +481,20 @@ addDescriptor({
     end,
 })
 
+-- 32. Project Zomboid Vanilla World Event Adapter
+addDescriptor({
+    id = "core.pz_world_event_adapter",
+    domain = "WorldEvents",
+    roles = { shared = true, client = true, server = true },
+    depends = { "core.vanilla_event_observer" },
+    load = function()
+        return require "PsychopatzCore/WorldEvents/PsychopatzPZWorldEventAdapter"
+    end,
+    facade = function()
+        return PsychopatzCore.WorldEventAdapter
+    end,
+})
+
 -- Convenience Adopter Packs
 addPack({
     id = "pack.trading_common",
