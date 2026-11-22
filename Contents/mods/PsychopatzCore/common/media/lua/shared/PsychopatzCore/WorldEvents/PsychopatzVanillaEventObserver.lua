@@ -456,51 +456,8 @@ function InstanceMethods:Observe(input, opts)
     local factID = safeID(input.factID) or safeID("fact:core:" .. semanticType .. ":" .. (scopeID or "global")
         .. ":" .. (input.factKey or tostring(math.floor(occurredAt * 100))))
 
-    -- 4. Route to ScopedWorldEvents when episodic/stateful (or close active episode).
-    local scopedResult = nil
-    local scopedStatus = nil
-    if phase == "end" then
-        local removed, rmResult = scopedReg:Remove(eventID, {
-            reason = input.endReason or "episode_ended",
-            nowHours = observedAt,
-            notify = opts.notify,
-        })
-        scopedResult = rmResult
-        scopedStatus = removed and "ended" or "not_active"
-    elseif input.registerScoped ~= false then
-        local duration = finite(input.durationHours, nil)
-        local endsAt = finite(input.endsAt, nil)
-        if endsAt == nil and duration ~= nil and duration > 0 then
-            endsAt = occurredAt + duration
-        end
-        local meta = flatPayload(input.metadata) or {}
-        if vanillaSourceID then meta.vanillaSourceID = vanillaSourceID end
-        if locRef and locRef.label then meta.locationLabel = locRef.label end
-        meta.semanticType = semanticType
-
-        scopedResult, scopedStatus = scopedReg:Register({
-            eventID = eventID,
-            eventType = input.scopedEventType or string.gsub(semanticType, "%.", "_"),
-            semanticTags = input.semanticTags or { sourceKind, semanticType },
-            scope = scope,
-            scopeID = scopeID,
-            affectedSettlements = affectedSettlements,
-            startsAt = occurredAt,
-            endsAt = endsAt,
-            severity = normalized.severity,
-            source = input.source or "PsychopatzCore.VanillaEvents",
-            provenance = provenance,
-            effects = input.effects,
-            metadata = meta,
-        }, {
-            nowHours = observedAt,
-            notify = opts.notify,
-            communities = opts.communities,
-            resolveSettlements = opts.resolveSettlements,
-        })
-    end
-
-    -- 5. Publish canonical fact into PsychopatzCore.WorldKnowledge.
+    -- 4. Publish canonical fact into PsychopatzCore.WorldKnowledge first so
+    -- downstream ScopedWorldEvents listeners can inspect the fact synchronously.
     local factResult = nil
     local factStatus = nil
     if input.publishFact ~= false then
@@ -537,6 +494,53 @@ function InstanceMethods:Observe(input, opts)
             confidence = clamp(input.confidence, 0, 1, provenance == "witnessed" and 0.95 or 0.75),
             payload = factPayload,
         }, { now = observedAt })
+    end
+
+    -- 5. Route to ScopedWorldEvents when episodic/stateful (or close active episode).
+    local scopedResult = nil
+    local scopedStatus = nil
+    if phase == "end" then
+        local removed, rmResult = scopedReg:Remove(eventID, {
+            reason = input.endReason or "episode_ended",
+            nowHours = observedAt,
+            notify = opts.notify,
+        })
+        scopedResult = rmResult
+        scopedStatus = removed and "ended" or "not_active"
+    elseif input.registerScoped ~= false then
+        local duration = finite(input.durationHours, nil)
+        local endsAt = finite(input.endsAt, nil)
+        if endsAt == nil and duration ~= nil and duration > 0 then
+            endsAt = occurredAt + duration
+        end
+        local meta = flatPayload(input.metadata) or {}
+        if vanillaSourceID then meta.vanillaSourceID = vanillaSourceID end
+        if locRef and locRef.label then meta.locationLabel = locRef.label end
+        meta.semanticType = semanticType
+        if factResult and factResult.factID then
+            meta.factID = factResult.factID
+        end
+
+        scopedResult, scopedStatus = scopedReg:Register({
+            eventID = eventID,
+            eventType = input.scopedEventType or string.gsub(semanticType, "%.", "_"),
+            semanticTags = input.semanticTags or { sourceKind, semanticType },
+            scope = scope,
+            scopeID = scopeID,
+            affectedSettlements = affectedSettlements,
+            startsAt = occurredAt,
+            endsAt = endsAt,
+            severity = normalized.severity,
+            source = input.source or "PsychopatzCore.VanillaEvents",
+            provenance = provenance,
+            effects = input.effects,
+            metadata = meta,
+        }, {
+            nowHours = observedAt,
+            notify = opts.notify,
+            communities = opts.communities,
+            resolveSettlements = opts.resolveSettlements,
+        })
     end
 
     self._metrics.registered = self._metrics.registered + 1

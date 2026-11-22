@@ -1,19 +1,20 @@
 # Progress — Unified Vanilla World Event Semantics
 
-**Status:** V4 COMPLETE; PROCEEDING TO V5 (Vanilla live/meta-event ingestion).
+**Status:** V5 COMPLETE; PROCEEDING TO V6 (Randomized-world discovery integration).
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Branch policy:** existing `main` only; no new branches.
 **Planning heads:** Core `fecc800b05d0874e94a8600833880a77cd967e8d`; Hoomans `7847ccfb833425a2553bd9602aebaf958f76d7ed`; DynamicTrading `feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb`.
-**Current phase:** V5 — Vanilla live/meta-event ingestion.
-**Next Chunk:** Implement `OnAmbientSound`, `OnWorldSound` (`Alarm` fast guard), `WeatherPeriod`, `OnThunderEvent`, `OnDeviceText`, and `OnNewFire` in `PsychopatzPZWorldEventAdapter.lua` plus Hoomans perception/beat routing.
+**Current phase:** V6 — Randomized-world discovery integration.
+**Next Chunk:** Implement `PsychopatzVanillaDiscoveryAdapter.lua` for zero-scan vehicle (`RVSAmbulanceCrash`, bandit road, police blockade, crash horde), zone (`pickedRzStory`), building/dead-survivor (`OnSeeNewRoom`), and ranch discoveries plus Hoomans consumption.
 
 ## Completed phases
 - **V0 (Accepted):** Generated deterministic `VANILLA_EVENT_COVERAGE.json` (`203` entries) via `tools/vanilla_event_coverage/generate_manifest.py`, verified with `tests/test_vanilla_event_coverage_manifest.py`.
 - **V1 (Accepted):** Added `PsychopatzWorldEventLocation.lua` and `PsychopatzVanillaEventObserver.lua`, registered `core.vanilla_event_observer`, verified via `tests/psychopatz_vanilla_event_observer_smoke.lua` and `pz-verify`.
 - **V2 (Accepted):** Wired ModData persistence (`PsychopatzCore.ScopedWorldEvents`, `OnInitGlobalModData`/`OnSave`, `OnStateLoaded`), expired-on-load pruning, ledger load-time expiry pruning, and cap enforcement (`32`/`64`/`256`), verified via `tests/psychopatz_world_events_persistence_smoke.lua` and `pz-verify`.
-- **V3 (Accepted):** Added `PsychopatzPZWorldEventAdapter.lua` (`ReadUtilityAuthority`, `ObserveUtilities`, `OnElectricityChanged` + coarse cadence), updated `ProjectHoomans` `PNC_ScopedWorldEventDirector.lua` (non-global synthetic scope enforcement), `PNC_SemanticBeats_Utilities.lua`, and `PNC_WorldKnowledge_PZ.lua`; verified across Core & Hoomans.
-- **V4 (Accepted):** Added helicopter regional episode state machine (`ObserveHelicopter` + `EveryTenMinutes`) in Core (`<= 5` coarse samples, zero same-bucket writes, reload resume, actor provenance separation on canonical facts) and indoor/outdoor/told/radio helicopter perception & epistemic rendering in `ProjectHoomans`; verified via `tests/psychopatz_helicopter_episode_smoke.lua`, `tests/pnc_helicopter_epistemic_smoke.lua`, and `pz-verify`.
+- **V3 (Accepted):** Added `PsychopatzPZWorldEventAdapter.lua` utility adapter + Hoomans non-global synthetic scope enforcement + shared utility wiring.
+- **V4 (Accepted):** Added regional helicopter episode capture (`<= 5` coarse samples, zero same-bucket writes, reload resume) + Hoomans indoor/outdoor/told/radio epistemic precision.
+- **V5 (Accepted):** Implemented `OnAmbientSound` (gunfire variants, scream, `burglar2`, ephemeral wildlife/dog/thunder), `OnWorldSound` (`Alarm` fast guard), `WeatherPeriod` severe storms, `OnThunderEvent`, `OnDeviceText`, `OnNewFire`, and `ObserveSeason` in Core (`PC_ServerComposition` eager server load + fact-before-event publish order), plus Hoomans nearby actor live perception & realizations; verified across Core & Hoomans suites.
 
 ## Verified planning facts
 

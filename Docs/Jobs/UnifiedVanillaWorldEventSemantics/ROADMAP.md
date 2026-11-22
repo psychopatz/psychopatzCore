@@ -97,7 +97,7 @@ Adopt every authoritative live event hook identified by V0, including at minimum
 
 Normalize exact source IDs into reusable semantic categories while preserving source detail. Apply salience/retention policy so low-value ambience does not fill persistent knowledge.
 
-**Gate:** every V0 live event marked supported has a fixture; no full-world/NPC scans; low-value ambience remains bounded/ephemeral.
+**Gate (PASSED in V5):** `PsychopatzPZWorldEventAdapter` live/meta hooks (`OnAmbientSound`, `OnWorldSound` Alarm fast-guard, `OnWeatherPeriod*`, `OnThunderEvent`, `OnDeviceText`, `OnNewFire`, `ObserveSeason`) wired into `PC_ServerComposition.lua`, and Hoomans `SyncLiveEventPerception` / `PNC_SemanticBeats_HouseAlarm` verified via `tests/psychopatz_vanilla_live_meta_events_smoke.lua`, `tests/pnc_vanilla_live_events_perception_smoke.lua`, and `pz_verify.py` (all supported live sources normalized, 1000+ wildlife/thunder events produce 0 ledger writes, zero full NPC scans).
 
 ## V6 — Randomized-world discovery integration
 
