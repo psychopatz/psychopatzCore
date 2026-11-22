@@ -129,7 +129,7 @@ Requirements:
 - increase realization variety after semantic selection;
 - retain canonical EN/TL ownership.
 
-**Gate:** thematic/event matrices prove materially greater branch/outcome diversity, contextual filtering and multi-actor epistemic dialogue without giant trees or fake choices.
+**Gate (PASSED in V7):** Expanded all 8 thematic interactive families (`60` nodes / avg `7.50`, `132` branch offers / avg `16.50`, `43` hard-constrained offers across `8/8` flows, `after.recommend`, separated `outcome` vs `stance` in `replySemantics`, and EN/TL translations reconciled cleanly via `reconcile.py --apply` + `--check`), extended `ChoicePolicy.lua`, `TurnPolicy.lua`, `Conversation.lua`, and `GeneratedAffordanceProvider.lua`, and verified via `tests/pnc_thematic_interactive_branching_smoke.lua`, `tests/pnc_v7_world_event_dialogue_branching_smoke.lua`, `tests/pnc_semantic_scene_runtime_s6_adopters_smoke.lua`, `tests/pnc_semantic_interaction_scene_smoke.lua`, Python ownership/boundary tests (`12 tests OK`), and `pz_verify.py --kahlua` (`0` issues).
 
 ## V8 — DynamicTrading adoption and exhaustive regression
 

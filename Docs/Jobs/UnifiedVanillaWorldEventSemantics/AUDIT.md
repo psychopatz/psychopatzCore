@@ -19,9 +19,8 @@ Conclusion: extend existing Core authority. Do not add another event registry, g
 
 ## Dialogue depth finding
 
-The current canonical corpus has 13 real flow graphs, all in ProjectHoomans. Average nodes per flow: 4.0; maximum: 6. Average branch offers: 3.85. Only 1 of 13 flows currently has any constrained branch offer.
-
-Depth should increase through reusable semantic affordances, contextual eligibility, numeric utility, alternative outcomes, interruption/resume, multi-actor evidence, consequences and realization variation. Do not build giant sentence trees.
+- **Before V7:** 13 flow graphs total (8 thematic interactive), average 4.0 nodes/flow (max 6), average 3.85 branch offers/flow, only 1/13 flows (0/8 thematic interactive) had any constrained branch offer, and 4/8 thematic interactive families lacked separated `replySemantics` or `after.recommend`.
+- **After V7 (`ProjectHoomans`):** All 8 thematic interactive families expanded to 60 thematic nodes total (avg `7.50` nodes/flow, max `8`), `132` branch offers total (avg `16.50` offers/thematic flow, `<= 5` per hub <= `MAX_OFFERS=8`), `43` hard-constrained contextual branch offers across `8/8` thematic flows (`worldKnowledge`, `environment`, `npcState`, `inventory`, `relationship`, `disposition`, `scene`), `45` distinct outcome keys with explicit separated `outcome` vs `stance` in `replySemantics`, `after.recommend` chains on key reply outcomes, numeric disposition/condition/epistemic weighting in `ChoicePolicy.lua`, epistemic/conflict affordances in `GeneratedAffordanceProvider.lua`, and multi-actor third-party interjection outcomes (`witness_corroborates`, `witness_contradicts`, `mediator_deescalates`, `refuse_intervention`, `third_party_adds_fact`) in `TurnPolicy.lua`/`Conversation.lua` (`MAX_PARTICIPANTS = 4`, `MAX_STEPS = 8`).
 
 ## Vanilla event surfaces verified from the installed build
 

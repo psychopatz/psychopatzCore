@@ -4,19 +4,20 @@ checkpoint_mode: "committed_handoff"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
-phase_commit_phase: "V6"
-phase_commit_message: "phase(V6): feat(world-events): add V6 zero-scan vanilla randomized story discovery"
-phase_commit_vector: "psychopatz-core=self;project-hoomans=2f2e7c28ba2ffa7b8d630a7551c9c7af1189a67f;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
-phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
+phase_commit_phase: "V7"
+phase_commit_message: "phase(V7): docs(world-events): reconcile V7 thematic branching metrics and Core FoundationRegistry"
+phase_commit_vector: "psychopatz-core=self;project-hoomans=4522d6e952708bf3ccb013ce620ad9d698a60cb1;dynamic-trading=feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb"
+phase_residual_vector: "psychopatz-core=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;project-hoomans=a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f;dynamic-trading=0906291aeb101304b202385a78f40bb3cd8059bc9b3054a3dfd1967e2f3abe5d"
 residual_worktree_fingerprint: "a709d4c2b505952658c06044726110ba4ccebe001b7c233ca939f42d1c555d4f"
 codebase_memory_indexed_commit: "bbd9fee90a96f63323129ea29e5bf76e2f1525be"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "V7"
-chunk: "ProjectHoomans adoption and deeper branching"
+phase: "V8"
+chunk: "DynamicTrading adoption and exhaustive regression"
 retrieval_tier: "auditor"
-updated_at: "2026-11-22T20:02:30.531196Z"
+updated_at: "2026-11-22T20:26:24.047107Z"
 ---
+
 
 
 
@@ -29,17 +30,18 @@ updated_at: "2026-11-22T20:02:30.531196Z"
 
 ## What became true
 
-- V0–V6 are complete and verified across `psychopatzCore` and `ProjectHoomans`.
+- V0–V7 are complete and verified across `psychopatzCore` and `ProjectHoomans`.
 - Core ingests gunfire (`MetaAssaultRifle1`, `MetaPistol1..3`, `MetaShotgun1`), screams (`MetaScream`), alarms (`burglar2` & SP `Alarm`), severe storms, structured broadcasts, fire hazards, seasonal transitions, AND randomized-world discoveries via `PsychopatzVanillaDiscoveryAdapter` (`RVS*` including `RVSAmbulanceCrash`, `RZS*` via `pickedRzStory`, `RB*`/`RDS*` grounded room scenes on `OnSeeNewRoom`, and `Ranch` zones via bounded `MAX_PENDING_SITES = 64` buffer, zero world scans) while keeping wildlife (`MetaDogBark`, `MetaOwl`, `MetaWolfHowl`) and thunder strictly ephemeral.
 - `PsychopatzVanillaEventObserver` publishes the canonical `WorldKnowledge` fact before firing `ScopedWorldEvents` listeners, and `PC_ServerComposition` loads `PsychopatzPZWorldEventAdapter` and `PsychopatzVanillaDiscoveryAdapter` early on server/SP startup.
+- ProjectHoomans V7 deeper branching expanded all 8 thematic interactive families (`60` nodes / avg `7.50`, `132` branch offers / avg `16.50`, `43` hard-constrained offers across `8/8` flows, `45` distinct outcome keys with separated `replySemantics`, and `after.recommend`), extended numeric disposition + epistemic/condition/fatigue weighting in `ChoicePolicy.lua`, added third-party witness/mediator interjection outcomes (`TurnPolicy.lua`/`Conversation.lua`), and reconciled all CodeBuilder EN/TL artifacts (`reconcile.py --check` clean).
 
 ## Remaining
 
-- V7–V8 implementation and verification.
+- V8 implementation and exhaustive cross-repo verification.
 
 ## Resume
 
-Proceed immediately to V7 (`ProjectHoomans` dialogue branching, semantic affordances, contextual constraints, numeric disposition weights, multi-actor scene outcomes, and EN/TL realizations).
+Proceed immediately to V8 (standalone `DynamicTrading` `DTCommon_CoreWorldEventProjection.lua` + `DTCommon_WorldKnowledge.lua`, `dt_core_vanilla_world_event_projection_smoke.lua`, Core `psychopatz_v8_world_event_scale_soak_smoke.lua`, and full V0–V8 regression).
 
 ## Evidence
 

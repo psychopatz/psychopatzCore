@@ -1,12 +1,12 @@
 # Progress — Unified Vanilla World Event Semantics
 
-**Status:** V6 COMPLETE; PROCEEDING TO V7 (ProjectHoomans adoption and deeper branching).
+**Status:** V7 COMPLETE; PROCEEDING TO V8 (DynamicTrading adoption and exhaustive cross-repo regression).
 **Primary repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Participants:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`, `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
 **Branch policy:** existing `main` only; no new branches.
 **Planning heads:** Core `fecc800b05d0874e94a8600833880a77cd967e8d`; Hoomans `7847ccfb833425a2553bd9602aebaf958f76d7ed`; DynamicTrading `feee4da8fe4cab1ff4dcc1066ef1d4548b5728bb`.
-**Current phase:** V7 — ProjectHoomans adoption and deeper branching.
-**Next Chunk:** Expand all 8 thematic interactive dialogue families, semantic affordances, hard contextual constraints, numeric disposition/relationship weighting, multi-actor scene interjections/outcomes, and EN/TL realizations in ProjectHoomans (via canonical CodeBuilder JSON sources + reconcile).
+**Current phase:** V8 — DynamicTrading adoption and exhaustive regression.
+**Next Chunk:** Implement standalone `DTCommon_CoreWorldEventProjection.lua` + `DTCommon_WorldKnowledge.lua` Core vanilla event consumption in `DynamicTrading`, add DT & Core V8 scale/soak tests, run full V0–V8 regression suite, reconcile docs, and commit V8.
 
 ## Completed phases
 - **V0 (Accepted):** Generated deterministic `VANILLA_EVENT_COVERAGE.json` (`203` entries) via `tools/vanilla_event_coverage/generate_manifest.py`, verified with `tests/test_vanilla_event_coverage_manifest.py`.
@@ -16,6 +16,7 @@
 - **V4 (Accepted):** Added regional helicopter episode capture (`<= 5` coarse samples, zero same-bucket writes, reload resume) + Hoomans indoor/outdoor/told/radio epistemic precision.
 - **V5 (Accepted):** Implemented `OnAmbientSound` (gunfire variants, scream, `burglar2`, ephemeral wildlife/dog/thunder), `OnWorldSound` (`Alarm` fast guard), `WeatherPeriod` severe storms, `OnThunderEvent`, `OnDeviceText`, `OnNewFire`, and `ObserveSeason` in Core (`PC_ServerComposition` eager server load + fact-before-event publish order), plus Hoomans nearby actor live perception & realizations; verified across Core & Hoomans suites.
 - **V6 (Accepted):** Added `PsychopatzVanillaDiscoveryAdapter.lua` (`core.vanilla_discovery_adapter`) for zero-scan chunk/spawn/room story discovery (`RVS*` including `RVSAmbulanceCrash`, `RZS*` via `pickedRzStory`, `RB*`/`RDS*` grounded observable room evidence on `OnSeeNewRoom`, and `Ranch` zones via bounded `MAX_PENDING_SITES = 64` buffer) plus Hoomans `DiscoverNearbyStories` and `discovery.*` realizations; verified via `tests/psychopatz_vanilla_discovery_smoke.lua`, `tests/pnc_vanilla_story_discovery_smoke.lua`, and `pz_verify.py`.
+- **V7 (Accepted):** Expanded all 8 `thematic_interactive` dialogue families & EN/TL translations via canonical CodeBuilder sources (`60` nodes / avg `7.50`, `132` branch offers / avg `16.50`, `43` hard-constrained contextual offers across `8/8` flows, `45` distinct outcomes, separated `replySemantics`, and `after.recommend`), extended `ChoicePolicy.lua`, `TurnPolicy.lua`, `Conversation.lua`, and `GeneratedAffordanceProvider.lua` for V7 epistemic/mediation/care/withdrawal strategies and third-party scene interjection outcomes (`MAX_PARTICIPANTS = 4`, `MAX_STEPS = 8`), reconciled cleanly (`reconcile.py --apply` + `--check`: `clean=true`, `486` desired, `0` drift), and verified via `tests/pnc_thematic_interactive_branching_smoke.lua`, `tests/pnc_v7_world_event_dialogue_branching_smoke.lua`, `tests/pnc_semantic_scene_runtime_s6_adopters_smoke.lua`, `tests/pnc_semantic_interaction_scene_smoke.lua`, Python ownership/boundary tests (`12 tests OK`), and `pz_verify.py --kahlua` (`0` issues).
 
 ## Verified planning facts
 
