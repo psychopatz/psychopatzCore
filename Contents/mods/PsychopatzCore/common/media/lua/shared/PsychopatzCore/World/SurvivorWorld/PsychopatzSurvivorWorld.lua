@@ -8,8 +8,6 @@ local Persistence =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPersistence"
 local Registry =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRegistry"
-local Import =
-    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldImport"
 local Generation =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldGeneration"
 local Traversal =
@@ -31,7 +29,6 @@ local SurvivorWorld = {
     FactionService = FactionService,
     Persistence = Persistence,
     Registry = Registry,
-    Import = Import,
     Generation = Generation,
     Traversal = Traversal,
     RuntimeStore = RuntimeStore,

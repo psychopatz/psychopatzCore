@@ -42,7 +42,7 @@ local Lifecycle = Actors.Lifecycle
 local Identity = Actors.Identity
 local PlayerIdentity = Actors.PlayerIdentity
 local Persistence = Actors.Persistence
-local Migration = Actors.Migration
+equal(Actors.Migration, nil, "retired Actors.Migration absent")
 local RuntimeStore = Actors.RuntimeStore
 local Social = Actors.Social
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
@@ -234,46 +234,6 @@ equal(reg:Has(rollbackActor.actorId), false, "HardDelete removed live actor")
 equal(reg:TombstoneCount(), 1, "HardDelete did NOT create a tombstone")
 equal(reg:ProjectIdentity(rollbackActor.actorId).status, "FORGOTTEN",
     "hard-deleted rollback actor resolves as FORGOTTEN")
-
--- Migration.Rollback uses HardDelete without tombstone
-local migStore = Migration.NewStore()
-local migPlan = {
-    status = "ready",
-    rawPayload = { id = "legacy_mig_1" },
-    candidate = {
-        actorId = "actor:l1:migrated",
-        identity = {
-            seed = "mig-seed-1",
-            displayName = "Mig Test",
-            survivor = {
-                forename = "Mig",
-                surname = "Test",
-                voice = {
-                    voice = "calm",
-                    voicePrefix = "calm",
-                    voiceType = 1,
-                    voicePitch = 1.0,
-                    complete = true,
-                },
-            },
-        },
-        appearance = { policy = { mode = "generated" }, resolved = {} },
-        inventory = {
-            metadataSchema = 2,
-            items = {
-                ["item:1"] = { id = "item:1", type = "Base.Bandage", quantity = 1 },
-            },
-        },
-        relationships = {},
-        location = { position = { x = 10, y = 20, z = 0 } },
-    },
-}
-local impRes = Migration.Import(migPlan, reg, migStore, { decisionSet = "l1" })
-equal(impRes.status, "imported", "migration import succeeded")
-assert(reg:Has("actor:l1:migrated"), "imported actor exists")
-assert(Migration.Rollback(impRes, reg, migStore), "migration rollback succeeded")
-equal(reg:Has("actor:l1:migrated"), false, "migration rollback removed actor")
-equal(reg:TombstoneCount(), 1, "migration rollback created NO tombstone")
 
 -- 5. Persistent player-character lifecycle without full NPC actor record
 local playerModData = {}

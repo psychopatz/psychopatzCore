@@ -499,33 +499,4 @@ addPack({
     },
 })
 
-addPack({
-    id = "pack.core_legacy_full",
-    capabilities = {
-        "core.runtime",
-        "core.collections",
-        "core.events",
-        "core.semantics",
-        "core.translation",
-        "core.conversation",
-        "core.voice",
-        "core.journal",
-        "core.spatial",
-        "core.world_region",
-        "core.deterministic_content",
-        "core.actors",
-        "core.travel",
-        "core.inventory",
-        "core.currency",
-        "core.radio_device_state",
-        "core.radio_channels",
-        "core.traits",
-        "core.zombie_kill_detector",
-        "core.debug",
-        "core.profiler",
-        "core.bridge",
-        "core.teleport",
-    },
-})
-
 return Catalog

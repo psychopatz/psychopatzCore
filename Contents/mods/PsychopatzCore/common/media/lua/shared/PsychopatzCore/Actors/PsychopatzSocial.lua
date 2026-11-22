@@ -810,43 +810,6 @@ function Social.RemoveMemory(state, memoryID, authority)
     return true
 end
 
-local function mergeRelationshipData(targetRel, sourceRel)
-    if not sourceRel then return targetRel end
-    if (sourceRel.familiarity or 0) > (targetRel.familiarity or 0)
-        or (targetRel.familiarity == 0 and (sourceRel.approval ~= 0 or sourceRel.respect ~= 0))
-    then
-        targetRel.approval = sourceRel.approval
-        targetRel.respect = sourceRel.respect
-        targetRel.familiarity = sourceRel.familiarity
-        if sourceRel.baselineApproval ~= nil then
-            targetRel.baselineApproval = sourceRel.baselineApproval
-        end
-        if sourceRel.baselineRespect ~= nil then
-            targetRel.baselineRespect = sourceRel.baselineRespect
-        end
-        if sourceRel.state ~= nil then targetRel.state = sourceRel.state end
-        if sourceRel.previousState ~= nil then targetRel.previousState = sourceRel.previousState end
-    end
-    if sourceRel.historical == true then targetRel.historical = true end
-    if sourceRel.historicalPin == true then targetRel.historicalPin = true end
-
-    targetRel.extensions = targetRel.extensions or {}
-    for extID, extVal in pairs(sourceRel.extensions or {}) do
-        if targetRel.extensions[extID] == nil then
-            targetRel.extensions[extID] = Util.clone(extVal)
-        elseif type(extVal) == "table" and type(targetRel.extensions[extID]) == "table" then
-            for k, v in pairs(extVal) do
-                if targetRel.extensions[extID][k] == nil then
-                    targetRel.extensions[extID][k] = Util.clone(v)
-                end
-            end
-        end
-    end
-    targetRel.revision = math.max(targetRel.revision or 0, sourceRel.revision or 0) + 1
-    targetRel.memories = nil
-    return targetRel
-end
-
 local function cloneRelationshipWithMemories(state, relationship, normalized, options)
     local out = Util.clone(relationship)
     out.memories = nil
@@ -980,80 +943,6 @@ function Social.GetOrCreate(state, target)
         state.relationships[normalized].memories = nil
     end
     return state.relationships[normalized]
-end
-
-local function rewriteMemoryTargetAlias(mem, normalizedAlias, normalizedCanonical)
-    local changed = false
-    if mem.aboutKey == normalizedAlias then
-        mem.aboutKey = normalizedCanonical
-        changed = true
-    end
-    if mem.subjectKey == normalizedAlias then
-        mem.subjectKey = normalizedCanonical
-        changed = true
-    end
-    if mem.sourceKey == normalizedAlias then
-        mem.sourceKey = normalizedCanonical
-        changed = true
-    end
-    if type(mem.roleRefs) == "table" then
-        for _, entry in pairs(mem.roleRefs) do
-            if type(entry) == "table" and entry.ref == normalizedAlias then
-                entry.ref = normalizedCanonical
-                changed = true
-            end
-        end
-    end
-    return changed
-end
-
-function Social.MigrateAliases(state, canonicalKey, aliasKeys)
-    if type(state) ~= "table" then return nil, "state_required" end
-    local normalizedCanonical = resolveTargetKey(canonicalKey)
-    if not normalizedCanonical then return nil, "canonical_key_invalid" end
-    if type(aliasKeys) ~= "table" then return true end
-
-    state.aliases = state.aliases or {}
-    state.relationships = state.relationships or {}
-    state.memoryBank = state.memoryBank or {}
-
-    local mergedAny = false
-    for _, alias in ipairs(aliasKeys) do
-        local normalizedAlias = resolveTargetKey(alias)
-        if normalizedAlias and normalizedAlias ~= normalizedCanonical then
-            state.aliases[normalizedAlias] = normalizedCanonical
-            for _, mem in ipairs(state.memoryBank) do
-                if rewriteMemoryTargetAlias(mem, normalizedAlias, normalizedCanonical) then
-                    mergedAny = true
-                end
-            end
-            local legacyRel = state.relationships[normalizedAlias]
-            if legacyRel then
-                local canonicalRel = Social.GetOrCreate(state, normalizedCanonical)
-                mergeRelationshipData(canonicalRel, legacyRel)
-                if type(legacyRel.memories) == "table" then
-                    local existingIDs = {}
-                    for _, em in ipairs(state.memoryBank) do
-                        if em.id then existingIDs[em.id] = true end
-                    end
-                    for _, lm in ipairs(legacyRel.memories) do
-                        local copied = copyMemory(lm, normalizedCanonical)
-                        if copied and not existingIDs[copied.id] then
-                            existingIDs[copied.id] = true
-                            Retention.ConsolidateOrInsertMemory(state, copied, { consolidate = true })
-                        end
-                    end
-                end
-                state.relationships[normalizedAlias] = nil
-                mergedAny = true
-            end
-        end
-    end
-    if mergedAny then
-        state.revision = (tonumber(state.revision) or 0) + 1
-        Social.InvalidateMemoryIndex(state)
-    end
-    return true
 end
 
 function Social.MutateRelationship(state, target, mutatorFn, authority, expectedRevision)

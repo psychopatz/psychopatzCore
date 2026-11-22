@@ -30,7 +30,7 @@ end
 
 local Actors = require "PsychopatzCore/Actors/PsychopatzActors"
 local Social = Actors.Social
-local Migration = Actors.Migration
+equal(Actors.Migration, nil, "retired Actors.Migration absent")
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
 local PackRegistry = Semantics.PackRegistry
 
@@ -267,32 +267,5 @@ for iteration = 1, 5 do
     truthy(Social.GetExtension(state, "player:user:Bob", "dynamictrading") ~= nil, "Idempotent dt ext at iteration " .. iteration)
     currentPayload = Social.ToPayload(state)
 end
-
-print("--- Step 8: Migration conflicts fail visibly without destructive reset ---")
-local store = Migration.NewStore()
--- Seed store with existing imported mapping
-store.mappings["pnc_npc_99"] = {
-    mappingKey = "pnc_npc_99",
-    actorId = "trader_marcus",
-    sourceHash = "initial_valid_hash_1234",
-}
-
--- Attempt conflicting import with altered hash/actorId
-local conflictPlan = {
-    status = "ready",
-    sourceHash = "conflicting_altered_hash_9999",
-    rawPayload = { id = "pnc_npc_99" },
-    candidate = {
-        actorId = "trader_marcus",
-        identitySeed = "altered_seed",
-    },
-}
-local importResult = Migration.Import(conflictPlan, reg, store, { mappingKey = "pnc_npc_99" })
-equal(importResult.status, "quarantined", "Conflicting import is quarantined")
-equal(importResult.reason, "identity_conflict", "Conflicting import fails with identity_conflict")
-
--- Ensure existing registry actor was NOT wiped or corrupted
-local existingActor = reg:Get("hoomans_clara")
-truthy(existingActor, "Existing Clara still intact after failed import")
 
 print("psychopatz_hotplug_save_matrix_smoke: PASS")

@@ -32,15 +32,9 @@ local function root()
     else
         value = History.memoryRoot
     end
-    if tonumber(value.v) ~= History.VERSION
-        and tonumber(value.v) ~= 3
-    then
+    if tonumber(value.v) ~= History.VERSION then
         value.v = History.VERSION
         value.threads = {}
-    end
-    if tonumber(value.v) == 3 then
-        value.v = History.VERSION
-        value.migratedThreads = value.migratedThreads or {}
     end
     value.threads = type(value.threads) == "table" and value.threads or {}
     local day = currentDay()
@@ -51,27 +45,15 @@ local function root()
     return value
 end
 
-local function legacyThreadID(namespace, npcID)
-    return tostring(namespace or "default") .. ":" .. tostring(npcID or "unknown")
-end
-
 local function threadID(namespace, npcID, characterUUID)
     return tostring(characterUUID or "unbound") .. ":"
-        .. legacyThreadID(namespace, npcID)
+        .. tostring(namespace or "default") .. ":"
+        .. tostring(npcID or "unknown")
 end
 
 local function recordsFor(namespace, npcID, characterUUID, create)
     local data = root()
     local key = threadID(namespace, npcID, characterUUID)
-    local legacyKey = legacyThreadID(namespace, npcID)
-    data.migratedThreads = data.migratedThreads or {}
-    if data.threads[key] == nil and data.threads[legacyKey] ~= nil
-        and data.migratedThreads[legacyKey] == nil
-        and characterUUID and characterUUID ~= "unbound"
-    then
-        data.threads[key] = data.threads[legacyKey]
-        data.migratedThreads[legacyKey] = tostring(characterUUID)
-    end
     if create and data.threads[key] == nil then data.threads[key] = {} end
     return data, key, data.threads[key] or {}
 end
@@ -181,12 +163,7 @@ function History.Clear(namespace, npcID, characterUUID)
         end
     end
     local currentKey = threadID(namespace, npcID, characterUUID)
-    local legacyKey = legacyThreadID(namespace, npcID)
     data.threads[currentKey] = nil
-    data.threads[legacyKey] = nil
-    if type(data.migratedThreads) == "table" then
-        data.migratedThreads[legacyKey] = nil
-    end
     return true
 end
 

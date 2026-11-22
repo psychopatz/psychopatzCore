@@ -481,29 +481,6 @@ function PlayerIdentity.GetTargetKey(player)
     return nil
 end
 
-function PlayerIdentity.GetLegacyKeys(player)
-    local keys = {}
-    if not player or type(player) == "string" then return keys end
-
-    local username = safeCall(player, "getUsername") or (type(player) == "table" and player.username)
-    if username and username ~= "" then
-        keys[#keys + 1] = "player:user:" .. tostring(username)
-        keys[#keys + 1] = "player:" .. tostring(username)
-    end
-
-    local onlineID = safeCall(player, "getOnlineID") or (type(player) == "table" and player.onlineID)
-    if onlineID and tonumber(onlineID) and tonumber(onlineID) > 0 then
-        keys[#keys + 1] = "player:online:" .. tostring(onlineID)
-    end
-
-    local slot = safeCall(player, "getPlayerNum") or (type(player) == "table" and player.playerNum)
-    if slot ~= nil then
-        keys[#keys + 1] = "player:sp_slot_" .. tostring(slot)
-    end
-
-    return keys
-end
-
 function PlayerIdentity.Parse(targetKey)
     if type(targetKey) ~= "string" then return nil end
     local account, uuid = string.match(targetKey, "^player:([^:]+):(char_[%w_%-]+)$")

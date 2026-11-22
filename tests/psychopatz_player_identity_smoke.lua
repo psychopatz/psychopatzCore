@@ -131,75 +131,9 @@ truthy(coreMPKey2 ~= coreMPKey, "Distinct character on same account has distinct
 equal(PlayerIdentity.GetAccountKey(mpPlayer2), "Bob", "Account key is same (Bob)")
 truthy(PlayerIdentity.GetCharacterUUID(mpPlayer2) ~= generatedUUID, "Character UUID is distinct")
 
-print("--- Test 5: Legacy Alias Convergence & Idempotent Merging ---")
--- Seed social state with legacy keys: player:user:Bob and player:online:1
-local socialState = Social.NewState({
-    relationships = {
-        ["player:user:Bob"] = {
-            approval = 15,
-            respect = 10,
-            familiarity = 20,
-            memories = {
-                { id = "mem_legacy_trade_1", text = "Traded 5 canned beans" },
-            },
-            extensions = {
-                ["DynamicTrading"] = { totalTrades = 3, commercialReliability = 60 },
-            },
-        },
-        ["player:online:1"] = {
-            approval = 5,
-            respect = 5,
-            familiarity = 10,
-            memories = {
-                { id = "mem_legacy_trade_2", text = "Bought nails" },
-            },
-            extensions = {
-                ["DynamicTrading"] = { totalTrades = 1 },
-            },
-        },
-    },
-})
-
--- Verify legacy entries exist before migration
-truthy(socialState.relationships["player:user:Bob"] ~= nil, "player:user:Bob exists before migration")
-truthy(socialState.relationships["player:online:1"] ~= nil, "player:online:1 exists before migration")
-falsy(socialState.relationships[coreMPKey] ~= nil, "Canonical key does not exist yet")
-
--- Reset player onlineID to 1 to match legacy save
-mpPlayer.getOnlineID = function() return 1 end
-local legacyAliases = PlayerIdentity.GetLegacyKeys(mpPlayer)
-truthy(#legacyAliases >= 2, "Legacy aliases identified for player")
-
-local migrateOk = Social.MigrateAliases(socialState, coreMPKey, legacyAliases)
-truthy(migrateOk, "MigrateAliases succeeded")
-
--- Verify canonical relationship created with merged data
-local canonicalRel = Social.Get(socialState, coreMPKey)
-truthy(canonicalRel, "Canonical relationship exists after migration")
-equal(canonicalRel.targetKey, coreMPKey, "targetKey is canonical")
-equal(canonicalRel.approval, 15, "Approval preserved from legacy")
-equal(canonicalRel.familiarity, 20, "Familiarity preserved from legacy")
-equal(#canonicalRel.memories, 2, "Both memories merged without duplication")
-equal(canonicalRel.extensions.DynamicTrading.totalTrades, 3, "DT extension preserved")
-
--- Legacy entries must be removed from relationships table
-falsy(socialState.relationships["player:user:Bob"] ~= nil, "player:user:Bob removed from relationships")
-falsy(socialState.relationships["player:online:1"] ~= nil, "player:online:1 removed from relationships")
-
--- Verify alias redirection: Social.Get with legacy key redirects to canonical
-local aliasedRel1 = Social.Get(socialState, "player:user:Bob")
-truthy(aliasedRel1, "Social.Get redirected player:user:Bob to canonical")
-equal(aliasedRel1.targetKey, coreMPKey, "Redirected rel targetKey is canonical")
-
-local aliasedRel2 = Social.Get(socialState, "player:online:1")
-truthy(aliasedRel2, "Social.Get redirected player:online:1 to canonical")
-equal(aliasedRel2.targetKey, coreMPKey, "Redirected rel targetKey is canonical")
-
--- Idempotence: running migration again does nothing and changes nothing
-local revisionBefore = socialState.revision
-Social.MigrateAliases(socialState, coreMPKey, legacyAliases)
-equal(socialState.revision, revisionBefore, "Second migration is strictly idempotent")
-equal(#canonicalRel.memories, 2, "Memories not duplicated on second migration")
+print("--- Test 5: Retired Legacy Key & Alias Helpers Absent ---")
+equal(PlayerIdentity.GetLegacyKeys, nil, "retired GetLegacyKeys absent")
+equal(Social.MigrateAliases, nil, "retired MigrateAliases absent")
 
 print("--- Test 6: Core Provenance & Tamper Resistance ---")
 local provPlayer = createMockPlayer({

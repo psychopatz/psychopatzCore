@@ -60,8 +60,9 @@ local actorsReady = Core.Require("core.actors", "CompositionSmokeTest")
 assert(actorsReady and Core.Actors.DefaultRegistry and Core.Actors.GC == gc,
     "Actors capability did not finish initialization after ActorGC loaded first")
 
--- Demand-driven activation check: requesting legacy full or specific capability activates it
-local ok = Core.RequireLegacySharedFull("CompositionSmokeTest")
-assert(ok == true, "RequireLegacySharedFull failed")
+-- Demand-driven activation check: retired legacy full loader is absent, pack requests activate capabilities
+assert(Core.RequireLegacySharedFull == nil, "RequireLegacySharedFull retired")
+local ok = Core.RequirePack("pack.trading_common", "CompositionSmokeTest")
+assert(ok == true, "RequirePack pack.trading_common failed")
 
 print("psychopatz core composition: ok")

@@ -137,20 +137,6 @@ function Authority.SetPersonality(actorID, personality, core,
     return commitSocial(actorID, updated, core, expectedActorRevision)
 end
 
-function Authority.MigrateAliases(actorID, canonicalKey, aliasKeys, core,
-    expectedActorRevision)
-    local actor, reason = Authority.Get(actorID, core)
-    if not actor then return nil, reason end
-
-    local social = Social.NewState(actor.social)
-    if not social then return nil, "social_state_invalid" end
-    local migrated
-    migrated, reason = Social.MigrateAliases(social, canonicalKey, aliasKeys)
-    if not migrated then return nil, reason end
-
-    return commitSocial(actorID, social, core, expectedActorRevision)
-end
-
 function Authority.RecalculateRelationship(actorID, target, worldAgeHours,
     core, expectedActorRevision, options)
     local actor, reason = Authority.Get(actorID, core)

@@ -1,8 +1,6 @@
 local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
 local Registry = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRegistry"
-local Import = require
-    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldImport"
 
 local Store = {}
 
@@ -293,15 +291,6 @@ function Store.Replace(snapshot, reason)
     Store.LastMutationReason = tostring(reason or "replaced")
     installHooks()
     return registry
-end
-
-function Store.ImportPNC(source, options)
-    if not authority() then
-        return nil, "server_authority_required"
-    end
-    local snapshot, reason = Import.FromPNC(source, options)
-    if not snapshot then return nil, reason end
-    return Store.Replace(snapshot, "pnc_import")
 end
 
 function Store.ResetForTests()

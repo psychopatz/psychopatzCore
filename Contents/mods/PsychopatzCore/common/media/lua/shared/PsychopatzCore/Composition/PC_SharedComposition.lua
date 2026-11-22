@@ -39,11 +39,6 @@ Core.GetStatus = function(capId)
     return Kernel.GetStatus(capId)
 end
 
--- 4. Legacy full composition loader for backward compatibility / explicit requests
-function Core.RequireLegacySharedFull(consumerId)
-    return Kernel.RequirePack("pack.core_legacy_full", consumerId or "LegacySharedFull")
-end
-
 -- Property-to-capability map for on-demand resolution of PsychopatzCore.*
 local PROPERTY_TO_CAP = {
     Actors = "core.actors",

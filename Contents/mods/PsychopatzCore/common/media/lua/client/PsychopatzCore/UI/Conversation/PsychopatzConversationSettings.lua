@@ -13,7 +13,7 @@ Settings.defaults = Settings.defaults or {
     typingCharactersPerSecond = 38,
     typingMinimumMs = 320,
     typingMaximumMs = 1800,
-    conversationOpacitySchema = 0,
+    conversationOpacitySchema = 4,
     conversationOpacityBase = 0.82,
     portraitSurfaceOpacityLift = 0.10,
     portraitDetailOpacityLift = 0.18,
@@ -25,13 +25,6 @@ Settings.defaults = Settings.defaults or {
     choicesDetailOpacityLift = 0.18,
     llmInputSurfaceOpacityLift = 0.00,
     llmInputDetailOpacityLift = 0.18,
-    -- Legacy absolute values remain in the schema for one-time migration.
-    portraitBackgroundOpacity = 0.92,
-    portraitContentOpacity = 1.0,
-    historyBackgroundOpacity = 0.82,
-    historyContentOpacity = 1.0,
-    choicesBackgroundOpacity = 0.82,
-    choicesContentOpacity = 1.0,
     showEditorButton = true,
     showRuntimeDebug = false,
     layout_portrait_x = 0.08,
@@ -61,62 +54,8 @@ Settings.store = Settings.store or PsychopatzCore.Settings.Open("Conversation", 
     defaults = Settings.defaults,
 })
 
-local function clamp(value, minimum, maximum)
-    return math.max(minimum, math.min(maximum, value))
-end
-
-local function migrateOpacitySettings()
-    local store = Settings.store
-    local schema = tonumber(store:Get("conversationOpacitySchema", 0)) or 0
-    if schema >= 4 then return end
-
-    local base = tonumber(store:Get("conversationOpacityBase", 0.82)) or 0.82
-    if schema < 2 then
-        local migrations = {
-            { "portraitBackgroundOpacity", "portraitSurfaceOpacityLift" },
-            { "portraitContentOpacity", "portraitDetailOpacityLift" },
-            { "historyBackgroundOpacity", "historySurfaceOpacityLift" },
-            { "historyContentOpacity", "historyDetailOpacityLift" },
-            { "choicesBackgroundOpacity", "choicesSurfaceOpacityLift" },
-            { "choicesContentOpacity", "choicesDetailOpacityLift" },
-        }
-        for _, migration in ipairs(migrations) do
-            local legacy = tonumber(store:Get(migration[1], nil))
-            if legacy ~= nil then
-                store:Set(migration[2], clamp(legacy - base, -1, 1), false)
-            end
-        end
-    end
-
-    -- Schema 2 already stored both lifts relative to the global base. Schema
-    -- 3 changed only the detail lift to be surface-relative.
-    -- Schema 4 decouples content from the panel again. Convert schema 3's
-    -- surface-relative detail lift back to a global-base-relative lift so
-    -- the effective content opacity is preserved during the upgrade.
-    if schema == 3 then
-        local parts = { "portrait", "history", "relationship", "choices", "llmInput" }
-        for _, partID in ipairs(parts) do
-            local surface = tonumber(store:Get(
-                partID .. "SurfaceOpacityLift", 0)) or 0
-            local detail = tonumber(store:Get(
-                partID .. "DetailOpacityLift", 0.18)) or 0.18
-            store:Set(
-                partID .. "DetailOpacityLift",
-                clamp(surface + detail, -1, 1),
-                false
-            )
-        end
-    end
-    store:Set("conversationOpacitySchema", 4, false)
-    store:Save()
-end
-
 function Settings.EnsureLoaded()
     if not Settings.store.loaded then Settings.store:Load() end
-    if not Settings.opacityMigrationChecked then
-        migrateOpacitySettings()
-        Settings.opacityMigrationChecked = true
-    end
     return Settings.store
 end
 

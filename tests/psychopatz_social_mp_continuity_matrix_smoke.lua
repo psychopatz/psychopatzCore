@@ -94,10 +94,7 @@ equal(patchReason, "server_authority_required", "client SetPersonality reason")
 local extRes, extReason = Authority.SetExtension(coreActor.actorId, "player:acc:char_1", "Ext", { flag = true }, PsychopatzCore, coreActor.revision)
 equal(extRes, nil, "client SetExtension rejected")
 equal(extReason, "server_authority_required", "client SetExtension reason")
-
-local migRes, migReason = Authority.MigrateAliases(coreActor.actorId, "player:acc:char_1", { "player:legacy" }, PsychopatzCore, coreActor.revision)
-equal(migRes, nil, "client MigrateAliases rejected")
-equal(migReason, "server_authority_required", "client MigrateAliases reason")
+equal(Authority.MigrateAliases, nil, "retired Authority.MigrateAliases absent")
 
 local afterClientGet = assert(reg:Get(coreActor.actorId))
 equal(afterClientGet.revision, initialRevision, "rejected client mutations do not advance actor revision")
@@ -252,14 +249,14 @@ local reconnectActor = assert(reg:Create({
     identitySeed = "p7-reconnect",
     social = Social.NewState({
         relationships = {
-            ["player:online:41"] = {
+            [canonicalPlayerKey] = {
                 approval = 14,
                 respect = 6,
                 familiarity = 9,
                 revision = 2,
                 memories = {
                     {
-                        id = "mem:p7:legacy",
+                        id = "mem:p7:canonical",
                         type = "treated_wound",
                         retentionClass = Social.RETENTION_LONG,
                         salience = 150,
@@ -282,19 +279,9 @@ local reconnectedPlayer = {
 local reconnectKey = assert(PlayerIdentity.GetTargetKey(reconnectedPlayer))
 equal(reconnectKey, canonicalPlayerKey, "reconnect resolves same canonical UUID target key despite onlineID change")
 
-local migratedActor = assert(Authority.MigrateAliases(
-    reconnectActor.actorId,
-    reconnectKey,
-    { "player:online:41", "player:user:SurvivorP7", "player:online:88" },
-    PsychopatzCore,
-    reconnectActor.revision
-))
-local mergedRel = assert(Social.Get(migratedActor.social, reconnectKey))
-equal(mergedRel.approval, 14, "legacy onlineID relationship approval preserved across reconnect")
-equal(migratedActor.social.relationships["player:online:41"], nil, "legacy onlineID raw slot removed after convergence")
-equal(migratedActor.social.aliases["player:online:41"], reconnectKey, "legacy onlineID aliased to canonical target key")
-equal(Social.Get(migratedActor.social, "player:online:41").targetKey, reconnectKey, "Social.Get transparently resolves alias to canonical relationship")
-equal(#mergedRel.memories, 1, "legacy memory migrated once without duplication")
+local canonicalRel = assert(Social.Get(reconnectActor.social, reconnectKey))
+equal(canonicalRel.approval, 14, "canonical UUID relationship approval preserved across reconnect")
+equal(#canonicalRel.memories, 1, "canonical memory preserved across reconnect")
 
 -- =========================================================================
 -- MATRIX 4: Combined Core + ProjectHoomans + DTCommon + DTAbstract + DTHoomans
