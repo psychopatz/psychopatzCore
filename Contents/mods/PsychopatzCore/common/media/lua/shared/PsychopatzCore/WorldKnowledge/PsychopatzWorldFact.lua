@@ -23,6 +23,18 @@ Fact.PROVENANCE = {
     radio = true,
     inferred = true,
 }
+Fact.CORROBORATING_PROVENANCE = {
+    experienced = true,
+    witnessed = true,
+    public = true,
+    faction = true,
+    environmental = true,
+}
+Fact.UNCERTAIN_PROVENANCE = {
+    radio = true,
+    told = true,
+    inferred = true,
+}
 
 local function text(value, limit)
     if type(value) ~= "string" and type(value) ~= "number" then return nil end
@@ -152,10 +164,59 @@ function Fact.New(spec)
         return nil, "fact_provenance_invalid"
     end
     output.provenance = spec.provenance
+    if spec.corroborated == true then
+        output.corroborated = true
+    end
+    if type(spec.corroboratedBy) == "table" then
+        local list = {}
+        local seen = {}
+        for key, val in pairs(spec.corroboratedBy) do
+            local prov = type(key) == "number" and val or (val == true and key or nil)
+            if type(prov) == "string" and Fact.PROVENANCE[prov] and not seen[prov] then
+                seen[prov] = true
+                list[#list + 1] = prov
+            end
+        end
+        if #list > 0 then output.corroboratedBy = list end
+    elseif type(spec.corroboratedBy) == "string" and Fact.PROVENANCE[spec.corroboratedBy] then
+        output.corroboratedBy = { spec.corroboratedBy }
+    end
     if spec.confidence ~= nil then
         output.confidence = bounded(spec.confidence, 0, 1, 0)
     end
     return output
+end
+
+local function hasCorroboratingEntry(entry)
+    if type(entry) ~= "table" then return false end
+    if entry.corroborated == true then return true end
+    if Fact.CORROBORATING_PROVENANCE[entry.provenance] then return true end
+    local lists = { entry.corroboratedBy, entry.provenances }
+    for idx = 1, 2 do
+        local src = lists[idx]
+        if type(src) == "string" then
+            if Fact.CORROBORATING_PROVENANCE[src] then return true end
+        elseif type(src) == "table" then
+            for key, val in pairs(src) do
+                local prov = type(key) == "number" and val or (val and key or nil)
+                if Fact.CORROBORATING_PROVENANCE[prov] then return true end
+            end
+        end
+    end
+    return false
+end
+
+function Fact.ResolveEpistemicStatus(fact, ref)
+    if type(fact) ~= "table" and type(ref) ~= "table" then return "unknown" end
+    if hasCorroboratingEntry(fact) or hasCorroboratingEntry(ref) then
+        return "known"
+    end
+    local factProv = type(fact) == "table" and fact.provenance or nil
+    local refProv = type(ref) == "table" and ref.provenance or nil
+    if Fact.UNCERTAIN_PROVENANCE[factProv] or Fact.UNCERTAIN_PROVENANCE[refProv] then
+        return "uncertain"
+    end
+    return "unknown"
 end
 
 function Fact.Clone(value)

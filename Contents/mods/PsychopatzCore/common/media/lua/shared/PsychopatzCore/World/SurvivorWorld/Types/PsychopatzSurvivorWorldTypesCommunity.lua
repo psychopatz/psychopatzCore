@@ -71,6 +71,7 @@ function Types.NormalizeCommunity(value, worldSeed, communityID)
             ),
         },
         siteID = I.SafeID(value.siteID or value.siteId),
+        regionID = I.SafeID(value.regionID or value.regionId),
         leaderActorID = I.SafeID(
             value.leaderActorID
                 or value.leaderActorId

@@ -453,6 +453,19 @@ addDescriptor({
     end,
 })
 
+-- 30. Scoped World Events (scope-indexed world-event & modifier contract)
+addDescriptor({
+    id = "core.scoped_world_events",
+    domain = "WorldEvents",
+    roles = { shared = true, client = true, server = true },
+    load = function()
+        return require "PsychopatzCore/WorldEvents/PsychopatzScopedWorldEvents"
+    end,
+    facade = function()
+        return PsychopatzCore.ScopedWorldEvents
+    end,
+})
+
 -- Convenience Adopter Packs
 addPack({
     id = "pack.trading_common",

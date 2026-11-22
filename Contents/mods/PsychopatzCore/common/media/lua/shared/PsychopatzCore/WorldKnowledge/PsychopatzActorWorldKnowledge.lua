@@ -116,7 +116,14 @@ function Knowledge.Acquire(state, ledger, id, factID, specification)
     }
     existing = entry.refs[fact.factID]
     if existing then
-        if ref.confidence < confidence(existing.confidence)
+        local existingKnown = Fact.CORROBORATING_PROVENANCE[tostring(existing.provenance or "")] == true
+        local incomingKnown = Fact.CORROBORATING_PROVENANCE[normalizedProvenance] == true
+        if existingKnown and not incomingKnown then
+            state.metrics.deduped = state.metrics.deduped + 1
+            return copy(existing), "deduped"
+        end
+        if (existingKnown == incomingKnown)
+            and ref.confidence < confidence(existing.confidence)
             and tostring(existing.provenance) ~= "told"
         then
             state.metrics.deduped = state.metrics.deduped + 1
@@ -134,6 +141,10 @@ function Knowledge.Acquire(state, ledger, id, factID, specification)
         entry.refs[table.remove(entry.order, 1)] = nil
     end
     return copy(ref), "acquired"
+end
+
+function Knowledge.ResolveEpistemicStatus(fact, ref)
+    return Fact.ResolveEpistemicStatus(fact, ref)
 end
 
 local function candidateScore(fact, ref, now)
@@ -162,15 +173,18 @@ function Knowledge.Select(state, ledger, id, options)
                 and fact.location.id or fact.location or "")
                 == tostring(options.locationID))
         then
+            local epistemicStatus = Fact.ResolveEpistemicStatus(fact, ref)
             output[#output + 1] = {
                 fact = fact,
                 reference = copy(ref),
+                epistemicStatus = epistemicStatus,
                 score = candidateScore(fact, ref, options.now),
                 why = {
                     factID = fact.factID,
                     producer = fact.producer,
                     acquisitionPath = ref.acquisitionPath,
                     provenance = ref.provenance,
+                    epistemicStatus = epistemicStatus,
                     confidence = confidence(ref.confidence),
                 },
             }
@@ -247,6 +261,7 @@ function Knowledge.BuildContext(state, ledger, id, options)
             factID = item.fact.factID,
             producer = item.fact.producer,
             provenance = item.reference.provenance,
+            epistemicStatus = item.epistemicStatus,
             confidence = item.reference.confidence,
             score = item.score,
             why = copy(item.why),
@@ -273,6 +288,7 @@ function Knowledge.Explain(state, ledger, id, factID, now)
         source = ref.source,
         sourceActorID = ref.sourceActorID,
         provenance = ref.provenance,
+        epistemicStatus = Fact.ResolveEpistemicStatus(fact, ref),
         confidence = ref.confidence,
         ranking = Knowledge.Select(state, ledger, id, { now = now, max = 64 }),
     }

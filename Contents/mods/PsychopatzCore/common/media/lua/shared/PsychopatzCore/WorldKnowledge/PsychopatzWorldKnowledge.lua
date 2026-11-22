@@ -67,6 +67,10 @@ function WKG.Explain(actorID, factID, now)
     )
 end
 
+function WKG.ResolveEpistemicStatus(fact, ref)
+    return Fact.ResolveEpistemicStatus(fact, ref)
+end
+
 function WKG.ToPayload(options)
     return {
         schema = "PsychopatzCore.WorldKnowledge",
