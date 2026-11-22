@@ -10,6 +10,7 @@ PsychopatzCore.ScopedWorldEvents = ScopedWorldEvents
 
 ScopedWorldEvents.SCHEMA = "PsychopatzCore.ScopedWorldEvents"
 ScopedWorldEvents.SCHEMA_VERSION = 1
+ScopedWorldEvents.MODDATA_KEY = "PsychopatzCore.ScopedWorldEvents"
 ScopedWorldEvents.MAX_ACTIVE_EVENTS = 32
 ScopedWorldEvents.MAX_HISTORY = 64
 ScopedWorldEvents.MAX_AFFECTED_SETTLEMENTS = 32
@@ -691,9 +692,13 @@ function Registry:OnEventExpired(listener, opts)
     return addListener(self, "expired", listener, opts)
 end
 
+function Registry:OnStateLoaded(listener, opts)
+    return addListener(self, "state_loaded", listener, opts)
+end
+
 function Registry:Unsubscribe(tokenOrListener)
     local removed = 0
-    for _, kind in ipairs({ "registered", "expired" }) do
+    for _, kind in ipairs({ "registered", "expired", "state_loaded" }) do
         local list = self._listeners[kind]
         for i = #list, 1, -1 do
             if list[i].token == tokenOrListener or list[i].fn == tokenOrListener then
@@ -707,7 +712,7 @@ end
 
 function Registry:ClearListeners(owner)
     local removed = 0
-    for _, kind in ipairs({ "registered", "expired" }) do
+    for _, kind in ipairs({ "registered", "expired", "state_loaded" }) do
         local list = self._listeners[kind]
         for i = #list, 1, -1 do
             if owner == nil or list[i].owner == owner then
@@ -733,13 +738,15 @@ function Registry:ToPayload()
     }
 end
 
-function Registry:LoadPayload(payload)
+function Registry:LoadPayload(payload, opts)
+    opts = type(opts) == "table" and opts or {}
     if type(payload) ~= "table"
         or payload.schema ~= ScopedWorldEvents.SCHEMA
         or tonumber(payload.schemaVersion) ~= ScopedWorldEvents.SCHEMA_VERSION
     then
         return false, "scoped_world_events_schema_mismatch"
     end
+    local nowHours = finite(opts.nowHours or opts.now, nil)
     self._activeByID = {}
     self._activeOrder = {}
     self._byScopeGlobal = {}
@@ -749,15 +756,39 @@ function Registry:LoadPayload(payload)
     self._byLocalArea = {}
     self._byEffectTag = {}
     self._history = {}
-    for i = 1, #(payload.events or {}) do
-        self:Register(payload.events[i], { notify = false })
-    end
+
     local hist = type(payload.history) == "table" and payload.history or {}
     local startIdx = math.max(1, #hist - self.maxHistory + 1)
     for i = startIdx, #hist do
         if type(hist[i]) == "table" then
             self._history[#self._history + 1] = Util.clone(hist[i])
         end
+    end
+
+    local events = type(payload.events) == "table" and payload.events or {}
+    for i = 1, #events do
+        local built = buildEvent(self, events[i], opts)
+        if built then
+            if nowHours ~= nil and built.endsAt ~= nil and nowHours >= built.endsAt then
+                pushHistory(self, built, "expired_on_load", nowHours)
+                self._metrics.expired = self._metrics.expired + 1
+            else
+                self:Register(built, { notify = false, nowHours = nowHours })
+            end
+        end
+    end
+
+    if opts.notify ~= false then
+        dispatchListeners(self._listeners.state_loaded, {
+            source = "PsychopatzCore.Persistence",
+            activeCount = #self._activeOrder,
+            historyCount = #self._history,
+            nowHours = nowHours,
+            activeEvents = self:QueryActive(nil, nowHours),
+        }, {
+            action = "loaded",
+            nowHours = nowHours,
+        })
     end
     return true
 end
@@ -779,7 +810,7 @@ function ScopedWorldEvents.NewRegistry(options)
         _byLocalArea = {},
         _byEffectTag = {},
         _history = {},
-        _listeners = { registered = {}, expired = {} },
+        _listeners = { registered = {}, expired = {}, state_loaded = {} },
         _nextListenerToken = 0,
         _metrics = { registered = 0, updated = 0, expired = 0, evicted = 0, removed = 0 },
     }
@@ -833,6 +864,10 @@ function ScopedWorldEvents.OnEventExpired(listener, opts)
     return ScopedWorldEvents._default:OnEventExpired(listener, opts)
 end
 
+function ScopedWorldEvents.OnStateLoaded(listener, opts)
+    return ScopedWorldEvents._default:OnStateLoaded(listener, opts)
+end
+
 function ScopedWorldEvents.Unsubscribe(tokenOrListener)
     return ScopedWorldEvents._default:Unsubscribe(tokenOrListener)
 end
@@ -845,8 +880,105 @@ function ScopedWorldEvents.ToPayload()
     return ScopedWorldEvents._default:ToPayload()
 end
 
-function ScopedWorldEvents.LoadPayload(payload)
-    return ScopedWorldEvents._default:LoadPayload(payload)
+function ScopedWorldEvents.LoadPayload(payload, opts)
+    return ScopedWorldEvents._default:LoadPayload(payload, opts)
 end
+
+local function currentWorldHours(opts)
+    if type(opts) == "table" and finite(opts.nowHours or opts.now, nil) ~= nil then
+        return finite(opts.nowHours or opts.now, nil)
+    end
+    if type(getGameTime) == "function" then
+        local gt = getGameTime()
+        if gt and type(gt.getWorldAgeHours) == "function" then
+            return finite(gt:getWorldAgeHours(), nil)
+        end
+    end
+    return nil
+end
+
+local function persistenceAllowed(opts)
+    if type(opts) == "table" and opts.force == true then return true end
+    local role = PsychopatzCore and PsychopatzCore.RuntimeRole or nil
+    if role and type(role.AllowsServerCode) == "function" then
+        return role.AllowsServerCode()
+    end
+    return true
+end
+
+function ScopedWorldEvents.SaveToModData(opts)
+    opts = type(opts) == "table" and opts or {}
+    if not persistenceAllowed(opts) then
+        return false, "server_authority_required"
+    end
+    local store = type(opts.modData) == "table" and opts.modData or nil
+    if not store and type(ModData) == "table" and type(ModData.getOrCreate) == "function" then
+        store = ModData.getOrCreate(ScopedWorldEvents.MODDATA_KEY)
+    end
+    if type(store) ~= "table" then
+        return false, "moddata_unavailable"
+    end
+    local nowHours = currentWorldHours(opts)
+    if nowHours ~= nil then
+        ScopedWorldEvents.PruneExpired(nowHours, { notify = false })
+    end
+    store.schema = ScopedWorldEvents.SCHEMA
+    store.schemaVersion = ScopedWorldEvents.SCHEMA_VERSION
+    store.scopedPayload = ScopedWorldEvents.ToPayload()
+    local observer = opts.observer or (PsychopatzCore and PsychopatzCore.VanillaEventObserver or nil)
+    if type(observer) == "table" and type(observer.ToPayload) == "function" then
+        store.observerPayload = observer.ToPayload()
+    end
+    return true, store
+end
+
+function ScopedWorldEvents.LoadFromModData(opts)
+    opts = type(opts) == "table" and opts or {}
+    local store = type(opts.modData) == "table" and opts.modData or nil
+    if not store and type(ModData) == "table" then
+        if type(ModData.get) == "function" then
+            store = ModData.get(ScopedWorldEvents.MODDATA_KEY)
+        elseif type(ModData.getOrCreate) == "function" then
+            store = ModData.getOrCreate(ScopedWorldEvents.MODDATA_KEY)
+        end
+    end
+    if type(store) ~= "table" or type(store.scopedPayload) ~= "table" then
+        return false, "scoped_world_events_moddata_empty"
+    end
+    local nowHours = currentWorldHours(opts)
+    local observer = opts.observer or (PsychopatzCore and PsychopatzCore.VanillaEventObserver or nil)
+    if type(store.observerPayload) == "table"
+        and type(observer) == "table"
+        and type(observer.LoadPayload) == "function"
+    then
+        observer.LoadPayload(store.observerPayload, nowHours)
+    end
+    return ScopedWorldEvents.LoadPayload(store.scopedPayload, {
+        nowHours = nowHours,
+        notify = opts.notify,
+    })
+end
+
+function ScopedWorldEvents.InstallPersistenceHooks()
+    if ScopedWorldEvents._persistenceHooksInstalled then return true end
+    if type(Events) ~= "table" then return false, "events_unavailable" end
+    if not persistenceAllowed() then return false, "server_authority_required" end
+    ScopedWorldEvents._persistenceHooksInstalled = true
+    if type(Events.OnInitGlobalModData) == "table"
+        and type(Events.OnInitGlobalModData.Add) == "function"
+    then
+        Events.OnInitGlobalModData.Add(function()
+            ScopedWorldEvents.LoadFromModData()
+        end)
+    end
+    if type(Events.OnSave) == "table" and type(Events.OnSave.Add) == "function" then
+        Events.OnSave.Add(function()
+            ScopedWorldEvents.SaveToModData()
+        end)
+    end
+    return true
+end
+
+ScopedWorldEvents.InstallPersistenceHooks()
 
 return ScopedWorldEvents

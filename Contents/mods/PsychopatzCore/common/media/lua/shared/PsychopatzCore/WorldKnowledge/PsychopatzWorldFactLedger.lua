@@ -33,6 +33,9 @@ function Ledger.New(source, options)
     while #state.order > state.maxFacts do
         state.facts[table.remove(state.order, 1)] = nil
     end
+    if options.now ~= nil then
+        Ledger.Expire(state, options.now)
+    end
     return state
 end
 

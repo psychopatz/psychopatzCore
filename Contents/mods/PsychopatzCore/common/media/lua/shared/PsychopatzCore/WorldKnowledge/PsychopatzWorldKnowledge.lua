@@ -67,6 +67,10 @@ function WKG.Explain(actorID, factID, now)
     )
 end
 
+function WKG.PruneExpired(now)
+    return Ledger.Expire(WKG.LedgerState, now)
+end
+
 function WKG.ResolveEpistemicStatus(fact, ref)
     return Fact.ResolveEpistemicStatus(fact, ref)
 end

@@ -55,7 +55,7 @@ Requirements:
 - one scope/source/time bucket cannot accidentally stack duplicate evaluations;
 - caps remain enforced after load/migration.
 
-**Gate:** deterministic save/load, duplicate/reload, pruning/history-bound tests and no DT/Core split-brain event lifetime.
+**Gate (PASSED in V2):** `PsychopatzScopedWorldEvents.SaveToModData`/`LoadFromModData` (`OnInitGlobalModData`/`OnSave`), `OnStateLoaded`, `PsychopatzWorldFactLedger` load-time expiration pruning, and `tests/psychopatz_world_events_persistence_smoke.lua` prove active episode survival, zero reactivation of expired events, surviving utility watermarks/helicopter state/discovery fingerprints, and strict caps (`32` active / `64` history / `256` discoveries).
 
 ## V3 — Global vanilla utilities
 
