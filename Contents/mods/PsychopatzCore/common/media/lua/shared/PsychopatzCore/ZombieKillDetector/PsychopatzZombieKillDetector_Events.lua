@@ -23,11 +23,18 @@ local function resolveKiller(zombie)
     return killer, source
 end
 
+local DEATH_PRUNE_INTERVAL_MS = 30000
+
 function Internal.DispatchServerKill(killer, zombie, context)
     local accepted
     local result
     local reason
     local threatID = Internal.ThreatIDFor(zombie)
+    local now = Internal.Now()
+    if Internal._nextPruneAt == nil or now >= Internal._nextPruneAt then
+        Internal._nextPruneAt = now + DEATH_PRUNE_INTERVAL_MS
+        Internal.Prune(now)
+    end
     accepted, result, reason = Internal.Notify(
         "onServerKill",
         killer,
@@ -35,7 +42,7 @@ function Internal.DispatchServerKill(killer, zombie, context)
         context
     )
     if accepted and threatID then
-        Detector.ProcessedThreatDeaths[tostring(threatID)] = Internal.Now()
+        Detector.ProcessedThreatDeaths[tostring(threatID)] = now
     end
     return accepted, result, reason
 end
@@ -76,16 +83,18 @@ function Internal.OnWeaponHitCharacter(attacker, target, weapon, damage)
             context
         )
     end
-    Internal.Audit({
-        "event=OnWeaponHitCharacter",
-        "runtime=" .. Internal.RuntimeRole(),
-        "result=" .. tostring(result or "observed"),
-        "reason=" .. tostring(reason or "nil"),
-        "attackerOnlineID="
-            .. tostring(Internal.Call(attacker, "getOnlineID") or "nil"),
-        "zombieOnlineID="
-            .. tostring(Internal.Call(target, "getOnlineID") or "nil"),
-    })
+    if Detector.AuditEnabled == true then
+        Internal.Audit({
+            "event=OnWeaponHitCharacter",
+            "runtime=" .. Internal.RuntimeRole(),
+            "result=" .. tostring(result or "observed"),
+            "reason=" .. tostring(reason or "nil"),
+            "attackerOnlineID="
+                .. tostring(Internal.Call(attacker, "getOnlineID") or "nil"),
+            "zombieOnlineID="
+                .. tostring(Internal.Call(target, "getOnlineID") or "nil"),
+        })
+    end
     return result, reason
 end
 
@@ -104,6 +113,9 @@ function Internal.OnZombieDead(zombie)
     end
     killer, killerSource = resolveKiller(zombie)
     killerIsPlayer = Internal.IsPlayer(killer)
+    if not killerIsPlayer and Detector.AuditEnabled ~= true then
+        return false, "not_player_kill"
+    end
     context = Internal.BuildContext(killer, zombie, "zombie_death")
     context.killerSource = killerSource
     context.playerKillCandidate = killerIsPlayer
@@ -133,19 +145,21 @@ function Internal.OnZombieDead(zombie)
         context.relationshipResult = result
         context.relationshipReason = reason
     end
-    Internal.Audit({
-        "event=OnZombieDead",
-        "runtime=" .. Internal.RuntimeRole(),
-        "result=observed",
-        "playerKillCandidate=" .. tostring(killerIsPlayer),
-        "killerSource=" .. tostring(killerSource),
-        "nativeZombieKills="
-            .. tostring(Internal.Call(killer, "getZombieKills") or "nil"),
-        "zombieDead=" .. tostring(context.zombieDead),
-        "zombieOnKillDone=" .. tostring(context.zombieOnKillDone),
-        "clientReport=" .. tostring(reportResult),
-        "clientReportReason=" .. tostring(reportReason),
-    })
+    if Detector.AuditEnabled == true then
+        Internal.Audit({
+            "event=OnZombieDead",
+            "runtime=" .. Internal.RuntimeRole(),
+            "result=observed",
+            "playerKillCandidate=" .. tostring(killerIsPlayer),
+            "killerSource=" .. tostring(killerSource),
+            "nativeZombieKills="
+                .. tostring(Internal.Call(killer, "getZombieKills") or "nil"),
+            "zombieDead=" .. tostring(context.zombieDead),
+            "zombieOnKillDone=" .. tostring(context.zombieOnKillDone),
+            "clientReport=" .. tostring(reportResult),
+            "clientReportReason=" .. tostring(reportReason),
+        })
+    end
     return accepted, reason or result
 end
 
