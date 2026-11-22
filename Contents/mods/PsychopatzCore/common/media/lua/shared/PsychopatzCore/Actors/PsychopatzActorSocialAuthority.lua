@@ -31,24 +31,40 @@ local function requireActor(actorID, core)
     return actor, registry
 end
 
-local function commitSocial(actorID, social, core, expectedRevision)
+local function peekActor(actorID, core)
+    if type(actorID) ~= "string" or actorID == "" then
+        return nil, "actor_id_required"
+    end
+    local registry = registryFor(core)
+    if not registry then return nil, "core_registry_unavailable" end
+    local actor, reason
+    if type(registry.Peek) == "function" then
+        actor, reason = registry:Peek(actorID)
+    else
+        actor, reason = registry:Get(actorID)
+    end
+    if not actor then return nil, reason or "actor_not_found" end
+    return actor, registry
+end
+
+local function commitSocial(actorID, social, core, expectedRevision, options)
     local allowed, reason = requireServerAuthority()
     if not allowed then return nil, reason end
 
-    local actor, registry = requireActor(actorID, core)
+    local actor, registry = peekActor(actorID, core)
     if not actor then return nil, registry end
 
-    local normalized
-    normalized, reason = Social.NewState(social)
-    if not normalized then return nil, reason end
-    local valid
-    valid, reason = Social.Validate(normalized)
-    if not valid then return nil, reason end
+    if type(social) ~= "table" then
+        local _, invalidReason = Social.NewState(social)
+        return nil, invalidReason or "social_state_required"
+    end
 
     if expectedRevision == nil then
         expectedRevision = actor.revision
     end
-    return registry:Commit(actorID, { social = normalized }, expectedRevision)
+    -- Registry:Commit already clones, normalizes via Social.NewState, and
+    -- validates patch.social, avoiding a redundant full-graph pass here.
+    return registry:Commit(actorID, { social = social }, expectedRevision, options)
 end
 
 function Authority.Get(actorID, core)
@@ -61,8 +77,8 @@ function Authority.GetSocial(actorID, core)
     return Social.NewState(actor.social)
 end
 
-function Authority.CommitSocial(actorID, social, core, expectedRevision)
-    return commitSocial(actorID, social, core, expectedRevision)
+function Authority.CommitSocial(actorID, social, core, expectedRevision, options)
+    return commitSocial(actorID, social, core, expectedRevision, options)
 end
 
 function Authority.MutateRelationship(actorID, target, mutatorFn, core,
@@ -157,7 +173,7 @@ function Authority.RecalculateRelationship(actorID, target, worldAgeHours,
 end
 
 function Authority.QueryCandidateProjection(actorID, target, options, core)
-    local actor, reason = Authority.Get(actorID, core)
+    local actor, reason = peekActor(actorID, core)
     if not actor then return nil, reason end
     local social = actor.social
     if not social then return nil, "social_state_invalid" end
@@ -165,7 +181,7 @@ function Authority.QueryCandidateProjection(actorID, target, options, core)
 end
 
 function Authority.GetHotRelationshipSnapshot(actorID, target, options, core)
-    local actor, reason = Authority.Get(actorID, core)
+    local actor, reason = peekActor(actorID, core)
     if not actor then return nil, reason end
     local social = actor.social
     if not social then return nil, "social_state_invalid" end

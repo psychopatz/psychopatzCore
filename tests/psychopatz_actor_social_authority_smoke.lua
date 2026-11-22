@@ -95,4 +95,19 @@ equal(registry:Peek(actor.actorId).world.location.position.x, 42,
 equal(registry:Peek(actor.actorId).social.relationships["player:char:one"].approval, 29,
     "Commit preserves untouched social graph intact")
 
+local nextSocial = Authority.GetSocial(actor.actorId, core)
+nextSocial.morale = 12
+local revBeforeSocial = registry:Peek(actor.actorId).revision
+local slimSocialCommit, slimSocialErr = Authority.CommitSocial(
+    actor.actorId, nextSocial, core, revBeforeSocial, { returnClone = false }
+)
+truthy(slimSocialCommit and slimSocialCommit.revision == revBeforeSocial + 1
+    and slimSocialCommit.social == nil,
+    slimSocialErr or "CommitSocial returnClone=false returns compact ack")
+local rejectedSocial, rejectedSocialReason = Authority.CommitSocial(
+    actor.actorId, "not-a-table", core, slimSocialCommit.revision, { returnClone = false }
+)
+equal(rejectedSocial, nil, "CommitSocial rejects invalid social state")
+truthy(rejectedSocialReason ~= nil, "CommitSocial invalid social provides reason")
+
 print("psychopatz_actor_social_authority_smoke: PASS")
