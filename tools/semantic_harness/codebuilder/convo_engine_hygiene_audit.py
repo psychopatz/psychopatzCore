@@ -192,6 +192,80 @@ def _check_empty_canonical_dirs(
     return canonical_checked, empty_count
 
 
+def check_family_hygiene_inline(
+    family_id: str | None,
+    *,
+    has_flow_graph: bool | None = None,
+    variants: list[Any] | None = None,
+    variant_threshold: int = DEFAULT_VARIANT_THRESHOLD,
+) -> dict[str, Any]:
+    """Return bounded inline hygiene badge and warnings for a single family/pool."""
+
+    fid = family_id.strip() if isinstance(family_id, str) else ""
+    if not fid:
+        return {
+            "badge": "UNKNOWN",
+            "warningCount": 0,
+            "warnings": [],
+        }
+
+    warnings: list[dict[str, Any]] = []
+    actor_reason = _check_actor_or_direction_id(fid)
+    if actor_reason is not None:
+        warnings.append({
+            "code": RULE_ACTOR_OR_DIRECTION,
+            "severity": "warning",
+            "familyId": fid,
+            "message": f"Actor/direction-encoded family id {fid!r} ({actor_reason})",
+        })
+
+    style_token = _check_style_or_tier_id(fid)
+    if style_token is not None:
+        warnings.append({
+            "code": RULE_STYLE_OR_TIER_SPLIT,
+            "severity": "warning",
+            "familyId": fid,
+            "matchedToken": style_token,
+            "message": (
+                f"Style/tier token {style_token!r} split into family id {fid!r} "
+                "instead of variants/realizations"
+            ),
+        })
+
+    if fid.lower().startswith("flow.") and has_flow_graph is False:
+        warnings.append({
+            "code": RULE_MISLEADING_FLOW,
+            "severity": "warning",
+            "familyId": fid,
+            "message": f"flow.* family id {fid!r} has no non-empty flow/nodes graph",
+        })
+
+    if isinstance(variants, list) and variants:
+        count = len(variants)
+        heterogeneous = _pool_heterogeneous_intents(variants)
+        reasons: list[str] = []
+        if count >= variant_threshold:
+            reasons.append(f"variantCount={count} >= threshold={variant_threshold}")
+        if heterogeneous:
+            reasons.append(f"heterogeneousIntents={heterogeneous}")
+        if reasons:
+            warnings.append({
+                "code": RULE_OVERPACKED_VARIANT_POOL,
+                "severity": "warning",
+                "familyId": fid,
+                "variantCount": count,
+                "threshold": variant_threshold,
+                "distinctIntents": heterogeneous,
+                "message": f"Overpacked variant pool ({'; '.join(reasons)})",
+            })
+
+    return {
+        "badge": "CLEAN" if not warnings else f"WARN ({len(warnings)})",
+        "warningCount": len(warnings),
+        "warnings": warnings,
+    }
+
+
 def _audit_family_document(
     doc: Mapping[str, Any],
     *,

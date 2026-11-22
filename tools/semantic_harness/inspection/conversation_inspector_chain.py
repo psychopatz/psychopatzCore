@@ -11,6 +11,9 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from tools.semantic_harness.codebuilder.convo_engine_hygiene_audit import (
+    check_family_hygiene_inline,
+)
 from tools.semantic_harness.codebuilder.conversation_compiler import (
     compile_conversation_sources,
     conversation_context_health,
@@ -235,6 +238,62 @@ def affordances(state: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def family_granularity(state: dict[str, Any]) -> dict[str, Any]:
+    response = state["response"]
+    plan = _dict(state.get("plan"))
+    observation = state["observation"]
+    interaction = _dict(observation.get("interactionPlan"))
+    flow = _dict(state.get("flow"))
+    selected = _dict(state.get("selected"))
+    ir = _dict(state.get("ir"))
+    ir_ext = _dict(ir.get("extensions"))
+    action = _dict(state.get("action_result"))
+    decision = _dict(state.get("decision"))
+    result = _dict(state.get("result"))
+    payload = _message_payload(state["record"])
+
+    family_id = (
+        response.get("familyID")
+        or plan.get("familyID")
+        or payload.get("familyID")
+        or payload.get("phraseFamilyID")
+        or payload.get("realizationFamily")
+        or interaction.get("familyID")
+        or selected.get("familyID")
+        or response.get("sourcePoolID")
+        or plan.get("sourcePoolID")
+    )
+    stance = (
+        response.get("stance")
+        or plan.get("stance")
+        or payload.get("stance")
+        or interaction.get("stance")
+        or selected.get("stance")
+        or ir.get("stance")
+        or ir_ext.get("stance")
+    )
+    outcome = (
+        response.get("outcome")
+        or plan.get("outcome")
+        or payload.get("outcome")
+        or interaction.get("outcome")
+        or action.get("outcome")
+        or decision.get("outcome")
+        or result.get("outcome")
+    )
+    has_flow_graph = bool(flow.get("nodes") or flow.get("flow"))
+    hygiene = check_family_hygiene_inline(
+        str(family_id) if family_id else None,
+        has_flow_graph=has_flow_graph,
+    )
+    return {
+        "familyID": family_id,
+        "stance": stance,
+        "outcome": outcome,
+        "hygiene": bounded(hygiene, limit=16),
+    }
+
+
 def realization(state: dict[str, Any]) -> dict[str, Any]:
     response = state["response"]
     payload = _message_payload(state["record"])
@@ -250,6 +309,9 @@ def realization(state: dict[str, Any]) -> dict[str, Any]:
         "presentation": {
             "text": payload.get("text"),
             "semanticTemplateID": payload.get("semanticTemplateID"),
+            "familyID": payload.get("familyID") or response.get("familyID"),
+            "stance": payload.get("stance") or response.get("stance"),
+            "outcome": payload.get("outcome") or response.get("outcome"),
             "realizationFamily": payload.get("realizationFamily"),
             "realizationVariant": payload.get("realizationVariant"),
             "speechStyleVariant": payload.get("speechStyleVariant"),
@@ -399,6 +461,7 @@ def project(state: dict[str, Any]) -> dict[str, Any]:
         **surface,
         "discourse": discourse(state),
         "affordances": affordances(state),
+        "familyGranularity": family_granularity(state),
         "realization": realization(state),
         "storagePointers": storage_pointers(state),
         "socialEffect": social_effect(state),

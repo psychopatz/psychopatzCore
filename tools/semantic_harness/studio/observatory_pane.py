@@ -5,10 +5,119 @@ from typing import Any, Callable
 from pathlib import Path
 import json
 
+from ..codebuilder.convo_engine_hygiene_audit import check_family_hygiene_inline
 from ..inspection.response_candidate import preview_authored_variant
 from ..inspection.response_source_lineage import inspect_codebuilder_lineage
 from ..inspection.response_translation_coverage import translation_coverage
 from .semantic_tree import filter_semantic_tree, build_semantic_tree
+
+
+def format_d7_observatory_lines(
+    payload: dict[str, Any],
+    *,
+    variants: list[Any] | None = None,
+) -> list[str]:
+    """Format D7 lane, family hygiene, disposition/grounding, and actor-role fields."""
+
+    if not isinstance(payload, dict):
+        return []
+
+    lines: list[str] = []
+
+    lane_info = payload.get("laneOwnership")
+    if not isinstance(lane_info, dict):
+        lane_info = {
+            "lane": payload.get("lane"),
+            "sceneID": payload.get("sceneID"),
+            "threadID": payload.get("threadID"),
+            "sceneThreadCollision": payload.get("sceneThreadCollision"),
+            "collisionWarning": payload.get("collisionWarning"),
+        }
+    if any(
+        lane_info.get(k) is not None
+        for k in ("lane", "sceneID", "threadID", "collisionWarning")
+    ) or lane_info.get("sceneThreadCollision"):
+        lines.append(
+            "Lane ownership: "
+            f"lane={lane_info.get('lane') or 'none'} · "
+            f"sceneID={lane_info.get('sceneID') or 'none'} · "
+            f"threadID={lane_info.get('threadID') or 'none'}"
+        )
+        if lane_info.get("sceneThreadCollision"):
+            lines.append(
+                f"  [COLLISION WARNING] {lane_info.get('collisionWarning') or 'sceneID/threadID conflict'}"
+            )
+
+    family_info = payload.get("familyGranularity")
+    if not isinstance(family_info, dict):
+        family_id = payload.get("familyID") or payload.get("poolID")
+        hygiene = payload.get("hygiene")
+        if not isinstance(hygiene, dict):
+            hygiene = check_family_hygiene_inline(
+                str(family_id) if family_id else None,
+                variants=variants,
+            )
+        family_info = {
+            "familyID": family_id,
+            "stance": payload.get("stance"),
+            "outcome": payload.get("outcome"),
+            "hygiene": hygiene,
+        }
+    if any(
+        family_info.get(k) is not None
+        for k in ("familyID", "stance", "outcome")
+    ) or isinstance(family_info.get("hygiene"), dict):
+        hygiene = family_info.get("hygiene") or {}
+        badge = hygiene.get("badge", "UNKNOWN")
+        lines.append(
+            "Family granularity: "
+            f"familyID={family_info.get('familyID') or 'none'} · "
+            f"stance={family_info.get('stance') or 'none'} · "
+            f"outcome={family_info.get('outcome') or 'none'} · "
+            f"hygiene=[{badge}]"
+        )
+        for warning in hygiene.get("warnings") or []:
+            if isinstance(warning, dict):
+                lines.append(
+                    f"  [HYGIENE {warning.get('code', 'warning')}] {warning.get('message', '')}"
+                )
+
+    disp = payload.get("dispositionContribution")
+    if isinstance(disp, dict) and any(v is not None for v in disp.values()):
+        lines.append(
+            "Disposition: "
+            f"base={disp.get('baseDisposition')} · "
+            f"demeanor={disp.get('temporaryDemeanor')} · "
+            f"effective={disp.get('effectiveDisposition')} · "
+            f"styleProfile={disp.get('styleProfile')}"
+        )
+
+    constraints = payload.get("constraintReasons")
+    if isinstance(constraints, list) and constraints:
+        lines.append(f"Constraint reasons: {constraints}")
+
+    grounding_refs = payload.get("groundingRefs")
+    epistemic = payload.get("epistemicStatus")
+    provenance = payload.get("knowledgeProvenance")
+    salience = payload.get("memorySalience")
+    if any(
+        v is not None and v != []
+        for v in (grounding_refs, epistemic, provenance, salience)
+    ):
+        lines.append(
+            "Grounding & epistemic: "
+            f"epistemicStatus={epistemic or 'unknown'} · "
+            f"memorySalience={salience} · "
+            f"groundingRefs={grounding_refs or []} · "
+            f"knowledgeProvenance={provenance}"
+        )
+
+    actor_roles = payload.get("actorRoles")
+    if isinstance(actor_roles, dict) and actor_roles:
+        role_parts = [f"{role}={actor_roles[role]}" for role in sorted(actor_roles)]
+        lines.append("Actor roles: " + ", ".join(role_parts))
+
+    return lines
 
 
 class SemanticObservatoryPane:
@@ -438,6 +547,12 @@ class SemanticObservatoryPane:
             f"Registration source: {result.get('sourcePath', 'UNKNOWN')}",
             "",
         ]
+        d7_lines = format_d7_observatory_lines(
+            result, variants=result.get("variants")
+        )
+        if d7_lines:
+            lines.extend(d7_lines)
+            lines.append("")
         lineage = result.get("generatedActionLineage") or {}
         if lineage:
             lines.extend((
@@ -617,5 +732,20 @@ class SemanticObservatoryPane:
         self._display("Explore", "\n".join(lines))
         self._display("Review", "\n".join(lines))
 
+    def show_turn_inspection(self, inspection: dict[str, Any]) -> str:
+        """Render a bounded conversation_inspector or response_turn_trace view."""
 
-__all__ = ["SemanticObservatoryPane"]
+        lines = [
+            f"Turn inspection: {inspection.get('type', 'conversation_inspector')}",
+        ]
+        d7_lines = format_d7_observatory_lines(inspection)
+        if d7_lines:
+            lines.extend(d7_lines)
+        else:
+            lines.append("No D7 lane/family/disposition/role metadata present.")
+        rendered = "\n".join(lines)
+        self._display("Explore", rendered)
+        return rendered
+
+
+__all__ = ["SemanticObservatoryPane", "format_d7_observatory_lines"]

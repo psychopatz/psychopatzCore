@@ -18,6 +18,20 @@ def conversation_first(value: Any) -> str:
 
     sections = (
         ("UNDERSTANDING", value.get("understanding", {})),
+        ("LANE OWNERSHIP", value.get("laneOwnership", {})),
+        ("FAMILY GRANULARITY & HYGIENE", value.get("familyGranularity", {})),
+        (
+            "DISPOSITION & GROUNDING",
+            {
+                "dispositionContribution": value.get("dispositionContribution"),
+                "constraintReasons": value.get("constraintReasons"),
+                "groundingRefs": value.get("groundingRefs"),
+                "knowledgeProvenance": value.get("knowledgeProvenance"),
+                "epistemicStatus": value.get("epistemicStatus"),
+                "memorySalience": value.get("memorySalience"),
+            },
+        ),
+        ("ACTOR ROLES", value.get("actorRoles", {})),
         ("SURFACE + RECOVERY", value.get("surface", {})),
         ("CANDIDATE SELECTION", value.get("candidateSelection", {})),
         ("DISCOURSE FRAME", value.get("discourse", {})),
