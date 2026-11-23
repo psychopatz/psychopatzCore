@@ -1,4 +1,11 @@
 {
+  "convo.construction.clause_relations.add": "{slot:clause_left}, and {slot:clause_right}",
+  "convo.construction.clause_relations.cause": "{slot:clause_left} because {slot:clause_right}",
+  "convo.construction.clause_relations.condition": "{slot:clause_left} if {slot:clause_right}",
+  "convo.construction.clause_relations.consequence": "{slot:clause_left}, so {slot:clause_right}",
+  "convo.construction.clause_relations.contrast": "{slot:clause_left}, but {slot:clause_right}",
+  "convo.construction.clause_relations.explanation": "{slot:clause_left}. That means {slot:clause_right}",
+  "convo.construction.clause_relations.sequence": "{slot:clause_left}, then {slot:clause_right}",
   "convo.construction.social.acknowledge": "I hear you.",
   "convo.construction.social.agree": "Yeah, I agree.",
   "convo.construction.social.apologize": "I'm {lexeme:primary}.",

@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/ConvoEngine/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "9c73ab76fa14abac3c5d33b227d21d5f4c735784502e58769969104e213e232d"
+Registry.WHOLE_MODEL_FINGERPRINT = "040ef9e1a8b0a52734a5982402728543b74b6862f0ab88ef785f970bb7daa19a"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -143,6 +143,7 @@ appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialGree
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextSocialRecruitment")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/Social")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Realization/ClauseRelations")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Realization/SocialAffirmation")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Realization/SocialChallenge")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Realization/SocialIdentityClosure")

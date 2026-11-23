@@ -1,0 +1,8 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "id": "construction.clause_relations.condition",
+  "owner": "PsychopatzCore",
+  "type": "construction",
+  "strategy": "RELATION_CONDITION",
+  "dialogueAct": "COMPOSE"
+}

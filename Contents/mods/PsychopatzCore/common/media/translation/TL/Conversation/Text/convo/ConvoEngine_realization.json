@@ -1,4 +1,11 @@
 {
+  "convo.construction.clause_relations.add": "{slot:clause_left}, at {slot:clause_right}",
+  "convo.construction.clause_relations.cause": "{slot:clause_left} dahil {slot:clause_right}",
+  "convo.construction.clause_relations.condition": "{slot:clause_left} kung {slot:clause_right}",
+  "convo.construction.clause_relations.consequence": "{slot:clause_left}, kaya {slot:clause_right}",
+  "convo.construction.clause_relations.contrast": "{slot:clause_left}, pero {slot:clause_right}",
+  "convo.construction.clause_relations.explanation": "{slot:clause_left}. Ibig sabihin, {slot:clause_right}",
+  "convo.construction.clause_relations.sequence": "{slot:clause_left}, tapos {slot:clause_right}",
   "convo.construction.social.acknowledge": "Naiintindihan ko.",
   "convo.construction.social.agree": "Oo, sang-ayon ako.",
   "convo.construction.social.apologize": "{lexeme:primary} na.",

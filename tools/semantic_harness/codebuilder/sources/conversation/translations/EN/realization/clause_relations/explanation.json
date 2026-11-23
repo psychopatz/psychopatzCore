@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.convo-engine.translation.v1",
+  "family": "construction.clause_relations.explanation",
+  "locale": "EN",
+  "entries": {
+    "realization.translations": [
+      {
+        "kind": "slot",
+        "slot": "clause_left"
+      },
+      {
+        "kind": "literal",
+        "value": ". That means "
+      },
+      {
+        "kind": "slot",
+        "slot": "clause_right"
+      }
+    ]
+  }
+}
