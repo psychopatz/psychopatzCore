@@ -115,7 +115,10 @@ function ClausePlan.Realize(plan, renderClause, renderRelation)
             local joined, why = renderRelation(clause.relation, text, result.text)
             if not joined then return nil, why end
             text = joined.text
-            relations[#relations + 1] = { relation = clause.relation, constructionID = joined.constructionID }
+            relations[#relations + 1] = {
+                relation = clause.relation, realizedRelation = joined.realizedRelation,
+                constructionID = joined.constructionID,
+            }
         end
         if clause.introduces then remember(focus, clause.introduces) end
     end

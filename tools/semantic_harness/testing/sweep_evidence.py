@@ -65,6 +65,117 @@ def _bound_dict(d: Any, limit: int = 16) -> dict[str, Any]:
     return res
 
 
+_UTTERANCE_EVIDENCE_LIMITS = {
+    "clauses": 3,
+    "claims": 16,
+    "modifiers": 16,
+    "relations": 3,
+    "text": 128,
+}
+
+
+def _bounded_identifier(value: Any, limit: int = 128) -> str | None:
+    if not isinstance(value, str):
+        return None
+    value = value.strip()
+    return value[:limit] if value else None
+
+
+def _optional_positive_int(value: Any) -> int | None:
+    if isinstance(value, bool):
+        return None
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        return None
+    return parsed if parsed > 0 else None
+
+
+def _normalize_utterance_evidence(value: Any) -> dict[str, Any] | None:
+    """Copy the compact, optional ConvoEngine utterance-plan evidence contract."""
+    if not isinstance(value, Mapping):
+        return None
+
+    clauses: list[dict[str, Any]] = []
+    for raw_clause in value.get("clauses", [])[:_UTTERANCE_EVIDENCE_LIMITS["clauses"]] if isinstance(value.get("clauses"), (list, tuple)) else []:
+        if not isinstance(raw_clause, Mapping):
+            continue
+        clause: dict[str, Any] = {}
+        for key in ("claims", "modifiers"):
+            raw_items = raw_clause.get(key)
+            if isinstance(raw_items, (list, tuple)):
+                items = [item[:_UTTERANCE_EVIDENCE_LIMITS["text"]] for item in raw_items
+                         if isinstance(item, str) and item.strip()]
+                if items:
+                    clause[key] = items[:_UTTERANCE_EVIDENCE_LIMITS[key]]
+        for key in ("diagnostic", "referenceMode", "refersTo", "constructionID", "realizedRelation"):
+            item = _bounded_identifier(raw_clause.get(key))
+            if item:
+                clause[key] = item
+        if clause:
+            clauses.append(clause)
+
+    relations: list[dict[str, Any]] = []
+    raw_relations = value.get("relations")
+    if isinstance(raw_relations, (list, tuple)):
+        for raw_relation in raw_relations[:_UTTERANCE_EVIDENCE_LIMITS["relations"]]:
+            if not isinstance(raw_relation, Mapping):
+                continue
+            relation: dict[str, Any] = {}
+            for key in ("relation", "constructionID", "realizedRelation"):
+                item = _bounded_identifier(raw_relation.get(key))
+                if item:
+                    relation[key] = item
+            if relation:
+                relations.append(relation)
+
+    result: dict[str, Any] = {}
+    if clauses:
+        result["clauses"] = clauses
+    if relations:
+        result["relations"] = relations
+    return result or None
+
+
+_TRUTH_FIELDS = {
+    "selectedWound": (
+        "bodyPart", "bodyRegion", "bandaged", "bandageDirty", "splinted", "stitched",
+        "cauterized", "haveGlass", "haveBullet", "bleeding", "functionalImpairment",
+        "locomotionImpaired", "ordinaryInfection", "ordinaryInfectionBand",
+        "woundInfectionLevel", "knoxExposure", "knoxStage",
+    ),
+    "physiology": (
+        "thermalBand", "wetnessBand", "coldBand", "feverBand", "sicknessBand",
+    ),
+    "relationship": ("bondKind", "bondClass", "disposition", "approval", "respect", "familiarity"),
+    "inventory": ("bandageAvailable", "bandageCount", "available", "knownToSpeaker"),
+    "referents": ("candidateCount", "resolvedID", "ambiguous"),
+}
+
+
+def _normalize_authoritative_truth(value: Any) -> dict[str, Any] | None:
+    """Keep a small allowlisted adapter truth snapshot with evidence provenance."""
+    if not isinstance(value, Mapping):
+        return None
+    result: dict[str, Any] = {}
+    for section, keys in _TRUTH_FIELDS.items():
+        raw_section = value.get(section)
+        if not isinstance(raw_section, Mapping):
+            continue
+        bounded: dict[str, Any] = {}
+        for key in keys:
+            item = raw_section.get(key)
+            if isinstance(item, (bool, int, float)) or (isinstance(item, str) and item):
+                bounded[key] = item if not isinstance(item, str) else item[:128]
+        if bounded:
+            result[section] = bounded
+    for key in ("source", "knowledgeStatus"):
+        item = _bounded_identifier(value.get(key))
+        if item:
+            result[key] = item
+    return result or None
+
+
 def extract_evidence_rows_from_turn(
     record: dict[str, Any],
     *,
@@ -253,6 +364,22 @@ def extract_evidence_rows_from_turn(
         "activity": _bound_str(activity_str, 64) if activity_str else None,
         "activeBehavior": _bound_str(situation.get("activeBehavior") or npc_rec.get("activeBehavior"), 64) if (situation.get("activeBehavior") or npc_rec.get("activeBehavior")) else None,
     }
+
+    # ConvoEngine's transient plan evidence is optional so older providers and
+    # older saved observations remain valid. Keep it compact and separate from
+    # authoritative game truth supplied by the adopter adapter.
+    record_context = record.get("context") if isinstance(record.get("context"), Mapping) else {}
+    utterance_evidence = _normalize_utterance_evidence(
+        context.get("utteranceEvidence") or record_context.get("utteranceEvidence")
+    )
+    authoritative_truth = _normalize_authoritative_truth(
+        context.get("authoritativeTruth") or record_context.get("authoritativeTruth")
+    )
+    evidence_context: dict[str, Any] = {}
+    if utterance_evidence:
+        evidence_context["utteranceEvidence"] = utterance_evidence
+    if authoritative_truth:
+        evidence_context["authoritativeTruth"] = authoritative_truth
 
     # Authority and effects
     actions = list(effects.get("actions") or [])[:4]
@@ -484,6 +611,7 @@ def extract_evidence_rows_from_turn(
                 "stateSummary": state_summary,
                 "actorSummary": actor_summary,
             },
+            **({"context": evidence_context} if evidence_context else {}),
             "semanticPath": {
                 "intent": semantic.get("intent"),
                 "speechAct": semantic.get("speechAct"),
@@ -493,6 +621,11 @@ def extract_evidence_rows_from_turn(
                 "semanticTemplateID": str(semantic_template_id) if semantic_template_id else None,
                 "renderTemplateID": str(render_template_id) if render_template_id else None,
                 "semanticVariantID": str(semantic_variant_id) if semantic_variant_id else None,
+                "poolVariantCount": _optional_positive_int(
+                    payload.get("poolVariantCount")
+                    or response_trace.get("poolVariantCount")
+                    or response_trace.get("availableVariantCount")
+                ),
                 "realizationFamily": str(realization_family) if realization_family else None,
                 "realizationVariant": str(realization_variant) if realization_variant else None,
                 "phraseID": str(phrase_id) if phrase_id else None,
