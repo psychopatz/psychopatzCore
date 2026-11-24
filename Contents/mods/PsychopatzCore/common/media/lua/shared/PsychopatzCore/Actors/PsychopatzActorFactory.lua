@@ -339,6 +339,18 @@ local function normalizeAppearance(input, seed, identity)
     resolved.hairColor = resolved.hairColor
         or Util.clone(policy.hairColor)
     resolved.beardModel = resolved.beardModel or policy.beardModel
+    if resolved.hairStubble == nil then
+        resolved.hairStubble = policy.hairStubble
+            or (identity.survivor and identity.survivor.hairStubble)
+    end
+    if resolved.beardStubble == nil then
+        resolved.beardStubble = policy.beardStubble
+            or (identity.survivor and identity.survivor.beardStubble)
+    end
+    if resolved.chestHair == nil then
+        resolved.chestHair = policy.chestHair
+            or (identity.survivor and identity.survivor.chestHair)
+    end
     resolved.gender = resolved.gender or identity.gender
 
     return {
@@ -421,12 +433,27 @@ function Factory.ExpandAppearance(compact, identity)
     return nil, "appearance_compact_mode_invalid"
 end
 
+local function resolveSuppliedGender(spec, supplied, survivor, seed)
+    local explicit = Util.text(survivor.gender, Util.text(supplied.gender, nil))
+    if explicit then return explicit end
+    if type(supplied.isFemale) == "boolean" then
+        return supplied.isFemale and "female" or "male"
+    end
+    if type(survivor.isFemale) == "boolean" then
+        return survivor.isFemale and "female" or "male"
+    end
+    if type(spec.isFemale) == "boolean" then
+        return spec.isFemale and "female" or "male"
+    end
+    return Util.pick(GENDERS, seed, 23)
+end
+
 local function normalizeIdentity(spec, seed)
     local supplied = type(spec.identity) == "table" and spec.identity or {}
     local survivor = type(supplied.survivor) == "table" and supplied.survivor or {}
     local forename = Util.text(survivor.forename, Util.pick(FORENAMES, seed, 17))
     local surname = Util.text(survivor.surname, Util.pick(SURNAMES, seed, 19))
-    local gender = Util.text(survivor.gender, Util.pick(GENDERS, seed, 23))
+    local gender = resolveSuppliedGender(spec, supplied, survivor, seed)
     local identity = {
         schemaVersion = 1,
         identitySeed = seed,
@@ -440,8 +467,12 @@ local function normalizeIdentity(spec, seed)
             forename = forename,
             surname = surname,
             gender = gender,
+            skinTexture = survivor.skinTexture,
             hairModel = survivor.hairModel,
             beardModel = survivor.beardModel,
+            hairStubble = survivor.hairStubble,
+            beardStubble = survivor.beardStubble,
+            chestHair = survivor.chestHair,
             skinColor = survivor.skinColor,
             hairColor = survivor.hairColor,
         },

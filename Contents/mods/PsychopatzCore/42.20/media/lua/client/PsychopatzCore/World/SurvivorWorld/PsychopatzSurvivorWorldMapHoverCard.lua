@@ -80,10 +80,10 @@ function Card:createChildren()
     self:addChild(self.portrait)
 end
 
-function Card:setTarget(character, spec)
+function Card:setTarget(character, spec, force)
     spec = spec or character
     if not self.portrait or not self.portrait.setTarget then return false end
-    return self.portrait:setTarget(nil, spec) == true
+    return self.portrait:setTarget(nil, spec, force == true) == true
 end
 
 function Card:setContext(entry, marker, suppliedMetadata)

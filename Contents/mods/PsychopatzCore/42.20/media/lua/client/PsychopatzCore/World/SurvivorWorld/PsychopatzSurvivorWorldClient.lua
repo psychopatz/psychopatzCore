@@ -354,8 +354,12 @@ function Client.GetPortraitSpec(actorOrID)
     local gender = tostring(
         portrait.gender or face.gender or ""
     ):lower()
-    local appearance = type(portrait.appearance) == "table"
-        and portrait.appearance or {}
+    local appearance = {}
+    if type(portrait.appearance) == "table" then
+        for key, value in pairs(portrait.appearance) do
+            appearance[key] = value
+        end
+    end
     if appearance.skinTexture == nil then
         appearance.skinTexture = face.skinTexture
     end
@@ -374,11 +378,24 @@ function Client.GetPortraitSpec(actorOrID)
     if appearance.beardModel == nil then
         appearance.beardModel = face.beardModel
     end
+    if appearance.hairStubble == nil then
+        appearance.hairStubble = face.hairStubble
+    end
+    if appearance.beardStubble == nil then
+        appearance.beardStubble = face.beardStubble
+    end
+    if appearance.chestHair == nil then
+        appearance.chestHair = face.chestHair
+    end
+    local resolvedID = portrait.actorID or entry.actorID
     return {
         -- PortraitPanel keys the actual appearance/equipment; actor+schema
         -- alone would retain an old outfit forever after a new projection.
-        actorID = portrait.actorID or entry.actorID,
-        identitySeed = portrait.actorID or entry.actorID,
+        id = resolvedID,
+        actorID = resolvedID,
+        revision = portrait.revision or entry.revision,
+        identitySeed = portrait.identitySeed or entry.identitySeed
+            or resolvedID,
         isFemale = gender == "female"
             or gender == "f",
         preferDescriptor = true,

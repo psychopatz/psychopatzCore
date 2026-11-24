@@ -49,6 +49,8 @@ function Presentation.BuildPortrait(actor)
     return {
         schemaVersion = Presentation.SCHEMA_VERSION,
         actorID = actor.actorId,
+        identitySeed = actor.identity.identitySeed,
+        revision = math.max(0, math.floor(tonumber(actor.revision) or 0)),
         displayName = actor.identity.displayName,
         gender = actor.identity.gender,
         voiceProfile = Util.clone(survivor.voiceProfile or {}),
@@ -60,6 +62,12 @@ function Presentation.BuildPortrait(actor)
             hairModel = resolved.hairModel or survivor.hairModel,
             hairColor = resolved.hairColor or survivor.hairColor,
             beardModel = resolved.beardModel or survivor.beardModel,
+            hairStubble = resolved.hairStubble ~= nil and resolved.hairStubble
+                or survivor.hairStubble,
+            beardStubble = resolved.beardStubble ~= nil and resolved.beardStubble
+                or survivor.beardStubble,
+            chestHair = resolved.chestHair ~= nil and resolved.chestHair
+                or survivor.chestHair,
         },
         appearance = appearance,
         equipment = equipmentFor(actor),

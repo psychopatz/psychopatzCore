@@ -305,7 +305,7 @@ function Hover.Update(map, entry, markerX, markerY, marker, owner)
         or map._psychopatzSurvivorWorldHoverEntry ~= entry
         or map._psychopatzSurvivorWorldHoverPortraitRevision ~= spec.revision
     then
-        if panel:setTarget(nil, spec, true) ~= true then
+        if panel:setTarget(nil, spec, false) ~= true then
             Hover.Hide(map, false, owner)
             return false
         end
