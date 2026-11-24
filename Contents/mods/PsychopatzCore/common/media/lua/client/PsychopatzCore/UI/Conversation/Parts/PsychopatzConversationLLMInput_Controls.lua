@@ -71,15 +71,20 @@ function Internal.createTextEntry(component, options)
             options.tooltip or "Type a message for this NPC."
         ),
     })
+    if component.maxInputLines and component.entry.setMaxLines then
+        -- In PZ Build 42, setMaxLines(>1) can implicitly flip UITextBox2 into
+        -- multiline mode where Enter inserts a newline instead of firing
+        -- onCommandEntered. Keep maxLines=1 when submitOnEnter is active, or
+        -- enforce setMultipleLine(false) after setMaxLines.
+        if component.submitOnEnter then
+            component.entry:setMaxLines(1)
+        else
+            component.entry:setMaxLines(component.maxInputLines)
+        end
+    end
     if component.entry.setMultipleLine then
-        -- UITextBox2 consumes Enter itself when this flag is true, so Lua
-        -- never receives onCommandEntered. Keep the native box in command
-        -- mode and emulate only the Shift+Enter newline action.
         component.entry:setMultipleLine(
             component.multiline and not component.submitOnEnter)
-    end
-    if component.maxInputLines and component.entry.setMaxLines then
-        component.entry:setMaxLines(component.maxInputLines)
     end
     component.entry.onCommandEntered = function()
         if component.submitOnEnter and isShiftKeyDown() then
@@ -89,6 +94,21 @@ function Internal.createTextEntry(component, options)
         component:onSubmit()
     end
     component.entry.onTextChange = function()
+        if component.submitOnEnter and not isShiftKeyDown() and component.entry then
+            local raw = component.entry.getInternalText
+                and component.entry:getInternalText()
+                or component.entry:getText()
+            if type(raw) == "string" and string.find(raw, "\n", 1, true) then
+                local cleaned = string.gsub(raw, "[\r\n]+", " ")
+                cleaned = string.gsub(cleaned, "^%s+", "")
+                cleaned = string.gsub(cleaned, "%s+$", "")
+                component.entry:setText(cleaned)
+                if cleaned ~= "" then
+                    component:onSubmit()
+                end
+                return
+            end
+        end
         component:onTextChanged()
     end
 end
@@ -106,6 +126,30 @@ function Internal.createActionButtons(component, options)
         variant = "primary",
         width = 76,
     })
+    if component.onPrevTarget or options.onPrevTarget then
+        component.onPrevTarget = component.onPrevTarget or options.onPrevTarget
+        component.prevTargetButton = UI.CreateButton(component, {
+            id = "prevTarget",
+            title = "<",
+            target = component,
+            onclick = LLMInput.onPrevTargetPressed,
+            variant = "quiet",
+            width = 24,
+        })
+        component.prevTargetButton.tooltip = "Talk to previous nearby person"
+    end
+    if component.onNextTarget or options.onNextTarget then
+        component.onNextTarget = component.onNextTarget or options.onNextTarget
+        component.nextTargetButton = UI.CreateButton(component, {
+            id = "nextTarget",
+            title = ">",
+            target = component,
+            onclick = LLMInput.onNextTargetPressed,
+            variant = "quiet",
+            width = 24,
+        })
+        component.nextTargetButton.tooltip = "Talk to next nearby person"
+    end
     if component.onClose then
         component.closeButton = UI.CreateButton(component, {
             id = "close",

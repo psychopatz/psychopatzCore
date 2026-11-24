@@ -86,6 +86,7 @@ function Session.New(view, spec)
         sequence = 0,
         queue = {},
         busy = false,
+        lastNpcMessageAt = nil,
     }
     setmetatable(self, { __index = Session })
     return self
@@ -177,6 +178,9 @@ function Session:append(speaker, payload, metadata)
     Message.Publish(message)
     self.view.historyPart:addMessage(message)
     trimActiveMessages(self)
+    if kind == "npc" then
+        self.lastNpcMessageAt = now()
+    end
     if kind == "npc" and self.view.portraitPart
         and self.view.portraitPart.portrait
     then
@@ -194,6 +198,26 @@ function Session:append(speaker, payload, metadata)
         end
     end
     return message
+end
+
+function Session:hasPendingMessages()
+    return self.busy == true or #(self.queue or {}) > 0
+end
+
+local function refreshExtensionInputControls(session)
+    local view = session and session.view or nil
+    local inputPart = view and view.extensionParts
+        and view.extensionParts.llmInput or nil
+    if inputPart and type(inputPart.refreshControls) == "function" then
+        inputPart:refreshControls()
+    end
+end
+
+function Session:interMessagePauseMs()
+    return math.max(
+        0,
+        tonumber(Settings.Get("typingInterMessagePauseMs", 650)) or 650
+    )
 end
 
 function Session:delayFor(payload)
@@ -219,11 +243,28 @@ function Session:queueMessage(speaker, payload, metadata)
         end
         return
     end
+    local currentTime = now()
     local previous = self.queue[#self.queue]
-    local readyAt = math.max(now(), previous and previous.readyAt or 0)
+    local readyAt = math.max(currentTime, previous and previous.readyAt or 0)
     local delayMs = 0
+    local pauseMs = 0
+    local hasExplicitDelay = type(payload) == "table"
+        and tonumber(payload.delayMs) ~= nil
     if speaker == "npc" then
         delayMs = self:delayFor(payload)
+        if not hasExplicitDelay then
+            local gap = self:interMessagePauseMs()
+            if previous and previous.speaker == "npc" then
+                pauseMs = gap
+                readyAt = readyAt + pauseMs
+            elseif not previous and self.lastNpcMessageAt
+                and (currentTime - self.lastNpcMessageAt) < gap
+            then
+                local earliest = self.lastNpcMessageAt + gap
+                pauseMs = math.max(0, earliest - readyAt)
+                readyAt = math.max(readyAt, earliest)
+            end
+        end
         readyAt = readyAt + delayMs
     end
     self.queue[#self.queue + 1] = {
@@ -234,6 +275,7 @@ function Session:queueMessage(speaker, payload, metadata)
     }
     self.busy = true
     self.view.historyPart:setTyping(self.queue[1] and self.queue[1].speaker or nil)
+    refreshExtensionInputControls(self)
     if traceEnabled() then
         DebugTrace.Record({
             source = "PsychopatzCore",
@@ -241,8 +283,8 @@ function Session:queueMessage(speaker, payload, metadata)
             data = {
                 speaker = speaker,
                 delayMs = delayMs,
-                explicitDelay = type(payload) == "table"
-                    and tonumber(payload.delayMs) ~= nil,
+                pauseMs = pauseMs,
+                explicitDelay = hasExplicitDelay,
                 queueLength = #self.queue,
                 readyAt = readyAt,
             },
@@ -399,6 +441,7 @@ function Session:selectChoice(choice)
 end
 
 function Session:finishPending()
+    if #(self.queue or {}) > 0 then return end
     self.busy = false
     self.view.historyPart:setTyping(nil)
     if self.pendingClose then
@@ -420,6 +463,7 @@ function Session:finishPending()
         self.pendingChoices = nil
         self:setChoices(choices)
     end
+    refreshExtensionInputControls(self)
 end
 
 function Session:update()

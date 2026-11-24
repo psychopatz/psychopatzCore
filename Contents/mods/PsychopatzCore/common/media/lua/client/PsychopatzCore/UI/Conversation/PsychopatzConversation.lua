@@ -83,6 +83,7 @@ function Conversation.CreateHeadless(spec)
         return self.closed ~= true
             and self.session ~= nil
             and self.session.busy ~= true
+            and #(self.session.queue or {}) == 0
     end
     -- Visible conversation views receive Lifecycle.Update from their ISPanel
     -- update loop. Headless hosts have no panel, so reusable integrations must

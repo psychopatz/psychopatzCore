@@ -45,9 +45,24 @@ function LLMInput:onPartResize()
     local modeCount = #self.modeButtons
     local controlCount = modeCount + (self.toggleButton and 1 or 0)
     local inputY = controlCount > 0 and 54 or 30
-    local width = math.max(80, self.width - 104)
+    local showSwitch = self._showTargetSwitch == true
+        and self.prevTargetButton ~= nil and self.nextTargetButton ~= nil
+    local entryX = showSwitch and 38 or 10
+    local width = math.max(80, self.width - (showSwitch and 156 or 104))
     self.inputY = inputY
-    self.entry:setX(10)
+    if self.prevTargetButton then
+        self.prevTargetButton:setX(10)
+        self.prevTargetButton:setY(inputY)
+        self.prevTargetButton:setWidth(24)
+        self.prevTargetButton:setHeight(26)
+    end
+    if self.nextTargetButton then
+        self.nextTargetButton:setX(math.max(entryX + 84, self.width - 114))
+        self.nextTargetButton:setY(inputY)
+        self.nextTargetButton:setWidth(24)
+        self.nextTargetButton:setHeight(26)
+    end
+    self.entry:setX(entryX)
     self.entry:setY(inputY)
     self.entry:setWidth(width)
     self.entry:setHeight(self.inputHeight or 26)
@@ -84,7 +99,32 @@ function LLMInput:onPartResize()
         self.closeButton:setWidth(20)
         self.closeButton:setHeight(18)
     end
-    if not self.resizingForText then self:resizeForText() end
+    local replyCount = tonumber(self._visibleQuickReplyCount) or 0
+    local replyRowH = 22
+    local replyGap = 4
+    local replyY = inputY + (self.inputHeight or 26) + 6
+    local replyW = math.max(80, self.width - 20)
+    for i = 1, replyCount do
+        local btn = self.quickReplyButtons and self.quickReplyButtons[i] or nil
+        if btn then
+            btn:setX(10)
+            btn:setY(replyY)
+            btn:setWidth(replyW)
+            btn:setHeight(replyRowH)
+            replyY = replyY + replyRowH + replyGap
+        end
+    end
+    local repliesHeight = replyCount > 0 and (6 + replyCount * (replyRowH + replyGap)) or 0
+    if not self.resizingForText then
+        self:resizeForText()
+        local baseH = (self.inputY or 30) + (self.inputHeight or 26) + 24
+        local targetH = math.max(self.minimumHeight or 82, baseH + repliesHeight)
+        if math.abs((self.height or 0) - targetH) > 1 then
+            self.resizingForText = true
+            self:setHeight(targetH)
+            self.resizingForText = false
+        end
+    end
 end
 
 local function wrappedLines(value, charsPerLine)

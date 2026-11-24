@@ -170,6 +170,16 @@ def inspect_codebuilder_lineage(
     by_id = {variant["id"]: variant for variant in loaded}
     matches: dict[str, list[dict[str, Any]]] = {variant_id: [] for variant_id in by_id}
     checked_sources = []
+    # Check unified .convo DSL packs first as primary authored authority.
+    convo_matches = service.find_convo_pool_lineage(pool_id, by_id)
+    if any(convo_matches.values()):
+        for vid, rows in convo_matches.items():
+            matches[vid].extend(rows)
+        checked_sources.append({
+            "sourceID": "convo_dsl",
+            "verified": True,
+            "reason": "matched_convo_dsl_script",
+        })
     for source in service.list_dataset_sources():
         kind = source.get("kind")
         if kind not in ("dialogue", "semantic") or not source.get("exists"):

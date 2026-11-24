@@ -11,10 +11,12 @@ PsychopatzCore.Semantics = PsychopatzCore.Semantics or {}
 local Semantics = PsychopatzCore.Semantics
 local Registry = Semantics.Registry
     or require "PsychopatzCore/Semantics/PsychopatzSemanticRegistry"
+local EnglishNLP = Semantics.EnglishNLP
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticEnglishNLP"
 local Fuzzy = Semantics.FuzzyMatcher or {}
 Semantics.FuzzyMatcher = Fuzzy
 
-Fuzzy.VERSION = 1
+Fuzzy.VERSION = 2
 Fuzzy.MIN_LENGTH = 4
 Fuzzy.MAX_DISTANCE = 2
 -- Keep fuzzy recognition bounded, but large enough to cover the current
@@ -23,6 +25,9 @@ Fuzzy.MAX_SCAN = 512
 Fuzzy.Revision = -1
 Fuzzy.Aliases = {}
 Fuzzy.ByTokenCount = {}
+Fuzzy.ByLength = {}
+Fuzzy.ByPhonetic = {}
+Fuzzy.ByLemma = {}
 
 local function tokenCount(value)
     local count = 0
@@ -35,6 +40,9 @@ end
 local function rebuild()
     local aliases = {}
     local byTokenCount = {}
+    local byLength = {}
+    local byPhonetic = {}
+    local byLemma = {}
     local conceptIDs = Registry.ListConcepts()
     local conceptIndex
     local concept
@@ -50,23 +58,49 @@ local function rebuild()
                 alias = tostring(concept.aliases[aliasIndex] or "")
                 if #alias >= Fuzzy.MIN_LENGTH then
                     local count = tokenCount(alias)
+                    local len = #alias
                     local entry = {
                         phrase = alias,
                         id = concept.id,
                         priority = concept.priority,
                         tokenCount = count,
-                        length = #alias,
+                        length = len,
                     }
                     aliases[#aliases + 1] = entry
                     byTokenCount[count] = byTokenCount[count] or {}
                     local bucket = byTokenCount[count]
                     bucket[#bucket + 1] = entry
+
+                    byLength[count] = byLength[count] or {}
+                    byLength[count][len] = byLength[count][len] or {}
+                    local lenBucket = byLength[count][len]
+                    lenBucket[#lenBucket + 1] = entry
+
+                    if count == 1 and EnglishNLP then
+                        if type(EnglishNLP.PhoneticKey) == "function" then
+                            local pk = EnglishNLP.PhoneticKey(alias)
+                            if pk ~= "" and #pk >= 2 then
+                                byPhonetic[pk] = byPhonetic[pk] or {}
+                                byPhonetic[pk][#byPhonetic[pk] + 1] = entry
+                            end
+                        end
+                        if type(EnglishNLP.Lemmatize) == "function" then
+                            local lm = EnglishNLP.Lemmatize(alias)
+                            if lm ~= "" and #lm >= Fuzzy.MIN_LENGTH then
+                                byLemma[lm] = byLemma[lm] or {}
+                                byLemma[lm][#byLemma[lm] + 1] = entry
+                            end
+                        end
+                    end
                 end
             end
         end
     end
     Fuzzy.Aliases = aliases
     Fuzzy.ByTokenCount = byTokenCount
+    Fuzzy.ByLength = byLength
+    Fuzzy.ByPhonetic = byPhonetic
+    Fuzzy.ByLemma = byLemma
     Fuzzy.Revision = Registry.GetRevision()
 end
 
@@ -153,8 +187,9 @@ function Fuzzy.Find(phrase, options)
     if not maximum then return nil end
     ensureIndex()
 
-    local entries = Fuzzy.ByTokenCount[tokenCount(phrase)]
-    if type(entries) ~= "table" then return nil end
+    local tc = tokenCount(phrase)
+    local lenMap = Fuzzy.ByLength[tc]
+    if type(lenMap) ~= "table" then return nil end
 
     local bestDistance = nil
     local bestEntries = {}
@@ -162,23 +197,62 @@ function Fuzzy.Find(phrase, options)
     local truncated = false
     local index
     local entry
-    for index = 1, #entries do
-        if scanned >= Fuzzy.MAX_SCAN then
-            truncated = true
-            break
+
+    -- Fast O(1) lemma pass for single tokens (e.g., "bleeding" -> "bleed", "bandaged" -> "bandage")
+    if tc == 1 and EnglishNLP and type(EnglishNLP.Lemmatize) == "function" then
+        local lm = EnglishNLP.Lemmatize(phrase)
+        local lemmaHits = lm ~= "" and Fuzzy.ByLemma[lm] or nil
+        if type(lemmaHits) == "table" and #lemmaHits > 0 then
+            bestDistance = 1
+            for index = 1, #lemmaHits do
+                bestEntries[#bestEntries + 1] = lemmaHits[index]
+            end
+            scanned = #lemmaHits
         end
-        entry = entries[index]
-        if math.abs(entry.length - #phrase) <= maximum then
-            scanned = scanned + 1
-            local distance = editDistance(phrase, entry.phrase, maximum)
-            if distance ~= nil then
-                if bestDistance == nil or distance < bestDistance then
-                    bestDistance = distance
-                    bestEntries = { entry }
-                elseif distance == bestDistance then
-                    bestEntries[#bestEntries + 1] = entry
+    end
+
+    -- O(1) length-bucketed edit distance pass (only inspects lengths within [len - max .. len + max])
+    if bestDistance == nil then
+        local pLen = #phrase
+        for targetLen = math.max(Fuzzy.MIN_LENGTH, pLen - maximum), pLen + maximum do
+            local bucket = lenMap[targetLen]
+            if type(bucket) == "table" then
+                for index = 1, #bucket do
+                    if scanned >= Fuzzy.MAX_SCAN then
+                        truncated = true
+                        break
+                    end
+                    entry = bucket[index]
+                    scanned = scanned + 1
+                    local distance = editDistance(phrase, entry.phrase, maximum)
+                    if distance ~= nil then
+                        if bestDistance == nil or distance < bestDistance then
+                            bestDistance = distance
+                            bestEntries = { entry }
+                        elseif distance == bestDistance then
+                            bestEntries[#bestEntries + 1] = entry
+                        end
+                    end
+                end
+                if truncated then break end
+            end
+        end
+    end
+
+    -- Secondary O(1) phonetic skeleton pass for single tokens (e.g., "medisin" -> "medicine", "zomby" -> "zombie")
+    if bestDistance == nil and tc == 1 and EnglishNLP and type(EnglishNLP.PhoneticKey) == "function" then
+        local pk = EnglishNLP.PhoneticKey(phrase)
+        local phoneHits = (pk ~= "" and #pk >= 2) and Fuzzy.ByPhonetic[pk] or nil
+        if type(phoneHits) == "table" and #phoneHits > 0 then
+            bestDistance = maximum
+            for index = 1, #phoneHits do
+                local cand = phoneHits[index]
+                if math.abs(cand.length - #phrase) <= 3 then
+                    bestEntries[#bestEntries + 1] = cand
+                    scanned = scanned + 1
                 end
             end
+            if #bestEntries == 0 then bestDistance = nil end
         end
     end
 

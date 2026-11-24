@@ -13,6 +13,7 @@ Settings.defaults = Settings.defaults or {
     typingCharactersPerSecond = 38,
     typingMinimumMs = 320,
     typingMaximumMs = 1800,
+    typingInterMessagePauseMs = 650,
     conversationOpacitySchema = 4,
     conversationOpacityBase = 0.82,
     portraitSurfaceOpacityLift = 0.10,

@@ -182,6 +182,69 @@ delayedSession:update()
 assertEqual(#delayedMessages, 1, "NPC reply releases at delay boundary")
 assertEqual(delayedTyping, nil, "NPC queue clears typing after release")
 
+-- Multi-message pacing: 2+ consecutive NPC messages must include an inter-message
+-- pause and keep the session busy (and input controls refreshed) until the
+-- final queued message is released.
+now = 5000
+local multiMessages = {}
+local multiControlRefreshes = 0
+local multiSession = Session.New({
+    choicesPart = { setChoices = function() end },
+    historyPart = {
+        addMessage = function(_, message)
+            multiMessages[#multiMessages + 1] = message
+        end,
+        setTyping = function() end,
+    },
+    extensionParts = {
+        llmInput = {
+            refreshControls = function()
+                multiControlRefreshes = multiControlRefreshes + 1
+            end,
+        },
+    },
+}, {
+    namespace = "MultiDelayTest",
+    npcID = "npc-multi",
+    persistHistory = false,
+})
+multiSession:queueMessage("npc", { text = "I'm Carmela Jane." })
+multiSession:queueMessage("npc", { text = "What do you need?" })
+assertEqual(#multiSession.queue, 2,
+    "multi-message queue stores both NPC messages")
+local firstReadyAt = multiSession.queue[1].readyAt
+local secondReadyAt = multiSession.queue[2].readyAt
+local expectedSecondDelay = multiSession:delayFor({ text = "What do you need?" })
+local expectedPause = multiSession:interMessagePauseMs()
+assertEqual(secondReadyAt, firstReadyAt + expectedPause + expectedSecondDelay,
+    "second consecutive NPC message waits for inter-message pause plus typing delay")
+assertEqual(multiSession:hasPendingMessages(), true,
+    "session reports pending messages while queue has entries")
+now = firstReadyAt
+multiSession:update()
+assertEqual(#multiMessages, 1,
+    "first NPC message releases at its readyAt")
+assertEqual(multiSession.busy, true,
+    "session stays busy while second NPC message is still pending")
+assertEqual(multiSession:hasPendingMessages(), true,
+    "session still reports pending messages between first and second message")
+now = secondReadyAt - 1
+multiSession:update()
+assertEqual(#multiMessages, 1,
+    "second NPC message does not release before inter-message delay elapses")
+assertEqual(multiSession:hasPendingMessages(), true,
+    "session stays pending right before second message")
+now = secondReadyAt
+multiSession:update()
+assertEqual(#multiMessages, 2,
+    "second NPC message releases after inter-message delay")
+assertEqual(multiSession.busy, false,
+    "session clears busy after final queued message")
+assertEqual(multiSession:hasPendingMessages(), false,
+    "session clears pending state after all queued messages finish")
+assertEqual(multiControlRefreshes >= 3, true,
+    "session refreshes input controls on queue and completion")
+
 local playedPortraitAnimation
 local animatedSession = Session.New({
     choicesPart = { setChoices = function() end },

@@ -99,6 +99,12 @@ function PsychopatzConversationView:refreshOpacityControls()
 end
 
 function PsychopatzConversationView:onCloseButton()
+    if self.spec and type(self.spec.onStandardizedClose) == "function" then
+        local ok = pcall(self.spec.onStandardizedClose, self, "close_button", function()
+            self:close("close_button")
+        end)
+        if ok then return end
+    end
     self:close("close_button")
 end
 
@@ -219,8 +225,9 @@ function PsychopatzConversationView:isConversationInteractive()
     return self.animationInteractive == true
         and self.editMode ~= true
         and self.closing ~= true
-        and self.session
+        and self.session ~= nil
         and self.session.busy ~= true
+        and #(self.session.queue or {}) == 0
 end
 
 function PsychopatzConversationView:onChoiceSelected(choice)
@@ -410,6 +417,12 @@ end
 
 function PsychopatzConversationView:onKeyRelease(key)
     if Keyboard and key == Keyboard.KEY_ESCAPE then
+        if self.spec and type(self.spec.onStandardizedClose) == "function" then
+            local ok = pcall(self.spec.onStandardizedClose, self, "escape", function()
+                self:close("escape")
+            end)
+            if ok then return true end
+        end
         self:close("escape")
         return true
     end

@@ -279,6 +279,12 @@ local function normalizeRelationship(target, value)
     if value.historicalPin == true then
         output.historicalPin = true
     end
+    if value.knowsName == true then
+        output.knowsName = true
+    end
+    if tonumber(value.firstMetAt) ~= nil then
+        output.firstMetAt = math.max(0, tonumber(value.firstMetAt))
+    end
     if type(value.targetLifecycleStatus) == "string" and value.targetLifecycleStatus ~= "" then
         output.targetLifecycleStatus = value.targetLifecycleStatus
     end

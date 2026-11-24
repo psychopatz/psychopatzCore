@@ -53,6 +53,9 @@ function LLMInput:new(x, y, width, height, options)
     object.inputHeight = 26
     object.lineHeight = math.max(12, tonumber(options.lineHeight) or 16)
     object.onClose = options.onClose
+    object.onQuickReply = options.onQuickReply
+    object.quickReplyButtons = {}
+    object.quickReplies = {}
     object.statusText = options.initialStatus or ""
     return object
 end

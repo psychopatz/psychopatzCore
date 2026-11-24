@@ -10,6 +10,10 @@ local Registry = Semantics.Registry
     or require "PsychopatzCore/Semantics/PsychopatzSemanticRegistry"
 local SurfaceRecovery = Semantics.SurfaceRecovery
     or require "PsychopatzCore/Semantics/PsychopatzSemanticSurfaceRecovery"
+local FollowUp = Semantics.FollowUp
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticFollowUp"
+local GroupAddressing = Semantics.GroupAddressing
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticGroupAddressing"
 local Confidence = Semantics.Confidence
     or require "PsychopatzCore/Semantics/PsychopatzSemanticConfidence"
 local ConceptMatcher = Semantics.ConceptMatcher
@@ -50,14 +54,32 @@ end
 
 function Parser.Parse(text, options)
     options = type(options) == "table" and options or {}
-    local bundle = Parser.ParseCandidates(text, options)
+    local addr = nil
+    local parseText = text
+    if (type(options.groupParticipants) == "table" or type(options.groupFloor) == "table")
+        and type(GroupAddressing) == "table" and type(GroupAddressing.Resolve) == "function"
+    then
+        addr = GroupAddressing.Resolve(text, options.groupParticipants, options.groupFloor, options)
+        if addr and type(addr.cleanedText) == "string" and addr.cleanedText ~= "" then
+            parseText = addr.cleanedText
+        end
+    end
+    local bundle = Parser.ParseCandidates(parseText, options)
     if type(bundle) == "table" and type(bundle.selected) == "table"
         and type(bundle.selected.ir) == "table"
     then
-        return IR.Clone(bundle.selected.ir)
+        local cloned = IR.Clone(bundle.selected.ir)
+        if addr and type(cloned) == "table" then
+            cloned.extensions = type(cloned.extensions) == "table" and cloned.extensions or {}
+            cloned.extensions.addressing = addr
+            if addr.broadcast then cloned.extensions.groupBroadcast = true end
+            if addr.targetID ~= nil then cloned.extensions.vocativeTargetID = addr.targetID end
+            if addr.referencedActorID ~= nil then cloned.extensions.referencedActorID = addr.referencedActorID end
+        end
+        return cloned
     end
 
-    local normalized = Normalizer.Normalize(text, options)
+    local normalized = Normalizer.Normalize(parseText, options)
     -- Preserve the exact-pass analysis for a no-match result. Fuzzy symbols
     -- that never participate in a matching grammar must not make an unrelated
     -- exact morphology/literal report look like fuzzy semantic recognition.
@@ -386,11 +408,64 @@ local function appendCandidate(list, candidate)
     list[#list + 1] = candidate
 end
 
+local PARSE_CACHE_MAX = 64
+local parseCache = {}
+local parseCacheOrder = {}
+local parseCacheHead = 1
+local parseCacheCount = 0
+local parseCacheRev = -1
+
+local function clearParseCache(rev)
+    parseCache = {}
+    parseCacheOrder = {}
+    parseCacheHead = 1
+    parseCacheCount = 0
+    parseCacheRev = rev
+end
+
+local function parseCacheKey(text, options, limit)
+    if options.bypassCache == true or options.context ~= nil then return nil end
+    local raw = tostring(text or "")
+    if #raw > 256 then return nil end
+    return raw .. "|" .. tostring(limit)
+        .. "|" .. (options.enableFuzzy == false and "0" or "1")
+        .. "|" .. (options.enableSurfaceRecovery == false and "0" or "1")
+end
+
+local function storeParseCache(key, value)
+    if not key then return end
+    if parseCache[key] == nil then
+        if parseCacheCount >= PARSE_CACHE_MAX then
+            local oldest = parseCacheOrder[parseCacheHead]
+            if oldest ~= nil then parseCache[oldest] = nil end
+            parseCacheOrder[parseCacheHead] = key
+            parseCacheHead = (parseCacheHead % PARSE_CACHE_MAX) + 1
+        else
+            local slot = ((parseCacheHead + parseCacheCount - 1) % PARSE_CACHE_MAX) + 1
+            parseCacheOrder[slot] = key
+            parseCacheCount = parseCacheCount + 1
+        end
+    end
+    parseCache[key] = value
+end
+
+function Parser.ResetCache()
+    clearParseCache(-1)
+    return true
+end
+
 function Parser.ParseCandidates(text, options)
     options = type(options) == "table" and options or {}
+    local rev = Registry.GetRevision()
+    if parseCacheRev ~= rev then clearParseCache(rev) end
+    local limit = candidateLimit(options)
+    local cacheKey = parseCacheKey(text, options, limit)
+    if cacheKey and parseCache[cacheKey] ~= nil then
+        return IR.Clone(parseCache[cacheKey])
+    end
+
     local normalized = Normalizer.Normalize(text, options)
     local patterns = Registry.GetPatterns()
-    local limit = candidateLimit(options)
     local exactOptions = { enableFuzzy = false }
 
     local exactSymbols = ConceptMatcher.Build(normalized, exactOptions)
@@ -414,6 +489,29 @@ function Parser.ParseCandidates(text, options)
 
     local recoveryVariants = {}
     local recoveryMatches = {}
+    if not exactBest and #fuzzyMatches == 0
+        and type(normalized.cleanTokens) == "table"
+        and #normalized.cleanTokens > 0
+        and #normalized.cleanTokens < #(normalized.tokens or {})
+    then
+        local strippedNormalized = {
+            rawText = normalized.rawText,
+            normalizedText = table.concat(normalized.cleanTokens, " "),
+            tokens = normalized.cleanTokens,
+            lemmas = normalized.lemmas,
+            cleanTokens = normalized.cleanTokens,
+            playerTone = normalized.playerTone,
+            truncated = normalized.truncated,
+        }
+        local strippedSymbols = ConceptMatcher.Build(strippedNormalized, options)
+        local strippedAnalysis = ConceptMatcher.Analysis(strippedNormalized, strippedSymbols)
+        local strippedCandidates = collectCandidates(
+            patterns, strippedSymbols, strippedNormalized, "fuzzy", strippedAnalysis, nil, options
+        )
+        for _, candidate in ipairs(strippedCandidates) do
+            fuzzyMatches[#fuzzyMatches + 1] = candidate
+        end
+    end
     if not exactBest and options.enableSurfaceRecovery ~= false
         and SurfaceRecovery
         and type(SurfaceRecovery.Generate) == "function"
@@ -523,6 +621,48 @@ function Parser.ParseCandidates(text, options)
             result.selected.recovered == true
         result.diagnostics.selectedRecovery =
             IR.Clone(result.selected.surfaceRecovery)
+        if normalized.playerTone and normalized.playerTone ~= "neutral"
+            and type(result.selected.ir) == "table"
+        then
+            result.selected.ir.socialContext = result.selected.ir.socialContext or {}
+            result.selected.ir.socialContext.playerTone = normalized.playerTone
+            result.selected.ir.socialContext.playerRude = normalized.playerRude == true
+            result.selected.ir.socialContext.playerShouting = normalized.playerShouting == true
+            result.selected.ir.socialContext.playerPolite = normalized.playerPolite == true
+        end
+        if normalized.quantity ~= nil and type(result.selected.ir) == "table" then
+            result.selected.ir.slots = result.selected.ir.slots or {}
+            if result.selected.ir.slots.quantity == nil then
+                result.selected.ir.slots.quantity = normalized.quantity
+            end
+        end
+    elseif options.context ~= nil and FollowUp and type(FollowUp.Resolve) == "function" then
+        local fuIR = FollowUp.Resolve(normalized, options.context)
+        if type(fuIR) == "table" then
+            local desc = {
+                patternID = "core.followup." .. tostring(fuIR.slots and fuIR.slots.dialogueAct or "generic"),
+                pass = "followup",
+                score = fuIR.confidence or 0.82,
+                confidence = fuIR.confidence or 0.82,
+                selected = true,
+                recovered = false,
+                ir = fuIR,
+            }
+            result.candidates[#result.candidates + 1] = desc
+            result.selected = desc
+            result.selectedIndex = #result.candidates
+            result.diagnostics.candidateCount = #result.candidates
+            result.diagnostics.noMatch = false
+            result.diagnostics.selectedPattern = desc.patternID
+            result.diagnostics.selectedPass = "followup"
+            result.diagnostics.selectedConfidence = desc.confidence
+            result.diagnostics.ellipticalFollowUp = true
+        end
+    end
+    result.diagnostics.playerTone = normalized.playerTone or "neutral"
+    result.diagnostics.quantity = normalized.quantity
+    if cacheKey then
+        storeParseCache(cacheKey, IR.Clone(result))
     end
     return result
 end

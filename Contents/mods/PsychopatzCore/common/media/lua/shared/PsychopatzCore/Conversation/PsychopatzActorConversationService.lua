@@ -27,10 +27,17 @@ local function tableValue(value)
     return type(value) == "table" and value or {}
 end
 
-local function copy(value)
+local function copy(value, seen, depth)
     if type(value) ~= "table" then return value end
+    depth = (depth or 0) + 1
+    if depth > 16 then return nil end
+    seen = seen or {}
+    if seen[value] then return seen[value] end
     local output = {}
-    for key, item in pairs(value) do output[key] = copy(item) end
+    seen[value] = output
+    for key, item in pairs(value) do
+        output[key] = copy(item, seen, depth)
+    end
     return output
 end
 

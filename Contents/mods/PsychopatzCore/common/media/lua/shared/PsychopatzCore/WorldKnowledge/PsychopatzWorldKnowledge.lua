@@ -1,6 +1,7 @@
 local Fact = require "PsychopatzCore/WorldKnowledge/PsychopatzWorldFact"
 local Ledger = require "PsychopatzCore/WorldKnowledge/PsychopatzWorldFactLedger"
 local ActorKnowledge = require "PsychopatzCore/WorldKnowledge/PsychopatzActorWorldKnowledge"
+local Topics = require "PsychopatzCore/WorldKnowledge/PsychopatzWorldKnowledgeTopics"
 
 PsychopatzCore = PsychopatzCore or {}
 local WKG = PsychopatzCore.WorldKnowledge or {}
@@ -10,6 +11,7 @@ WKG.VERSION = 1
 WKG.Fact = Fact
 WKG.Ledger = Ledger
 WKG.ActorKnowledge = ActorKnowledge
+WKG.Topics = Topics
 WKG.Providers = WKG.Providers or {}
 WKG.LedgerState = WKG.LedgerState or Ledger.New()
 WKG.KnowledgeState = WKG.KnowledgeState or ActorKnowledge.NewState()
@@ -73,6 +75,18 @@ end
 
 function WKG.ResolveEpistemicStatus(fact, ref)
     return Fact.ResolveEpistemicStatus(fact, ref)
+end
+
+function WKG.SummarizeRecentThreats(opts)
+    return Topics.SummarizeRecentThreats(WKG.LedgerState, opts)
+end
+
+function WKG.QueryConversationTopics(actorID, observer, opts)
+    return Topics.Query(WKG, actorID, observer, opts)
+end
+
+function WKG.AdvanceTopicFollowUp(topic, kind, depth)
+    return Topics.AdvanceFollowUp(topic, kind, depth)
 end
 
 function WKG.ToPayload(options)

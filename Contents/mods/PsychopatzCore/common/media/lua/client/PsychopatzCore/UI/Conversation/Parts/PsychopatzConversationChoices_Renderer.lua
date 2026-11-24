@@ -6,6 +6,17 @@ function Internal.renderChoice(part, index, contentAlpha, accent, headerHeight)
         local choice = part.choices[index]
         local layout = part.choiceLayout[index]
         if not choice or not layout then return end
+        local isFarewell = choice.semanticRole == "farewell"
+            or choice.isFarewell == true
+            or choice.variant == "danger"
+            or tostring(choice.id or "") == "goodbye"
+            or (type(choice.frame) == "table" and (
+                choice.frame.intent == "FAREWELL"
+                or choice.frame.speechAct == "FAREWELL"
+            ))
+        if isFarewell then
+            accent = { r = 0.88, g = 0.24, b = 0.24 }
+        end
         local y = layout.y - (part.maximumScroll - (part.scrollOffset or 0))
         local enabled = choice.enabled ~= false
             and part.owner

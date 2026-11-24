@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .convo_flows_tab_builder import build_convo_flows_tab
 from .quality_sweep_builder import build_quality_sweep_workbench
 from .saved_world_browser_builder import build_saved_world_browser
 from .simulation_conversation_builder import build_conversation_panel
@@ -36,20 +37,25 @@ def build_ui(app: Any) -> None:
     studio_toolbar.columnconfigure(0, weight=1)
     studio_notebook.grid(row=1, column=0, sticky="nsew")
     conversations_tab = ttk.Frame(studio_notebook, padding=8)
+    convo_flows_tab = ttk.Frame(studio_notebook, padding=8)
     source_impact_tab = ttk.Frame(studio_notebook, padding=8)
     review_tab = ttk.Frame(studio_notebook, padding=8)
     for panel in (
         conversations_tab,
+        convo_flows_tab,
         source_impact_tab,
         review_tab,
     ):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
     studio_notebook.add(conversations_tab, text="Conversations")
+    studio_notebook.add(convo_flows_tab, text="Convo Flows")
     studio_notebook.add(source_impact_tab, text="Source / Impact")
     studio_notebook.add(review_tab, text="Review")
     app.convo_engine_tab = conversations_tab
+    app.convo_flows_tab = convo_flows_tab
     app.source_impact_tab = source_impact_tab
+    build_convo_flows_tab(app, convo_flows_tab)
 
     from ..studio.surface_registry import SurfaceRegistry
 

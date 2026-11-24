@@ -263,4 +263,67 @@ function Location.ResolveScope(locRef, preferredScope)
     return nil, nil
 end
 
+function Location.RelativeTime(eventWorldHour, nowWorldHour)
+    local evH = finite(eventWorldHour)
+    local nowH = finite(nowWorldHour)
+    if not evH or not nowH then return "recently" end
+    local age = nowH - evH
+    if age < 0 then return "just now" end
+    if age < 1.5 then return "just a little while ago" end
+    if age < 6 then return "a few hours ago" end
+    local evDay = math.floor(evH / 24)
+    local nowDay = math.floor(nowH / 24)
+    local dayDiff = nowDay - evDay
+    local evClock = evH - (evDay * 24)
+    if dayDiff == 0 then
+        if evClock < 6 then return "early this morning" end
+        if evClock < 12 then return "this morning" end
+        if evClock < 18 then return "earlier today" end
+        return "this evening"
+    elseif dayDiff == 1 then
+        if evClock >= 20 or evClock < 5 then return "last night" end
+        return "yesterday"
+    elseif dayDiff <= 3 then
+        return "a couple days ago"
+    elseif dayDiff <= 7 then
+        return "earlier this week"
+    end
+    return "a while back"
+end
+
+function Location.RelativeDirection(fromX, fromY, toX, toY)
+    local fx, fy = finite(fromX), finite(fromY)
+    local tx, ty = finite(toX), finite(toY)
+    if not fx or not fy or not tx or not ty then return nil end
+    local dx = tx - fx
+    local dy = ty - fy
+    local distSq = dx * dx + dy * dy
+    if distSq < 400 then return "right nearby" end
+    local angle = math.atan2(dy, dx) * (180 / math.pi)
+    if angle >= -22.5 and angle < 22.5 then return "east of here" end
+    if angle >= 22.5 and angle < 67.5 then return "southeast of here" end
+    if angle >= 67.5 and angle < 112.5 then return "south of here" end
+    if angle >= 112.5 and angle < 157.5 then return "southwest of here" end
+    if angle >= 157.5 or angle < -157.5 then return "west of here" end
+    if angle >= -157.5 and angle < -112.5 then return "northwest of here" end
+    if angle >= -112.5 and angle < -67.5 then return "north of here" end
+    return "northeast of here"
+end
+
+function Location.DescribeSpatial(locRef, observer)
+    local loc = type(locRef) == "table" and locRef or {}
+    local obs = type(observer) == "table" and observer or {}
+    local dir = Location.RelativeDirection(obs.x, obs.y, loc.x, loc.y)
+    local label = safeText(loc.label or loc.name or loc.settlementID or loc.region, 96)
+    if label and string.sub(label, 1, 5) == "cell " then label = nil end
+    if dir and label then
+        return dir .. ", near " .. label
+    elseif dir then
+        return dir
+    elseif label then
+        return "around " .. label
+    end
+    return "nearby"
+end
+
 return Location

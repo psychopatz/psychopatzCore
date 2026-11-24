@@ -81,6 +81,88 @@ function LLMInput:onClosePressed()
     end
 end
 
+function LLMInput:onPrevTargetPressed()
+    if type(self.onPrevTarget) == "function" then
+        self.onPrevTarget(self.owner, self)
+    end
+end
+
+function LLMInput:onNextTargetPressed()
+    if type(self.onNextTarget) == "function" then
+        self.onNextTarget(self.owner, self)
+    end
+end
+
+function LLMInput:onQuickReplyPressed(choiceID)
+    if self.owner
+        and type(self.owner.isConversationInteractive) == "function"
+        and not self.owner:isConversationInteractive()
+    then
+        return false
+    end
+    if type(self.onQuickReply) == "function" and choiceID and choiceID ~= "" then
+        self.onQuickReply(self.owner, choiceID, self)
+        self:refreshControls()
+    end
+end
+
+function LLMInput:syncQuickReplies(rows, enabled)
+    rows = type(rows) == "table" and rows or {}
+    self.quickReplyButtons = self.quickReplyButtons or {}
+    local previousCount = self._visibleQuickReplyCount or 0
+    local count = #rows
+    for i = 1, count do
+        local row = rows[i]
+        local id = tostring(row.id or "")
+        local title = tostring(row.label or row.text or id)
+        local isFarewell = row.semanticRole == "farewell"
+            or row.isFarewell == true
+            or row.variant == "danger"
+            or id == "goodbye"
+        local button = self.quickReplyButtons[i]
+        if not button then
+            button = UI.CreateButton(self, {
+                id = "quickReply_" .. tostring(i),
+                title = title,
+                target = self,
+                onclick = function()
+                    self:onQuickReplyPressed(button._quickReplyID)
+                end,
+                variant = isFarewell and "danger" or "quiet",
+                width = math.max(80, (self.width or 280) - 20),
+            })
+            self.quickReplyButtons[i] = button
+        end
+        button._quickReplyID = id
+        if button.setTitle then button:setTitle(title) else button.title = title end
+        local tip = type(row.tooltip) == "string" and row.tooltip ~= "" and row.tooltip or nil
+        if button.setTooltip then
+            button:setTooltip(tip)
+        else
+            button.tooltip = tip
+        end
+        if isFarewell then
+            button.backgroundColor = { r = 0.24, g = 0.05, b = 0.05, a = 0.90 }
+            button.backgroundColorMouseOver = { r = 0.45, g = 0.09, b = 0.09, a = 0.96 }
+            button.borderColor = { r = 0.88, g = 0.24, b = 0.24, a = 0.88 }
+        end
+        button:setVisible(true)
+        if button.setEnable then
+            button:setEnable(enabled and row.enabled ~= false)
+        end
+    end
+    for i = count + 1, #self.quickReplyButtons do
+        local button = self.quickReplyButtons[i]
+        if button then
+            button._quickReplyID = nil
+            button:setVisible(false)
+        end
+    end
+    self._visibleQuickReplyCount = count
+    self.quickReplies = rows
+    return previousCount ~= count
+end
+
 function LLMInput:refreshControls()
     -- Compact inputs are standalone UI roots, so they do not receive
     -- the normal PsychopatzWindow theme traversal. Reconcile a changed theme
@@ -109,6 +191,21 @@ function LLMInput:refreshControls()
         notifyNativeControlState(self, "before_close_setEnable", self.closeButton)
         self.closeButton:setEnable(true)
         notifyNativeControlState(self, "after_close_setEnable", self.closeButton)
+    end
+    local showSwitch = state.hasMultipleTargets == true
+    local switchChanged = (self._showTargetSwitch ~= showSwitch)
+    self._showTargetSwitch = showSwitch
+    if self.prevTargetButton then
+        self.prevTargetButton:setVisible(showSwitch)
+        self.prevTargetButton:setEnable(enabled and showSwitch)
+    end
+    if self.nextTargetButton then
+        self.nextTargetButton:setVisible(showSwitch)
+        self.nextTargetButton:setEnable(enabled and showSwitch)
+    end
+    local repliesChanged = self:syncQuickReplies(state.quickReplies, enabled)
+    if (switchChanged or repliesChanged) and type(self.onPartResize) == "function" then
+        self:onPartResize()
     end
     self.statusText = state.statusText or ""
     for _, definition in ipairs(self.modeButtons or {}) do

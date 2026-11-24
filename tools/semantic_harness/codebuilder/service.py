@@ -95,6 +95,11 @@ from .generation_ownership import (
     resolve_core_repository,
 )
 from .translation_support import normalize_language
+from .convo_dsl_integration import (
+    compile_convo_scripts as _compile_convo_scripts,
+    discover_convo_scripts as _discover_convo_scripts,
+    find_convo_pool_lineage as _find_convo_pool_lineage,
+)
 
 
 class SemanticLabAuthoringService:
@@ -2833,3 +2838,19 @@ class SemanticLabAuthoringService:
             context=context,
             realization_key=realization_key,
         )
+
+    def list_convo_scripts(self) -> list[dict[str, Any]]:
+        """List all modular `.convo` language-pack scripts for this repository."""
+        return _discover_convo_scripts(self.repository)
+
+    def compile_convo_scripts(self, *, check_only: bool = False) -> dict[str, Any]:
+        """Validate or compile all modular `.convo` scripts for this repository."""
+        return _compile_convo_scripts(self.repository, check_only=check_only)
+
+    def find_convo_pool_lineage(
+        self,
+        pool_id: str,
+        loaded_variants: dict[str, dict[str, Any]],
+    ) -> dict[str, list[dict[str, Any]]]:
+        """Trace loaded Lua ResponseCatalog variants back to `.convo` source lines."""
+        return _find_convo_pool_lineage(self.repository, pool_id, loaded_variants)
