@@ -7,44 +7,16 @@
 PsychopatzCore = PsychopatzCore or {}
 
 local Content = require "PsychopatzCore/Content/PsychopatzDeterministicContent"
+local NicknameCatalog = require "PsychopatzCore/Actors/PsychopatzActorNicknameCatalog"
+local DEFAULT_MALE = NicknameCatalog.GetFirstNames("male")
+local DEFAULT_FEMALE = NicknameCatalog.GetFirstNames("female")
+local DEFAULT_SURNAMES = require "PsychopatzCore/Actors/Definitions/Surnames"
 
 local Names = {}
 
 Names.VERSION = 1
-Names.NICKNAME_GENERATOR_VERSION = 1
-
-local DEFAULT_MALE = {
-    "Adam", "Aaron", "Ben", "Caleb", "Derek", "Eli", "Felix", "Grant",
-    "Harvey", "Isaac", "Jonah", "Liam", "Marcus", "Noah", "Owen",
-    "Peter", "Quinn", "Rory", "Samuel", "Victor",
-}
-
-local DEFAULT_FEMALE = {
-    "Alice", "Beth", "Cara", "Diana", "Elise", "Faith", "Grace",
-    "Hannah", "Ivy", "Julia", "Kara", "Lena", "Maya", "Nina",
-    "Olive", "Paige", "Ruby", "Sara", "Tessa", "Wren",
-}
-
-local DEFAULT_SURNAMES = {
-    "Bennett", "Carter", "Dalton", "Ellis", "Foster", "Griffin",
-    "Hayes", "Irwin", "Keller", "Lang", "Morris", "Nolan", "Owens",
-    "Parker", "Quincy", "Reed", "Sawyer", "Turner", "Vance", "Walker",
-}
-
--- These are relationship-neutral conventional aliases. They are deliberately
--- keyed by the actor's own forename so a seed never invents an unrelated name.
-local NICKNAME_ALIASES = {
-    alexander = { "Alex", "Xander" },
-    alexandra = { "Alex", "Lexi" },
-    benjamin = { "Ben", "Benny" },
-    elizabeth = { "Liz", "Beth", "Lizzy" },
-    patrick = { "Pat", "Paddy", "Rick" },
-    patricia = { "Pat", "Patty", "Trish" },
-    rebecca = { "Becca", "Becky" },
-    samantha = { "Sam", "Sammy" },
-    samuel = { "Sam", "Sammy" },
-    william = { "Will", "Billy" },
-}
+Names.NICKNAME_GENERATOR_VERSION = 2
+Names.NicknameCatalog = NicknameCatalog
 
 local function clean(value)
     if value == nil then return nil end
@@ -104,7 +76,44 @@ function Names.FormatDisplayName(fullName, nickname)
     if not nickname or normalized(fullName) == normalized(nickname) then
         return fullName
     end
+    local forename = Names.Split(fullName)
+    if forename and normalized(forename) == normalized(nickname) then
+        return fullName
+    end
     return fullName .. " (" .. nickname .. ")"
+end
+
+local function resolveGenderOption(source, options)
+    if type(options) == "table" then
+        if type(options.isFemale) == "boolean" then
+            return options.isFemale and "female" or "male"
+        end
+        if type(options.gender) == "string" and options.gender ~= "" then
+            return options.gender
+        end
+    end
+    if type(source) == "table" then
+        if type(source.isFemale) == "boolean" then
+            return source.isFemale and "female" or "male"
+        end
+        if type(source.gender) == "string" and source.gender ~= "" then
+            return source.gender
+        end
+        local identity = type(source.identity) == "table" and source.identity or nil
+        if identity then
+            if type(identity.isFemale) == "boolean" then
+                return identity.isFemale and "female" or "male"
+            end
+            if type(identity.gender) == "string" and identity.gender ~= "" then
+                return identity.gender
+            end
+        end
+    end
+    return nil
+end
+
+function Names.HasAuthoredNickname(forename, genderOrIsFemale)
+    return NicknameCatalog.Has(forename, genderOrIsFemale)
 end
 
 function Names.ResolveNickname(forename, identitySeed, options)
@@ -115,17 +124,22 @@ function Names.ResolveNickname(forename, identitySeed, options)
     forename = clean(forename)
     if not forename then return nil end
 
-    local candidates = NICKNAME_ALIASES[normalized(forename)]
+    local gender = resolveGenderOption(nil, options)
+    local candidates = NicknameCatalog.Get(forename, gender)
     if type(candidates) ~= "table" or #candidates == 0 then
-        candidates = { #forename <= 4 and forename or string.sub(forename, 1, 3) }
+        -- No authored nickname for this forename: fall back to the first name
+        -- instead of synthesizing truncated 3-letter fragments.
+        return forename
     end
 
     -- Use a wide deterministic index before reducing to a small authored alias
     -- list so identitySeed materially affects the result.
+    local namespace = "psychopatz.identity.nickname:" .. normalized(forename)
+        .. (gender and (":" .. string.lower(tostring(gender))) or "")
     local wideIndex = Content.Index(
         "identity",
         identitySeed,
-        "psychopatz.identity.nickname:" .. normalized(forename),
+        namespace,
         1000000,
         tostring(options.salt or "nickname"),
         options.version or Names.NICKNAME_GENERATOR_VERSION
@@ -206,7 +220,18 @@ function Names.ResolveParts(source, options)
     end
     if not fullName then fullName = Names.Compose(forename, surname) end
     if not nickname and options.resolveNickname == true then
-        nickname = Names.ResolveNickname(forename, seed, options)
+        local resolveOpts = options
+        local gender = resolveGenderOption(source, options)
+        if gender ~= nil and options.isFemale == nil and options.gender == nil then
+            resolveOpts = {
+                nickname = options.nickname,
+                alias = options.alias,
+                salt = options.salt,
+                version = options.version,
+                gender = gender,
+            }
+        end
+        nickname = Names.ResolveNickname(forename, seed, resolveOpts)
     end
     local displayNickname = options.includeNickname == true
         and nickname or nil

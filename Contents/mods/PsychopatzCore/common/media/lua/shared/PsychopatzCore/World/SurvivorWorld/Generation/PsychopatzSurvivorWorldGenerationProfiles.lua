@@ -4,43 +4,14 @@ local I = Generation.Internal
 
 local Profiles = {}
 
-local NAME_POOLS = {
-    settler = {
-        first = {
-            "Ashwood", "Cedar", "Clearwater", "Fairview",
-            "Greenfield", "Maple", "Oakridge", "Pinecrest",
-            "Riverside", "Stonebridge", "Westhaven", "Willow",
-        },
-        second = {
-            "Community", "Enclave", "Haven", "Homestead",
-            "Refuge", "Settlement",
-        },
-        site = { "Haven", "Homestead", "Settlement" },
-    },
-    looter = {
-        first = {
-            "Ash", "Black", "Broken", "Burning", "Cold",
-            "Crimson", "Iron", "Ragged", "Red", "Rust",
-            "Scar", "Vulture",
-        },
-        second = {
-            "Crows", "Fangs", "Hand", "Hounds", "Jackals",
-            "Knives", "Raiders", "Ravens", "Reavers", "Wolves",
-        },
-        site = { "Den", "Hideout", "Hold", "Lair" },
-        article = true,
-    },
-    refugee = {
-        first = {
-            "Dawn", "Eastbound", "Hope", "Lantern", "New Day",
-            "Northbound", "Open Road", "Safe Harbor", "Westward",
-        },
-        second = {
-            "Caravan", "Collective", "Refugees", "Sanctuary",
-            "Survivors",
-        },
-        site = { "Camp", "Refuge", "Sanctuary", "Shelter" },
-    },
+-- Core owns only the registration and generation logic. Mod-specific faction
+-- name definitions (PNC settler/looter/refugee, DT trader, or expansion packs)
+-- live in their respective mods and register via Profiles.RegisterNamePool.
+local NAME_POOLS = {}
+local FALLBACK_POOL = {
+    first = { "Survivor" },
+    second = { "Group" },
+    site = { "Camp" },
 }
 
 Profiles.DEFAULT = {
@@ -142,9 +113,36 @@ function Profiles.Normalize(value)
     return output
 end
 
+function Profiles.RegisterNamePool(archetypeID, pool)
+    archetypeID = tostring(archetypeID or "")
+    if archetypeID == "" or type(pool) ~= "table"
+        or type(pool.first) ~= "table" or #pool.first == 0
+        or type(pool.second) ~= "table" or #pool.second == 0
+        or type(pool.site) ~= "table" or #pool.site == 0
+    then
+        return false
+    end
+    NAME_POOLS[archetypeID] = pool
+    return true
+end
+
+function Profiles.GetNamePool(archetypeID)
+    return NAME_POOLS[tostring(archetypeID or "")]
+end
+
+function Profiles.ListNamePools()
+    local ids = {}
+    for id in pairs(NAME_POOLS) do
+        ids[#ids + 1] = id
+    end
+    table.sort(ids)
+    return ids
+end
+
 local function poolFor(archetypeID)
     return NAME_POOLS[tostring(archetypeID or "")]
         or NAME_POOLS.settler
+        or FALLBACK_POOL
 end
 
 local function pick(values, seed, salt)

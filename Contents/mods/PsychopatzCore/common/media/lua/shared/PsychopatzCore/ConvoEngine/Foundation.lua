@@ -70,15 +70,19 @@ end
 
 local function facetKnown(knowledge, facet)
     if facet == "identity" then
+        if knowledge.nameKnown == false then return false end
         return knowledge.nameKnown == true
             or nonEmpty(knowledge.knownName)
     elseif facet == "nickname" then
+        if knowledge.nicknameKnown == false then return false end
         return knowledge.nicknameKnown == true
             or nonEmpty(knowledge.knownNickname)
     elseif facet == "surname" then
+        if knowledge.surnameKnown == false then return false end
         return knowledge.surnameKnown == true
             or nonEmpty(knowledge.knownSurname)
     elseif facet == "faction" then
+        if knowledge.factionKnown == false then return false end
         return knowledge.factionKnown == true
             or nonEmpty(knowledge.factionID)
             or nonEmpty(knowledge.factionName)

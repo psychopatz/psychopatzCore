@@ -25,6 +25,30 @@ equal(Names.ResolveNickname("Patrick", "identity-patrick", {
 equal(Names.ResolveNickname("Ben", "identity-ben"), "Ben",
     "short forename remains a valid nickname")
 
+-- Gender-aware nickname resolution for unisex forenames like Alex.
+local maleAlex = Names.ResolveNickname("Alex", "identity-alex", { isFemale = false })
+local femaleAlex = Names.ResolveNickname("Alex", "identity-alex", { isFemale = true })
+truthy(maleAlex == "Al" or maleAlex == "Lex",
+    "male Alex resolves to a male nickname alias")
+truthy(femaleAlex == "Lexi" or femaleAlex == "Lexy",
+    "female Alex resolves to a female nickname alias")
+local femaleAlexParts = Names.ResolveParts({
+    id = "npc-alex-f",
+    firstName = "Alex",
+    surname = "Mercer",
+    isFemale = true,
+}, { resolveNickname = true, includeNickname = true })
+truthy(femaleAlexParts.nickname == "Lexi" or femaleAlexParts.nickname == "Lexy",
+    "ResolveParts propagates source.isFemale to nickname resolution")
+local maleAlexParts = Names.ResolveParts({
+    id = "npc-alex-m",
+    firstName = "Alex",
+    surname = "Mercer",
+    isFemale = false,
+}, { resolveNickname = true, includeNickname = true })
+truthy(maleAlexParts.nickname == "Al" or maleAlexParts.nickname == "Lex",
+    "ResolveParts propagates male gender to nickname resolution")
+
 equal(Names.FormatDisplayName("Patrick Parker", "Pat"),
     "Patrick Parker (Pat)",
     "known nickname is appended to the full display name")
