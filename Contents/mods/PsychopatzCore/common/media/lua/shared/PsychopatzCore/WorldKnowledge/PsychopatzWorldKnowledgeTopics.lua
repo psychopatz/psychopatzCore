@@ -6,12 +6,16 @@
 -- Shared by ProjectHoomans and DynamicTrading (DTCommon/DTAbstract) with zero
 -- duplicate ModData stores. Kahlua2-safe Lua 5.1.
 
-local Location = require "PsychopatzCore/WorldEvents/PsychopatzWorldEventLocation"
-
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.WorldKnowledge = PsychopatzCore.WorldKnowledge or {}
 
 local Topics = {}
+
+-- Resolve WorldEventLocation lazily from the shared namespace to avoid a
+-- recursive require() cycle with PsychopatzVanillaEventObserver in Kahlua2.
+local function getLocation()
+    return PsychopatzCore and PsychopatzCore.WorldEventLocation or nil
+end
 
 local ROLLING_THREAT_HOURS = 168 -- 7 in-game days
 local DEFAULT_MAX_DEPTH = 2
@@ -26,7 +30,25 @@ local SEMANTIC_TO_TOPIC = {
     ["utility.electricity_cutoff"] = "aebs_utilities",
     ["utility.water_cutoff"] = "aebs_utilities",
     ["radio.aebs_air_activity"] = "aebs_air_activity",
+    ["radio.aebs_power_warning"] = "aebs_power_warning",
+    ["radio.aebs_weather_warning"] = "aebs_weather_warning",
     ["radio.aebs_utilities"] = "aebs_utilities",
+    ["radio.military_comms"] = "military_comms",
+    ["radio.survivor_radio"] = "survivor_radio",
+    ["radio.news_outbreak"] = "news_outbreak",
+    ["radio.news_general"] = "news_general",
+    ["radio.skill_show"] = "skill_show",
+    ["radio.home_vhs"] = "home_vhs",
+    ["radio.music_radio"] = "music_radio",
+    ["radio.entertainment_tv"] = "entertainment_tv",
+    ["radio.open_band_looter_trap"] = "open_band_looter_trap",
+    ["radio.open_band_trader"] = "open_band_trader",
+    ["radio.open_band_refugee"] = "open_band_refugee",
+    ["radio.open_band_settlement"] = "open_band_settlement",
+    ["radio.open_band_conflict"] = "open_band_conflict",
+    ["radio.numbers_station"] = "numbers_station",
+    ["radio.cannibal_radio"] = "cannibal_radio",
+    ["radio.pastor_radio"] = "pastor_radio",
     ["radio.broadcast"] = "radio_broadcast",
     ["meta.gunshot"] = "meta_gunshot",
     ["meta.scream"] = "meta_scream",
@@ -114,12 +136,14 @@ function Topics.SummarizeRecentThreats(ledgerState, opts)
         end
     end
     if count < minCount then return nil end
+    local locApi = getLocation()
     return {
         id = "threat_pattern_7d:" .. tostring(count),
         topic = "threat_pattern_7d",
         source = "world_knowledge",
         subjectLabel = "recent raids",
-        timeLabel = Location.RelativeTime(latestHour or nowHour, nowHour),
+        timeLabel = (locApi and type(locApi.RelativeTime) == "function")
+            and locApi.RelativeTime(latestHour or nowHour, nowHour) or "recently",
         locationLabel = "around here",
         headline = "",
         raidCount = count,
@@ -142,20 +166,30 @@ function Topics.BuildFromFact(fact, observer)
         y = loc.y or payload.y,
         label = loc.label or loc.name or payload.locationLabel or loc.settlementID or loc.region,
     }
+    local locApi = getLocation()
     return {
         id = tostring(fact.id or topicID),
         factID = fact.id,
         topic = topicID,
         source = "world_knowledge",
         subjectLabel = tostring(payload.storyLabel or payload.headline or topicID),
-        timeLabel = Location.RelativeTime(evHour, nowHour),
-        locationLabel = Location.DescribeSpatial(spatialLoc, observer),
+        timeLabel = (locApi and type(locApi.RelativeTime) == "function")
+            and locApi.RelativeTime(evHour, nowHour) or "recently",
+        locationLabel = (locApi and type(locApi.DescribeSpatial) == "function")
+            and locApi.DescribeSpatial(spatialLoc, observer) or "nearby",
         headline = tostring(payload.headline or payload.storyLabel or payload.text or ""),
         raidCount = tonumber(payload.raidCount) or 0,
         chopperLinked = payload.chopperLinked == true,
-        maxDepth = DEFAULT_MAX_DEPTH,
+        maxDepth = (fact.provenance == "radio" or payload.theme ~= nil) and 3 or DEFAULT_MAX_DEPTH,
         salience = tonumber(fact.salience) or 0.5,
         timestamp = evHour or 0,
+        meta = {
+            channelName = payload.channelName,
+            showName = payload.showName,
+            episode = payload.headline or payload.storyLabel,
+            topicLabel = payload.topicLabel or payload.storyLabel,
+            theme = payload.theme,
+        },
     }
 end
 

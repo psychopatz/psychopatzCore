@@ -850,6 +850,10 @@ function Adapter.OnWorldSound(x, y, z, _radius, _volume, source, opts)
     local isAlarm = false
     if type(instanceof) == "function" and instanceof(source, "Alarm") == true then
         isAlarm = true
+    elseif type(typeof) == "function" and typeof(source) == "Alarm" then
+        isAlarm = true
+    elseif type(getClassSimpleName) == "function" and getClassSimpleName(source) == "Alarm" then
+        isAlarm = true
     elseif type(source) == "table" and (source._class == "Alarm" or source.isAlarm == true) then
         isAlarm = true
     end

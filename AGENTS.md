@@ -23,6 +23,11 @@ Keep this file limited to repository-wide rules that remain useful across unrela
 - Product-specific gameplay rules remain with the adopting repository unless an explicit shared contract moves that responsibility.
 - Reuse established public seams rather than duplicating adopter-owned state in Core.
 
+## PZ Build 42 engine gotchas
+
+- `instanceof(obj, "ClassName")` only checks `LuaManager.exposer.typeMap` and returns `false` for unexposed Java classes (e.g., `zombie.iso.Alarm` in SP). Verify exposure in `pz-java-baseline` or also check `typeof(obj)` / `getClassSimpleName(obj)` directly.
+- SP (`AmbientStreamManager`) and MP dedicated server (`AmbientSoundManager`) can emit different Lua events for the same world occurrence (e.g., SP house alarms fire `OnWorldSound` with `zombie.iso.Alarm`, not `OnAmbientSound("burglar2")`). Verify both paths in `pz-java-baseline`.
+
 ## Semantic CodeBuilder generated artifacts
 
 - Treat canonical semantic source/manifests and `tools/semantic_harness/codebuilder/generation_recipe.json` (`reconcile.py --check` / `--apply`) as authority. Generated Lua/translation artifacts are downstream output, not hand-edit targets.

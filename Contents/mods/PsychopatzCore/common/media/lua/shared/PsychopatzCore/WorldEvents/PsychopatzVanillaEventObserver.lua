@@ -9,6 +9,7 @@ local ScopedWorldEvents = require "PsychopatzCore/WorldEvents/PsychopatzScopedWo
 local WorldKnowledge = require "PsychopatzCore/WorldKnowledge/PsychopatzWorldKnowledge"
 local Fact = require "PsychopatzCore/WorldKnowledge/PsychopatzWorldFact"
 local Location = require "PsychopatzCore/WorldEvents/PsychopatzWorldEventLocation"
+    or (PsychopatzCore and PsychopatzCore.WorldEventLocation)
 
 PsychopatzCore = PsychopatzCore or {}
 local Observer = PsychopatzCore.VanillaEventObserver or {}
