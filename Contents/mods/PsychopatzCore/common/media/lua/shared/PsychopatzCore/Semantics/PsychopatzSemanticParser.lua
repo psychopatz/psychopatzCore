@@ -18,6 +18,8 @@ local ClausePreParser = Semantics.ClausePreParser
     or require "PsychopatzCore/Semantics/PsychopatzSemanticClausePreParser"
 local VerbFrameParser = Semantics.VerbFrameParser
     or require "PsychopatzCore/Semantics/PsychopatzSemanticVerbFrameParser"
+local IntentClassifier = Semantics.IntentClassifier
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticIntentClassifier"
 local Confidence = Semantics.Confidence
     or require "PsychopatzCore/Semantics/PsychopatzSemanticConfidence"
 local ConceptMatcher = Semantics.ConceptMatcher
@@ -621,6 +623,13 @@ function Parser.ParseCandidates(text, options)
         and type(VerbFrameParser.Parse) == "function"
     then
         local vfCandidate = VerbFrameParser.Parse(normalized, exactSymbols, options)
+        if not vfCandidate
+            and options.enableIntentClassifier ~= false
+            and type(IntentClassifier) == "table"
+            and type(IntentClassifier.Classify) == "function"
+        then
+            vfCandidate = IntentClassifier.Classify(normalized, options)
+        end
         if type(vfCandidate) == "table" and type(vfCandidate.ir) == "table" then
             vfCandidate.selected = true
             vfCandidate.ir.confidenceBand = Confidence.Band(vfCandidate.confidence)
