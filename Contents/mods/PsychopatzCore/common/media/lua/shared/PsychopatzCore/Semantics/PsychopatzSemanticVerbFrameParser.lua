@@ -24,6 +24,7 @@ VerbFrame.NegatedActionMap = VerbFrame.NegatedActionMap or {
     FOLLOW  = "STAY",
     ATTACK  = "HOLD_FIRE",
     SIT     = "STAND",
+    POSTURE = "STAND",
     MOVE    = "STAY",
     WAIT_AT = "STAY",
 }
@@ -170,25 +171,70 @@ VerbFrame.RegisterVerbFrame("GUARD", {
 })
 
 VerbFrame.RegisterVerbFrame("SIT", {
-    concepts = { "SIT", "REST" },
-    verbs = { "sit", "sitting", "rest", "resting" },
+    concepts = { "SIT", "REST", "STAND", "SNEAK", "SLEEP" },
+    verbs = { "sit", "sitting", "rest", "resting", "stand", "standing", "crouch", "sneak", "sneaking", "sleep", "sleeping" },
     intent = "REQUEST",
     speechAct = "REQUEST",
-    bareAction = "SIT",
-    spatialAction = "SIT",
+    bareAction = "POSTURE",
+    spatialAction = "POSTURE",
     confidence = 0.84,
+})
+
+VerbFrame.RegisterVerbFrame("INTERACT", {
+    concepts = { "OPEN", "CLOSE", "BARRICADE", "TOGGLE", "LOCK" },
+    verbs = { "open", "close", "shut", "lock", "unlock", "barricade", "unbarricade", "turn", "switch", "toggle", "extinguish" },
+    intent = "REQUEST",
+    speechAct = "REQUEST",
+    objectAction = "INTERACT",
+    spatialAction = "INTERACT",
+    objectAsTarget = true,
+    confidence = 0.85,
+})
+
+VerbFrame.RegisterVerbFrame("EQUIP", {
+    concepts = { "EQUIP", "WIELD", "WEAR" },
+    verbs = { "equip", "wield", "wear", "arm", "holster", "unequip" },
+    intent = "REQUEST",
+    speechAct = "REQUEST",
+    objectAction = "EQUIP",
+    confidence = 0.85,
+})
+
+VerbFrame.RegisterVerbFrame("USE_ITEM", {
+    concepts = { "EAT", "DRINK", "READ", "RELOAD", "USE" },
+    verbs = { "eat", "drink", "consume", "read", "smoke", "reload", "use" },
+    intent = "REQUEST",
+    speechAct = "REQUEST",
+    bareAction = "USE_ITEM",
+    objectAction = "USE_ITEM",
+    confidence = 0.85,
 })
 
 -- Transitive & ditransitive frames
 VerbFrame.RegisterVerbFrame("FETCH", {
-    concepts = { "FETCH", "GET", "GRAB" },
-    verbs = { "grab", "get", "fetch", "bring", "take", "pick" },
+    concepts = { "FETCH", "GET", "GRAB", "PICKUP", "LOOT", "SCAVENGE" },
+    verbs = {
+        "grab", "get", "fetch", "bring", "take", "pick", "pickup",
+        "collect", "gather", "loot", "scavenge", "search", "ransack", "empty",
+    },
     intent = "REQUEST",
     speechAct = "REQUEST",
+    bareAction = "FETCH",
     objectAction = "FETCH",
+    spatialAction = "FETCH",
     ditransitive = true,
     toRole = "recipient",
     confidence = 0.85,
+})
+
+VerbFrame.RegisterVerbFrame("EMOTE", {
+    concepts = { "DANCE", "EMOTE" },
+    verbs = { "dance", "wave", "salute", "clap", "cheer" },
+    intent = "REQUEST",
+    speechAct = "REQUEST",
+    bareAction = "EMOTE",
+    spatialAction = "EMOTE",
+    confidence = 0.84,
 })
 
 VerbFrame.RegisterVerbFrame("GIVE", {
@@ -378,9 +424,18 @@ function VerbFrame.Parse(normalized, symbols, parseOpts)
     if not frame then return nil end
 
     local restStart = verbEndIdx + 1
-    -- Skip optional verb particle ("down", "up", "still", "out") right after verb
+    -- Special tactical idiom: "hold fire" / "cease fire" -> HOLD_FIRE
+    if restStart <= #tokens and tokens[restStart] == "fire"
+        and (tokens[verbEndIdx] == "hold" or tokens[verbEndIdx] == "cease")
+    then
+        return buildCandidate(normalized, "ATTACK", VerbFrame.Frames.ATTACK or frame, "hold_fire", "HOLD_FIRE", {
+            negated = true,
+        }, 68)
+    end
+    -- Skip optional verb particle ("down", "up", "still", "out", "off") right after verb
     if restStart <= #tokens and (tokens[restStart] == "down" or tokens[restStart] == "up"
-        or tokens[restStart] == "still" or tokens[restStart] == "out")
+        or tokens[restStart] == "still" or tokens[restStart] == "out"
+        or tokens[restStart] == "off")
     then
         restStart = restStart + 1
     end

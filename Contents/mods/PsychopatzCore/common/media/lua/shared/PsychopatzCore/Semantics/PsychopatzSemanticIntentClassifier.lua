@@ -67,13 +67,98 @@ local function extractFeatures(normText)
     return counts
 end
 
+-- Compiles a compact raw phrase dataset ({ packID, intents = { { id, intent,
+-- speechAct, action, topic, examples = { ... } }, ... } }) into in-memory
+-- O(1) exact lookup + TF-IDF prototype vectors once on mod load (< 2ms).
+local function buildIndexFromRaw(rawDataset)
+    local rawList = rawDataset.intents
+    if type(rawList) ~= "table" or #rawList == 0 then return nil end
+
+    local exact = {}
+    local docFreq = {}
+    local classPhrases = {}
+    local classMeta = {}
+    local numClasses = 0
+
+    for i = 1, #rawList do
+        local entry = rawList[i]
+        if type(entry) == "table" and entry.id ~= nil then
+            local key = tostring(entry.id)
+            numClasses = numClasses + 1
+            classMeta[key] = {
+                id = key,
+                intent = entry.intent or "REQUEST",
+                speechAct = entry.speechAct or entry.intent or "REQUEST",
+                action = entry.action,
+                topic = entry.topic,
+            }
+            local phrases, seen, classFeats = {}, {}, {}
+            local examples = type(entry.examples) == "table" and entry.examples or {}
+            for j = 1, #examples do
+                local np = normalizePhrase(examples[j])
+                if np ~= "" and not seen[np] then
+                    seen[np] = true
+                    phrases[#phrases + 1] = np
+                    if exact[np] == nil then exact[np] = key end
+                    local feats = extractFeatures(np)
+                    for fk in pairs(feats) do classFeats[fk] = true end
+                end
+            end
+            classPhrases[key] = phrases
+            for fk in pairs(classFeats) do
+                docFreq[fk] = (docFreq[fk] or 0) + 1
+            end
+        end
+    end
+
+    local idf = {}
+    for fk, df in pairs(docFreq) do
+        idf[fk] = math.log((numClasses + 1.0) / (df + 0.5)) + 0.5
+    end
+
+    local intents = {}
+    for key, phrases in pairs(classPhrases) do
+        local agg = {}
+        for i = 1, #phrases do
+            local feats = extractFeatures(phrases[i])
+            for fk, tf in pairs(feats) do
+                local w = (1.0 + math.log(tf)) * (idf[fk] or 1.0)
+                agg[fk] = (agg[fk] or 0) + w
+            end
+        end
+        local n = math.max(1, #phrases)
+        local vec, normSq = {}, 0
+        for fk, sumW in pairs(agg) do
+            local avg = sumW / n
+            vec[fk] = avg
+            normSq = normSq + (avg * avg)
+        end
+        local meta = classMeta[key]
+        meta.vec = vec
+        meta.norm = math.sqrt(normSq)
+        intents[key] = meta
+    end
+
+    return {
+        packID = rawDataset.packID,
+        exact = exact,
+        idf = idf,
+        intents = intents,
+    }
+end
+
 function Classifier.RegisterDataset(packID, dataset)
     local id = tostring(packID or "")
     if id == "" or type(dataset) ~= "table" then return false end
+    local indexed = dataset
+    if type(dataset.idf) ~= "table" and type(dataset.intents) == "table" and dataset.intents[1] ~= nil then
+        indexed = buildIndexFromRaw(dataset)
+        if not indexed then return false end
+    end
     if Classifier.Datasets[id] == nil then
         Classifier.DatasetOrder[#Classifier.DatasetOrder + 1] = id
     end
-    Classifier.Datasets[id] = dataset
+    Classifier.Datasets[id] = indexed
     return true
 end
 

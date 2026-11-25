@@ -60,6 +60,8 @@ PreParser.ModalPrefixes = PreParser.ModalPrefixes or {
     { phrase = "should",              modality = "suggestion" },
     { phrase = "better",              modality = "suggestion" },
     { phrase = "please",              modality = "polite" },
+    { phrase = "let's",               modality = "suggestion" },
+    { phrase = "lets",                modality = "suggestion" },
     { phrase = "just",                modality = "suggestion" },
     { phrase = "hey",                 modality = "imperative" },
     { phrase = "yo",                  modality = "imperative" },
