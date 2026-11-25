@@ -14,6 +14,10 @@ local FollowUp = Semantics.FollowUp
     or require "PsychopatzCore/Semantics/PsychopatzSemanticFollowUp"
 local GroupAddressing = Semantics.GroupAddressing
     or require "PsychopatzCore/Semantics/PsychopatzSemanticGroupAddressing"
+local ClausePreParser = Semantics.ClausePreParser
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticClausePreParser"
+local VerbFrameParser = Semantics.VerbFrameParser
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticVerbFrameParser"
 local Confidence = Semantics.Confidence
     or require "PsychopatzCore/Semantics/PsychopatzSemanticConfidence"
 local ConceptMatcher = Semantics.ConceptMatcher
@@ -64,17 +68,75 @@ function Parser.Parse(text, options)
             parseText = addr.cleanedText
         end
     end
-    local bundle = Parser.ParseCandidates(parseText, options)
+    local clauseFrame = type(ClausePreParser) == "table"
+        and type(ClausePreParser.Analyze) == "function"
+        and ClausePreParser.Analyze(text, options.groupParticipants)
+        or nil
+    local hasCleanCore = clauseFrame and clauseFrame.changed == true
+        and type(clauseFrame.coreText) == "string"
+        and clauseFrame.coreText ~= ""
+        and clauseFrame.coreText ~= parseText
+    local firstOpts = options
+    if hasCleanCore then
+        firstOpts = {}
+        for k, v in pairs(options) do firstOpts[k] = v end
+        firstOpts.enableVerbFrames = false
+    end
+    local bundle = Parser.ParseCandidates(parseText, firstOpts)
+    if (type(bundle) ~= "table" or type(bundle.selected) ~= "table") and hasCleanCore then
+        local cleanOpts = options
+        if clauseFrame.negated == true then
+            cleanOpts = {}
+            for k, v in pairs(options) do cleanOpts[k] = v end
+            cleanOpts.negated = true
+        end
+        bundle = Parser.ParseCandidates(clauseFrame.coreText, cleanOpts)
+    end
     if type(bundle) == "table" and type(bundle.selected) == "table"
         and type(bundle.selected.ir) == "table"
     then
         local cloned = IR.Clone(bundle.selected.ir)
-        if addr and type(cloned) == "table" then
+        if type(cloned) == "table" and (addr or clauseFrame) then
             cloned.extensions = type(cloned.extensions) == "table" and cloned.extensions or {}
-            cloned.extensions.addressing = addr
-            if addr.broadcast then cloned.extensions.groupBroadcast = true end
-            if addr.targetID ~= nil then cloned.extensions.vocativeTargetID = addr.targetID end
-            if addr.referencedActorID ~= nil then cloned.extensions.referencedActorID = addr.referencedActorID end
+            if addr then
+                cloned.extensions.addressing = addr
+                if addr.broadcast then cloned.extensions.groupBroadcast = true end
+                if addr.targetID ~= nil then cloned.extensions.vocativeTargetID = addr.targetID end
+                if addr.referencedActorID ~= nil then cloned.extensions.referencedActorID = addr.referencedActorID end
+            end
+            if clauseFrame then
+                cloned.extensions.modality = clauseFrame.modality
+                if clauseFrame.negated == true then
+                    cloned.polarity = "negative"
+                    cloned.extensions.negated = true
+                    cloned.extensions.negationCue = clauseFrame.negationCue
+                    if cloned.action ~= nil
+                        and cloned.extensions.originalAction == nil
+                        and type(VerbFrameParser) == "table"
+                        and type(VerbFrameParser.ResolveNegatedAction) == "function"
+                    then
+                        local inv = VerbFrameParser.ResolveNegatedAction(cloned.action)
+                        if inv and inv ~= cloned.action then
+                            cloned.extensions.originalAction = cloned.action
+                            cloned.action = inv
+                        end
+                    end
+                end
+                if type(clauseFrame.audienceScope) == "table"
+                    and clauseFrame.audienceScope.scope ~= "DEFAULT"
+                then
+                    cloned.extensions.audienceScope = IR.Clone(clauseFrame.audienceScope)
+                    if clauseFrame.audienceScope.scope == "GROUP" then
+                        cloned.extensions.groupBroadcast = true
+                    elseif clauseFrame.audienceScope.scope == "INDIVIDUAL"
+                        and type(clauseFrame.audienceScope.targetIDs) == "table"
+                        and #clauseFrame.audienceScope.targetIDs == 1
+                        and cloned.extensions.vocativeTargetID == nil
+                    then
+                        cloned.extensions.vocativeTargetID = clauseFrame.audienceScope.targetIDs[1]
+                    end
+                end
+            end
         end
         return cloned
     end
@@ -430,6 +492,8 @@ local function parseCacheKey(text, options, limit)
     return raw .. "|" .. tostring(limit)
         .. "|" .. (options.enableFuzzy == false and "0" or "1")
         .. "|" .. (options.enableSurfaceRecovery == false and "0" or "1")
+        .. "|" .. (options.enableVerbFrames == false and "0" or "1")
+        .. "|" .. (options.negated == true and "1" or "0")
 end
 
 local function storeParseCache(key, value)
@@ -549,6 +613,45 @@ function Parser.ParseCandidates(text, options)
     end
     for _, candidate in ipairs(recoveryMatches) do
         appendCandidate(rawCandidates, candidate)
+    end
+
+    if #rawCandidates == 0
+        and options.enableVerbFrames ~= false
+        and type(VerbFrameParser) == "table"
+        and type(VerbFrameParser.Parse) == "function"
+    then
+        local vfCandidate = VerbFrameParser.Parse(normalized, exactSymbols, options)
+        if type(vfCandidate) == "table" and type(vfCandidate.ir) == "table" then
+            vfCandidate.selected = true
+            vfCandidate.ir.confidenceBand = Confidence.Band(vfCandidate.confidence)
+            vfCandidate.ir.diagnostics.recommendedRoute =
+                Confidence.Route(vfCandidate.confidence, options.thresholds)
+            local vfResult = {
+                schemaVersion = Parser.CANDIDATE_VERSION,
+                kind = "semantic_parse_candidates",
+                rawText = normalized.rawText,
+                normalizedText = normalized.normalizedText,
+                candidates = { vfCandidate },
+                selected = vfCandidate,
+                selectedIndex = 1,
+                diagnostics = {
+                    parser = "lua_verb_frame",
+                    registryRevision = Registry.GetRevision(),
+                    candidateLimit = limit,
+                    candidateCount = 1,
+                    exactCandidateCount = 0,
+                    fuzzyCandidateCount = 0,
+                    recoveredCandidateCount = 0,
+                    verbFrameCandidateCount = 1,
+                    recoveryVariantCount = #recoveryVariants,
+                    truncated = normalized.truncated == true,
+                    ambiguous = false,
+                    noMatch = false,
+                },
+            }
+            storeParseCache(cacheKey, IR.Clone(vfResult))
+            return vfResult
+        end
     end
 
     local selectedRaw, selectedTie = bestCandidate(rawCandidates)
