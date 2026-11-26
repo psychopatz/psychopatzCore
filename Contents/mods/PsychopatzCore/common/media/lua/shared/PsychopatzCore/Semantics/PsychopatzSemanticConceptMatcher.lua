@@ -23,10 +23,8 @@ local function copyValue(value, depth)
 end
 
 local function phrase(tokens, first, last)
-    local values = {}
-    local index
-    for index = first, last do values[#values + 1] = tokens[index] end
-    return table.concat(values, " ")
+    if first == last then return tostring(tokens[first] or "") end
+    return table.concat(tokens, " ", first, last)
 end
 
 local function conceptOwner(entry)

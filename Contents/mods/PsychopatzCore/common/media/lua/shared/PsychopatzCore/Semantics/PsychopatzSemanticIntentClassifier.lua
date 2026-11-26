@@ -168,11 +168,74 @@ function Classifier.ResetDatasets()
     return true
 end
 
+-- Lightweight post-classification slot extraction so Tier-3 matches on
+-- indirect phrasing ("let's hole up in that clinic") keep spatial/source
+-- slots and quantity instead of dropping them.
+local SPATIAL_PREPS = {
+    ["in"] = "spatial", inside = "spatial", at = "spatial",
+    by = "spatial", near = "spatial", into = "spatial",
+    to = "spatial", toward = "spatial", towards = "spatial",
+    from = "source",
+}
+
+local SLOT_DETS = {
+    the = true, this = true, that = true, a = true, an = true,
+    my = true, our = true, your = true, some = true,
+    nearest = true, closest = true,
+}
+
+local SLOT_STOP = {
+    ["for"] = true, ["and"] = true, ["then"] = true, ["now"] = true,
+    ["please"] = true, ["okay"] = true, ["ok"] = true, ["tonight"] = true,
+}
+
+local DEST_ACTIONS = {
+    CAMP = true, MOVE = true, WAIT_AT = true, GUARD = true, STORE = true,
+}
+
+local function extractImplicitSlots(normalized, action)
+    local slots = {}
+    if type(normalized) ~= "table" then return slots end
+    if normalized.quantity ~= nil then slots.quantity = normalized.quantity end
+    local tokens = normalized.tokens
+    if type(tokens) ~= "table" or #tokens < 2 then return slots end
+    local destAction = DEST_ACTIONS[string.upper(tostring(action or ""))] == true
+    for i = 1, #tokens - 1 do
+        local role = SPATIAL_PREPS[tokens[i]]
+        if role then
+            local j = i + 1
+            while j <= #tokens and SLOT_DETS[tokens[j]] do j = j + 1 end
+            local words = {}
+            while j <= #tokens and #words < 3
+                and not SLOT_STOP[tokens[j]]
+                and not SPATIAL_PREPS[tokens[j]]
+            do
+                words[#words + 1] = tokens[j]
+                j = j + 1
+            end
+            if #words > 0 then
+                local value = { text = table.concat(words, " ") }
+                if role == "source" then
+                    slots.source = slots.source or value
+                elseif destAction then
+                    slots.destination = slots.destination or value
+                else
+                    slots.target = slots.target or value
+                end
+            end
+        end
+    end
+    return slots
+end
+
+Classifier.ExtractImplicitSlots = extractImplicitSlots
+
 local function buildIRCandidate(normalized, spec, score, matchKind, negated)
     local action = spec.action
     if negated and action and VerbFrame and type(VerbFrame.ResolveNegatedAction) == "function" then
         action = VerbFrame.ResolveNegatedAction(action)
     end
+    local extracted = extractImplicitSlots(normalized, action)
     local ir = IR.New({
         rawText = normalized.rawText,
         normalizedText = normalized.normalizedText,
@@ -180,6 +243,10 @@ local function buildIRCandidate(normalized, spec, score, matchKind, negated)
         speechAct = spec.speechAct or spec.intent or "REQUEST",
         action = action,
         topic = spec.topic,
+        target = extracted.target,
+        destination = extracted.destination,
+        source = extracted.source,
+        slots = extracted.quantity ~= nil and { quantity = extracted.quantity } or nil,
         confidence = score,
         provenance = {
             provider = "lua",

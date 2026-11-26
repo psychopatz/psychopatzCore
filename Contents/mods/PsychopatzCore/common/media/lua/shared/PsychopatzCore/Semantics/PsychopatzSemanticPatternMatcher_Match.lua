@@ -191,7 +191,7 @@ search = function(state, ruleIndex, symbolIndex, captures, consumed, skipped,
         )
     end
 
-    local rule = state.Rules.normalizeRule(state.rules[ruleIndex])
+    local rule = state.rules[ruleIndex]
     if not rule then return nil end
     if rule.kind == "any_phrase" then
         return matchPhraseRule(
@@ -223,11 +223,53 @@ search = function(state, ruleIndex, symbolIndex, captures, consumed, skipped,
     )
 end
 
+local function compilePatternRules(pattern, Rules)
+    local rawRules = pattern.match or {}
+    local compiled = {}
+    local minRequired = 0
+    local maxSymbols = 0
+    local unboundedMax = pattern.allowUnmatched == true
+    for i = 1, #rawRules do
+        local rule = Rules.normalizeRule(rawRules[i])
+        compiled[i] = rule
+        if rule then
+            if rule.optional ~= true then
+                minRequired = minRequired
+                    + (rule.kind == "any_phrase" and (rule.minTokens or 1) or 1)
+            end
+            if not unboundedMax then
+                if rule.kind == "any_phrase" then
+                    maxSymbols = maxSymbols + (rule.maxTokens or 4)
+                else
+                    maxSymbols = maxSymbols + 1
+                end
+            end
+        end
+    end
+    pattern._compiledRules = compiled
+    pattern._compiledRuleCount = #rawRules
+    pattern._minRequiredSymbols = minRequired
+    pattern._maxSymbols = unboundedMax and nil or maxSymbols
+    return compiled
+end
+
 function Match.Install(PatternMatcher, Rules, Captures, Support)
     function PatternMatcher.Match(pattern, symbols, normalized)
+        local rawRules = pattern.match or {}
+        local compiled = pattern._compiledRules
+        if compiled == nil or pattern._compiledRuleCount ~= #rawRules then
+            compiled = compilePatternRules(pattern, Rules)
+        end
+        local symCount = #symbols
+        if symCount < (pattern._minRequiredSymbols or 0) then
+            return nil
+        end
+        if pattern._maxSymbols ~= nil and symCount > pattern._maxSymbols then
+            return nil
+        end
         local state = {
             pattern = pattern,
-            rules = pattern.match or {},
+            rules = compiled,
             symbols = symbols,
             normalized = normalized,
             Rules = Rules,

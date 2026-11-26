@@ -16,6 +16,8 @@ Registry.Patterns = Registry.Patterns or {}
 Registry.PatternOrder = Registry.PatternOrder or {}
 Registry.OrderedPatterns = Registry.OrderedPatterns or {}
 Registry._patternsDirty = Registry._patternsDirty == true
+Registry._patternIndex = nil
+Registry._patternIndexRev = -1
 Registry.Revision = tonumber(Registry.Revision) or 0
 Registry.MaxPhraseTokens = tonumber(Registry.MaxPhraseTokens) or 1
 
@@ -384,9 +386,167 @@ function Registry.UnregisterByOwner(ownerID)
     return true, count
 end
 
+local function extractPatternAnchor(pattern)
+    local rules = type(pattern) == "table" and pattern.match or nil
+    if type(rules) ~= "table" then return nil, nil end
+    local fallbackLiteral = nil
+    for i = 1, #rules do
+        local rule = rules[i]
+        if type(rule) == "string" then
+            if string.sub(rule, 1, 1) == "@" then
+                local cid = string.sub(rule, 2)
+                if cid ~= "" then return "concept", cid end
+            else
+                local norm = Normalizer.NormalizePhrase(rule)
+                local firstWord = string.match(norm, "^(%S+)")
+                if firstWord and not fallbackLiteral then
+                    fallbackLiteral = firstWord
+                end
+            end
+        elseif type(rule) == "table" and rule.optional ~= true
+            and rule.oneOf == nil and rule.anyOf == nil
+        then
+            local kind = rule.kind
+            if kind == "concept" or (not kind and (rule.concept or rule.id)) then
+                local cid = tostring(rule.concept or rule.id or "")
+                if cid ~= "" then return "concept", cid end
+            elseif kind == "literal" or (not kind and (rule.literal or rule.value)) then
+                local norm = Normalizer.NormalizePhrase(rule.literal or rule.value)
+                local firstWord = string.match(norm, "^(%S+)")
+                if firstWord and not fallbackLiteral then
+                    fallbackLiteral = firstWord
+                end
+            end
+        end
+    end
+    if fallbackLiteral then
+        return "literal", fallbackLiteral
+    end
+    return nil, nil
+end
+
+local function buildPatternIndex()
+    local byConcept = {}
+    local byLiteral = {}
+    local unanchored = {}
+    local ordered = Registry.OrderedPatterns
+    local anchoredCount = 0
+    for i = 1, #ordered do
+        local pat = ordered[i]
+        local entry = { pattern = pat, order = i }
+        local anchorKind, anchorKey = extractPatternAnchor(pat)
+        if anchorKind == "concept" and anchorKey then
+            local bucket = byConcept[anchorKey]
+            if not bucket then
+                bucket = {}
+                byConcept[anchorKey] = bucket
+            end
+            bucket[#bucket + 1] = entry
+            anchoredCount = anchoredCount + 1
+        elseif anchorKind == "literal" and anchorKey then
+            local bucket = byLiteral[anchorKey]
+            if not bucket then
+                bucket = {}
+                byLiteral[anchorKey] = bucket
+            end
+            bucket[#bucket + 1] = entry
+            anchoredCount = anchoredCount + 1
+        else
+            unanchored[#unanchored + 1] = entry
+        end
+    end
+    Registry._patternIndex = {
+        byConcept = byConcept,
+        byLiteral = byLiteral,
+        unanchored = unanchored,
+        totalPatterns = #ordered,
+        anchoredCount = anchoredCount,
+        unanchoredCount = #unanchored,
+    }
+    Registry._patternIndexRev = Registry.Revision
+    return Registry._patternIndex
+end
+
+local function ensurePatternIndex()
+    if Registry._patternsDirty then sortPatterns() end
+    if not Registry._patternIndex or Registry._patternIndexRev ~= Registry.Revision then
+        return buildPatternIndex()
+    end
+    return Registry._patternIndex
+end
+
 function Registry.GetPatterns()
     if Registry._patternsDirty then sortPatterns() end
     return Registry.OrderedPatterns
+end
+
+function Registry.GetCandidatePatterns(symbols, normalized)
+    local idx = ensurePatternIndex()
+    local entries = {}
+    local seen = {}
+    local function addBucket(bucket)
+        if type(bucket) ~= "table" then return end
+        for i = 1, #bucket do
+            local entry = bucket[i]
+            if not seen[entry.order] then
+                seen[entry.order] = true
+                entries[#entries + 1] = entry
+            end
+        end
+    end
+
+    addBucket(idx.unanchored)
+
+    if type(symbols) == "table" then
+        for i = 1, #symbols do
+            local sym = symbols[i]
+            if type(sym) == "table" then
+                if sym.id ~= nil then
+                    addBucket(idx.byConcept[tostring(sym.id)])
+                end
+                if type(sym.allCandidates) == "table" then
+                    for j = 1, #sym.allCandidates do
+                        addBucket(idx.byConcept[tostring(sym.allCandidates[j])])
+                    end
+                end
+                if type(sym.text) == "string" and sym.text ~= "" then
+                    local firstWord = string.match(sym.text, "^(%S+)")
+                    if firstWord then addBucket(idx.byLiteral[firstWord]) end
+                end
+            end
+        end
+    end
+
+    if type(normalized) == "table" then
+        local tokens = normalized.tokens
+        if type(tokens) == "table" then
+            for i = 1, #tokens do
+                addBucket(idx.byLiteral[tokens[i]])
+            end
+        end
+        local lemmas = normalized.lemmas
+        if type(lemmas) == "table" then
+            for i = 1, #lemmas do
+                addBucket(idx.byLiteral[lemmas[i]])
+            end
+        end
+    end
+
+    table.sort(entries, function(a, b) return a.order < b.order end)
+    local out = {}
+    for i = 1, #entries do
+        out[i] = entries[i].pattern
+    end
+    return out
+end
+
+function Registry.GetPatternIndexStats()
+    local idx = ensurePatternIndex()
+    return {
+        totalPatterns = idx.totalPatterns,
+        anchoredCount = idx.anchoredCount,
+        unanchoredCount = idx.unanchoredCount,
+    }
 end
 
 function Registry.ListConcepts()
@@ -410,6 +570,8 @@ function Registry.Reset()
     Registry.PatternOrder = {}
     Registry.OrderedPatterns = {}
     Registry._patternsDirty = false
+    Registry._patternIndex = nil
+    Registry._patternIndexRev = -1
     Registry.MaxPhraseTokens = 1
     bumpRevision()
 end

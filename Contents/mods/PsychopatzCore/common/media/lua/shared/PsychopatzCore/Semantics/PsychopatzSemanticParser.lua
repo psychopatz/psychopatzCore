@@ -32,6 +32,46 @@ Semantics.Parser = Parser
 Parser.CANDIDATE_VERSION = 1
 Parser.DEFAULT_MAX_CANDIDATES = 8
 Parser.MAX_CANDIDATES = 16
+Parser.TelemetryEnabled = Parser.TelemetryEnabled == true
+Parser.MAX_MISSED_TELEMETRY = 64
+Parser._missedTelemetry = Parser._missedTelemetry or {}
+
+function Parser.SetTelemetryEnabled(enabled)
+    Parser.TelemetryEnabled = enabled == true
+    return Parser.TelemetryEnabled
+end
+
+function Parser.GetMissedUtterances()
+    local copy = {}
+    for i = 1, #Parser._missedTelemetry do
+        copy[i] = Parser._missedTelemetry[i]
+    end
+    return copy
+end
+
+function Parser.ResetMissedUtterances()
+    Parser._missedTelemetry = {}
+    return true
+end
+
+local function recordMissedTelemetry(rawText, coreText, result)
+    if Parser.TelemetryEnabled ~= true then return end
+    local sel = type(result) == "table" and result.selected or nil
+    local conf = sel and (tonumber(sel.confidence) or 0) or 0
+    if sel and conf >= 0.65 then return end
+    local list = Parser._missedTelemetry
+    if #list >= Parser.MAX_MISSED_TELEMETRY then
+        table.remove(list, 1)
+    end
+    list[#list + 1] = {
+        rawText = tostring(rawText or ""),
+        coreText = coreText and tostring(coreText) or nil,
+        confidence = conf,
+        selectedPattern = sel and sel.patternID or nil,
+        action = sel and sel.ir and sel.ir.action or nil,
+        intent = sel and sel.ir and sel.ir.intent or nil,
+    }
+end
 
 local function baseDiagnostics(normalized, symbols)
     local diagnostics = {
@@ -588,12 +628,25 @@ function Parser.ParseCandidates(text, options)
         return IR.Clone(parseCache[cacheKey])
     end
 
+    local reusedNormalized = nil
     if options._clauseCorePass ~= true
         and options.enableClausePreParser ~= false
         and type(ClausePreParser) == "table"
         and type(ClausePreParser.Analyze) == "function"
     then
-        local clauseFrame = ClausePreParser.Analyze(text, options.groupParticipants)
+        local clauseInput = text
+        local preNorm = nil
+        if type(Normalizer) == "table" and type(Normalizer.Normalize) == "function" then
+            preNorm = Normalizer.Normalize(text, options)
+            if type(preNorm) == "table"
+                and (preNorm.expandedShorthand == true or preNorm.collapsedElongation == true)
+                and type(preNorm.normalizedText) == "string"
+                and preNorm.normalizedText ~= ""
+            then
+                clauseInput = preNorm.normalizedText
+            end
+        end
+        local clauseFrame = ClausePreParser.Analyze(clauseInput, options.groupParticipants)
         local hasCleanCore = type(clauseFrame) == "table"
             and clauseFrame.changed == true
             and type(clauseFrame.coreText) == "string"
@@ -603,6 +656,7 @@ function Parser.ParseCandidates(text, options)
             local rawOpts = {}
             for k, v in pairs(options) do rawOpts[k] = v end
             rawOpts._clauseCorePass = true
+            rawOpts._preNormalized = preNorm
             rawOpts.enableVerbFrames = false
             local rawBundle = Parser.ParseCandidates(text, rawOpts)
             local chosen = rawBundle
@@ -634,21 +688,33 @@ function Parser.ParseCandidates(text, options)
                     chosen = coreBundle
                 end
             end
+            recordMissedTelemetry(text, clauseFrame.coreText, chosen)
             if cacheKey and type(chosen) == "table" then
                 storeParseCache(cacheKey, IR.Clone(chosen))
             end
             return chosen
         end
+        -- Reuse the already-normalized result for this exact text without
+        -- mutating the caller-owned options table.
+        reusedNormalized = preNorm
     end
 
-    local normalized = Normalizer.Normalize(text, options)
-    local patterns = Registry.GetPatterns()
+    local normalized = reusedNormalized
+        or options._preNormalized
+        or Normalizer.Normalize(text, options)
+    local function candidatePatternsFor(symbols, norm)
+        if type(Registry.GetCandidatePatterns) == "function" then
+            return Registry.GetCandidatePatterns(symbols, norm)
+        end
+        return Registry.GetPatterns()
+    end
     local exactOptions = { enableFuzzy = false }
 
     local exactSymbols = ConceptMatcher.Build(normalized, exactOptions)
     local exactAnalysis = ConceptMatcher.Analysis(normalized, exactSymbols)
     local exactMatches = collectCandidates(
-        patterns, exactSymbols, normalized, "exact", exactAnalysis, nil, options
+        candidatePatternsFor(exactSymbols, normalized),
+        exactSymbols, normalized, "exact", exactAnalysis, nil, options
     )
     local exactBest = bestCandidate(exactMatches)
 
@@ -660,7 +726,8 @@ function Parser.ParseCandidates(text, options)
         local fuzzySymbols = ConceptMatcher.Build(normalized, options)
         local fuzzyAnalysis = ConceptMatcher.Analysis(normalized, fuzzySymbols)
         fuzzyMatches = collectCandidates(
-            patterns, fuzzySymbols, normalized, "fuzzy", fuzzyAnalysis, nil, options
+            candidatePatternsFor(fuzzySymbols, normalized),
+            fuzzySymbols, normalized, "fuzzy", fuzzyAnalysis, nil, options
         )
     end
 
@@ -683,7 +750,8 @@ function Parser.ParseCandidates(text, options)
         local strippedSymbols = ConceptMatcher.Build(strippedNormalized, options)
         local strippedAnalysis = ConceptMatcher.Analysis(strippedNormalized, strippedSymbols)
         local strippedCandidates = collectCandidates(
-            patterns, strippedSymbols, strippedNormalized, "fuzzy", strippedAnalysis, nil, options
+            candidatePatternsFor(strippedSymbols, strippedNormalized),
+            strippedSymbols, strippedNormalized, "fuzzy", strippedAnalysis, nil, options
         )
         for _, candidate in ipairs(strippedCandidates) do
             fuzzyMatches[#fuzzyMatches + 1] = candidate
@@ -703,7 +771,7 @@ function Parser.ParseCandidates(text, options)
                 recovered, recoveredSymbols
             )
             local matches = collectCandidates(
-                patterns,
+                candidatePatternsFor(recoveredSymbols, recovered),
                 recoveredSymbols,
                 recovered,
                 "recovered",
@@ -742,6 +810,8 @@ function Parser.ParseCandidates(text, options)
             vfCandidate = IntentClassifier.Classify(normalized, options)
         end
         if type(vfCandidate) == "table" and type(vfCandidate.ir) == "table" then
+            vfCandidate.pass = vfCandidate.pass or vfCandidate.source or "verb_frame"
+            vfCandidate.patternID = vfCandidate.patternID or vfCandidate.patternId
             vfCandidate.selected = true
             vfCandidate.ir.confidenceBand = Confidence.Band(vfCandidate.confidence)
             vfCandidate.ir.diagnostics.recommendedRoute =
@@ -829,6 +899,54 @@ function Parser.ParseCandidates(text, options)
 
     if result.selected then
         result.selected.selected = true
+        -- Multi-tier candidate fusion: when pattern matching only produced a weak
+        -- or partial match, allow VerbFrameParser / IntentClassifier to vote too
+        -- instead of letting a low-confidence fuzzy pattern short-circuit them.
+        local sel = result.selected
+        local selUnmatched = type(sel.match) == "table"
+            and (tonumber(sel.match.unmatchedCount) or 0) or 0
+        local weakPattern = sel.pass ~= "exact"
+            or (tonumber(sel.confidence) or 0) < 0.80
+            or selUnmatched > 0
+        if weakPattern
+            and options.enableVerbFrames ~= false
+            and type(VerbFrameParser) == "table"
+            and type(VerbFrameParser.Parse) == "function"
+        then
+            local fused = VerbFrameParser.Parse(normalized, exactSymbols, options)
+            if not fused
+                and options.enableIntentClassifier ~= false
+                and type(IntentClassifier) == "table"
+                and type(IntentClassifier.Classify) == "function"
+            then
+                fused = IntentClassifier.Classify(normalized, options)
+            end
+            if type(fused) == "table" and type(fused.ir) == "table" then
+                fused.pass = fused.pass or fused.source or "verb_frame"
+                fused.patternID = fused.patternID or fused.patternId
+                fused.ir.confidenceBand = Confidence.Band(fused.confidence)
+                fused.ir.diagnostics = type(fused.ir.diagnostics) == "table"
+                    and fused.ir.diagnostics or {}
+                fused.ir.diagnostics.recommendedRoute =
+                    Confidence.Route(fused.confidence, options.thresholds)
+                if #result.candidates < limit then
+                    result.candidates[#result.candidates + 1] = fused
+                else
+                    result.candidates[#result.candidates] = fused
+                end
+                result.diagnostics.candidateCount = #result.candidates
+                result.diagnostics.multiTierFused = true
+                if (tonumber(fused.confidence) or 0) > (tonumber(sel.confidence) or 0) + 0.05
+                    and (sel.pass ~= "exact" or selUnmatched > 0)
+                then
+                    sel.selected = false
+                    fused.selected = true
+                    result.selected = fused
+                    result.selectedIndex = #result.candidates
+                    selectedTie = false
+                end
+            end
+        end
         if selectedTie then
             local confidence = Confidence.Clamp(result.selected.score - 0.15)
             result.selected.confidence = confidence
@@ -884,6 +1002,9 @@ function Parser.ParseCandidates(text, options)
     end
     result.diagnostics.playerTone = normalized.playerTone or "neutral"
     result.diagnostics.quantity = normalized.quantity
+    if options._clauseCorePass ~= true then
+        recordMissedTelemetry(text, nil, result)
+    end
     if cacheKey then
         storeParseCache(cacheKey, IR.Clone(result))
     end

@@ -17,6 +17,8 @@ Semantics.VerbFrameParser = VerbFrame
 VerbFrame.VERSION = 2
 VerbFrame.Frames = VerbFrame.Frames or {}
 VerbFrame.VerbAliases = VerbFrame.VerbAliases or {}
+VerbFrame._wordList = VerbFrame._wordList or {}
+VerbFrame._wordListSet = VerbFrame._wordListSet or {}
 
 -- Canonical action inversions when ClausePreParser detects negative polarity
 -- (e.g. "don't follow me" -> STAY, "stop shooting" -> HOLD_FIRE, "don't sit" -> STAND).
@@ -121,7 +123,12 @@ function VerbFrame.RegisterVerbFrame(frameID, spec)
     end
     if type(spec.verbs) == "table" then
         for i = 1, #spec.verbs do
-            VerbFrame.VerbAliases["word:" .. string.lower(tostring(spec.verbs[i]))] = id
+            local lw = string.lower(tostring(spec.verbs[i]))
+            VerbFrame.VerbAliases["word:" .. lw] = id
+            if #lw >= 4 and not VerbFrame._wordListSet[lw] then
+                VerbFrame._wordListSet[lw] = true
+                VerbFrame._wordList[#VerbFrame._wordList + 1] = lw
+            end
         end
     end
     return true
@@ -351,22 +358,108 @@ VerbFrame.RegisterVerbFrame("ATTACK", {
     confidence = 0.85,
 })
 
-local function resolveFrameAt(symbols, tokens, index)
+-- Fast Damerau-Levenshtein distance <= 1 check (1 sub, 1 ins, 1 del, or 1 adjacent swap).
+-- Zero allocations; used only when exact VerbAliases lookup misses on >= 4-char words.
+local function isEditDistanceOne(a, b)
+    local la = #a
+    local lb = #b
+    local diff = la - lb
+    if diff < -1 or diff > 1 then return false end
+    if a == b then return false end
+    if diff == 0 then
+        local mismatches = 0
+        local firstIdx = nil
+        for i = 1, la do
+            if string.byte(a, i) ~= string.byte(b, i) then
+                mismatches = mismatches + 1
+                if mismatches == 1 then
+                    firstIdx = i
+                elseif mismatches == 2 then
+                    -- Allow a single adjacent transposition ("gaurd" <-> "guard", "stya" <-> "stay")
+                    if i == firstIdx + 1
+                        and string.byte(a, firstIdx) == string.byte(b, i)
+                        and string.byte(a, i) == string.byte(b, firstIdx)
+                    then
+                        -- keep scanning to ensure no further mismatches
+                    else
+                        return false
+                    end
+                else
+                    return false
+                end
+            end
+        end
+        return mismatches == 1 or mismatches == 2
+    end
+    local shorter, longer = a, b
+    local ls, ll = la, lb
+    if la > lb then
+        shorter, longer = b, a
+        ls, ll = lb, la
+    end
+    local i = 1
+    local j = 1
+    local skipped = false
+    while i <= ls and j <= ll do
+        if string.byte(shorter, i) == string.byte(longer, j) then
+            i = i + 1
+            j = j + 1
+        elseif not skipped then
+            skipped = true
+            j = j + 1
+        else
+            return false
+        end
+    end
+    return true
+end
+
+local function fuzzyLookupVerbFrame(word)
+    local lw = string.lower(tostring(word or ""))
+    if #lw < 4 then return nil, nil end
+    local matchedFrameID = nil
+    local list = VerbFrame._wordList
+    for i = 1, #list do
+        local candidateWord = list[i]
+        if isEditDistanceOne(lw, candidateWord) then
+            local fid = VerbFrame.VerbAliases["word:" .. candidateWord]
+            if fid then
+                if matchedFrameID and matchedFrameID ~= fid then
+                    -- Ambiguous distance-1 typo between two different frames: do not guess.
+                    return nil, nil
+                end
+                matchedFrameID = fid
+            end
+        end
+    end
+    if matchedFrameID and VerbFrame.Frames[matchedFrameID] then
+        return matchedFrameID, VerbFrame.Frames[matchedFrameID]
+    end
+    return nil, nil
+end
+
+local function resolveFrameAt(symbols, tokens, index, allowFuzzy)
     local sym = symbols and symbols[index] or nil
     if sym and sym.kind == "concept" and sym.id then
         local fid = VerbFrame.VerbAliases["concept:" .. string.upper(tostring(sym.id))]
         if fid and VerbFrame.Frames[fid] then
-            return fid, VerbFrame.Frames[fid], (sym.endToken or index)
+            return fid, VerbFrame.Frames[fid], (sym.endToken or index), false
         end
     end
     local w = tokens[index]
     if w then
         local fid = VerbFrame.VerbAliases["word:" .. string.lower(w)]
         if fid and VerbFrame.Frames[fid] then
-            return fid, VerbFrame.Frames[fid], index
+            return fid, VerbFrame.Frames[fid], index, false
+        end
+        if allowFuzzy then
+            local fuzzyFid, fuzzySpec = fuzzyLookupVerbFrame(w)
+            if fuzzyFid and fuzzySpec then
+                return fuzzyFid, fuzzySpec, index, true
+            end
         end
     end
-    return nil, nil, index
+    return nil, nil, index, false
 end
 
 local function matchParticipantWord(word, participants)
@@ -466,20 +559,47 @@ end
 
 -- Parse normalized tokens & symbols into a single compositional candidate if a
 -- registered verb frame matches. Returns nil if no frame applies.
+local parseInner
+local lastVerbWasFuzzy = false
+
 function VerbFrame.Parse(normalized, symbols, parseOpts)
+    lastVerbWasFuzzy = false
+    local candidate = parseInner(normalized, symbols, parseOpts)
+    if candidate and lastVerbWasFuzzy then
+        -- Typo-recovered verbs are fuzzy evidence: downstream eligibility and
+        -- risk policy must treat them like any other fuzzy match (mutating
+        -- actions require confirmation unless the action is fuzzy-safe).
+        candidate.fuzzy = true
+        if type(candidate.match) == "table" then
+            candidate.match.fuzzyCount = 1
+        end
+        if type(candidate.ir) == "table" then
+            candidate.ir.diagnostics = type(candidate.ir.diagnostics) == "table"
+                and candidate.ir.diagnostics or {}
+            candidate.ir.diagnostics.fuzzyMatch = true
+            candidate.ir.diagnostics.fuzzyVerb = true
+        end
+    end
+    lastVerbWasFuzzy = false
+    return candidate
+end
+
+parseInner = function(normalized, symbols, parseOpts)
     if type(normalized) ~= "table" then return nil end
     local tokens = normalized.tokens
     if type(tokens) ~= "table" or #tokens == 0 or #tokens > 16 then return nil end
     parseOpts = type(parseOpts) == "table" and parseOpts or {}
     local negated = parseOpts.negated == true
     local participants = parseOpts.groupParticipants
+    local allowFuzzy = parseOpts.enableFuzzy ~= false
 
     local frameID, frame, verbEndIdx = nil, nil, 0
     local maxScan = math.min(#tokens, 3)
     for i = 1, maxScan do
-        local fid, spec, endIdx = resolveFrameAt(symbols, tokens, i)
+        local fid, spec, endIdx, usedFuzzy = resolveFrameAt(symbols, tokens, i, allowFuzzy)
         if fid and spec then
             frameID, frame, verbEndIdx = fid, spec, endIdx
+            lastVerbWasFuzzy = usedFuzzy == true
             -- Auxiliary motion verb + specific domain verb ("go camping", "go loot ...",
             -- "go guard ...", "go and fetch ..."): prefer the specific domain frame.
             if fid == "MOVE" then
@@ -488,9 +608,10 @@ function VerbFrame.Parse(normalized, symbols, parseOpts)
                     nextIdx = nextIdx + 1
                 end
                 if nextIdx <= #tokens then
-                    local subFid, subSpec, subEnd = resolveFrameAt(symbols, tokens, nextIdx)
+                    local subFid, subSpec, subEnd, subFuzzy = resolveFrameAt(symbols, tokens, nextIdx, allowFuzzy)
                     if subFid and subSpec and subFid ~= "MOVE" then
                         frameID, frame, verbEndIdx = subFid, subSpec, subEnd
+                        lastVerbWasFuzzy = subFuzzy == true
                     end
                 end
             end
