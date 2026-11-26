@@ -421,7 +421,7 @@ local function fuzzyLookupVerbFrame(word)
     local list = VerbFrame._wordList
     for i = 1, #list do
         local candidateWord = list[i]
-        if isEditDistanceOne(lw, candidateWord) then
+        if lw ~= (candidateWord .. "s") and isEditDistanceOne(lw, candidateWord) then
             local fid = VerbFrame.VerbAliases["word:" .. candidateWord]
             if fid then
                 if matchedFrameID and matchedFrameID ~= fid then
@@ -438,9 +438,20 @@ local function fuzzyLookupVerbFrame(word)
     return nil, nil
 end
 
+local NON_IMPERATIVE_FORMS = {
+    THIRD_PERSON = true,
+    PAST = true,
+    PARTICIPLE = true,
+    PROGRESSIVE = true,
+}
+
 local function resolveFrameAt(symbols, tokens, index, allowFuzzy)
     local sym = symbols and symbols[index] or nil
     if sym and sym.kind == "concept" and sym.id then
+        local form = type(sym.verbForm) == "table" and sym.verbForm.form or sym.form
+        if NON_IMPERATIVE_FORMS[form] then
+            return nil, nil, index, false
+        end
         local fid = VerbFrame.VerbAliases["concept:" .. string.upper(tostring(sym.id))]
         if fid and VerbFrame.Frames[fid] then
             return fid, VerbFrame.Frames[fid], (sym.endToken or index), false
@@ -719,6 +730,16 @@ parseInner = function(normalized, symbols, parseOpts)
 
     -- 4) Transitive / ditransitive frame match (e.g. FETCH, GIVE, PUT, DROP, HEAL, GUARD, ATTACK)
     if directObj and frame.objectAction then
+        if type(symbols) == "table" and not string.find(directObj, " ", 1, true) then
+            for si = restStart, #tokens do
+                local s = symbols[si]
+                if type(s) == "table" and s.matchType == "verb_form"
+                    and string.lower(tostring(s.text or "")) == string.lower(directObj)
+                then
+                    return nil
+                end
+            end
+        end
         local slots = {
             negated = negated,
             source = source,

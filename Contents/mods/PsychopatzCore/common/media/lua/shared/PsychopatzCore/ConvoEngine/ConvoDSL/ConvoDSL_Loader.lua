@@ -301,6 +301,9 @@ local function buildPlanOfferRow(offer)
     elseif offer.subject and offer.subject ~= "" then
         frame.subject = offer.subject
     end
+    if offer.reference and offer.reference ~= "" then
+        frame.reference = offer.reference
+    end
     return {
         id = offer.offerID,
         labelKey = offer.offerID .. ".label",

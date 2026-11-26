@@ -245,7 +245,7 @@ function NLP.CollapseElongation(word)
     local changed = false
     for i = 1, #word do
         local ch = string.sub(word, i, i)
-        if ch == prev then
+        if ch == prev and string.match(ch, "%a") ~= nil then
             run = run + 1
             if run <= 2 then
                 out[#out + 1] = ch
