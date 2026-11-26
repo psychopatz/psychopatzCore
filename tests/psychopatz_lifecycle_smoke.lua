@@ -1,11 +1,14 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 -- Smoke test for P4 Event and Lifecycle Ownership
 -- Verifies that features own their event callbacks via activate and detach them on deactivate.
 
 package.path = table.concat({
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/common/media/lua/client/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua",
+    (T.layerRoot("common_shared") .. "?.lua"),
+    (T.layerRoot("runtime_shared") .. "?.lua"),
+    (T.layerRoot("common_client") .. "?.lua"),
+    (T.layerRoot("runtime_client") .. "?.lua"),
     package.path,
 }, ";")
 

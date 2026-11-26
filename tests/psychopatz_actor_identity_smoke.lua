@@ -1,5 +1,8 @@
-local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local COMMON = T.layerRoot("common_shared")
+local CLIENT = T.layerRoot("runtime_client")
 package.path = table.concat({
     COMMON .. "?.lua",
     CLIENT .. "?.lua",

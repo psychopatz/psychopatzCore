@@ -1,10 +1,13 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 -- Boundary and Capability Isolation Smoke Test (P5)
 -- Verifies:
 -- 1. PsychopatzCore does not depend on or require Project Hoomans or Dynamic Trading.
 -- 2. Semantic Pack Action Provider capability gating strictly isolates DT-only vs Hoomans-only actions.
 -- 3. Unknown capabilities or malicious calls fail closed.
 
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local ROOT = T.layerRoot("common_shared")
 package.path = ROOT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

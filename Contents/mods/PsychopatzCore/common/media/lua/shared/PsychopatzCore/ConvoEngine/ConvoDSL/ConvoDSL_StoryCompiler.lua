@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Provider-neutral runtime compiler for declarative `.convo` branching `story` blocks.
 -- Compiles story nodes, per-reply asymmetric personality reactions, and whitelisted `do`
 -- capabilities, and routes bounded relationship/morale deltas through PsychopatzCore's

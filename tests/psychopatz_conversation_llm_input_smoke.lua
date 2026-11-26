@@ -1,9 +1,12 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local ROOT =
-    "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/"
+    T.path("common_client", "PsychopatzCore/")
 
 package.path = table.concat({
-    "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua",
-    "Contents/mods/PsychopatzCore/common/media/lua/client/?.lua",
+    (T.layerRoot("runtime_client") .. "?.lua"),
+    (T.layerRoot("common_client") .. "?.lua"),
     package.path,
 }, ";")
 

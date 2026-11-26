@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local function assertEqual(actual, expected, message)
     if actual ~= expected then
         error((message or "assertion failed") .. ": expected "
@@ -6,8 +9,8 @@ local function assertEqual(actual, expected, message)
 end
 
 package.path = table.concat({
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua",
+    (T.layerRoot("common_shared") .. "?.lua"),
+    (T.layerRoot("runtime_shared") .. "?.lua"),
     package.path,
 }, ";")
 

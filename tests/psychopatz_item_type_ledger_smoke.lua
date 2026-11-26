@@ -1,5 +1,8 @@
-local SHARED = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local SHARED = T.layerRoot("common_shared")
+local CLIENT = T.layerRoot("runtime_client")
 package.path = SHARED .. "?.lua;" .. CLIENT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

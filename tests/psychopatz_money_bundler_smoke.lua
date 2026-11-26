@@ -1,4 +1,7 @@
-local SHARED_ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local SHARED_ROOT = T.layerRoot("common_shared")
 package.path = SHARED_ROOT .. "?.lua;" .. package.path
 
 local item = { recipe = "UnbundleMoney" }
@@ -28,7 +31,7 @@ assert(MoneyBundler.DisableVanillaUnbundle() == true,
 assert(item.recipe == "OtherModRecipe", "custom recipe preserved")
 
 local SERVER_ROOT =
-    "Contents/mods/PsychopatzCore/42.20/media/lua/server/"
+    T.layerRoot("runtime_server")
 package.path = SERVER_ROOT .. "?.lua;" .. package.path
 
 package.preload["PsychopatzCore/00_PsychopatzCore_Init"] =

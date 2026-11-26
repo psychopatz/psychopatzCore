@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
         error((label or "assertEqual") .. ": expected=" .. tostring(expected)
@@ -18,7 +21,7 @@ ISEntityUI = {
 package.preload["Entity/ISEntityUI"] = function() return ISEntityUI end
 
 local Guard = dofile(
-    "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/Compatibility/PsychopatzEntityUISpriteGuard.lua"
+    T.path("runtime_client", "PsychopatzCore/Compatibility/PsychopatzEntityUISpriteGuard.lua")
 )
 
 assertEqual(Guard.installed, true, "guard installs immediately when ISEntityUI is present")

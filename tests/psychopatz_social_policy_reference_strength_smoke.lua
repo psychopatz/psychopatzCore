@@ -1,4 +1,7 @@
-local CORE_ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local CORE_ROOT = T.layerRoot("common_shared")
 local HOOM_ROOT = "../ProjectHoomans/Contents/mods/ProjectHoomans/common/media/lua/shared/"
 local DT_ROOT = "../DynamicTrading/Contents/mods/DTCommon/common/media/lua/shared/"
 package.path = CORE_ROOT .. "?.lua;" .. HOOM_ROOT .. "?.lua;" .. DT_ROOT .. "?.lua;" .. package.path

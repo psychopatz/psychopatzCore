@@ -1,5 +1,8 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local ROOT =
-    "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/"
+    T.path("common_client", "PsychopatzCore/")
 
 local Panel = {}
 Panel.__index = Panel

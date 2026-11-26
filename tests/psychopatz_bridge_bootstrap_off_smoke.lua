@@ -1,7 +1,10 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local callbackCount = 0
 package.path = table.concat({
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua", package.path,
+    (T.layerRoot("common_shared") .. "?.lua"),
+    (T.layerRoot("runtime_shared") .. "?.lua"), package.path,
 }, ";")
 Events = { OnTick = { Add = function() callbackCount = callbackCount + 1 end } }
 getFileReader = function(name)

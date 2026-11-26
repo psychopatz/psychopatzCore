@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 -- Canonical Cross-Adopter Player Target Identity Smoke Test (P8A)
 --
 -- Verifies:
@@ -11,7 +14,7 @@
 -- 4. Distinct persistent characters on the same account/slot have distinct keys (UUIDs).
 -- 5. Legacy aliases (player:user:*, player:online:*) merge idempotently into canonical key without lost memories or extensions.
 
-local CORE_ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local CORE_ROOT = T.layerRoot("common_shared")
 package.path = CORE_ROOT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

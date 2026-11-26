@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 -- Hot-Plug / Save Migration and Removal Matrix Smoke Test (P6)
 --
 -- Exercises the complete cross-adopter lifecycle matrix:
@@ -10,7 +13,7 @@
 -- 7. Repeated migration and reload is strictly idempotent.
 -- 8. Migration conflicts fail visibly without destructive reset.
 
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local ROOT = T.layerRoot("common_shared")
 package.path = ROOT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

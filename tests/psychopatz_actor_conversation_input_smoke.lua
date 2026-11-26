@@ -1,4 +1,7 @@
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.layerRoot("common_client")
 package.path = ROOT .. "?.lua;" .. package.path
 
 PsychopatzCore = {

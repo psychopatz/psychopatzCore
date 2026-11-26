@@ -1,4 +1,7 @@
-local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local CLIENT = T.layerRoot("runtime_client")
 package.path = CLIENT .. "?.lua;" .. package.path
 
 PsychopatzCore = { DebugHub = {} }

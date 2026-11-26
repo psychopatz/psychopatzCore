@@ -1,4 +1,7 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.layerRoot("runtime_client")
 package.path = ROOT .. "?.lua;" .. package.path
 
 local function assertEqual(actual, expected, label)

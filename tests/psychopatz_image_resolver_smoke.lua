@@ -1,4 +1,7 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.path("runtime_client", "PsychopatzCore/")
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then

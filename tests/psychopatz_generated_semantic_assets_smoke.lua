@@ -1,4 +1,7 @@
-local SHARED_ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local SHARED_ROOT = T.layerRoot("common_shared")
 package.path = SHARED_ROOT .. "?.lua;" .. package.path
 
 local lexicon = require "PsychopatzCore/Semantics/Generated/Lexicon/Catalog"

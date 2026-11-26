@@ -1,5 +1,8 @@
-local CORE_COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-local CORE_42 = "Contents/mods/PsychopatzCore/42.20/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local CORE_COMMON = T.layerRoot("common_shared")
+local CORE_42 = T.layerRoot("runtime_shared")
 local HOOMANS_REPO = os.getenv("PZ_TEST_HOOMANS_REPOSITORY") or "../ProjectHoomans"
 local DT_REPO = os.getenv("PZ_TEST_DT_REPOSITORY") or "../DynamicTrading"
 

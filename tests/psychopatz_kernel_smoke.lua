@@ -1,8 +1,11 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 -- Smoke test for PsychopatzCore Minimal Kernel (P1 acceptance)
 
 package.path = table.concat({
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua",
+    (T.layerRoot("common_shared") .. "?.lua"),
+    (T.layerRoot("runtime_shared") .. "?.lua"),
     package.path,
 }, ";")
 

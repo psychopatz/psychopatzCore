@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Provider-neutral actor-agnostic offer realizer and CK3-style AI choice scorer.
 -- Shared across ProjectHoomans, DynamicTrading, and any PsychopatzCore adopter mod.
 -- Kahlua2 / Lua 5.1 safe.

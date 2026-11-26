@@ -1,5 +1,8 @@
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-local ROOT_42 = "Contents/mods/PsychopatzCore/42.20/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.layerRoot("common_shared")
+local ROOT_42 = T.layerRoot("runtime_shared")
 package.path = ROOT .. "?.lua;" .. ROOT_42 .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

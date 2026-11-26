@@ -1,5 +1,8 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local COMMON =
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+    T.layerRoot("common_shared")
 package.path = COMMON .. "?.lua;" .. package.path
 
 isClient = function() return false end

@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Public facade for PsychopatzCore's shared runtime .convo DSL engine.
 -- Serves ProjectHoomans, DynamicTrading, and any activated mod that ships
 -- media/translation/<LANG>/ConvoBlocks/ packs.

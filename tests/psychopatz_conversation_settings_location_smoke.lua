@@ -1,8 +1,11 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local FILE =
-    "Contents/mods/PsychopatzCore/common/media/lua/client/"
+    T.layerRoot("common_client")
     .. "PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua"
 local UI_FILE =
-    "Contents/mods/PsychopatzCore/common/media/lua/client/"
+    T.layerRoot("common_client")
     .. "PsychopatzCore/UI/Conversation/PsychopatzConversationSettings_UI.lua"
 
 local function assertEqual(actual, expected, label)

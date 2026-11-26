@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Pure Lua 5.1 / Kahlua2 line-by-line streaming parser for .convo packs.
 -- Supports: language/lang, namespace, theme, pack, lexicon/lex, blueprint,
 -- pool/beat/flow/extend, multi-line `say` variants, ` >> ` multi-turn plans,

@@ -1,6 +1,9 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local ROOT =
-    "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/"
-package.path = "Contents/mods/PsychopatzCore/common/media/lua/client/?.lua;"
+    T.path("common_client", "PsychopatzCore/")
+package.path = T.path("common_client", "?.lua;")
     .. package.path
 
 local function assertEqual(actual, expected, label)

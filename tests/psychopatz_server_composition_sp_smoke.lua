@@ -1,4 +1,7 @@
-local SERVER = "Contents/mods/PsychopatzCore/42.20/media/lua/server/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local SERVER = T.layerRoot("runtime_server")
 
 local loaded = {
     feeding = 0,

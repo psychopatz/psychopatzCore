@@ -1,4 +1,7 @@
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.layerRoot("common_shared")
 package.path = "tools/semantic_harness/lua/?.lua;" .. ROOT .. "?.lua;"
     .. package.path
 

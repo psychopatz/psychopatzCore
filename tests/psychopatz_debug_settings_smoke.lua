@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local function truthy(value, label)
     assert(value, label or "expected truthy")
     return value
@@ -29,7 +32,7 @@ getFileWriter = function()
 end
 
 local Settings = dofile(
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+    T.layerRoot("common_shared")
         .. "PsychopatzCore/Debug/PsychopatzDebugSettings.lua"
 )
 

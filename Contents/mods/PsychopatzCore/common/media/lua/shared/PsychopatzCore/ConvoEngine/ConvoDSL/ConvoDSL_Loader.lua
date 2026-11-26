@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Streaming runtime .convo pack discovery, parsing, and registration.
 --
 -- Canonical path layout (mirrors Project Zomboid custom translation catalogs):

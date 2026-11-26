@@ -1,4 +1,7 @@
-local CLIENT_ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local CLIENT_ROOT = T.layerRoot("runtime_client")
 local ROOT = CLIENT_ROOT .. "PsychopatzCore/UI/Core/"
 package.path = CLIENT_ROOT .. "?.lua;" .. ROOT .. "?.lua;" .. package.path
 

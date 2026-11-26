@@ -1,11 +1,14 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 -- Comprehensive test for unified PsychopatzCore SurvivorWorld map & packet
 -- distribution (SP + MP): many visible NPCs, moving NPCs, hidden/undiscovered
 -- visibility culling, unchanged-skip, sub-quantum jitter suppression, and
 -- targeted per-player delivery.
 
-local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-local SERVER = "Contents/mods/PsychopatzCore/42.20/media/lua/server/"
-local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local COMMON = T.layerRoot("common_shared")
+local SERVER = T.layerRoot("runtime_server")
+local CLIENT = T.layerRoot("runtime_client")
 package.path = table.concat({
     COMMON .. "?.lua",
     SERVER .. "?.lua",

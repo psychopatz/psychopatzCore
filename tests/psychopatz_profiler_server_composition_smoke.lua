@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local function equal(actual, expected, message)
     if actual ~= expected then
         error((message or "mismatch") .. ": expected=" .. tostring(expected)
@@ -6,9 +9,9 @@ local function equal(actual, expected, message)
 end
 
 package.path = table.concat({
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.20/media/lua/server/?.lua",
+    (T.layerRoot("common_shared") .. "?.lua"),
+    (T.layerRoot("runtime_shared") .. "?.lua"),
+    (T.layerRoot("runtime_server") .. "?.lua"),
     package.path,
 }, ";")
 

@@ -1,5 +1,8 @@
-local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
-local COMMON_CLIENT = "Contents/mods/PsychopatzCore/common/media/lua/client/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local CLIENT = T.layerRoot("runtime_client")
+local COMMON_CLIENT = T.layerRoot("common_client")
 package.path = CLIENT .. "?.lua;" .. COMMON_CLIENT .. "?.lua;" .. package.path
 
 local function truthy(value, message)

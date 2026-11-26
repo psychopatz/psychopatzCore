@@ -1,4 +1,7 @@
-local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local COMMON = T.layerRoot("common_shared")
 package.path = COMMON .. "?.lua;" .. package.path
 local Journey = require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupJourney"
 local Projection = require "PsychopatzCore/Actors/PsychopatzActorProjection"
@@ -34,8 +37,8 @@ for _, provider in ipairs({"ProjectHoomans", "DTAbstract", "DTHoomans"}) do
     assert(Presentation.ProjectActorPosition(entry, 3).x == 3, "truncated route extrapolated")
 end
 -- Exercise the client entry point used by both Hoomans and DTAbstract.
-package.path = "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua;"
-    .. "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua;" .. package.path
+package.path = T.path("runtime_client", "?.lua;")
+    .. T.path("runtime_shared", "?.lua;") .. package.path
 local entry = assert(Projection.ValidateEntry({actorID="npc:shared", sourceID="SurvivorWorld",
     provider="DTAbstract", providerState="abstract", positionSource="group", groupID="group:test",
     position={x=3,y=2,z=0}, updatedAt=0, journey=journey}))

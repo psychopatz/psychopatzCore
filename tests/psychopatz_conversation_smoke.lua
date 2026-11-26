@@ -1,5 +1,8 @@
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/"
-local SHARED = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.path("common_client", "PsychopatzCore/UI/Conversation/")
+local SHARED = T.layerRoot("common_shared")
 package.path = SHARED .. "?.lua;" .. package.path
 
 local function assertEqual(actual, expected, label)

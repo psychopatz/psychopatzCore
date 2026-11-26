@@ -1,3 +1,4 @@
+-- ConvoEngine: hand-written
 -- Provider-neutral typed context schema for runtime .convo DSL parsing.
 -- Adopter mods (ProjectHoomans, DynamicTrading, community packs) can register
 -- additional domain predicates via Schema.RegisterFields(...) / Schema.RegisterAliases(...).

@@ -1,9 +1,12 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local VERSIONED_SERVER =
-    "Contents/mods/PsychopatzCore/42.20/media/lua/server/"
+    T.layerRoot("runtime_server")
 local VERSIONED_SHARED =
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/"
+    T.layerRoot("runtime_shared")
 local COMMON_SHARED =
-    "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+    T.layerRoot("common_shared")
 package.path = VERSIONED_SERVER .. "?.lua;"
     .. VERSIONED_SHARED .. "?.lua;"
     .. COMMON_SHARED .. "?.lua;"

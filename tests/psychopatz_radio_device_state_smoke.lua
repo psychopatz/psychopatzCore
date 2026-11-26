@@ -1,4 +1,7 @@
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.layerRoot("common_shared")
 
 local function equal(actual, expected, label)
     if actual ~= expected then

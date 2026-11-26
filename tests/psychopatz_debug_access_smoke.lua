@@ -1,4 +1,7 @@
-local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.layerRoot("common_shared")
 package.path = ROOT .. "?.lua;" .. package.path
 
 local engineDebug = false
@@ -64,7 +67,7 @@ end
 package.preload["PsychopatzCore/UI/PsychopatzDebugHubWindow"] = function()
     return PsychopatzCore.DebugHub
 end
-package.path = "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua;"
+package.path = T.path("runtime_client", "?.lua;")
     .. package.path
 
 local contextHandler

@@ -1,15 +1,10 @@
-local ROOT =
-    "PsychopatzCore/World/SurvivorWorld/Types/"
+local Types = require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesCore"
 
-local Types = require(
-    ROOT .. "PsychopatzSurvivorWorldTypesCore"
-)
-
-require(ROOT .. "PsychopatzSurvivorWorldTypesFaction")
-require(ROOT .. "PsychopatzSurvivorWorldTypesCommunity")
-require(ROOT .. "PsychopatzSurvivorWorldTypesGroup")
-require(ROOT .. "PsychopatzSurvivorWorldTypesPopulation")
-require(ROOT .. "PsychopatzSurvivorWorldTypesDiscovery")
-require(ROOT .. "PsychopatzSurvivorWorldTypesSnapshot")
+require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesFaction"
+require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesCommunity"
+require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesGroup"
+require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesPopulation"
+require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesDiscovery"
+require "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesSnapshot"
 
 return Types

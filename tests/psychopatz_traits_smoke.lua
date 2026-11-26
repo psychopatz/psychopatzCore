@@ -1,5 +1,8 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local ROOT =
-    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/Traits/"
+    T.path("runtime_shared", "PsychopatzCore/Traits/")
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then

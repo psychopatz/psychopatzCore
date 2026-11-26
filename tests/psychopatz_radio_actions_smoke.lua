@@ -1,5 +1,8 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/"
-package.path = "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua;"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local ROOT = T.path("runtime_client", "PsychopatzCore/")
+package.path = T.path("runtime_client", "?.lua;")
     .. package.path
 
 local function assertEqual(actual, expected, label)
@@ -49,7 +52,7 @@ ISRadioWindow = {
     prerender = function() end,
 }
 PsychopatzCore = {}
-dofile("Contents/mods/PsychopatzCore/common/media/lua/shared/"
+dofile(T.layerRoot("common_shared")
     .. "PsychopatzCore/Radio/PC_RadioDeviceState.lua")
 
 dofile(ROOT .. "UI/Radio/PsychopatzRadioActions.lua")

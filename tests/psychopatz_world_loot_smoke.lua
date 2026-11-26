@@ -1,5 +1,8 @@
-local SHARED_ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/shared/"
-local COMMON_ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local T = require "tests/support/test"
+T.addPackagePaths()
+
+local SHARED_ROOT = T.layerRoot("runtime_shared")
+local COMMON_ROOT = T.layerRoot("common_shared")
 package.path = SHARED_ROOT .. "?.lua;" .. COMMON_ROOT .. "?.lua;"
     .. package.path
 
