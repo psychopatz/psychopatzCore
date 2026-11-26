@@ -1,3 +1,6 @@
+local T = require "tests/support/test"
+T.addPackagePaths()
+
 local function equal(actual, expected, label)
     if actual ~= expected then
         error((label or "equal") .. " expected=" .. tostring(expected)

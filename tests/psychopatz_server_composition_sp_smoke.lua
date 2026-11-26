@@ -4,18 +4,13 @@ T.addPackagePaths()
 local SERVER = T.layerRoot("runtime_server")
 
 local loaded = {
-    feeding = 0,
     projection = 0,
     discovery = 0,
     bootstrap = 0,
+    worldEvents = 0,
+    vanillaDiscovery = 0,
 }
 
-package.preload[
-    "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard"
-] = function()
-    loaded.feeding = loaded.feeding + 1
-    return {}
-end
 package.preload[
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldProjectionServer"
 ] = function()
@@ -34,6 +29,18 @@ package.preload[
     loaded.bootstrap = loaded.bootstrap + 1
     return {}
 end
+package.preload[
+    "PsychopatzCore/WorldEvents/PsychopatzPZWorldEventAdapter"
+] = function()
+    loaded.worldEvents = loaded.worldEvents + 1
+    return {}
+end
+package.preload[
+    "PsychopatzCore/WorldEvents/PsychopatzVanillaDiscoveryAdapter"
+] = function()
+    loaded.vanillaDiscovery = loaded.vanillaDiscovery + 1
+    return {}
+end
 
 PsychopatzCore = {
     RuntimeRole = {
@@ -50,14 +57,16 @@ local composition = assert(dofile(
 ))
 assert(composition.serverLoaded == true,
     "single-player authority did not load server composition")
-assert(loaded.feeding == 1,
-    "single-player authority skipped server compatibility guard")
 assert(loaded.projection == 1,
     "single-player authority skipped SurvivorWorld projection server")
 assert(loaded.discovery == 1,
     "single-player authority skipped SurvivorWorld discovery server")
 assert(loaded.bootstrap == 1,
     "single-player authority skipped SurvivorWorld bootstrap server")
+assert(loaded.worldEvents == 1,
+    "single-player authority skipped PZ world event adapter")
+assert(loaded.vanillaDiscovery == 1,
+    "single-player authority skipped vanilla discovery adapter")
 
 -- A pure client must still refuse server composition.
 PsychopatzCore.Composition = {}

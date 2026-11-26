@@ -28,28 +28,28 @@ equal(Names.ResolveNickname("Patrick", "identity-patrick", {
 equal(Names.ResolveNickname("Ben", "identity-ben"), "Ben",
     "short forename remains a valid nickname")
 
--- Gender-aware nickname resolution for unisex forenames like Alex.
-local maleAlex = Names.ResolveNickname("Alex", "identity-alex", { isFemale = false })
-local femaleAlex = Names.ResolveNickname("Alex", "identity-alex", { isFemale = true })
-truthy(maleAlex == "Al" or maleAlex == "Lex",
-    "male Alex resolves to a male nickname alias")
-truthy(femaleAlex == "Lexi" or femaleAlex == "Lexy",
-    "female Alex resolves to a female nickname alias")
-local femaleAlexParts = Names.ResolveParts({
-    id = "npc-alex-f",
-    firstName = "Alex",
+-- Gender-aware nickname resolution for unisex forenames like Francis.
+local maleFrancis = Names.ResolveNickname("Francis", "identity-francis", { isFemale = false })
+local femaleFrancis = Names.ResolveNickname("Francis", "identity-francis", { isFemale = true })
+truthy(maleFrancis == "Frank" or maleFrancis == "Frankie",
+    "male Francis resolves to a male nickname alias")
+truthy(femaleFrancis == "Fran",
+    "female Francis resolves to a female nickname alias")
+local femaleFrancisParts = Names.ResolveParts({
+    id = "npc-francis-f",
+    firstName = "Francis",
     surname = "Mercer",
     isFemale = true,
 }, { resolveNickname = true, includeNickname = true })
-truthy(femaleAlexParts.nickname == "Lexi" or femaleAlexParts.nickname == "Lexy",
+truthy(femaleFrancisParts.nickname == "Fran",
     "ResolveParts propagates source.isFemale to nickname resolution")
-local maleAlexParts = Names.ResolveParts({
-    id = "npc-alex-m",
-    firstName = "Alex",
+local maleFrancisParts = Names.ResolveParts({
+    id = "npc-francis-m",
+    firstName = "Francis",
     surname = "Mercer",
     isFemale = false,
 }, { resolveNickname = true, includeNickname = true })
-truthy(maleAlexParts.nickname == "Al" or maleAlexParts.nickname == "Lex",
+truthy(maleFrancisParts.nickname == "Frank" or maleFrancisParts.nickname == "Frankie",
     "ResolveParts propagates male gender to nickname resolution")
 
 equal(Names.FormatDisplayName("Patrick Parker", "Pat"),

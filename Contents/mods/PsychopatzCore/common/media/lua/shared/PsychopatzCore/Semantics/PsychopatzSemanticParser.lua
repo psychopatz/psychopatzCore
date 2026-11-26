@@ -200,20 +200,26 @@ end
 
 function Parser.Parse(text, options)
     options = type(options) == "table" and options or {}
+    local clauseFrame = type(ClausePreParser) == "table"
+        and type(ClausePreParser.Analyze) == "function"
+        and ClausePreParser.Analyze(text, options.groupParticipants)
+        or nil
+    local hasClauseAudience = type(clauseFrame) == "table"
+        and type(clauseFrame.audienceScope) == "table"
+        and clauseFrame.audienceScope.scope ~= nil
+        and clauseFrame.audienceScope.scope ~= "DEFAULT"
     local addr = nil
     local parseText = text
     if (type(options.groupParticipants) == "table" or type(options.groupFloor) == "table")
         and type(GroupAddressing) == "table" and type(GroupAddressing.Resolve) == "function"
     then
         addr = GroupAddressing.Resolve(text, options.groupParticipants, options.groupFloor, options)
-        if addr and type(addr.cleanedText) == "string" and addr.cleanedText ~= "" then
+        if not hasClauseAudience
+            and addr and type(addr.cleanedText) == "string" and addr.cleanedText ~= ""
+        then
             parseText = addr.cleanedText
         end
     end
-    local clauseFrame = type(ClausePreParser) == "table"
-        and type(ClausePreParser.Analyze) == "function"
-        and ClausePreParser.Analyze(parseText, options.groupParticipants)
-        or nil
     local bundle = Parser.ParseCandidates(parseText, options)
     if type(bundle) == "table" and type(bundle.selected) == "table"
         and type(bundle.selected.ir) == "table"
@@ -581,6 +587,7 @@ end
 local function parseCacheKey(text, options, limit)
     if options.bypassCache == true
         or options.context ~= nil
+        or options.capabilities ~= nil
         or options.groupParticipants ~= nil
         or options._clauseCorePass == true
     then
@@ -802,12 +809,22 @@ function Parser.ParseCandidates(text, options)
         and type(VerbFrameParser.Parse) == "function"
     then
         local vfCandidate = VerbFrameParser.Parse(normalized, exactSymbols, options)
-        if not vfCandidate
-            and options.enableIntentClassifier ~= false
+        if options.enableIntentClassifier ~= false
             and type(IntentClassifier) == "table"
             and type(IntentClassifier.Classify) == "function"
         then
-            vfCandidate = IntentClassifier.Classify(normalized, options)
+            local icCandidate = IntentClassifier.Classify(normalized, options)
+            local icExact = type(icCandidate) == "table"
+                and type(icCandidate.ir) == "table"
+                and type(icCandidate.ir.diagnostics) == "table"
+                and icCandidate.ir.diagnostics.matchKind == "exact_phrase"
+            if type(icCandidate) == "table" and (
+                not vfCandidate
+                or icExact
+                or (tonumber(icCandidate.score) or 0) > (tonumber(vfCandidate.score) or 0)
+            ) then
+                vfCandidate = icCandidate
+            end
         end
         if type(vfCandidate) == "table" and type(vfCandidate.ir) == "table" then
             vfCandidate.pass = vfCandidate.pass or vfCandidate.source or "verb_frame"

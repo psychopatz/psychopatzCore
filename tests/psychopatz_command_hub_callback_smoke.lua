@@ -16,6 +16,10 @@ package.preload[
     "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"] = function()
         return {}
     end
+package.preload[
+    "PsychopatzCore/UI/Components/PsychopatzScrollPanel"] = function()
+        return {}
+    end
 
 dofile(ROOT .. "Components/PsychopatzUIControls.lua")
 

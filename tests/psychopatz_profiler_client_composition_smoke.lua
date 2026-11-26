@@ -48,6 +48,21 @@ package.preload["PsychopatzCore/UI/PsychopatzDebugHubWindow"] = function()
     }
     return PsychopatzCore.DebugHub
 end
+package.preload["PsychopatzCore/Compatibility/PsychopatzWalkieHotbarGuard"] = function()
+    return true
+end
+package.preload["PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"] = function()
+    return true
+end
+package.preload["PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldActorMap"] = function()
+    return true
+end
+package.preload["PsychopatzCore/UI/Map/PsychopatzMapToolsMenu"] = function()
+    return true
+end
+package.preload["PsychopatzCore/UI/Map/PsychopatzMapDebugTools"] = function()
+    return true
+end
 
 PsychopatzCore = { COMMAND_MODULE = "PsychopatzCore" }
 require "PsychopatzCore/Runtime/PC_RuntimeRole"

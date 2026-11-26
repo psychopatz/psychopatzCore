@@ -24,6 +24,20 @@ require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldActorMap"
 require "PsychopatzCore/UI/Map/PsychopatzMapToolsMenu"
 require "PsychopatzCore/UI/Map/PsychopatzMapDebugTools"
 
+local Bootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
+local Client = require "PsychopatzCore/Profiler/PsychopatzProfilerClient"
+Client.Start()
+local function startProfilerClient()
+    if Client.started then
+        Client.SetCaptureActive(true)
+        return true
+    end
+    return Client.Start()
+end
+local registered, reason = Bootstrap.RegisterRoleStarter("client", startProfilerClient)
+Composition.profilerRoleRegistered = registered
+Composition.profilerRoleReason = reason
+
 Composition.clientLoaded = true
 
 return Composition

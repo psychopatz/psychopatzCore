@@ -30,22 +30,24 @@ local seedB = Generation.ResolveWorldSeed({
 equal(seedA, seedB, "world seed deterministic")
 truthy(seedA > 0, "world seed positive")
 
--- Lock generic deterministic outputs to the current serialization-safe PNC
--- generation behavior that is being migrated into Core.
+-- Core ships a provider-neutral fallback name pool; adopters register their own
+-- archetype pools via Profiles.RegisterNamePool.
 equal(Generation.GenerationSeed(
     123, "GROUP", "psector_1_2", 7, "fixture"),
     1945112353, "PNC-compatible generation seed")
 equal(Generation.Profiles.FactionName("settler", 12345),
-    "Clearwater Enclave", "settler faction-name parity")
-equal(Generation.Profiles.FactionName("looter", 12345),
-    "The Broken Fangs", "looter faction-name parity")
-equal(Generation.Profiles.FactionName("trader", 12345),
-    "Riverside Exchange Caravan", "trader faction-name parity")
-equal(Generation.Profiles.FactionName("refugee", 12345),
-    "Hope Collective", "refugee faction-name parity")
+    "Survivor Group", "default fallback faction name")
+equal(Generation.Profiles.RegisterNamePool("fixture_looter", {
+    first = { "Broken" },
+    second = { "Fangs" },
+    site = { "Hold" },
+    article = true,
+}), true, "adopter name pool registers")
+equal(Generation.Profiles.FactionName("fixture_looter", 12345),
+    "The Broken Fangs", "registered faction-name determinism")
 equal(Generation.Profiles.CommunityName(
-    "looter", "The Broken Fangs", 12345),
-    "Broken Fangs Hold", "community-name parity")
+    "fixture_looter", "The Broken Fangs", 12345),
+    "Broken Fangs Hold", "registered community-name determinism")
 
 local sectorID, sx, sy = Generation.SectorID(2450, -150, 1000)
 equal(sectorID, "psector_2_-1", "sector id")

@@ -60,13 +60,19 @@ registerPattern("threat", "THREAT", "THREATEN", 0.97, 30)
 
 local cases = {
     { "fuckyou", "INSULT", "fuck you", "compact_alias" },
-    { "fuckyouuuu", "INSULT", "fuck you", "elongated_compact_alias" },
+    { "fuckyouuuu", "INSULT", "fuck you", "compact_alias" },
     { "shutthefuckup", "HOSTILE_REMARK", "shut the fuck up", "compact_alias" },
     { "youidiot", "INSULT", "you idiot", "compact_alias" },
     { "youreuseless", "INSULT", "you're useless", "compact_alias" },
     { "illkillyou", "THREATEN", "i'll kill you", "compact_alias" },
-    { "gooo away", "HOSTILE_REMARK", "go away", "elongation" },
 }
+
+-- Elongated tokens like "gooo away" are now collapsed directly by Normalizer.Normalize
+-- before surface recovery needs to run.
+local elongatedBundle = Semantic.Parser.ParseCandidates("gooo away", { enableFuzzy = true })
+assert(elongatedBundle.selected, "elongated input must match")
+assertEqual(elongatedBundle.selected.ir.intent, "HOSTILE_REMARK", "intent gooo away")
+assertEqual(elongatedBundle.selected.ir.normalizedText, "go away", "normalizer collapsed gooo away")
 
 for _, case in ipairs(cases) do
     local bundle = Semantic.Parser.ParseCandidates(case[1], {
@@ -87,8 +93,8 @@ for _, case in ipairs(cases) do
     )
     assertEqual(
         bundle.selected.ir.normalizedText,
-        Semantic.Normalizer.NormalizePhrase(case[1]),
-        "IR preserves original normalized input " .. case[1]
+        Semantic.Normalizer.Normalize(case[1]).normalizedText,
+        "IR preserves normalized input " .. case[1]
     )
     assert(
         bundle.selected.ir.provenance.surfaceRecovery ~= nil,

@@ -44,6 +44,22 @@ Events = {
     },
 }
 
+package.preload["PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldProjectionServer"] = function()
+    return true
+end
+package.preload["PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscoveryServer"] = function()
+    return true
+end
+package.preload["PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldBootstrapServer"] = function()
+    return true
+end
+package.preload["PsychopatzCore/WorldEvents/PsychopatzPZWorldEventAdapter"] = function()
+    return true
+end
+package.preload["PsychopatzCore/WorldEvents/PsychopatzVanillaDiscoveryAdapter"] = function()
+    return true
+end
+
 PsychopatzCore = { COMMAND_MODULE = "PsychopatzCore" }
 require "PsychopatzCore/Runtime/PC_RuntimeRole"
 local Bootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"

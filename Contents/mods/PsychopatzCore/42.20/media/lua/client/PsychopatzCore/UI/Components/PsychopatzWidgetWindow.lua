@@ -25,8 +25,12 @@ local function syncKey(window)
     local theme = UI.Theme
     local revision = theme and theme.GetRevision
         and theme.GetRevision() or 0
+    local width = window.getWidth and window:getWidth() or window.width or 0
+    local scale = window.psychopatzTitlebarControlScale or 1
     return tostring(window.psychopatzWidgetDetached == true)
         .. ":" .. tostring(revision)
+        .. ":" .. tostring(width)
+        .. ":" .. tostring(scale)
 end
 
 local function syncTooltip(window)

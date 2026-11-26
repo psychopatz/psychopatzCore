@@ -22,6 +22,8 @@ package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =
     function() return PsychopatzCore.UI.Layout end
 package.preload["PsychopatzCore/UI/Components/PsychopatzVirtualizedList"] =
     function() return {} end
+package.preload["PsychopatzCore/UI/Components/PsychopatzScrollPanel"] =
+    function() return {} end
 
 local UI = PsychopatzCore.UI
 dofile(ROOT .. "Components/PsychopatzUIControls.lua")

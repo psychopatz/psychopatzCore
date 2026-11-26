@@ -26,6 +26,18 @@ require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldBootstrapServ
 require "PsychopatzCore/WorldEvents/PsychopatzPZWorldEventAdapter"
 require "PsychopatzCore/WorldEvents/PsychopatzVanillaDiscoveryAdapter"
 
+if RuntimeRole and RuntimeRole.IsServer and RuntimeRole.IsServer() then
+    local Bootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
+    local function startProfilerServer()
+        local Server = require "PsychopatzCore/Profiler/PsychopatzProfilerServer"
+        if Server.started then return true end
+        return Server.Start()
+    end
+    local registered, reason = Bootstrap.RegisterRoleStarter("server", startProfilerServer)
+    Composition.profilerRoleRegistered = registered
+    Composition.profilerRoleReason = reason
+end
+
 Composition.serverLoaded = true
 
 return Composition

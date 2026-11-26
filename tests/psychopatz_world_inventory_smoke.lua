@@ -38,6 +38,7 @@ local player = {
 
 isServer = function() return multiplayerServer end
 isClient = function() return multiplayerClient end
+isDebugEnabled = function() return true end
 getSpecificPlayer = function() return player end
 sendServerCommand = function(target, module, command, args)
     sentApproval = { target = target, module = module, command = command, args = args }
@@ -45,6 +46,7 @@ end
 SendCommandToServer = function(command) nativeCommand = command end
 
 local Teleport = require "PsychopatzCore/World/PsychopatzTeleport"
+require "PsychopatzCore/World/PsychopatzTeleportClient"
 assertEqual(Teleport.ToCoordinates(player, 12000.5, 13000.25, 1.9), true, "single-player teleport")
 assertEqual(localTeleport.x, 12000.5, "single-player x")
 assertEqual(localTeleport.z, 1, "single-player z normalized")
@@ -57,8 +59,11 @@ assertEqual(sentApproval.command, "TeleportApproved", "approval command")
 
 multiplayerServer = false
 multiplayerClient = true
+localTeleport = nil
 serverCommandHandler(sentApproval.module, sentApproval.command, sentApproval.args)
-assertEqual(nativeCommand, "/teleportto 25000.5,26000.5,2", "base-game teleport handoff")
+assertEqual(localTeleport and localTeleport.x, 25000.5, "client applies approved teleport x")
+assertEqual(localTeleport and localTeleport.y, 26000.5, "client applies approved teleport y")
+assertEqual(localTeleport and localTeleport.z, 2, "client applies approved teleport z")
 assertEqual(Teleport.ToCoordinates(player, 0 / 0, 1, 0), false, "invalid coordinate rejected")
 
 local addedPackets = {}
