@@ -58,6 +58,106 @@ local function baseDiagnostics(normalized, symbols)
     return diagnostics
 end
 
+local function applyClauseFrameToIR(ir, clauseFrame)
+    if type(ir) ~= "table" or type(clauseFrame) ~= "table" then return end
+    ir.extensions = type(ir.extensions) == "table" and ir.extensions or {}
+    if ir.extensions.modality == nil then
+        ir.extensions.modality = clauseFrame.modality
+    end
+    if clauseFrame.negated == true and ir.extensions.negated ~= true then
+        ir.polarity = "negative"
+        ir.extensions.negated = true
+        ir.extensions.negationCue = clauseFrame.negationCue
+        if ir.action ~= nil
+            and ir.extensions.originalAction == nil
+            and type(VerbFrameParser) == "table"
+            and type(VerbFrameParser.ResolveNegatedAction) == "function"
+        then
+            local inv = VerbFrameParser.ResolveNegatedAction(ir.action)
+            if inv and inv ~= ir.action then
+                ir.extensions.originalAction = ir.action
+                ir.action = inv
+            end
+        end
+    end
+    if type(clauseFrame.audienceScope) == "table"
+        and clauseFrame.audienceScope.scope ~= "DEFAULT"
+        and ir.extensions.audienceScope == nil
+    then
+        ir.extensions.audienceScope = IR.Clone(clauseFrame.audienceScope)
+        if clauseFrame.audienceScope.scope == "GROUP" then
+            ir.extensions.groupBroadcast = true
+        elseif clauseFrame.audienceScope.scope == "INDIVIDUAL"
+            and type(clauseFrame.audienceScope.targetIDs) == "table"
+            and #clauseFrame.audienceScope.targetIDs == 1
+            and ir.extensions.vocativeTargetID == nil
+        then
+            ir.extensions.vocativeTargetID = clauseFrame.audienceScope.targetIDs[1]
+        end
+    end
+end
+
+local function candidatePassTier(candidate)
+    if type(candidate) ~= "table" then return 0 end
+    local pass = tostring(candidate.pass or "")
+    if pass == "exact" then return 4 end
+    if pass == "fuzzy" or pass == "recovered" then return 3 end
+    if pass == "verb_frame" then return 2 end
+    if pass == "intent_classifier" or pass == "followup" then return 1 end
+    return 1
+end
+
+local function isWeakRawSelection(bundle)
+    if type(bundle) ~= "table" or type(bundle.selected) ~= "table" then
+        return true
+    end
+    local sel = bundle.selected
+    if tostring(sel.pass or "") ~= "exact" then
+        return true
+    end
+    local match = type(sel.match) == "table" and sel.match or nil
+    if match and ((tonumber(match.unmatchedCount) or 0) > 0
+        or (tonumber(match.unresolvedCount) or 0) > 0)
+    then
+        return true
+    end
+    if (tonumber(sel.confidence) or 0) < 0.90 then
+        return true
+    end
+    return false
+end
+
+local function isBetterSelectedCandidate(coreSel, rawSel)
+    if type(coreSel) ~= "table" then return false end
+    if type(rawSel) ~= "table" then return true end
+    local coreTier = candidatePassTier(coreSel)
+    local rawTier = candidatePassTier(rawSel)
+    if coreTier ~= rawTier then
+        return coreTier > rawTier
+    end
+    local coreConf = tonumber(coreSel.confidence) or 0
+    local rawConf = tonumber(rawSel.confidence) or 0
+    if coreConf > rawConf + 0.02 then
+        return true
+    end
+    if rawConf > coreConf + 0.02 then
+        return false
+    end
+    local coreMatch = type(coreSel.match) == "table" and coreSel.match or {}
+    local rawMatch = type(rawSel.match) == "table" and rawSel.match or {}
+    local coreUnmatched = tonumber(coreMatch.unmatchedCount) or 0
+    local rawUnmatched = tonumber(rawMatch.unmatchedCount) or 0
+    if coreUnmatched ~= rawUnmatched then
+        return coreUnmatched < rawUnmatched
+    end
+    local coreUnresolved = tonumber(coreMatch.unresolvedCount) or 0
+    local rawUnresolved = tonumber(rawMatch.unresolvedCount) or 0
+    if coreUnresolved ~= rawUnresolved then
+        return coreUnresolved < rawUnresolved
+    end
+    return false
+end
+
 function Parser.Parse(text, options)
     options = type(options) == "table" and options or {}
     local addr = nil
@@ -72,28 +172,9 @@ function Parser.Parse(text, options)
     end
     local clauseFrame = type(ClausePreParser) == "table"
         and type(ClausePreParser.Analyze) == "function"
-        and ClausePreParser.Analyze(text, options.groupParticipants)
+        and ClausePreParser.Analyze(parseText, options.groupParticipants)
         or nil
-    local hasCleanCore = clauseFrame and clauseFrame.changed == true
-        and type(clauseFrame.coreText) == "string"
-        and clauseFrame.coreText ~= ""
-        and clauseFrame.coreText ~= parseText
-    local firstOpts = options
-    if hasCleanCore then
-        firstOpts = {}
-        for k, v in pairs(options) do firstOpts[k] = v end
-        firstOpts.enableVerbFrames = false
-    end
-    local bundle = Parser.ParseCandidates(parseText, firstOpts)
-    if (type(bundle) ~= "table" or type(bundle.selected) ~= "table") and hasCleanCore then
-        local cleanOpts = options
-        if clauseFrame.negated == true then
-            cleanOpts = {}
-            for k, v in pairs(options) do cleanOpts[k] = v end
-            cleanOpts.negated = true
-        end
-        bundle = Parser.ParseCandidates(clauseFrame.coreText, cleanOpts)
-    end
+    local bundle = Parser.ParseCandidates(parseText, options)
     if type(bundle) == "table" and type(bundle.selected) == "table"
         and type(bundle.selected.ir) == "table"
     then
@@ -107,37 +188,7 @@ function Parser.Parse(text, options)
                 if addr.referencedActorID ~= nil then cloned.extensions.referencedActorID = addr.referencedActorID end
             end
             if clauseFrame then
-                cloned.extensions.modality = clauseFrame.modality
-                if clauseFrame.negated == true then
-                    cloned.polarity = "negative"
-                    cloned.extensions.negated = true
-                    cloned.extensions.negationCue = clauseFrame.negationCue
-                    if cloned.action ~= nil
-                        and cloned.extensions.originalAction == nil
-                        and type(VerbFrameParser) == "table"
-                        and type(VerbFrameParser.ResolveNegatedAction) == "function"
-                    then
-                        local inv = VerbFrameParser.ResolveNegatedAction(cloned.action)
-                        if inv and inv ~= cloned.action then
-                            cloned.extensions.originalAction = cloned.action
-                            cloned.action = inv
-                        end
-                    end
-                end
-                if type(clauseFrame.audienceScope) == "table"
-                    and clauseFrame.audienceScope.scope ~= "DEFAULT"
-                then
-                    cloned.extensions.audienceScope = IR.Clone(clauseFrame.audienceScope)
-                    if clauseFrame.audienceScope.scope == "GROUP" then
-                        cloned.extensions.groupBroadcast = true
-                    elseif clauseFrame.audienceScope.scope == "INDIVIDUAL"
-                        and type(clauseFrame.audienceScope.targetIDs) == "table"
-                        and #clauseFrame.audienceScope.targetIDs == 1
-                        and cloned.extensions.vocativeTargetID == nil
-                    then
-                        cloned.extensions.vocativeTargetID = clauseFrame.audienceScope.targetIDs[1]
-                    end
-                end
+                applyClauseFrameToIR(cloned, clauseFrame)
             end
         end
         return cloned
@@ -488,13 +539,20 @@ local function clearParseCache(rev)
 end
 
 local function parseCacheKey(text, options, limit)
-    if options.bypassCache == true or options.context ~= nil then return nil end
+    if options.bypassCache == true
+        or options.context ~= nil
+        or options.groupParticipants ~= nil
+        or options._clauseCorePass == true
+    then
+        return nil
+    end
     local raw = tostring(text or "")
     if #raw > 256 then return nil end
     return raw .. "|" .. tostring(limit)
         .. "|" .. (options.enableFuzzy == false and "0" or "1")
         .. "|" .. (options.enableSurfaceRecovery == false and "0" or "1")
         .. "|" .. (options.enableVerbFrames == false and "0" or "1")
+        .. "|" .. (options.enableClausePreParser == false and "0" or "1")
         .. "|" .. (options.negated == true and "1" or "0")
 end
 
@@ -528,6 +586,59 @@ function Parser.ParseCandidates(text, options)
     local cacheKey = parseCacheKey(text, options, limit)
     if cacheKey and parseCache[cacheKey] ~= nil then
         return IR.Clone(parseCache[cacheKey])
+    end
+
+    if options._clauseCorePass ~= true
+        and options.enableClausePreParser ~= false
+        and type(ClausePreParser) == "table"
+        and type(ClausePreParser.Analyze) == "function"
+    then
+        local clauseFrame = ClausePreParser.Analyze(text, options.groupParticipants)
+        local hasCleanCore = type(clauseFrame) == "table"
+            and clauseFrame.changed == true
+            and type(clauseFrame.coreText) == "string"
+            and clauseFrame.coreText ~= ""
+            and string.lower(clauseFrame.coreText) ~= string.lower(tostring(text or ""))
+        if hasCleanCore then
+            local rawOpts = {}
+            for k, v in pairs(options) do rawOpts[k] = v end
+            rawOpts._clauseCorePass = true
+            rawOpts.enableVerbFrames = false
+            local rawBundle = Parser.ParseCandidates(text, rawOpts)
+            local chosen = rawBundle
+            if isWeakRawSelection(rawBundle) then
+                local coreOpts = {}
+                for k, v in pairs(options) do coreOpts[k] = v end
+                coreOpts._clauseCorePass = true
+                if clauseFrame.negated == true then
+                    coreOpts.negated = true
+                end
+                local coreBundle = Parser.ParseCandidates(clauseFrame.coreText, coreOpts)
+                if type(coreBundle) == "table" and type(coreBundle.selected) == "table"
+                    and (type(rawBundle) ~= "table"
+                        or type(rawBundle.selected) ~= "table"
+                        or isBetterSelectedCandidate(coreBundle.selected, rawBundle.selected))
+                then
+                    coreBundle.rawText = tostring(text or "")
+                    coreBundle.diagnostics = type(coreBundle.diagnostics) == "table"
+                        and coreBundle.diagnostics or {}
+                    coreBundle.diagnostics.clausePreParsed = true
+                    coreBundle.diagnostics.clauseCoreText = clauseFrame.coreText
+                    for i = 1, #(coreBundle.candidates or {}) do
+                        local cand = coreBundle.candidates[i]
+                        if type(cand) == "table" and type(cand.ir) == "table" then
+                            cand.ir.rawText = tostring(text or "")
+                            applyClauseFrameToIR(cand.ir, clauseFrame)
+                        end
+                    end
+                    chosen = coreBundle
+                end
+            end
+            if cacheKey and type(chosen) == "table" then
+                storeParseCache(cacheKey, IR.Clone(chosen))
+            end
+            return chosen
+        end
     end
 
     local normalized = Normalizer.Normalize(text, options)

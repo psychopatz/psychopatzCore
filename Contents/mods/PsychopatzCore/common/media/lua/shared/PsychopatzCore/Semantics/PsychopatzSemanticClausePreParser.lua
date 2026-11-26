@@ -54,15 +54,29 @@ PreParser.ModalPrefixes = PreParser.ModalPrefixes or {
     { phrase = "could you",           modality = "polite" },
     { phrase = "can you",             modality = "polite" },
     { phrase = "will you",            modality = "polite" },
+    { phrase = "could we",            modality = "polite" },
+    { phrase = "can we",              modality = "polite" },
+    { phrase = "should we",           modality = "suggestion" },
+    { phrase = "shall we",            modality = "suggestion" },
+    { phrase = "we should",           modality = "suggestion" },
+    { phrase = "we need to",          modality = "imperative" },
+    { phrase = "we have to",          modality = "imperative" },
     { phrase = "ought to",            modality = "suggestion" },
     { phrase = "need to",             modality = "imperative" },
     { phrase = "have to",             modality = "imperative" },
     { phrase = "should",              modality = "suggestion" },
     { phrase = "better",              modality = "suggestion" },
     { phrase = "please",              modality = "polite" },
+    { phrase = "let us",              modality = "suggestion" },
     { phrase = "let's",               modality = "suggestion" },
     { phrase = "lets",                modality = "suggestion" },
     { phrase = "just",                modality = "suggestion" },
+    { phrase = "all right",           modality = "imperative" },
+    { phrase = "alright",             modality = "imperative" },
+    { phrase = "okay",                modality = "imperative" },
+    { phrase = "ok",                  modality = "imperative" },
+    { phrase = "well",                modality = "suggestion" },
+    { phrase = "so",                  modality = "suggestion" },
     { phrase = "hey",                 modality = "imperative" },
     { phrase = "yo",                  modality = "imperative" },
     { phrase = "listen",              modality = "imperative" },
@@ -394,6 +408,54 @@ function PreParser.Analyze(text, participants)
 
     -- 3) Strip modal/politeness wrappers ("should", "could you", "please", "go ahead and", ...)
     local afterModals, modality, strippedModals = stripModals(working)
+    -- 3b) If a leading discourse opener ("alright", "okay", "well", ...) was stripped
+    --     and audience scope was not yet detected, retry broadcast / vocative extraction
+    --     so wrappers like "alright guys, can we camp here" peel cleanly.
+    if #strippedModals > 0 and audienceScope.scope == "DEFAULT" then
+        local retryBroadcast, retryAfterBroadcast, retryPhrase = matchBroadcastPrefix(afterModals)
+        if retryBroadcast then
+            afterModals = retryAfterBroadcast
+            local retryExcluded, retryAfterExclude = matchExclusionAfterBroadcast(afterModals, participants)
+            if retryExcluded and #retryExcluded > 0 then
+                afterModals = retryAfterExclude
+                audienceScope = {
+                    scope = "GROUP_EXCEPT",
+                    excludeIDs = retryExcluded,
+                    matchedPhrase = retryPhrase,
+                }
+            else
+                audienceScope = {
+                    scope = "GROUP",
+                    matchedPhrase = retryPhrase,
+                }
+            end
+            local moreText, moreModality, moreStripped = stripModals(afterModals)
+            afterModals = moreText
+            if #moreStripped > 0 then
+                modality = moreModality
+                for i = 1, #moreStripped do
+                    strippedModals[#strippedModals + 1] = moreStripped[i]
+                end
+            end
+        else
+            local retryTargets, retryAfterNames = matchLeadingParticipantList(afterModals, participants)
+            if retryTargets and #retryTargets > 0 then
+                afterModals = retryAfterNames
+                audienceScope = {
+                    scope = "INDIVIDUAL",
+                    targetIDs = retryTargets,
+                }
+                local moreText, moreModality, moreStripped = stripModals(afterModals)
+                afterModals = moreText
+                if #moreStripped > 0 then
+                    modality = moreModality
+                    for i = 1, #moreStripped do
+                        strippedModals[#strippedModals + 1] = moreStripped[i]
+                    end
+                end
+            end
+        end
+    end
     -- 4) Detect leading negation ("don't", "do not", "stop", "never", ...)
     local afterNeg, negated, negationCue = stripNegation(afterModals)
     -- 5) Strip trailing softeners ("for a bit", "please", "right now", ...)

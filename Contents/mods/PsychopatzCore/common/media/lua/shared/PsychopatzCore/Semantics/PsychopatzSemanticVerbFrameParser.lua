@@ -127,14 +127,76 @@ function VerbFrame.RegisterVerbFrame(frameID, spec)
     return true
 end
 
+function VerbFrame.AuditCollisions()
+    local seenVerbs = {}
+    local seenConcepts = {}
+    local collisions = {}
+    local frameIDs = {}
+    for id in pairs(VerbFrame.Frames) do
+        frameIDs[#frameIDs + 1] = id
+    end
+    table.sort(frameIDs)
+    for i = 1, #frameIDs do
+        local id = frameIDs[i]
+        local spec = VerbFrame.Frames[id]
+        if type(spec) == "table" then
+            if type(spec.verbs) == "table" then
+                for j = 1, #spec.verbs do
+                    local w = string.lower(tostring(spec.verbs[j] or ""))
+                    if w ~= "" then
+                        if seenVerbs[w] and seenVerbs[w] ~= id then
+                            collisions[#collisions + 1] = {
+                                kind = "verb",
+                                key = w,
+                                firstFrame = seenVerbs[w],
+                                secondFrame = id,
+                            }
+                        else
+                            seenVerbs[w] = id
+                        end
+                    end
+                end
+            end
+            if type(spec.concepts) == "table" then
+                for j = 1, #spec.concepts do
+                    local c = string.upper(tostring(spec.concepts[j] or ""))
+                    if c ~= "" then
+                        if seenConcepts[c] and seenConcepts[c] ~= id then
+                            collisions[#collisions + 1] = {
+                                kind = "concept",
+                                key = c,
+                                firstFrame = seenConcepts[c],
+                                secondFrame = id,
+                            }
+                        else
+                            seenConcepts[c] = id
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return collisions
+end
+
 -- Built-in verb frames (extensible by mods via VerbFrame.RegisterVerbFrame).
 VerbFrame.RegisterVerbFrame("WAIT", {
     concepts = { "WAIT", "STAY" },
-    verbs = { "stay", "staying", "wait", "waiting", "hold", "holding", "stand", "standing", "remain", "stop", "camp", "hang" },
+    verbs = { "stay", "staying", "wait", "waiting", "hold", "holding", "remain", "stop", "hang" },
     intent = "REQUEST",
     speechAct = "REQUEST",
     bareAction = "STAY",
     spatialAction = "WAIT_AT",
+    confidence = 0.86,
+})
+
+VerbFrame.RegisterVerbFrame("CAMP", {
+    concepts = { "CAMP" },
+    verbs = { "camp", "camping", "bivouac", "encamp" },
+    intent = "REQUEST",
+    speechAct = "REQUEST",
+    bareAction = "CAMP",
+    spatialAction = "CAMP",
     confidence = 0.86,
 })
 
@@ -418,6 +480,20 @@ function VerbFrame.Parse(normalized, symbols, parseOpts)
         local fid, spec, endIdx = resolveFrameAt(symbols, tokens, i)
         if fid and spec then
             frameID, frame, verbEndIdx = fid, spec, endIdx
+            -- Auxiliary motion verb + specific domain verb ("go camping", "go loot ...",
+            -- "go guard ...", "go and fetch ..."): prefer the specific domain frame.
+            if fid == "MOVE" then
+                local nextIdx = endIdx + 1
+                if nextIdx <= #tokens and tokens[nextIdx] == "and" then
+                    nextIdx = nextIdx + 1
+                end
+                if nextIdx <= #tokens then
+                    local subFid, subSpec, subEnd = resolveFrameAt(symbols, tokens, nextIdx)
+                    if subFid and subSpec and subFid ~= "MOVE" then
+                        frameID, frame, verbEndIdx = subFid, subSpec, subEnd
+                    end
+                end
+            end
             break
         end
     end
