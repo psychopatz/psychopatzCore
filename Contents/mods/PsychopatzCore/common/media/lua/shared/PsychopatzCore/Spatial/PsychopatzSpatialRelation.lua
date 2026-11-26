@@ -353,4 +353,23 @@ function Relation.RelativeToHeading(fromPoint, toPoint, heading, options)
     return relation
 end
 
+-- Project Zomboid's fixed isometric camera always looks toward Northwest (-X, -Y):
+--   Screen UP    = NW (-0.7071, -0.7071) -> AHEAD / 12 o'clock
+--   Screen RIGHT = NE (+0.7071, -0.7071) -> RIGHT / 3 o'clock
+--   Screen DOWN  = SE (+0.7071, +0.7071) -> BEHIND / 6 o'clock
+--   Screen LEFT  = SW (-0.7071, +0.7071) -> LEFT / 9 o'clock
+Relation.ISOMETRIC_SCREEN_HEADING = Relation.ISOMETRIC_SCREEN_HEADING or {
+    x = -0.7071067811865476,
+    y = -0.7071067811865476,
+}
+
+function Relation.RelativeToIsometricScreen(fromPoint, toPoint, options)
+    return Relation.RelativeToHeading(
+        fromPoint,
+        toPoint,
+        Relation.ISOMETRIC_SCREEN_HEADING,
+        options
+    )
+end
+
 return Relation
