@@ -432,6 +432,21 @@ function Loader.ApplyScripts(scripts, langOverride)
                     end
                 end
 
+                local defaultPresentationClass = nil
+                if string.sub(pool.poolID, 1, 16) == "semantic.combat." then
+                    local hasTacticalAction = false
+                    if planOffers then
+                        for oIdx = 1, #planOffers do
+                            local act = planOffers[oIdx].frame and planOffers[oIdx].frame.action
+                            if type(act) == "string" and string.sub(act, 1, 7) == "COMBAT_" then
+                                hasTacticalAction = true
+                                break
+                            end
+                        end
+                    end
+                    defaultPresentationClass = hasTacticalAction and "TACTICAL_PROMPT" or "BARK"
+                end
+
                 local variants = {}
                 for vIdx = 1, #pool.variants do
                     local var = pool.variants[vIdx]
@@ -470,14 +485,19 @@ function Loader.ApplyScripts(scripts, langOverride)
                             priority = var.priority or 6,
                             hasTokens = hasTokens,
                             theme = var.theme,
-                            plan = { sourcePoolID = pool.poolID, turns = turns },
+                            plan = {
+                                sourcePoolID = pool.poolID,
+                                presentationClass = defaultPresentationClass,
+                                turns = turns,
+                            },
                         }
                     else
                         local hasTokens = string.find(var.fallback, "{", 1, true) ~= nil
                         local plan = nil
-                        if planOffers then
+                        if planOffers or defaultPresentationClass ~= nil then
                             plan = {
                                 sourcePoolID = pool.poolID,
+                                presentationClass = defaultPresentationClass,
                                 turns = {
                                     {
                                         segments = {
