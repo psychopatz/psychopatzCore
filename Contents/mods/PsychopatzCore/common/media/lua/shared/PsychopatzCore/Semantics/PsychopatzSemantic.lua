@@ -26,6 +26,8 @@ Semantics.PatternMatcher = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPatternMatcher"
 Semantics.Parser = require
     "PsychopatzCore/Semantics/PsychopatzSemanticParser"
+Semantics.Autocomplete = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticAutocomplete"
 Semantics.PackRegistry = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPackRegistry"
 

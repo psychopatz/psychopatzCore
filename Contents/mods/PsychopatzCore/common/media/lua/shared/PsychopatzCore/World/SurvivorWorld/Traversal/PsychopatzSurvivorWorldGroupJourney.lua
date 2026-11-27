@@ -397,6 +397,13 @@ function Journey.Advance(journey, now)
 end
 
 function Journey.ProjectPosition(journey, now)
+    -- Guard against callers passing real-time milliseconds (> 1e8) instead of
+    -- worldAgeHours, which would silently clamp the group to its destination.
+    if type(journey) == "table" and tonumber(now) and tonumber(now) >= 100000000
+        and (tonumber(journey.lastAdvancedAt) or 0) < 100000000
+    then
+        now = tonumber(journey.lastAdvancedAt) or tonumber(journey.startAt) or 0
+    end
     local projected, reason = Journey.Advance(journey, now)
     if not projected then return nil, reason end
     return {

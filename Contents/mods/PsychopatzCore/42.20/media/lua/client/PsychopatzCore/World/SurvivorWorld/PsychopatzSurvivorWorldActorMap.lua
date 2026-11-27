@@ -397,6 +397,39 @@ function ActorMap.ListDiagnostics()
     return output
 end
 
+local ROUTE_ARCHETYPE_COLORS = {
+    looter = { r = 1.00, g = 0.22, b = 0.16 },
+    raider = { r = 1.00, g = 0.22, b = 0.16 },
+    bandit = { r = 1.00, g = 0.22, b = 0.16 },
+    hostile = { r = 1.00, g = 0.22, b = 0.16 },
+    trader = { r = 1.00, g = 0.78, b = 0.18 },
+    caravan = { r = 1.00, g = 0.78, b = 0.18 },
+    scavenger = { r = 0.95, g = 0.55, b = 0.15 },
+    refugee = { r = 0.25, g = 0.75, b = 1.00 },
+}
+
+local function routeColorFor(marker)
+    local entry = marker and marker.entry or nil
+    if type(entry) == "table" then
+        if entry.recruited == true or entry.colonyOwned == true then
+            return marker.color
+        end
+        local hint = string.lower(table.concat({
+            tostring(entry.groupType or ""),
+            tostring(entry.archetypeID or entry.archetype or ""),
+            tostring(entry.role or entry.roleTag or ""),
+            tostring(entry.tacticalClass or ""),
+            tostring(entry.factionKind or ""),
+        }, " "))
+        for key, col in pairs(ROUTE_ARCHETYPE_COLORS) do
+            if string.find(hint, key, 1, true) then
+                return col
+            end
+        end
+    end
+    return marker.color
+end
+
 local function drawRoute(map, marker)
     if not marker or not (marker.selected or marker.tracked
         or Client.IsDebugPresentationEnabled and Client.IsDebugPresentationEnabled())
@@ -414,6 +447,7 @@ local function drawRoute(map, marker)
     then
         return
     end
+    local rCol = routeColorFor(marker)
     for index = 1, #points - 1 do
         local from = points[index]
         local to = points[index + 1]
@@ -425,9 +459,9 @@ local function drawRoute(map, marker)
                 map.mapAPI:worldToUIX(to.x, to.y),
                 map.mapAPI:worldToUIY(to.x, to.y),
                 2,
-                marker.color.r,
-                marker.color.g,
-                marker.color.b,
+                rCol.r,
+                rCol.g,
+                rCol.b,
                 0.8
             )
         end

@@ -6,6 +6,8 @@ local Client = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
 local CorridorGraph = require
     "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
+local WorldEvents = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldEvents"
 local Host = require "PsychopatzCore/UI/Map/PsychopatzMapHost"
 
 PsychopatzCore = PsychopatzCore or {}
@@ -13,13 +15,61 @@ PsychopatzCore.SurvivorWorldCorridorMap =
     PsychopatzCore.SurvivorWorldCorridorMap or {}
 
 local CorridorMap = PsychopatzCore.SurvivorWorldCorridorMap
-CorridorMap.Enabled = CorridorMap.Enabled ~= false
+-- Opt-in via Map Tools ("CORRIDOR GRAPH") so the MetaGrid node web never
+-- clutters normal debug actor/route inspection unless explicitly toggled ON.
+CorridorMap.Enabled = CorridorMap.Enabled == true
+
+function CorridorMap.IsEnabled()
+    return CorridorMap.Enabled == true
+end
+
+function CorridorMap.SetEnabled(enabled)
+    CorridorMap.Enabled = enabled == true
+    return CorridorMap.Enabled
+end
 
 local function isDebugVisible()
     return CorridorMap.Enabled == true
         and Client
         and type(Client.IsDebugPresentationEnabled) == "function"
         and Client.IsDebugPresentationEnabled() == true
+end
+
+function CorridorMap.ListDiagnostics()
+    local rows = {}
+    local snapshot = CorridorGraph.GetDebugSnapshot()
+    if type(snapshot) == "table" then
+        local nodes = snapshot.nodes or {}
+        for i = 1, #nodes do
+            local n = nodes[i]
+            if n.kind == "settlement" then
+                rows[#rows + 1] = {
+                    id = tostring(n.id),
+                    label = tostring(n.label or n.id),
+                    kind = "corridor_settlement",
+                    x = n.x,
+                    y = n.y,
+                    detail = "sector=" .. tostring(n.sectorKey or "")
+                        .. " nodes=" .. tostring(#nodes)
+                        .. " edges=" .. tostring(#(snapshot.edges or {})),
+                }
+            end
+        end
+    end
+    local events = WorldEvents and type(WorldEvents.List) == "function"
+        and WorldEvents.List() or {}
+    for i = 1, #events do
+        local ev = events[i]
+        rows[#rows + 1] = {
+            id = tostring(ev.id),
+            label = tostring(ev.kind) .. " (" .. tostring(ev.ownerMod or "Core") .. ")",
+            kind = "world_event_" .. string.lower(tostring(ev.kind or "event")),
+            x = ev.x,
+            y = ev.y,
+            detail = tostring(ev.summary or ""),
+        }
+    end
+    return rows
 end
 
 function CorridorMap.Render(map)
@@ -68,28 +118,25 @@ function CorridorMap.Render(map)
         end
     end
 
-    -- Render off-camera aftermath / SOS / hazard debug markers when available
-    -- (strictly gated behind Core debug presentation; normal map stays clean).
-    local aftermath = _G.PNC and _G.PNC.AbstractAftermathService or nil
-    if aftermath and type(aftermath.GetDebugSnapshot) == "function" then
-        local aSnap = aftermath.GetDebugSnapshot()
-        local sites = type(aSnap) == "table" and aSnap.sites or {}
-        for i = 1, #sites do
-            local s = sites[i]
-            local sx = map.mapAPI:worldToUIX(s.x, s.y)
-            local sy = map.mapAPI:worldToUIY(s.x, s.y)
-            if sx >= -16 and sy >= -16 and sx <= width + 16 and sy <= height + 16 then
-                local isSOS = s.kind == "COLONIST_SOS"
-                local isDead = s.kind == "COLONIST_DEAD"
-                local r = isSOS and 1.0 or (isDead and 0.95 or 0.35)
-                local g = isSOS and 0.58 or (isDead and 0.15 or 0.95)
-                local b = isSOS and 0.10 or (isDead and 0.15 or 0.45)
-                if map.drawRect then
-                    map:drawRect(sx - 4, sy - 4, 8, 8, 0.95, r, g, b)
-                end
-                if map.drawRectBorder then
-                    map:drawRectBorder(sx - 5, sy - 5, 10, 10, 0.95, 0.05, 0.05, 0.05)
-                end
+    -- Render canonical Core SurvivorWorld Events (aftermath, SOS, and any future
+    -- Events Mod world events) strictly gated behind debug presentation.
+    local events = WorldEvents and type(WorldEvents.List) == "function"
+        and WorldEvents.List() or {}
+    for i = 1, #events do
+        local ev = events[i]
+        local sx = map.mapAPI:worldToUIX(ev.x, ev.y)
+        local sy = map.mapAPI:worldToUIY(ev.x, ev.y)
+        if sx >= -16 and sy >= -16 and sx <= width + 16 and sy <= height + 16 then
+            local isSOS = ev.kind == "COLONIST_SOS"
+            local isDead = ev.kind == "COLONIST_DEAD" or ev.kind == "HAZARD_OVERWHELMED"
+            local r = isSOS and 1.0 or (isDead and 0.95 or 0.35)
+            local g = isSOS and 0.58 or (isDead and 0.15 or 0.95)
+            local b = isSOS and 0.10 or (isDead and 0.15 or 0.45)
+            if map.drawRect then
+                map:drawRect(sx - 4, sy - 4, 8, 8, 0.95, r, g, b)
+            end
+            if map.drawRectBorder then
+                map:drawRectBorder(sx - 5, sy - 5, 10, 10, 0.95, 0.05, 0.05, 0.05)
             end
         end
     end

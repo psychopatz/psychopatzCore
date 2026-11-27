@@ -127,6 +127,51 @@ function Store.MarkDirty(reason)
     return true
 end
 
+local function isFiniteNumber(v)
+    v = tonumber(v)
+    return v ~= nil and v == v and v ~= math.huge and v ~= -math.huge
+end
+
+-- Boot sanitizer: repairs corrupted NaN/inf journey or coordinate fields so a
+-- server crash or mid-save mod update can never leave a save stuck.
+function Store.SanitizeLoadedRegistry(registry)
+    if type(registry) ~= "table" or type(registry.snapshot) ~= "table" then
+        return 0
+    end
+    local repaired = 0
+    local groups = type(registry.snapshot.groups) == "table" and registry.snapshot.groups or {}
+    for _, group in pairs(groups) do
+        if type(group) == "table" then
+            if type(group.journey) == "table" then
+                local j = group.journey
+                local bad = not isFiniteNumber(j.startAt)
+                    or not isFiniteNumber(j.eta)
+                    or not isFiniteNumber(j.speed) or tonumber(j.speed) <= 0
+                    or not isFiniteNumber(j.x)
+                    or not isFiniteNumber(j.y)
+                if bad then
+                    group.journey = nil
+                    if group.state == "TRAVELING" then
+                        group.state = "IDLE"
+                    end
+                    repaired = repaired + 1
+                end
+            end
+            if type(group.location) == "table" then
+                if not isFiniteNumber(group.location.x) then
+                    group.location.x = 0
+                    repaired = repaired + 1
+                end
+                if not isFiniteNumber(group.location.y) then
+                    group.location.y = 0
+                    repaired = repaired + 1
+                end
+            end
+        end
+    end
+    return repaired
+end
+
 function Store.Load(create)
     if not authority() then
         return false, "server_authority_required"
@@ -174,8 +219,9 @@ function Store.Load(create)
         reason = reason,
     }
     if ok then
+        local repaired = Store.SanitizeLoadedRegistry(registry)
         Store.Loaded = true
-        Store.Dirty = false
+        Store.Dirty = repaired > 0
     end
     return ok, reason
 end

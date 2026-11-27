@@ -9,6 +9,7 @@ local MarkerDiagnostics = require
     "PsychopatzCore/UI/Map/PsychopatzMapMarkerDiagnostics"
 local MarkerDiagnosticsWindow
 local ActorMap
+local CorridorMap
 local Hub = require "PsychopatzCore/UI/PsychopatzDebugHubRegistry"
 local Client = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
@@ -84,6 +85,16 @@ MarkerDiagnostics.RegisterSource("PsychopatzCore:SurvivorWorldActors", {
     end,
 })
 
+MarkerDiagnostics.RegisterSource("PsychopatzCore:SurvivorWorldCorridors", {
+    kind = "corridor",
+    priority = 85,
+    list = function()
+        CorridorMap = CorridorMap or require
+            "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldCorridorMap"
+        return CorridorMap.ListDiagnostics and CorridorMap.ListDiagnostics() or {}
+    end,
+})
+
 local function registerDebug(id, titleKey, titleFallback, helpKey,
     helpFallback, order, action, menuTitle, menuTooltip, available)
     local definition = {
@@ -120,6 +131,31 @@ registerDebug(
     function()
         return tr("UI_PsychopatzMapTools_ActorDebugHelp",
             "Toggle survivor routes and undiscovered overlays.")
+    end
+)
+
+registerDebug(
+    "corridor_graph",
+    "UI_PsychopatzMapTools_CorridorGraph_Title",
+    "Toggle corridor graph & aftermath overlay",
+    "UI_PsychopatzMapTools_CorridorGraph_Help",
+    "Show or hide MetaGrid road corridor nodes, settlement hubs, and off-camera SOS/aftermath markers.",
+    11,
+    function()
+        CorridorMap = CorridorMap or require
+            "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldCorridorMap"
+        return CorridorMap.SetEnabled(not CorridorMap.IsEnabled())
+    end,
+    function()
+        CorridorMap = CorridorMap or require
+            "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldCorridorMap"
+        local state = CorridorMap.IsEnabled()
+        return tr("UI_PsychopatzMapTools_CorridorGraph_Label", "CORRIDOR GRAPH")
+            .. (state and ": ON" or ": OFF")
+    end,
+    function()
+        return tr("UI_PsychopatzMapTools_CorridorGraph_Help",
+            "Toggle MetaGrid street nodes, edges, settlement hubs, and aftermath markers.")
     end
 )
 
@@ -201,18 +237,6 @@ registerDebug(
 )
 
 registerDebug(
-    "discovery_all_signals",
-    "UI_PsychopatzMapTools_DiscoverySignals_Title",
-    "Reveal all survivor signals",
-    "UI_PsychopatzMapTools_DiscoverySignals_Help",
-    "Reveal every Core survivor-world signal to this player.",
-    30,
-    function()
-        return discoveryAction("debug_discover_all", { scope = "signals" })
-    end
-)
-
-registerDebug(
     "discovery_all",
     "UI_PsychopatzMapTools_DiscoveryAll_Title",
     "Reveal all survivor-world entities",
@@ -221,32 +245,6 @@ registerDebug(
     40,
     function()
         return discoveryAction("debug_discover_all", { scope = "all" })
-    end
-)
-
-registerDebug(
-    "discovery_all_groups",
-    "UI_PsychopatzMapTools_DiscoveryGroups_Title",
-    "Reveal all mobile groups",
-    "UI_PsychopatzMapTools_DiscoveryGroups_Help",
-    "Reveal every Core survivor-world mobile group.",
-    50,
-    function()
-        return discoveryAction(
-            "debug_discover_all", { scope = "mobile_groups" })
-    end
-)
-
-registerDebug(
-    "discovery_all_communities",
-    "UI_PsychopatzMapTools_DiscoveryCommunities_Title",
-    "Reveal all communities",
-    "UI_PsychopatzMapTools_DiscoveryCommunities_Help",
-    "Reveal every Core survivor-world community.",
-    60,
-    function()
-        return discoveryAction(
-            "debug_discover_all", { scope = "settlements" })
     end
 )
 

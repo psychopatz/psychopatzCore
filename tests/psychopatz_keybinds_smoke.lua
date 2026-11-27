@@ -61,16 +61,25 @@ function options:addKeyBind(id, name, key, tooltip)
         tooltip = tooltip,
     }
     function option:getValue() return self.key end
+    function option:setValue(v) self.key = v end
     self.data[#self.data + 1] = option
     self.dict[id] = option
     return option
 end
 function options:getOption(id) return self.dict[id] end
 
+local saveCount = 0
+local forceLegacyOnLoad = false
 PZAPI = {
     ModOptions = {
         getOptions = function() return options end,
-        load = function() bootCount = bootCount + 1 end,
+        load = function()
+            bootCount = bootCount + 1
+            if forceLegacyOnLoad and options.dict["Smoke.Migrated"] then
+                options.dict["Smoke.Migrated"].key = 47
+            end
+        end,
+        save = function() saveCount = saveCount + 1 end,
     },
 }
 
@@ -172,5 +181,29 @@ downKey = 0
 now = 4501
 Events.tick()
 equal(_G.tapCount, 1, "tap-long press did not tap after long press")
+
+-- Regression: PZAPI.ModOptions:load() (called at OnGameBoot and again whenever
+-- MainOptions opens via Escape/Options) must never revert a migrated keybind
+-- back to its deprecatedDefaultKey (e.g. legacy V=47 -> new SLASH=53).
+local migratedTriggers = 0
+equal(Keybinds.RegisterPress({
+    id = "Smoke.Migrated",
+    label = "Migrated press",
+    defaultKey = 53,
+    deprecatedDefaultKey = 47,
+    onTrigger = function() migratedTriggers = migratedTriggers + 1 end,
+}) ~= false, true, "migrated press registration")
+forceLegacyOnLoad = true
+PZAPI.ModOptions:load()
+equal(Keybinds.GetKeyCode("Smoke.Migrated"), 53,
+    "ModOptions:load() must migrate deprecated default key 47 -> 53")
+equal(saveCount >= 1, true, "migrated keybind persists via ModOptions:save()")
+pressedKey = 47
+Events.tick()
+equal(migratedTriggers, 0, "deprecated key 47 must not trigger after migration")
+pressedKey = 53
+Events.tick()
+pressedKey = 0
+equal(migratedTriggers, 1, "new default key 53 still triggers after ModOptions:load()")
 
 print("psychopatz keybinds: ok")

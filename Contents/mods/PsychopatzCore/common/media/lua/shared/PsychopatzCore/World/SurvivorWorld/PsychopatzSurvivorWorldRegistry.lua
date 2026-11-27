@@ -434,6 +434,14 @@ function Registry:UpsertGroup(value)
         return nil, "survivor_world_group_home_missing"
     end
     if previous then
+        -- Guard against stale mirror commits accidentally wiping canonical
+        -- group membership to {} unless explicitly authorized.
+        if #(previous.memberActorIDs or {}) > 0
+            and #(normalized.memberActorIDs or {}) == 0
+            and value.allowEmptyMembers ~= true
+        then
+            normalized.memberActorIDs = Util.clone(previous.memberActorIDs)
+        end
         unindexGroupMembers(self, id, previous)
     end
     self.snapshot.groups[id] = normalized

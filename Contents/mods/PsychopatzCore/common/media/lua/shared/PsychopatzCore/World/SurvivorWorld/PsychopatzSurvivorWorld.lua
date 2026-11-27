@@ -16,6 +16,14 @@ local CorridorGraph =
     require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
 local RoutePlanner =
     require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldRoutePlanner"
+local Hazards =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldHazards"
+local Events =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldEvents"
+local EventMaterializer =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldEventMaterializer"
+local TravelConditions =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTravelConditions"
 local RuntimeStore =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRuntimeStore"
 local Bootstrap =
@@ -37,6 +45,10 @@ local SurvivorWorld = {
     Traversal = Traversal,
     CorridorGraph = CorridorGraph,
     RoutePlanner = RoutePlanner,
+    Hazards = Hazards,
+    Events = Events,
+    EventMaterializer = EventMaterializer,
+    TravelConditions = TravelConditions,
     RuntimeStore = RuntimeStore,
     Bootstrap = Bootstrap,
     Presentation = Presentation,

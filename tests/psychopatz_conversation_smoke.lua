@@ -597,4 +597,42 @@ headless:close("headless_done")
 assertEqual(table.concat(headlessEvents, ","), "update,headless_done",
     "headless lifecycle callback order")
 
+-- Regression: selecting a choice with a response that stays on the same node
+-- (e.g. landing -> landing) must refresh choices without re-emitting node.npc.
+local loopMessages = {}
+local loopChoices = nil
+local loopSession = Session.New({
+    choicesPart = { setChoices = function(_, c) loopChoices = c end },
+    historyPart = {
+        addMessage = function(_, m) loopMessages[#loopMessages + 1] = m end,
+        setTyping = function() end,
+    },
+}, {
+    namespace = "LoopPromptTest",
+    npcID = "npc-loop",
+    persistHistory = false,
+    start = "landing",
+    nodes = {
+        landing = {
+            npc = "What do you need?",
+            choices = {
+                { id = "news", text = "Any road news?", response = "Roads are quiet.", next = "landing" },
+            },
+        },
+    },
+})
+loopSession:enterNode("landing")
+now = now + 5000
+loopSession:update()
+assertEqual(#loopMessages, 1, "initial landing entry emits greeting once")
+loopSession:selectChoice(loopChoices[1])
+now = now + 5000
+loopSession:update()
+assertEqual(#loopMessages, 3,
+    "same-node choice with response logs player + response without replaying greeting")
+assertEqual(loopMessages[3].text or (loopMessages[3].payload and loopMessages[3].payload.text),
+    "Roads are quiet.", "last message is the choice response, not a repeated greeting")
+assertEqual(type(loopChoices) == "table" and #loopChoices == 1, true,
+    "landing choices remain available after response")
+
 print("psychopatz_conversation_smoke: ok")

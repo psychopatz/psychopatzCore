@@ -153,6 +153,56 @@ function Topics.SummarizeRecentThreats(ledgerState, opts)
     }
 end
 
+local TOPIC_SUBJECT_LABELS = {
+    ["faction.incident"] = "trouble between factions",
+    ["faction.status"] = "a shift in faction standings",
+    ["zombie.pressure"] = "heavy zombie movement",
+    ["npc.death"] = "someone getting killed out there",
+    ["actor.milestone"] = "a survival milestone",
+    ["world.event"] = "trouble on the road",
+    ["world.state"] = "changing conditions",
+    ["utility.state"] = "the utilities",
+    ["medical_wreck"] = "a wrecked ambulance",
+    ["police_blockade"] = "a police blockade",
+    ["bandit_activity"] = "bandit activity",
+    ["horde_sighting"] = "a large horde",
+    ["helicopter_event"] = "a helicopter overhead",
+    ["aebs_utilities"] = "the power and water",
+    ["aebs_air_activity"] = "air activity on the emergency band",
+    ["aebs_power_warning"] = "a power grid warning",
+    ["aebs_weather_warning"] = "rough weather coming in",
+    ["military_comms"] = "military chatter on the radio",
+    ["survivor_radio"] = "survivors on the radio",
+    ["news_outbreak"] = "outbreak news on the radio",
+    ["news_general"] = "news on the radio",
+    ["radio_broadcast"] = "a radio broadcast",
+    ["meta_gunshot"] = "gunshots",
+    ["meta_scream"] = "screams",
+    ["world_event"] = "trouble on the road",
+}
+
+local function humanizeSubject(rawLabel, topicID, factKind)
+    local text = type(rawLabel) == "string" and (rawLabel:gsub("^%s+", ""):gsub("%s+$", "")) or ""
+    if text ~= "" and TOPIC_SUBJECT_LABELS[text] then
+        return TOPIC_SUBJECT_LABELS[text]
+    end
+    -- Reject raw internal dotted/underscored identifiers (e.g. "faction.incident").
+    if text ~= "" and not string.find(text, "^[%w_]+%.[%w_.]+$") and not string.find(text, "^[%l%d]+_[%l%d_]+$") then
+        return text
+    end
+    local tid = tostring(topicID or "")
+    local fkind = tostring(factKind or "")
+    if TOPIC_SUBJECT_LABELS[tid] then return TOPIC_SUBJECT_LABELS[tid] end
+    if TOPIC_SUBJECT_LABELS[fkind] then return TOPIC_SUBJECT_LABELS[fkind] end
+    local fallback = tid ~= "" and tid or fkind
+    if fallback ~= "" then
+        local cleaned = string.gsub(fallback, "[%._]+", " ")
+        cleaned = (cleaned:gsub("^%s+", ""):gsub("%s+$", ""))
+        if cleaned ~= "" then return cleaned end
+    end
+    return "trouble on the road"
+end
+
 function Topics.BuildFromFact(fact, observer)
     if type(fact) ~= "table" then return nil end
     observer = type(observer) == "table" and observer or {}
@@ -167,17 +217,19 @@ function Topics.BuildFromFact(fact, observer)
         label = loc.label or loc.name or payload.locationLabel or loc.settlementID or loc.region,
     }
     local locApi = getLocation()
+    local rawHeadline = payload.headline or payload.storyLabel or payload.summary or payload.label or payload.text or ""
+    local subjectLabel = humanizeSubject(payload.storyLabel or payload.headline or payload.summary or payload.label, topicID, fact.kind)
     return {
         id = tostring(fact.id or topicID),
         factID = fact.id,
         topic = topicID,
         source = "world_knowledge",
-        subjectLabel = tostring(payload.storyLabel or payload.headline or topicID),
+        subjectLabel = subjectLabel,
         timeLabel = (locApi and type(locApi.RelativeTime) == "function")
             and locApi.RelativeTime(evHour, nowHour) or "recently",
         locationLabel = (locApi and type(locApi.DescribeSpatial) == "function")
             and locApi.DescribeSpatial(spatialLoc, observer) or "nearby",
-        headline = tostring(payload.headline or payload.storyLabel or payload.text or ""),
+        headline = type(rawHeadline) == "string" and rawHeadline or "",
         raidCount = tonumber(payload.raidCount) or 0,
         chopperLinked = payload.chopperLinked == true,
         maxDepth = (fact.provenance == "radio" or payload.theme ~= nil) and 3 or DEFAULT_MAX_DEPTH,

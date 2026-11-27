@@ -75,4 +75,17 @@ assertEqual(step1.exhausted, false, "first follow-up is not exhausted")
 local step2 = WKG.AdvanceTopicFollowUp(topics[1], "when", step1.nextDepth)
 assertEqual(step2.exhausted, true, "second follow-up reaches bounded closure")
 
+-- Regression: facts without headline/storyLabel must never leak raw dotted keys like "faction.incident".
+local Topics = require "PsychopatzCore/WorldKnowledge/PsychopatzWorldKnowledgeTopics"
+local rawIncidentTopic = Topics.BuildFromFact({
+    id = "fact:faction_incident_1",
+    kind = "faction.incident",
+    occurredAt = 119.5,
+    payload = {},
+}, { worldHour = 120 })
+assertEqual(rawIncidentTopic.subjectLabel, "trouble between factions",
+    "faction.incident humanizes subjectLabel instead of leaking raw fact kind")
+assert(not string.find(rawIncidentTopic.subjectLabel, ".", 1, true),
+    "subjectLabel must not contain raw dotted identifier")
+
 print("psychopatz_world_knowledge_topics_smoke: ok")

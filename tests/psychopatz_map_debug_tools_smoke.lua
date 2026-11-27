@@ -104,12 +104,16 @@ local function debug(id)
 end
 
 debug("discovery_refresh")
-debug("discovery_all_signals")
+assert(debugTools["psychopatz.map.discovery_all_signals"] == nil,
+    "redundant partial signal reveal button should be removed")
 debug("discovery_all")
-debug("discovery_all_groups")
-debug("discovery_all_communities")
+assert(debugTools["psychopatz.map.discovery_all_groups"] == nil,
+    "redundant partial group reveal button should be removed")
+assert(debugTools["psychopatz.map.discovery_all_communities"] == nil,
+    "redundant partial community reveal button should be removed")
 debug("discovery_reset")
 debug("actor_debug_presentation")
+debug("corridor_graph")
 local presenceOverride = debug("actor_presence_override")
 assert(not presenceOverride.available(),
     "presence override must stay gated when its Core setting is disabled")
@@ -125,23 +129,13 @@ assert(debugMenu.visible() and debugMenu.enabled(),
 
 debug("discovery_refresh").action()
 debug("discovery_all").action()
-debug("discovery_all_signals").action()
-debug("discovery_all_groups").action()
-debug("discovery_all_communities").action()
 debug("discovery_reset").action()
 assert(requests == 1, "Core discovery refresh did not use Core transport")
-assert(#actions == 5, "Core discovery debug actions did not use Core transport")
+assert(#actions == 2, "Core discovery debug actions did not use Core transport")
 assert(actions[1].action == "debug_discover_all"
     and actions[1].args.scope == "all",
     "Core all-discovery scope changed")
-assert(actions[2].action == "debug_discover_all"
-    and actions[2].args.scope == "signals",
-    "Core signal discovery scope changed")
-assert(actions[3].args.scope == "mobile_groups",
-    "Core group discovery scope changed")
-assert(actions[4].args.scope == "settlements",
-    "Core community discovery scope changed")
-assert(actions[5].action == "debug_reset",
+assert(actions[2].action == "debug_reset",
     "Core discovery reset action changed")
 
 local tracking = toolbar["PsychopatzCore:track_selected"]

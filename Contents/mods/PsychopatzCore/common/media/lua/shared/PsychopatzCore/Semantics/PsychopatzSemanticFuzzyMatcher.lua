@@ -155,6 +155,8 @@ local function editDistance(left, right, limit)
     return nil
 end
 
+Fuzzy.EditDistance = editDistance
+
 local function maximumDistance(phrase, options)
     local length = #phrase
     if length < Fuzzy.MIN_LENGTH then return nil end

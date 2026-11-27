@@ -44,7 +44,66 @@ function LLMInput:onPartResize()
     if not self.entry or not self.sendButton then return end
     local modeCount = #self.modeButtons
     local controlCount = modeCount + (self.toggleButton and 1 or 0)
-    local inputY = controlCount > 0 and 54 or 30
+    local acCount = tonumber(self._visibleAutocompleteCount) or 0
+    local acRowH = 20
+    local acGap = 4
+    local baseTopY = controlCount > 0 and 54 or 30
+    local acRowCount = 0
+    if acCount > 0 and type(self.autocompleteButtons) == "table" then
+        local availW = math.max(80, self.width - 20)
+        local tm = type(getTextManager) == "function" and getTextManager() or nil
+        local font = UIFont and UIFont.Small or nil
+        local function measureText(str)
+            str = tostring(str or "")
+            if tm and font and type(tm.MeasureStringX) == "function" then
+                return tonumber(tm:MeasureStringX(font, str)) or (#str * 7)
+            end
+            return #str * 7
+        end
+        local function fitTitle(str, maxTextW)
+            if measureText(str) <= maxTextW then return str end
+            local clipped = str
+            while #clipped > 3 and measureText(clipped .. "...") > maxTextW do
+                clipped = string.sub(clipped, 1, #clipped - 1)
+            end
+            return clipped .. "..."
+        end
+        local maxRows = 2
+        local curRow = 1
+        local curX = 10
+        local curY = baseTopY
+        local rightLimit = 10 + availW
+        for i = 1, acCount do
+            local btn = self.autocompleteButtons[i]
+            if btn then
+                local fullTitle = tostring(btn._fullAutocompleteTitle or btn.title or "")
+                local desiredW = math.max(36, math.min(availW, math.ceil(measureText(fullTitle)) + 14))
+                if curX > 10 and (curX + desiredW) > rightLimit then
+                    curRow = curRow + 1
+                    curX = 10
+                    curY = baseTopY + (curRow - 1) * (acRowH + acGap)
+                end
+                if curRow > maxRows then
+                    btn:setVisible(false)
+                    btn:setEnable(false)
+                else
+                    local finalW = math.min(desiredW, rightLimit - curX)
+                    local fitted = fitTitle(fullTitle, math.max(18, finalW - 10))
+                    if btn.setTitle then btn:setTitle(fitted) end
+                    btn:setX(curX)
+                    btn:setY(curY)
+                    btn:setWidth(finalW)
+                    btn:setHeight(acRowH)
+                    btn:setVisible(true)
+                    btn:setEnable(true)
+                    curX = curX + finalW + acGap
+                    if curRow > acRowCount then acRowCount = curRow end
+                end
+            end
+        end
+    end
+    local acTotalH = acRowCount > 0 and (acRowCount * acRowH + (acRowCount - 1) * acGap + 4) or 0
+    local inputY = baseTopY + acTotalH
     local showSwitch = self._showTargetSwitch == true
         and self.prevTargetButton ~= nil and self.nextTargetButton ~= nil
     local entryX = showSwitch and 38 or 10
@@ -158,6 +217,9 @@ end
 
 function LLMInput:onTextChanged()
     self:resizeForText()
+    if type(self.refreshAutocomplete) == "function" then
+        self:refreshAutocomplete()
+    end
 end
 
 return Internal

@@ -78,10 +78,57 @@ local function bindingFrom(value)
     return Keybinds.bindings[tostring(value or "")]
 end
 
+local function migrateDeprecatedBinding(binding, shouldSave)
+    if type(binding) ~= "table" or not binding.option then return false end
+    local deprecatedCode = tonumber(binding.deprecatedDefaultKey) or 0
+    local defaultCode = tonumber(binding.defaultKey) or 0
+    if deprecatedCode <= 0 or defaultCode <= 0 or defaultCode == deprecatedCode then
+        return false
+    end
+    if type(binding.option.getValue) ~= "function" then return false end
+    local okGet, savedVal = pcall(binding.option.getValue, binding.option)
+    if not okGet or tonumber(savedVal) ~= deprecatedCode then return false end
+    if type(binding.option.setValue) == "function" then
+        pcall(binding.option.setValue, binding.option, defaultCode)
+    end
+    if binding.option.defaultkey ~= nil then
+        binding.option.defaultkey = defaultCode
+    end
+    if shouldSave ~= false and PZAPI and PZAPI.ModOptions
+        and type(PZAPI.ModOptions.save) == "function"
+    then
+        pcall(PZAPI.ModOptions.save, PZAPI.ModOptions)
+    end
+    return true
+end
+
+local function migrateAllDeprecatedBindings()
+    local migratedAny = false
+    for _, binding in pairs(Keybinds.bindings) do
+        if migrateDeprecatedBinding(binding, false) then
+            migratedAny = true
+        end
+    end
+    if migratedAny and PZAPI and PZAPI.ModOptions
+        and type(PZAPI.ModOptions.save) == "function"
+    then
+        pcall(PZAPI.ModOptions.save, PZAPI.ModOptions)
+    end
+    return migratedAny
+end
+
 local function keyCodeFor(binding)
     if not binding then return 0 end
     if binding.option and binding.option.getValue then
-        return tonumber(binding.option:getValue()) or 0
+        local value = tonumber(binding.option:getValue()) or 0
+        if value > 0 and value == (tonumber(binding.deprecatedDefaultKey) or 0)
+            and (tonumber(binding.defaultKey) or 0) > 0
+            and value ~= tonumber(binding.defaultKey)
+        then
+            migrateDeprecatedBinding(binding, true)
+            value = tonumber(binding.option:getValue()) or tonumber(binding.defaultKey) or 0
+        end
+        return value
     end
     return tonumber(binding.defaultKey) or 0
 end
@@ -241,11 +288,17 @@ function Keybinds.Register(definition)
     definition.defaultKey = resolveKeyCode(
         definition.defaultKey or definition.key
     )
+    definition.deprecatedDefaultKey = definition.deprecatedDefaultKey ~= nil
+        and resolveKeyCode(definition.deprecatedDefaultKey) or 0
     definition.longPressMs = math.max(
         1,
         tonumber(definition.longPressMs) or Keybinds.DEFAULT_LONG_PRESS_MS
     )
     definition.option = createOption(definition)
+    -- Migrate deprecated legacy default keybinds persisted in ModOptions.ini
+    -- (e.g. legacy V=47 -> new SLASH=53) so existing saves don't stay stuck on
+    -- a retired default key.
+    migrateDeprecatedBinding(definition, true)
 
     local existing = Keybinds.bindings[id]
     if existing then
@@ -253,6 +306,7 @@ function Keybinds.Register(definition)
         existing.label = definition.label or existing.label or id
         existing.tooltip = definition.tooltip or existing.tooltip
         existing.defaultKey = definition.defaultKey
+        existing.deprecatedDefaultKey = definition.deprecatedDefaultKey
         existing.longPressMs = definition.longPressMs
         existing.onTrigger = definition.onTrigger
         existing.onTap = definition.onTap
@@ -261,6 +315,7 @@ function Keybinds.Register(definition)
         existing.exposeInOptions = definition.exposeInOptions
         existing.option = definition.exposeInOptions == false
             and nil or definition.option or existing.option
+        migrateDeprecatedBinding(existing, true)
         return existing
     end
 
@@ -335,16 +390,35 @@ function Keybinds.OnTick()
     end
 end
 
+local function ensureModOptionsLoadHook()
+    local modOptions = PZAPI and PZAPI.ModOptions
+    if not modOptions or type(modOptions.load) ~= "function" then return end
+    if modOptions._psychopatzKeybindsLoadWrapped then return end
+    local originalLoad = modOptions.load
+    modOptions.load = function(self, ...)
+        local res = originalLoad(self, ...)
+        migrateAllDeprecatedBindings()
+        return res
+    end
+    modOptions._psychopatzKeybindsLoadWrapped = true
+end
+
 local function loadOptions()
-    if Keybinds._optionsLoaded then return end
+    ensureModOptionsLoadHook()
+    if Keybinds._optionsLoaded then
+        migrateAllDeprecatedBindings()
+        return
+    end
     local modOptions = PZAPI and PZAPI.ModOptions
     if modOptions and modOptions.load then
         pcall(function() modOptions:load() end)
     end
+    migrateAllDeprecatedBindings()
     Keybinds._optionsLoaded = true
 end
 
 function Keybinds.Install()
+    ensureModOptionsLoadHook()
     if Events and Events.OnTick and not Keybinds._tickHookRegistered then
         Events.OnTick.Add(Keybinds.OnTick)
         Keybinds._tickHookRegistered = true

@@ -6,6 +6,8 @@ local Route = require
     "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupRoute"
 local CorridorGraph = require
     "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
+local Hazards = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldHazards"
 
 local Planner = {}
 
@@ -14,6 +16,40 @@ Planner.MAX_SECTORS_PER_ROUTE = 9
 Planner.MAX_EXPANSIONS = 64
 Planner.MAX_WAYPOINTS = 12
 Planner.MIN_CORRIDOR_DISTANCE = 24
+Planner.MAX_ROUTE_CACHE = 64
+Planner.MAX_COLD_PLANS_PER_TICK = 4
+Planner._routeCache = Planner._routeCache or {}
+Planner._routeCacheOrder = Planner._routeCacheOrder or {}
+Planner._cacheHits = Planner._cacheHits or 0
+Planner._coldPlanWindowMs = Planner._coldPlanWindowMs or 0
+Planner._coldPlansInWindow = Planner._coldPlansInWindow or 0
+
+function Planner.ClearCache()
+    Planner._routeCache = {}
+    Planner._routeCacheOrder = {}
+    Planner._cacheHits = 0
+    Planner._coldPlanWindowMs = 0
+    Planner._coldPlansInWindow = 0
+end
+
+local function consumeColdPlanBudget(options)
+    if options and options.bypassBudget == true then return true end
+    local nowMs = nil
+    if type(getTimestampMs) == "function" then
+        nowMs = tonumber(getTimestampMs())
+    end
+    -- In headless unit tests without getTimestampMs, keep budget unrestricted.
+    if not nowMs then return true end
+    if (nowMs - (tonumber(Planner._coldPlanWindowMs) or 0)) >= 50 then
+        Planner._coldPlanWindowMs = nowMs
+        Planner._coldPlansInWindow = 0
+    end
+    if Planner._coldPlansInWindow >= Planner.MAX_COLD_PLANS_PER_TICK then
+        return false
+    end
+    Planner._coldPlansInWindow = Planner._coldPlansInWindow + 1
+    return true
+end
 
 local function finite(value, fallback)
     value = tonumber(value)
@@ -162,20 +198,30 @@ local function runAStar(startNode, goalNode, nodesByID, adj)
 
         closed[bestID] = true
         expansions = expansions + 1
+        local fromNode = nodesByID[bestID]
         local neighbors = adj[bestID] or {}
         for i = 1, #neighbors do
             local edge = neighbors[i]
             local nid = edge.id
-            if not closed[nid] and nodesByID[nid] then
-                local tentativeG = (gScore[bestID] or math.huge) + edge.weight
-                if tentativeG < (gScore[nid] or math.huge) then
-                    cameFrom[nid] = bestID
-                    gScore[nid] = tentativeG
-                    local n = nodesByID[nid]
-                    fScore[nid] = tentativeG + dist(n.x, n.y, goalNode.x, goalNode.y)
-                    if not inOpen[nid] then
-                        inOpen[nid] = true
-                        open[#open + 1] = nid
+            local toNode = nodesByID[nid]
+            if not closed[nid] and toNode then
+                local mult, blocked = 1.0, false
+                if fromNode and Hazards and type(Hazards.EvaluateCorridorCost) == "function" then
+                    mult, blocked = Hazards.EvaluateCorridorCost(
+                        (fromNode.x + toNode.x) * 0.5,
+                        (fromNode.y + toNode.y) * 0.5
+                    )
+                end
+                if not blocked then
+                    local tentativeG = (gScore[bestID] or math.huge) + (edge.weight * mult)
+                    if tentativeG < (gScore[nid] or math.huge) then
+                        cameFrom[nid] = bestID
+                        gScore[nid] = tentativeG
+                        fScore[nid] = tentativeG + dist(toNode.x, toNode.y, goalNode.x, goalNode.y)
+                        if not inOpen[nid] then
+                            inOpen[nid] = true
+                            open[#open + 1] = nid
+                        end
                     end
                 end
             end
@@ -227,7 +273,27 @@ function Planner.PlanRoute(origin, destination, options)
         return Route.Normalize(nil, startPt, endPt), "direct_outside_snap"
     end
 
-    local nodePath = runAStar(startNode, goalNode, nodesByID, adj)
+    local hazRev = Hazards and Hazards.GetRevision and Hazards.GetRevision() or 1
+    local worldSeed = CorridorGraph.GetWorldSeed and CorridorGraph.GetWorldSeed() or 0
+    local cacheKey = tostring(startNode.id) .. "->" .. tostring(goalNode.id)
+        .. "@" .. tostring(hazRev) .. "#" .. tostring(worldSeed)
+    local cachedPath = Planner._routeCache[cacheKey]
+    local nodePath
+    if cachedPath ~= nil then
+        Planner._cacheHits = (Planner._cacheHits or 0) + 1
+        nodePath = cachedPath ~= false and cachedPath or nil
+    else
+        if not consumeColdPlanBudget(options) then
+            return Route.Normalize(nil, startPt, endPt), "direct_budget_deferred"
+        end
+        nodePath = runAStar(startNode, goalNode, nodesByID, adj)
+        Planner._routeCache[cacheKey] = nodePath or false
+        Planner._routeCacheOrder[#Planner._routeCacheOrder + 1] = cacheKey
+        while #Planner._routeCacheOrder > Planner.MAX_ROUTE_CACHE do
+            local oldest = table.remove(Planner._routeCacheOrder, 1)
+            if oldest then Planner._routeCache[oldest] = nil end
+        end
+    end
     if not nodePath or #nodePath == 0 then
         return Route.Normalize(nil, startPt, endPt), "direct_unconnected"
     end
