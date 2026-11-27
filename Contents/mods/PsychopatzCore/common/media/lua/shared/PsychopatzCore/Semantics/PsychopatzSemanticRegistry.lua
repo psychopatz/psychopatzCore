@@ -425,15 +425,61 @@ local function extractPatternAnchor(pattern)
     return nil, nil
 end
 
+local function extractExactLiteralPhrase(pattern)
+    if type(pattern) ~= "table" or pattern.allowUnmatched == true then
+        return nil
+    end
+    local matchRules = pattern.match
+    if type(matchRules) ~= "table" or #matchRules == 0 then return nil end
+    local words = {}
+    for i = 1, #matchRules do
+        local r = matchRules[i]
+        if type(r) == "string" then
+            if string.sub(r, 1, 1) == "@" then return nil end
+            local norm = Normalizer.NormalizePhrase(r)
+            if norm == "" then return nil end
+            words[#words + 1] = norm
+        elseif type(r) == "table" then
+            if r.optional == true or r.capture ~= nil then return nil end
+            local lit = nil
+            if r.kind == "literal" then
+                lit = r.value or r.literal
+            elseif r.kind == nil and r.literal ~= nil then
+                lit = r.literal
+            else
+                return nil
+            end
+            local norm = Normalizer.NormalizePhrase(lit)
+            if norm == "" then return nil end
+            words[#words + 1] = norm
+        else
+            return nil
+        end
+    end
+    return table.concat(words, " ")
+end
+
 local function buildPatternIndex()
     local byConcept = {}
     local byLiteral = {}
+    local byExactPhrase = {}
     local unanchored = {}
     local ordered = Registry.OrderedPatterns
     local anchoredCount = 0
+    local exactPhraseCount = 0
     for i = 1, #ordered do
         local pat = ordered[i]
         local entry = { pattern = pat, order = i }
+        local exactPhrase = extractExactLiteralPhrase(pat)
+        if exactPhrase then
+            local bucket = byExactPhrase[exactPhrase]
+            if not bucket then
+                bucket = {}
+                byExactPhrase[exactPhrase] = bucket
+            end
+            bucket[#bucket + 1] = entry
+            exactPhraseCount = exactPhraseCount + 1
+        end
         local anchorKind, anchorKey = extractPatternAnchor(pat)
         if anchorKind == "concept" and anchorKey then
             local bucket = byConcept[anchorKey]
@@ -458,9 +504,11 @@ local function buildPatternIndex()
     Registry._patternIndex = {
         byConcept = byConcept,
         byLiteral = byLiteral,
+        byExactPhrase = byExactPhrase,
         unanchored = unanchored,
         totalPatterns = #ordered,
         anchoredCount = anchoredCount,
+        exactPhraseCount = exactPhraseCount,
         unanchoredCount = #unanchored,
     }
     Registry._patternIndexRev = Registry.Revision
@@ -496,6 +544,14 @@ function Registry.GetCandidatePatterns(symbols, normalized)
     end
 
     addBucket(idx.unanchored)
+
+    if type(normalized) == "table"
+        and type(normalized.normalizedText) == "string"
+        and normalized.normalizedText ~= ""
+        and idx.byExactPhrase
+    then
+        addBucket(idx.byExactPhrase[normalized.normalizedText])
+    end
 
     if type(symbols) == "table" then
         for i = 1, #symbols do

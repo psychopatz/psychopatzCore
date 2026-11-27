@@ -98,12 +98,70 @@ local function intersectCapabilities(effectiveCaps, optionCaps)
     return result
 end
 
+local function cleanParticipantName(value)
+    if type(value) ~= "string" then return nil end
+    local trimmed = (value:gsub("^%s+", ""):gsub("%s+$", ""))
+    if trimmed == "" then return nil end
+    local lower = string.lower(trimmed)
+    if lower == "stranger" or lower == "unknown" or lower == "survivor" then
+        return nil
+    end
+    return trimmed
+end
+
+local function fallbackActorParticipants(effectiveContext)
+    if type(effectiveContext) ~= "table" then return nil end
+    local existing = effectiveContext.groupParticipants
+    if type(existing) == "table" and #existing > 0 then
+        return existing
+    end
+    local actor = type(effectiveContext.actor) == "table"
+        and effectiveContext.actor or nil
+    local identity = actor and type(actor.identity) == "table"
+        and actor.identity or nil
+    local id = (actor and actor.actorId) or effectiveContext.npcID
+    if not id or tostring(id) == "" then return nil end
+    local fullName = cleanParticipantName(
+        (identity and (identity.fullName or identity.displayName))
+            or effectiveContext.npcFullName
+    )
+    local name = cleanParticipantName(
+        (identity and identity.name) or effectiveContext.npcName
+    ) or fullName
+    local forename = cleanParticipantName(
+        (identity and (identity.forename or identity.firstName))
+            or effectiveContext.npcFirstName
+    )
+    local nickname = cleanParticipantName(
+        (identity and identity.nickname) or effectiveContext.npcNickname
+    )
+    if not fullName and not name and not forename and not nickname then
+        return nil
+    end
+    return {
+        {
+            id = tostring(id),
+            fullName = fullName,
+            name = name,
+            forename = forename,
+            firstName = forename,
+            nickname = nickname,
+        },
+    }
+end
+
 local function buildEffectiveOptions(effectiveContext, options)
     local effOptions = copy(tableValue(options))
     local effectiveCaps = normalizeCapabilities(effectiveContext and effectiveContext.capabilities)
     if effectiveCaps ~= nil then
         local optionCaps = normalizeCapabilities(options and options.capabilities)
         effOptions.capabilities = intersectCapabilities(effectiveCaps, optionCaps)
+    end
+    if effOptions.groupParticipants == nil then
+        local participants = fallbackActorParticipants(effectiveContext)
+        if participants then
+            effOptions.groupParticipants = participants
+        end
     end
     effOptions.context = effectiveContext
     return effOptions

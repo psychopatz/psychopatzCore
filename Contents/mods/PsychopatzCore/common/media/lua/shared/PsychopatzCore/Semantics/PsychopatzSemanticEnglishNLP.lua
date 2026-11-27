@@ -132,6 +132,31 @@ NLP.Packs.EN = {
         ["where's"] = { "where", "is" },
         ["how's"] = { "how", "is" },
         ["you're"] = { "you", "are" },
+        ["it's"] = { "it", "is" },
+        ["that's"] = { "that", "is" },
+        thats = { "that", "is" },
+        ["there's"] = { "there", "is" },
+        theres = { "there", "is" },
+        ["here's"] = { "here", "is" },
+        heres = { "here", "is" },
+        ["i'll"] = { "i", "will" },
+        ["you'll"] = { "you", "will" },
+        ["we'll"] = { "we", "will" },
+        ["they'll"] = { "they", "will" },
+        ["i'd"] = { "i", "would" },
+        ["you'd"] = { "you", "would" },
+        ["we'd"] = { "we", "would" },
+        ["you've"] = { "you", "have" },
+        youve = { "you", "have" },
+        sup = { "what", "is", "up" },
+        wbu = { "what", "about", "you" },
+        hbu = { "how", "about", "you" },
+        cya = { "see", "you" },
+        ttyl = { "talk", "to", "you", "later" },
+        gm = { "good", "morning" },
+        gn = { "good", "night" },
+        np = { "no", "problem" },
+        yw = { "you", "are", "welcome" },
     },
     irregularLemmas = {
         ate = "eat", eaten = "eat", eating = "eat",
@@ -179,6 +204,7 @@ NLP.Packs.EN = {
         like = true, literally = true, actually = true, basically = true,
         just = true, maybe = true, kinda = true, sorta = true,
         bro = true, dude = true, man = true, yo = true, pal = true,
+        buddy = true, mate = true, partner = true, boss = true, chief = true,
     },
     politeWords = {
         please = true, thanks = true, thank = true, appreciate = true,
@@ -415,6 +441,11 @@ function NLP.ClassifyDialogueAct(tokens, rawText, lang)
     end
     if joined == "tell me more" or joined == "what happened" or joined == "go on" or joined == "and then" then
         return "ASK_ELABORATE"
+    end
+    if joined == "you too" or joined == "same here" or joined == "likewise"
+        or joined == "right back at you" or joined == "same to you"
+    then
+        return "RECIPROCATE"
     end
     if n <= 3 then
         if first == "why" then return "ASK_WHY" end

@@ -364,6 +364,176 @@
       "id": "pnc.dataset.greeting.glad_to_see_you_again",
       "priority": 120,
       "utterance": "glad to see you again"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.nice_to_see_you",
+      "priority": 120,
+      "utterance": "nice to see you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.good_to_see_you",
+      "priority": 120,
+      "utterance": "good to see you"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.glad_to_see_you",
+      "priority": 120,
+      "utterance": "glad to see you"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.great_to_see_you",
+      "priority": 120,
+      "utterance": "great to see you"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.happy_to_see_you",
+      "priority": 120,
+      "utterance": "happy to see you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.nice_to_see_you_too",
+      "priority": 120,
+      "utterance": "nice to see you too"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.good_to_see_you_too",
+      "priority": 120,
+      "utterance": "good to see you too"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.glad_to_see_you_too",
+      "priority": 120,
+      "utterance": "glad to see you too"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.nice_to_meet_you",
+      "priority": 120,
+      "utterance": "nice to meet you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.nice_to_meet_you_too",
+      "priority": 120,
+      "utterance": "nice to meet you too"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.good_to_meet_you",
+      "priority": 120,
+      "utterance": "good to meet you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.good_to_meet_you_too",
+      "priority": 120,
+      "utterance": "good to meet you too"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.glad_to_meet_you",
+      "priority": 120,
+      "utterance": "glad to meet you"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.great_to_meet_you",
+      "priority": 120,
+      "utterance": "great to meet you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.pleased_to_meet_you",
+      "priority": 120,
+      "utterance": "pleased to meet you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.pleased_to_meet_you_too",
+      "priority": 120,
+      "utterance": "pleased to meet you too"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.nice_meeting_you",
+      "priority": 120,
+      "utterance": "nice meeting you"
     }
   ]
 }

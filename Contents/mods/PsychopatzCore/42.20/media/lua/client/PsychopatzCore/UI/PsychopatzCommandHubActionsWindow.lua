@@ -254,8 +254,8 @@ function ISPsychopatzCommandHubActionsWindow:prerender()
         return
     end
     self:ensureLayout()
-    AttachedWindow.prerender(self)
     Options.ApplySurfaceOpacity(self)
+    AttachedWindow.prerender(self)
 end
 
 function ISPsychopatzCommandHubActionsWindow:close()

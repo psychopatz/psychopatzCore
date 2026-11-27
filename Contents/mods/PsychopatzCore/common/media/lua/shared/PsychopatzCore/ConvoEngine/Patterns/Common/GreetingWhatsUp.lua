@@ -7,6 +7,64 @@ return {
             ["intent"] = "GREET",
             ["speechAct"] = "GREET",
         },
+        ["id"] = "pnc.dataset.greeting.glad_to_meet_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "glad",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.glad_to_see_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "glad",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
         ["id"] = "pnc.dataset.greeting.glad_to_see_you_again",
         ["match"] = {
             {
@@ -28,6 +86,130 @@ return {
             {
                 ["kind"] = "literal",
                 ["value"] = "again",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.glad_to_see_you_too",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "glad",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "too",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.good_to_meet_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "good",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.good_to_meet_you_too",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "good",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "too",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.good_to_see_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "good",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
             },
         },
         ["owner"] = "PsychopatzCore",
@@ -73,6 +255,126 @@ return {
             ["intent"] = "GREET",
             ["speechAct"] = "GREET",
         },
+        ["id"] = "pnc.dataset.greeting.good_to_see_you_too",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "good",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "too",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.great_to_meet_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "great",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.great_to_see_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "great",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.happy_to_see_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "happy",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
         ["id"] = "pnc.dataset.greeting.long_time_no_see",
         ["match"] = {
             {
@@ -90,6 +392,122 @@ return {
             {
                 ["kind"] = "literal",
                 ["value"] = "see",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.97,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.nice_meeting_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "nice",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meeting",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.nice_to_meet_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "nice",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.nice_to_meet_you_too",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "nice",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "too",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.nice_to_see_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "nice",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
             },
         },
         ["owner"] = "PsychopatzCore",
@@ -123,6 +541,101 @@ return {
             {
                 ["kind"] = "literal",
                 ["value"] = "again",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.nice_to_see_you_too",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "nice",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "see",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "too",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.pleased_to_meet_you",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "pleased",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["priority"] = 120,
+    },
+    {
+        ["confidence"] = 0.98,
+        ["domain"] = "greeting",
+        ["emit"] = {
+            ["intent"] = "GREET",
+            ["speechAct"] = "GREET",
+        },
+        ["id"] = "pnc.dataset.greeting.pleased_to_meet_you_too",
+        ["match"] = {
+            {
+                ["kind"] = "literal",
+                ["value"] = "pleased",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "to",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "meet",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "you",
+            },
+            {
+                ["kind"] = "literal",
+                ["value"] = "too",
             },
         },
         ["owner"] = "PsychopatzCore",

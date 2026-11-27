@@ -89,7 +89,11 @@ local function applyImageSize(entry, width, height, scale)
         or height - 2
     imageWidth = math.max(1, imageWidth)
     imageHeight = math.max(1, imageHeight)
-    button:forceImageSize(imageWidth, imageHeight)
+    if entry.lastImageWidth ~= imageWidth or entry.lastImageHeight ~= imageHeight then
+        button:forceImageSize(imageWidth, imageHeight)
+        entry.lastImageWidth = imageWidth
+        entry.lastImageHeight = imageHeight
+    end
 end
 
 local function syncButton(entry, width, height, scale)
@@ -98,9 +102,12 @@ local function syncButton(entry, width, height, scale)
     if not button then return end
 
     local image = imageFor(entry)
-    if image and button.setImage and UI.ImageResolver then
+    if image and image ~= entry.lastImage and button.setImage and UI.ImageResolver then
         local texture = UI.ImageResolver.Resolve(image)
-        if texture then button:setImage(texture) end
+        if texture then
+            button:setImage(texture)
+            entry.lastImage = image
+        end
     end
     local tooltip = definition.tooltip
     if type(tooltip) == "function" then
@@ -112,8 +119,11 @@ local function syncButton(entry, width, height, scale)
         if type(enabled) == "function" then
             enabled = enabled(entry.window, button)
         end
-        if button.setEnable then button:setEnable(enabled ~= false)
-        else button.enable = enabled ~= false end
+        local nextEnabled = enabled ~= false
+        if button.enable ~= nextEnabled then
+            if button.setEnable then button:setEnable(nextEnabled)
+            else button.enable = nextEnabled end
+        end
     end
     applyImageSize(entry, width, height, scale)
 end
@@ -206,6 +216,7 @@ function Toolbar.Add(window, definition)
     }
     state.entries[#state.entries + 1] = entry
     state.byId[id] = entry
+    state.orderDirty = true
     button.psychopatzToolbarId = id
     if definition.title == nil and button.setTitle then button:setTitle("") end
     Toolbar.Sync(window)
@@ -283,8 +294,12 @@ local function syncNativeTitlebarButton(window, button, scale)
         "psychopatzTitlebarBaseHeight", 16)
     local width = math.max(1, math.floor(baseWidth * scale + 0.5))
     local height = math.max(1, math.floor(baseHeight * scale + 0.5))
-    if button.setWidth then button:setWidth(width) end
-    if button.setHeight then button:setHeight(height) end
+    if button.setWidth and readValue(button, "getWidth", "width", nil) ~= width then
+        button:setWidth(width)
+    end
+    if button.setHeight and readValue(button, "getHeight", "height", nil) ~= height then
+        button:setHeight(height)
+    end
     local windowWidth = tonumber(readValue(window, "getWidth", "width", 0)) or 0
     local rightMargin = tonumber(button.psychopatzTitlebarRightMargin)
     if rightMargin == nil then
@@ -296,10 +311,13 @@ local function syncNativeTitlebarButton(window, button, scale)
             and math.max(0, windowWidth - observedX - width) or 1
         button.psychopatzTitlebarRightMargin = rightMargin
     end
-    if button.setX then
-        button:setX(math.max(0, math.floor(windowWidth - rightMargin - width)))
+    local targetX = math.max(0, math.floor(windowWidth - rightMargin - width))
+    if button.setX and readValue(button, "getX", "x", nil) ~= targetX then
+        button:setX(targetX)
     end
-    if button.setY then button:setY(1) end
+    if button.setY and readValue(button, "getY", "y", nil) ~= 1 then
+        button:setY(1)
+    end
     button.anchorLeft = false
     button.anchorRight = true
     button.anchorTop = true
@@ -355,21 +373,29 @@ function Toolbar.Sync(window)
     if nativeX < 0 or nativeX > windowWidth then
         nativeX = observedNativeX or fallbackNativeX
     end
-    if native and native.setX then native:setX(math.floor(nativeX)) end
+    local flooredNativeX = math.floor(nativeX)
+    if native and native.setX and readValue(native, "getX", "x", nil) ~= flooredNativeX then
+        native:setX(flooredNativeX)
+    end
     local nativeY = tonumber(readValue(native, "getY", "y", 1)) or 1
+    local flooredNativeY = math.floor(nativeY)
     local cursor = math.floor(nativeX - state.gap)
 
-    table.sort(state.entries, function(left, right)
-        local leftOrder = tonumber(left.definition.order) or 100
-        local rightOrder = tonumber(right.definition.order) or 100
-        if leftOrder == rightOrder then return left.sequence < right.sequence end
-        return leftOrder < rightOrder
-    end)
+    if state.orderDirty ~= false then
+        table.sort(state.entries, function(left, right)
+            local leftOrder = tonumber(left.definition.order) or 100
+            local rightOrder = tonumber(right.definition.order) or 100
+            if leftOrder == rightOrder then return left.sequence < right.sequence end
+            return leftOrder < rightOrder
+        end)
+        state.orderDirty = false
+    end
 
     for _, entry in ipairs(state.entries) do
         local button = entry.button
         if button then
             local visible = visibleFor(entry)
+            local wasVisible = readValue(button, "getIsVisible", "visible", nil) == true
             if visible then
                 local definedWidth = tonumber(entry.definition.width)
                 local width = definedWidth
@@ -384,16 +410,36 @@ function Toolbar.Sync(window)
                 button.anchorRight = true
                 button.anchorTop = true
                 button.anchorBottom = false
-                button:setWidth(width)
-                button:setHeight(buttonHeight)
-                button:setX(x)
-                button:setY(math.floor(nativeY))
-                button:setVisible(true)
+                local geometryChanged = false
+                if readValue(button, "getWidth", "width", nil) ~= width then
+                    button:setWidth(width)
+                    geometryChanged = true
+                end
+                if readValue(button, "getHeight", "height", nil) ~= buttonHeight then
+                    button:setHeight(buttonHeight)
+                    geometryChanged = true
+                end
+                if readValue(button, "getX", "x", nil) ~= x then
+                    button:setX(x)
+                    geometryChanged = true
+                end
+                if readValue(button, "getY", "y", nil) ~= flooredNativeY then
+                    button:setY(flooredNativeY)
+                    geometryChanged = true
+                end
+                if not wasVisible then
+                    button:setVisible(true)
+                    geometryChanged = true
+                end
                 syncButton(entry, width, buttonHeight, scale)
-                button:bringToTop()
+                if geometryChanged or not entry.topSynced then
+                    button:bringToTop()
+                    entry.topSynced = true
+                end
                 cursor = x - state.gap
             else
-                button:setVisible(false)
+                if wasVisible then button:setVisible(false) end
+                entry.topSynced = false
             end
         end
     end

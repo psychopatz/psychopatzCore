@@ -111,15 +111,20 @@ function ISPsychopatzCommandHubWindow:syncButtonStates()
         if button and button:getIsVisible() then
             local enabled = Registry.IsEnabled(category, self)
             button.tooltip = tooltipFor(category, self, enabled)
-            setEnabled(button, enabled)
+            if button.enable ~= enabled then
+                setEnabled(button, enabled)
+            end
             local selected = Registry.IsSelected(category, self)
             if not selected and #Registry.GetChildren(category.id) > 0
                 and Actions.instance and Actions.instance.parentID == category.id
             then
                 selected = true
             end
-            UI.StyleButton(button, not enabled and "quiet"
-                or selected and "selected" or "default")
+            local variant = not enabled and "quiet"
+                or selected and "selected" or "default"
+            if button.psychopatzVariant ~= variant then
+                UI.StyleButton(button, variant)
+            end
         end
     end
 end
@@ -225,8 +230,8 @@ function ISPsychopatzCommandHubWindow:prerender()
         self:fitToContent(false)
         self:requestResponsiveLayout(true)
     end
-    PsychopatzWindow.prerender(self)
     Options.ApplyOpacity(self)
+    PsychopatzWindow.prerender(self)
     self:syncButtonStates()
     if Actions.instance and Actions.instance.owner == self then
         Actions.SyncPosition(self)

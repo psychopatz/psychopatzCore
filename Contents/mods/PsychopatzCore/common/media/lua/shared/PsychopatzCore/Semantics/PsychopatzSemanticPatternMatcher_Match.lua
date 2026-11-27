@@ -157,6 +157,51 @@ local function matchRegularRule(state, ruleIndex, rule, symbolIndex, captures,
             nextSecondary
         )
         if result then return result end
+    elseif symbolIndex <= #state.symbols
+        and rule.kind == "literal"
+        and rule.capture == nil
+    then
+        -- A greedy multi-word concept alias (e.g. "see you" -> FAREWELL) can
+        -- merge tokens that an authored literal pattern expects individually
+        -- (e.g. "nice to see you"). Allow consecutive literal rules to match
+        -- the underlying normalized tokens of that single merged symbol.
+        local sym = state.symbols[symbolIndex]
+        local startTok = sym and sym.startToken or nil
+        local endTok = sym and sym.endToken or nil
+        local tokenCount = (startTok and endTok) and (endTok - startTok + 1) or 0
+        local normTokens = state.normalized and state.normalized.tokens or nil
+        if tokenCount > 1
+            and type(normTokens) == "table"
+            and ruleIndex + tokenCount - 1 <= #state.rules
+        then
+            local allMatched = true
+            for offset = 0, tokenCount - 1 do
+                local nextRule = state.rules[ruleIndex + offset]
+                if not nextRule
+                    or nextRule.kind ~= "literal"
+                    or nextRule.capture ~= nil
+                    or nextRule.value ~= normTokens[startTok + offset]
+                then
+                    allMatched = false
+                    break
+                end
+            end
+            if allMatched then
+                local result = search(
+                    state,
+                    ruleIndex + tokenCount,
+                    symbolIndex + 1,
+                    state.Captures.clone(captures),
+                    consumed + 1,
+                    skipped,
+                    unresolved,
+                    ambiguous,
+                    fuzzy,
+                    secondary
+                )
+                if result then return result end
+            end
+        end
     end
     if rule.optional == true then
         return skipOptional(
@@ -229,10 +274,21 @@ local function compilePatternRules(pattern, Rules)
     local minRequired = 0
     local maxSymbols = 0
     local unboundedMax = pattern.allowUnmatched == true
+    local exactWords = (not unboundedMax) and {} or nil
     for i = 1, #rawRules do
         local rule = Rules.normalizeRule(rawRules[i])
         compiled[i] = rule
         if rule then
+            if exactWords then
+                if rule.kind == "literal" and rule.optional ~= true
+                    and rule.capture == nil and type(rule.value) == "string"
+                    and rule.value ~= ""
+                then
+                    exactWords[#exactWords + 1] = rule.value
+                else
+                    exactWords = nil
+                end
+            end
             if rule.optional ~= true then
                 minRequired = minRequired
                     + (rule.kind == "any_phrase" and (rule.minTokens or 1) or 1)
@@ -250,6 +306,8 @@ local function compilePatternRules(pattern, Rules)
     pattern._compiledRuleCount = #rawRules
     pattern._minRequiredSymbols = minRequired
     pattern._maxSymbols = unboundedMax and nil or maxSymbols
+    pattern._exactPhrase = (exactWords and #exactWords > 0)
+        and table.concat(exactWords, " ") or nil
     return compiled
 end
 
@@ -260,8 +318,32 @@ function Match.Install(PatternMatcher, Rules, Captures, Support)
         if compiled == nil or pattern._compiledRuleCount ~= #rawRules then
             compiled = compilePatternRules(pattern, Rules)
         end
+        -- O(1) exact-phrase fast-path for pure-literal patterns (no captures,
+        -- no optionals, no allowUnmatched): bypasses backtracking search and is
+        -- immune to multi-word concept symbol merging.
+        if pattern._exactPhrase ~= nil
+            and type(normalized) == "table"
+            and normalized.normalizedText == pattern._exactPhrase
+        then
+            return {
+                captures = {},
+                consumed = #symbols,
+                skipped = 0,
+                unresolvedCount = 0,
+                ambiguousCount = 0,
+                fuzzyCount = 0,
+                secondaryCount = 0,
+                unmatchedCount = 0,
+                fullCoverage = true,
+                truncated = normalized.truncated == true,
+            }
+        end
         local symCount = #symbols
-        if symCount < (pattern._minRequiredSymbols or 0) then
+        local tokenCount = type(normalized) == "table"
+            and type(normalized.tokens) == "table"
+            and #normalized.tokens or symCount
+        local maxEffectiveCount = tokenCount > symCount and tokenCount or symCount
+        if maxEffectiveCount < (pattern._minRequiredSymbols or 0) then
             return nil
         end
         if pattern._maxSymbols ~= nil and symCount > pattern._maxSymbols then

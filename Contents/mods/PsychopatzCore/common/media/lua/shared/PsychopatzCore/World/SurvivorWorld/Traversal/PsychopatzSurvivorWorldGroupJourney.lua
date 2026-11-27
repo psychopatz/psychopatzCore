@@ -2,6 +2,8 @@ local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Location = require "PsychopatzCore/Actors/PsychopatzActorLocation"
 local Route = require
     "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupRoute"
+local RoutePlanner = require
+    "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldRoutePlanner"
 
 local Journey = {}
 
@@ -113,11 +115,21 @@ function Journey.New(groupID, spec, now)
             or lastRoutePoint,
         origin
     )
-    local route = Route.Normalize(
-        spec.route,
-        origin,
-        destination
-    )
+    local route
+    if spec.route == nil and spec.directRoute ~= true
+        and RoutePlanner and type(RoutePlanner.PlanRoute) == "function"
+    then
+        route = RoutePlanner.PlanRoute(origin, destination, {
+            seed = spec.seed,
+            maxWaypoints = spec.maxWaypoints,
+        })
+    else
+        route = Route.Normalize(
+            spec.route,
+            origin,
+            destination
+        )
+    end
     local speed = math.max(
         0.001,
         finite(spec.speed or spec.speedTilesPerWorldHour, 10)

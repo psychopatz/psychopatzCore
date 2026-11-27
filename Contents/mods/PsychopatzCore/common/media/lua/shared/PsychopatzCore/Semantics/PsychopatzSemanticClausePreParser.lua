@@ -98,6 +98,29 @@ PreParser.TrailingModifiers = PreParser.TrailingModifiers or {
 }
 
 PreParser.NegationPrefixes = PreParser.NegationPrefixes or {
+    "i do not want you to",
+    "i don't want you to",
+    "i dont want you to",
+    "i do not need you to",
+    "i don't need you to",
+    "i dont need you to",
+    "you do not need to",
+    "you don't need to",
+    "you dont need to",
+    "you do not have to",
+    "you don't have to",
+    "you dont have to",
+    "there is no need to",
+    "i do not want to",
+    "i don't want to",
+    "i dont want to",
+    "do not need to",
+    "don't need to",
+    "dont need to",
+    "do not have to",
+    "don't have to",
+    "dont have to",
+    "no need to",
     "do not",
     "don't",
     "dont",
@@ -107,7 +130,48 @@ PreParser.NegationPrefixes = PreParser.NegationPrefixes or {
     "no more",
 }
 
+PreParser.GenericVocatives = PreParser.GenericVocatives or {
+    "man",
+    "dude",
+    "bro",
+    "mate",
+    "pal",
+    "buddy",
+    "friend",
+    "partner",
+    "boss",
+    "chief",
+}
+
 local EXCLUSION_WORDS = { "except for", "except", "other than", "not", "but not" }
+
+-- Words that typically take a following person name as a grammatical object,
+-- predicate, or coordinate rather than an unpunctuated trailing vocative.
+local NON_VOCATIVE_PREDECESSORS = {
+    to = true, ["for"] = true, with = true, about = true, from = true,
+    at = true, by = true, of = true, on = true, near = true,
+    beside = true, behind = true, around = true, like = true,
+    except = true, without = true, against = true, toward = true,
+    towards = true, ["in"] = true, into = true, onto = true,
+    is = true, am = true, are = true, was = true, were = true, be = true,
+    im = true, ["i'm"] = true, thats = true, ["that's"] = true,
+    hes = true, ["he's"] = true, shes = true, ["she's"] = true,
+    its = true, ["it's"] = true, called = true, named = true, name = true,
+    heal = true, bandage = true, help = true, patch = true, treat = true,
+    revive = true, protect = true, guard = true, cover = true,
+    defend = true, watch = true, follow = true, find = true,
+    locate = true, check = true, ask = true, tell = true, call = true,
+    give = true, hand = true, pass = true, bring = true, fetch = true,
+    take = true, shoot = true, attack = true, kill = true, hit = true,
+    stop = true, leave = true, drop = true, recruit = true,
+    dismiss = true, wake = true, carry = true, meet = true, see = true,
+    know = true, trust = true, remember = true, miss = true,
+    hate = true, love = true,
+    ["and"] = true, ["or"] = true, ["not"] = true, but = true,
+    a = true, an = true, the = true, my = true, your = true,
+    his = true, her = true, their = true, our = true,
+    this = true, that = true,
+}
 
 local function trim(s)
     return (tostring(s or ""):gsub("^%s+", ""):gsub("%s+$", ""))
@@ -148,7 +212,68 @@ local function participantAliases(p)
         local first = string.match(p.name, "^(%S+)")
         if first then add(first) end
     end
+    table.sort(out, function(a, b)
+        if #a ~= #b then return #a > #b end
+        return a < b
+    end)
     return out
+end
+
+local function isSafeUnpunctuatedVocativeHead(headLower)
+    local trimmed = trim(headLower)
+    if trimmed == "" then return false end
+    if trimmed == "call me" or string.sub(trimmed, -8) == " call me" then
+        return false
+    end
+    local lastWord = string.match(trimmed, "([%a']+)$")
+    if not lastWord then return false end
+    return NON_VOCATIVE_PREDECESSORS[lastWord] ~= true
+end
+
+-- Match a trailing participant vocative ("nice to see you, Jordan" or
+-- "nice to see you Jordan"), while refusing to strip grammatical objects
+-- ("where is Jordan", "bandage Rory", "tell me about Jordan", "call me Jordan").
+local function matchTrailingParticipant(raw, participants)
+    if type(participants) ~= "table" or #participants == 0 then
+        return nil, raw
+    end
+    local current = trim(raw)
+    if current == "" then return nil, raw end
+    local lower = string.lower(current)
+
+    for i = 1, #participants do
+        local p = participants[i]
+        local pid = participantID(p)
+        if pid then
+            local aliases = participantAliases(p)
+            for j = 1, #aliases do
+                local pat = escapePattern(aliases[j])
+                -- Explicitly punctuated trailing vocative: "nice to see you, jordan"
+                local head, trailingPunct = string.match(
+                    lower, "^(.-)%s*[,:;%-]+%s*" .. pat .. "%s*([!%?%.]*)$"
+                )
+                if head and trim(head) ~= "" then
+                    local cleaned = trim(string.sub(current, 1, #head))
+                    if trailingPunct == "?" and string.sub(cleaned, -1) ~= "?" then
+                        cleaned = cleaned .. "?"
+                    end
+                    return { pid }, cleaned
+                end
+                -- Unpunctuated trailing vocative: "nice to see you jordan"
+                head, trailingPunct = string.match(
+                    lower, "^(.-)%s+" .. pat .. "%s*([!%?%.]*)$"
+                )
+                if head and isSafeUnpunctuatedVocativeHead(head) then
+                    local cleaned = trim(string.sub(current, 1, #head))
+                    if trailingPunct == "?" and string.sub(cleaned, -1) ~= "?" then
+                        cleaned = cleaned .. "?"
+                    end
+                    return { pid }, cleaned
+                end
+            end
+        end
+    end
+    return nil, raw
 end
 
 -- Match one or more participant names at the start of `text`, separated by
@@ -326,7 +451,59 @@ local function stripNegation(raw)
             return trim(string.sub(current, offset)), true, phrase
         end
     end
+    -- Mid-clause copula negation ("i am not hungry", "i'm not tired", "you are not hurt"):
+    -- preserve coreText so exact patterns still match while marking negative polarity.
+    local padded = " " .. lower .. " "
+    if string.find(padded, " am not ", 1, true)
+        or string.find(padded, "'m not ", 1, true)
+        or string.find(padded, " im not ", 1, true)
+        or string.find(padded, " are not ", 1, true)
+        or string.find(padded, " is not ", 1, true)
+    then
+        return current, true, "not"
+    end
     return current, false, nil
+end
+
+local function stripGenericTrailingVocative(raw)
+    local current = trim(raw)
+    if current == "" then return current, nil end
+    local lower = string.lower(current)
+    for i = 1, #PreParser.GenericVocatives do
+        local word = PreParser.GenericVocatives[i]
+        local pat = escapePattern(word)
+        local head, trailingPunct = string.match(
+            lower, "^(.-)%s*[,:;%-]+%s*" .. pat .. "%s*([!%?%.]*)$"
+        )
+        if head and trim(head) ~= "" then
+            local cleaned = trim(string.sub(current, 1, #head))
+            if trailingPunct == "?" and string.sub(cleaned, -1) ~= "?" then
+                cleaned = cleaned .. "?"
+            end
+            return cleaned, word
+        end
+        head, trailingPunct = string.match(
+            lower, "^(.-)%s+" .. pat .. "%s*([!%?%.]*)$"
+        )
+        if head and isSafeUnpunctuatedVocativeHead(head) then
+            local cleaned = trim(string.sub(current, 1, #head))
+            if trailingPunct == "?" and string.sub(cleaned, -1) ~= "?" then
+                cleaned = cleaned .. "?"
+            end
+            return cleaned, word
+        end
+    end
+    return current, nil
+end
+
+function PreParser.RegisterGenericVocative(word)
+    local c = cleanAlias(word)
+    if c == "" then return false end
+    for i = 1, #PreParser.GenericVocatives do
+        if PreParser.GenericVocatives[i] == c then return true end
+    end
+    table.insert(PreParser.GenericVocatives, 1, c)
+    return true
 end
 
 function PreParser.RegisterNegationPrefix(phrase)
@@ -403,6 +580,15 @@ function PreParser.Analyze(text, participants)
                 scope = "INDIVIDUAL",
                 targetIDs = targetIDs,
             }
+        else
+            local trailingIDs, beforeName = matchTrailingParticipant(working, participants)
+            if trailingIDs and #trailingIDs > 0 then
+                working = beforeName
+                audienceScope = {
+                    scope = "INDIVIDUAL",
+                    targetIDs = trailingIDs,
+                }
+            end
         end
     end
 
@@ -460,6 +646,22 @@ function PreParser.Analyze(text, participants)
     local afterNeg, negated, negationCue = stripNegation(afterModals)
     -- 5) Strip trailing softeners ("for a bit", "please", "right now", ...)
     local coreText, strippedTrailing = stripTrailingModifiers(afterNeg)
+    if audienceScope.scope == "DEFAULT" then
+        local lateTrailingIDs, beforeLateName = matchTrailingParticipant(coreText, participants)
+        if lateTrailingIDs and #lateTrailingIDs > 0 then
+            coreText = beforeLateName
+            audienceScope = {
+                scope = "INDIVIDUAL",
+                targetIDs = lateTrailingIDs,
+            }
+        else
+            local withoutGeneric, genericWord = stripGenericTrailingVocative(coreText)
+            if genericWord and withoutGeneric ~= "" then
+                coreText = withoutGeneric
+                strippedTrailing[#strippedTrailing + 1] = genericWord
+            end
+        end
+    end
 
     return {
         rawText = raw,

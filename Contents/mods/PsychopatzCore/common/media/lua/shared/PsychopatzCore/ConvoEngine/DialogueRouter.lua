@@ -155,12 +155,22 @@ function Router:Preview(text, context, options)
     context = context or self.context
     options = options or self.options
     local parseOptions = options
-    if context and context.capabilities and (not options or not options.capabilities) then
+    local needsCaps = context and context.capabilities and (not options or not options.capabilities)
+    local needsParticipants = context
+        and type(context.groupParticipants) == "table"
+        and #context.groupParticipants > 0
+        and (not options or options.groupParticipants == nil)
+    if needsCaps or needsParticipants then
         parseOptions = {}
         if options then
             for k, v in pairs(options) do parseOptions[k] = v end
         end
-        parseOptions.capabilities = context.capabilities
+        if needsCaps then
+            parseOptions.capabilities = context.capabilities
+        end
+        if needsParticipants then
+            parseOptions.groupParticipants = context.groupParticipants
+        end
         parseOptions.context = context
     end
     local ir

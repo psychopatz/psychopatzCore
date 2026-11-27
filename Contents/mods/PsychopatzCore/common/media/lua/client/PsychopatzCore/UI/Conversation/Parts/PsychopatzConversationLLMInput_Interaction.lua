@@ -242,8 +242,13 @@ function LLMInput:refreshControls()
     self:refreshOpacity()
 end
 
-function LLMInput:focusInput()
-    if self.entry and self.entry.focus then self.entry:focus() end
+function LLMInput:focusInput(ignoreFirst)
+    if not self.entry then return end
+    if self.entry.setEditable then self.entry:setEditable(true) end
+    if self.entry.focus then self.entry:focus() end
+    if ignoreFirst == true and self.entry.ignoreFirstInput then
+        self.entry:ignoreFirstInput()
+    end
 end
 
 function LLMInput:blurInput()

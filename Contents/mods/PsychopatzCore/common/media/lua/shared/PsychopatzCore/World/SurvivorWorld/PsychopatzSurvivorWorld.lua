@@ -12,6 +12,10 @@ local Generation =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldGeneration"
 local Traversal =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTraversal"
+local CorridorGraph =
+    require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
+local RoutePlanner =
+    require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldRoutePlanner"
 local RuntimeStore =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRuntimeStore"
 local Bootstrap =
@@ -31,6 +35,8 @@ local SurvivorWorld = {
     Registry = Registry,
     Generation = Generation,
     Traversal = Traversal,
+    CorridorGraph = CorridorGraph,
+    RoutePlanner = RoutePlanner,
     RuntimeStore = RuntimeStore,
     Bootstrap = Bootstrap,
     Presentation = Presentation,

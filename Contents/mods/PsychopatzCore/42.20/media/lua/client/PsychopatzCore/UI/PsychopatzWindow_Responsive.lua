@@ -88,7 +88,12 @@ function Window:prerender()
             end
         end
     end
-    self:syncResizeWidgets()
+    if not self.psychopatzResizeTopSynced then
+        self:syncResizeWidgets(true)
+        self.psychopatzResizeTopSynced = true
+    else
+        self:syncResizeWidgets(false)
+    end
     self:requestResponsiveLayout(false)
     self:trackGeometry()
     ISCollapsableWindow.prerender(self)

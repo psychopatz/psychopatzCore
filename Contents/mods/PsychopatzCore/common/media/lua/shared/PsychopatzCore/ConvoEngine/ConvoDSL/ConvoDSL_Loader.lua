@@ -524,11 +524,15 @@ function Loader.ApplyScripts(scripts, langOverride)
                 local isExtend = pool.mode == "extend"
                 local langTag = normalizeLanguage(langOverride or script.language)
                 local extKey = langTag .. ":" .. pool.poolID
+                Loader._baseRegisteredPools = Loader._baseRegisteredPools or {}
                 if #variants > 0 then
                     local existingPool = getExistingPool(Catalog, pool.poolID)
                     if isExtend then
                         if existingPool ~= nil and type(Catalog.Extend) == "function" then
                             Catalog.Extend(pool.poolID, { variants = variants })
+                            if not Loader._baseRegisteredPools[extKey] then
+                                Loader._extendedOnlyPools[extKey] = true
+                            end
                             extendedCount = extendedCount + 1
                         else
                             Catalog.Register(pool.poolID, { variants = variants })
@@ -541,10 +545,12 @@ function Loader.ApplyScripts(scripts, langOverride)
                         -- Base pool arrived after same-language `extend` files; merge without clobbering.
                         Catalog.Extend(pool.poolID, { variants = variants })
                         Loader._extendedOnlyPools[extKey] = nil
+                        Loader._baseRegisteredPools[extKey] = true
                         poolCount = poolCount + 1
                     else
                         Catalog.Register(pool.poolID, { variants = variants })
                         Loader._extendedOnlyPools[extKey] = nil
+                        Loader._baseRegisteredPools[extKey] = true
                         poolCount = poolCount + 1
                     end
                 end
@@ -742,6 +748,7 @@ function Loader.LoadLanguage(language, opts)
 
     Loader._blueprintRawByID = {}
     Loader._extendedOnlyPools = {}
+    Loader._baseRegisteredPools = {}
     Loader._streamQueue = {}
     Loader._streamCursor = 1
     Loader._inStep = false

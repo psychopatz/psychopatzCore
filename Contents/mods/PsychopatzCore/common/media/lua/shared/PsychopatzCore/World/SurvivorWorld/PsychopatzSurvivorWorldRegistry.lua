@@ -5,6 +5,8 @@ local Persistence =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPersistence"
 local Traversal =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTraversal"
+local CorridorGraph =
+    require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
 
 local Registry = {}
 Registry.__index = Registry
@@ -42,8 +44,45 @@ local function count(map)
     return Types.CountMap(map)
 end
 
+local function registerCommunityNode(community)
+    if type(community) ~= "table" or not community.id then return end
+    local home = community.home
+    if type(home) == "table" and tonumber(home.x) and tonumber(home.y) then
+        CorridorGraph.RegisterSettlementNode(
+            "community:" .. tostring(community.id),
+            home.x,
+            home.y,
+            home.z or 0,
+            { label = community.name or community.id, kind = "community" }
+        )
+    end
+end
+
+local function registerLocationNode(location)
+    if type(location) ~= "table" or not location.id then return end
+    local pos = location.position
+    if type(pos) == "table" and tonumber(pos.x) and tonumber(pos.y) then
+        CorridorGraph.RegisterSettlementNode(
+            "location:" .. tostring(location.id),
+            pos.x,
+            pos.y,
+            pos.z or 0,
+            { label = location.name or location.id, kind = tostring(location.kind or "location") }
+        )
+    end
+end
+
 local function rebuildIndexes(self)
     local snapshot = self.snapshot
+    if tonumber(snapshot.worldSeed) then
+        CorridorGraph.SetWorldSeed(snapshot.worldSeed)
+    end
+    for _, community in pairs(type(snapshot.communities) == "table" and snapshot.communities or {}) do
+        registerCommunityNode(community)
+    end
+    for _, location in pairs(type(snapshot.locations) == "table" and snapshot.locations or {}) do
+        registerLocationNode(location)
+    end
     local actorGroupIndex = {}
     local groupIDs = sortedIDs(snapshot.groups)
     for index = 1, #groupIDs do
@@ -256,6 +295,7 @@ function Registry:UpsertCommunity(value)
         return nil, "survivor_world_community_faction_missing"
     end
     self.snapshot.communities[id] = normalized
+    registerCommunityNode(normalized)
     if not exists then
         self._counts.communities = self._counts.communities + 1
         self._sortedIDs.communities = nil
@@ -275,6 +315,7 @@ function Registry:RemoveCommunity(id)
         end
     end
     self.snapshot.communities[id] = nil
+    CorridorGraph.UnregisterSettlementNode("community:" .. tostring(id))
     self._counts.communities = math.max(0, self._counts.communities - 1)
     self._sortedIDs.communities = nil
     if self.snapshot.population.starterCommunityID == id then
@@ -312,6 +353,7 @@ function Registry:UpsertLocation(value)
     )
     if not normalized then return nil, reason end
     self.snapshot.locations[id] = normalized
+    registerLocationNode(normalized)
     if not exists then
         self._counts.locations = self._counts.locations + 1
         self._sortedIDs.locations = nil
@@ -331,6 +373,7 @@ function Registry:RemoveLocation(id)
         end
     end
     self.snapshot.locations[id] = nil
+    CorridorGraph.UnregisterSettlementNode("location:" .. tostring(id))
     self._counts.locations = math.max(0, self._counts.locations - 1)
     self._sortedIDs.locations = nil
     touch(self)

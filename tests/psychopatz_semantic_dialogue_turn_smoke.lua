@@ -49,4 +49,25 @@ assert(fallbackReason == "single_clause",
     "unrecognized clauses must preserve ordinary parsing")
 assert(fallback.compound ~= true, "unsafe split must not become compound")
 
+-- Sentence-period and conjunction compound splits:
+local periodTurn, periodReason = dialogueTurn.Parse(
+    "answer. question",
+    parseCandidates,
+    { enableFuzzy = false, maxCandidates = 4 }
+)
+assert(periodReason == "compound", "period-separated clauses should form a compound turn")
+assert(#periodTurn.parts == 2, "period compound part count")
+assert(periodTurn.parts[1].text == "answer", "period first clause")
+assert(periodTurn.parts[2].text == "question", "period second clause")
+
+local conjTurn, conjReason = dialogueTurn.Parse(
+    "answer and question",
+    parseCandidates,
+    { enableFuzzy = false, maxCandidates = 4 }
+)
+assert(conjReason == "compound", "conjunction-separated clauses should form a compound turn")
+assert(#conjTurn.parts == 2, "conjunction compound part count")
+assert(conjTurn.parts[1].text == "answer", "conjunction first clause")
+assert(conjTurn.parts[2].text == "question", "conjunction second clause")
+
 print("psychopatz semantic dialogue turn: ok")

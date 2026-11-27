@@ -46,10 +46,14 @@ local function splitBoundaries(text, maximum)
 
     for index = 1, length do
         character = string.sub(text, index, index)
+        local isSentencePeriod = character == "."
+            and index < length
+            and string.sub(text, index + 1, index + 1) == " "
         if character == ","
             or character == ";"
             or character == "?"
             or character == "!"
+            or isSentencePeriod
         then
             append(index - 1, index + 1)
             if #output >= maximum then break end
@@ -58,6 +62,33 @@ local function splitBoundaries(text, maximum)
     if #output < maximum and startAt <= length then
         clause = trim(string.sub(text, startAt, length))
         if clause ~= "" then output[#output + 1] = clause end
+    end
+    return output
+end
+
+local function splitConjunctions(text, maximum)
+    local lower = string.lower(text)
+    local output = {}
+    local startAt = 1
+    local separators = { " and then ", " then ", " and " }
+    while #output < maximum - 1 do
+        local bestPos, bestLen = nil, nil
+        for i = 1, #separators do
+            local sep = separators[i]
+            local pos = string.find(lower, sep, startAt, true)
+            if pos and (bestPos == nil or pos < bestPos) then
+                bestPos = pos
+                bestLen = #sep
+            end
+        end
+        if not bestPos then break end
+        local head = trim(string.sub(text, startAt, bestPos - 1))
+        if head ~= "" then output[#output + 1] = head end
+        startAt = bestPos + bestLen
+    end
+    if startAt <= #text then
+        local tail = trim(string.sub(text, startAt))
+        if tail ~= "" then output[#output + 1] = tail end
     end
     return output
 end
@@ -71,6 +102,25 @@ local function candidateSetIsUsable(candidateSet)
     end
     return type(candidateSet.candidates) == "table"
         and #candidateSet.candidates > 0
+end
+
+local function isStrongWholeMatch(candidateSet)
+    if not candidateSetIsUsable(candidateSet) then return false end
+    local sel = candidateSet.selected
+    if type(sel) ~= "table" then return true end
+    local pass = tostring(sel.pass or "")
+    if pass == "intent_classifier" or pass == "followup" then
+        return false
+    end
+    local conf = tonumber(sel.confidence) or 0
+    if conf < 0.80 then return false end
+    local match = type(sel.match) == "table" and sel.match or nil
+    if match and ((tonumber(match.unmatchedCount) or 0) > 0
+        or (tonumber(match.unresolvedCount) or 0) > 0)
+    then
+        return false
+    end
+    return true
 end
 
 local function parseParts(parts, parseCandidates, options)
@@ -102,19 +152,22 @@ function Turn.Parse(text, parseCandidates, options)
     -- Compound handling is only a fallback for text the existing parser does
     -- not already understand as one complete utterance.
     local whole = parseCandidates(text, options)
-    if candidateSetIsUsable(whole) then
+    if isStrongWholeMatch(whole) then
         return whole, "single_clause"
     end
-    local parts = splitBoundaries(text, math.min(
+    local maxParts = math.min(
         Turn.MAX_PARTS,
         math.max(1, math.floor(tonumber(options.maxParts)
             or Turn.DEFAULT_MAX_PARTS))
-    ))
-    if #parts < 2 then
-        return whole, "single_clause"
+    )
+    local parts = splitBoundaries(text, maxParts)
+    local parsed = (#parts >= 2) and parseParts(parts, parseCandidates, options) or nil
+    if not parsed or #parsed < 2 then
+        local conjParts = splitConjunctions(text, maxParts)
+        if #conjParts >= 2 then
+            parsed = parseParts(conjParts, parseCandidates, options)
+        end
     end
-
-    local parsed = parseParts(parts, parseCandidates, options)
     if not parsed or #parsed < 2 then
         return whole, "single_clause"
     end

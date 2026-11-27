@@ -584,15 +584,29 @@ local function clearParseCache(rev)
     parseCacheRev = rev
 end
 
+local function participantCacheSig(participants)
+    if type(participants) ~= "table" or #participants == 0 then return "" end
+    if #participants > 8 then return nil end
+    local parts = {}
+    for i = 1, #participants do
+        local p = participants[i]
+        if type(p) ~= "table" then return nil end
+        parts[#parts + 1] = tostring(p.id or p.npcID or "") .. ":"
+            .. tostring(p.fullName or p.name or p.firstName or "")
+    end
+    return "|p=" .. table.concat(parts, ",")
+end
+
 local function parseCacheKey(text, options, limit)
     if options.bypassCache == true
         or options.context ~= nil
         or options.capabilities ~= nil
-        or options.groupParticipants ~= nil
         or options._clauseCorePass == true
     then
         return nil
     end
+    local pSig = participantCacheSig(options.groupParticipants)
+    if pSig == nil then return nil end
     local raw = tostring(text or "")
     if #raw > 256 then return nil end
     return raw .. "|" .. tostring(limit)
@@ -601,6 +615,7 @@ local function parseCacheKey(text, options, limit)
         .. "|" .. (options.enableVerbFrames == false and "0" or "1")
         .. "|" .. (options.enableClausePreParser == false and "0" or "1")
         .. "|" .. (options.negated == true and "1" or "0")
+        .. pSig
 end
 
 local function storeParseCache(key, value)

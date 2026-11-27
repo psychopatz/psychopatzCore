@@ -111,16 +111,55 @@ function Window:createChildren()
         self.psychopatzPinState = nil
         self:syncWindowControls()
     end
-    self:syncResizeWidgets()
+    self.psychopatzResizeTopSynced = false
+    self:syncResizeWidgets(true)
 end
 
-function Window:syncResizeWidgets()
+local function syncResizeHandle(widget, x, y, width, height, visible, resizeFunction, owner, yonly)
+    local changed = false
+    if widget.resizeFunction ~= resizeFunction then
+        widget.resizeFunction = resizeFunction
+        changed = true
+    end
+    if widget.target ~= owner then
+        widget.target = owner
+        changed = true
+    end
+    if widget.yonly ~= yonly then
+        widget.yonly = yonly
+        changed = true
+    end
+    local currentX = widget.getX and widget:getX() or widget.x
+    local currentY = widget.getY and widget:getY() or widget.y
+    local currentW = widget.getWidth and widget:getWidth() or widget.width
+    local currentH = widget.getHeight and widget:getHeight() or widget.height
+    local currentVis = widget.getIsVisible and widget:getIsVisible() or widget.visible
+    if currentX ~= x then widget:setX(x); changed = true end
+    if currentY ~= y then widget:setY(y); changed = true end
+    if currentW ~= width then widget:setWidth(width); changed = true end
+    if currentH ~= height then widget:setHeight(height); changed = true end
+    if currentVis ~= visible then widget:setVisible(visible); changed = true end
+    return changed
+end
+
+function Window:syncResizeWidgets(force)
     local resizable = self.resizable ~= false
     local bottomResize = self.bottomResize ~= false
     local handleHeight = self.resizeWidgetHeight
         and self:resizeWidgetHeight() or 12
     local windowWidth = self:getWidth()
     local windowHeight = self:getHeight()
+    local corner = self.resizeWidget
+    local bottom = self.resizeWidget2
+    local syncKey = tostring(windowWidth) .. ":" .. tostring(windowHeight)
+        .. ":" .. tostring(handleHeight)
+        .. ":" .. tostring(resizable) .. ":" .. tostring(bottomResize)
+        .. ":" .. tostring(corner ~= nil) .. ":" .. tostring(bottom ~= nil)
+    if not force and self.psychopatzResizeSyncKey == syncKey
+        and self.psychopatzResizeTopSynced == true
+    then
+        return
+    end
     if not self.psychopatzResizeFunction then
         self.psychopatzResizeFunction = function(target, width, height)
             if target and target.applyResize then
@@ -129,51 +168,57 @@ function Window:syncResizeWidgets()
         end
     end
     local resizeFunction = self.psychopatzResizeFunction
-    local corner = self.resizeWidget
+    local cornerChanged = false
     if corner then
-        corner.resizeFunction = resizeFunction
-        corner.target = self
-        corner.yonly = false
-        corner:setX(math.max(0, windowWidth - handleHeight))
-        corner:setY(math.max(0, windowHeight - handleHeight))
-        corner:setWidth(handleHeight)
-        corner:setHeight(handleHeight)
-        corner:setVisible(resizable)
-        self.psychopatzResizeCornerBounds = {
-            x = corner:getX(), y = corner:getY(),
-            width = corner:getWidth(), height = corner:getHeight(),
-        }
+        local cornerX = math.max(0, windowWidth - handleHeight)
+        local cornerY = math.max(0, windowHeight - handleHeight)
+        cornerChanged = syncResizeHandle(corner, cornerX, cornerY,
+            handleHeight, handleHeight, resizable, resizeFunction, self, false)
+        local bounds = self.psychopatzResizeCornerBounds
+        if not bounds then
+            bounds = {}
+            self.psychopatzResizeCornerBounds = bounds
+        end
+        bounds.x = corner:getX()
+        bounds.y = corner:getY()
+        bounds.width = corner:getWidth()
+        bounds.height = corner:getHeight()
     end
 
-    local bottom = self.resizeWidget2
+    local bottomChanged = false
     if bottom then
-        bottom.resizeFunction = resizeFunction
-        bottom.target = self
-        bottom.yonly = true
-        bottom:setVisible(resizable and bottomResize)
-        bottom:setX(0)
-        bottom:setY(math.max(0, windowHeight - handleHeight))
-        bottom:setWidth(math.max(1, windowWidth - handleHeight))
-        bottom:setHeight(handleHeight)
-        self.psychopatzResizeBottomBounds = {
-            x = bottom:getX(), y = bottom:getY(),
-            width = bottom:getWidth(), height = bottom:getHeight(),
-        }
+        local bottomY = math.max(0, windowHeight - handleHeight)
+        local bottomW = math.max(1, windowWidth - handleHeight)
+        bottomChanged = syncResizeHandle(bottom, 0, bottomY,
+            bottomW, handleHeight, resizable and bottomResize,
+            resizeFunction, self, true)
+        local bounds = self.psychopatzResizeBottomBounds
+        if not bounds then
+            bounds = {}
+            self.psychopatzResizeBottomBounds = bounds
+        end
+        bounds.x = bottom:getX()
+        bounds.y = bottom:getY()
+        bounds.width = bottom:getWidth()
+        bounds.height = bottom:getHeight()
     end
+
+    self.psychopatzResizeSyncKey = syncKey
 
     -- Content controls are added after the native resize widgets. Keep both
-    -- hit targets above those controls; ISResizeWidget intentionally has no
-    -- visual render pass, so the panel renderer and its hitbox must stay in
-    -- lockstep.
-    local bottomVisible = bottom and (not bottom.getIsVisible
-        or bottom:getIsVisible())
-    local cornerVisible = corner and (not corner.getIsVisible
-        or corner:getIsVisible())
-    if bottomVisible and bottom.bringToTop then
-        bottom:bringToTop()
-    end
-    if cornerVisible and corner.bringToTop then
-        corner:bringToTop()
+    -- hit targets above those controls without re-queuing bringToTop() on
+    -- every frame when geometry and visibility have not changed.
+    if force or cornerChanged or bottomChanged or not self.psychopatzResizeTopSynced then
+        local bottomVisible = bottom and (not bottom.getIsVisible
+            or bottom:getIsVisible())
+        local cornerVisible = corner and (not corner.getIsVisible
+            or corner:getIsVisible())
+        if bottomVisible and bottom.bringToTop then
+            bottom:bringToTop()
+        end
+        if cornerVisible and corner.bringToTop then
+            corner:bringToTop()
+        end
     end
 end
 

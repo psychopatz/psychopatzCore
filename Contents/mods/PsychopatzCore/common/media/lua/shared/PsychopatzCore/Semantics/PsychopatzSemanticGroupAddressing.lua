@@ -51,6 +51,47 @@ local function trim(s)
     return (tostring(s or ""):gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
+local function escapePattern(s)
+    return (tostring(s or ""):gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1"))
+end
+
+local NON_VOCATIVE_PREDECESSORS = {
+    to = true, ["for"] = true, with = true, about = true, from = true,
+    at = true, by = true, of = true, on = true, near = true,
+    beside = true, behind = true, around = true, like = true,
+    except = true, without = true, against = true, toward = true,
+    towards = true, ["in"] = true, into = true, onto = true,
+    is = true, am = true, are = true, was = true, were = true, be = true,
+    im = true, ["i'm"] = true, thats = true, ["that's"] = true,
+    hes = true, ["he's"] = true, shes = true, ["she's"] = true,
+    its = true, ["it's"] = true, called = true, named = true, name = true,
+    heal = true, bandage = true, help = true, patch = true, treat = true,
+    revive = true, protect = true, guard = true, cover = true,
+    defend = true, watch = true, follow = true, find = true,
+    locate = true, check = true, ask = true, tell = true, call = true,
+    give = true, hand = true, pass = true, bring = true, fetch = true,
+    take = true, shoot = true, attack = true, kill = true, hit = true,
+    stop = true, leave = true, drop = true, recruit = true,
+    dismiss = true, wake = true, carry = true, meet = true, see = true,
+    know = true, trust = true, remember = true, miss = true,
+    hate = true, love = true,
+    ["and"] = true, ["or"] = true, ["not"] = true, but = true,
+    a = true, an = true, the = true, my = true, your = true,
+    his = true, her = true, their = true, our = true,
+    this = true, that = true,
+}
+
+local function isSafeUnpunctuatedVocativeHead(headLower)
+    local trimmed = trim(headLower)
+    if trimmed == "" then return false end
+    if trimmed == "call me" or string.sub(trimmed, -8) == " call me" then
+        return false
+    end
+    local lastWord = string.match(trimmed, "([%a']+)$")
+    if not lastWord then return false end
+    return NON_VOCATIVE_PREDECESSORS[lastWord] ~= true
+end
+
 local function lowerClean(s)
     local out = string.lower(tostring(s or ""))
     out = out:gsub("[,!%?;:%.]+", " ")
@@ -117,8 +158,12 @@ local function matchVocative(raw, participants)
     for i = 1, #participants do
         local p = participants[i]
         local aliases = participantAliases(p)
+        table.sort(aliases, function(a, b)
+            if #a ~= #b then return #a > #b end
+            return a < b
+        end)
         for j = 1, #aliases do
-            local alias = aliases[j]
+            local alias = escapePattern(aliases[j])
             -- Leading vocative: "marcus, follow me" / "marcus follow me"
             local rest = string.match(scanLower, "^" .. alias .. "%s*[,:%-]+%s*(.+)$")
                 or string.match(scanLower, "^" .. alias .. "%s+(.+)$")
@@ -126,9 +171,14 @@ local function matchVocative(raw, participants)
                 local startIdx = scanOffset + (#scanLower - #rest) + 1
                 return p, trim(string.sub(raw, startIdx))
             end
-            -- Trailing vocative: "follow me, marcus"
-            local head = string.match(lower, "^(.-)%s*,%s*" .. alias .. "%s*[!%?%.]*$")
+            -- Punctuated trailing vocative: "follow me, marcus"
+            local head = string.match(lower, "^(.-)%s*[,:;%-]+%s*" .. alias .. "%s*[!%?%.]*$")
             if head and trim(head) ~= "" then
+                return p, trim(string.sub(raw, 1, #head))
+            end
+            -- Unpunctuated trailing vocative: "nice to see you jordan"
+            head = string.match(lower, "^(.-)%s+" .. alias .. "%s*[!%?%.]*$")
+            if head and isSafeUnpunctuatedVocativeHead(head) then
                 return p, trim(string.sub(raw, 1, #head))
             end
         end

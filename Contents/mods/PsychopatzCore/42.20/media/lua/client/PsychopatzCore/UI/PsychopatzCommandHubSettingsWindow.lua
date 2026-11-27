@@ -257,8 +257,8 @@ function ISPsychopatzCommandHubSettingsWindow:prerender()
         self:close()
         return
     end
-    PsychopatzWindow.prerender(self)
     Options.ApplyOpacity(self)
+    PsychopatzWindow.prerender(self)
 end
 
 function ISPsychopatzCommandHubSettingsWindow:close()

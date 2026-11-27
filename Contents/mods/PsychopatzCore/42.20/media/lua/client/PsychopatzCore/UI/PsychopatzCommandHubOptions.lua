@@ -126,9 +126,16 @@ end
 function Options.ApplyOpacity(window, opacity)
     if not window then return end
     local value = clamp(tonumber(opacity) or Options.GetOpacity(), 0.1, 1)
+    local borderAlpha = math.min(1, value + 0.2)
+    if window.backgroundColor and window.backgroundColor.a == value
+        and window.commandHubOpacity == value
+        and (not window.borderColor or window.borderColor.a == borderAlpha)
+    then
+        return value
+    end
     window.backgroundColor = window.backgroundColor or { r = 0, g = 0, b = 0, a = value }
     window.backgroundColor.a = value
-    if window.borderColor then window.borderColor.a = math.min(1, value + 0.2) end
+    if window.borderColor then window.borderColor.a = borderAlpha end
     window.commandHubOpacity = value
     return value
 end
@@ -136,11 +143,16 @@ end
 function Options.ApplySurfaceOpacity(window, role)
     if not window then return end
     local lift = Options.GetOpacityLift(role)
-    local value = clamp(Options.GetOpacity() + lift, 0.1, 1)
+    local value = math.min(1, clamp(Options.GetOpacity() + lift, 0.1, 1))
+    if window.backgroundColor and window.backgroundColor.a == value
+        and window.commandHubSurfaceOpacity == value
+    then
+        return value
+    end
     window.backgroundColor = window.backgroundColor or { r = 0, g = 0, b = 0, a = value }
-    window.backgroundColor.a = math.min(1, value)
-    window.commandHubSurfaceOpacity = window.backgroundColor.a
-    return window.backgroundColor.a
+    window.backgroundColor.a = value
+    window.commandHubSurfaceOpacity = value
+    return value
 end
 
 function Options.ApplyWindowOpacity(window, opacity)
@@ -148,6 +160,12 @@ function Options.ApplyWindowOpacity(window, opacity)
     if window.psychopatzOpacityMode == "surface" then
         local base = clamp(tonumber(opacity) or Options.GetOpacity(), 0.1, 1)
         local value = clamp(base + Options.GetSurfaceOpacityLift(), 0.1, 1)
+        if window.backgroundColor and window.backgroundColor.a == value
+            and window.commandHubOpacity == base
+            and window.commandHubSurfaceOpacity == value
+        then
+            return value
+        end
         window.backgroundColor = window.backgroundColor
             or { r = 0, g = 0, b = 0, a = value }
         window.backgroundColor.a = value
