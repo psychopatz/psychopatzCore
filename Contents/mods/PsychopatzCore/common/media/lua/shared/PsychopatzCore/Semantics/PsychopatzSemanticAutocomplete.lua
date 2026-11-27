@@ -427,6 +427,52 @@ function Autocomplete.Suggest(rawText, options)
         end
     end
 
+    -- 0) Active semantic beat/choice spoken utterances (actual spoken content
+    -- like "I'm Patrick", never button labels like "Say your real name").
+    if type(options.activeSuggestions) == "table" and #options.activeSuggestions > 0 then
+        local editDist = Fuzzy and Fuzzy.EditDistance
+        local probeClean = string.gsub(lowerTrimmed, "'", "")
+        local lastClean = string.gsub(lastWord, "'", "")
+        for i = 1, #options.activeSuggestions do
+            local entry = options.activeSuggestions[i]
+            local utterance = type(entry) == "table"
+                and tostring(entry.utterance or entry.spokenText or "")
+                or tostring(entry or "")
+            utterance = trim(utterance)
+            if utterance ~= "" then
+                local ul = string.lower(utterance)
+                local ulClean = string.gsub(ul, "'", "")
+                if ul ~= lowerTrimmed and ulClean ~= probeClean then
+                    if string.sub(ul, 1, #lowerTrimmed) == lowerTrimmed
+                        or (#probeClean >= 2 and string.sub(ulClean, 1, #probeClean) == probeClean)
+                    then
+                        propose(utterance, utterance, "suggestion", 0.35)
+                    elseif #lastClean >= 2 then
+                        local matched = false
+                        for w in string.gmatch(ulClean, "[%a%-]+") do
+                            if string.sub(w, 1, #lastClean) == lastClean then
+                                matched = true
+                                break
+                            elseif #lastClean >= 3 and type(editDist) == "function" then
+                                local maxDist = (#lastClean >= 5 and #w >= 5) and 2 or 1
+                                if math.abs(#w - #lastClean) <= maxDist then
+                                    local d = editDist(lastClean, w, maxDist)
+                                    if d and d <= maxDist then
+                                        matched = true
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                        if matched then
+                            propose(utterance, utterance, "suggestion", 0.28)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
     -- 2) If any matching schema expects an item/object slot, populate live inventory items!
     if expectsItemSlot then
         local items = type(options.inventoryItems) == "table"

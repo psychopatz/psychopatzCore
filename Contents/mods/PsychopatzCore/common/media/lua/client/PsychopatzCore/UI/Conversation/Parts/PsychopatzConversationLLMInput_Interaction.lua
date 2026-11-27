@@ -113,6 +113,61 @@ local function autocompleteParticipantsFor(component)
     return nil
 end
 
+local function extractSpokenUtterance(choice)
+    if type(choice) ~= "table" or choice.enabled == false then return nil end
+    if choice.isBackout == true or choice.isNavigation == true then return nil end
+    local src = type(choice.source) == "table" and choice.source or nil
+    local frame = src and type(src.semanticFrame) == "table"
+        and src.semanticFrame or nil
+    if frame then
+        local kind = tostring(frame.kind or "")
+        if kind == "semantic_back_click_frame"
+            or kind == "semantic_navigation_frame"
+            or kind == "semantic_group_frame"
+        then
+            return nil
+        end
+        local spoken = frame.utterance or frame.utteranceFallback or frame.textFallback
+        if type(spoken) == "string" and spoken ~= "" then
+            return spoken
+        end
+        return nil
+    end
+    local explicit = choice.utterance or choice.spokenText
+    if type(explicit) == "string" and explicit ~= "" then
+        return explicit
+    end
+    return nil
+end
+
+local function autocompleteSuggestionsFor(component)
+    local owner = component and component.owner or nil
+    if type(owner) ~= "table" then return nil end
+    local sources = {
+        owner.semanticSuggestionRows,
+        owner.choicesPart and owner.choicesPart.choices,
+        owner.session and owner.session.presentedChoices,
+    }
+    local out = {}
+    local seen = {}
+    for s = 1, #sources do
+        local list = sources[s]
+        if type(list) == "table" then
+            for i = 1, #list do
+                local spoken = extractSpokenUtterance(list[i])
+                if spoken then
+                    local key = string.lower(spoken)
+                    if not seen[key] then
+                        seen[key] = true
+                        out[#out + 1] = spoken
+                    end
+                end
+            end
+        end
+    end
+    return #out > 0 and out or nil
+end
+
 local function formatAutocompleteChipTitle(item, rawInput)
     if type(item) ~= "table" then return "" end
     local label = tostring(item.label or "")
@@ -181,6 +236,7 @@ function LLMInput:refreshAutocomplete()
     local items = ac.Suggest(raw, {
         limit = 4,
         groupParticipants = autocompleteParticipantsFor(self),
+        activeSuggestions = autocompleteSuggestionsFor(self),
     })
     self._autocompleteItems = items
     self.autocompleteButtons = self.autocompleteButtons or {}

@@ -345,8 +345,12 @@ function Session:setChoices(choices)
             output[#output + 1] = {
                 id = choice.id or tostring(index),
                 text = evaluate(choiceText, self.context, choice, self),
+                utterance = choice.utterance,
+                spokenText = choice.spokenText,
                 response = choice.response,
                 next = choice.next,
+                suppressNextPrompt = choice.suppressNextPrompt == true,
+                isBackout = choice.isBackout == true,
                 close = choice.close,
                 closeReason = choice.closeReason,
                 action = choice.action or choice.onSelect,
@@ -424,13 +428,19 @@ function Session:selectChoice(choice)
     if choice.log ~= false then
         self:append(
             "player",
-            evaluate(choice.text, self.context, choice.source, self)
+            evaluate(
+                choice.utterance or choice.spokenText or choice.text,
+                self.context,
+                choice.source,
+                self
+            )
         )
     end
     evaluate(choice.action, self.context, choice.source, self)
     local response = evaluate(choice.response, self.context, choice.source, self)
     if response then self:queueMessage("npc", response) end
     self.pendingChoiceHadResponse = response ~= nil
+    self.pendingSuppressNextPrompt = choice.suppressNextPrompt == true
     self.pendingNext = evaluate(choice.next, self.context, choice.source, self)
     self.pendingClose = evaluate(choice.close, self.context, choice.source, self) == true
     self.pendingCloseReason = evaluate(
@@ -459,12 +469,15 @@ function Session:finishPending()
     if self.pendingNext then
         local nextID = self.pendingNext
         local hadResponse = self.pendingChoiceHadResponse == true
+        local suppressNext = self.pendingSuppressNextPrompt == true
         self.pendingNext = nil
         self.pendingChoiceHadResponse = nil
-        self:enterNode(nextID, hadResponse and nextID == self.currentNodeID)
+        self.pendingSuppressNextPrompt = nil
+        self:enterNode(nextID, suppressNext or (hadResponse and nextID == self.currentNodeID))
         return
     end
     self.pendingChoiceHadResponse = nil
+    self.pendingSuppressNextPrompt = nil
     if self.pendingChoices then
         local choices = self.pendingChoices
         self.pendingChoices = nil

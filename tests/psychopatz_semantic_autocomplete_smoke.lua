@@ -126,4 +126,16 @@ assertEqual(typoHit[1].label, "follow", "follwo autocorrects to follow")
 local thanksTypo = Autocomplete.Suggest("thnaks", {})
 assertTruthy(#thanksTypo >= 1 and thanksTypo[1].label == "thanks", "thnaks autocorrects to thanks")
 
+-- 7) Active semantic beat spoken utterances (actual spoken content, not button labels)
+local activeBeat = { "I'm Patrick", "Call me Alex Reed", "I'd rather not say." }
+local beatPrefix = Autocomplete.Suggest("im pat", { activeSuggestions = activeBeat })
+assertTruthy(#beatPrefix >= 1, "im pat matches active spoken suggestion I'm Patrick")
+assertEqual(beatPrefix[1].kind, "suggestion", "active suggestion kind is suggestion")
+assertEqual(beatPrefix[1].label, "I'm Patrick", "displays spoken utterance, not button label")
+assertEqual(beatPrefix[1].replacement, "I'm Patrick", "replaces with spoken utterance")
+
+local beatTypo = Autocomplete.Suggest("i'm patrk", { activeSuggestions = activeBeat })
+assertTruthy(#beatTypo >= 1 and beatTypo[1].label == "I'm Patrick",
+    "fuzzy typo matches active spoken utterance I'm Patrick")
+
 print("psychopatz_semantic_autocomplete_smoke: OK")

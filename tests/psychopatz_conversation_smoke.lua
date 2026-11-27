@@ -635,4 +635,60 @@ assertEqual(loopMessages[3].text or (loopMessages[3].payload and loopMessages[3]
 assertEqual(type(loopChoices) == "table" and #loopChoices == 1, true,
     "landing choices remain available after response")
 
+-- Regression: choice.text is the button label while choice.utterance is logged
+-- as the player's spoken line, and suppressNextPrompt prevents replaying the
+-- landing greeting when returning from a sub-node.
+local utterMessages = {}
+local utterChoices = nil
+local utterSession = Session.New({
+    choicesPart = { setChoices = function(_, c) utterChoices = c end },
+    historyPart = {
+        addMessage = function(_, m) utterMessages[#utterMessages + 1] = m end,
+        setTyping = function() end,
+    },
+}, {
+    namespace = "UtteranceLogTest",
+    npcID = "npc-utter",
+    persistHistory = false,
+    start = "landing",
+    nodes = {
+        landing = {
+            npc = "What do you need?",
+            choices = {
+                { id = "ask", text = "What's your name?", next = "identity_exchange" },
+            },
+        },
+        identity_exchange = {
+            npc = "Tell me your name first.",
+            choices = {
+                {
+                    id = "real_name",
+                    text = "Say your real name (Patrick)",
+                    utterance = "My name is Patrick.",
+                    response = "Good to meet you, Patrick.",
+                    next = "landing",
+                    suppressNextPrompt = true,
+                },
+            },
+        },
+    },
+})
+utterSession:enterNode("landing")
+now = now + 5000
+utterSession:update()
+utterSession:selectChoice(utterChoices[1])
+now = now + 5000
+utterSession:update()
+assertEqual(utterChoices[1].text, "Say your real name (Patrick)",
+    "button displays choice label")
+utterSession:selectChoice(utterChoices[1])
+now = now + 5000
+utterSession:update()
+local playerLogged = utterMessages[4].text
+    or (utterMessages[4].payload and utterMessages[4].payload.text)
+assertEqual(playerLogged, "My name is Patrick.",
+    "conversation log records spoken utterance instead of button label")
+assertEqual(#utterMessages, 5,
+    "suppressNextPrompt prevents replaying landing greeting after sub-node return")
+
 print("psychopatz_conversation_smoke: ok")

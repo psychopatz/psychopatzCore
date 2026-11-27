@@ -242,6 +242,15 @@ function Client.GetActorKnowledge(actorID, options)
         -- the actor's raw display name and disclose an unknown identity.
         return nil, "actor_knowledge_unavailable"
     end
+    local coreKC = PsychopatzCore and PsychopatzCore.ActorKnowledgeClient or nil
+    if coreKC and type(coreKC.Get) == "function" then
+        local cached = coreKC.Get(actorID)
+        if type(cached) == "table" then
+            cached.actorID = actorID
+            cached.provider = cached.provider or providerID
+            return cached
+        end
+    end
     if not projection then return nil, "actor_projection_unavailable" end
     local knownName = projection.displayName
         or projection.label
@@ -337,6 +346,74 @@ function Client.RequestActorKnowledge(actorID, options)
     if accepted == false then return false, reason end
     Client.ActorKnowledgeRequestAt[actorID] = now or 0
     return true, reason or "actor_knowledge_requested"
+end
+
+function Client.SubmitActorIdentityClaim(actorID, options)
+    options = type(options) == "table" and options or {}
+    actorID = tostring(actorID or "")
+    if actorID == "" then return false, "actor_required" end
+    local projection = Client.GetActor(actorID)
+    local providerID = tostring(options.provider
+        or projection and projection.provider or "Core")
+    local provider = knowledgeProvider(providerID)
+    if provider and type(provider.submitIdentityClaim) == "function" then
+        local ok, accepted, reason, requestID = pcall(
+            provider.submitIdentityClaim, actorID, options)
+        if ok and accepted == true then
+            return true, reason, requestID
+        end
+    end
+    local coreKC = PsychopatzCore and PsychopatzCore.ActorKnowledgeClient or nil
+    if coreKC and type(coreKC.SubmitIdentityClaim) == "function" then
+        return coreKC.SubmitIdentityClaim(actorID, options)
+    end
+    return false, "identity_claim_provider_unavailable"
+end
+
+function Client.RequestActorKnowledgeTopic(actorID, topicID, options)
+    options = type(options) == "table" and options or {}
+    actorID = tostring(actorID or "")
+    topicID = tostring(topicID or "")
+    if actorID == "" or topicID == "" then
+        return false, "actor_knowledge_topic_invalid"
+    end
+    local projection = Client.GetActor(actorID)
+    local providerID = tostring(options.provider
+        or projection and projection.provider or "Core")
+    local provider = knowledgeProvider(providerID)
+    if provider and type(provider.requestDisclosure) == "function" then
+        local ok, accepted, reason, requestID = pcall(
+            provider.requestDisclosure, actorID, topicID, options)
+        if ok and accepted == true then
+            return true, reason, requestID
+        end
+    end
+    local coreKC = PsychopatzCore and PsychopatzCore.ActorKnowledgeClient or nil
+    if coreKC and type(coreKC.RequestDisclosure) == "function" then
+        return coreKC.RequestDisclosure(actorID, topicID, options)
+    end
+    return false, "knowledge_disclosure_provider_unavailable"
+end
+
+function Client.GeneratePlayerIdentityAlias(source, options)
+    options = type(options) == "table" and options or {}
+    local providerID = tostring(options.provider or "ProjectHoomans")
+    local provider = knowledgeProvider(providerID)
+        or knowledgeProvider("ProjectHoomans")
+    if provider and type(provider.generateAlias) == "function" then
+        local ok, alias = pcall(provider.generateAlias, source)
+        if ok and type(alias) == "string" and alias ~= "" then
+            return alias
+        end
+    end
+    local exchange = PsychopatzCore and PsychopatzCore.ActorIdentityExchange or nil
+    if exchange and type(exchange.GenerateAlias) == "function" then
+        local ok, alias = pcall(exchange.GenerateAlias, source, options)
+        if ok and type(alias) == "string" and alias ~= "" then
+            return alias
+        end
+    end
+    return nil
 end
 
 
