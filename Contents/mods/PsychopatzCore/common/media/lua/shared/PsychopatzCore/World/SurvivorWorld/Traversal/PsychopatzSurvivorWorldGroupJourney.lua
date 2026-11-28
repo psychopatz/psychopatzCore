@@ -46,9 +46,15 @@ local function projectedFields(journey)
                 journey.distanceTravelled / journey.distanceTotal
             )
         )
-    journey.x = projected.x
-    journey.y = projected.y
-    journey.z = projected.z
+    if journey.state == "waiting" and type(journey.shelterAnchor) == "table" then
+        journey.x = finite(journey.shelterAnchor.x, projected.x)
+        journey.y = finite(journey.shelterAnchor.y, projected.y)
+        journey.z = finite(journey.shelterAnchor.z, projected.z)
+    else
+        journey.x = projected.x
+        journey.y = projected.y
+        journey.z = projected.z
+    end
 end
 
 local function remainingWait(journey)
@@ -122,6 +128,11 @@ function Journey.New(groupID, spec, now)
         route = RoutePlanner.PlanRoute(origin, destination, {
             seed = spec.seed,
             maxWaypoints = spec.maxWaypoints,
+            archetype = spec.archetype or spec.groupType,
+            includePitStops = spec.includePitStops,
+            maxPitStops = spec.maxPitStops,
+            pitStopWaitHours = spec.pitStopWaitHours,
+            worldAgeHours = now,
         })
     else
         route = Route.Normalize(
@@ -343,6 +354,7 @@ function Journey.Advance(journey, now)
             else
                 elapsed = elapsed - wait
                 nextJourney.waitRemainingHours = 0
+                nextJourney.shelterAnchor = nil
                 nextJourney.state = "en_route"
             end
         else
@@ -394,6 +406,25 @@ function Journey.Advance(journey, now)
     nextJourney.revision =
         (tonumber(journey.revision) or 1) + 1
     return nextJourney
+end
+
+function Journey.SetShelterWait(journey, waitHours, anchor, reason)
+    if type(journey) ~= "table" then return false, "journey_required" end
+    local hours = math.max(0.25, finite(waitHours, 1.5))
+    journey.state = "waiting"
+    journey.waitRemainingHours = hours
+    if type(anchor) == "table" and tonumber(anchor.x) and tonumber(anchor.y) then
+        journey.shelterAnchor = {
+            x = finite(anchor.x, journey.x),
+            y = finite(anchor.y, journey.y),
+            z = finite(anchor.z, 0),
+            kind = tostring(anchor.kind or reason or "shelter"),
+        }
+        journey.x = journey.shelterAnchor.x
+        journey.y = journey.shelterAnchor.y
+        journey.z = journey.shelterAnchor.z
+    end
+    return true
 end
 
 function Journey.ProjectPosition(journey, now)

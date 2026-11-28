@@ -100,4 +100,46 @@ function Conditions.Evaluate(overrides)
     }
 end
 
+function Conditions.HoursUntilDawn(timeOfDay)
+    local h = clamp(timeOfDay, 0, 24)
+    if h >= Conditions.NIGHT_START_HOUR then
+        return (24.0 - h) + Conditions.NIGHT_END_HOUR
+    end
+    if h < Conditions.NIGHT_END_HOUR then
+        return Conditions.NIGHT_END_HOUR - h
+    end
+    return 0
+end
+
+-- Archetype-aware travel & camping evaluation:
+-- Traders, Scavengers, Refugees, and Colonists camp until dawn on clear nights;
+-- Looters/Raiders/Bandits are nocturnal and only shelter during heavy storms.
+function Conditions.EvaluateForArchetype(archetype, overrides)
+    local base = Conditions.Evaluate(overrides)
+    local arch = string.upper(tostring(archetype or "DEFAULT"))
+    local isNocturnal = arch == "LOOTER" or arch == "RAIDER" or arch == "BANDIT"
+    local shouldCampNight = false
+    local recommendedWaitHours = 0
+
+    if base.isNight and not isNocturnal then
+        shouldCampNight = true
+        base.shouldSeekShelter = true
+        recommendedWaitHours = math.max(
+            1.0,
+            math.min(8.5, Conditions.HoursUntilDawn(base.env.timeOfDay))
+        )
+        if base.reason == "clear" or base.reason == "night" then
+            base.reason = "night_camp"
+        end
+    elseif base.shouldSeekShelter then
+        recommendedWaitHours = 1.5
+    end
+
+    base.archetype = arch
+    base.isNocturnal = isNocturnal
+    base.shouldCampNight = shouldCampNight
+    base.recommendedWaitHours = recommendedWaitHours
+    return base
+end
+
 return Conditions

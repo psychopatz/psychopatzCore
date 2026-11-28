@@ -16,6 +16,10 @@ local CorridorGraph =
     require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
 local RoutePlanner =
     require "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldRoutePlanner"
+local ScavengeLedger =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldScavengeLedger"
+local Diplomacy =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiplomacy"
 local Hazards =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldHazards"
 local Events =
@@ -45,6 +49,8 @@ local SurvivorWorld = {
     Traversal = Traversal,
     CorridorGraph = CorridorGraph,
     RoutePlanner = RoutePlanner,
+    ScavengeLedger = ScavengeLedger,
+    Diplomacy = Diplomacy,
     Hazards = Hazards,
     Events = Events,
     EventMaterializer = EventMaterializer,

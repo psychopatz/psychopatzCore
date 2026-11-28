@@ -1,6 +1,8 @@
--- Deterministic street-corridor route planner over PsychopatzSurvivorWorldCorridorGraph.
+-- Deterministic 3-tier corridor route planner over PsychopatzSurvivorWorldCorridorGraph.
 -- Produces canonical PsychopatzSurvivorWorldGroupRoute polylines for both
 -- DynamicTrading (DTAbstract) and Project Hoomans.
+-- Uses a flat-array binary min-heap for O(log N) A* pops, archetype edge weighting,
+-- revision-stamped O(1) route caching, and lazy-regen ScavengeLedger pit-stop tagging.
 
 local Route = require
     "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupRoute"
@@ -8,16 +10,19 @@ local CorridorGraph = require
     "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldCorridorGraph"
 local Hazards = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldHazards"
+local ScavengeLedger = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldScavengeLedger"
 
 local Planner = {}
 
-Planner.SNAP_RADIUS = 140
+Planner.SNAP_RADIUS = 160
 Planner.MAX_SECTORS_PER_ROUTE = 9
-Planner.MAX_EXPANSIONS = 64
+Planner.MAX_EXPANSIONS = 96
 Planner.MAX_WAYPOINTS = 12
 Planner.MIN_CORRIDOR_DISTANCE = 24
 Planner.MAX_ROUTE_CACHE = 64
 Planner.MAX_COLD_PLANS_PER_TICK = 4
+Planner.DEFAULT_PIT_STOP_WAIT_HOURS = 0.45
 Planner._routeCache = Planner._routeCache or {}
 Planner._routeCacheOrder = Planner._routeCacheOrder or {}
 Planner._cacheHits = Planner._cacheHits or 0
@@ -71,6 +76,88 @@ local function distSq(ax, ay, bx, by)
     local dx = bx - ax
     local dy = by - ay
     return dx * dx + dy * dy
+end
+
+local function normalizeArchetype(options)
+    local raw = options and (options.archetype or options.groupType or options.role) or "DEFAULT"
+    return string.upper(tostring(raw))
+end
+
+local function edgeArchetypeMultiplier(archetype, edgeKind, toNode, nowHours)
+    local mult = 1.0
+    if archetype == "TRADER" or archetype == "CARAVAN" then
+        if edgeKind == "settlement" then mult = 0.78
+        elseif edgeKind == "road" then mult = 0.85
+        elseif edgeKind == "feeder" then mult = 1.15
+        elseif edgeKind == "wilderness" then mult = 1.35 end
+    elseif archetype == "SCAVENGER" or archetype == "LOOTER" then
+        if edgeKind == "feeder" or (toNode and toNode.kind == "poi") then
+            local dep = (toNode and toNode.poiKey and ScavengeLedger)
+                and ScavengeLedger.GetDepletionByKey(toNode.poiKey, nowHours) or 0
+            if dep >= ScavengeLedger.EXHAUSTED_THRESHOLD then
+                mult = 1.85
+            else
+                mult = 0.82 + (dep * 0.40)
+            end
+        elseif edgeKind == "settlement" then
+            mult = 0.95
+        end
+    elseif archetype == "REFUGEE" then
+        if edgeKind == "wilderness" then mult = 0.85
+        elseif edgeKind == "settlement" then mult = 0.85
+        elseif edgeKind == "road" then mult = 1.08 end
+    end
+    return mult
+end
+
+-- Flat-array binary min-heap for O(log N) A* open-set pops (zero wrapper tables).
+local function heapPush(ids, fs, id, f)
+    local idx = #ids + 1
+    ids[idx] = id
+    fs[idx] = f
+    while idx > 1 do
+        local parent = math.floor(idx / 2)
+        if fs[idx] < fs[parent] or (fs[idx] == fs[parent] and ids[idx] < ids[parent]) then
+            ids[idx], ids[parent] = ids[parent], ids[idx]
+            fs[idx], fs[parent] = fs[parent], fs[idx]
+            idx = parent
+        else
+            break
+        end
+    end
+end
+
+local function heapPop(ids, fs)
+    local n = #ids
+    if n == 0 then return nil, nil end
+    local topID, topF = ids[1], fs[1]
+    ids[1] = ids[n]
+    fs[1] = fs[n]
+    ids[n] = nil
+    fs[n] = nil
+    n = n - 1
+    local idx = 1
+    while true do
+        local left = idx * 2
+        if left > n then break end
+        local right = left + 1
+        local smallest = left
+        if right <= n and (fs[right] < fs[left]
+            or (fs[right] == fs[left] and ids[right] < ids[left]))
+        then
+            smallest = right
+        end
+        if fs[smallest] < fs[idx]
+            or (fs[smallest] == fs[idx] and ids[smallest] < ids[idx])
+        then
+            ids[idx], ids[smallest] = ids[smallest], ids[idx]
+            fs[idx], fs[smallest] = fs[smallest], fs[idx]
+            idx = smallest
+        else
+            break
+        end
+    end
+    return topID, topF
 end
 
 local function collectCombinedGraph(origin, destination, options)
@@ -129,8 +216,11 @@ local function collectCombinedGraph(origin, destination, options)
                     local d2 = distSq(a.x, a.y, b.x, b.y)
                     if d2 <= bridgeMaxSq then
                         local w = math.sqrt(d2)
-                        adj[a.id][#adj[a.id] + 1] = { id = b.id, weight = w }
-                        adj[b.id][#adj[b.id] + 1] = { id = a.id, weight = w }
+                        local eKind = (a.kind == "nav" and b.kind == "nav") and "road"
+                            or ((a.kind == "settlement" or b.kind == "settlement") and "settlement"
+                            or ((a.kind == "poi" or b.kind == "poi") and "feeder" or "wilderness"))
+                        adj[a.id][#adj[a.id] + 1] = { id = b.id, weight = w, edgeKind = eKind }
+                        adj[b.id][#adj[b.id] + 1] = { id = a.id, weight = w, edgeKind = eKind }
                     end
                 end
             end
@@ -154,73 +244,67 @@ local function findNearestNode(nodes, x, y, maxRadius)
     return best
 end
 
-local function runAStar(startNode, goalNode, nodesByID, adj)
+local function runAStar(startNode, goalNode, nodesByID, adj, archetype, nowHours)
     if startNode.id == goalNode.id then
         return { startNode }
     end
-    local open = { startNode.id }
-    local inOpen = { [startNode.id] = true }
+    local heapIds = {}
+    local heapF = {}
     local closed = {}
     local cameFrom = {}
     local gScore = { [startNode.id] = 0 }
-    local fScore = { [startNode.id] = dist(startNode.x, startNode.y, goalNode.x, goalNode.y) }
+    local startH = dist(startNode.x, startNode.y, goalNode.x, goalNode.y)
+    heapPush(heapIds, heapF, startNode.id, startH)
     local expansions = 0
 
-    while #open > 0 and expansions < Planner.MAX_EXPANSIONS do
-        local bestIdx = 1
-        local bestID = open[1]
-        local bestF = fScore[bestID] or math.huge
-        for i = 2, #open do
-            local cid = open[i]
-            local cf = fScore[cid] or math.huge
-            if cf < bestF or (cf == bestF and cid < bestID) then
-                bestF = cf
-                bestID = cid
-                bestIdx = i
-            end
-        end
-        table.remove(open, bestIdx)
-        inOpen[bestID] = nil
-
-        if bestID == goalNode.id then
-            local rev = {}
-            local cur = bestID
-            while cur do
-                rev[#rev + 1] = nodesByID[cur]
-                cur = cameFrom[cur]
-            end
-            local path = {}
-            for i = #rev, 1, -1 do
-                path[#path + 1] = rev[i]
-            end
-            return path
-        end
-
-        closed[bestID] = true
-        expansions = expansions + 1
-        local fromNode = nodesByID[bestID]
-        local neighbors = adj[bestID] or {}
-        for i = 1, #neighbors do
-            local edge = neighbors[i]
-            local nid = edge.id
-            local toNode = nodesByID[nid]
-            if not closed[nid] and toNode then
-                local mult, blocked = 1.0, false
-                if fromNode and Hazards and type(Hazards.EvaluateCorridorCost) == "function" then
-                    mult, blocked = Hazards.EvaluateCorridorCost(
-                        (fromNode.x + toNode.x) * 0.5,
-                        (fromNode.y + toNode.y) * 0.5
-                    )
+    while #heapIds > 0 and expansions < Planner.MAX_EXPANSIONS do
+        local bestID = heapPop(heapIds, heapF)
+        if not bestID then break end
+        if not closed[bestID] then
+            if bestID == goalNode.id then
+                local rev = {}
+                local cur = bestID
+                while cur do
+                    rev[#rev + 1] = nodesByID[cur]
+                    cur = cameFrom[cur]
                 end
-                if not blocked then
-                    local tentativeG = (gScore[bestID] or math.huge) + (edge.weight * mult)
-                    if tentativeG < (gScore[nid] or math.huge) then
-                        cameFrom[nid] = bestID
-                        gScore[nid] = tentativeG
-                        fScore[nid] = tentativeG + dist(toNode.x, toNode.y, goalNode.x, goalNode.y)
-                        if not inOpen[nid] then
-                            inOpen[nid] = true
-                            open[#open + 1] = nid
+                local path = {}
+                for i = #rev, 1, -1 do
+                    path[#path + 1] = rev[i]
+                end
+                return path
+            end
+
+            closed[bestID] = true
+            expansions = expansions + 1
+            local fromNode = nodesByID[bestID]
+            local neighbors = adj[bestID] or {}
+            local curG = gScore[bestID] or math.huge
+            for i = 1, #neighbors do
+                local edge = neighbors[i]
+                local nid = edge.id
+                local toNode = nodesByID[nid]
+                if not closed[nid] and toNode then
+                    local hazMult, blocked = 1.0, false
+                    if fromNode and Hazards and type(Hazards.EvaluateCorridorCost) == "function" then
+                        hazMult, blocked = Hazards.EvaluateCorridorCost(
+                            (fromNode.x + toNode.x) * 0.5,
+                            (fromNode.y + toNode.y) * 0.5
+                        )
+                    end
+                    if not blocked then
+                        if archetype == "REFUGEE" and hazMult > 1.0 then
+                            hazMult = 1.0 + (hazMult - 1.0) * 1.35
+                        end
+                        local archMult = edgeArchetypeMultiplier(
+                            archetype, edge.edgeKind, toNode, nowHours
+                        )
+                        local tentativeG = curG + (edge.weight * hazMult * archMult)
+                        if tentativeG < (gScore[nid] or math.huge) then
+                            cameFrom[nid] = bestID
+                            gScore[nid] = tentativeG
+                            local fVal = tentativeG + dist(toNode.x, toNode.y, goalNode.x, goalNode.y)
+                            heapPush(heapIds, heapF, nid, fVal)
                         end
                     end
                 end
@@ -243,6 +327,65 @@ local function decimateWaypoints(path, maxCount)
     end
     out[#out + 1] = path[#path]
     return out
+end
+
+local function nodeTag(n, isPitStop)
+    if isPitStop then
+        return n.kind == "wilderness" and "pit_stop_wilderness" or "pit_stop_poi"
+    end
+    if n.kind == "settlement" then return "settlement_node" end
+    if n.kind == "poi" then return "poi_node" end
+    if n.kind == "wilderness" then return "wilderness_node" end
+    return "street_node"
+end
+
+-- Selects the best un-exhausted building-cluster POI or wilderness clearing near (x, y)
+-- so scavengers/looters/travelers naturally branch out house-to-house instead of looping.
+function Planner.SelectNextScavengePOI(x, y, options)
+    options = type(options) == "table" and options or {}
+    local nx = finite(x, 0)
+    local ny = finite(y, 0)
+    local nowHours = options.worldAgeHours
+    local sx, sy = CorridorGraph.SectorCoords(nx, ny)
+    local sectorRadius = math.max(0, math.min(2, math.floor(tonumber(options.sectorRadius) or 1)))
+    local minDist = math.max(0, finite(options.minDistance, 20))
+    local maxDist = math.max(minDist + 40, finite(options.maxDistance, 450))
+    local minDistSq = minDist * minDist
+    local maxDistSq = maxDist * maxDist
+    local excludeKey = tonumber(options.excludePoiKey)
+
+    local best = nil
+    local bestScore = math.huge
+    for dx = -sectorRadius, sectorRadius do
+        for dy = -sectorRadius, sectorRadius do
+            local sec = CorridorGraph.EnsureSector(sx + dx, sy + dy, options)
+            if sec and sec.nodes then
+                for i = 1, #sec.nodes do
+                    local n = sec.nodes[i]
+                    if (n.kind == "poi" or n.kind == "wilderness")
+                        and (excludeKey == nil or n.poiKey ~= excludeKey)
+                    then
+                        local d2 = distSq(nx, ny, n.x, n.y)
+                        if d2 >= minDistSq and d2 <= maxDistSq then
+                            local dep = (n.poiKey and ScavengeLedger)
+                                and ScavengeLedger.GetDepletionByKey(n.poiKey, nowHours) or 0
+                            if dep < ScavengeLedger.EXHAUSTED_THRESHOLD then
+                                -- Prefer closer, fresher building POIs over distant or partially looted ones.
+                                local d = math.sqrt(d2)
+                                local kindPenalty = n.kind == "wilderness" and 45 or 0
+                                local score = d + (dep * 220) + kindPenalty
+                                if score < bestScore or (score == bestScore and best and n.id < best.id) then
+                                    bestScore = score
+                                    best = n
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return best
 end
 
 function Planner.PlanRoute(origin, destination, options)
@@ -273,10 +416,17 @@ function Planner.PlanRoute(origin, destination, options)
         return Route.Normalize(nil, startPt, endPt), "direct_outside_snap"
     end
 
+    local archetype = normalizeArchetype(options)
+    local nowHours = options.worldAgeHours
+    local topoRev = CorridorGraph.GetTopologyRevision and CorridorGraph.GetTopologyRevision() or 1
     local hazRev = Hazards and Hazards.GetRevision and Hazards.GetRevision() or 1
+    local scavRev = ScavengeLedger and ScavengeLedger.GetRevision and ScavengeLedger.GetRevision() or 1
     local worldSeed = CorridorGraph.GetWorldSeed and CorridorGraph.GetWorldSeed() or 0
     local cacheKey = tostring(startNode.id) .. "->" .. tostring(goalNode.id)
-        .. "@" .. tostring(hazRev) .. "#" .. tostring(worldSeed)
+        .. "|" .. archetype
+        .. "@" .. tostring(topoRev) .. ":" .. tostring(hazRev) .. ":" .. tostring(scavRev)
+        .. "#" .. tostring(worldSeed)
+
     local cachedPath = Planner._routeCache[cacheKey]
     local nodePath
     if cachedPath ~= nil then
@@ -286,7 +436,7 @@ function Planner.PlanRoute(origin, destination, options)
         if not consumeColdPlanBudget(options) then
             return Route.Normalize(nil, startPt, endPt), "direct_budget_deferred"
         end
-        nodePath = runAStar(startNode, goalNode, nodesByID, adj)
+        nodePath = runAStar(startNode, goalNode, nodesByID, adj, archetype, nowHours)
         Planner._routeCache[cacheKey] = nodePath or false
         Planner._routeCacheOrder[#Planner._routeCacheOrder + 1] = cacheKey
         while #Planner._routeCacheOrder > Planner.MAX_ROUTE_CACHE do
@@ -304,14 +454,28 @@ function Planner.PlanRoute(origin, destination, options)
     )
     nodePath = decimateWaypoints(nodePath, maxWaypoints)
 
+    local maxPitStops = tonumber(options.maxPitStops)
+        or (options.includePitStops == true and 2 or 0)
+    local pitStopWait = finite(options.pitStopWaitHours, Planner.DEFAULT_PIT_STOP_WAIT_HOURS)
+    local assignedPitStops = 0
+
     local points = { startPt }
     for i = 1, #nodePath do
         local n = nodePath[i]
+        local isPitStop = false
+        if assignedPitStops < maxPitStops
+            and (n.kind == "poi" or n.kind == "wilderness")
+            and not (n.poiKey and ScavengeLedger.IsExhaustedByKey(n.poiKey, nowHours))
+        then
+            isPitStop = true
+            assignedPitStops = assignedPitStops + 1
+        end
         points[#points + 1] = {
             x = n.x,
             y = n.y,
             z = n.z or 0,
-            tag = n.kind == "settlement" and "settlement_node" or "street_node",
+            tag = nodeTag(n, isPitStop),
+            waitHours = isPitStop and pitStopWait or 0,
         }
     end
     points[#points + 1] = endPt

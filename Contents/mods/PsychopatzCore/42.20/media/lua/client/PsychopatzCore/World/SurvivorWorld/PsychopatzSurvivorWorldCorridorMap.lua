@@ -104,11 +104,23 @@ function CorridorMap.Render(map)
         local sy = map.mapAPI:worldToUIY(n.x, n.y)
         if sx >= -16 and sy >= -16 and sx <= width + 16 and sy <= height + 16 then
             local isSettlement = n.kind == "settlement"
-            local size = isSettlement and 7 or 4
+            local isPlayerHub = isSettlement and n.owner == "player"
+            local isPOI = n.kind == "poi"
+            local isWild = n.kind == "wilderness"
+            local size = isSettlement and 7 or (isPOI and 5 or 4)
             local half = size / 2
-            local r = isSettlement and 1.0 or 0.30
-            local g = isSettlement and 0.82 or 0.90
-            local b = isSettlement and 0.20 or 1.0
+            local r, g, b
+            if isPlayerHub then
+                r, g, b = 0.25, 0.95, 0.45 -- emerald: player settlement hub
+            elseif isSettlement then
+                r, g, b = 1.0, 0.82, 0.20 -- gold: AI settlement hub
+            elseif isPOI then
+                r, g, b = 0.98, 0.56, 0.22 -- warm amber: building/POI cluster
+            elseif isWild then
+                r, g, b = 0.35, 0.80, 0.40 -- forest green: wilderness clearing
+            else
+                r, g, b = 0.30, 0.90, 1.0 -- cyan: Nav street node
+            end
             if map.drawRect then
                 map:drawRect(sx - half, sy - half, size, size, 0.9, r, g, b)
             end

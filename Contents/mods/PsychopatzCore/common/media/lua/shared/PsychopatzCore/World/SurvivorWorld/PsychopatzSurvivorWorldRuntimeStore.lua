@@ -1,6 +1,8 @@
 local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
 local Registry = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRegistry"
+local ScavengeLedger = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldScavengeLedger"
 
 local Store = {}
 
@@ -220,6 +222,9 @@ function Store.Load(create)
     }
     if ok then
         local repaired = Store.SanitizeLoadedRegistry(registry)
+        if type(data.scavengeLedger) == "table" then
+            ScavengeLedger.RestoreSnapshot(data.scavengeLedger)
+        end
         Store.Loaded = true
         Store.Dirty = repaired > 0
     end
@@ -266,6 +271,8 @@ function Store.Save()
         data.registryChunkCount = nil
     end
     data.registryRevision = registry:Revision()
+    -- Server-authoritative compact scavenge ledger (~1.5 KB max, never broadcast per tick).
+    data.scavengeLedger = ScavengeLedger.ExportSnapshot()
     Store.Dirty = false
     Store.Loaded = true
     Store.LastResult = {

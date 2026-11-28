@@ -8,10 +8,11 @@ local Types = require
 local Bootstrap = {}
 
 Bootstrap.SCHEMA_VERSION = 1
-Bootstrap.DEFAULT_COMMUNITIES = 3
-Bootstrap.DEFAULT_GROUPS = 3
-Bootstrap.MAX_COMMUNITIES = 8
-Bootstrap.MAX_GROUPS = 16
+Bootstrap.DEFAULT_COMMUNITIES = 5
+Bootstrap.DEFAULT_GROUPS = 4
+Bootstrap.MAX_COMMUNITIES = 12
+Bootstrap.MAX_GROUPS = 20
+Bootstrap.MIN_SETTLEMENT_SPACING = 800
 Bootstrap.AFFILIATION_EXTENSION =
     "PsychopatzCore.SurvivorWorld"
 
@@ -104,11 +105,29 @@ local function siteList(spec, worldSeed)
                 or Bootstrap.DEFAULT_GROUPS
         )
     )
+    local minSpacing = math.max(
+        0,
+        tonumber(spec.minSettlementSpacing) or Bootstrap.MIN_SETTLEMENT_SPACING
+    )
+    local sectorStep = math.max(1, math.ceil(minSpacing / math.max(1, sectorSize)))
+    local minSpacingSq = minSpacing * minSpacing
+    local function isSpaced(px, py)
+        if minSpacingSq <= 0 then return true end
+        for i = 1, #output do
+            local existing = output[i].position
+            local dx = px - existing.x
+            local dy = py - existing.y
+            if (dx * dx + dy * dy) < minSpacingSq then
+                return false
+            end
+        end
+        return true
+    end
     for index = 1, count do
         local offset = OFFSETS[index]
         local sectorID = "psector_"
-            .. tostring(sx + offset.x)
-            .. "_" .. tostring(sy + offset.y)
+            .. tostring(sx + offset.x * sectorStep)
+            .. "_" .. tostring(sy + offset.y * sectorStep)
         local center = assert(
             Generation.SectorCenter(sectorID, sectorSize)
         )
@@ -125,6 +144,12 @@ local function siteList(spec, worldSeed)
             Generation.SeedText(tostring(seed) .. ":Y")
                 % (half * 2 + 1)
         ) - half
+        local px = center.x + dx
+        local py = center.y + dy
+        if not isSpaced(px, py) then
+            px = center.x
+            py = center.y
+        end
         output[#output + 1] = {
             id = Generation.EntityID(
                 "location",
@@ -134,8 +159,8 @@ local function siteList(spec, worldSeed)
             ),
             sectorID = sectorID,
             position = {
-                x = center.x + dx,
-                y = center.y + dy,
+                x = px,
+                y = py,
                 z = anchor.z,
             },
             kind = "settlement",
